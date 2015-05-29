@@ -82,6 +82,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Model\AnalysisProject.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Page Include="Shell.xaml">
       <Generator>MSBuild:Compile</Generator>

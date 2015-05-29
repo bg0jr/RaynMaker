@@ -6,9 +6,12 @@ namespace RaynMaker.Browser
     [Export]
     public partial class BrowserView : UserControl
     {
-        public BrowserView()
+        [ImportingConstructor]
+        BrowserView( BrowserViewModel viewModel )
         {
             InitializeComponent();
+
+            DataContext = viewModel;
         }
     }
 }
