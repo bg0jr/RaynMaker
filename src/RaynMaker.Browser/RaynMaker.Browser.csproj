@@ -3,23 +3,18 @@
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Import Project="..\..\build\Globals.msbuild" />
   <PropertyGroup>
-    <ProjectGuid>{4164C457-C990-4D92-8175-C8BF4AD6A1DB}</ProjectGuid>
+    <ProjectGuid>{D3B2B34E-7D18-4506-93D8-B56CCBAEA7D7}</ProjectGuid>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <RootNamespace>RaynMaker.Analyzer</RootNamespace>
-    <AssemblyName>RaynMaker.Analyzer</AssemblyName>
-    <OutputType>WinExe</OutputType>
+    <RootNamespace>RaynMaker.Browser</RootNamespace>
+    <AssemblyName>RaynMaker.Browser</AssemblyName>
+    <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <UseVSHostingProcess>false</UseVSHostingProcess>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <UseVSHostingProcess>false</UseVSHostingProcess>
     <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>RaynMaker.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Practices.Prism.Composition">
@@ -46,24 +41,9 @@
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\packages\CommonServiceLocator.1.2\lib\portable-windows8+net40+sl5+windowsphone8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
-    <Reference Include="Plainion.AppFw.Wpf">
-      <HintPath>..\..\packages\Plainion.AppFw.Wpf.1.0.0.0\lib\NET45\Plainion.AppFw.Wpf.dll</HintPath>
-    </Reference>
-    <Reference Include="Plainion.Core">
-      <HintPath>..\..\packages\Plainion.Core.2.2.0.0\lib\NET45\Plainion.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Plainion.Prism">
-      <HintPath>..\..\packages\Plainion.Prism.1.4.0.0\lib\NET45\Plainion.Prism.dll</HintPath>
-    </Reference>
-    <Reference Include="Plainion.Windows">
-      <HintPath>..\..\packages\Plainion.Windows.1.4.0.0\lib\NET45\Plainion.Windows.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Expression.Blend.Sdk.1.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -77,22 +57,13 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="Bootstrapper.cs" />
-    <Compile Include="ShellViewModel.cs" />
-    <Page Include="Shell.xaml">
+    <Page Include="BrowserView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Shell.xaml.cs">
-      <DependentUpon>Shell.xaml</DependentUpon>
+    <Compile Include="BrowserModule.cs" />
+    <Compile Include="BrowserView.xaml.cs">
+      <DependentUpon>BrowserView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -103,11 +74,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="RaynMaker.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RaynMaker.Infrastructure\RaynMaker.Infrastructure.csproj">

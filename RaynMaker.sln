@@ -5,6 +5,10 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Analyzer", "src\RaynMaker.Analyzer\RaynMaker.Analyzer.csproj", "{4164C457-C990-4D92-8175-C8BF4AD6A1DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Browser", "src\RaynMaker.Browser\RaynMaker.Browser.csproj", "{D3B2B34E-7D18-4506-93D8-B56CCBAEA7D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Infrastructure", "src\RaynMaker.Infrastructure\RaynMaker.Infrastructure.csproj", "{837ADDBE-901B-4ED9-9DF4-0E259E262167}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{4164C457-C990-4D92-8175-C8BF4AD6A1DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4164C457-C990-4D92-8175-C8BF4AD6A1DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4164C457-C990-4D92-8175-C8BF4AD6A1DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3B2B34E-7D18-4506-93D8-B56CCBAEA7D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3B2B34E-7D18-4506-93D8-B56CCBAEA7D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3B2B34E-7D18-4506-93D8-B56CCBAEA7D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3B2B34E-7D18-4506-93D8-B56CCBAEA7D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{837ADDBE-901B-4ED9-9DF4-0E259E262167}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{837ADDBE-901B-4ED9-9DF4-0E259E262167}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{837ADDBE-901B-4ED9-9DF4-0E259E262167}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{837ADDBE-901B-4ED9-9DF4-0E259E262167}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
