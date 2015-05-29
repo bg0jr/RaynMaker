@@ -3,8 +3,28 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:prism="http://www.codeplex.com/prism"
         xmlns:rym="https://github.com/bg0jr/RaynMaker"
-        Title="RaynMaker Analyzer" Height="350" Width="525">
-    <Grid>
-        <ContentControl Margin="3" prism:RegionManager.RegionName="{x:Static rym:RegionNames.Browser}"/>
-    </Grid>
+        Title="RaynMaker Analyzer" Height="600" Width="1200">
+    <DockPanel LastChildFill="True">
+        <Grid DockPanel.Dock="Top" >
+            <Menu>
+                <Menu.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <DockPanel HorizontalAlignment="Stretch"/>
+                    </ItemsPanelTemplate>
+                </Menu.ItemsPanel>
+                <MenuItem Header="_FILE">
+                    <MenuItem Header="_New..." Command="{Binding NewCommand}"/>
+                    <MenuItem Header="_Open..." Command="{Binding OpenCommand}" InputGestureText="Ctrl+O"/>
+                    <Separator/>
+                    <MenuItem Header="_Close" Command="{Binding CloseCommand}" InputGestureText="Alt+F4"/>
+                </MenuItem>
+                <MenuItem Header="_HELP" HorizontalAlignment="Right">
+                    <MenuItem Header="About RaynMaker" Command="{Binding AboutCommand}"/>
+                </MenuItem>
+            </Menu>
+        </Grid>
+        <Grid>
+            <ContentControl Margin="3" prism:RegionManager.RegionName="{x:Static rym:RegionNames.Browser}"/>
+        </Grid>
+    </DockPanel>
 </Window>
