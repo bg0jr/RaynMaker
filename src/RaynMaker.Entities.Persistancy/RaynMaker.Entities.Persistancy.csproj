@@ -49,9 +49,9 @@
     <Compile Include="EntitiesContextFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchemaInfo.cs" />
+    <Compile Include="SQLiteConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

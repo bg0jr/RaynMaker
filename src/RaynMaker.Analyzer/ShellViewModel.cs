@@ -4,14 +4,20 @@ using System.Windows;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
+using RaynMaker.Entities;
 
 namespace RaynMaker.Analyzer
 {
     [Export]
     class ShellViewModel : BindableBase
     {
-        public ShellViewModel()
+        private IEntitiesContextFactory myEntitiesContextFactory;
+
+        [ImportingConstructor]
+        public ShellViewModel(IEntitiesContextFactory factory)
         {
+            myEntitiesContextFactory = factory;
+
             NewCommand = new DelegateCommand( OnNewCommand );
             OpenCommand = new DelegateCommand( OnOpenCommand );
             CloseCommand = new DelegateCommand( () => Application.Current.Shutdown() );
@@ -22,7 +28,8 @@ namespace RaynMaker.Analyzer
 
         private void OnNewCommand()
         {
-
+            // just a test
+            myEntitiesContextFactory.Create( @"c:\temp\test.db" );
         }
         
         public ICommand OpenCommand { get; private set; }

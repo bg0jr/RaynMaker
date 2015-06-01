@@ -22,10 +22,17 @@ namespace RaynMaker.Entities.Persistancy
             var steps = new List<string>();
 
             steps.Add( @"
+CREATE TABLE SchemaInfoes (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Version INTEGER NOT NULL
+)" );
+
+            steps.Add( @"
 CREATE TABLE Companies (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     Name TEXT NOT NULL
 )" );
+
             steps.Add( @"
 CREATE TABLE Stocks (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 

@@ -111,6 +111,10 @@
     <Resource Include="RaynMaker.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RaynMaker.Entities\RaynMaker.Entities.csproj">
+      <Project>{0b9b8ac3-da99-4264-9d59-382adee06fd9}</Project>
+      <Name>RaynMaker.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RaynMaker.Infrastructure\RaynMaker.Infrastructure.csproj">
       <Project>{837addbe-901b-4ed9-9df4-0e259e262167}</Project>
       <Name>RaynMaker.Infrastructure</Name>

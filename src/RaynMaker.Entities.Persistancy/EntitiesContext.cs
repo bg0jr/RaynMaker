@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Data.SQLite;
-using System.Linq;
 
 namespace RaynMaker.Entities.Persistancy
 {
@@ -9,16 +9,26 @@ namespace RaynMaker.Entities.Persistancy
     {
         internal static int RequiredDatabaseVersion = 1;
 
+        static EntitiesContext()
+        {
+            DbConfiguration.SetConfiguration( new SQLiteConfiguration() );
+        }
+
         public EntitiesContext( string path )
-            : base( new SQLiteConnection()
-            {
-                ConnectionString = new SQLiteConnectionStringBuilder
+            : base( GetConnection( path ), true )
+        {
+            Database.SetInitializer<EntitiesContext>( null );
+        }
+
+        private static DbConnection GetConnection( string path )
+        {
+            var builder = new SQLiteConnectionStringBuilder
                 {
                     DataSource = path,
                     ForeignKeys = true,
-                }.ConnectionString
-            }, true )
-        {
+                };
+
+            return new SQLiteConnection( builder.ConnectionString );
         }
 
         public DbSet<Company> Companies { get; set; }
@@ -29,6 +39,6 @@ namespace RaynMaker.Entities.Persistancy
 
         IEnumerable<Stock> IEntityContext.Stocks { get { return Stocks; } }
 
-        internal DbSet<SchemaInfo> SchemaInfos { get; set; }
+        public DbSet<SchemaInfo> SchemaInfos { get; set; }
     }
 }
