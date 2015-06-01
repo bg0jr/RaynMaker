@@ -12,21 +12,30 @@ namespace RaynMaker.Analyzer
     {
         public ShellViewModel()
         {
-            NewCommand = new DelegateCommand( () => { } );
-            OpenCommand = new DelegateCommand( () => { } );
+            NewCommand = new DelegateCommand( OnNewCommand );
+            OpenCommand = new DelegateCommand( OnOpenCommand );
             CloseCommand = new DelegateCommand( () => Application.Current.Shutdown() );
-            AboutCommand = new DelegateCommand( OnAbout );
+            AboutCommand = new DelegateCommand( OnAboutCommand );
         }
 
         public ICommand NewCommand { get; private set; }
+
+        private void OnNewCommand()
+        {
+
+        }
         
         public ICommand OpenCommand { get; private set; }
-        
+
+        private void OnOpenCommand()
+        {
+        }
+
         public ICommand CloseCommand { get; private set; }
 
         public ICommand AboutCommand { get; private set; }
     
-        private void OnAbout()
+        private void OnAboutCommand()
         {
             Process.Start( "https://github.com/bg0jr/RaynMaker" );
         }

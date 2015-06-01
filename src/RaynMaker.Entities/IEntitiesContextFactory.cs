@@ -3,6 +3,6 @@ namespace RaynMaker.Entities
 {
     public interface IEntitiesContextFactory
     {
-        IEntityContext Create();
+        IEntityContext Create( string path );
     }
 }

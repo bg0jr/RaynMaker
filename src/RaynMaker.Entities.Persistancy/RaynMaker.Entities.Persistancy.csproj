@@ -44,9 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBMigrationScript.cs" />
     <Compile Include="EntitiesContext.cs" />
     <Compile Include="EntitiesContextFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SchemaInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
