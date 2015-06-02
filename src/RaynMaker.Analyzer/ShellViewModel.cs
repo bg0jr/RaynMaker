@@ -1,47 +1,61 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.ComponentModel.Composition;
 using System.Diagnostics;
-using System.Windows;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
+using Microsoft.Practices.Prism.PubSubEvents;
+using Plainion.AppFw.Wpf.Infrastructure;
+using Plainion.AppFw.Wpf.ViewModels;
+using Plainion.Prism.Events;
 using RaynMaker.Entities;
+using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Analyzer
 {
     [Export]
     class ShellViewModel : BindableBase
     {
+        private const string AppName = "RaynMaker.Analyzer";
+        private IProjectService<Project> myProjectService;
         private IEntitiesContextFactory myEntitiesContextFactory;
 
         [ImportingConstructor]
-        public ShellViewModel(IEntitiesContextFactory factory)
+        public ShellViewModel( IProjectService<Project> projectService, IEventAggregator eventAggregator, IEntitiesContextFactory factory )
         {
+            myProjectService = projectService;
             myEntitiesContextFactory = factory;
 
-            NewCommand = new DelegateCommand( OnNewCommand );
-            OpenCommand = new DelegateCommand( OnOpenCommand );
-            CloseCommand = new DelegateCommand( () => Application.Current.Shutdown() );
+            eventAggregator.GetEvent<ApplicationReadyEvent>().Subscribe( x => OnApplicationReady() );
+
             AboutCommand = new DelegateCommand( OnAboutCommand );
         }
 
-        public ICommand NewCommand { get; private set; }
+        [Import]
+        public ProjectLifecycleViewModel<Project> ProjectLifecycleViewModel { get; set; }
 
-        private void OnNewCommand()
+        [Import]
+        public TitleViewModel<Project> TitleViewModel { get; set; }
+
+        private void OnApplicationReady()
         {
-            // just a test
-            myEntitiesContextFactory.Create( @"c:\temp\test.db" );
-        }
-        
-        public ICommand OpenCommand { get; private set; }
+            TitleViewModel.ApplicationName = AppName;
 
-        private void OnOpenCommand()
-        {
-        }
+            ProjectLifecycleViewModel.ApplicationName = AppName;
+            ProjectLifecycleViewModel.AutoSaveNewProject = true;
+            ProjectLifecycleViewModel.FileFilter = "RaynMaker Analyzer Projects (*.ryma)|*.ryma";
+            ProjectLifecycleViewModel.FileFilterIndex = 0;
+            ProjectLifecycleViewModel.DefaultFileExtension = ".ryma";
 
-        public ICommand CloseCommand { get; private set; }
+            var args = Environment.GetCommandLineArgs();
+            if( args.Length == 2 )
+            {
+                myProjectService.Load( args[ 1 ] );
+            }
+        }
 
         public ICommand AboutCommand { get; private set; }
-    
+
         private void OnAboutCommand()
         {
             Process.Start( "https://github.com/bg0jr/RaynMaker" );

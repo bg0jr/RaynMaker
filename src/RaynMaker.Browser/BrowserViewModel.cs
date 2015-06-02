@@ -1,35 +1,28 @@
-﻿using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Windows;
+﻿using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.Mvvm;
-using Plainion;
-using RaynMaker.Infrastructure.Model;
+using Plainion.AppFw.Wpf.Infrastructure;
+using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Browser
 {
     [Export]
     class BrowserViewModel : BindableBase
     {
-        private Solution mySolution;
+        private IProjectService<Project> myProjectService;
 
         [ImportingConstructor]
-        public BrowserViewModel( Solution solution )
+        public BrowserViewModel( IProjectService<Project> projectService )
         {
-            Contract.RequiresNotNull( solution, "solution" );
+            myProjectService = projectService;
 
-            mySolution = solution;
-
-            WeakEventManager<ObservableCollection<IProject>, NotifyCollectionChangedEventArgs>
-                .AddHandler( mySolution.Projects, "CollectionChanged", OnProjectsChanged );
+            myProjectService.ProjectChanged += OnProjectChanged;
         }
 
-        private void OnProjectsChanged( object sender, NotifyCollectionChangedEventArgs e )
+        private void OnProjectChanged( ProjectBase obj )
         {
             OnPropertyChanged( () => HasProject );
         }
 
-        public bool HasProject { get { return mySolution.Projects.Any(); } }
+        public bool HasProject { get { return myProjectService.Project != null; } }
     }
 }

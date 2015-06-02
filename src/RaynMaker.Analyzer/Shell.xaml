@@ -1,9 +1,26 @@
 ﻿<Window x:Class="RaynMaker.Analyzer.Shell"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:prism="http://www.codeplex.com/prism"
         xmlns:rym="https://github.com/bg0jr/RaynMaker"
+        xmlns:pn="http://github.com/ronin4net/plainion"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:prism="http://www.codeplex.com/prism"
+        xmlns:win32="clr-namespace:Microsoft.Win32;assembly=PresentationFramework"
         Title="RaynMaker Analyzer" Height="600" Width="1200">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Plainion.AppFw.Wpf;component/Views/ProjectLifecycleStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.Style>
+        <pn:MultiStyle ResourceKeys="ProjectLifecycleStyle"/>
+    </Window.Style>
+    <Window.InputBindings>
+        <KeyBinding Key="O" Modifiers="Control" Command="{Binding ProjectLifecycleViewModel.OpenCommand}"/>
+        <KeyBinding Key="F4" Modifiers="Alt" Command="{Binding ProjectLifecycleViewModel.CloseCommand}"/>
+    </Window.InputBindings>
     <DockPanel LastChildFill="True">
         <Grid DockPanel.Dock="Top" >
             <Menu>
@@ -13,10 +30,10 @@
                     </ItemsPanelTemplate>
                 </Menu.ItemsPanel>
                 <MenuItem Header="_FILE">
-                    <MenuItem Header="_New..." Command="{Binding NewCommand}"/>
-                    <MenuItem Header="_Open..." Command="{Binding OpenCommand}" InputGestureText="Ctrl+O"/>
+                    <MenuItem Header="_New" Command="{Binding ProjectLifecycleViewModel.NewCommand}" />
+                    <MenuItem Header="_Open" Command="{Binding ProjectLifecycleViewModel.OpenCommand}" InputGestureText="Ctrl+O"/>
                     <Separator/>
-                    <MenuItem Header="_Close" Command="{Binding CloseCommand}" InputGestureText="Alt+F4"/>
+                    <MenuItem Header="_Close" Command="{Binding ProjectLifecycleViewModel.CloseCommand}" InputGestureText="Alt+F4"/>
                 </MenuItem>
                 <MenuItem Header="_HELP" HorizontalAlignment="Right">
                     <MenuItem Header="About RaynMaker" Command="{Binding AboutCommand}"/>
