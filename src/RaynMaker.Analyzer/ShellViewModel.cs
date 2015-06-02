@@ -8,7 +8,6 @@ using Microsoft.Practices.Prism.PubSubEvents;
 using Plainion.AppFw.Wpf.Infrastructure;
 using Plainion.AppFw.Wpf.ViewModels;
 using Plainion.Prism.Events;
-using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Analyzer
@@ -18,13 +17,11 @@ namespace RaynMaker.Analyzer
     {
         private const string AppName = "RaynMaker.Analyzer";
         private IProjectService<Project> myProjectService;
-        private IEntitiesContextFactory myEntitiesContextFactory;
 
         [ImportingConstructor]
-        public ShellViewModel( IProjectService<Project> projectService, IEventAggregator eventAggregator, IEntitiesContextFactory factory )
+        public ShellViewModel( IProjectService<Project> projectService, IEventAggregator eventAggregator )
         {
             myProjectService = projectService;
-            myEntitiesContextFactory = factory;
 
             eventAggregator.GetEvent<ApplicationReadyEvent>().Subscribe( x => OnApplicationReady() );
 
@@ -43,9 +40,9 @@ namespace RaynMaker.Analyzer
 
             ProjectLifecycleViewModel.ApplicationName = AppName;
             ProjectLifecycleViewModel.AutoSaveNewProject = true;
-            ProjectLifecycleViewModel.FileFilter = "RaynMaker Analyzer Projects (*.ryma)|*.ryma";
+            ProjectLifecycleViewModel.FileFilter = "RaynMaker Projects (*.rym)|*.rym";
             ProjectLifecycleViewModel.FileFilterIndex = 0;
-            ProjectLifecycleViewModel.DefaultFileExtension = ".ryma";
+            ProjectLifecycleViewModel.DefaultFileExtension = ".rym";
 
             var args = Environment.GetCommandLineArgs();
             if( args.Length == 2 )
