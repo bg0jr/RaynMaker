@@ -5,19 +5,17 @@ using System.Data.SQLite;
 
 namespace RaynMaker.Entities.Persistancy
 {
-    class EntitiesContext : DbContext, IEntityContext
+    class AssetsContext : DbContext, IAssetsContext
     {
-        internal static int RequiredDatabaseVersion = 1;
-
-        static EntitiesContext()
+        static AssetsContext()
         {
             DbConfiguration.SetConfiguration( new SQLiteConfiguration() );
         }
 
-        public EntitiesContext( string path )
+        public AssetsContext( string path )
             : base( GetConnection( path ), true )
         {
-            Database.SetInitializer<EntitiesContext>( null );
+            Database.SetInitializer<AssetsContext>( null );
         }
 
         private static DbConnection GetConnection( string path )
@@ -35,9 +33,9 @@ namespace RaynMaker.Entities.Persistancy
 
         public DbSet<Stock> Stocks { get; set; }
 
-        IEnumerable<Company> IEntityContext.Companies { get { return Companies; } }
+        IEnumerable<Company> IAssetsContext.Companies { get { return Companies; } }
 
-        IEnumerable<Stock> IEntityContext.Stocks { get { return Stocks; } }
+        IEnumerable<Stock> IAssetsContext.Stocks { get { return Stocks; } }
 
         public DbSet<SchemaInfo> SchemaInfos { get; set; }
     }

@@ -2,36 +2,35 @@
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
+using Plainion;
 
 namespace RaynMaker.Entities.Persistancy
 {
-    [Export( typeof( IEntitiesContextFactory ) )]
-    class EntitiesContextFactory : IEntitiesContextFactory
+    public class Storage : IContextFactory
     {
-        private static bool myIsDatabaseInitialized;
+        private const int RequiredDatabaseVersion = 1;
+        private static bool myIsInitialized;
 
-        public IEntityContext Create( string path )
+        public Storage( string location )
         {
-            if( !myIsDatabaseInitialized )
-            {
-                InitializeDatabase( path );
-                myIsDatabaseInitialized = true;
-            }
-            return new EntitiesContext( path );
+            Contract.RequiresNotNullNotEmpty( location, "location" );
+
+            Location = location;
         }
 
-        // TODO: this code should be async - and not on-demand but "hidden"
-        private void InitializeDatabase( string path )
+        public string Location { get; private set; }
+
+        public void Initialize()
         {
             SchemaInfo schemaInfo = null;
 
-            if( !File.Exists( path ) )
+            if( !File.Exists( Location ) )
             {
-                SQLiteConnection.CreateFile( path );
+                SQLiteConnection.CreateFile( Location );
                 schemaInfo = new SchemaInfo { Id = -1, Version = 0 };
             }
 
-            using( var context = new EntitiesContext( path ) )
+            using( var context = new AssetsContext( Location ) )
             {
                 if( schemaInfo == null )
                 {
@@ -39,7 +38,7 @@ namespace RaynMaker.Entities.Persistancy
                 }
 
                 var migrationScript = new DBMigrationScript();
-                while( schemaInfo.Version < EntitiesContext.RequiredDatabaseVersion )
+                while( schemaInfo.Version < RequiredDatabaseVersion )
                 {
                     schemaInfo.Version++;
                     foreach( string migration in migrationScript.Migrations[ schemaInfo.Version ] )
@@ -55,6 +54,15 @@ namespace RaynMaker.Entities.Persistancy
                     context.SaveChanges();
                 }
             }
+
+            myIsInitialized = true;
+        }
+
+        public IAssetsContext CreateAssetsContext()
+        {
+            Contract.Invariant( myIsInitialized, "Initialized() not yet called" );
+
+            return new AssetsContext( Location );
         }
     }
 }

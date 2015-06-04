@@ -1,13 +1,16 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
 using Plainion.AppFw.Wpf.Infrastructure;
 using Plainion.AppFw.Wpf.ViewModels;
 using Plainion.Prism.Events;
+using RaynMaker.Analyzer.Services;
 using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Analyzer
@@ -24,7 +27,7 @@ namespace RaynMaker.Analyzer
             myProjectService = projectService;
 
             eventAggregator.GetEvent<ApplicationReadyEvent>().Subscribe( x => OnApplicationReady() );
-
+            
             AboutCommand = new DelegateCommand( OnAboutCommand );
         }
 

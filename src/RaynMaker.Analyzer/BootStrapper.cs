@@ -2,11 +2,12 @@
 using System.IO;
 using Plainion.AppFw.Wpf;
 using Plainion.AppFw.Wpf.ViewModels;
+using RaynMaker.Analyzer.Services;
 using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Analyzer
 {
-     class Bootstrapper : BootstrapperBase<Shell>
+    class Bootstrapper : BootstrapperBase<Shell>
     {
         protected override void ConfigureAggregateCatalog()
         {

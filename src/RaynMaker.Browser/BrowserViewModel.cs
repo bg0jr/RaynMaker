@@ -8,21 +8,21 @@ namespace RaynMaker.Browser
     [Export]
     class BrowserViewModel : BindableBase
     {
-        private IProjectService<Project> myProjectService;
+        private IProjectHost myProjectHost;
 
         [ImportingConstructor]
-        public BrowserViewModel( IProjectService<Project> projectService )
+        public BrowserViewModel( IProjectHost host )
         {
-            myProjectService = projectService;
+            myProjectHost = host;
 
-            myProjectService.ProjectChanged += OnProjectChanged;
+            myProjectHost.Changed += OnProjectChanged;
         }
 
-        private void OnProjectChanged( ProjectBase obj )
+        private void OnProjectChanged()
         {
             OnPropertyChanged( () => HasProject );
         }
 
-        public bool HasProject { get { return myProjectService.Project != null; } }
+        public bool HasProject { get { return myProjectHost.Project != null; } }
     }
 }

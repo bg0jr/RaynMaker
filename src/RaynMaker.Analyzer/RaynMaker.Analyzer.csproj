@@ -46,13 +46,13 @@
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\packages\CommonServiceLocator.1.2\lib\portable-windows8+net40+sl5+windowsphone8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
-    <Reference Include="Plainion.AppFw.Wpf, Version=2.2.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
+    <Reference Include="Plainion.AppFw.Wpf, Version=2.4.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Plainion.AppFw.Wpf.2.2.0.0\lib\NET45\Plainion.AppFw.Wpf.dll</HintPath>
+      <HintPath>..\..\packages\Plainion.AppFw.Wpf.2.4.0.0\lib\NET45\Plainion.AppFw.Wpf.dll</HintPath>
     </Reference>
-    <Reference Include="Plainion.AppFw.Wpf.Infrastructure, Version=2.2.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
+    <Reference Include="Plainion.AppFw.Wpf.Infrastructure, Version=2.4.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Plainion.AppFw.Wpf.2.2.0.0\lib\NET45\Plainion.AppFw.Wpf.Infrastructure.dll</HintPath>
+      <HintPath>..\..\packages\Plainion.AppFw.Wpf.2.4.0.0\lib\NET45\Plainion.AppFw.Wpf.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="Plainion.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -88,6 +88,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Services\Project.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Page Include="Shell.xaml">
@@ -117,6 +118,10 @@
     <Resource Include="RaynMaker.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RaynMaker.Entities.Persistancy\RaynMaker.Entities.Persistancy.csproj">
+      <Project>{21124bd2-15f7-45f8-bd77-184e7fed47c8}</Project>
+      <Name>RaynMaker.Entities.Persistancy</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RaynMaker.Entities\RaynMaker.Entities.csproj">
       <Project>{0b9b8ac3-da99-4264-9d59-382adee06fd9}</Project>
       <Name>RaynMaker.Entities</Name>

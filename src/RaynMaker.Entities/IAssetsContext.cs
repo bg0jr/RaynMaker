@@ -2,7 +2,7 @@
 
 namespace RaynMaker.Entities
 {
-    public interface IEntityContext
+    public interface IAssetsContext
     {
         IEnumerable<Company> Companies { get; }
         IEnumerable<Stock> Stocks { get; }

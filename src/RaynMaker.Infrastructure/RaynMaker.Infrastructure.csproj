@@ -21,13 +21,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Prism.Mvvm.1.0.0\lib\net45\Microsoft.Practices.Prism.Mvvm.dll</HintPath>
     </Reference>
-    <Reference Include="Plainion.AppFw.Wpf, Version=2.2.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
+    <Reference Include="Plainion.AppFw.Wpf, Version=2.4.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Plainion.AppFw.Wpf.2.2.0.0\lib\NET45\Plainion.AppFw.Wpf.dll</HintPath>
+      <HintPath>..\..\packages\Plainion.AppFw.Wpf.2.4.0.0\lib\NET45\Plainion.AppFw.Wpf.dll</HintPath>
     </Reference>
-    <Reference Include="Plainion.AppFw.Wpf.Infrastructure, Version=2.2.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
+    <Reference Include="Plainion.AppFw.Wpf.Infrastructure, Version=2.4.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Plainion.AppFw.Wpf.2.2.0.0\lib\NET45\Plainion.AppFw.Wpf.Infrastructure.dll</HintPath>
+      <HintPath>..\..\packages\Plainion.AppFw.Wpf.2.4.0.0\lib\NET45\Plainion.AppFw.Wpf.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="Plainion.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -52,7 +52,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Project.cs" />
+    <Compile Include="IProject.cs" />
+    <Compile Include="IProjectHost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -61,6 +62,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RaynMaker.Entities\RaynMaker.Entities.csproj">
+      <Project>{0b9b8ac3-da99-4264-9d59-382adee06fd9}</Project>
+      <Name>RaynMaker.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
