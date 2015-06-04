@@ -30,8 +30,8 @@
                     </ItemsPanelTemplate>
                 </Menu.ItemsPanel>
                 <MenuItem Header="_FILE">
-                    <MenuItem Header="_New" Command="{Binding ProjectLifecycleViewModel.NewCommand}" />
-                    <MenuItem Header="_Open" Command="{Binding ProjectLifecycleViewModel.OpenCommand}" InputGestureText="Ctrl+O"/>
+                    <MenuItem Header="_New" Command="{Binding ProjectLifecycleViewModel.NewAsyncCommand}" />
+                    <MenuItem Header="_Open" Command="{Binding ProjectLifecycleViewModel.OpenAsyncCommand}" InputGestureText="Ctrl+O"/>
                     <Separator/>
                     <MenuItem Header="_Close" Command="{Binding ProjectLifecycleViewModel.CloseCommand}" InputGestureText="Alt+F4"/>
                 </MenuItem>
@@ -40,6 +40,11 @@
                 </MenuItem>
             </Menu>
         </Grid>
+        <StatusBar DockPanel.Dock="Bottom" Margin="3">
+            <StatusBarItem BorderBrush="Gray" BorderThickness="1">
+                <TextBlock Text="{Binding ProjectLifecycleViewModel.Progress.Activity}"/>
+            </StatusBarItem>
+        </StatusBar>
         <Grid>
             <ContentControl Margin="3" prism:RegionManager.RegionName="{x:Static rym:RegionNames.Browser}"/>
         </Grid>
