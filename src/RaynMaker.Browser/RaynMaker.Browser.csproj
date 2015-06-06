@@ -53,6 +53,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Plainion.Core.2.3.0.0\lib\NET45\Plainion.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Plainion.Prism, Version=1.4.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Plainion.Prism.1.4.0.0\lib\NET45\Plainion.Prism.dll</HintPath>
+    </Reference>
     <Reference Include="Plainion.Windows, Version=1.5.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Plainion.Windows.1.5.0.0\lib\NET45\Plainion.Windows.dll</HintPath>
@@ -76,18 +80,32 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="BrowserView.xaml">
+    <Compile Include="Controls\OverlayViewAction.cs" />
+    <Compile Include="RegionNames.cs" />
+    <Compile Include="ViewModels\NewAssetViewModel.cs" />
+    <Compile Include="Views\NewAssetView.xaml.cs">
+      <DependentUpon>NewAssetView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\BrowserView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="BrowserModule.cs" />
-    <Compile Include="BrowserView.xaml.cs">
+    <Compile Include="Views\BrowserView.xaml.cs">
       <DependentUpon>BrowserView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\NewAssetView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OverlayView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BrowserViewModel.cs" />
+    <Compile Include="ViewModels\BrowserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -103,5 +121,6 @@
       <Name>RaynMaker.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

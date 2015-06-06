@@ -2,7 +2,7 @@
 using Microsoft.Practices.Prism.MefExtensions.Modularity;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
-using RaynMaker.Infrastructure;
+using RaynMaker.Browser.Views;
 
 namespace RaynMaker.Browser
 {
@@ -14,7 +14,8 @@ namespace RaynMaker.Browser
 
         public void Initialize()
         {
-            RegionManager.RegisterViewWithRegion( RegionNames.Browser, typeof( BrowserView ) );
+            RegionManager.RegisterViewWithRegion( RaynMaker.Infrastructure.RegionNames.Browser, typeof( BrowserView ) );
+            RegionManager.RegisterViewWithRegion( RegionNames.Dialogs, typeof( NewAssetView ) );
         }
     }
 }
