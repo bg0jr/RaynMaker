@@ -16,7 +16,7 @@ namespace RaynMaker.Analyzer.Services
         protected override void InitializeProject( Project project, IProgress<IProgressInfo> progress, CancellationToken cancellationToken )
         {
             progress.Report( new UndefinedProgress( "Creating project at " + project.Location ) );
-            
+
             if( !Directory.Exists( project.StorageRoot ) )
             {
                 Directory.CreateDirectory( project.StorageRoot );
