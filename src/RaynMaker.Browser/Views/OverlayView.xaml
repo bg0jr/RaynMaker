@@ -11,7 +11,7 @@
                         </Grid.Background>
 
                         <Grid Background="White" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <GroupBox Header="New Asset" Margin="3" Padding="0,7,0,0">
+                            <GroupBox Header="{Binding Title}" Margin="3" Padding="0,7,0,0">
                                 <ContentPresenter
                                         Content="{TemplateBinding Content}"
                                         ContentTemplate="{TemplateBinding ContentTemplate}"

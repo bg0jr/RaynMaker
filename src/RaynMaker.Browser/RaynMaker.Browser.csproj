@@ -80,9 +80,14 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\OverlayViewAction.cs" />
     <Compile Include="RegionNames.cs" />
     <Compile Include="ViewModels\NewAssetViewModel.cs" />
+    <Compile Include="Views\DefaultConfirmationView.xaml.cs">
+      <DependentUpon>DefaultConfirmationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DefaultNotificationView.xaml.cs">
+      <DependentUpon>DefaultNotificationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\NewAssetView.xaml.cs">
       <DependentUpon>NewAssetView.xaml</DependentUpon>
     </Compile>
@@ -95,6 +100,14 @@
       <DependentUpon>BrowserView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\DefaultConfirmationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DefaultNotificationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\NewAssetView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

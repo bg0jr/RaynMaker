@@ -36,6 +36,7 @@ namespace RaynMaker.Browser.ViewModels
         private void OnNew()
         {
             var notification = new Confirmation();
+            notification.Title = "New Asset";
 
             NewAssetRequest.Raise( notification, n =>
             {

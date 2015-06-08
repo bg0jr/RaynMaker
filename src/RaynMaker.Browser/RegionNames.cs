@@ -3,6 +3,6 @@ namespace RaynMaker.Browser
 {
     class RegionNames
     {
-        public static string Dialogs = "Region.Dialogs";
+        public static string NewAssetView = "Region.Dialogs.NewAsset";
     }
 }

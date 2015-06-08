@@ -15,7 +15,7 @@ namespace RaynMaker.Browser
         public void Initialize()
         {
             RegionManager.RegisterViewWithRegion( RaynMaker.Infrastructure.RegionNames.Browser, typeof( BrowserView ) );
-            RegionManager.RegisterViewWithRegion( RegionNames.Dialogs, typeof( NewAssetView ) );
+            RegionManager.RegisterViewWithRegion( RegionNames.NewAssetView, typeof( NewAssetView ) );
         }
     }
 }

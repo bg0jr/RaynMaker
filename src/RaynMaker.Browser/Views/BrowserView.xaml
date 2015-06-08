@@ -5,8 +5,8 @@
              xmlns:po="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:rym="https://github.com/bg0jr/RaynMaker"
              xmlns:l="clr-namespace:RaynMaker.Browser"
-             xmlns:c="clr-namespace:RaynMaker.Browser.Controls"
              xmlns:v="clr-namespace:RaynMaker.Browser.Views"
              xmlns:vm="clr-namespace:RaynMaker.Browser.ViewModels"
              xmlns:prism="http://www.codeplex.com/prism"
@@ -18,7 +18,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-        
+
     <Grid x:Name="myRoot">
         <DockPanel IsEnabled="{Binding HasProject}" LastChildFill="True">
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
@@ -32,10 +32,12 @@
 
     <i:Interaction.Triggers>
         <prism:InteractionRequestTrigger SourceObject="{Binding NewAssetRequest, Mode=OneWay}">
-            <c:OverlayViewAction OverlayTarget="{Binding ElementName=myRoot}">
-                <ContentControl Style="{StaticResource OverlayView}" 
-                                prism:RegionManager.RegionName="{x:Static l:RegionNames.Dialogs}"/>
-            </c:OverlayViewAction>
+            <rym:OverlayViewAction Container="{Binding ElementName=myRoot}"
+                                   Style="{StaticResource OverlayView}" 
+                                   prism:RegionManager.RegionName="{x:Static l:RegionNames.NewAssetView}"/>
+            <!--
+            <prism:PopupWindowAction prism:RegionManager.RegionName="{x:Static l:RegionNames.NewAssetView}"/>
+            -->
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
 </UserControl>
