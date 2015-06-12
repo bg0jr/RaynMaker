@@ -80,6 +80,12 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\DefaultConfirmationView.xaml.cs">
+      <DependentUpon>DefaultConfirmationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DefaultNotificationview.xaml.cs">
+      <DependentUpon>DefaultNotificationview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\OverlayViewAction.cs" />
     <Compile Include="Controls\OverlayViewActionRegionAdapter.cs" />
     <Compile Include="IProject.cs" />
@@ -99,6 +105,16 @@
       <Project>{0b9b8ac3-da99-4264-9d59-382adee06fd9}</Project>
       <Name>RaynMaker.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Controls\DefaultConfirmationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\DefaultNotificationview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

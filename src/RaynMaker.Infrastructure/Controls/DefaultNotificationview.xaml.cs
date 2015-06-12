@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace RaynMaker.Browser.Views
+namespace RaynMaker.Infrastructure.Controls
 {
     public partial class DefaultNotificationView : UserControl
     {
