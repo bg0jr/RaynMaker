@@ -5,6 +5,9 @@ using Microsoft.Practices.Prism.Regions;
 
 namespace RaynMaker.Infrastructure.Controls
 {
+    /// <summary>
+    /// Prism region adapter to add views to <see cref="OverlayViewAction"/>.
+    /// </summary>
     [Export( typeof( OverlayViewActionRegionAdapter ) )]
     public class OverlayViewActionRegionAdapter : RegionAdapterBase<OverlayViewAction>
     {

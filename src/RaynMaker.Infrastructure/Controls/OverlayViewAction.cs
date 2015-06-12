@@ -8,7 +8,8 @@ using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 namespace RaynMaker.Infrastructure.Controls
 {
     /// <summary>
-    /// Displays a view in a "dialog-style" without using a window.
+    /// Displays a view in a "dialog-style" by just adding it to a container instead of using a new window.
+    /// If this container is e.g. a Grid the previews content will just be "covered".
     /// </summary>
     [DefaultProperty( "ViewContent" ), ContentProperty( "ViewContent" )]
     public class OverlayViewAction : TriggerAction<FrameworkElement>

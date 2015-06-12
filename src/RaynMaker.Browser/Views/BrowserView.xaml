@@ -35,9 +35,6 @@
             <rym:OverlayViewAction Container="{Binding ElementName=myRoot}"
                                    Style="{StaticResource OverlayView}" 
                                    prism:RegionManager.RegionName="{x:Static l:RegionNames.NewAssetView}"/>
-            <!--
-            <prism:PopupWindowAction prism:RegionManager.RegionName="{x:Static l:RegionNames.NewAssetView}"/>
-            -->
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
 </UserControl>
