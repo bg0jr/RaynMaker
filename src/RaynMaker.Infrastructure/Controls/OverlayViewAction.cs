@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Interactivity;
 using System.Windows.Markup;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
+using Plainion;
 
 namespace RaynMaker.Infrastructure.Controls
 {
@@ -52,42 +53,46 @@ namespace RaynMaker.Infrastructure.Controls
 
         protected override void Invoke( object parameter )
         {
-            InteractionRequestedEventArgs args = parameter as InteractionRequestedEventArgs;
-            if( args == null )
+            var args = parameter as InteractionRequestedEventArgs;
+            Contract.RequiresNotNull( args, "parameter has to be InteractionRequestedEventArgs" );
+
+            Contract.RequiresNotNull( Container, "Container" );
+
+            var view = GetOverlayView( args.Context );
+
+            var interactionRequestAware = GetInteractionRequestAware( view );
+
+            Contract.Requires( interactionRequestAware != null, "View or DataContext has to implement IInteractionRequestAware" );
+
+            interactionRequestAware.Notification = args.Context;
+            interactionRequestAware.FinishInteraction = () =>
             {
-                return;
-            }
+                Container.Children.Remove( view );
 
-            if( ViewContent == null || Container == null )
-            {
-                return;
-            }
+                args.Callback();
+            };
 
-            var host = CreateViewHost( args.Context );
 
-            // TODO: as we have conntected host and ViewContent already - in case ViewContent does not bring its own
-            // DataContext do we already inherit the one from host (which is the notification)?
-
-            var interactionRequestAware = ViewContent.DataContext as IInteractionRequestAware;
-            if( interactionRequestAware != null )
-            {
-                interactionRequestAware.Notification = args.Context;
-                interactionRequestAware.FinishInteraction = () =>
-                {
-                    Container.Children.Remove( host );
-
-                    args.Callback();
-                };
-            }
-
-            Container.Children.Add( host );
+            Container.Children.Add( view );
         }
 
-        private ContentControl CreateViewHost( INotification notification )
+        private ContentControl GetOverlayView( INotification notification )
         {
             var host = new ContentControl();
             host.DataContext = notification;
-            host.Content = ViewContent;
+
+            if( ViewContent != null )
+            {
+                host.Content = ViewContent;
+            }
+            else if( notification is IConfirmation )
+            {
+                host.Content = new DefaultConfirmationView();
+            }
+            else
+            {
+                host.Content = new DefaultNotificationView();
+            }
 
             if( Style != null )
             {
@@ -95,6 +100,23 @@ namespace RaynMaker.Infrastructure.Controls
             }
 
             return host;
+        }
+
+        private static IInteractionRequestAware GetInteractionRequestAware( ContentControl host )
+        {
+            var interactionRequestAware = host.Content as IInteractionRequestAware;
+            if( interactionRequestAware != null )
+            {
+                return interactionRequestAware;
+            }
+
+            var frameworkElement = host.Content as FrameworkElement;
+            if( frameworkElement != null )
+            {
+                return frameworkElement.DataContext as IInteractionRequestAware;
+            }
+
+            return null;
         }
     }
 }
