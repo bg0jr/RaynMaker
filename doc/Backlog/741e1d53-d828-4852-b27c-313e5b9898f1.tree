@@ -2,9 +2,6 @@
 <Tree>
   <Node Id="741e1d53-d828-4852-b27c-313e5b9898f1">
     <Caption><![CDATA[Planning]]></Caption>
-    <Node Id="8113430a-1527-486b-a8fd-afd75a814347">
-      <Caption><![CDATA[Unhandled exception handler does not work]]></Caption>
-    </Node>
     <Node Id="869439e2-4ad9-43ed-b591-82a75c36cb91">
       <Caption><![CDATA[Implement validation]]></Caption>
     </Node>

@@ -25,6 +25,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Prism.Interactivity.5.0.0\lib\NET45\Microsoft.Practices.Prism.Interactivity.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.Prism.MefExtensions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Prism.MEFExtensions.5.0.0\lib\NET45\Microsoft.Practices.Prism.MefExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.Prism.Mvvm, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Prism.Mvvm.1.0.0\lib\net45\Microsoft.Practices.Prism.Mvvm.dll</HintPath>
@@ -41,13 +45,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Prism.Mvvm.1.0.0\lib\net45\Microsoft.Practices.Prism.SharedInterfaces.dll</HintPath>
     </Reference>
-    <Reference Include="Plainion.AppFw.Wpf, Version=2.5.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
+    <Reference Include="Plainion.AppFw.Wpf, Version=2.6.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Plainion.AppFw.Wpf.2.5.0.0\lib\NET45\Plainion.AppFw.Wpf.dll</HintPath>
+      <HintPath>..\..\packages\Plainion.AppFw.Wpf.2.6.0.0\lib\NET45\Plainion.AppFw.Wpf.dll</HintPath>
     </Reference>
-    <Reference Include="Plainion.AppFw.Wpf.Infrastructure, Version=2.4.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
+    <Reference Include="Plainion.AppFw.Wpf.Infrastructure, Version=2.6.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Plainion.AppFw.Wpf.2.5.0.0\lib\NET45\Plainion.AppFw.Wpf.Infrastructure.dll</HintPath>
+      <HintPath>..\..\packages\Plainion.AppFw.Wpf.2.6.0.0\lib\NET45\Plainion.AppFw.Wpf.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="Plainion.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -57,9 +61,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Plainion.Prism.1.5.0.0\lib\NET45\Plainion.Prism.dll</HintPath>
     </Reference>
-    <Reference Include="Plainion.Windows, Version=1.5.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
+    <Reference Include="Plainion.Windows, Version=1.6.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Plainion.Windows.1.5.0.0\lib\NET45\Plainion.Windows.dll</HintPath>
+      <HintPath>..\..\packages\Plainion.Windows.1.6.0.0\lib\NET45\Plainion.Windows.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
