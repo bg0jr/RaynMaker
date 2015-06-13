@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="ab2d53c4-103a-4075-bb99-6763aab987be" Created="635698005766039047" LastModified="635698006006712813">
-  <Caption><![CDATA[reverify design]]></Caption>
-  <Content><![CDATA[- storage?
-- who manages lifetime of DbContext]]></Content>
-</Node>

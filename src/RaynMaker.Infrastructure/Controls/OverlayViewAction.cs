@@ -11,6 +11,8 @@ namespace RaynMaker.Infrastructure.Controls
     /// <summary>
     /// Displays a view in a "dialog-style" by just adding it to a container instead of using a new window.
     /// If this container is e.g. a Grid the previews content will just be "covered".
+    /// 
+    /// Set name of the control to "InitialFocus" which should have the initial focus after the view is loaded.
     /// </summary>
     [DefaultProperty( "ViewContent" ), ContentProperty( "ViewContent" )]
     public class OverlayViewAction : TriggerAction<FrameworkElement>
@@ -72,8 +74,33 @@ namespace RaynMaker.Infrastructure.Controls
                 args.Callback();
             };
 
-
             Container.Children.Add( view );
+
+            if( view.IsLoaded )
+            {
+                SetInitialFocus( view );
+            }
+            else
+            {
+                view.Loaded += OnViewLoaded;
+            }
+        }
+
+        private void SetInitialFocus( FrameworkElement view )
+        {
+            var child = LogicalTreeHelper.FindLogicalNode( view, "InitialFocus" ) as FrameworkElement;
+            if( child != null )
+            {
+                child.Focus();
+            }
+        }
+
+        void OnViewLoaded( object sender, RoutedEventArgs e )
+        {
+            var view = ( FrameworkElement )sender;
+            view.Loaded -= OnViewLoaded;
+
+            SetInitialFocus( view );
         }
 
         private ContentControl GetOverlayView( INotification notification )

@@ -14,6 +14,8 @@ namespace RaynMaker.Browser.ViewModels
     class NewAssetViewModel : BindableBase, IInteractionRequestAware
     {
         private IProjectHost myProjectHost;
+        private string myName;
+        private string myIsin;
 
         [ImportingConstructor]
         public NewAssetViewModel( IProjectHost host )
@@ -24,9 +26,17 @@ namespace RaynMaker.Browser.ViewModels
             CancelCommand = new DelegateCommand( OnCancel );
         }
 
-        public string Name { get; set; }
+        public string Name
+        {
+            get { return myName; }
+            set { SetProperty( ref myName, value ); }
+        }
 
-        public string Isin { get; set; }
+        public string Isin
+        {
+            get { return myIsin; }
+            set { SetProperty( ref myIsin, value ); }
+        }
 
         public Action FinishInteraction { get; set; }
 
@@ -50,6 +60,14 @@ namespace RaynMaker.Browser.ViewModels
 
             ctx.SaveChanges();
 
+            Close( confirmed: true );
+        }
+
+        private void Close( bool confirmed )
+        {
+            Name = null;
+            Isin = null;
+
             Notification.TrySetConfirmed( true );
             FinishInteraction();
         }
@@ -58,8 +76,7 @@ namespace RaynMaker.Browser.ViewModels
 
         private void OnCancel()
         {
-            Notification.TrySetConfirmed( false );
-            FinishInteraction();
+            Close( confirmed: false );
         }
     }
 }
