@@ -16,6 +16,6 @@ namespace RaynMaker.Entities
         [Required]
         public string Name { get; set; }
 
-        public IList<Stock> Stocks { get; private set; }
+        public virtual IList<Stock> Stocks { get; private set; }
     }
 }

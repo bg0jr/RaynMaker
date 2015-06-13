@@ -24,7 +24,7 @@
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                 <Button Content="New" Command="{Binding NewCommand}" Margin="3"/>
             </StackPanel>
-            <ListView>
+            <ListView ItemsSource="{Binding Assets}">
 
             </ListView>
         </DockPanel>

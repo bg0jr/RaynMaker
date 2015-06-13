@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="869439e2-4ad9-43ed-b591-82a75c36cb91" Created="635697758655347857" LastModified="635697760562136919">
+  <Caption><![CDATA[Implement validation]]></Caption>
+  <Content><![CDATA[- show mandatory field with little "*"
+- enable "ok" button only after all mandatory seet
+- http://www.codeproject.com/Articles/97564/Attributes-based-Validation-in-a-WPF-MVVM-Applicat
+]]></Content>
+</Node>

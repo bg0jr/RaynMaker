@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Data.Entity;
 
 namespace RaynMaker.Entities
 {
-    public interface IAssetsContext
+    public interface IAssetsContext : IDisposable
     {
-        IEnumerable<Company> Companies { get; }
-        IEnumerable<Stock> Stocks { get; }
+        IDbSet<Company> Companies { get; }
+        IDbSet<Stock> Stocks { get; }
+
+        int SaveChanges();
     }
 }

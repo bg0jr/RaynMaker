@@ -11,6 +11,6 @@ namespace RaynMaker.Entities
         public string Isin { get; set; }
         
         [Required]
-        public Company Company { get; set; }
+        public virtual Company Company { get; set; }
     }
 }

@@ -2,5 +2,20 @@
 <Tree>
   <Node Id="741e1d53-d828-4852-b27c-313e5b9898f1">
     <Caption><![CDATA[Planning]]></Caption>
+    <Node Id="8113430a-1527-486b-a8fd-afd75a814347">
+      <Caption><![CDATA[Unhandled exception handler does not work]]></Caption>
+    </Node>
+    <Node Id="15c5c3d3-db58-4ad9-9125-a18c0e2295e1">
+      <Caption><![CDATA[Clear "New Assets" form after close]]></Caption>
+    </Node>
+    <Node Id="00ff7b84-66ce-4f4a-806b-41d866123acb">
+      <Caption><![CDATA[implement itemstemplate in browser]]></Caption>
+    </Node>
+    <Node Id="e18c7505-5255-411f-b8a5-c391b9998b3f">
+      <Caption><![CDATA[implement "Edit" of assets]]></Caption>
+    </Node>
+    <Node Id="869439e2-4ad9-43ed-b591-82a75c36cb91">
+      <Caption><![CDATA[Implement validation]]></Caption>
+    </Node>
   </Node>
 </Tree>

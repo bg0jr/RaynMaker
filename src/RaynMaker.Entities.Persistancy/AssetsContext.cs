@@ -29,13 +29,9 @@ namespace RaynMaker.Entities.Persistancy
             return new SQLiteConnection( builder.ConnectionString );
         }
 
-        public DbSet<Company> Companies { get; set; }
+        public IDbSet<Company> Companies { get; set; }
 
-        public DbSet<Stock> Stocks { get; set; }
-
-        IEnumerable<Company> IAssetsContext.Companies { get { return Companies; } }
-
-        IEnumerable<Stock> IAssetsContext.Stocks { get { return Stocks; } }
+        public IDbSet<Stock> Stocks { get; set; }
 
         public DbSet<SchemaInfo> SchemaInfos { get; set; }
     }
