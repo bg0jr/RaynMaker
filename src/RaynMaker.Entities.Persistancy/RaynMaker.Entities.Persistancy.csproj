@@ -50,7 +50,7 @@
   <ItemGroup>
     <Compile Include="DBMigrationScript.cs" />
     <Compile Include="AssetsContext.cs" />
-    <Compile Include="Storage.cs" />
+    <Compile Include="DatabaseService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchemaInfo.cs" />
     <Compile Include="SQLiteConfiguration.cs" />

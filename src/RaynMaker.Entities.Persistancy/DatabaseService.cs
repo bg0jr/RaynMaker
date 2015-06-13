@@ -1,19 +1,16 @@
-﻿using System.ComponentModel.Composition;
-using System.Data.SQLite;
+﻿using System.Data.SQLite;
 using System.IO;
 using System.Linq;
 using Plainion;
 
 namespace RaynMaker.Entities.Persistancy
 {
-    public class Storage : IContextProvider
+    public class DatabaseService : IContextFactory
     {
         private const int RequiredDatabaseVersion = 1;
         private static bool myIsInitialized;
 
-        private AssetsContext myContext;
-
-        public Storage( string location )
+        public DatabaseService( string location )
         {
             Contract.RequiresNotNullNotEmpty( location, "location" );
 
@@ -60,25 +57,11 @@ namespace RaynMaker.Entities.Persistancy
             myIsInitialized = true;
         }
 
-        public IAssetsContext GetAssetsContext()
+        public IAssetsContext CreateAssetsContext()
         {
             Contract.Invariant( myIsInitialized, "Initialized() not yet called" );
 
-            if( myContext == null )
-            {
-                myContext = new AssetsContext( Location );
-            }
-
-            return myContext;
-        }
-
-        public void Dispose()
-        {
-            if( myContext != null )
-            {
-                myContext.Dispose();
-                myContext = null;
-            }
+            return new AssetsContext( Location );
         }
     }
 }
