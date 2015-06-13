@@ -13,6 +13,8 @@ namespace RaynMaker.Analyzer.Services
 {
     class ProjectService : ProjectService<Project>, IProjectHost
     {
+        private Storage myStorage;
+
         protected override void InitializeProject( Project project, IProgress<IProgressInfo> progress, CancellationToken cancellationToken )
         {
             progress.Report( new UndefinedProgress( "Creating project at " + project.Location ) );
@@ -25,7 +27,7 @@ namespace RaynMaker.Analyzer.Services
             var storage = new Storage( project.EntitiesSource );
             storage.Initialize();
 
-            project.SetAssetsContextFactory( storage );
+            project.SetAssetsContextProvider( storage );
         }
 
         protected override Project Deserialize( string file, IProgress<IProgressInfo> progress, CancellationToken cancellationToken )
@@ -35,10 +37,10 @@ namespace RaynMaker.Analyzer.Services
             var project = new Project();
             project.Location = file;
 
-            var storage = new Storage( project.EntitiesSource );
-            storage.Initialize();
+            myStorage = new Storage( project.EntitiesSource );
+            myStorage.Initialize();
 
-            project.SetAssetsContextFactory( storage );
+            project.SetAssetsContextProvider( myStorage );
 
             return project;
         }
@@ -56,6 +58,9 @@ namespace RaynMaker.Analyzer.Services
             {
                 Changing();
             }
+
+            myStorage.Dispose();
+            myStorage = null;
 
             base.OnProjectChanging( oldProject );
         }

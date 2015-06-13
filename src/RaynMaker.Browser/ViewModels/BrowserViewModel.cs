@@ -22,24 +22,17 @@ namespace RaynMaker.Browser.ViewModels
         {
             myProjectHost = host;
 
-            myProjectHost.Changing += OnProjectChanging;
             myProjectHost.Changed += OnProjectChanged;
 
             NewCommand = new DelegateCommand( OnNew );
             NewAssetRequest = new InteractionRequest<IConfirmation>();
-        }
 
-        private void OnProjectChanging()
-        {
-            if( myContext != null )
-            {
-                myContext.Dispose();
-            }
+            DeleteCommand = new DelegateCommand<Stock>( OnDelete );
         }
 
         private void OnProjectChanged()
         {
-            myContext = myProjectHost.Project.CreateAssetsContext();
+            myContext = myProjectHost.Project.GetAssetsContext();
 
             OnPropertyChanged( () => Assets );
             OnPropertyChanged( () => HasProject );
@@ -68,6 +61,20 @@ namespace RaynMaker.Browser.ViewModels
         public IEnumerable<Stock> Assets
         {
             get { return myContext != null ? myContext.Stocks.ToList() : Enumerable.Empty<Stock>(); }
+        }
+
+        public ICommand DeleteCommand { get; private set; }
+
+        private void OnDelete( Stock stock )
+        {
+            var ctx = myProjectHost.Project.GetAssetsContext();
+
+            ctx.Companies.Remove( stock.Company );
+            ctx.Stocks.Remove( stock );
+
+            ctx.SaveChanges();
+        
+            OnPropertyChanged( () => Assets );
         }
     }
 }

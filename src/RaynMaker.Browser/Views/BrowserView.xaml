@@ -24,9 +24,59 @@
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                 <Button Content="New" Command="{Binding NewCommand}" Margin="3"/>
             </StackPanel>
-            <ListView ItemsSource="{Binding Assets}">
 
-            </ListView>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" x:Name="Col1Resizer" Width="{Binding ElementName=Col1, Path=ActualWidth}"/>
+                <Grid Grid.Column="1" x:Name="Col2Resizer" Width="{Binding ElementName=Col2, Path=ActualWidth}"/>
+                <Grid Grid.Column="2" x:Name="Col3Resizer" Margin="5"/>
+
+                <ListView Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Assets}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn x:Name="Col1" Header="Name">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Company.Name}" MinWidth="200"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn x:Name="Col2" Header="Isin">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Isin}" MinWidth="200"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Width="{Binding ElementName=Col3Resizer, Path=ActualWidth}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Command="{Binding DataContext.DeleteCommand, ElementName=myRoot}" 
+                                                CommandParameter="{Binding}"
+                                                HorizontalAlignment="Right" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                            <Button.Content>
+                                                <Image Source="/RaynMaker.Browser;Component/Resources/cancel.png" Width="16" Height="16"/>
+                                            </Button.Content>
+                                        </Button>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
         </DockPanel>
     </Grid>
 

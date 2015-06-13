@@ -8,7 +8,7 @@ namespace RaynMaker.Analyzer.Services
 {
     class Project : ProjectBase, IProject
     {
-        private IContextFactory myContextFactory;
+        private IContextProvider myContextProvider;
 
         public string StorageRoot { get; private set; }
 
@@ -24,16 +24,16 @@ namespace RaynMaker.Analyzer.Services
             base.OnLocationChanged();
         }
 
-        public void SetAssetsContextFactory( IContextFactory factory )
+        public void SetAssetsContextProvider( IContextProvider provider )
         {
-            Contract.RequiresNotNull( factory, "factory" );
+            Contract.RequiresNotNull( provider, "factory" );
 
-            myContextFactory = factory;
+            myContextProvider = provider;
         }
 
-        public IAssetsContext CreateAssetsContext()
+        public IAssetsContext GetAssetsContext()
         {
-            return myContextFactory.CreateAssetsContext();
+            return myContextProvider.GetAssetsContext();
         }
     }
 }

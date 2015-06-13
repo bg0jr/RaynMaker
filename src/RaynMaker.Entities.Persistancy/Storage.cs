@@ -6,10 +6,12 @@ using Plainion;
 
 namespace RaynMaker.Entities.Persistancy
 {
-    public class Storage : IContextFactory
+    public class Storage : IContextProvider
     {
         private const int RequiredDatabaseVersion = 1;
         private static bool myIsInitialized;
+
+        private AssetsContext myContext;
 
         public Storage( string location )
         {
@@ -58,11 +60,25 @@ namespace RaynMaker.Entities.Persistancy
             myIsInitialized = true;
         }
 
-        public IAssetsContext CreateAssetsContext()
+        public IAssetsContext GetAssetsContext()
         {
             Contract.Invariant( myIsInitialized, "Initialized() not yet called" );
 
-            return new AssetsContext( Location );
+            if( myContext == null )
+            {
+                myContext = new AssetsContext( Location );
+            }
+
+            return myContext;
+        }
+
+        public void Dispose()
+        {
+            if( myContext != null )
+            {
+                myContext.Dispose();
+                myContext = null;
+            }
         }
     }
 }

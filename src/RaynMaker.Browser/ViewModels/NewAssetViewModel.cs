@@ -36,20 +36,19 @@ namespace RaynMaker.Browser.ViewModels
 
         private void OnOk()
         {
-            using( var ctx = myProjectHost.Project.CreateAssetsContext() )
-            {
-                var company = new Company();
-                company.Name = Name;
+            var ctx = myProjectHost.Project.GetAssetsContext();
 
-                var stock = new Stock();
-                stock.Isin = Isin;
+            var company = new Company();
+            company.Name = Name;
 
-                company.Stocks.Add( stock );
+            var stock = new Stock();
+            stock.Isin = Isin;
 
-                ctx.Companies.Add( company );
+            company.Stocks.Add( stock );
 
-                ctx.SaveChanges();
-            }
+            ctx.Companies.Add( company );
+
+            ctx.SaveChanges();
 
             Notification.TrySetConfirmed( true );
             FinishInteraction();

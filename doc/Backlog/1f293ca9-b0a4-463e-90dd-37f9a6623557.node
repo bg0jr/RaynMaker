@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="1f293ca9-b0a4-463e-90dd-37f9a6623557" Created="635697991058887846" LastModified="635697991297611500">
+  <Caption><![CDATA[DB load performance]]></Caption>
+  <Content><![CDATA[why does opening a DB so long even if it is almost empty?]]></Content>
+</Node>

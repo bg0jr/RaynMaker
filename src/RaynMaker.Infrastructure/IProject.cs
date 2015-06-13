@@ -5,6 +5,6 @@ namespace RaynMaker.Infrastructure
 {
     public interface IProject
     {
-        IAssetsContext CreateAssetsContext();
+        IAssetsContext GetAssetsContext();
     }
 }
