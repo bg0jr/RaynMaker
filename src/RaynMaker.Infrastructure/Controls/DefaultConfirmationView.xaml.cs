@@ -23,7 +23,7 @@ namespace RaynMaker.Infrastructure.Controls
 
         private void OnOk( object sender, RoutedEventArgs e )
         {
-            Notification.TrySetConfirmed( false );
+            Notification.TrySetConfirmed( true );
             FinishInteraction();
         }
 

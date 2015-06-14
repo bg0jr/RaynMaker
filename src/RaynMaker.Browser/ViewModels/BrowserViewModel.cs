@@ -8,6 +8,7 @@ using Plainion.AppFw.Wpf.Infrastructure;
 using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
 using System.Linq;
+using System;
 
 namespace RaynMaker.Browser.ViewModels
 {
@@ -28,6 +29,7 @@ namespace RaynMaker.Browser.ViewModels
             NewAssetRequest = new InteractionRequest<IConfirmation>();
 
             DeleteCommand = new DelegateCommand<Stock>( OnDelete );
+            DeletionConfirmationRequest = new InteractionRequest<IConfirmation>();
         }
 
         private void OnProjectChanged()
@@ -67,14 +69,27 @@ namespace RaynMaker.Browser.ViewModels
 
         private void OnDelete( Stock stock )
         {
-            var ctx = myProjectHost.Project.GetAssetsContext();
+            var notification = new Confirmation();
+            notification.Title = "Confirmation";
+            notification.Content = "Deletion cannot be undone. " + Environment.NewLine 
+                + "Do you really want to delete this asset?";
 
-            ctx.Companies.Remove( stock.Company );
-            ctx.Stocks.Remove( stock );
+            DeletionConfirmationRequest.Raise( notification, n =>
+            {
+                if( n.Confirmed )
+                {
+                    var ctx = myProjectHost.Project.GetAssetsContext();
 
-            ctx.SaveChanges();
-        
-            OnPropertyChanged( () => Assets );
+                    ctx.Companies.Remove( stock.Company );
+                    ctx.Stocks.Remove( stock );
+
+                    ctx.SaveChanges();
+
+                    OnPropertyChanged( () => Assets );
+                }
+            } );
         }
+
+        public InteractionRequest<IConfirmation> DeletionConfirmationRequest { get; private set; }
     }
 }
