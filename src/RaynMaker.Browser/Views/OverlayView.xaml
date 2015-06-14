@@ -9,16 +9,18 @@
                         <Grid.Background>
                             <SolidColorBrush Color="Blue" Opacity=".5" po:Freeze="True"/>
                         </Grid.Background>
-
                         <Grid Background="White" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <GroupBox Header="{Binding Title}" Margin="3" Padding="0,7,0,0">
-                                <ContentPresenter
+                                <!-- http://stackoverflow.com/questions/3676266/validation-errortemplate-not-showing-on-data-errors -->
+                                <AdornerDecorator>
+                                    <ContentPresenter
                                         Content="{TemplateBinding Content}"
                                         ContentTemplate="{TemplateBinding ContentTemplate}"
                                         Cursor="{TemplateBinding Cursor}"
                                         Margin="{TemplateBinding Padding}"
                                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                </AdornerDecorator>
                             </GroupBox>
                         </Grid>
                     </Grid>

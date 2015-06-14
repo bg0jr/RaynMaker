@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using System.ComponentModel.DataAnnotations;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
@@ -11,7 +12,7 @@ using RaynMaker.Infrastructure;
 namespace RaynMaker.Browser.ViewModels
 {
     [Export]
-    class NewAssetViewModel : BindableBase, IInteractionRequestAware
+    class NewAssetViewModel : AttributesBasedValidatableBindableBase, IInteractionRequestAware
     {
         private IProjectHost myProjectHost;
         private string myName;
@@ -24,14 +25,18 @@ namespace RaynMaker.Browser.ViewModels
 
             OkCommand = new DelegateCommand( OnOk );
             CancelCommand = new DelegateCommand( OnCancel );
+
+            ValidateProperties();
         }
 
+        [Required( ErrorMessage = "Company name is mandatory" )]
         public string Name
         {
             get { return myName; }
             set { SetProperty( ref myName, value ); }
         }
 
+        [Required( ErrorMessage = "Isin is mandatory" )]
         public string Isin
         {
             get { return myIsin; }

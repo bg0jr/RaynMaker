@@ -90,7 +90,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="RegionNames.cs" />
+    <Compile Include="ViewModels\AttributesBasedValidatableBindableBase.cs" />
     <Compile Include="ViewModels\NewAssetViewModel.cs" />
+    <Compile Include="ViewModels\BindableValidator.cs" />
     <Compile Include="Views\NewAssetView.xaml.cs">
       <DependentUpon>NewAssetView.xaml</DependentUpon>
     </Compile>
