@@ -4,11 +4,9 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Interactivity;
 using System.Windows.Markup;
-using System.Windows.Media;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Plainion;
 using Plainion.Windows;
-using Plainion.Windows.Controls;
 
 namespace RaynMaker.Infrastructure.Controls
 {
@@ -22,6 +20,7 @@ namespace RaynMaker.Infrastructure.Controls
     public class OverlayViewAction : TriggerAction<FrameworkElement>
     {
         private FrameworkElementAdorner myAdorner;
+        private ContentControl myHost;
 
         /// <summary>
         /// The view to display in this overlay.
@@ -66,9 +65,9 @@ namespace RaynMaker.Infrastructure.Controls
 
             Contract.RequiresNotNull( Container, "Container" );
 
-            var view = GetOverlayView( args.Context );
+            myHost = GetOverlayView( args.Context );
 
-            var interactionRequestAware = GetInteractionRequestAware( view );
+            var interactionRequestAware = GetInteractionRequestAware( myHost );
 
             Contract.Requires( interactionRequestAware != null, "View or DataContext has to implement IInteractionRequestAware" );
 
@@ -79,26 +78,36 @@ namespace RaynMaker.Infrastructure.Controls
                 adornerLayer.Remove( myAdorner );
                 myAdorner = null;
 
+                myHost.Content = null;
+                myHost = null;
+
                 args.Callback();
             };
 
             {
                 var adornerLayer = AdornerLayer.GetAdornerLayer( Container );
-                myAdorner = new FrameworkElementAdorner( view, Container );
+                myAdorner = new FrameworkElementAdorner( myHost, Container );
                 adornerLayer.Add( myAdorner );
             }
 
-            if( view.IsLoaded )
+            if( myHost.IsLoaded )
             {
-                SetInitialFocus( view );
+                SetInitialFocus( myHost );
             }
             else
             {
-                view.Loaded += OnViewLoaded;
+                myHost.Loaded += OnViewLoaded;
             }
         }
 
-        private void SetInitialFocus( FrameworkElement view )
+        void OnViewLoaded( object sender, RoutedEventArgs e )
+        {
+            myHost.Loaded -= OnViewLoaded;
+
+            SetInitialFocus( myHost );
+        }
+        
+        private static void SetInitialFocus( FrameworkElement view )
         {
             var child = LogicalTreeHelper.FindLogicalNode( view, "InitialFocus" ) as FrameworkElement;
             if( child != null )
@@ -111,14 +120,6 @@ namespace RaynMaker.Infrastructure.Controls
             // and really acts as kind of modal dialog
             view.Focusable = true;
             view.Focus();
-        }
-
-        void OnViewLoaded( object sender, RoutedEventArgs e )
-        {
-            var view = ( FrameworkElement )sender;
-            view.Loaded -= OnViewLoaded;
-
-            SetInitialFocus( view );
         }
 
         private ContentControl GetOverlayView( INotification notification )
