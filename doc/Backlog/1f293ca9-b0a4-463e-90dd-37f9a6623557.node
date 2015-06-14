@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="1f293ca9-b0a4-463e-90dd-37f9a6623557" Created="635697991058887846" LastModified="635697991297611500">
+<Node Id="1f293ca9-b0a4-463e-90dd-37f9a6623557" Created="635697991058887846" LastModified="635698875832647716" Origin="741e1d53-d828-4852-b27c-313e5b9898f1">
   <Caption><![CDATA[DB load performance]]></Caption>
-  <Content><![CDATA[why does opening a DB so long even if it is almost empty?]]></Content>
+  <Content><![CDATA[- http://www.fusonic.net/en/blog/2014/07/09/three-steps-for-fast-entityframework-6.1-first-query-performance/
+- https://visualstudiomagazine.com/Blogs/Tool-Tracker/2014/05/Speed-Up-EF-Startup.aspx
+- https://entityframework.codeplex.com/workitem/1876
+]]></Content>
 </Node>
