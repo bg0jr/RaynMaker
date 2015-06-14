@@ -8,6 +8,7 @@ using Microsoft.Practices.Prism.Mvvm;
 using Plainion.Prism.Interactivity.InteractionRequest;
 using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
+using RaynMaker.Infrastructure.Mvvm;
 
 namespace RaynMaker.Browser.ViewModels
 {
@@ -25,8 +26,6 @@ namespace RaynMaker.Browser.ViewModels
 
             OkCommand = new DelegateCommand( OnOk, ()=> !HasErrors );
             CancelCommand = new DelegateCommand( OnCancel );
-
-            ValidateProperties();
         }
 
         [Required( ErrorMessage = "Company name is mandatory" )]

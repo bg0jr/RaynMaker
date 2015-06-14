@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Interactivity;
 using System.Windows.Markup;
+using System.Windows.Media;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Plainion;
 using Plainion.Windows;
@@ -19,6 +21,8 @@ namespace RaynMaker.Infrastructure.Controls
     [DefaultProperty( "ViewContent" ), ContentProperty( "ViewContent" )]
     public class OverlayViewAction : TriggerAction<FrameworkElement>
     {
+        private FrameworkElementAdorner myAdorner;
+
         /// <summary>
         /// The view to display in this overlay.
         /// </summary>
@@ -32,14 +36,14 @@ namespace RaynMaker.Infrastructure.Controls
         }
 
         /// <summary>
-        /// The Panel to which the view should be added
+        /// The element to which the view should be added
         /// </summary>
         public static readonly DependencyProperty ContainerProperty = DependencyProperty.Register( "Container",
             typeof( FrameworkElement ), typeof( OverlayViewAction ), new PropertyMetadata( null ) );
 
-        public Panel Container
+        public FrameworkElement Container
         {
-            get { return ( Panel )GetValue( OverlayViewAction.ContainerProperty ); }
+            get { return ( FrameworkElement )GetValue( OverlayViewAction.ContainerProperty ); }
             set { SetValue( OverlayViewAction.ContainerProperty, value ); }
         }
 
@@ -71,15 +75,18 @@ namespace RaynMaker.Infrastructure.Controls
             interactionRequestAware.Notification = args.Context;
             interactionRequestAware.FinishInteraction = () =>
             {
-                Container.Children.Remove( view );
+                var adornerLayer = AdornerLayer.GetAdornerLayer( Container );
+                adornerLayer.Remove( myAdorner );
+                myAdorner = null;
 
                 args.Callback();
             };
 
-            Container.Children.Add( view );
-
-            //var parentAdorner = System.Windows.Documents.AdornerLayer.GetAdornerLayer( Container );
-            //parentAdorner.Add( new FrameworkElementAdorner( view, Container) );
+            {
+                var adornerLayer = AdornerLayer.GetAdornerLayer( Container );
+                myAdorner = new FrameworkElementAdorner( view, Container );
+                adornerLayer.Add( myAdorner );
+            }
 
             if( view.IsLoaded )
             {
@@ -97,7 +104,13 @@ namespace RaynMaker.Infrastructure.Controls
             if( child != null )
             {
                 child.Focus();
+                return;
             }
+
+            // set focus to view as fallback so that the overlay gets the keyboard input
+            // and really acts as kind of modal dialog
+            view.Focusable = true;
+            view.Focus();
         }
 
         void OnViewLoaded( object sender, RoutedEventArgs e )

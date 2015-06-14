@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="61915f34-0050-413a-b3b5-955035258f9b" Created="635698870251808510" LastModified="635698870532884587">
+  <Caption><![CDATA[Validation.ErrorTemplate fails witout AdornerDecorator]]></Caption>
+  <Content><![CDATA[- see NewAssetsView]]></Content>
+</Node>

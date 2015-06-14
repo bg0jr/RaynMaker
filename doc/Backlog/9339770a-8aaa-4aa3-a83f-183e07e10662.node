@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="9339770a-8aaa-4aa3-a83f-183e07e10662" Created="635698623133989307" LastModified="635698623480529128">
-  <Caption><![CDATA[OverlayViewAction - Adorner?]]></Caption>
-  <Content><![CDATA[- instead of requiring a container where we can add the "dialog"
-  what about just using adorners?]]></Content>
-</Node>

@@ -2,5 +2,8 @@
 <Tree>
   <Node Id="267c9b02-a6a7-4a96-a37d-36f422f89088">
     <Caption><![CDATA[Backlog]]></Caption>
+    <Node Id="61915f34-0050-413a-b3b5-955035258f9b">
+      <Caption><![CDATA[Validation.ErrorTemplate fails witout AdornerDecorator]]></Caption>
+    </Node>
   </Node>
 </Tree>

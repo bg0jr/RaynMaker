@@ -2,17 +2,11 @@
 <Tree>
   <Node Id="741e1d53-d828-4852-b27c-313e5b9898f1">
     <Caption><![CDATA[Planning]]></Caption>
-    <Node Id="869439e2-4ad9-43ed-b591-82a75c36cb91">
-      <Caption><![CDATA[Implement validation]]></Caption>
-    </Node>
     <Node Id="1f293ca9-b0a4-463e-90dd-37f9a6623557">
       <Caption><![CDATA[DB load performance]]></Caption>
     </Node>
     <Node Id="e18c7505-5255-411f-b8a5-c391b9998b3f">
       <Caption><![CDATA[implement "Edit" of assets]]></Caption>
-    </Node>
-    <Node Id="9339770a-8aaa-4aa3-a83f-183e07e10662">
-      <Caption><![CDATA[OverlayViewAction - Adorner?]]></Caption>
     </Node>
   </Node>
 </Tree>

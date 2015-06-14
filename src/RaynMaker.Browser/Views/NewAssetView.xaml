@@ -7,17 +7,15 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <ControlTemplate x:Key="RedAsteriskValidationTemplate">
-            <StackPanel Orientation="Horizontal"
-                        ToolTip="{Binding Path=AdornedElement.(Validation.Errors)[0].ErrorContent, ElementName=Placeholder}">
-                <TextBlock Text="*" Foreground="Red" FontWeight="Bold" Margin="0,0,3,0"
-                           VerticalAlignment="Center"/>
-                <AdornedElementPlaceholder x:Name="Placeholder"/>
-            </StackPanel>
-        </ControlTemplate>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/RaynMaker.Infrastructure;component/Resources/Templates.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
 
-    <!-- Without AdornerDecorator the initial validation errors are not displayed
+    <!-- TODO: Without AdornerDecorator the initial validation errors are not displayed.
+    Even with IValidationAware :( ... the second time the dialog is opened the initial validation fails
     http://www.andyfrench.info/2014/03/validation-adorners-not-displaying-in.html -->
     <AdornerDecorator>
         <Grid>

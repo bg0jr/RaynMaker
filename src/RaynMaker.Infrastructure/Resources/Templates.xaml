@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ControlTemplate x:Key="RedAsteriskValidationTemplate">
+        <StackPanel Orientation="Horizontal"
+                    ToolTip="{Binding Path=AdornedElement.(Validation.Errors)[0].ErrorContent, ElementName=Placeholder}">
+            <TextBlock Text="*" Foreground="Red" FontWeight="Bold" Margin="0,0,3,0" VerticalAlignment="Center"/>
+            <AdornedElementPlaceholder x:Name="Placeholder"/>
+        </StackPanel>
+    </ControlTemplate>
+</ResourceDictionary>
