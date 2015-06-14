@@ -5,6 +5,8 @@ using System.Windows.Interactivity;
 using System.Windows.Markup;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Plainion;
+using Plainion.Windows;
+using Plainion.Windows.Controls;
 
 namespace RaynMaker.Infrastructure.Controls
 {
@@ -75,6 +77,9 @@ namespace RaynMaker.Infrastructure.Controls
             };
 
             Container.Children.Add( view );
+
+            //var parentAdorner = System.Windows.Documents.AdornerLayer.GetAdornerLayer( Container );
+            //parentAdorner.Add( new FrameworkElementAdorner( view, Container) );
 
             if( view.IsLoaded )
             {

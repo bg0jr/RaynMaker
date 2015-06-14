@@ -23,7 +23,7 @@ namespace RaynMaker.Browser.ViewModels
         {
             myProjectHost = host;
 
-            OkCommand = new DelegateCommand( OnOk );
+            OkCommand = new DelegateCommand( OnOk, ()=> !HasErrors );
             CancelCommand = new DelegateCommand( OnCancel );
 
             ValidateProperties();
@@ -47,7 +47,7 @@ namespace RaynMaker.Browser.ViewModels
 
         public INotification Notification { get; set; }
 
-        public ICommand OkCommand { get; private set; }
+        public DelegateCommand OkCommand { get; private set; }
 
         private void OnOk()
         {
@@ -82,6 +82,13 @@ namespace RaynMaker.Browser.ViewModels
         private void OnCancel()
         {
             Close( confirmed: false );
+        }
+
+        protected override void OnErrorsChanged( System.ComponentModel.DataErrorsChangedEventArgs e )
+        {
+            base.OnErrorsChanged( e );
+
+            OkCommand.RaiseCanExecuteChanged();
         }
     }
 }

@@ -11,5 +11,8 @@
     <Node Id="e18c7505-5255-411f-b8a5-c391b9998b3f">
       <Caption><![CDATA[implement "Edit" of assets]]></Caption>
     </Node>
+    <Node Id="9339770a-8aaa-4aa3-a83f-183e07e10662">
+      <Caption><![CDATA[OverlayViewAction - Adorner?]]></Caption>
+    </Node>
   </Node>
 </Tree>
