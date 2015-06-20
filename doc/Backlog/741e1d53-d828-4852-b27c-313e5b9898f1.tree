@@ -4,6 +4,9 @@
     <Caption><![CDATA[Planning]]></Caption>
     <Node Id="e18c7505-5255-411f-b8a5-c391b9998b3f">
       <Caption><![CDATA[implement "Edit" of assets]]></Caption>
+      <Node Id="a3fe29a9-322c-4a34-b11a-75b4b812460a">
+        <Caption><![CDATA[close tab]]></Caption>
+      </Node>
     </Node>
   </Node>
 </Tree>

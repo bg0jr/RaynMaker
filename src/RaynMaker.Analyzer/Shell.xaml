@@ -6,6 +6,7 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:prism="http://www.codeplex.com/prism"
         xmlns:win32="clr-namespace:Microsoft.Win32;assembly=PresentationFramework"
+        xmlns:l="clr-namespace:RaynMaker.Analyzer"
         Title="RaynMaker Analyzer" Height="600" Width="1200">
     <Window.Resources>
         <ResourceDictionary>
@@ -45,7 +46,7 @@
                 <TextBlock Text="{Binding ProjectLifecycleViewModel.Progress.Activity}"/>
             </StatusBarItem>
         </StatusBar>
-        <TabControl Margin="3" prism:RegionManager.RegionName="{x:Static rym:RegionNames.AssetDetails}">
+        <TabControl Margin="3" prism:RegionManager.RegionName="{x:Static l:CompositionNames.AssetsRegion}">
             <TabItem Header="Browser">
                 <ContentControl  Margin="2" prism:RegionManager.RegionName="{x:Static rym:RegionNames.Browser}"/>
             </TabItem>

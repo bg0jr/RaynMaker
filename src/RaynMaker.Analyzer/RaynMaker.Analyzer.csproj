@@ -90,9 +90,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Services\AssetNavigationParameters.cs" />
+    <Compile Include="Services\AssetNavigationService.cs" />
     <Compile Include="Services\Project.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="ShellViewModel.cs" />
+    <Compile Include="ViewModels\AssetDetailsViewModel.cs" />
+    <Compile Include="CompositionNames.cs" />
+    <Compile Include="Views\AssetDetailsView.xaml.cs">
+      <DependentUpon>AssetDetailsView.xaml</DependentUpon>
+    </Compile>
     <Page Include="Shell.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -105,6 +112,10 @@
       <DependentUpon>Shell.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AssetDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -133,5 +144,6 @@
       <Name>RaynMaker.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

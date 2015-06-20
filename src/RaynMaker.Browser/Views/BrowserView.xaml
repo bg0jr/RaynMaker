@@ -36,12 +36,18 @@
                 <Grid Grid.Column="1" x:Name="Col2Resizer" Width="{Binding ElementName=Col2, Path=ActualWidth}"/>
                 <Grid Grid.Column="2" x:Name="Col3Resizer" Margin="5"/>
 
-                <ListView Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Assets}">
+                <ListView Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Assets}"
+                          SelectedItem="{Binding SelectedAsset}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                         </Style>
                     </ListView.ItemContainerStyle>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding OpenAssetCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <ListView.View>
                         <GridView>
                             <GridViewColumn x:Name="Col1" Header="Name">

@@ -12,6 +12,7 @@ using Plainion.AppFw.Wpf.ViewModels;
 using Plainion.Prism.Events;
 using RaynMaker.Analyzer.Services;
 using RaynMaker.Infrastructure;
+using RaynMaker.Infrastructure.Events;
 
 namespace RaynMaker.Analyzer
 {
@@ -20,14 +21,18 @@ namespace RaynMaker.Analyzer
     {
         private const string AppName = "RaynMaker.Analyzer";
         private IProjectService<Project> myProjectService;
+        private AssetNavigationService myNavigationService;
 
         [ImportingConstructor]
-        public ShellViewModel( IProjectService<Project> projectService, IEventAggregator eventAggregator )
+        public ShellViewModel( IProjectService<Project> projectService, IEventAggregator eventAggregator,
+            AssetNavigationService navigationService )
         {
             myProjectService = projectService;
+            myNavigationService = navigationService;
 
             eventAggregator.GetEvent<ApplicationReadyEvent>().Subscribe( x => OnApplicationReady() );
-            
+            eventAggregator.GetEvent<AssetSelectedEvent>().Subscribe( OnAssetSelected );
+
             AboutCommand = new DelegateCommand( OnAboutCommand );
         }
 
@@ -59,6 +64,11 @@ namespace RaynMaker.Analyzer
         private void OnAboutCommand()
         {
             Process.Start( "https://github.com/bg0jr/RaynMaker" );
+        }
+
+        private void OnAssetSelected( long assetId )
+        {
+            myNavigationService.NavigateToAsset( assetId );
         }
     }
 }

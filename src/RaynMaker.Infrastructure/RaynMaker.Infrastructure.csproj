@@ -93,6 +93,7 @@
     </Compile>
     <Compile Include="Controls\OverlayViewAction.cs" />
     <Compile Include="Controls\OverlayViewActionRegionAdapter.cs" />
+    <Compile Include="Events\AssetSelectedEvent.cs" />
     <Compile Include="IProject.cs" />
     <Compile Include="IProjectHost.cs" />
     <Compile Include="Mvvm\IValidationAware.cs" />
@@ -127,5 +128,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

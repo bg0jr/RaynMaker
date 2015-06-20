@@ -9,6 +9,8 @@ using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
 using System.Linq;
 using System;
+using Microsoft.Practices.Prism.PubSubEvents;
+using RaynMaker.Infrastructure.Events;
 
 namespace RaynMaker.Browser.ViewModels
 {
@@ -17,17 +19,20 @@ namespace RaynMaker.Browser.ViewModels
     {
         private IProjectHost myProjectHost;
         private IAssetsContext myContext;
+        private IEventAggregator myEventAggregator;
+        private Stock mySelectedAsset;
 
         [ImportingConstructor]
-        public BrowserViewModel( IProjectHost host )
+        public BrowserViewModel( IProjectHost host, IEventAggregator eventAggregator )
         {
             myProjectHost = host;
+            myEventAggregator = eventAggregator;
 
             myProjectHost.Changed += OnProjectChanged;
 
             NewCommand = new DelegateCommand( OnNew );
             NewAssetRequest = new InteractionRequest<IConfirmation>();
-
+            OpenAssetCommand = new DelegateCommand( OnOpenAsset );
             DeleteCommand = new DelegateCommand<Stock>( OnDelete );
             DeletionConfirmationRequest = new InteractionRequest<IConfirmation>();
         }
@@ -65,13 +70,19 @@ namespace RaynMaker.Browser.ViewModels
             get { return myContext != null ? myContext.Stocks.ToList() : Enumerable.Empty<Stock>(); }
         }
 
+        public Stock SelectedAsset
+        {
+            get { return mySelectedAsset; }
+            set { SetProperty( ref mySelectedAsset, value ); }
+        }
+
         public ICommand DeleteCommand { get; private set; }
 
         private void OnDelete( Stock stock )
         {
             var notification = new Confirmation();
             notification.Title = "Confirmation";
-            notification.Content = "Deletion cannot be undone. " + Environment.NewLine 
+            notification.Content = "Deletion cannot be undone. " + Environment.NewLine
                 + "Do you really want to delete this asset?";
 
             DeletionConfirmationRequest.Raise( notification, n =>
@@ -91,5 +102,15 @@ namespace RaynMaker.Browser.ViewModels
         }
 
         public InteractionRequest<IConfirmation> DeletionConfirmationRequest { get; private set; }
+
+        public ICommand OpenAssetCommand { get; private set; }
+
+        public void OnOpenAsset()
+        {
+            if( SelectedAsset != null )
+            {
+                myEventAggregator.GetEvent<AssetSelectedEvent>().Publish( SelectedAsset.Id );
+            }
+        }
     }
 }
