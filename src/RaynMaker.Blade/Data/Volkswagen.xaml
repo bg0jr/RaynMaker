@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DataSheet xmlns="clr-namespace:RaynMaker.Blade.Sdk;assembly=RaynMaker.Blade" 
+           xmlns:s="clr-namespace:System;assembly=mscorlib"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:p="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <DataSheet.Resources>
+        <s:String x:Key="Ariva">http://www.ariva.de/volkswagen-aktie/bilanz-guv</s:String>
+    </DataSheet.Resources>
+    <Stock Name="Volkswagen" Isin="DE0007664005">
+        <Stock.Overview>
+            <Overview Homepage="http://www.volkswagenag.com"
+                      Origin="Germany"
+                      Sector="Automobile manufactor">
+                <Overview.References>
+                    <Reference Url="http://www.ariva.de/volkswagen-aktie"/>
+                </Overview.References>
+            </Overview>
+        </Stock.Overview>
+        <Dividends>
+            <Dividend Year="2010" Value="2.20" Curreny="Euro" Timestamp="2015-06-20" Origin="{p:StaticResource Ariva}"/> 
+        </Dividends>
+    </Stock>
+</DataSheet>
+
