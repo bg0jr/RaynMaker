@@ -45,8 +45,10 @@
                 <TextBlock Text="{Binding ProjectLifecycleViewModel.Progress.Activity}"/>
             </StatusBarItem>
         </StatusBar>
-        <Grid>
-            <ContentControl Margin="3" prism:RegionManager.RegionName="{x:Static rym:RegionNames.Browser}"/>
-        </Grid>
+        <TabControl Margin="3" prism:RegionManager.RegionName="{x:Static rym:RegionNames.AssetDetails}">
+            <TabItem Header="Browser">
+                <ContentControl  Margin="2" prism:RegionManager.RegionName="{x:Static rym:RegionNames.Browser}"/>
+            </TabItem>
+        </TabControl>
     </DockPanel>
 </Window>
