@@ -10,6 +10,7 @@ using RaynMaker.Analyzer.Services;
 
 namespace RaynMaker.Analyzer.ViewModels
 {
+    [Export]
     class AssetDetailsViewModel : BindableBase, INavigationAware
     {
         private string myHeader;

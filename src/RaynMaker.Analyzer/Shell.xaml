@@ -46,9 +46,18 @@
                 <TextBlock Text="{Binding ProjectLifecycleViewModel.Progress.Activity}"/>
             </StatusBarItem>
         </StatusBar>
-        <TabControl Margin="3" prism:RegionManager.RegionName="{x:Static l:CompositionNames.AssetsRegion}">
+        <TabControl Margin="3">
             <TabItem Header="Browser">
                 <ContentControl  Margin="2" prism:RegionManager.RegionName="{x:Static rym:RegionNames.Browser}"/>
+            </TabItem>
+            <TabItem Header="Details">
+                <TabControl Margin="3" prism:RegionManager.RegionName="{x:Static l:CompositionNames.AssetsRegion}">
+                    <TabControl.ItemContainerStyle>
+                        <Style TargetType="{x:Type TabItem}">
+                            <Setter Property="Header" Value="{Binding Content.DataContext.Header}" />
+                        </Style>
+                    </TabControl.ItemContainerStyle>
+                </TabControl>
             </TabItem>
         </TabControl>
     </DockPanel>
