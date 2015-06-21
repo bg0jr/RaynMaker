@@ -4,6 +4,6 @@ namespace RaynMaker.Blade.Engine
 {
     public interface IReportElement
     {
-        void Report( CalculationContext context );
+        void Report( ReportContext context );
     }
 }

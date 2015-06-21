@@ -22,7 +22,7 @@ namespace RaynMaker.Blade
             Console.WriteLine( "Analyzing: {0} - Isin: {1}", stock.Name, stock.Isin );
             Console.WriteLine();
 
-            var context = new CalculationContext( stock, Console.Out );
+            var context = new ReportContext( stock, Console.Out );
             foreach( var figures in myAnalysis.Figures )
             {
                 figures.Report( context );

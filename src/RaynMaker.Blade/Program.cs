@@ -36,6 +36,11 @@ namespace RaynMaker.Blade
                 {
                     throw new NotSupportedException( "Asset type not supported: " + sheet.Asset.GetType() );
                 }
+
+                if( Debugger.IsAttached )
+                {
+                    Console.ReadLine();
+                }
             }
             catch( Exception ex )
             {

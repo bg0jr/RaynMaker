@@ -16,20 +16,20 @@
                 </Overview.References>
             </Overview>
         </Stock.Overview>
-        <Price Date="2015-06-19" Value="206.35" Curreny="Euro" Timestamp="2015-06-21" Origin="{p:StaticResource Ariva}"/>
+        <Price Date="2015-06-19" Value="206.35" Currency="Euro" Timestamp="2015-06-21" Origin="{p:StaticResource Ariva}"/>
         <Series>
-            <Dividend Year="2010" Value="2.20" Curreny="Euro" Timestamp="2015-06-21" Origin="{p:StaticResource Ariva}"/>
-            <Dividend Year="2011" Value="3.00" Curreny="Euro" Timestamp="2015-06-21" Origin="{p:StaticResource Ariva}"/>
-            <Dividend Year="2012" Value="3.50" Curreny="Euro" Timestamp="2015-06-21" Origin="{p:StaticResource Ariva}"/>
-            <Dividend Year="2013" Value="4.00" Curreny="Euro" Timestamp="2015-06-21" Origin="{p:StaticResource Ariva}"/>
-            <Dividend Year="2014" Value="4.80" Curreny="Euro" Timestamp="2015-06-21" Origin="{p:StaticResource Ariva}"/>
+            <Dividend Year="2010" Value="2.20" Currency="Euro" Timestamp="2015-06-21" Origin="{p:StaticResource Ariva}"/>
+            <Dividend Year="2011" Value="3.00" Currency="Euro" Timestamp="2015-06-21" Origin="{p:StaticResource Ariva}"/>
+            <Dividend Year="2012" Value="3.50" Currency="Euro" Timestamp="2015-06-21" Origin="{p:StaticResource Ariva}"/>
+            <Dividend Year="2013" Value="4.00" Currency="Euro" Timestamp="2015-06-21" Origin="{p:StaticResource Ariva}"/>
+            <Dividend Year="2014" Value="4.80" Currency="Euro" Timestamp="2015-06-21" Origin="{p:StaticResource Ariva}"/>
         </Series>
         <Series>
-            <Eps Year="2010" Value="15.17" Curreny="Euro" Timestamp="2015-06-21" Origin="{p:StaticResource Ariva}"/>
-            <Eps Year="2011" Value="33.10" Curreny="Euro" Timestamp="2015-06-21" Origin="{p:StaticResource Ariva}"/>
-            <Eps Year="2012" Value="46.42" Curreny="Euro" Timestamp="2015-06-21" Origin="{p:StaticResource Ariva}"/>
-            <Eps Year="2013" Value="18.63" Curreny="Euro" Timestamp="2015-06-21" Origin="{p:StaticResource Ariva}"/>
-            <Eps Year="2014" Value="20.84" Curreny="Euro" Timestamp="2015-06-21" Origin="{p:StaticResource Ariva}"/>
+            <Eps Year="2010" Value="15.17" Currency="Euro" Timestamp="2015-06-21" Origin="{p:StaticResource Ariva}"/>
+            <Eps Year="2011" Value="33.10" Currency="Euro" Timestamp="2015-06-21" Origin="{p:StaticResource Ariva}"/>
+            <Eps Year="2012" Value="46.42" Currency="Euro" Timestamp="2015-06-21" Origin="{p:StaticResource Ariva}"/>
+            <Eps Year="2013" Value="18.63" Currency="Euro" Timestamp="2015-06-21" Origin="{p:StaticResource Ariva}"/>
+            <Eps Year="2014" Value="20.84" Currency="Euro" Timestamp="2015-06-21" Origin="{p:StaticResource Ariva}"/>
         </Series>
     </Stock>
 </DataSheet>

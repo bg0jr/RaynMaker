@@ -22,7 +22,7 @@ namespace RaynMaker.Blade.AnalysisSpec
         [Required]
         public int Count { get; set; }
 
-        public void Report( CalculationContext context )
+        public void Report( ReportContext context )
         {
             //int year = DateTime.Today.Year;
             //for( int i = 0; i < Count; ++i )
