@@ -4,17 +4,17 @@ using System.ComponentModel.DataAnnotations;
 using System.Windows.Markup;
 using Plainion.Validation;
 
-namespace RaynMaker.Blade.Sdk
+namespace RaynMaker.Blade.DataSheetSpec
 {
     [DefaultProperty( "Values" ), ContentProperty( "Values" )]
-    public class Dividends
+    public class Series
     {
-        public Dividends()
+        public Series()
         {
-            Values = new List<Dividend>();
+            Values = new List<object>();
         }
 
         [Required,ValidateObject]
-        public List<Dividend> Values { get; private set; }
+        public List<object> Values { get; private set; }
   }
 }

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RaynMaker.Blade.Sdk
+namespace RaynMaker.Blade.DataSheetSpec
 {
-    public class Dividend : DatumWithCurrency
+    public class Eps : DatumWithCurrency
     {
         [Required]
         public int Year { get; set; }

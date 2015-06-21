@@ -1,15 +1,18 @@
 ﻿using System;
 using System.IO;
-using RaynMaker.Blade.Sdk;
+using RaynMaker.Blade.AnalysisSpec;
+using RaynMaker.Blade.DataSheetSpec;
 
 namespace RaynMaker.Blade
 {
     class StockAnalyzer
     {
+        private Analysis myAnalysis;
         private TextWriter myWriter;
 
-        public StockAnalyzer( TextWriter writer )
+        public StockAnalyzer( Analysis analysis, TextWriter writer )
         {
+            myAnalysis = analysis;
             myWriter = writer;
         }
 

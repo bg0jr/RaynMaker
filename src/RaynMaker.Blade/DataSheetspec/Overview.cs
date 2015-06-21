@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Plainion.Validation;
 
-namespace RaynMaker.Blade.Sdk
+namespace RaynMaker.Blade.DataSheetSpec
 {
     public class Overview
     {

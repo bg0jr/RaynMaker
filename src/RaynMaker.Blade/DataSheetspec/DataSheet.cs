@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Markup;
 using Plainion.Validation;
 
-namespace RaynMaker.Blade.Sdk
+namespace RaynMaker.Blade.DataSheetSpec
 {
     [DefaultProperty( "Asset" ), ContentProperty( "Asset" )]
     public class DataSheet : DataTemplate

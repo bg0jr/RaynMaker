@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace RaynMaker.Blade.Sdk
+namespace RaynMaker.Blade.DataSheetSpec
 {
-    //[TypeConverter( typeof( CurrencyConverter ) )]
+    [TypeConverter( typeof( CurrencyConverter ) )]
     public class Currency
     {
         public Currency( string name )

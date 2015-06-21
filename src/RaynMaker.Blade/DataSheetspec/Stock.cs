@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Markup;
 using Plainion.Validation;
 
-namespace RaynMaker.Blade.Sdk
+namespace RaynMaker.Blade.DataSheetSpec
 {
     [DefaultProperty( "Data" ), ContentProperty( "Data" )]
     public class Stock : Asset
