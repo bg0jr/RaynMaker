@@ -47,7 +47,7 @@ namespace RaynMaker.Blade.AnalysisSpec
                     .Cast<AnualDatum>()
                     .ToList();
 
-                Contract.Requires( values.Select( v => v.Currency ).Distinct().Count() == 1, "Currency inconsistencies found" );
+                Contract.Requires( values.Select( v => v.Currency ).Distinct().Count() <= 1, "Currency inconsistencies found" );
 
                 if( values.Any() )
                 {

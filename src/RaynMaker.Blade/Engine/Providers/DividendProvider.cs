@@ -11,7 +11,7 @@ namespace RaynMaker.Blade.Engine
         {
             return asset.Data.OfType<Series>()
                 .Where( s => s.Values.OfType<Dividend>().Any() )
-                .SingleOrDefault();
+                .SingleOrDefault() ?? new Series();
         }
     }
 }
