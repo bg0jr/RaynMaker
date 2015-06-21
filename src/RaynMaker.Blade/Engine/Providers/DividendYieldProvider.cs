@@ -15,20 +15,14 @@ namespace RaynMaker.Blade.Engine.Providers
                 return null;
             }
 
-            var dividendSeries = asset.Data.OfType<Series>()
-                .Where( s => s.Values.OfType<Dividend>().Any() )
-                .SingleOrDefault();
+            var provider = new DatumProvider( asset );
+            var dividends = provider.GetSeries<Dividend>();
 
-            if( dividendSeries == null )
-            {
-                return null;
-            }
-
-            var dividend = dividendSeries.Values.Cast<Dividend>().SingleOrDefault( d => d.Year == price.Date.Year );
+            var dividend = dividends.SingleOrDefault( d => d.Year == price.Date.Year );
             if( dividend == null )
             {
                 // TODO: info got lost that this is based on dividend of previous year
-                dividend = dividendSeries.Values.Cast<Dividend>().SingleOrDefault( d => d.Year == price.Date.Year - 1 );
+                dividend = dividends.SingleOrDefault( d => d.Year == price.Date.Year - 1 );
                 if( dividend == null )
                 {
                     return null;

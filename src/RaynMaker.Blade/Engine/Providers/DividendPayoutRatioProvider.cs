@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Plainion;
 using RaynMaker.Blade.DataSheetSpec;
 
 namespace RaynMaker.Blade.Engine
@@ -9,25 +10,21 @@ namespace RaynMaker.Blade.Engine
 
         public object ProvideValue( Asset asset )
         {
-            var dividendSeries = asset.Data.OfType<Series>()
-                .Where( s => s.Values.OfType<Dividend>().Any() )
-                .SingleOrDefault();
+            var provider = new DatumProvider( asset );
 
-            var epsSeries = asset.Data.OfType<Series>()
-                .Where( s => s.Values.OfType<Eps>().Any() )
-                .SingleOrDefault();
+            var dividends = provider.GetSeries<Dividend>();
+            var earnings = provider.GetSeries<Eps>();
 
-            if( dividendSeries == null || epsSeries == null )
+            if( !dividends.Any() || !earnings.Any() )
             {
                 return new Series();
             }
 
             var result = new Series();
-            var epsValues = epsSeries.Values.Cast<Eps>();
 
-            foreach( var dividend in dividendSeries.Values.Cast<Dividend>() )
+            foreach( var dividend in dividends )
             {
-                var eps = epsValues.SingleOrDefault( e => e.Year == dividend.Year );
+                var eps = earnings.SingleOrDefault( e => e.Year == dividend.Year );
                 if( eps != null )
                 {
                     result.Values.Add( new AnualDatum

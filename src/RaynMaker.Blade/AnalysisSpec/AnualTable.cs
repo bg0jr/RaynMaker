@@ -12,9 +12,9 @@ using RaynMaker.Blade.Engine;
 namespace RaynMaker.Blade.AnalysisSpec
 {
     [DefaultProperty( "Rows" ), ContentProperty( "Rows" )]
-    public class AnualSeries : IReportElement
+    public class AnualTable : IReportElement
     {
-        public AnualSeries()
+        public AnualTable()
         {
             Rows = new List<Row>();
         }
@@ -30,7 +30,7 @@ namespace RaynMaker.Blade.AnalysisSpec
 
         public void Report( ReportContext context )
         {
-            context.Out.Write( "{0,20}", "" );
+            context.Out.Write( "{0,30}", "" );
             for( int year = EndYear - Count + 1; year <= EndYear; ++year )
             {
                 context.Out.Write( "{0,8}", year );
@@ -42,12 +42,21 @@ namespace RaynMaker.Blade.AnalysisSpec
             {
                 var provider = context.GetProvider( row.Value );
 
-                context.Out.Write( "{0,-20}", provider.Name );
-
                 var series = ( Series )provider.ProvideValue( context.Asset );
                 var values = series.Values
                     .Cast<AnualDatum>()
                     .ToList();
+
+                Contract.Requires( values.Select( v => v.Currency ).Distinct().Count() == 1, "Currency inconsistencies found" );
+
+                if( values.Any() )
+                {
+                    context.Out.Write( "{0,-30}", string.Format( "{0} ({1})", provider.Name, values.First().Currency.Name ) );
+                }
+                else
+                {
+                    context.Out.Write( "{0,-30}", provider.Name );
+                }
 
                 for( int year = EndYear - Count + 1; year <= EndYear; ++year )
                 {
@@ -61,7 +70,7 @@ namespace RaynMaker.Blade.AnalysisSpec
                         context.Out.Write( "{0,8:0.00}", value.Value );
                     }
                 }
-            
+
                 context.Out.WriteLine();
             }
         }

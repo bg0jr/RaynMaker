@@ -37,11 +37,12 @@
   <ItemGroup>
     <Compile Include="AnalysisSpec\Analysis.cs" />
     <Compile Include="AnalysisSpec\AnalysisTemplate.cs" />
-    <Compile Include="AnalysisSpec\AnualSeries.cs" />
+    <Compile Include="AnalysisSpec\AnualTable.cs" />
     <Compile Include="AnalysisSpec\Row.cs" />
     <Compile Include="AnalysisSpec\TextBlock.cs" />
     <Compile Include="DataSheetSpec\AnualDatum.cs" />
     <Compile Include="DataSheetSpec\DailyDatum.cs" />
+    <Compile Include="Engine\DatumProvider.cs" />
     <Compile Include="Engine\Providers\DividendPayoutRatioProvider.cs" />
     <Compile Include="Engine\Providers\EpsProvider.cs" />
     <Compile Include="Engine\Providers\DividendProvider.cs" />
