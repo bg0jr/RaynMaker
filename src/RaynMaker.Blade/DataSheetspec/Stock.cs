@@ -10,18 +10,10 @@ namespace RaynMaker.Blade.DataSheetSpec
     [DefaultProperty( "Data" ), ContentProperty( "Data" )]
     public class Stock : Asset
     {
-        public Stock()
-        {
-            Data = new List<object>();
-        }
-
         [Required]
         public string Isin { get; set; }
 
         [Required, ValidateObject]
         public Overview Overview { get; set; }
-
-        [ValidateObject]
-        public List<object> Data { get; private set; }
     }
 }

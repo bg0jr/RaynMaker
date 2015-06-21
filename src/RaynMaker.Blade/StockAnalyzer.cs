@@ -2,6 +2,7 @@
 using System.IO;
 using RaynMaker.Blade.AnalysisSpec;
 using RaynMaker.Blade.DataSheetSpec;
+using RaynMaker.Blade.Engine;
 
 namespace RaynMaker.Blade
 {
@@ -16,9 +17,16 @@ namespace RaynMaker.Blade
             myWriter = writer;
         }
 
-        internal void Execute( Stock stock )
+        public void Execute( Stock stock )
         {
             Console.WriteLine( "Analyzing: {0} - Isin: {1}", stock.Name, stock.Isin );
+            Console.WriteLine();
+
+            var context = new CalculationContext( stock, Console.Out );
+            foreach( var figures in myAnalysis.Figures )
+            {
+                figures.Report( context );
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace RaynMaker.Blade.DataSheetSpec
             Values = new List<object>();
         }
 
-        [Required,ValidateObject]
+        [Required, ValidateObject]
         public List<object> Values { get; private set; }
-  }
+    }
 }

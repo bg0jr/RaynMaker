@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using Plainion;
 using Plainion.Logging;
@@ -51,7 +52,11 @@ namespace RaynMaker.Blade
                     Usage();
                     Environment.Exit( 0 );
                 }
-                if( args[ i ] == "-a" || args[ i ] == "--analysis" )
+                else if( args[ i ] == "-debug")
+                {
+                    Debugger.Launch();
+                }
+                else if( args[ i ] == "-a" || args[ i ] == "--analysis" )
                 {
                     Contract.Requires( i + 1 < args.Length, "-a requires an argument" );
                     i++;

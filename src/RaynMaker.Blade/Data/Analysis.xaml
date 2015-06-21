@@ -4,14 +4,16 @@
            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
            xmlns:p="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Analysis>
-        <!--
         <Price/>
-        <Table>
-            <Row>$Dividend</Row>
-            <Row>$Eps</Row>
-            <Row>$DividendPayoutRatio</Row>
-        </Table>
-        <Value>$DividendYield</Value>
+
+        <AnualSeries Count="10">
+            <Dividend/>
+            <Eps/>
+            <DividendPayoutRatio/>
+        </AnualSeries>
+
+        <!--
+        <DividendYield/>
         -->
     </Analysis>
 </AnalysisTemplate>
