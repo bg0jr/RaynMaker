@@ -30,7 +30,7 @@ namespace RaynMaker.Blade.Engine
 
         public TextWriter Out { get; private set; }
 
-        public string Evaluate( string text )
+        internal string Evaluate( string text )
         {
             var sb = new StringBuilder();
 
@@ -56,7 +56,7 @@ namespace RaynMaker.Blade.Engine
                 }
 
                 var expr = text.Substring( start, pos - start );
-                sb.Append( EvaluateExpression( expr ) );
+                sb.Append( FormatValue(EvaluateExpression( expr )) );
 
                 start = pos + 1;
             }
@@ -64,7 +64,23 @@ namespace RaynMaker.Blade.Engine
             return sb.ToString();
         }
 
-        private string EvaluateExpression( string expr )
+        private string FormatValue( object value )
+        {
+            if( value == null )
+            {
+                return "n.a.";
+            }
+            else if( value is double )
+            {
+                return ( ( double )value ).ToString( "0.00" );
+            }
+            else
+            {
+                return value.ToString();
+            }
+        }
+
+        private object EvaluateExpression( string expr )
         {
             var tokens = expr.Split( '.' );
             var providerName = tokens.Length > 1 ? tokens[ 0 ] : expr;
@@ -73,7 +89,12 @@ namespace RaynMaker.Blade.Engine
 
             if( tokens.Length == 1 )
             {
-                return value.ToString();
+                return value;
+            }
+
+            if( value == null )
+            {
+                return null;
             }
 
             foreach( var token in tokens.Skip( 1 ) )
@@ -81,7 +102,7 @@ namespace RaynMaker.Blade.Engine
                 value = GetValue( value, token );
             }
 
-            return value.ToString();
+            return value;
         }
 
         private object GetValue( object value, string member )
@@ -102,6 +123,21 @@ namespace RaynMaker.Blade.Engine
 
                 return property.GetValue( value );
             }
+        }
+
+        internal IFigureProvider GetProvider( string expr ) 
+        {
+            Contract.Requires( expr.StartsWith( "${" ) && expr.EndsWith( "}" ), "Not an expression: " + expr );
+
+            var path = expr.Substring( 2, expr.Length - 3 );
+
+            Contract.Requires( path.IndexOf( '.' ) == -1, "Nested providers not supported: ", expr );
+
+            var provider = myProviders.SingleOrDefault( p => p.Name == path );
+
+            Contract.Requires( provider != null, "{0} does not represent a IFigureProvider", expr );
+
+            return provider;
         }
     }
 }

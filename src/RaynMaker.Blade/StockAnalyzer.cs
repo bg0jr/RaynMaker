@@ -23,9 +23,10 @@ namespace RaynMaker.Blade
             Console.WriteLine();
 
             var context = new ReportContext( stock, Console.Out );
-            foreach( var figures in myAnalysis.Figures )
+            foreach( var element in myAnalysis.Elements )
             {
-                figures.Report( context );
+                element.Report( context );
+                context.Out.WriteLine();
             }
         }
     }

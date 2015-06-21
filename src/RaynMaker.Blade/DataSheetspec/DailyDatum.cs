@@ -2,7 +2,8 @@
 
 namespace RaynMaker.Blade.DataSheetSpec
 {
-    public class Price : DailyDatum
+    public class DailyDatum : Datum
     {
+        public DateTime Date { get; set; }
     }
 }

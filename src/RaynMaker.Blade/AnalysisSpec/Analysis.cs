@@ -6,15 +6,15 @@ using RaynMaker.Blade.Engine;
 
 namespace RaynMaker.Blade.AnalysisSpec
 {
-    [DefaultProperty( "Figures" ), ContentProperty( "Figures" )]
+    [DefaultProperty( "Elements" ), ContentProperty( "Elements" )]
     public class Analysis
     {
         public Analysis()
         {
-            Figures = new List<IReportElement>();
+            Elements = new List<IReportElement>();
         }
 
         [ValidateObject]
-        public List<IReportElement> Figures { get; private set; }
+        public List<IReportElement> Elements { get; private set; }
     }
 }

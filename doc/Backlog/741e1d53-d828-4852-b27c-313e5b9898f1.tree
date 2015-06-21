@@ -8,5 +8,11 @@
         <Caption><![CDATA[close tab]]></Caption>
       </Node>
     </Node>
+    <Node Id="fd5acae3-64bf-49e6-a0a9-fbf3ac93d484">
+      <Caption><![CDATA[Blade]]></Caption>
+      <Node Id="355dac23-1a17-4e0a-a622-6ffcc5f141aa">
+        <Caption><![CDATA[Enusure that all data is in same currency]]></Caption>
+      </Node>
+    </Node>
   </Node>
 </Tree>

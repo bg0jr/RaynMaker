@@ -6,14 +6,13 @@
     <Analysis>
         <TextBlock>Current price: ${Price.Value} ${Price.Currency.Name} (${Price.Date.ToShortDateString()})</TextBlock>
         
-        <!--
         <AnualSeries EndYear="2014" Count="10">
-            <DataRow Value="$(Dividend)"/>
+            <Row Value="${Dividend}"/>
+            <Row Value="${Eps}"/>
+            <Row Value="${DividendPayoutRatio}"/>
         </AnualSeries>
--->
-        <!--
-        <DividendYield/>
-        -->
+
+        <TextBlock>Dividend yield: ${DividendYield.Value}</TextBlock>
     </Analysis>
 </AnalysisTemplate>
 

@@ -2,9 +2,7 @@
 
 namespace RaynMaker.Blade.DataSheetSpec
 {
-    public class Dividend : DatumWithCurrency
+    public class Dividend : AnualDatum
     {
-        [Required]
-        public int Year { get; set; }
     }
 }

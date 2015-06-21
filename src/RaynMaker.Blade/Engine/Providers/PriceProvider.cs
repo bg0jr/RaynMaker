@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using RaynMaker.Blade.DataSheetSpec;
 
-namespace RaynMaker.Blade.Engine
+namespace RaynMaker.Blade.Engine.Providers
 {
     public class PriceProvider : IFigureProvider
     {
