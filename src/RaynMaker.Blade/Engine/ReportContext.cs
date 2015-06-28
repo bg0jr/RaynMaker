@@ -14,10 +14,10 @@ namespace RaynMaker.Blade.Engine
     {
         private List<IFigureProvider> myProviders;
 
-        public ReportContext( Asset asset, TextWriter writer )
+        public ReportContext( Asset asset, FlowDocument document )
         {
             Asset = asset;
-            Out = writer;
+            Document = document;
 
             myProviders = GetType().Assembly.GetTypes()
                 .Where( t => t.GetInterfaces().Any( iface => iface == typeof( IFigureProvider ) ) )
@@ -28,7 +28,7 @@ namespace RaynMaker.Blade.Engine
 
         public Asset Asset { get; private set; }
 
-        public TextWriter Out { get; private set; }
+        public FlowDocument Document { get; private set; }
 
         internal string Evaluate( string text )
         {

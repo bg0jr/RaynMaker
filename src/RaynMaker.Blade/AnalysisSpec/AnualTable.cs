@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Markup;
+using System.Windows.Media;
 using Plainion;
 using Plainion.Validation;
 using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.Engine;
+using RaynMaker.Blade.Reporting;
 
 namespace RaynMaker.Blade.AnalysisSpec
 {
@@ -30,17 +34,29 @@ namespace RaynMaker.Blade.AnalysisSpec
 
         public void Report( ReportContext context )
         {
-            context.Out.Write( "{0,30}", "" );
+            var table = new Table();
+            table.CellSpacing = 5;
+
+            table.Columns.Add( new TableColumn { Width = new GridLength( 200 ), Background = Brushes.AliceBlue } );
+            Count.Times( i => table.Columns.Add( new TableColumn { Width = GridLength.Auto } ) );
+
+            var rowGroup = new TableRowGroup();
+            table.RowGroups.Add( rowGroup );
+
+            var row = new TableRow { Background = Brushes.AliceBlue };
+            row.Cells.Add( new TableCell() );
+
             for( int year = EndYear - Count + 1; year <= EndYear; ++year )
             {
-                context.Out.Write( "{0,8}", year );
+                row.Cell( "{0,8}", year ).TextAlignment = TextAlignment.Right;
             }
 
-            context.Out.WriteLine();
+            rowGroup.Rows.Add( row );
 
-            foreach( var row in Rows )
+            foreach( var dataRow in Rows )
             {
-                var provider = context.GetProvider( row.Value );
+                row = new TableRow();
+                var provider = context.GetProvider( dataRow.Value );
 
                 var series = ( Series )provider.ProvideValue( context.Asset );
                 var values = series.Values
@@ -53,37 +69,46 @@ namespace RaynMaker.Blade.AnalysisSpec
                     .Distinct()
                     .Count() <= 1, "Currency inconsistencies found" );
 
-                if( values.Any() )
-                {
-                    var currencyProvider = values.OfType<ICurrencyValue>().FirstOrDefault();
-                    if( currencyProvider == null )
-                    {
-                        context.Out.Write( "{0,-30}",  provider.Name );
-                    }
-                    else
-                    {
-                        context.Out.Write( "{0,-30}", string.Format( "{0} ({1})", provider.Name, currencyProvider.Currency.Name ) );
-                    }
-                }
-                else
-                {
-                    context.Out.Write( "{0,-30}", provider.Name );
-                }
+
+                var cell = row.Cell( GetHeader( provider, values ) );
+                cell.TextAlignment = TextAlignment.Left;
 
                 for( int year = EndYear - Count + 1; year <= EndYear; ++year )
                 {
                     var value = values.SingleOrDefault( v => v.Year == year );
                     if( value == null )
                     {
-                        context.Out.Write( "{0,8}", "n.a." );
+                        row.Cell( "n.a." ).TextAlignment = TextAlignment.Right;
                     }
                     else
                     {
-                        context.Out.Write( "{0,8:0.00}", value.Value );
+                        row.Cell( "{0:0.00}", value.Value ).TextAlignment = TextAlignment.Right;
                     }
                 }
 
-                context.Out.WriteLine();
+                rowGroup.Rows.Add( row );
+            }
+
+            context.Document.Blocks.Add( table );
+        }
+
+        private static string GetHeader( IFigureProvider provider, IEnumerable<AnualDatum> values )
+        {
+            if( values.Any() )
+            {
+                var currencyProvider = values.OfType<ICurrencyValue>().FirstOrDefault();
+                if( currencyProvider == null )
+                {
+                    return provider.Name;
+                }
+                else
+                {
+                    return string.Format( "{0} ({1})", provider.Name, currencyProvider.Currency.Name );
+                }
+            }
+            else
+            {
+                return provider.Name;
             }
         }
     }

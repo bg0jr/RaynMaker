@@ -16,6 +16,7 @@ namespace RaynMaker.Blade
         private static string myAnalysis;
         private static string myDataSheet;
 
+        [STAThread]
         static void Main( string[] args )
         {
             try

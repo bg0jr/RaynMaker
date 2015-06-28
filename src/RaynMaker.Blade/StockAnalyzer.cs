@@ -1,8 +1,13 @@
 ﻿using System;
 using System.IO;
+using System.Windows;
+using System.Windows.Documents;
+using System.Windows.Markup;
+using System.Windows.Media;
 using RaynMaker.Blade.AnalysisSpec;
 using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.Engine;
+using RaynMaker.Blade.Reporting;
 
 namespace RaynMaker.Blade
 {
@@ -19,15 +24,23 @@ namespace RaynMaker.Blade
 
         public void Execute( Stock stock )
         {
-            Console.WriteLine( "Analyzing: {0} - Isin: {1}", stock.Name, stock.Isin );
-            Console.WriteLine();
+            var doc = new FlowDocument();
+            doc.FontFamily = new FontFamily( "Arial" );
+            doc.FontSize = 13;
 
-            var context = new ReportContext( stock, Console.Out );
+            doc.Headline( "{0} (Isin: {1})", stock.Name, stock.Isin );
+
+            var context = new ReportContext( stock, doc );
             foreach( var element in myAnalysis.Elements )
             {
                 element.Report( context );
-                context.Out.WriteLine();
             }
+
+            var report = new ReportView();
+            report.Document = doc;
+
+            var app = new Application();
+            app.Run( report );
         }
     }
 }
