@@ -21,12 +21,15 @@ namespace RaynMaker.Blade.Engine
 
             myProviders = GetType().Assembly.GetTypes()
                 .Where( t => t.GetInterfaces().Any( iface => iface == typeof( IFigureProvider ) ) )
-                .Where( t => t != typeof( GenericProvider ) )
+                .Where( t => t != typeof( GenericSeriesProvider ) )
                 .Select( t => Activator.CreateInstance( t ) )
                 .OfType<IFigureProvider>()
                 .ToList();
-            myProviders.Add( new GenericProvider( typeof( NetIncome ) ) );
-            myProviders.Add( new GenericProvider( typeof( Equity ) ) );
+            myProviders.Add( new GenericSeriesProvider( typeof( SharesOutstanding ) ) );
+            myProviders.Add( new GenericSeriesProvider( typeof( NetIncome ) ) );
+            myProviders.Add( new GenericSeriesProvider( typeof( Equity ) ) );
+            myProviders.Add( new GenericSeriesProvider( typeof( Eps ) ) );
+            myProviders.Add( new GenericSeriesProvider( typeof( Dividend ) ) );
         }
 
         public Asset Asset { get; private set; }

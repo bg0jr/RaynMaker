@@ -48,10 +48,7 @@
     <Compile Include="DataSheetSpec\SharesOutstanding.cs" />
     <Compile Include="Engine\DatumProvider.cs" />
     <Compile Include="Engine\Providers\DividendPayoutRatioProvider.cs" />
-    <Compile Include="Engine\Providers\GenericProvider.cs" />
-    <Compile Include="Engine\Providers\SharesOutstandingProvider.cs" />
-    <Compile Include="Engine\Providers\EpsProvider.cs" />
-    <Compile Include="Engine\Providers\DividendProvider.cs" />
+    <Compile Include="Engine\Providers\GenericSeriesProvider.cs" />
     <Compile Include="Engine\Providers\DividendYieldProvider.cs" />
     <Compile Include="Engine\Providers\PriceProvider.cs" />
     <Compile Include="Engine\ReportContext.cs" />

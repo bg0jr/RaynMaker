@@ -4,11 +4,11 @@ using RaynMaker.Blade.DataSheetSpec;
 
 namespace RaynMaker.Blade.Engine
 {
-    public class GenericProvider : IFigureProvider
+    public class GenericSeriesProvider : IFigureProvider
     {
         private Type myDatumType;
 
-        public GenericProvider( Type datumType )
+        public GenericSeriesProvider( Type datumType )
         {
             myDatumType = datumType;
         }
