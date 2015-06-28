@@ -21,9 +21,12 @@ namespace RaynMaker.Blade.Engine
 
             myProviders = GetType().Assembly.GetTypes()
                 .Where( t => t.GetInterfaces().Any( iface => iface == typeof( IFigureProvider ) ) )
+                .Where( t => t != typeof( GenericProvider ) )
                 .Select( t => Activator.CreateInstance( t ) )
                 .OfType<IFigureProvider>()
                 .ToList();
+            myProviders.Add( new GenericProvider( typeof( NetIncome ) ) );
+            myProviders.Add( new GenericProvider( typeof( Equity ) ) );
         }
 
         public Asset Asset { get; private set; }
@@ -56,7 +59,7 @@ namespace RaynMaker.Blade.Engine
                 }
 
                 var expr = text.Substring( start, pos - start );
-                sb.Append( FormatValue(EvaluateExpression( expr )) );
+                sb.Append( FormatValue( EvaluateExpression( expr ) ) );
 
                 start = pos + 1;
             }
@@ -125,7 +128,7 @@ namespace RaynMaker.Blade.Engine
             }
         }
 
-        internal IFigureProvider GetProvider( string expr ) 
+        internal IFigureProvider GetProvider( string expr )
         {
             Contract.Requires( expr.StartsWith( "${" ) && expr.EndsWith( "}" ), "Not an expression: " + expr );
 
