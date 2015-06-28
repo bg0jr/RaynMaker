@@ -6,5 +6,7 @@ namespace RaynMaker.Blade.AnalysisSpec
     {
         [Required]
         public string Value { get; set; }
+
+        public bool Round { get; set; }
     }
 }

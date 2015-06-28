@@ -80,6 +80,10 @@ namespace RaynMaker.Blade.AnalysisSpec
                     {
                         row.Cell( "n.a." ).TextAlignment = TextAlignment.Right;
                     }
+                    else if( dataRow.Round )
+                    {
+                        row.Cell( "{0:0}", value.Value ).TextAlignment = TextAlignment.Right;
+                    }
                     else
                     {
                         row.Cell( "{0:0.00}", value.Value ).TextAlignment = TextAlignment.Right;
