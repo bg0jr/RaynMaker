@@ -38,7 +38,10 @@ namespace RaynMaker.Blade.AnalysisSpec
             paragraph.Inlines.Add( new Run( Caption ) );
             paragraph.Inlines.Add( new Run( " " + Operator ) );
             paragraph.Inlines.Add( new Run( " " + Threshold ) );
-            paragraph.Inlines.Add( new Run( " " + Currency.Name ) );
+            if( Currency != null )
+            {
+                paragraph.Inlines.Add( new Run( " " + Currency.Name ) );
+            }
 
             context.Document.Blocks.Add( paragraph );
         }
