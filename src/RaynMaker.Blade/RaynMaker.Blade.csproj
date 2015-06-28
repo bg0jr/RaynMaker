@@ -42,8 +42,11 @@
     <Compile Include="AnalysisSpec\TextBlock.cs" />
     <Compile Include="DataSheetSpec\AnualDatum.cs" />
     <Compile Include="DataSheetSpec\DailyDatum.cs" />
+    <Compile Include="DataSheetSpec\ICurrencyValue.cs" />
+    <Compile Include="DataSheetSpec\SharesOutstanding.cs" />
     <Compile Include="Engine\DatumProvider.cs" />
     <Compile Include="Engine\Providers\DividendPayoutRatioProvider.cs" />
+    <Compile Include="Engine\Providers\SharesOutstandingProvider.cs" />
     <Compile Include="Engine\Providers\EpsProvider.cs" />
     <Compile Include="Engine\Providers\DividendProvider.cs" />
     <Compile Include="Engine\Providers\DividendYieldProvider.cs" />

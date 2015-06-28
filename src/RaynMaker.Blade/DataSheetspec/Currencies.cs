@@ -8,6 +8,7 @@ namespace RaynMaker.Blade.DataSheetSpec
     {
         public static readonly Currency Euro = new Currency( "Euro" );
         public static readonly Currency Dollar = new Currency( "Dollar" );
+        public static readonly Currency NOK = new Currency( "NOK" );
 
         internal static Currency Parse( string text )
         {

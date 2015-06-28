@@ -2,7 +2,9 @@
 
 namespace RaynMaker.Blade.DataSheetSpec
 {
-    public class Eps : AnualDatum
+    public class Eps : AnualDatum, ICurrencyValue
     {
+        [Required]
+        public Currency Currency { get; set; }
     }
 }

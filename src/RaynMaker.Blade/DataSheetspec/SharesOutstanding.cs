@@ -3,9 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RaynMaker.Blade.DataSheetSpec
 {
-    public class Price : DailyDatum, ICurrencyValue
+    public class SharesOutstanding : AnualDatum
     {
-        [Required]
-        public Currency Currency { get; set; }
     }
 }

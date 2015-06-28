@@ -16,8 +16,5 @@ namespace RaynMaker.Blade.DataSheetSpec
 
         [Required]
         public string Origin { get; set; }
-
-        [Required]
-        public Currency Currency { get; set; }
     }
 }

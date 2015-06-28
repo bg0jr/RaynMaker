@@ -30,7 +30,6 @@ namespace RaynMaker.Blade.Engine
                     result.Values.Add( new AnualDatum
                     {
                         Year = dividend.Year,
-                        Currency = dividend.Currency,
                         Value = dividend.Value / eps.Value * 100
                     } );
                 }

@@ -1,13 +1,8 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Windows.Controls;
-using System.Windows.Markup;
+﻿using System.ComponentModel.DataAnnotations;
 using Plainion.Validation;
 
 namespace RaynMaker.Blade.DataSheetSpec
 {
-    [DefaultProperty( "Data" ), ContentProperty( "Data" )]
     public class Stock : Asset
     {
         [Required]

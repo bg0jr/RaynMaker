@@ -47,11 +47,23 @@ namespace RaynMaker.Blade.AnalysisSpec
                     .Cast<AnualDatum>()
                     .ToList();
 
-                Contract.Requires( values.Select( v => v.Currency ).Distinct().Count() <= 1, "Currency inconsistencies found" );
+                Contract.Requires( values
+                    .OfType<ICurrencyValue>()
+                    .Select( v => v.Currency )
+                    .Distinct()
+                    .Count() <= 1, "Currency inconsistencies found" );
 
                 if( values.Any() )
                 {
-                    context.Out.Write( "{0,-30}", string.Format( "{0} ({1})", provider.Name, values.First().Currency.Name ) );
+                    var currencyProvider = values.OfType<ICurrencyValue>().FirstOrDefault();
+                    if( currencyProvider == null )
+                    {
+                        context.Out.Write( "{0,-30}",  provider.Name );
+                    }
+                    else
+                    {
+                        context.Out.Write( "{0,-30}", string.Format( "{0} ({1})", provider.Name, currencyProvider.Currency.Name ) );
+                    }
                 }
                 else
                 {
