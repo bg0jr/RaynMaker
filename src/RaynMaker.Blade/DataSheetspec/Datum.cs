@@ -15,6 +15,6 @@ namespace RaynMaker.Blade.DataSheetSpec
         public double Value { get; set; }
 
         [Required]
-        public string Origin { get; set; }
+        public string Source { get; set; }
     }
 }

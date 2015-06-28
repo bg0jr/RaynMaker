@@ -30,6 +30,12 @@ namespace RaynMaker.Blade.Engine
             myProviders.Add( new GenericSeriesProvider( typeof( Equity ) ) );
             myProviders.Add( new GenericSeriesProvider( typeof( Eps ) ) );
             myProviders.Add( new GenericSeriesProvider( typeof( Dividend ) ) );
+            myProviders.Add( new GenericSeriesProvider( typeof( Assets ) ) );
+            myProviders.Add( new GenericSeriesProvider( typeof( Liabilities ) ) );
+            myProviders.Add( new GenericSeriesProvider( typeof( Dept ) ) );
+            myProviders.Add( new GenericSeriesProvider( typeof( Revenue ) ) );
+            myProviders.Add( new GenericSeriesProvider( typeof( EBIT ) ) );
+            myProviders.Add( new GenericSeriesProvider( typeof( InterestExpense ) ) );
         }
 
         public Asset Asset { get; private set; }

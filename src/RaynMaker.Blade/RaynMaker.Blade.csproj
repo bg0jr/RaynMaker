@@ -39,9 +39,16 @@
     <Compile Include="AnalysisSpec\AnalysisTemplate.cs" />
     <Compile Include="AnalysisSpec\AnualTable.cs" />
     <Compile Include="AnalysisSpec\Row.cs" />
+    <Compile Include="AnalysisSpec\Rule.cs" />
     <Compile Include="AnalysisSpec\TextBlock.cs" />
     <Compile Include="DataSheetSpec\AnualDatum.cs" />
     <Compile Include="DataSheetSpec\DailyDatum.cs" />
+    <Compile Include="DataSheetSpec\Assets.cs" />
+    <Compile Include="DataSheetSpec\InterestExpense.cs" />
+    <Compile Include="DataSheetSpec\EBIT.cs" />
+    <Compile Include="DataSheetSpec\Revenue.cs" />
+    <Compile Include="DataSheetSpec\Liabilities.cs" />
+    <Compile Include="DataSheetSpec\Dept.cs" />
     <Compile Include="DataSheetSpec\ICurrencyValue.cs" />
     <Compile Include="DataSheetSpec\Equity.cs" />
     <Compile Include="DataSheetSpec\NetIncome.cs" />
