@@ -29,14 +29,12 @@ namespace RaynMaker.Blade.AnalysisSpec
         public void Report( ReportContext context )
         {
             var provider = context.GetProvider( Value );
-            var value = ( Datum )provider.ProvideValue( context.Asset );
+            var value = ( IDatum )provider.ProvideValue( context.Asset );
             var valueCurrency = value is ICurrencyDatum ? ( ( ICurrencyDatum )value ).Currency : null;
-            var threshold = context.ConvertCurrency( Threshold, Currency, valueCurrency );
+            var threshold = Currency != null ? context.ConvertCurrency( Threshold, Currency, valueCurrency ) : Threshold;
 
             bool success = Operator.Compare( value.Value, threshold );
 
-            // Rule: MarketCap GreaterThen XYZ Dollar - FAILED by ABC %
-            // Rule: MarketCap ABC NOT GreaterThen XYZ Dollar (-5%)
             var paragraph = new Paragraph()
             {
                 Padding = new Thickness( 2 ),
@@ -46,7 +44,7 @@ namespace RaynMaker.Blade.AnalysisSpec
             paragraph.Inlines.Add( new Run( "Rule: " ) { FontWeight = FontWeights.DemiBold } );
 
             paragraph.Inlines.Add( new Run(
-                string.Format( "{0} of {1:0.00} is{2} {3} {4}{5} ({6:0.00}%)",
+                string.Format( "{0} {1:0.00} {2} {3} {4}{5} ({6:0.00}%)",
                 Caption,
                 value.Value,
                 success ? "" : " NOT",

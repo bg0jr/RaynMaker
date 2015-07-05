@@ -1,8 +1,6 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Windows;
 using System.Windows.Documents;
-using System.Windows.Markup;
 using System.Windows.Media;
 using RaynMaker.Blade.AnalysisSpec;
 using RaynMaker.Blade.DataSheetSpec;

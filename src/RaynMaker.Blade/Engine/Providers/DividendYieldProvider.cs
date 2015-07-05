@@ -32,9 +32,10 @@ namespace RaynMaker.Blade.Engine.Providers
 
             Contract.Requires( price.Currency == dividend.Currency, "Currency mismatch" );
 
-            return new DailyDatum
+            return new DerivedDatum
             {
                 Date = price.Date,
+                Currency = dividend.Currency,
                 Value = dividend.Value / price.Value * 100
             };
         }

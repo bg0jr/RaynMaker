@@ -162,8 +162,14 @@ namespace RaynMaker.Blade.Engine
             Contract.RequiresNotNull( source, "source" );
             Contract.RequiresNotNull( target, "target" );
 
-            // TODO implement
-            return value;
+            var translation = source.Translations.SingleOrDefault( t => t.To == target );
+
+            Contract.Invariant( translation != null, "No translation found from {0} to {1}", source, target );
+
+            Contract.Invariant( ( DateTime.Today - translation.Timestamp ).Days < Currencies.Sheet.MaxAgeInDays,
+                "Translation rate from {0} to {1} expired", source, target );
+
+            return value * translation.Rate;
         }
     }
 }

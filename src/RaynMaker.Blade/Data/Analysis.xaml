@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <AnalysisTemplate xmlns="clr-namespace:RaynMaker.Blade.AnalysisSpec;assembly=RaynMaker.Blade" 
-           xmlns:s="clr-namespace:System;assembly=mscorlib"
-           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-           xmlns:p="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+                  xmlns:s="clr-namespace:System;assembly=mscorlib"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:p="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Analysis>
         <TextBlock Caption="Current price: ">${Price.Value} ${Price.Currency.Name} (${Price.Date.ToShortDateString()})</TextBlock>
         

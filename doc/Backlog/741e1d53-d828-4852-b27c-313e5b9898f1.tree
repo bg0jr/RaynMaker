@@ -2,16 +2,16 @@
 <Tree>
   <Node Id="741e1d53-d828-4852-b27c-313e5b9898f1">
     <Caption><![CDATA[Planning]]></Caption>
-    <Node Id="e18c7505-5255-411f-b8a5-c391b9998b3f">
-      <Caption><![CDATA[implement "Edit" of assets]]></Caption>
-      <Node Id="a3fe29a9-322c-4a34-b11a-75b4b812460a">
-        <Caption><![CDATA[close tab]]></Caption>
-      </Node>
-    </Node>
     <Node Id="fd5acae3-64bf-49e6-a0a9-fbf3ac93d484">
       <Caption><![CDATA[Blade]]></Caption>
       <Node Id="355dac23-1a17-4e0a-a622-6ffcc5f141aa">
         <Caption><![CDATA[Enusure that all data is in same currency]]></Caption>
+      </Node>
+      <Node Id="0da5a34f-071b-4e41-bca3-5243b5a945ed">
+        <Caption><![CDATA[Derived datum]]></Caption>
+      </Node>
+      <Node Id="c3c84509-6a50-4ab2-bea5-ee1d28abaf62">
+        <Caption><![CDATA[seems that recursive validation does not work all the time]]></Caption>
       </Node>
     </Node>
   </Node>

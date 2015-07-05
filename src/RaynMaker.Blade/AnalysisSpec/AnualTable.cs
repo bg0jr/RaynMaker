@@ -60,7 +60,7 @@ namespace RaynMaker.Blade.AnalysisSpec
 
                 var series = ( Series )provider.ProvideValue( context.Asset );
                 var values = series.Values
-                    .Cast<AnualDatum>()
+                    .Cast<IAnualDatum>()
                     .ToList();
 
                 Contract.Requires( values
@@ -68,7 +68,6 @@ namespace RaynMaker.Blade.AnalysisSpec
                     .Select( v => v.Currency )
                     .Distinct()
                     .Count() <= 1, "Currency inconsistencies found" );
-
 
                 var cell = row.Cell( GetHeader( provider, values, dataRow ) );
                 cell.TextAlignment = TextAlignment.Left;
@@ -100,7 +99,7 @@ namespace RaynMaker.Blade.AnalysisSpec
             context.Document.Blocks.Add( table );
         }
 
-        private static string GetHeader( IFigureProvider provider, IEnumerable<AnualDatum> values, Row dataRow )
+        private static string GetHeader( IFigureProvider provider, IEnumerable<IAnualDatum> values, Row dataRow )
         {
             if( values.Any() )
             {

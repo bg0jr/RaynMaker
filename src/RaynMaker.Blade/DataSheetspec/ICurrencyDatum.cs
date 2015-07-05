@@ -1,7 +1,7 @@
 ﻿
 namespace RaynMaker.Blade.DataSheetSpec
 {
-    interface ICurrencyDatum
+    interface ICurrencyDatum : IDatum
     {
         Currency Currency { get; }
     }

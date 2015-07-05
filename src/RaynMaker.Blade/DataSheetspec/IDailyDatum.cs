@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RaynMaker.Blade.DataSheetSpec
 {
-    public class DailyDatum : Datum, IDailyDatum
+    public interface IDailyDatum : IDatum
     {
         [Required]
-        public DateTime Date { get; set; }
+        DateTime Date { get; set; }
     }
 }

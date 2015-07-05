@@ -1,18 +1,23 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Windows.Markup;
 
 namespace RaynMaker.Blade.DataSheetSpec
 {
     [TypeConverter( typeof( CurrencyConverter ) )]
+    [DefaultProperty( "Translations" ), ContentProperty( "Translations" )]
     public class Currency
     {
-        public Currency( string name )
+        public Currency()
         {
-            Name = name;
+            Translations = new List<Translation>();
         }
 
         [Required]
-        public string Name { get; private set; }
+        public string Name { get; set; }
+
+        public List<Translation> Translations { get; private set; }
 
         public override bool Equals( object obj )
         {
@@ -28,6 +33,11 @@ namespace RaynMaker.Blade.DataSheetSpec
         public override int GetHashCode()
         {
             return Name.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
 
         public static bool operator ==( Currency lhs, Currency rhs )

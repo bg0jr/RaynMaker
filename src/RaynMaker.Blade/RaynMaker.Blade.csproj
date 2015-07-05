@@ -46,7 +46,12 @@
     <Compile Include="AnalysisSpec\TextBlock.cs" />
     <Compile Include="DataSheetSpec\AnualDatum.cs" />
     <Compile Include="DataSheetSpec\DailyDatum.cs" />
+    <Compile Include="DataSheetSpec\IAnualDatum.cs" />
+    <Compile Include="DataSheetSpec\IDailyDatum.cs" />
     <Compile Include="DataSheetSpec\Assets.cs" />
+    <Compile Include="DataSheetSpec\CurrenciesSheet.cs" />
+    <Compile Include="DataSheetSpec\DerivedDatum.cs" />
+    <Compile Include="DataSheetSpec\IDatum.cs" />
     <Compile Include="DataSheetSpec\InterestExpense.cs" />
     <Compile Include="DataSheetSpec\EBIT.cs" />
     <Compile Include="DataSheetSpec\Revenue.cs" />
@@ -56,6 +61,7 @@
     <Compile Include="DataSheetSpec\Equity.cs" />
     <Compile Include="DataSheetSpec\NetIncome.cs" />
     <Compile Include="DataSheetSpec\SharesOutstanding.cs" />
+    <Compile Include="DataSheetSpec\Translation.cs" />
     <Compile Include="Engine\DatumProvider.cs" />
     <Compile Include="Engine\Providers\DividendPayoutRatioProvider.cs" />
     <Compile Include="Engine\Providers\GenericSeriesProvider.cs" />
@@ -102,6 +108,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\Currencies.xaml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Page Include="Reporting\ReportView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

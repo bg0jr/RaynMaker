@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Plainion;
 using RaynMaker.Blade.DataSheetSpec;
 
 namespace RaynMaker.Blade.Engine
@@ -25,6 +26,17 @@ namespace RaynMaker.Blade.Engine
             }
 
             return series.Values.Cast<T>();
+        }
+
+        public void EnsureCurrencyConsistency( params IEnumerable<ICurrencyDatum>[] values )
+        {
+            var allCurrencies = values
+                .SelectMany( v => v )
+                .Select( v => v.Currency )
+                .Distinct()
+                .ToList();
+
+            Contract.Requires( allCurrencies.Count == 1, "Currency inconsistencies found: {0}", string.Join( ",", allCurrencies ) );
         }
     }
 }

@@ -2,9 +2,9 @@
 
 namespace RaynMaker.Blade.DataSheetSpec
 {
-    public abstract class AnualDatum : Datum, IAnualDatum
+    public interface IAnualDatum : IDatum
     {
         [Required]
-        public int Year { get; set; }
+        int Year { get; set; }
     }
 }

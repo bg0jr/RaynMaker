@@ -13,8 +13,9 @@ namespace RaynMaker.Blade
     {
         private static ILogger myLogger = LoggerFactory.GetLogger( typeof( Program ) );
 
-        private static string myAnalysis;
+        private static string myAnalysisSheet;
         private static string myDataSheet;
+        private static string myCurrenciesSheet;
 
         [STAThread]
         static void Main( string[] args )
@@ -24,18 +25,19 @@ namespace RaynMaker.Blade
                 ParseCommandLineArgs( args );
 
                 var reader = new ValidatingXamlReader();
-                var analysisTemplate = reader.Read<AnalysisTemplate>( myAnalysis );
 
-                var sheet = reader.Read<DataSheet>( myDataSheet );
+                Currencies.Sheet = reader.Read<CurrenciesSheet>( myCurrenciesSheet );
+                var analysisTemplate = reader.Read<AnalysisTemplate>( myAnalysisSheet );
+                var dataSheet = reader.Read<DataSheet>( myDataSheet );
 
-                if( sheet.Asset is Stock )
+                if( dataSheet.Asset is Stock )
                 {
                     var analyzer = new StockAnalyzer( analysisTemplate.Analysis, Console.Out );
-                    analyzer.Execute( ( Stock )sheet.Asset );
+                    analyzer.Execute( ( Stock )dataSheet.Asset );
                 }
                 else
                 {
-                    throw new NotSupportedException( "Asset type not supported: " + sheet.Asset.GetType() );
+                    throw new NotSupportedException( "Asset type not supported: " + dataSheet.Asset.GetType() );
                 }
 
                 if( Debugger.IsAttached )
@@ -66,7 +68,13 @@ namespace RaynMaker.Blade
                 {
                     Contract.Requires( i + 1 < args.Length, "-a requires an argument" );
                     i++;
-                    myAnalysis = args[ i ];
+                    myAnalysisSheet = args[ i ];
+                }
+                else if( args[ i ] == "-c" || args[ i ] == "--currencies" )
+                {
+                    Contract.Requires( i + 1 < args.Length, "-c requires an argument" );
+                    i++;
+                    myCurrenciesSheet = args[ i ];
                 }
                 else
                 {
@@ -74,8 +82,13 @@ namespace RaynMaker.Blade
                 }
             }
 
-            Contract.Requires( myAnalysis != null, "No analysis template given" );
+            Contract.Requires( myAnalysisSheet != null, "No analysis sheet given" );
             Contract.Requires( myDataSheet != null, "No datasheet given" );
+
+            if( myCurrenciesSheet == null )
+            {
+                myCurrenciesSheet = Path.Combine( Path.GetDirectoryName( typeof( Program ).Assembly.Location ), "data", "Currencies.xaml" );
+            }
         }
 
         private static void Usage()
@@ -83,8 +96,9 @@ namespace RaynMaker.Blade
             Console.WriteLine( "{0} [options] <datasheet>", Path.GetFileName( typeof( Program ).GetType().Assembly.Location ) );
             Console.WriteLine();
             Console.WriteLine( "Options:" );
-            Console.WriteLine( "  -h/--help                 print usage" );
-            Console.WriteLine( "  -a/--analysis <file>      path to analysis template" );
+            Console.WriteLine( "  -h/--help                   print usage" );
+            Console.WriteLine( "  -a/--analysis <file>        path to analysis sheet" );
+            Console.WriteLine( "  -c/--currencies <file>      path to currencies sheet" );
             Console.WriteLine();
         }
     }

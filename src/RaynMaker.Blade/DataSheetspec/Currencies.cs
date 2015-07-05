@@ -1,23 +1,20 @@
 ﻿using System.Linq;
-using System.Reflection;
 using Plainion;
 
 namespace RaynMaker.Blade.DataSheetSpec
 {
     public static class Currencies
     {
-        public static readonly Currency Euro = new Currency( "Euro" );
-        public static readonly Currency Dollar = new Currency( "Dollar" );
-        public static readonly Currency NOK = new Currency( "NOK" );
+        public static CurrenciesSheet Sheet { get; set; }
 
-        internal static Currency Parse( string text )
+        internal static Currency Parse( string name )
         {
-            var value = typeof( Currencies ).GetFields( BindingFlags.Static | BindingFlags.Public )
-                .FirstOrDefault( f => f.Name == text );
+            var currency = Sheet.Currencies
+                .FirstOrDefault( c => c.Name == name );
 
-            Contract.Requires( value != null, "No currency found with name: " + text );
+            Contract.Requires( currency != null, "No currency found with name: " + name );
 
-            return (Currency)value.GetValue( null );
+            return currency;
         }
     }
 }
