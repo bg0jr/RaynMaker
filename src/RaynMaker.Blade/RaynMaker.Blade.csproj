@@ -3,10 +3,11 @@
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Import Project="..\..\build\Globals.msbuild" />
   <PropertyGroup>
-    <ProjectGuid>{79B80229-8B66-4639-A5CC-1A29E6D2F686}</ProjectGuid>
+    <ProjectGuid>{79B80229-8B66-4639-A5CC-1A29E6D2F686}</ProjectGuid>    
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <RootNamespace>RaynMaker.Blade</RootNamespace>
     <AssemblyName>RaynMaker.Blade</AssemblyName>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
