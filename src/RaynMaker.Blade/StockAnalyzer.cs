@@ -12,12 +12,10 @@ namespace RaynMaker.Blade
     class StockAnalyzer
     {
         private Analysis myAnalysis;
-        private TextWriter myWriter;
 
-        public StockAnalyzer( Analysis analysis, TextWriter writer )
+        public StockAnalyzer( Analysis analysis )
         {
             myAnalysis = analysis;
-            myWriter = writer;
         }
 
         public void Execute( Stock stock )
@@ -36,9 +34,7 @@ namespace RaynMaker.Blade
 
             var report = new ReportView();
             report.Document = doc;
-
-            var app = new Application();
-            app.Run( report );
+            report.Show();
         }
     }
 }
