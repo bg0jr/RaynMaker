@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <AnalysisTemplate xmlns="clr-namespace:RaynMaker.Blade.AnalysisSpec;assembly=RaynMaker.Blade" 
+                  xmlns:d="clr-namespace:RaynMaker.Blade.DataSheetSpec;assembly=RaynMaker.Blade"
                   xmlns:s="clr-namespace:System;assembly=mscorlib"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:p="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
@@ -7,12 +8,14 @@
         <TextBlock Caption="Current price: ">${Price.Value} ${Price.Currency.Name} (${Price.Date.ToShortDateString()})</TextBlock>
         
         <AnualTable EndYear="2014" Count="10">
+            <Row Value="${SharesOutstanding}" InMillions="True"/>
             <Row Value="${Dividend}"/>
             <Row Value="${Eps}"/>
             <Row Value="${DividendPayoutRatio}"/>
         </AnualTable>
 
         <Rule Caption="Dividend yield" Operator="Greater" Threshold="2" Source="Fake" Value="${DividendYield}"/>
+        <Rule Caption="Market capitalization" Operator="Greater" Threshold="{d:InMio 500}"  Currency="Dollar" Source="Fake" Value="${MarketCap}"/>
     </Analysis>
 </AnalysisTemplate>
 

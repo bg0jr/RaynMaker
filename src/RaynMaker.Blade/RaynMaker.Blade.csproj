@@ -106,6 +106,7 @@
     <Compile Include="DataSheetSpec\CurrenciesSheet.cs" />
     <Compile Include="DataSheetSpec\DerivedDatum.cs" />
     <Compile Include="DataSheetSpec\IDatum.cs" />
+    <Compile Include="DataSheetSpec\InMioExtension.cs" />
     <Compile Include="DataSheetSpec\InterestExpense.cs" />
     <Compile Include="DataSheetSpec\EBIT.cs" />
     <Compile Include="DataSheetSpec\Revenue.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="DataSheetSpec\SharesOutstanding.cs" />
     <Compile Include="DataSheetSpec\Translation.cs" />
     <Compile Include="Engine\DatumProvider.cs" />
+    <Compile Include="Engine\Providers\MarketCapProvider.cs" />
     <Compile Include="Engine\Providers\DividendPayoutRatioProvider.cs" />
     <Compile Include="Engine\Providers\GenericSeriesProvider.cs" />
     <Compile Include="Engine\Providers\DividendYieldProvider.cs" />

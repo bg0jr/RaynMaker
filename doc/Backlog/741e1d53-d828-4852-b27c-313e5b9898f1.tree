@@ -7,6 +7,12 @@
       <Node Id="c3c84509-6a50-4ab2-bea5-ee1d28abaf62">
         <Caption><![CDATA[seems that recursive validation does not work all the time]]></Caption>
       </Node>
+      <Node Id="629e6983-7c9e-4aeb-8eef-e2bc94827338">
+        <Caption><![CDATA[rules: allow output in millions]]></Caption>
+      </Node>
+      <Node Id="6655b3a9-694f-423f-b380-9f25c769661b">
+        <Caption><![CDATA[report numbers with thousands separator]]></Caption>
+      </Node>
     </Node>
   </Node>
 </Tree>

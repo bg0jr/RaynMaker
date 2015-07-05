@@ -31,6 +31,13 @@
             <Eps Year="2013" Value="18.63" Currency="Euro" Timestamp="2015-06-21" Source="{p:StaticResource Ariva}"/>
             <Eps Year="2014" Value="20.84" Currency="Euro" Timestamp="2015-06-21" Source="{p:StaticResource Ariva}"/>
         </Series>
+        <Series>
+            <SharesOutstanding Year="2010" Value="{InMio 465.20}" Timestamp="2015-07-05" Source="{p:StaticResource Ariva}"/>
+            <SharesOutstanding Year="2011" Value="{InMio 465.19}" Timestamp="2015-07-05" Source="{p:StaticResource Ariva}"/>
+            <SharesOutstanding Year="2012" Value="{InMio 465.23}" Timestamp="2015-07-05" Source="{p:StaticResource Ariva}"/>
+            <SharesOutstanding Year="2013" Value="{InMio 465.23}" Timestamp="2015-07-05" Source="{p:StaticResource Ariva}"/>
+            <SharesOutstanding Year="2014" Value="{InMio 475.73}" Timestamp="2015-07-05" Source="{p:StaticResource Ariva}"/>
+        </Series>
     </Stock>
 </DataSheet>
 
