@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Plainion;
 using RaynMaker.Blade.DataSheetSpec;
 
 namespace RaynMaker.Blade.Engine.Providers
@@ -28,6 +29,8 @@ namespace RaynMaker.Blade.Engine.Providers
                     return null;
                 }
             }
+
+            Contract.Requires( price.Currency == dividend.Currency, "Currency mismatch" );
 
             return new DailyDatum
             {

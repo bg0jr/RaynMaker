@@ -12,7 +12,7 @@
             <Row Value="${DividendPayoutRatio}"/>
         </AnualTable>
 
-        <Rule Caption="Dividend yield" Operator="GreaterThan" Threshold="2" Source="Fake" Value="${DividendYield.Value}"/>
+        <Rule Caption="Dividend yield" Operator="Greater" Threshold="2" Source="Fake" Value="${DividendYield}"/>
     </Analysis>
 </AnalysisTemplate>
 

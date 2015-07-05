@@ -2,7 +2,7 @@
 
 namespace RaynMaker.Blade.DataSheetSpec
 {
-    public class InterestExpense : AnualDatum, ICurrencyValue
+    public class InterestExpense : AnualDatum, ICurrencyDatum
     {
         [Required]
         public Currency Currency { get; set; }

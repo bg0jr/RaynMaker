@@ -38,6 +38,9 @@
     <Compile Include="AnalysisSpec\Analysis.cs" />
     <Compile Include="AnalysisSpec\AnalysisTemplate.cs" />
     <Compile Include="AnalysisSpec\AnualTable.cs" />
+    <Compile Include="AnalysisSpec\OperatorConverter.cs" />
+    <Compile Include="AnalysisSpec\Operator.cs" />
+    <Compile Include="AnalysisSpec\Operators.cs" />
     <Compile Include="AnalysisSpec\Row.cs" />
     <Compile Include="AnalysisSpec\Rule.cs" />
     <Compile Include="AnalysisSpec\TextBlock.cs" />
@@ -49,7 +52,7 @@
     <Compile Include="DataSheetSpec\Revenue.cs" />
     <Compile Include="DataSheetSpec\Liabilities.cs" />
     <Compile Include="DataSheetSpec\Dept.cs" />
-    <Compile Include="DataSheetSpec\ICurrencyValue.cs" />
+    <Compile Include="DataSheetSpec\ICurrencyDatum.cs" />
     <Compile Include="DataSheetSpec\Equity.cs" />
     <Compile Include="DataSheetSpec\NetIncome.cs" />
     <Compile Include="DataSheetSpec\SharesOutstanding.cs" />

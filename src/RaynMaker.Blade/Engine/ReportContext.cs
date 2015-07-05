@@ -151,5 +151,19 @@ namespace RaynMaker.Blade.Engine
 
             return provider;
         }
+
+        public double ConvertCurrency( double value, Currency source, Currency target )
+        {
+            if( source == null && target == null )
+            {
+                return value;
+            }
+
+            Contract.RequiresNotNull( source, "source" );
+            Contract.RequiresNotNull( target, "target" );
+
+            // TODO implement
+            return value;
+        }
     }
 }

@@ -64,7 +64,7 @@ namespace RaynMaker.Blade.AnalysisSpec
                     .ToList();
 
                 Contract.Requires( values
-                    .OfType<ICurrencyValue>()
+                    .OfType<ICurrencyDatum>()
                     .Select( v => v.Currency )
                     .Distinct()
                     .Count() <= 1, "Currency inconsistencies found" );
@@ -104,7 +104,7 @@ namespace RaynMaker.Blade.AnalysisSpec
         {
             if( values.Any() )
             {
-                var currencyProvider = values.OfType<ICurrencyValue>().FirstOrDefault();
+                var currencyProvider = values.OfType<ICurrencyDatum>().FirstOrDefault();
                 if( currencyProvider == null )
                 {
                     return dataRow.InMillions ? string.Format( "{0} (in Mio.)", provider.Name ) : provider.Name;
