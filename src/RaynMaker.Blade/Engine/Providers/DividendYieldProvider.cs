@@ -22,7 +22,6 @@ namespace RaynMaker.Blade.Engine.Providers
             var dividend = dividends.SingleOrDefault( d => d.Year == price.Date.Year );
             if( dividend == null )
             {
-                // TODO: info got lost that this is based on dividend of previous year
                 dividend = dividends.SingleOrDefault( d => d.Year == price.Date.Year - 1 );
                 if( dividend == null )
                 {
@@ -32,12 +31,15 @@ namespace RaynMaker.Blade.Engine.Providers
 
             Contract.Requires( price.Currency == dividend.Currency, "Currency mismatch" );
 
-            return new DerivedDatum
+            var result = new DerivedDatum
             {
                 Date = price.Date,
                 Currency = dividend.Currency,
                 Value = dividend.Value / price.Value * 100
             };
+            result.Inputs.Add( dividend );
+            result.Inputs.Add( price );
+            return result;
         }
     }
 }

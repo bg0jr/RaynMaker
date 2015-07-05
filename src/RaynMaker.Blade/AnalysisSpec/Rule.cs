@@ -31,7 +31,7 @@ namespace RaynMaker.Blade.AnalysisSpec
             var provider = context.GetProvider( Value );
             var value = ( IDatum )provider.ProvideValue( context.Asset );
             var valueCurrency = value is ICurrencyDatum ? ( ( ICurrencyDatum )value ).Currency : null;
-            var threshold = Currency != null ? context.ConvertCurrency( Threshold, Currency, valueCurrency ) : Threshold;
+            var threshold = Currency != null ? context.TranslateCurrency( Threshold, Currency, valueCurrency ) : Threshold;
 
             bool success = Operator.Compare( value.Value, threshold );
 

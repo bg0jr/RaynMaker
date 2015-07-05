@@ -30,12 +30,15 @@ namespace RaynMaker.Blade.Engine
                 var eps = earnings.SingleOrDefault( e => e.Year == dividend.Year );
                 if( eps != null )
                 {
-                    result.Values.Add( new DerivedDatum
+                    var ratio= new DerivedDatum
                     {
                         Year = dividend.Year,
                         Currency = dividend.Currency,
                         Value = dividend.Value / eps.Value * 100
-                    } );
+                    };
+                    ratio.Inputs.Add( dividend );
+                    ratio.Inputs.Add( eps );
+                    result.Values.Add(ratio);
                 }
             }
 
