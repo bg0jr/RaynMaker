@@ -1,7 +1,7 @@
 ﻿
-namespace RaynMaker.Blade.AnalysisSpec.Functions
+namespace RaynMaker.Blade.AnalysisSpec.Providers
 {
-    class FunctionNames
+    class ProviderNames
     {
         public const string Eps = "Eps";
         public const string CurrentPrice = "Price";

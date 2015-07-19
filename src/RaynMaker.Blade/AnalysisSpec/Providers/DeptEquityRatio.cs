@@ -3,11 +3,11 @@ using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.DataSheetSpec.Datums;
 using RaynMaker.Blade.Engine;
 
-namespace RaynMaker.Blade.AnalysisSpec.Functions
+namespace RaynMaker.Blade.AnalysisSpec.Providers
 {
     public class DeptEquityRatio : IFigureProvider
     {
-        public string Name { get { return FunctionNames.DeptEquityRatio; } }
+        public string Name { get { return ProviderNames.DeptEquityRatio; } }
 
         public object ProvideValue( IFigureProviderContext context )
         {

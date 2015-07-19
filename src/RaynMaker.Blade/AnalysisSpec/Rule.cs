@@ -30,8 +30,7 @@ namespace RaynMaker.Blade.AnalysisSpec
 
         public void Report( ReportContext context )
         {
-            var provider = context.GetProvider( Value );
-            var value = ( IDatum )provider.ProvideValue( context );
+            var value = ( IDatum )context.ProvideValue( Value );
 
             if( value == null )
             {

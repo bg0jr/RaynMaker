@@ -3,11 +3,11 @@ using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.DataSheetSpec.Datums;
 using RaynMaker.Blade.Engine;
 
-namespace RaynMaker.Blade.AnalysisSpec.Functions
+namespace RaynMaker.Blade.AnalysisSpec.Providers
 {
     public class CurrentPrice : IFigureProvider
     {
-        public string Name { get { return FunctionNames.CurrentPrice; } }
+        public string Name { get { return ProviderNames.CurrentPrice; } }
 
         public object ProvideValue( IFigureProviderContext context )
         {

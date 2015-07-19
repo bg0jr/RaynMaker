@@ -3,7 +3,7 @@ using System.Linq;
 using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.Engine;
 
-namespace RaynMaker.Blade.AnalysisSpec.Functions
+namespace RaynMaker.Blade.AnalysisSpec.Providers
 {
     public class DatumSeries : IFigureProvider
     {

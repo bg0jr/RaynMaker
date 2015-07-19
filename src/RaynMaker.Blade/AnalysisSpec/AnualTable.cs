@@ -56,9 +56,8 @@ namespace RaynMaker.Blade.AnalysisSpec
             foreach( var dataRow in Rows )
             {
                 row = new TableRow();
-                var provider = context.GetProvider( dataRow.Value );
 
-                var series = ( Series )provider.ProvideValue( context );
+                var series = ( Series )context.ProvideValue( dataRow.Value );
                 var values = series.Values
                     .Cast<IAnualDatum>()
                     .ToList();
@@ -69,7 +68,7 @@ namespace RaynMaker.Blade.AnalysisSpec
                     .Distinct()
                     .Count() <= 1, "Currency inconsistencies found" );
 
-                var cell = row.Cell( GetHeader( provider, values, dataRow ) );
+                var cell = row.Cell( GetHeader( dataRow, values ) );
                 cell.TextAlignment = TextAlignment.Left;
 
                 for( int year = EndYear - Count + 1; year <= EndYear; ++year )
@@ -99,30 +98,30 @@ namespace RaynMaker.Blade.AnalysisSpec
             context.Document.Blocks.Add( table );
         }
 
-        private static string GetHeader( IFigureProvider provider, IEnumerable<IAnualDatum> values, Row dataRow )
+        private static string GetHeader( Row dataRow, IEnumerable<IAnualDatum> values )
         {
             if( values.Any() )
             {
                 var currencyProvider = values.OfType<ICurrencyDatum>().FirstOrDefault();
                 if( currencyProvider == null )
                 {
-                    return dataRow.InMillions ? string.Format( "{0} (in Mio.)", provider.Name ) : provider.Name;
+                    return dataRow.InMillions ? string.Format( "{0} (in Mio.)", dataRow.Caption ) : dataRow.Caption;
                 }
                 else
                 {
                     if( dataRow.InMillions )
                     {
-                        return string.Format( "{0} (in Mio. {1})", provider.Name, currencyProvider.Currency.Name );
+                        return string.Format( "{0} (in Mio. {1})", dataRow.Caption, currencyProvider.Currency.Name );
                     }
                     else
                     {
-                        return string.Format( "{0} ({1})", provider.Name, currencyProvider.Currency.Name );
+                        return string.Format( "{0} ({1})", dataRow.Caption, currencyProvider.Currency.Name );
                     }
                 }
             }
             else
             {
-                return dataRow.InMillions ? string.Format( "{0} (in Mio.)", provider.Name ) : provider.Name;
+                return dataRow.InMillions ? string.Format( "{0} (in Mio.)", dataRow.Caption ) : dataRow.Caption;
             }
         }
     }

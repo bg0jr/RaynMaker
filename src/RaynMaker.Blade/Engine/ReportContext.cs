@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Documents;
 using Plainion;
-using RaynMaker.Blade.AnalysisSpec.Functions;
+using RaynMaker.Blade.AnalysisSpec.Providers;
 using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.DataSheetSpec.Datums;
 
@@ -136,19 +136,18 @@ namespace RaynMaker.Blade.Engine
             }
         }
 
-        internal IFigureProvider GetProvider( string expr )
+        internal object ProvideValue( string expr )
         {
             Contract.Requires( expr.StartsWith( "${" ) && expr.EndsWith( "}" ), "Not an expression: " + expr );
 
-            var path = expr.Substring( 2, expr.Length - 3 );
+            var path = expr.Substring( 2, expr.Length - 3 ).RemoveAll( char.IsWhiteSpace );
 
             Contract.Requires( path.IndexOf( '.' ) == -1, "Nested providers not supported: ", expr );
 
             var provider = myProviders.SingleOrDefault( p => p.Name == path );
-
             Contract.Requires( provider != null, "{0} does not represent a IFigureProvider", expr );
 
-            return provider;
+            return provider.ProvideValue( this );
         }
 
         public double TranslateCurrency( double value, Currency source, Currency target )
@@ -188,7 +187,7 @@ namespace RaynMaker.Blade.Engine
         public IEnumerable<T> GetCalculatedSeries<T>( string name )
         {
             var provider = myProviders.Single( p => p.Name == name );
-            var series= ( Series )provider.ProvideValue( this );
+            var series = ( Series )provider.ProvideValue( this );
             return series.Values.Cast<T>();
         }
 

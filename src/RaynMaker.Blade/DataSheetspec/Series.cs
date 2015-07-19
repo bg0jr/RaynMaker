@@ -7,14 +7,9 @@ using Plainion.Validation;
 namespace RaynMaker.Blade.DataSheetSpec
 {
     [DefaultProperty( "Values" ), ContentProperty( "Values" )]
-    public class Series
+    public class Series : List<IDatum>
     {
-        public Series()
-        {
-            Values = new List<object>();
-        }
-
         [Required, ValidateObject]
-        public List<object> Values { get; private set; }
+        public List<IDatum> Values { get { return this; } }
     }
 }

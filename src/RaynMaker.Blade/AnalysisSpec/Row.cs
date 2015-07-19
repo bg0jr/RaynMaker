@@ -5,6 +5,9 @@ namespace RaynMaker.Blade.AnalysisSpec
     public class Row
     {
         [Required]
+        public string Caption { get; set; }
+
+        [Required]
         public string Value { get; set; }
 
         public bool Round { get; set; }

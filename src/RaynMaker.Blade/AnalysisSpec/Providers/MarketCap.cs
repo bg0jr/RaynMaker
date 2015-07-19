@@ -3,11 +3,11 @@ using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.DataSheetSpec.Datums;
 using RaynMaker.Blade.Engine;
 
-namespace RaynMaker.Blade.AnalysisSpec.Functions
+namespace RaynMaker.Blade.AnalysisSpec.Providers
 {
-    public class PriceToBook : IFigureProvider
+    public class MarketCap : IFigureProvider
     {
-        public string Name { get { return FunctionNames.PriceToBook; } }
+        public string Name { get { return ProviderNames.MarketCap; } }
 
         public object ProvideValue( IFigureProviderContext context )
         {
@@ -17,13 +17,13 @@ namespace RaynMaker.Blade.AnalysisSpec.Functions
                 return null;
             }
 
-            var allBookValues = context.GetCalculatedSeries<IAnualFinancialDatum>( FunctionNames.BookValue );
+            var allShares = context.GetDatumSeries<SharesOutstanding>();
 
-            var bookValue = allBookValues.SingleOrDefault( d => d.Year == price.Date.Year );
-            if( bookValue == null )
+            var shares = allShares.SingleOrDefault( d => d.Year == price.Date.Year );
+            if( shares == null )
             {
-                bookValue = allBookValues.SingleOrDefault( d => d.Year == price.Date.Year - 1 );
-                if( bookValue == null )
+                shares = allShares.SingleOrDefault( d => d.Year == price.Date.Year - 1 );
+                if( shares == null )
                 {
                     return null;
                 }
@@ -32,9 +32,10 @@ namespace RaynMaker.Blade.AnalysisSpec.Functions
             var result = new DerivedDatum
             {
                 Date = price.Date,
-                Value = price.Value / bookValue.Value
+                Currency = price.Currency,
+                Value = shares.Value * price.Value
             };
-            result.Inputs.Add( bookValue );
+            result.Inputs.Add( shares );
             result.Inputs.Add( price );
             return result;
         }

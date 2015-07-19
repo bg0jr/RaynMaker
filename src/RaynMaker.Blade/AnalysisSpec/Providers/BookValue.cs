@@ -3,39 +3,36 @@ using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.DataSheetSpec.Datums;
 using RaynMaker.Blade.Engine;
 
-namespace RaynMaker.Blade.AnalysisSpec.Functions
+namespace RaynMaker.Blade.AnalysisSpec.Providers
 {
-    /// <summary>
-    /// Earnings per share
-    /// </summary>
-    public class Eps : IFigureProvider
+    public class BookValue : IFigureProvider
     {
-        public string Name { get { return FunctionNames.Eps; } }
+        public string Name { get { return ProviderNames.BookValue; } }
 
         public object ProvideValue( IFigureProviderContext context )
         {
-            var allNetIncome = context.GetDatumSeries<NetIncome>();
+            var allEquity = context.GetDatumSeries<Equity>();
             var allShares = context.GetDatumSeries<SharesOutstanding>();
 
-            if( !allNetIncome.Any() || !allShares.Any() )
+            if( !allEquity.Any() || !allShares.Any() )
             {
                 return new Series();
             }
 
             var result = new Series();
 
-            foreach( var netIncome in allNetIncome )
+            foreach( var equity in allEquity )
             {
-                var shares = allShares.SingleOrDefault( e => e.Year == netIncome.Year );
+                var shares = allShares.SingleOrDefault( e => e.Year == equity.Year );
                 if( shares != null )
                 {
                     var eps = new DerivedDatum
                     {
-                        Year = netIncome.Year,
-                        Currency = netIncome.Currency,
-                        Value = netIncome.Value / shares.Value
+                        Year = equity.Year,
+                        Currency = equity.Currency,
+                        Value = equity.Value / shares.Value
                     };
-                    eps.Inputs.Add( netIncome );
+                    eps.Inputs.Add( equity );
                     eps.Inputs.Add( shares );
                     result.Values.Add( eps );
                 }

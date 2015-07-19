@@ -5,16 +5,16 @@ using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.DataSheetSpec.Datums;
 using RaynMaker.Blade.Engine;
 
-namespace RaynMaker.Blade.AnalysisSpec.Functions
+namespace RaynMaker.Blade.AnalysisSpec.Providers
 {
     public class DividendPayoutRatio : IFigureProvider
     {
-        public string Name { get { return FunctionNames.DividendPayoutRatio; } }
+        public string Name { get { return ProviderNames.DividendPayoutRatio; } }
 
         public object ProvideValue( IFigureProviderContext context )
         {
             var dividends = context.GetDatumSeries<Dividend>();
-            var earnings = context.GetCalculatedSeries<IAnualFinancialDatum>( FunctionNames.Eps );
+            var earnings = context.GetCalculatedSeries<IAnualFinancialDatum>( ProviderNames.Eps );
 
             if( !dividends.Any() || !earnings.Any() )
             {
