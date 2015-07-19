@@ -3,7 +3,6 @@ using System.ComponentModel.Composition;
 using System.IO;
 using System.Text;
 using System.Windows;
-using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;

@@ -118,11 +118,11 @@
     <Compile Include="DataSheetSpec\Datums\SharesOutstanding.cs" />
     <Compile Include="DataSheetSpec\Translation.cs" />
     <Compile Include="Engine\DatumProvider.cs" />
-    <Compile Include="Engine\Providers\MarketCapProvider.cs" />
-    <Compile Include="Engine\Providers\DividendPayoutRatioProvider.cs" />
-    <Compile Include="Engine\Providers\GenericSeriesProvider.cs" />
-    <Compile Include="Engine\Providers\DividendYieldProvider.cs" />
-    <Compile Include="Engine\Providers\PriceProvider.cs" />
+    <Compile Include="AnalysisSpec\Functions\MarketCap.cs" />
+    <Compile Include="AnalysisSpec\Functions\DividendPayoutRatio.cs" />
+    <Compile Include="AnalysisSpec\Functions\DatumSeries.cs" />
+    <Compile Include="AnalysisSpec\Functions\DividendYield.cs" />
+    <Compile Include="AnalysisSpec\Functions\CurrentPrice.cs" />
     <Compile Include="Engine\ReportContext.cs" />
     <Compile Include="Engine\IFigureProvider.cs" />
     <Compile Include="Engine\IReportElement.cs" />

@@ -3,10 +3,11 @@ using System.Linq;
 using Plainion;
 using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.DataSheetSpec.Datums;
+using RaynMaker.Blade.Engine;
 
-namespace RaynMaker.Blade.Engine
+namespace RaynMaker.Blade.AnalysisSpec.Functions
 {
-    public class MarketCapProvider : IFigureProvider
+    public class MarketCap : IFigureProvider
     {
         public string Name { get { return "MarketCap"; } }
 

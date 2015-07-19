@@ -2,10 +2,11 @@
 using Plainion;
 using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.DataSheetSpec.Datums;
+using RaynMaker.Blade.Engine;
 
-namespace RaynMaker.Blade.Engine.Providers
+namespace RaynMaker.Blade.AnalysisSpec.Functions
 {
-    public class DividendYieldProvider : IFigureProvider
+    public class DividendYield : IFigureProvider
     {
         public string Name { get { return "DividendYield"; } }
 

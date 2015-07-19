@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Linq;
 using RaynMaker.Blade.DataSheetSpec;
+using RaynMaker.Blade.Engine;
 
-namespace RaynMaker.Blade.Engine
+namespace RaynMaker.Blade.AnalysisSpec.Functions
 {
-    public class GenericSeriesProvider : IFigureProvider
+    public class DatumSeries : IFigureProvider
     {
         private Type myDatumType;
 
-        public GenericSeriesProvider( Type datumType )
+        public DatumSeries( Type datumType )
         {
             myDatumType = datumType;
         }

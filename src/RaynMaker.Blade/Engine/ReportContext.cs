@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows.Data;
 using System.Windows.Documents;
 using Plainion;
+using RaynMaker.Blade.AnalysisSpec.Functions;
 using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.DataSheetSpec.Datums;
 
@@ -22,21 +21,21 @@ namespace RaynMaker.Blade.Engine
 
             myProviders = GetType().Assembly.GetTypes()
                 .Where( t => t.GetInterfaces().Any( iface => iface == typeof( IFigureProvider ) ) )
-                .Where( t => t != typeof( GenericSeriesProvider ) )
+                .Where( t => t != typeof( DatumSeries ) )
                 .Select( t => Activator.CreateInstance( t ) )
                 .OfType<IFigureProvider>()
                 .ToList();
-            myProviders.Add( new GenericSeriesProvider( typeof( SharesOutstanding ) ) );
-            myProviders.Add( new GenericSeriesProvider( typeof( NetIncome ) ) );
-            myProviders.Add( new GenericSeriesProvider( typeof( Equity ) ) );
-            myProviders.Add( new GenericSeriesProvider( typeof( Eps ) ) );
-            myProviders.Add( new GenericSeriesProvider( typeof( Dividend ) ) );
-            myProviders.Add( new GenericSeriesProvider( typeof( Assets ) ) );
-            myProviders.Add( new GenericSeriesProvider( typeof( Liabilities ) ) );
-            myProviders.Add( new GenericSeriesProvider( typeof( Dept ) ) );
-            myProviders.Add( new GenericSeriesProvider( typeof( Revenue ) ) );
-            myProviders.Add( new GenericSeriesProvider( typeof( EBIT ) ) );
-            myProviders.Add( new GenericSeriesProvider( typeof( InterestExpense ) ) );
+            myProviders.Add( new DatumSeries( typeof( SharesOutstanding ) ) );
+            myProviders.Add( new DatumSeries( typeof( NetIncome ) ) );
+            myProviders.Add( new DatumSeries( typeof( Equity ) ) );
+            myProviders.Add( new DatumSeries( typeof( Eps ) ) );
+            myProviders.Add( new DatumSeries( typeof( Dividend ) ) );
+            myProviders.Add( new DatumSeries( typeof( Assets ) ) );
+            myProviders.Add( new DatumSeries( typeof( Liabilities ) ) );
+            myProviders.Add( new DatumSeries( typeof( Dept ) ) );
+            myProviders.Add( new DatumSeries( typeof( Revenue ) ) );
+            myProviders.Add( new DatumSeries( typeof( EBIT ) ) );
+            myProviders.Add( new DatumSeries( typeof( InterestExpense ) ) );
         }
 
         public Asset Asset { get; private set; }

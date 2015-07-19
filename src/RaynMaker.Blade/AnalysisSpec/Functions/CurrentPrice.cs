@@ -1,10 +1,11 @@
 ﻿using System.Linq;
 using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.DataSheetSpec.Datums;
+using RaynMaker.Blade.Engine;
 
-namespace RaynMaker.Blade.Engine.Providers
+namespace RaynMaker.Blade.AnalysisSpec.Functions
 {
-    public class PriceProvider : IFigureProvider
+    public class CurrentPrice : IFigureProvider
     {
         public string Name { get { return "Price"; } }
 
