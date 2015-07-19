@@ -5,9 +5,9 @@ using RaynMaker.Blade.Engine;
 
 namespace RaynMaker.Blade.AnalysisSpec.Functions
 {
-    public class MarketCap : IFigureProvider
+    public class PriceEarningsRatio : IFigureProvider
     {
-        public string Name { get { return FunctionNames.MarketCap; } }
+        public string Name { get { return FunctionNames.PriceEarningsRatio; } }
 
         public object ProvideValue( IFigureProviderContext context )
         {
@@ -17,13 +17,13 @@ namespace RaynMaker.Blade.AnalysisSpec.Functions
                 return null;
             }
 
-            var allShares = context.GetDatumSeries<SharesOutstanding>();
+            var allEps = context.GetCalculatedSeries<IAnualFinancialDatum>( FunctionNames.Eps );
 
-            var shares = allShares.SingleOrDefault( d => d.Year == price.Date.Year );
-            if( shares == null )
+            var eps = allEps.SingleOrDefault( d => d.Year == price.Date.Year );
+            if( eps == null )
             {
-                shares = allShares.SingleOrDefault( d => d.Year == price.Date.Year - 1 );
-                if( shares == null )
+                eps = allEps.SingleOrDefault( d => d.Year == price.Date.Year - 1 );
+                if( eps == null )
                 {
                     return null;
                 }
@@ -32,10 +32,9 @@ namespace RaynMaker.Blade.AnalysisSpec.Functions
             var result = new DerivedDatum
             {
                 Date = price.Date,
-                Currency = price.Currency,
-                Value = shares.Value * price.Value
+                Value = price.Value / eps.Value
             };
-            result.Inputs.Add( shares );
+            result.Inputs.Add( eps );
             result.Inputs.Add( price );
             return result;
         }

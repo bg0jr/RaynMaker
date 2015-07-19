@@ -9,6 +9,8 @@ namespace RaynMaker.Blade.DataSheetSpec
 
         internal static Currency Parse( string name )
         {
+            Contract.Invariant( Sheet != null, "Currencies sheet not yet initialized" );
+
             var currency = Sheet.Currencies
                 .FirstOrDefault( c => c.Name == name );
 

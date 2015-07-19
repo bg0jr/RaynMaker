@@ -58,7 +58,7 @@ namespace RaynMaker.Blade.AnalysisSpec
                 row = new TableRow();
                 var provider = context.GetProvider( dataRow.Value );
 
-                var series = ( Series )provider.ProvideValue( context.Asset );
+                var series = ( Series )provider.ProvideValue( context );
                 var values = series.Values
                     .Cast<IAnualDatum>()
                     .ToList();

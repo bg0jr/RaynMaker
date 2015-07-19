@@ -31,7 +31,34 @@ namespace RaynMaker.Blade.AnalysisSpec
         public void Report( ReportContext context )
         {
             var provider = context.GetProvider( Value );
-            var value = ( IDatum )provider.ProvideValue( context.Asset );
+            var value = ( IDatum )provider.ProvideValue( context );
+
+            if( value == null )
+            {
+                ReportMissingData( context );
+            }
+            else
+            {
+                ExecuteRule( context, value );
+            }
+        }
+
+        private void ReportMissingData( ReportContext context )
+        {
+            var paragraph = new Paragraph()
+            {
+                Padding = new Thickness( 2 ),
+                Background = Brushes.Red,
+            };
+
+            ReportRuleLabel( paragraph );
+            paragraph.Inlines.Add( new Run( " FAILED: no value found") );
+
+            context.Document.Blocks.Add( paragraph );
+        }
+
+        private void ExecuteRule( ReportContext context, IDatum value )
+        {
             var valueCurrency = value is ICurrencyDatum ? ( ( ICurrencyDatum )value ).Currency : null;
             var threshold = Currency != null ? context.TranslateCurrency( Threshold, Currency, valueCurrency ) : Threshold;
 
@@ -43,13 +70,12 @@ namespace RaynMaker.Blade.AnalysisSpec
                 Background = success ? Brushes.LightGreen : Brushes.OrangeRed,
             };
 
-            paragraph.Inlines.Add( new Run( "Rule: " ) { FontWeight = FontWeights.DemiBold } );
+            ReportRuleLabel( paragraph );
 
             paragraph.Inlines.Add( new Run(
-                string.Format( "{0} {1} {2} {3} {4}{5} ({6:0.00}%)",
-                Caption,
+                string.Format( "{0} {1}{2} {3}{4} ({5:0.00}%)",
                 FormatValue( value.Value ),
-                success ? "" : " NOT",
+                success ? "" : "NOT ",
                 Operator.Name,
                 FormatValue( threshold ),
                 valueCurrency != null ? " " + valueCurrency.Name : "",
@@ -57,6 +83,15 @@ namespace RaynMaker.Blade.AnalysisSpec
                 ) ) );
 
             context.Document.Blocks.Add( paragraph );
+        }
+
+        private void ReportRuleLabel( Paragraph paragraph )
+        {
+            paragraph.Inlines.Add( new Run(
+                string.Format( "{0}: ", Caption ) )
+                {
+                    FontWeight = FontWeights.DemiBold
+                } );
         }
 
         private string FormatValue( double value )
@@ -67,7 +102,6 @@ namespace RaynMaker.Blade.AnalysisSpec
             }
             else
             {
-                //... .ToString("#,##0.00")
                 return string.Format( "{0:#,0.00}", value );
             }
         }

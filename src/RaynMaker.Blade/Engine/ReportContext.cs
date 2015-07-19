@@ -10,7 +10,7 @@ using RaynMaker.Blade.DataSheetSpec.Datums;
 
 namespace RaynMaker.Blade.Engine
 {
-    public class ReportContext
+    public class ReportContext : IFigureProviderContext
     {
         private List<IFigureProvider> myProviders;
 
@@ -28,7 +28,6 @@ namespace RaynMaker.Blade.Engine
             myProviders.Add( new DatumSeries( typeof( SharesOutstanding ) ) );
             myProviders.Add( new DatumSeries( typeof( NetIncome ) ) );
             myProviders.Add( new DatumSeries( typeof( Equity ) ) );
-            myProviders.Add( new DatumSeries( typeof( Eps ) ) );
             myProviders.Add( new DatumSeries( typeof( Dividend ) ) );
             myProviders.Add( new DatumSeries( typeof( Assets ) ) );
             myProviders.Add( new DatumSeries( typeof( Liabilities ) ) );
@@ -96,8 +95,8 @@ namespace RaynMaker.Blade.Engine
         {
             var tokens = expr.Split( '.' );
             var providerName = tokens.Length > 1 ? tokens[ 0 ] : expr;
-            var provider = myProviders.SingleOrDefault( p => p.Name == providerName );
-            var value = provider.ProvideValue( Asset );
+            var provider = myProviders.Single( p => p.Name == providerName );
+            var value = provider.ProvideValue( this );
 
             if( tokens.Length == 1 )
             {
@@ -162,7 +161,7 @@ namespace RaynMaker.Blade.Engine
             Contract.RequiresNotNull( source, "source" );
             Contract.RequiresNotNull( target, "target" );
 
-            var translation = source.Translations.SingleOrDefault( t => t.To == target );
+            var translation = source.Translations.SingleOrDefault( t => t.Target == target );
 
             Contract.Invariant( translation != null, "No translation found from {0} to {1}", source, target );
 
@@ -170,6 +169,38 @@ namespace RaynMaker.Blade.Engine
                 "Translation rate from {0} to {1} expired", source, target );
 
             return value * translation.Rate;
+        }
+
+        public IEnumerable<T> GetDatumSeries<T>()
+        {
+            var series = Asset.Data.OfType<Series>()
+                .Where( s => s.Values.OfType<T>().Any() )
+                .SingleOrDefault();
+
+            if( series == null )
+            {
+                return Enumerable.Empty<T>();
+            }
+
+            return series.Values.Cast<T>();
+        }
+
+        public IEnumerable<T> GetCalculatedSeries<T>( string name )
+        {
+            var provider = myProviders.Single( p => p.Name == name );
+            var series= ( Series )provider.ProvideValue( this );
+            return series.Values.Cast<T>();
+        }
+
+        public void EnsureCurrencyConsistency( params IEnumerable<ICurrencyDatum>[] values )
+        {
+            var allCurrencies = values
+                .SelectMany( v => v )
+                .Select( v => v.Currency )
+                .Distinct()
+                .ToList();
+
+            Contract.Requires( allCurrencies.Count == 1, "Currency inconsistencies found: {0}", string.Join( ",", allCurrencies ) );
         }
     }
 }

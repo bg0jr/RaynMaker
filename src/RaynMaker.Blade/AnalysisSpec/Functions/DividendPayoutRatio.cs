@@ -9,21 +9,19 @@ namespace RaynMaker.Blade.AnalysisSpec.Functions
 {
     public class DividendPayoutRatio : IFigureProvider
     {
-        public string Name { get { return "DividendPayoutRatio"; } }
+        public string Name { get { return FunctionNames.DividendPayoutRatio; } }
 
-        public object ProvideValue( Asset asset )
+        public object ProvideValue( IFigureProviderContext context )
         {
-            var provider = new DatumProvider( asset );
-
-            var dividends = provider.GetSeries<Dividend>();
-            var earnings = provider.GetSeries<Eps>();
+            var dividends = context.GetDatumSeries<Dividend>();
+            var earnings = context.GetCalculatedSeries<IAnualFinancialDatum>( FunctionNames.Eps );
 
             if( !dividends.Any() || !earnings.Any() )
             {
                 return new Series();
             }
 
-            provider.EnsureCurrencyConsistency( dividends, earnings );
+            context.EnsureCurrencyConsistency( dividends, earnings );
 
             var result = new Series();
 
@@ -32,15 +30,14 @@ namespace RaynMaker.Blade.AnalysisSpec.Functions
                 var eps = earnings.SingleOrDefault( e => e.Year == dividend.Year );
                 if( eps != null )
                 {
-                    var ratio= new DerivedDatum
+                    var ratio = new DerivedDatum
                     {
                         Year = dividend.Year,
-                        Currency = dividend.Currency,
                         Value = dividend.Value / eps.Value * 100
                     };
                     ratio.Inputs.Add( dividend );
                     ratio.Inputs.Add( eps );
-                    result.Values.Add(ratio);
+                    result.Values.Add( ratio );
                 }
             }
 

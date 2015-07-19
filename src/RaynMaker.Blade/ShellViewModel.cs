@@ -63,7 +63,7 @@ namespace RaynMaker.Blade
 
             if( CurrenciesSheetLocation == null )
             {
-                CurrenciesSheetLocation = Path.Combine( Path.GetDirectoryName( GetType().Assembly.Location ), "data", "Currencies.xaml" );
+                CurrenciesSheetLocation = Path.Combine( Path.GetDirectoryName( GetType().Assembly.Location ), "Resources", "Currencies.xaml" );
             }
         }
 

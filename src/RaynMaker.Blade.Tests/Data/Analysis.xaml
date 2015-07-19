@@ -10,7 +10,6 @@
         <AnualTable EndYear="2014" Count="10">
             <Row Value="${SharesOutstanding}" InMillions="True"/>
             <Row Value="${Dividend}"/>
-            <Row Value="${Eps}"/>
             <Row Value="${DividendPayoutRatio}"/>
         </AnualTable>
 

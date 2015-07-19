@@ -2,10 +2,10 @@
 
 namespace RaynMaker.Blade.Engine
 {
-    interface IFigureProvider
+    public interface IFigureProvider
     {
         string Name { get; }
 
-        object ProvideValue( Asset asset );
+        object ProvideValue( IFigureProviderContext context );
     }
 }

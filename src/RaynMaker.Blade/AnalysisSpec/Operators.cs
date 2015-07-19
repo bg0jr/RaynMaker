@@ -9,8 +9,8 @@ namespace RaynMaker.Blade.AnalysisSpec
         public static readonly Operator Greater = new Operator( ">", ( a, b ) => a > b );
         public static readonly Operator GreaterOrEqual = new Operator( ">=", ( a, b ) => a >= b );
         public static readonly Operator Equal = new Operator( "==", ( a, b ) => a == b );
-        public static readonly Operator LessOrEqual = new Operator( "<", ( a, b ) => a <= b );
-        public static readonly Operator Less = new Operator( "<=", ( a, b ) => a < b );
+        public static readonly Operator LessOrEqual = new Operator( "<=", ( a, b ) => a <= b );
+        public static readonly Operator Less = new Operator( "<", ( a, b ) => a < b );
 
         internal static Operator Parse( string text )
         {

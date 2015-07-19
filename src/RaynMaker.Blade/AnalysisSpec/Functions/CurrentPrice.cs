@@ -7,11 +7,11 @@ namespace RaynMaker.Blade.AnalysisSpec.Functions
 {
     public class CurrentPrice : IFigureProvider
     {
-        public string Name { get { return "Price"; } }
+        public string Name { get { return FunctionNames.CurrentPrice; } }
 
-        public object ProvideValue( Asset asset )
+        public object ProvideValue( IFigureProviderContext context )
         {
-            return asset.Data.OfType<Price>().SingleOrDefault();
+            return context.Asset.Data.OfType<Price>().SingleOrDefault();
         }
     }
 }

@@ -36,12 +36,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\Currencies.xaml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Data\Volkswagen.xaml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -16,9 +16,9 @@ namespace RaynMaker.Blade.AnalysisSpec.Functions
 
         public string Name { get { return myDatumType.Name; } }
 
-        public object ProvideValue( Asset asset )
+        public object ProvideValue( IFigureProviderContext context)
         {
-            return asset.Data.OfType<Series>()
+            return context.Asset.Data.OfType<Series>()
                 .Where( s => s.Values.Where( v => v.GetType() == myDatumType ).Any() )
                 .SingleOrDefault() ?? new Series();
         }
