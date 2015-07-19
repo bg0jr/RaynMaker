@@ -81,15 +81,15 @@ namespace RaynMaker.Blade.AnalysisSpec
                     }
                     else if( dataRow.Round )
                     {
-                        row.Cell( "{0:0}", value.Value ).TextAlignment = TextAlignment.Right;
+                        row.Cell( "{0:#,0}", value.Value ).TextAlignment = TextAlignment.Right;
                     }
                     else if( dataRow.InMillions )
                     {
-                        row.Cell( "{0:0.00}", value.Value / 1000 / 1000 ).TextAlignment = TextAlignment.Right;
+                        row.Cell( "{0:#,0.00}", value.Value / 1000 / 1000 ).TextAlignment = TextAlignment.Right;
                     }
                     else
                     {
-                        row.Cell( "{0:0.00}", value.Value ).TextAlignment = TextAlignment.Right;
+                        row.Cell( "{0:#,0.00}", value.Value ).TextAlignment = TextAlignment.Right;
                     }
                 }
 

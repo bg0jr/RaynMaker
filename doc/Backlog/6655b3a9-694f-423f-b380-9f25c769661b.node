@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="6655b3a9-694f-423f-b380-9f25c769661b" Created="635717051681650611" LastModified="635717051993928472">
-  <Caption><![CDATA[report numbers with thousands separator]]></Caption>
-  <Content><![CDATA[which format do we have to use?
-always do it like this
-maybe we should have some common function to print it?]]></Content>
-</Node>
