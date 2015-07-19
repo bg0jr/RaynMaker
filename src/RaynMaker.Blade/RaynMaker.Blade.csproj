@@ -91,8 +91,12 @@
     <Compile Include="AnalysisSpec\Analysis.cs" />
     <Compile Include="AnalysisSpec\AnalysisTemplate.cs" />
     <Compile Include="AnalysisSpec\AnualTable.cs" />
+    <Compile Include="AnalysisSpec\Functions\BookValue.cs" />
+    <Compile Include="AnalysisSpec\Functions\DeptEquityRatio.cs" />
     <Compile Include="AnalysisSpec\Functions\Eps.cs" />
     <Compile Include="AnalysisSpec\Functions\FunctionNames.cs" />
+    <Compile Include="AnalysisSpec\Functions\CurrentRatio.cs" />
+    <Compile Include="AnalysisSpec\Functions\PriceToBook.cs" />
     <Compile Include="AnalysisSpec\Functions\PriceEarningsRatio.cs" />
     <Compile Include="AnalysisSpec\OperatorConverter.cs" />
     <Compile Include="AnalysisSpec\Operator.cs" />

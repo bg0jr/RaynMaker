@@ -8,6 +8,10 @@ namespace RaynMaker.Blade.AnalysisSpec.Functions
         public const string DividendPayoutRatio = "DividendPayoutRatio";
         public const string DividendYield = "DividendYield";
         public const string MarketCap = "MarketCap";
-        public static string PriceEarningsRatio = "PriceEarningsRatio";
+        public const string PriceEarningsRatio = "PriceEarningsRatio";
+        public const string BookValue = "BookValue";
+        public const string PriceToBook = "PriceToBook";
+        public const string CurrentRatio = "CurrentRatio";
+        public const string DeptEquityRatio = "DeptEquityRatio";
     }
 }

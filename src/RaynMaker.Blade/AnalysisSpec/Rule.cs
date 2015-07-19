@@ -73,9 +73,8 @@ namespace RaynMaker.Blade.AnalysisSpec
             ReportRuleLabel( paragraph );
 
             paragraph.Inlines.Add( new Run(
-                string.Format( "{0} {1}{2} {3}{4} ({5:0.00}%)",
+                string.Format( "{0} {1} {2}{3} ({4:0.00}%)",
                 FormatValue( value.Value ),
-                success ? "" : "NOT ",
                 Operator.Name,
                 FormatValue( threshold ),
                 valueCurrency != null ? " " + valueCurrency.Name : "",
