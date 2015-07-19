@@ -7,6 +7,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using Plainion;
 using RaynMaker.Blade.DataSheetSpec;
+using RaynMaker.Blade.DataSheetSpec.Datums;
 
 namespace RaynMaker.Blade.Engine
 {

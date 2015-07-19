@@ -9,9 +9,11 @@
     </CurrenciesSheet.Resources>
     
     <p:StaticResource ResourceKey="Euro"/>
+
+    <!-- http://www.finanzen.net/waehrungsrechner/ -->
     
     <Currency Name="Dollar">
-        <Translation To="{p:StaticResource Euro}" Timestamp="2015-07-05" Rate="1"/>
+        <Translation To="{p:StaticResource Euro}" Timestamp="2015-07-19" Rate="0.9234"/>
     </Currency>
 </CurrenciesSheet>
 

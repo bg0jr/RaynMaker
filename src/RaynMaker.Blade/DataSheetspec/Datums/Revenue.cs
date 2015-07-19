@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RaynMaker.Blade.DataSheetSpec
+namespace RaynMaker.Blade.DataSheetSpec.Datums
 {
     public class Revenue : AnualDatum, ICurrencyDatum
     {

@@ -102,20 +102,20 @@
     <Compile Include="DataSheetSpec\DailyDatum.cs" />
     <Compile Include="DataSheetSpec\IAnualDatum.cs" />
     <Compile Include="DataSheetSpec\IDailyDatum.cs" />
-    <Compile Include="DataSheetSpec\Assets.cs" />
+    <Compile Include="DataSheetSpec\Datums\Assets.cs" />
     <Compile Include="DataSheetSpec\CurrenciesSheet.cs" />
     <Compile Include="DataSheetSpec\DerivedDatum.cs" />
     <Compile Include="DataSheetSpec\IDatum.cs" />
     <Compile Include="DataSheetSpec\InMioExtension.cs" />
-    <Compile Include="DataSheetSpec\InterestExpense.cs" />
-    <Compile Include="DataSheetSpec\EBIT.cs" />
-    <Compile Include="DataSheetSpec\Revenue.cs" />
-    <Compile Include="DataSheetSpec\Liabilities.cs" />
-    <Compile Include="DataSheetSpec\Dept.cs" />
+    <Compile Include="DataSheetSpec\Datums\InterestExpense.cs" />
+    <Compile Include="DataSheetSpec\Datums\EBIT.cs" />
+    <Compile Include="DataSheetSpec\Datums\Revenue.cs" />
+    <Compile Include="DataSheetSpec\Datums\Liabilities.cs" />
+    <Compile Include="DataSheetSpec\Datums\Dept.cs" />
     <Compile Include="DataSheetSpec\ICurrencyDatum.cs" />
-    <Compile Include="DataSheetSpec\Equity.cs" />
-    <Compile Include="DataSheetSpec\NetIncome.cs" />
-    <Compile Include="DataSheetSpec\SharesOutstanding.cs" />
+    <Compile Include="DataSheetSpec\Datums\Equity.cs" />
+    <Compile Include="DataSheetSpec\Datums\NetIncome.cs" />
+    <Compile Include="DataSheetSpec\Datums\SharesOutstanding.cs" />
     <Compile Include="DataSheetSpec\Translation.cs" />
     <Compile Include="Engine\DatumProvider.cs" />
     <Compile Include="Engine\Providers\MarketCapProvider.cs" />
@@ -131,13 +131,13 @@
     <Compile Include="DataSheetSpec\Currency.cs" />
     <Compile Include="DataSheetSpec\CurrencyConverter.cs" />
     <Compile Include="DataSheetSpec\Datum.cs" />
-    <Compile Include="DataSheetSpec\Dividend.cs" />
+    <Compile Include="DataSheetSpec\Datums\Dividend.cs" />
     <Compile Include="DataSheetSpec\Series.cs" />
-    <Compile Include="DataSheetSpec\Eps.cs" />
+    <Compile Include="DataSheetSpec\Datums\Eps.cs" />
     <Compile Include="DataSheetSpec\Overview.cs" />
     <Compile Include="DataSheetSpec\Asset.cs" />
     <Compile Include="DataSheetSpec\DataSheet.cs" />
-    <Compile Include="DataSheetSpec\Price.cs" />
+    <Compile Include="DataSheetSpec\Datums\Price.cs" />
     <Compile Include="DataSheetSpec\Reference.cs" />
     <Compile Include="DataSheetSpec\Stock.cs" />
     <Compile Include="Reporting\FlowDocumentExtensions.cs" />
@@ -182,27 +182,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\Volkswagen.xaml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Data\Analysis.xaml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Data\Currencies.xaml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Page Include="Reporting\ReportView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -2,6 +2,7 @@
 using System.Linq;
 using Plainion;
 using RaynMaker.Blade.DataSheetSpec;
+using RaynMaker.Blade.DataSheetSpec.Datums;
 
 namespace RaynMaker.Blade.Engine
 {
