@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Markup;
 
 namespace RaynMaker.Blade.DataSheetSpec

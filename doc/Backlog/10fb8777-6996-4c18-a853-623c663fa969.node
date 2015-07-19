@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="10fb8777-6996-4c18-a853-623c663fa969" Created="635728854960579747" LastModified="635728856763952895">
+<Node Id="10fb8777-6996-4c18-a853-623c663fa969" Created="635728854960579747" LastModified="635728885318756136">
   <Caption><![CDATA[add further providers]]></Caption>
-  <Content><![CDATA[- P/E ratio
-- BookValue
-- PriceToBook
-- CurrentRatio
-- Dept/Equity
-- Return on Equity
+  <Content><![CDATA[- P/E ratio (price / eps)
+- BookValue (Equity / shares)
+- PriceToBook (price / BookValue)
+- CurrentRatio (current assets / current liabilities)
+- Dept/Equity (dept / equity)
+- Return on Equity (Eps / BookValue)
 - Net income growth rate
 - Revenue growth rate
 - Eps growth rate
-- Interest Coverage]]></Content>
+- Interest Coverage (EBIT / Interest expense)]]></Content>
 </Node>
