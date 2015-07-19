@@ -13,5 +13,6 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
         public const string PriceToBook = "PriceToBook";
         public const string CurrentRatio = "CurrentRatio";
         public const string DeptEquityRatio = "DeptEquityRatio";
+        public const string ReturnOnEquity = "ReturnOnEquity";
     }
 }

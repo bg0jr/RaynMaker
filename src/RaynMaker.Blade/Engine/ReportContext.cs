@@ -136,18 +136,14 @@ namespace RaynMaker.Blade.Engine
             }
         }
 
-        internal object ProvideValue( string expr )
+        public object ProvideValue( string expr )
         {
             Contract.Requires( expr.StartsWith( "${" ) && expr.EndsWith( "}" ), "Not an expression: " + expr );
 
-            var path = expr.Substring( 2, expr.Length - 3 ).RemoveAll( char.IsWhiteSpace );
+            var path = expr.Substring( 2, expr.Length - 3 );
 
-            Contract.Requires( path.IndexOf( '.' ) == -1, "Nested providers not supported: ", expr );
-
-            var provider = myProviders.SingleOrDefault( p => p.Name == path );
-            Contract.Requires( provider != null, "{0} does not represent a IFigureProvider", expr );
-
-            return provider.ProvideValue( this );
+            var evaluator = new ExpressionEvaluator( myProviders, this );
+            return evaluator.Evaluate( path );
         }
 
         public double TranslateCurrency( double value, Currency source, Currency target )
