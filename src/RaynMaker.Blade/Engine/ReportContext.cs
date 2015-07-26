@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows.Documents;
 using Plainion;
 using RaynMaker.Blade.AnalysisSpec.Providers;
@@ -43,107 +42,14 @@ namespace RaynMaker.Blade.Engine
 
         internal string Evaluate( string text )
         {
-            var sb = new StringBuilder();
-
-            int start = 0;
-            while( -1 < start && start < text.Length )
-            {
-                var pos = text.IndexOf( "${", start );
-                if( pos == -1 )
-                {
-                    sb.Append( text.Substring( start ) );
-                    break;
-                }
-
-                sb.Append( text.Substring( start, pos - start ) );
-
-                start = pos + 2;
-
-                pos = text.IndexOf( "}", start );
-                if( pos == -1 )
-                {
-                    sb.Append( text.Substring( start, pos - start ) );
-                    break;
-                }
-
-                var expr = text.Substring( start, pos - start );
-                sb.Append( FormatValue( EvaluateExpression( expr ) ) );
-
-                start = pos + 1;
-            }
-
-            return sb.ToString();
-        }
-
-        private string FormatValue( object value )
-        {
-            if( value == null )
-            {
-                return "n.a.";
-            }
-            else if( value is double )
-            {
-                return ( ( double )value ).ToString( "0.00" );
-            }
-            else
-            {
-                return value.ToString();
-            }
-        }
-
-        private object EvaluateExpression( string expr )
-        {
-            var tokens = expr.Split( '.' );
-            var providerName = tokens.Length > 1 ? tokens[ 0 ] : expr;
-            var provider = myProviders.Single( p => p.Name == providerName );
-            var value = provider.ProvideValue( this );
-
-            if( tokens.Length == 1 )
-            {
-                return value;
-            }
-
-            if( value == null )
-            {
-                return null;
-            }
-
-            foreach( var token in tokens.Skip( 1 ) )
-            {
-                value = GetValue( value, token );
-            }
-
-            return value;
-        }
-
-        private object GetValue( object value, string member )
-        {
-            if( member.EndsWith( ")" ) )
-            {
-                var method = value.GetType().GetMethod( member.Substring( 0, member.IndexOf( '(' ) ) );
-
-                Contract.Requires( method != null, "'{0}' does not have a method named '{1}'", value.GetType(), member );
-
-                return method.Invoke( value, null );
-            }
-            else
-            {
-                var property = value.GetType().GetProperty( member );
-
-                Contract.Requires( property != null, "'{0}' does not have a property named '{1}'", value.GetType(), member );
-
-                return property.GetValue( value );
-            }
+            var evaluator = new TextEvaluator( new ExpressionEvaluator( myProviders, this ) );
+            return evaluator.Evaluate( text );
         }
 
         public object ProvideValue( string expr )
         {
-            Contract.Requires( expr.StartsWith( "${" ) && expr.EndsWith( "}" ), "Not an expression: " + expr );
-
-            var path = expr.Substring( 2, expr.Length - 3 );
-
-            var evaluator = new ExpressionEvaluator( myProviders, this );
-            return evaluator.Evaluate( path );
+            var evaluator = new TextEvaluator( new ExpressionEvaluator( myProviders, this ) );
+            return evaluator.ProvideValue( expr );
         }
 
         public double TranslateCurrency( double value, Currency source, Currency target )

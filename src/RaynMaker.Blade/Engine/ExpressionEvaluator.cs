@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Plainion;
 
 namespace RaynMaker.Blade.Engine
@@ -20,53 +18,116 @@ namespace RaynMaker.Blade.Engine
 
         public object Evaluate( string expr )
         {
-            Contract.Requires( expr.IndexOf( '.' ) == -1, "Property access not supported: ", expr );
+            return Compile( expr )();
+        }
 
-            return EvaluateExpression( expr.RemoveAll( char.IsWhiteSpace ) );
+        private Func<object> Compile( string expr )
+        {
+            var tokens = expr.RemoveAll( char.IsWhiteSpace )
+                .Split( new[] { ',', '(', ')' }, StringSplitOptions.RemoveEmptyEntries );
+
+            return EvaluateExpression( tokens );
         }
 
         // Average(Last(ReturnOnEquity,5))
-        private object EvaluateExpression( string expr )
+        private Func<object> EvaluateExpression( string[] tokens )
         {
-            var openParenthesis = expr.IndexOf( '(' );
-            if( openParenthesis > -1 )
+            if( tokens.Length == 0 )
             {
-                var closeParenthesis = expr.LastIndexOf( ')' );
-                Contract.ReferenceEquals( closeParenthesis > -1, "Expression error: missing closing parathesis" );
-
-                var functionName = expr.Substring( 0, openParenthesis );
-                var args = expr.Substring( openParenthesis + 1, closeParenthesis - openParenthesis )
-                    .Split( new[] { ',' }, StringSplitOptions.None );
-
-                return ExecuteFunction( functionName, args );
+                return () => null;
             }
 
-            return GetProviderValue( expr );
+            if( tokens.Length == 1 )
+            {
+                return EvaluateWord( tokens[ 0 ] );
+            }
+
+            Contract.Requires( tokens.Length >= 4, "Invalid function call: {0}", string.Join( "", tokens ) );
+            Contract.Requires( tokens[ 1 ] == "(", "'(' expected: {0}", string.Join( "", tokens ) );
+            Contract.Requires( tokens[ tokens.Length - 1 ] == ")", "Missing ')': {0}", string.Join( "", tokens ) );
+
+            var functionName = tokens[ 0 ];
+            var args = EvaluateArguments( tokens.Skip( 2 ).Take( tokens.Length - 3 ).ToArray() );
+
+            return ExecuteFunction( functionName, args );
         }
 
-        private object ExecuteFunction( string functionName, string[] args )
+        private object[] EvaluateArguments( string[] p )
         {
-            var values = args
-                .Select( arg => EvaluateExpression( arg ) )
-                .ToArray();
+            throw new NotImplementedException();
+        }
 
+        private Func<object> EvaluateWord( string word )
+        {
+            double result;
+            if( double.TryParse( word, out result ) )
+            {
+                return () => result;
+            }
+            else
+            {
+                return () => GetProviderValue( word );
+            }
+        }
+
+        private Func<object> ExecuteFunction( string functionName, object[] args )
+        {
             var functions = typeof( Functions ).GetMethods()
                 .Where( m => m.Name == functionName )
-                .Where( m => m.GetParameters().Length == values.Length )
+                .Where( m => m.GetParameters().Length == args.Length )
                 .ToList();
 
             Contract.Requires( functions.Count == 1, "None or multiple functions found with name '{0}' and {1} parameters", functionName, functions.Count );
 
-            return functions.Single().Invoke( null, values );
+            return () => functions.Single().Invoke( null, args );
         }
 
-        private object GetProviderValue( string providerName )
+        private object GetProviderValue( string expr )
         {
+            var tokens = expr.Split( '.' );
+            var providerName = tokens.Length > 1 ? tokens[ 0 ] : expr;
+
             var provider = myProviders.SingleOrDefault( p => p.Name == providerName );
             Contract.Requires( provider != null, "{0} does not represent a IFigureProvider", providerName );
 
-            return provider.ProvideValue( myContext );
+            var value = provider.ProvideValue( myContext );
+
+            if( tokens.Length == 1 )
+            {
+                return value;
+            }
+
+            if( value == null )
+            {
+                return null;
+            }
+
+            foreach( var token in tokens.Skip( 1 ) )
+            {
+                value = GetValue( value, token );
+            }
+
+            return value;
         }
 
+        private object GetValue( object value, string member )
+        {
+            if( member.EndsWith( ")" ) )
+            {
+                var method = value.GetType().GetMethod( member.Substring( 0, member.IndexOf( '(' ) ) );
+
+                Contract.Requires( method != null, "'{0}' does not have a method named '{1}'", value.GetType(), member );
+
+                return method.Invoke( value, null );
+            }
+            else
+            {
+                var property = value.GetType().GetProperty( member );
+
+                Contract.Requires( property != null, "'{0}' does not have a property named '{1}'", value.GetType(), member );
+
+                return property.GetValue( value );
+            }
+        }
     }
 }
