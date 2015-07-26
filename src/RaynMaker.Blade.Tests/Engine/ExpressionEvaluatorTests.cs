@@ -52,5 +52,11 @@ namespace RaynMaker.Blade.Tests.Engine
         {
             Assert.That( myEvaluator.Evaluate( "STR.GetType().Name" ), Is.EqualTo( "String" ) );
         }
+
+        //Average(Last(ReturnOnEquity,5))
+        [Test]
+        public void Evaluate_SimpleFunctionCall_ReturnsValueOfFunction()
+        {
+        }
     }
 }

@@ -10,6 +10,7 @@ namespace RaynMaker.Blade.Engine
         private IEnumerable<IFigureProvider> myProviders;
         private IFigureProviderContext myContext;
 
+        // TODO: how do we pass functions here? we want to have simple functions in UT
         public ExpressionEvaluator( IEnumerable<IFigureProvider> providers, IFigureProviderContext context )
         {
             myProviders = providers;
@@ -23,38 +24,12 @@ namespace RaynMaker.Blade.Engine
 
         private Func<object> Compile( string expr )
         {
-            var tokens = expr.RemoveAll( char.IsWhiteSpace )
-                .Split( new[] { ',', '(', ')' }, StringSplitOptions.RemoveEmptyEntries );
-
-            return EvaluateExpression( tokens );
-        }
-
-        // Average(Last(ReturnOnEquity,5))
-        private Func<object> EvaluateExpression( string[] tokens )
-        {
-            if( tokens.Length == 0 )
+            if(string.IsNullOrWhiteSpace(expr) )
             {
                 return () => null;
             }
 
-            if( tokens.Length == 1 )
-            {
-                return EvaluateWord( tokens[ 0 ] );
-            }
-
-            Contract.Requires( tokens.Length >= 4, "Invalid function call: {0}", string.Join( "", tokens ) );
-            Contract.Requires( tokens[ 1 ] == "(", "'(' expected: {0}", string.Join( "", tokens ) );
-            Contract.Requires( tokens[ tokens.Length - 1 ] == ")", "Missing ')': {0}", string.Join( "", tokens ) );
-
-            var functionName = tokens[ 0 ];
-            var args = EvaluateArguments( tokens.Skip( 2 ).Take( tokens.Length - 3 ).ToArray() );
-
-            return ExecuteFunction( functionName, args );
-        }
-
-        private object[] EvaluateArguments( string[] p )
-        {
-            throw new NotImplementedException();
+            return EvaluateWord( expr );
         }
 
         private Func<object> EvaluateWord( string word )
@@ -68,18 +43,6 @@ namespace RaynMaker.Blade.Engine
             {
                 return () => GetProviderValue( word );
             }
-        }
-
-        private Func<object> ExecuteFunction( string functionName, object[] args )
-        {
-            var functions = typeof( Functions ).GetMethods()
-                .Where( m => m.Name == functionName )
-                .Where( m => m.GetParameters().Length == args.Length )
-                .ToList();
-
-            Contract.Requires( functions.Count == 1, "None or multiple functions found with name '{0}' and {1} parameters", functionName, functions.Count );
-
-            return () => functions.Single().Invoke( null, args );
         }
 
         private object GetProviderValue( string expr )
