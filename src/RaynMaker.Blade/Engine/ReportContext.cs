@@ -42,13 +42,13 @@ namespace RaynMaker.Blade.Engine
 
         internal string Evaluate( string text )
         {
-            var evaluator = new TextEvaluator( new ExpressionEvaluator( myProviders, this ) );
+            var evaluator = new TextEvaluator( new ExpressionEvaluator( myProviders, this, typeof( Functions ) ) );
             return evaluator.Evaluate( text );
         }
 
         public object ProvideValue( string expr )
         {
-            var evaluator = new TextEvaluator( new ExpressionEvaluator( myProviders, this ) );
+            var evaluator = new TextEvaluator( new ExpressionEvaluator( myProviders, this, typeof( Functions ) ) );
             return evaluator.ProvideValue( expr );
         }
 

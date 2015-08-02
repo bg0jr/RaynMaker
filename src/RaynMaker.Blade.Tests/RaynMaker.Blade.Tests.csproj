@@ -17,10 +17,6 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="RaynMaker.Blade, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bd79ae6277429f83, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\Debug\RaynMaker.Blade.exe</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -33,6 +29,7 @@
     <Compile Include="Engine\ExpressionEvaluatorTests.cs" />
     <Compile Include="Engine\Fakes\FakeFigureProvider.cs" />
     <Compile Include="Engine\Fakes\FakeFigureProviderContext.cs" />
+    <Compile Include="Engine\Fakes\FakeFunctions.cs" />
     <Compile Include="Engine\TextEvaluatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -53,6 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RaynMaker.Blade\RaynMaker.Blade.csproj">
+      <Project>{87f14106-b2f8-4f90-9a14-18723ad25eef}</Project>
+      <Name>RaynMaker.Blade</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
