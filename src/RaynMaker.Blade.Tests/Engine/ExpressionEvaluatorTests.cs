@@ -89,5 +89,11 @@ namespace RaynMaker.Blade.Tests.Engine
         {
             Assert.That( myEvaluator.Evaluate( "Substring( STR.GetType().Name,3 )" ), Is.EqualTo( "Str" ) );
         }
+
+        [Test]
+        public void Evaluate_MemberCallOnResultOfFunction_ReturnsValueOfFunctionResultMember()
+        {
+            Assert.That( myEvaluator.Evaluate( "Add(21,21).GetType().Name" ), Is.EqualTo( "Double" ) );
+        }
     }
 }

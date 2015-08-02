@@ -161,7 +161,7 @@ namespace RaynMaker.Blade.Engine
 
                         Contract.Requires( method != null, "'{0}' does not have a method named '{1}'", result.GetType(), token );
 
-                        result = method.Invoke( token, null );
+                        result = method.Invoke( result, null );
 
                         i += 2;
                     }
