@@ -61,7 +61,7 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
             var result = new DerivedDatum
             {
                 Date = price.Date,
-                Value = price.Value / value.Value
+                Value = myRatioCalculationOperator( price.Value, value.Value )
             };
 
             if( PreserveCurrency )

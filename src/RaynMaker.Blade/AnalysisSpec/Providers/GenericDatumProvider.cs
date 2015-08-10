@@ -5,11 +5,11 @@ using RaynMaker.Blade.Engine;
 
 namespace RaynMaker.Blade.AnalysisSpec.Providers
 {
-    public class DatumSeries : IFigureProvider
+    public class GenericDatumProvider : IFigureProvider
     {
         private Type myDatumType;
 
-        public DatumSeries( Type datumType )
+        public GenericDatumProvider( Type datumType )
         {
             myDatumType = datumType;
         }

@@ -91,13 +91,11 @@
     <Compile Include="AnalysisSpec\Analysis.cs" />
     <Compile Include="AnalysisSpec\AnalysisTemplate.cs" />
     <Compile Include="AnalysisSpec\AnualTable.cs" />
+    <Compile Include="AnalysisSpec\Providers\GenericCurrentRatioProvider.cs" />
     <Compile Include="AnalysisSpec\Providers\GenericJoinProvider.cs" />
     <Compile Include="AnalysisSpec\Providers\AbstractProvider.cs" />
-    <Compile Include="AnalysisSpec\Providers\InterestCoverage.cs" />
-    <Compile Include="AnalysisSpec\Providers\DeptEquityRatio.cs" />
     <Compile Include="AnalysisSpec\Providers\GenericPriceRatioProvider.cs" />
     <Compile Include="AnalysisSpec\Providers\ProviderNames.cs" />
-    <Compile Include="AnalysisSpec\Providers\CurrentRatio.cs" />
     <Compile Include="AnalysisSpec\OperatorConverter.cs" />
     <Compile Include="AnalysisSpec\Operator.cs" />
     <Compile Include="AnalysisSpec\Operators.cs" />
@@ -125,8 +123,7 @@
     <Compile Include="DataSheetSpec\Datums\NetIncome.cs" />
     <Compile Include="DataSheetSpec\Datums\SharesOutstanding.cs" />
     <Compile Include="DataSheetSpec\Translation.cs" />
-    <Compile Include="AnalysisSpec\Providers\DatumSeries.cs" />
-    <Compile Include="AnalysisSpec\Providers\DividendYield.cs" />
+    <Compile Include="AnalysisSpec\Providers\GenericDatumProvider.cs" />
     <Compile Include="AnalysisSpec\Providers\CurrentPrice.cs" />
     <Compile Include="Engine\ExpressionEvaluator.cs" />
     <Compile Include="AnalysisSpec\Functions.cs" />

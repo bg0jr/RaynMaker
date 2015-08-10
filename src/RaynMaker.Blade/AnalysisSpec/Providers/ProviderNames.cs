@@ -15,5 +15,6 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
         public const string DeptEquityRatio = "DeptEquityRatio";
         public const string ReturnOnEquity = "ReturnOnEquity";
         public static string InterestCoverage = "InterestCoverage";
+        public static string DividendPerShare = "DividendPerShare";
     }
 }
