@@ -14,29 +14,29 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
         public object ProvideValue( IFigureProviderContext context )
         {
             var dividends = context.GetDatumSeries<Dividend>();
-            var earnings = context.GetCalculatedSeries<IAnualFinancialDatum>( ProviderNames.Eps );
+            var allNetIncome = context.GetDatumSeries<NetIncome>();
 
-            if( !dividends.Any() || !earnings.Any() )
+            if( !dividends.Any() || !allNetIncome.Any() )
             {
                 return new Series();
             }
 
-            context.EnsureCurrencyConsistency( dividends, earnings );
+            context.EnsureCurrencyConsistency( dividends, allNetIncome );
 
             var result = new Series();
 
             foreach( var dividend in dividends )
             {
-                var eps = earnings.SingleOrDefault( e => e.Year == dividend.Year );
-                if( eps != null )
+                var netIncome = allNetIncome.SingleOrDefault( e => e.Year == dividend.Year );
+                if( netIncome != null )
                 {
                     var ratio = new DerivedDatum
                     {
                         Year = dividend.Year,
-                        Value = dividend.Value / eps.Value * 100
+                        Value = dividend.Value / netIncome.Value * 100
                     };
                     ratio.Inputs.Add( dividend );
-                    ratio.Inputs.Add( eps );
+                    ratio.Inputs.Add( netIncome );
                     result.Values.Add( ratio );
                 }
             }

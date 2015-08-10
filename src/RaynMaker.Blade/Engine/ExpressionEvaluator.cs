@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -66,24 +65,6 @@ namespace RaynMaker.Blade.Engine
             HaveValue,
             CallMember,
             CompleteDecimal,
-        }
-
-        private class FunctionCall
-        {
-            public FunctionCall( MethodInfo function )
-            {
-                Function = function;
-                Arguments = new List<object>();
-            }
-
-            public MethodInfo Function { get; private set; }
-
-            public IList<object> Arguments { get; private set; }
-
-            public object Invoke()
-            {
-                return Function.Invoke( null, Arguments.ToArray() );
-            }
         }
 
         public ExpressionEvaluator( IEnumerable<IFigureProvider> providers, IFigureProviderContext context )
@@ -214,7 +195,7 @@ namespace RaynMaker.Blade.Engine
         {
             Contract.Requires( myData.Callstack.Peek() != null, "Function context expected" );
 
-            myData.Callstack.Peek().Arguments.Add( myData.Result );
+            myData.Callstack.Peek().AddArgument( myData.Result );
             myData.Result = null;
         }
 
@@ -254,6 +235,8 @@ namespace RaynMaker.Blade.Engine
             Contract.Requires( myData.Tokens.Index + 2 < myData.Tokens.Count, "')' misssing at " + ( myData.Tokens.Index + 1 ) );
             Contract.Requires( myData.Tokens[ myData.Tokens.Index + 2 ] == ")", "Parameters not supported at " + ( myData.Tokens.Index + 2 ) );
 
+            Contract.Invariant( myData.Result != null, "Cannot call method '{0}' on null", myData.Tokens.Current );
+
             var method = myData.Result.GetType().GetMethod( myData.Tokens.Current );
 
             Contract.Requires( method != null, "'{0}' does not have a method named '{1}'", myData.Result.GetType(), myData.Tokens.Current );
@@ -265,6 +248,8 @@ namespace RaynMaker.Blade.Engine
 
         private void CallProperty()
         {
+            Contract.Invariant( myData.Result != null, "Cannot call property '{0}' on null", myData.Tokens.Current );
+
             var property = myData.Result.GetType().GetProperty( myData.Tokens.Current );
 
             Contract.Requires( property != null, "'{0}' does not have a property named '{1}'", myData.Result.GetType(), myData.Tokens.Current );

@@ -133,6 +133,7 @@
     <Compile Include="AnalysisSpec\Providers\CurrentPrice.cs" />
     <Compile Include="Engine\ExpressionEvaluator.cs" />
     <Compile Include="AnalysisSpec\Functions.cs" />
+    <Compile Include="Engine\FunctionCall.cs" />
     <Compile Include="Engine\IFigureProviderContext.cs" />
     <Compile Include="Engine\ReportContext.cs" />
     <Compile Include="Engine\IFigureProvider.cs" />

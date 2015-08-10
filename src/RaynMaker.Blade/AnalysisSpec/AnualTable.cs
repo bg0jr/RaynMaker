@@ -103,7 +103,8 @@ namespace RaynMaker.Blade.AnalysisSpec
             if( values.Any() )
             {
                 var currencyProvider = values.OfType<ICurrencyDatum>().FirstOrDefault();
-                if( currencyProvider == null )
+                // DerivedDatum may not have currency set
+                if( currencyProvider == null || currencyProvider.Currency == null )
                 {
                     return dataRow.InMillions ? string.Format( "{0} (in Mio.)", dataRow.Caption ) : dataRow.Caption;
                 }

@@ -19,8 +19,10 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
             }
 
             var dividends = context.GetDatumSeries<Dividend>();
+            var allShares = context.GetDatumSeries<SharesOutstanding>();
 
             var dividend = dividends.SingleOrDefault( d => d.Year == price.Date.Year );
+            var shares = allShares.SingleOrDefault( s => s.Year == price.Date.Year );
             if( dividend == null )
             {
                 dividend = dividends.SingleOrDefault( d => d.Year == price.Date.Year - 1 );
@@ -28,6 +30,15 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
                 {
                     return null;
                 }
+                else
+                {
+                    shares = allShares.SingleOrDefault( s => s.Year == price.Date.Year - 1 );
+                    Contract.Requires( shares != null, "Failed to fetch SharesOutstanding for {0}", price.Date.Year - 1 );
+                }
+            }
+            else
+            {
+                Contract.Requires( shares != null, "Failed to fetch SharesOutstanding for {0}", price.Date.Year );
             }
 
             Contract.Requires( price.Currency == dividend.Currency, "Currency mismatch" );
@@ -35,7 +46,7 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
             var result = new DerivedDatum
             {
                 Date = price.Date,
-                Value = dividend.Value / price.Value * 100
+                Value = dividend.Value / shares.Value / price.Value * 100
             };
             result.Inputs.Add( dividend );
             result.Inputs.Add( price );

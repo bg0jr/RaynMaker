@@ -9,12 +9,12 @@
     <Currency x:Key="Euro" Name="Euro" />
 
     <Currency Name="NOK">
-        <Translation To="Euro" Timestamp="2015-07-19" Rate="0.1130 "/>
+        <Translation To="Euro" Timestamp="2015-08-10" Rate="0.1107 "/>
     </Currency>
     
     <Currency Name="Dollar">
-        <Translation To="Euro" Timestamp="2015-07-19" Rate="0.9234"/>
-        <Translation To="NOK" Timestamp="2015-07-19" Rate="8.1739"/>
+        <Translation To="Euro" Timestamp="2015-08-10" Rate="0.9131"/>
+        <Translation To="NOK" Timestamp="2015-08-10" Rate="8.2491"/>
     </Currency>
 </CurrenciesSheet>
 

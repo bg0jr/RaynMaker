@@ -6,14 +6,27 @@ namespace RaynMaker.Blade.AnalysisSpec
 {
     class Functions
     {
-        public static double Average( IEnumerable<IDatum> series )
+        public static IDatum Average( IEnumerable<IDatum> series )
         {
-            return series.Average( d => d.Value );
+            var result = new DerivedDatum()
+            {
+                Value = series.Average( d => d.Value )
+            };
+
+            var currencyDatums = series.OfType<ICurrencyDatum>();
+            if ( currencyDatums.Any( ))
+            {
+                result.Currency = currencyDatums.First().Currency;
+            }
+            
+            result.Inputs.AddRange( series );
+            
+            return result;
         }
 
         public static IEnumerable<IDatum> Last( IEnumerable<IDatum> series, int count )
         {
-            if ( series.Count() < count)
+            if( series.Count() < count )
             {
                 return series;
             }

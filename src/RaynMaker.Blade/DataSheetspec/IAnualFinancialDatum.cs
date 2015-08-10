@@ -1,7 +1,7 @@
 ﻿
 namespace RaynMaker.Blade.DataSheetSpec
 {
-    public interface IAnualFinancialDatum : ICurrencyDatum, IAnualDatum
+    public interface IAnualFinancialDatum : IAnualDatum, ICurrencyDatum
     {
     }
 }

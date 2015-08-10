@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using RaynMaker.Blade.DataSheetSpec;
 
 namespace RaynMaker.Blade.Tests.Engine.Fakes
 {
@@ -14,6 +17,11 @@ namespace RaynMaker.Blade.Tests.Engine.Fakes
             return value * 2;
         }
 
+        public static double Round( double value, int decimals )
+        {
+            return Math.Round( value, decimals );   
+        }
+
         public static double Add( double lhs, double rhs )
         {
             return lhs + rhs;
@@ -21,7 +29,12 @@ namespace RaynMaker.Blade.Tests.Engine.Fakes
 
         public static string Substring( string value, double length )
         {
-            return value.Substring( 0, (int)length );
+            return value.Substring( 0, ( int )length );
+        }
+
+        public static int Count( IEnumerable<IDatum> values )
+        {
+            return values.Count();
         }
     }
 }
