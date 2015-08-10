@@ -39,7 +39,14 @@ namespace RaynMaker.Blade.Engine
             myProviders.Add( new DatumSeries( typeof( EBIT ) ) );
             myProviders.Add( new DatumSeries( typeof( InterestExpense ) ) );
 
-            myProviders.Add( new GenericJoinProvider( ProviderNames.Eps, typeof( NetIncome ).Name, typeof( SharesOutstanding ).Name, ( lhs, rhs ) => lhs / rhs ) );
+            myProviders.Add( new GenericJoinProvider( ProviderNames.Eps, typeof( NetIncome ).Name, typeof( SharesOutstanding ).Name, 
+                ( lhs, rhs ) => lhs / rhs ) );
+            myProviders.Add( new GenericJoinProvider( ProviderNames.BookValue, typeof( Equity ).Name, typeof( SharesOutstanding ).Name, 
+                ( lhs, rhs ) => lhs / rhs ) );
+            myProviders.Add( new GenericJoinProvider( ProviderNames.DividendPayoutRatio, typeof( Dividend ).Name, typeof( NetIncome ).Name,
+                ( lhs, rhs ) => lhs / rhs * 100 ) { PreserveCurrency = false } );
+            myProviders.Add( new GenericJoinProvider( ProviderNames.ReturnOnEquity, typeof( NetIncome ).Name, typeof( Equity ).Name,
+                ( lhs, rhs ) => lhs / rhs * 100 ) { PreserveCurrency = false } );
         }
 
         public Asset Asset { get; private set; }

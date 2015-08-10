@@ -25,7 +25,14 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
             myLhsSeriesName = lhsSeriesName;
             myRhsSeriesName = rhsSeriesName;
             myJoinOperator = Join;
+
+            PreserveCurrency = true;
         }
+
+        /// <summary>
+        /// Indicates that result should take over currency of input.
+        /// </summary>
+        public bool PreserveCurrency { get; set; }
 
         public sealed override object ProvideValue( IFigureProviderContext context )
         {
@@ -75,12 +82,24 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
                     result.Date = ( ( IDailyDatum )lhs ).Date;
                 }
 
-                // TODO: check for currency consistancy (if one has currency, others must have as well)
-
-                var currencyDatum = lhs as ICurrencyDatum;
-                if( currencyDatum != null )
+                if( PreserveCurrency )
                 {
-                    result.Currency = currencyDatum.Currency;
+                    var lhsCurrency = lhs as ICurrencyDatum;
+                    var rhsCurrency = rhs as ICurrencyDatum;
+                    if( lhsCurrency != null )
+                    {
+                        result.Currency = lhsCurrency.Currency;
+
+                        if( rhsCurrency != null )
+                        {
+                            Contract.Requires( lhsCurrency.Currency != rhsCurrency.Currency,
+                                "Currency inconsistencies found: {0} vs {1}", lhsCurrency.Currency, rhsCurrency.Currency );
+                        }
+                    }
+                    else if( rhsCurrency != null )
+                    {
+                        result.Currency = rhsCurrency.Currency;
+                    }
                 }
 
                 result.Inputs.Add( lhs );
