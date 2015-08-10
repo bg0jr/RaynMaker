@@ -97,7 +97,6 @@
     <Compile Include="AnalysisSpec\Providers\InterestCoverage.cs" />
     <Compile Include="AnalysisSpec\Providers\DeptEquityRatio.cs" />
     <Compile Include="AnalysisSpec\Providers\ReturnOnEquity.cs" />
-    <Compile Include="AnalysisSpec\Providers\Eps.cs" />
     <Compile Include="AnalysisSpec\Providers\ProviderNames.cs" />
     <Compile Include="AnalysisSpec\Providers\CurrentRatio.cs" />
     <Compile Include="AnalysisSpec\Providers\PriceToBook.cs" />

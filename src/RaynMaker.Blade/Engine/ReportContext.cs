@@ -38,6 +38,8 @@ namespace RaynMaker.Blade.Engine
             myProviders.Add( new DatumSeries( typeof( Revenue ) ) );
             myProviders.Add( new DatumSeries( typeof( EBIT ) ) );
             myProviders.Add( new DatumSeries( typeof( InterestExpense ) ) );
+
+            myProviders.Add( new GenericJoinProvider( ProviderNames.Eps, typeof( NetIncome ).Name, typeof( SharesOutstanding ).Name, ( lhs, rhs ) => lhs / rhs ) );
         }
 
         public Asset Asset { get; private set; }

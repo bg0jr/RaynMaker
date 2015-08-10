@@ -9,7 +9,7 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
     /// <summary>
     /// Joins two input series using the given operator.
     /// </summary>
-    public class GenericJoinProvider : AbstractProvider
+    public sealed class GenericJoinProvider : AbstractProvider
     {
         private string myLhsSeriesName;
         private string myRhsSeriesName;
@@ -32,14 +32,17 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
             var allLhs = context.GetSeries<IDatum>( myLhsSeriesName );
             if( !allLhs.Any() )
             {
-                FailureReason = "Missing input for " + myLhsSeriesName;
-                return new Series();
+                AddFailureReason( "Missing input for {0}", myLhsSeriesName );
             }
 
             var allRhs = context.GetSeries<IDatum>( myRhsSeriesName );
             if( !allLhs.Any() )
             {
-                FailureReason = "Missing input for " + myRhsSeriesName;
+                AddFailureReason( "Missing input for {0}", myRhsSeriesName );
+            }
+
+            if( FailureReasons.Any() )
+            {
                 return new Series();
             }
 
