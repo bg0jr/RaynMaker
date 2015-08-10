@@ -92,6 +92,7 @@
     <Compile Include="AnalysisSpec\AnalysisTemplate.cs" />
     <Compile Include="AnalysisSpec\AnualTable.cs" />
     <Compile Include="AnalysisSpec\Providers\BookValue.cs" />
+    <Compile Include="AnalysisSpec\Providers\InterestCoverage.cs" />
     <Compile Include="AnalysisSpec\Providers\DeptEquityRatio.cs" />
     <Compile Include="AnalysisSpec\Providers\ReturnOnEquity.cs" />
     <Compile Include="AnalysisSpec\Providers\Eps.cs" />
