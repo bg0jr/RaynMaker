@@ -5,35 +5,38 @@ using RaynMaker.Blade.Engine;
 
 namespace RaynMaker.Blade.AnalysisSpec.Providers
 {
+    /// <summary>
+    /// ReturnOnEquity = NetIncome / Equity (in %)
+    /// </summary>
     public class ReturnOnEquity : IFigureProvider
     {
         public string Name { get { return ProviderNames.ReturnOnEquity; } }
 
         public object ProvideValue( IFigureProviderContext context )
         {
-            var allEarnings = context.GetCalculatedSeries<IAnualFinancialDatum>(ProviderNames.Eps);
-            var allBookValues = context.GetCalculatedSeries<IAnualFinancialDatum>( ProviderNames.BookValue );
+            var allNetIncome = context.GetDatumSeries<NetIncome>();
+            var allEquity = context.GetDatumSeries<Equity>();
 
-            if( !allEarnings.Any() || !allBookValues.Any() )
+            if( !allNetIncome.Any() || !allEquity.Any() )
             {
                 return new Series();
             }
 
             var result = new Series();
 
-            foreach( var earnings in allEarnings )
+            foreach( var netIncome in allNetIncome )
             {
-                var bookValue = allBookValues.SingleOrDefault( e => e.Year == earnings.Year );
-                if( bookValue != null )
+                var equity = allEquity.SingleOrDefault( e => e.Year == netIncome.Year );
+                if( equity != null )
                 {
-                    var eps = new DerivedDatum
+                    var roe = new DerivedDatum
                     {
-                        Year = earnings.Year,
-                        Value = earnings.Value / bookValue.Value
+                        Year = netIncome.Year,
+                        Value = netIncome.Value / equity.Value * 100
                     };
-                    eps.Inputs.Add( earnings );
-                    eps.Inputs.Add( bookValue );
-                    result.Values.Add( eps );
+                    roe.Inputs.Add( netIncome );
+                    roe.Inputs.Add( equity );
+                    result.Values.Add( roe );
                 }
             }
 

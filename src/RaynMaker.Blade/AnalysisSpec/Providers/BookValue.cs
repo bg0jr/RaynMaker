@@ -5,6 +5,9 @@ using RaynMaker.Blade.Engine;
 
 namespace RaynMaker.Blade.AnalysisSpec.Providers
 {
+    /// <summary>
+    /// BookValue = Equity / SharesOutstanding
+    /// </summary>
     public class BookValue : IFigureProvider
     {
         public string Name { get { return ProviderNames.BookValue; } }

@@ -16,23 +16,20 @@
       <Node Id="7e530557-ae05-4b1c-9fa5-d527d643ecdd">
         <Caption><![CDATA[add UT for all providers]]></Caption>
       </Node>
+      <Node Id="15ade0d1-8ae4-4b79-b013-04381c2ca67d">
+        <Caption><![CDATA[Add graphs to reporting]]></Caption>
+      </Node>
       <Node Id="d320a836-5f93-4962-95b5-df4f1e880c45">
-        <Caption><![CDATA[Create UI for]]></Caption>
-        <Node Id="be459f4f-b47d-4af4-bb4c-cf9076134103">
-          <Caption><![CDATA[Currency translation]]></Caption>
-        </Node>
-        <Node Id="c46494a3-8fd8-4faf-b150-0731cd98cded">
-          <Caption><![CDATA[Data collection]]></Caption>
-        </Node>
+        <Caption><![CDATA[Create UI for currency translation]]></Caption>
+      </Node>
+      <Node Id="c46494a3-8fd8-4faf-b150-0731cd98cded">
+        <Caption><![CDATA[Create UI fo Data collection]]></Caption>
       </Node>
       <Node Id="592b7c4d-d54f-456e-a668-911cd49bbcc0">
-        <Caption><![CDATA[Fetch from internet]]></Caption>
-        <Node Id="5f84ca51-255d-4c42-b7b4-acecfe4c0834">
-          <Caption><![CDATA[Currency translation]]></Caption>
-        </Node>
-        <Node Id="ef9e0841-29e9-4b85-89c1-b1434d96d924">
-          <Caption><![CDATA[data]]></Caption>
-        </Node>
+        <Caption><![CDATA[Fetch from internet: currency translation]]></Caption>
+      </Node>
+      <Node Id="ef9e0841-29e9-4b85-89c1-b1434d96d924">
+        <Caption><![CDATA[Fetch from internet: data]]></Caption>
       </Node>
     </Node>
   </Node>
