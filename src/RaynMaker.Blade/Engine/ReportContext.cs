@@ -24,6 +24,7 @@ namespace RaynMaker.Blade.Engine
                 .Where( t => !t.IsAbstract )
                 .Where( t => t != typeof( DatumSeries ) )
                 .Where( t => t != typeof( GenericJoinProvider ) )
+                .Where( t => t != typeof( GenericPriceRatioProvider ) )
                 .Select( t => Activator.CreateInstance( t ) )
                 .OfType<IFigureProvider>()
                 .ToList();
@@ -39,14 +40,21 @@ namespace RaynMaker.Blade.Engine
             myProviders.Add( new DatumSeries( typeof( EBIT ) ) );
             myProviders.Add( new DatumSeries( typeof( InterestExpense ) ) );
 
-            myProviders.Add( new GenericJoinProvider( ProviderNames.Eps, typeof( NetIncome ).Name, typeof( SharesOutstanding ).Name, 
-                ( lhs, rhs ) => lhs / rhs ) );
-            myProviders.Add( new GenericJoinProvider( ProviderNames.BookValue, typeof( Equity ).Name, typeof( SharesOutstanding ).Name, 
-                ( lhs, rhs ) => lhs / rhs ) );
+            myProviders.Add( new GenericJoinProvider( ProviderNames.Eps, typeof( NetIncome ).Name, typeof( SharesOutstanding ).Name,
+                ( lhs, rhs ) => lhs / rhs ) { PreserveCurrency = true } );
+            myProviders.Add( new GenericJoinProvider( ProviderNames.BookValue, typeof( Equity ).Name, typeof( SharesOutstanding ).Name,
+                ( lhs, rhs ) => lhs / rhs ) { PreserveCurrency = true } );
             myProviders.Add( new GenericJoinProvider( ProviderNames.DividendPayoutRatio, typeof( Dividend ).Name, typeof( NetIncome ).Name,
                 ( lhs, rhs ) => lhs / rhs * 100 ) { PreserveCurrency = false } );
             myProviders.Add( new GenericJoinProvider( ProviderNames.ReturnOnEquity, typeof( NetIncome ).Name, typeof( Equity ).Name,
                 ( lhs, rhs ) => lhs / rhs * 100 ) { PreserveCurrency = false } );
+
+            myProviders.Add( new GenericPriceRatioProvider( ProviderNames.MarketCap, typeof( SharesOutstanding ).Name, 
+                ( lhs, rhs ) => lhs * rhs ) { PreserveCurrency = true } );
+            myProviders.Add( new GenericPriceRatioProvider( ProviderNames.PriceEarningsRatio, ProviderNames.Eps,
+                ( lhs, rhs ) => lhs / rhs ) { PreserveCurrency = false } );
+            myProviders.Add( new GenericPriceRatioProvider( ProviderNames.PriceToBook, ProviderNames.BookValue,
+                ( lhs, rhs ) => lhs / rhs ) { PreserveCurrency = false } );
         }
 
         public Asset Asset { get; private set; }

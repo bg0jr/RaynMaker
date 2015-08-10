@@ -25,14 +25,7 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
             myLhsSeriesName = lhsSeriesName;
             myRhsSeriesName = rhsSeriesName;
             myJoinOperator = Join;
-
-            PreserveCurrency = true;
         }
-
-        /// <summary>
-        /// Indicates that result should take over currency of input.
-        /// </summary>
-        public bool PreserveCurrency { get; set; }
 
         public sealed override object ProvideValue( IFigureProviderContext context )
         {

@@ -95,10 +95,9 @@
     <Compile Include="AnalysisSpec\Providers\AbstractProvider.cs" />
     <Compile Include="AnalysisSpec\Providers\InterestCoverage.cs" />
     <Compile Include="AnalysisSpec\Providers\DeptEquityRatio.cs" />
+    <Compile Include="AnalysisSpec\Providers\GenericPriceRatioProvider.cs" />
     <Compile Include="AnalysisSpec\Providers\ProviderNames.cs" />
     <Compile Include="AnalysisSpec\Providers\CurrentRatio.cs" />
-    <Compile Include="AnalysisSpec\Providers\PriceToBook.cs" />
-    <Compile Include="AnalysisSpec\Providers\PriceEarningsRatio.cs" />
     <Compile Include="AnalysisSpec\OperatorConverter.cs" />
     <Compile Include="AnalysisSpec\Operator.cs" />
     <Compile Include="AnalysisSpec\Operators.cs" />
@@ -126,7 +125,6 @@
     <Compile Include="DataSheetSpec\Datums\NetIncome.cs" />
     <Compile Include="DataSheetSpec\Datums\SharesOutstanding.cs" />
     <Compile Include="DataSheetSpec\Translation.cs" />
-    <Compile Include="AnalysisSpec\Providers\MarketCap.cs" />
     <Compile Include="AnalysisSpec\Providers\DatumSeries.cs" />
     <Compile Include="AnalysisSpec\Providers\DividendYield.cs" />
     <Compile Include="AnalysisSpec\Providers\CurrentPrice.cs" />

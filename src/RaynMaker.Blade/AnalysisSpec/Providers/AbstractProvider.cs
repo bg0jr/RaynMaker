@@ -14,6 +14,8 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
 
             Name = name;
             myFailureReasons = new List<string>();
+        
+            PreserveCurrency = true;
         }
 
         public string Name { get; private set; }
@@ -28,6 +30,11 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
             myFailureReasons.Add( string.Format( fmt, args ) );
         }
 
+        /// <summary>
+        /// Indicates that result should take over currency of input.
+        /// </summary>
+        public bool PreserveCurrency { get; set; }
+        
         public abstract object ProvideValue( IFigureProviderContext context );
     }
 }
