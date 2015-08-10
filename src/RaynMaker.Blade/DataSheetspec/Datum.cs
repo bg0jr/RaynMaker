@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RaynMaker.Blade.DataSheetSpec
 {
-    public class Datum
+    public class Datum : IDatum
     {
         /// <summary>
         /// Last time value was adapted.

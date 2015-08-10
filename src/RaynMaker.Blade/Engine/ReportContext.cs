@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Documents;
 using Plainion;
+using RaynMaker.Blade.AnalysisSpec;
 using RaynMaker.Blade.AnalysisSpec.Providers;
 using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.DataSheetSpec.Datums;

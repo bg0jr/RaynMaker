@@ -132,7 +132,7 @@
     <Compile Include="AnalysisSpec\Providers\DividendYield.cs" />
     <Compile Include="AnalysisSpec\Providers\CurrentPrice.cs" />
     <Compile Include="Engine\ExpressionEvaluator.cs" />
-    <Compile Include="Engine\Functions.cs" />
+    <Compile Include="AnalysisSpec\Functions.cs" />
     <Compile Include="Engine\IFigureProviderContext.cs" />
     <Compile Include="Engine\ReportContext.cs" />
     <Compile Include="Engine\IFigureProvider.cs" />

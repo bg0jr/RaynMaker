@@ -2,7 +2,7 @@
 using System.Linq;
 using RaynMaker.Blade.DataSheetSpec;
 
-namespace RaynMaker.Blade.Engine
+namespace RaynMaker.Blade.AnalysisSpec
 {
     class Functions
     {

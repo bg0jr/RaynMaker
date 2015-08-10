@@ -26,6 +26,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnalysisSpec\FunctionsTests.cs" />
     <Compile Include="Engine\ExpressionEvaluatorTests.cs" />
     <Compile Include="Engine\Fakes\FakeFigureProvider.cs" />
     <Compile Include="Engine\Fakes\FakeFigureProviderContext.cs" />
