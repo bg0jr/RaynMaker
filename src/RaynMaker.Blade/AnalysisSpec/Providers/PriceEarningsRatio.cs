@@ -17,7 +17,7 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
                 return null;
             }
 
-            var allEps = context.GetCalculatedSeries<IAnualFinancialDatum>( ProviderNames.Eps );
+            var allEps = context.GetSeries<IAnualFinancialDatum>( ProviderNames.Eps );
 
             var eps = allEps.SingleOrDefault( d => d.Year == price.Date.Year );
             if( eps == null )

@@ -17,12 +17,7 @@ namespace RaynMaker.Blade.Tests.Engine.Fakes
         {
         }
 
-        public IEnumerable<T> GetCalculatedSeries<T>( string name )
-        {
-            return Enumerable.Empty<T>();
-        }
-
-        public IEnumerable<T> GetDatumSeries<T>()
+        public IEnumerable<T> GetSeries<T>( string name )
         {
             return Enumerable.Empty<T>();
         }

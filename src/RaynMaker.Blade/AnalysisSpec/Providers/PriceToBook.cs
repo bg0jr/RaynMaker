@@ -17,7 +17,7 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
                 return null;
             }
 
-            var allBookValues = context.GetCalculatedSeries<IAnualFinancialDatum>( ProviderNames.BookValue );
+            var allBookValues = context.GetSeries<IAnualFinancialDatum>( ProviderNames.BookValue );
 
             var bookValue = allBookValues.SingleOrDefault( d => d.Year == price.Date.Year );
             if( bookValue == null )

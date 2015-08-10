@@ -6,8 +6,9 @@ namespace RaynMaker.Blade.Engine
     public interface IFigureProviderContext
     {
         Asset Asset { get; }
-        IEnumerable<T> GetDatumSeries<T>();
-        IEnumerable<T> GetCalculatedSeries<T>(string name);
+
+        IEnumerable<T> GetSeries<T>(string name);
+
         void EnsureCurrencyConsistency( params IEnumerable<ICurrencyDatum>[] values );
     }
 }

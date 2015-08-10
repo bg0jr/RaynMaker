@@ -21,7 +21,7 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
             {
                 return new Series();
             }
-
+                
             var result = new Series();
 
             foreach( var equity in allEquity )

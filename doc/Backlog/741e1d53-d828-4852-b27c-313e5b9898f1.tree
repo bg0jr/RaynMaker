@@ -4,11 +4,11 @@
     <Caption><![CDATA[Planning]]></Caption>
     <Node Id="fd5acae3-64bf-49e6-a0a9-fbf3ac93d484">
       <Caption><![CDATA[Blade]]></Caption>
-      <Node Id="10fb8777-6996-4c18-a853-623c663fa969">
-        <Caption><![CDATA[add further providers]]></Caption>
-      </Node>
       <Node Id="68da0c49-487b-4a48-9115-cf3436a0955a">
         <Caption><![CDATA[factor out code duplication from value providers]]></Caption>
+      </Node>
+      <Node Id="c10f27b9-d9e4-4fa1-beff-c137384a860b">
+        <Caption><![CDATA[Render Provider.FailureReason into tooltip]]></Caption>
       </Node>
       <Node Id="c3c84509-6a50-4ab2-bea5-ee1d28abaf62">
         <Caption><![CDATA[seems that recursive validation does not work all the time]]></Caption>
@@ -30,6 +30,9 @@
       </Node>
       <Node Id="ef9e0841-29e9-4b85-89c1-b1434d96d924">
         <Caption><![CDATA[Fetch from internet: data]]></Caption>
+      </Node>
+      <Node Id="e5e448af-986c-4b3e-b889-b67a4ad2c435">
+        <Caption><![CDATA[Anual and daily datum]]></Caption>
       </Node>
     </Node>
   </Node>

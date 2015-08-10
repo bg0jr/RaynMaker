@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="e5e448af-986c-4b3e-b889-b67a4ad2c435" Created="635748278066539434" LastModified="635748278509114748">
+  <Caption><![CDATA[Anual and daily datum]]></Caption>
+  <Content><![CDATA[- we need to handle it differently
+- separated interfaces make it hard to write generic code
+- what about IPeriod and then we have different impls + Xaml converter?]]></Content>
+</Node>

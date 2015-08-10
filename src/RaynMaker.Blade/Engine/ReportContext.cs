@@ -21,10 +21,13 @@ namespace RaynMaker.Blade.Engine
 
             myProviders = GetType().Assembly.GetTypes()
                 .Where( t => t.GetInterfaces().Any( iface => iface == typeof( IFigureProvider ) ) )
+                .Where( t => !t.IsAbstract )
                 .Where( t => t != typeof( DatumSeries ) )
+                .Where( t => t != typeof( GenericJoinProvider ) )
                 .Select( t => Activator.CreateInstance( t ) )
                 .OfType<IFigureProvider>()
                 .ToList();
+
             myProviders.Add( new DatumSeries( typeof( SharesOutstanding ) ) );
             myProviders.Add( new DatumSeries( typeof( NetIncome ) ) );
             myProviders.Add( new DatumSeries( typeof( Equity ) ) );
@@ -73,23 +76,11 @@ namespace RaynMaker.Blade.Engine
             return value * translation.Rate;
         }
 
-        public IEnumerable<T> GetDatumSeries<T>()
+        public IEnumerable<T> GetSeries<T>( string name )
         {
-            var series = Asset.Data.OfType<Series>()
-                .Where( s => s.Values.OfType<T>().Any() )
-                .SingleOrDefault();
+            var provider = myProviders.SingleOrDefault( p => p.Name == name );
+            Contract.RequiresNotNull( provider, "No provider found with name: " + name );
 
-            if( series == null )
-            {
-                return Enumerable.Empty<T>();
-            }
-
-            return series.Values.Cast<T>();
-        }
-
-        public IEnumerable<T> GetCalculatedSeries<T>( string name )
-        {
-            var provider = myProviders.Single( p => p.Name == name );
             var series = ( Series )provider.ProvideValue( this );
             return series.Values.Cast<T>();
         }
