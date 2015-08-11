@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="68da0c49-487b-4a48-9115-cf3436a0955a" Created="635729036832382880" LastModified="635748158299379144">
-  <Caption><![CDATA[factor out code duplication from value providers]]></Caption>
-  <Content><![CDATA[]]></Content>
-</Node>
