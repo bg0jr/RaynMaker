@@ -10,7 +10,7 @@ using RaynMaker.Blade.DataSheetSpec.Datums;
 
 namespace RaynMaker.Blade.Engine
 {
-    public class ReportContext : IFigureProviderContext
+    public class ReportContext : IFigureProviderContext, IExpressionEvaluationContext
     {
         private List<IFigureProvider> myProviders;
 
@@ -68,13 +68,13 @@ namespace RaynMaker.Blade.Engine
 
         internal string Evaluate( string text )
         {
-            var evaluator = new TextEvaluator( new ExpressionEvaluator( myProviders, this, typeof( Functions ) ) );
+            var evaluator = new TextEvaluator( new ExpressionEvaluator( this, typeof( Functions ) ) );
             return evaluator.Evaluate( text );
         }
 
         public object ProvideValue( string expr )
         {
-            var evaluator = new TextEvaluator( new ExpressionEvaluator( myProviders, this, typeof( Functions ) ) );
+            var evaluator = new TextEvaluator( new ExpressionEvaluator( this, typeof( Functions ) ) );
             return evaluator.ProvideValue( expr );
         }
 
@@ -100,10 +100,28 @@ namespace RaynMaker.Blade.Engine
 
         public IDatumSeries GetSeries( string name )
         {
-            var provider = myProviders.SingleOrDefault( p => p.Name == name );
-            Contract.RequiresNotNull( provider, "No provider found with name: " + name );
+            return ( IDatumSeries )ProvideValueInternal( name );
+        }
 
-            return ( IDatumSeries)provider.ProvideValue( this );
+        object IExpressionEvaluationContext.ProvideValue( string name )
+        {
+            return ProvideValueInternal( name );
+        }
+
+        private object ProvideValueInternal( string name )
+        {
+            var provider = myProviders.SingleOrDefault( p => p.Name == name );
+            Contract.Requires( provider != null, "{0} does not represent a IFigureProvider", name );
+
+            var result = provider.ProvideValue( this );
+
+            var failure = result as IFigureProviderFailure;
+            if( failure != null )
+            {
+                return null;
+            }
+
+            return result;
         }
     }
 }

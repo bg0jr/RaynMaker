@@ -4,9 +4,6 @@
     <Caption><![CDATA[Planning]]></Caption>
     <Node Id="fd5acae3-64bf-49e6-a0a9-fbf3ac93d484">
       <Caption><![CDATA[Blade]]></Caption>
-      <Node Id="67ae2491-32f9-44c2-9f97-84da856cd92c">
-        <Caption><![CDATA[create entities]]></Caption>
-      </Node>
       <Node Id="c10f27b9-d9e4-4fa1-beff-c137384a860b">
         <Caption><![CDATA[Render Provider.FailureReason into tooltip]]></Caption>
       </Node>

@@ -10,8 +10,7 @@ namespace RaynMaker.Blade.Engine
 {
     class ExpressionEvaluator
     {
-        private IEnumerable<IFigureProvider> myProviders;
-        private IFigureProviderContext myContext;
+        private IExpressionEvaluationContext myContext;
         private IEnumerable<MethodInfo> myFunctions;
         private ParseData myData;
 
@@ -67,14 +66,13 @@ namespace RaynMaker.Blade.Engine
             CompleteDecimal,
         }
 
-        public ExpressionEvaluator( IEnumerable<IFigureProvider> providers, IFigureProviderContext context )
-            : this( providers, context, null )
+        public ExpressionEvaluator( IExpressionEvaluationContext context )
+            : this( context, null )
         {
         }
 
-        public ExpressionEvaluator( IEnumerable<IFigureProvider> providers, IFigureProviderContext context, Type functionsDefinition )
+        public ExpressionEvaluator( IExpressionEvaluationContext context, Type functionsDefinition )
         {
-            myProviders = providers;
             myContext = context;
 
             if( functionsDefinition != null )
@@ -268,10 +266,7 @@ namespace RaynMaker.Blade.Engine
             }
             else
             {
-                var provider = myProviders.SingleOrDefault( p => p.Name == word );
-                Contract.Requires( provider != null, "{0} does not represent a IFigureProvider", word );
-
-                myData.Result = provider.ProvideValue( myContext );
+                myData.Result = myContext.ProvideValue( word );
             }
         }
     }

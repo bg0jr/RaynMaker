@@ -8,19 +8,17 @@ namespace RaynMaker.Blade.Tests.Engine
     [TestFixture]
     public class TextEvaluatorTests
     {
-        private IEnumerable<IFigureProvider> myProviders;
-        private IFigureProviderContext myProviderContext;
+        private FakeExpressionEvaluationContext myContext;
         private TextEvaluator myEvaluator;
 
         [SetUp]
         public void SetUp()
         {
-            myProviders = new[] { 
+            myContext = new FakeExpressionEvaluationContext( new[] { 
                 new FakeFigureProvider( "One", ctx => 1d ), 
                 new FakeFigureProvider( "Null", ctx => null ), 
-                new FakeFigureProvider( "STR", ctx => "Hello" ) };
-            myProviderContext = new FakeFigureProviderContext();
-            myEvaluator = new TextEvaluator( new ExpressionEvaluator( myProviders, myProviderContext ) );
+                new FakeFigureProvider( "STR", ctx => "Hello" ) } );
+            myEvaluator = new TextEvaluator( new ExpressionEvaluator( myContext ) );
         }
 
         [Test]

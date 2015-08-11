@@ -32,18 +32,13 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
             var allLhs = context.GetSeries( myLhsSeriesName );
             if( !allLhs.Any() )
             {
-                AddFailureReason( "Missing input for {0}", myLhsSeriesName );
+                return new MissingData( myLhsSeriesName );
             }
 
             var allRhs = context.GetSeries( myRhsSeriesName );
             if( !allLhs.Any() )
             {
-                AddFailureReason( "Missing input for {0}", myRhsSeriesName );
-            }
-
-            if( FailureReasons.Any() )
-            {
-                return null;
+                return new MissingData( myRhsSeriesName );
             }
 
             EnsureCurrencyConsistancy(allLhs, allRhs);
@@ -55,8 +50,7 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
             var rhs = allRhs.SingleOrDefault( d => d.Period.Equals( lhs.Period ) );
             if( rhs == null )
             {
-                AddFailureReason( "No '{0}' for period {1} found", myRhsSeriesName, lhs.Period );
-                return null;
+                return new MissingDataForPeriod( myRhsSeriesName, lhs.Period );
             }
 
             var result = new DerivedDatum

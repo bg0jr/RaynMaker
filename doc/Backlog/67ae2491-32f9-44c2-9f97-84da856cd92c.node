@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="67ae2491-32f9-44c2-9f97-84da856cd92c" Created="635748353115111967" LastModified="635748353570998042">
-  <Caption><![CDATA[create entities]]></Caption>
-  <Content><![CDATA[- a series which can be completed which does consistancy checks on 
-  its own so that we dont have to recheck everywhere
-- a period entities for period handling]]></Content>
-</Node>

@@ -32,18 +32,13 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
             var allLhs = context.GetSeries( myLhsSeriesName );
             if( !allLhs.Any() )
             {
-                AddFailureReason( "Missing input for {0}", myLhsSeriesName );
+                return new MissingData( myLhsSeriesName );
             }
 
             var allRhs = context.GetSeries( myRhsSeriesName );
             if( !allLhs.Any() )
             {
-                AddFailureReason( "Missing input for {0}", myRhsSeriesName );
-            }
-
-            if( FailureReasons.Any() )
-            {
-                return Series.Empty;
+                return new MissingData( myRhsSeriesName );
             }
 
             EnsureCurrencyConsistancy( allLhs, allRhs );

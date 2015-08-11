@@ -132,7 +132,11 @@
     <Compile Include="AnalysisSpec\Functions.cs" />
     <Compile Include="Engine\FigureProviderContextExtensions.cs" />
     <Compile Include="Engine\FunctionCall.cs" />
+    <Compile Include="Engine\IExpressionEvaluationContext.cs" />
     <Compile Include="Engine\IFigureProviderContext.cs" />
+    <Compile Include="Engine\IFigureProviderFailure.cs" />
+    <Compile Include="Engine\MissingData.cs" />
+    <Compile Include="Engine\MissingDataForPeriod.cs" />
     <Compile Include="Engine\ReportContext.cs" />
     <Compile Include="Engine\IFigureProvider.cs" />
     <Compile Include="Engine\IReportElement.cs" />

@@ -10,18 +10,16 @@ namespace RaynMaker.Blade.Tests.Engine
     [TestFixture]
     public class ExpressionEvaluatorTests
     {
-        private IEnumerable<IFigureProvider> myProviders;
-        private IFigureProviderContext myProviderContext;
+        private FakeExpressionEvaluationContext myContext;
         private ExpressionEvaluator myEvaluator;
 
         [SetUp]
         public void SetUp()
         {
-            myProviders = new[] { 
+            myContext = new FakeExpressionEvaluationContext( new[] { 
                 new FakeFigureProvider( "One", ctx => 1 ),
-                new FakeFigureProvider( "STR", ctx => "Hello" ) };
-            myProviderContext = new FakeFigureProviderContext();
-            myEvaluator = new ExpressionEvaluator( myProviders, myProviderContext, typeof( FakeFunctions ) );
+                new FakeFigureProvider( "STR", ctx => "Hello" ) });
+            myEvaluator = new ExpressionEvaluator( myContext, typeof( FakeFunctions ) );
         }
 
         [Test]

@@ -30,18 +30,13 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
             var price = context.Asset.Data.OfType<Price>().SingleOrDefault();
             if( price == null )
             {
-                AddFailureReason( "No Price found" );
+                return new MissingData( "Price" );
             }
 
             var values = context.GetSeries( mySeriesName );
             if( !values.Any() )
             {
-                AddFailureReason( "Missing input for {0}", mySeriesName );
-            }
-
-            if( FailureReasons.Any() )
-            {
-                return null;
+                return new MissingData( mySeriesName );
             }
 
             Contract.Requires( price.Currency != null, "Currency missing at price" );
@@ -58,8 +53,7 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
                 value = values.SingleOrDefault( e => e.Period.Year() == priceYear - 1 );
                 if( value == null )
                 {
-                    AddFailureReason( "No '{0}' for year {1} or {2} found", mySeriesName, priceYear, priceYear - 1 );
-                    return null;
+                    return new MissingDataForPeriod( mySeriesName, new YearPeriod { Year = priceYear }, new YearPeriod { Year = priceYear - 1 } );
                 }
             }
 
