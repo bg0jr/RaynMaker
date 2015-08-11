@@ -31,6 +31,7 @@ namespace RaynMaker.Blade
             {
                 element.Report( context );
             }
+            context.Complete();
 
             var report = new ReportView();
             report.Document = doc;

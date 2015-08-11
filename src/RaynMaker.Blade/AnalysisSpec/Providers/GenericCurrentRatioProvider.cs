@@ -36,7 +36,7 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
             }
 
             var allRhs = context.GetSeries( myRhsSeriesName );
-            if( !allLhs.Any() )
+            if( !allRhs.Any() )
             {
                 return new MissingData( myRhsSeriesName );
             }

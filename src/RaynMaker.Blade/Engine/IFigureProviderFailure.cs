@@ -1,7 +1,7 @@
 ﻿
 namespace RaynMaker.Blade.Engine
 {
-    interface IFigureProviderFailure
+    public interface IFigureProviderFailure
     {
     }
 }

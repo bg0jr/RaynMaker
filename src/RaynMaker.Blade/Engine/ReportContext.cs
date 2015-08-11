@@ -7,12 +7,14 @@ using RaynMaker.Blade.AnalysisSpec;
 using RaynMaker.Blade.AnalysisSpec.Providers;
 using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.DataSheetSpec.Datums;
+using RaynMaker.Blade.Reporting;
 
 namespace RaynMaker.Blade.Engine
 {
     public class ReportContext : IFigureProviderContext, IExpressionEvaluationContext
     {
         private List<IFigureProvider> myProviders;
+        private List<IFigureProviderFailure> myProviderFailures;
 
         public ReportContext( Asset asset, FlowDocument document )
         {
@@ -60,6 +62,8 @@ namespace RaynMaker.Blade.Engine
                 ( lhs, rhs ) => lhs / rhs ) { PreserveCurrency = false } );
             myProviders.Add( new GenericCurrentRatioProvider( ProviderNames.CurrentRatio, typeof( Assets ).Name, typeof( Liabilities ).Name,
                 ( lhs, rhs ) => lhs / rhs ) { PreserveCurrency = false } );
+
+            myProviderFailures = new List<IFigureProviderFailure>();
         }
 
         public Asset Asset { get; private set; }
@@ -100,13 +104,15 @@ namespace RaynMaker.Blade.Engine
 
         public IDatumSeries GetSeries( string name )
         {
-            return ( IDatumSeries )ProvideValueInternal( name );
+            return ( IDatumSeries )ProvideValueInternal( name ) ?? Series.Empty;
         }
 
         object IExpressionEvaluationContext.ProvideValue( string name )
         {
             return ProvideValueInternal( name );
         }
+
+        public IEnumerable<IFigureProviderFailure> ProviderFailures { get { return myProviderFailures; } }
 
         private object ProvideValueInternal( string name )
         {
@@ -118,10 +124,27 @@ namespace RaynMaker.Blade.Engine
             var failure = result as IFigureProviderFailure;
             if( failure != null )
             {
+                myProviderFailures.Add( failure );
                 return null;
             }
 
             return result;
+        }
+
+        internal void Complete()
+        {
+            myProviders = null;
+
+            if( myProviderFailures.Count == 0 )
+            {
+                return;
+            }
+
+            Document.Headline( "Datum provider failures" );
+            foreach( var failure in myProviderFailures )
+            {
+                Document.Paragraph( failure.ToString() );
+            }
         }
     }
 }

@@ -23,5 +23,10 @@ namespace RaynMaker.Blade.Engine
         public string Datum { get; private set; }
 
         public IReadOnlyCollection<IPeriod> Period { get; private set; }
+
+        public override string ToString()
+        {
+            return string.Format( "No data found for '{0}' in periods: {1}", Datum, string.Join( ",", Period ) );
+        }
     }
 }
