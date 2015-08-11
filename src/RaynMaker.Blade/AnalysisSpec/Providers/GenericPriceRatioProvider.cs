@@ -41,26 +41,24 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
                 return null;
             }
 
-            bool isAnual = values.OfType<IAnualDatum>().Any();
+            var priceYear = price.Period.Year();
 
-            var value = values.SingleOrDefault( e => isAnual ?
-                ( ( IAnualDatum )e ).Year == price.Date.Year :
-                ( ( IDailyDatum )e ).Date.Year == price.Date.Year );
+            // TODO: how to specify "include?" 
+            // TODO: how to specify "one previous period"
+            var value = values.SingleOrDefault( e => e.Period.Year() == priceYear );
             if( value == null )
             {
-                value = values.SingleOrDefault( e => isAnual ?
-                   ( ( IAnualDatum )e ).Year == price.Date.Year - 1 :
-                   ( ( IDailyDatum )e ).Date.Year == price.Date.Year - 1 );
+                value = values.SingleOrDefault( e => e.Period.Year() == priceYear - 1 );
                 if( value == null )
                 {
-                    AddFailureReason( "No '{0}' for year {1} or {2} found", mySeriesName, price.Date.Year, price.Date.Year - 1 );
+                    AddFailureReason( "No '{0}' for year {1} or {2} found", mySeriesName, priceYear, priceYear - 1 );
                     return null;
                 }
             }
 
             var result = new DerivedDatum
             {
-                Date = price.Date,
+                Period = price.Period,
                 Value = myRatioCalculationOperator( price.Value, value.Value )
             };
 

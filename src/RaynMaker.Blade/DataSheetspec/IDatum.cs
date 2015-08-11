@@ -5,6 +5,9 @@ namespace RaynMaker.Blade.DataSheetSpec
 {
     public interface IDatum
     {
+        /// <summary>
+        /// Last time value was adapted.
+        /// </summary>
         [Required]
         DateTime Timestamp { get; }
 
@@ -13,5 +16,13 @@ namespace RaynMaker.Blade.DataSheetSpec
 
         [Required]
         string Source { get; }
+
+        /// <summary>
+        /// The time period this datum applies to.
+        /// <seealso cref="YearPeriod"/>
+        /// <seealso cref="DayPeriod"/>
+        /// </summary>
+        [Required]
+        IPeriod Period { get; }
     }
 }

@@ -16,20 +16,20 @@
                 </Overview.References>
             </Overview>
         </Stock.Overview>
-        <Price Date="2015-06-19" Value="206.35" Currency="Euro" Timestamp="2015-06-21" Source="{p:StaticResource Ariva}"/>
+        <Price Period="2015-06-19" Value="206.35" Currency="Euro" Timestamp="2015-06-21" Source="{p:StaticResource Ariva}"/>
         <Series>
-            <Dividend Year="2010" Value="{InMio 1023.44}" Currency="Euro" Timestamp="2015-06-21" Source="{p:StaticResource Ariva}"/>
-            <Dividend Year="2011" Value="{InMio 1395.57}" Currency="Euro" Timestamp="2015-06-21" Source="{p:StaticResource Ariva}"/>
-            <Dividend Year="2012" Value="{InMio 1628.305}" Currency="Euro" Timestamp="2015-06-21" Source="{p:StaticResource Ariva}"/>
-            <Dividend Year="2013" Value="{InMio 1860.92}" Currency="Euro" Timestamp="2015-06-21" Source="{p:StaticResource Ariva}"/>
-            <Dividend Year="2014" Value="{InMio 2283.504}" Currency="Euro" Timestamp="2015-06-21" Source="{p:StaticResource Ariva}"/>
+            <Dividend Period="2010" Value="{InMio 1023.44}" Currency="Euro" Timestamp="2015-06-21" Source="{p:StaticResource Ariva}"/>
+            <Dividend Period="2011" Value="{InMio 1395.57}" Currency="Euro" Timestamp="2015-06-21" Source="{p:StaticResource Ariva}"/>
+            <Dividend Period="2012" Value="{InMio 1628.305}" Currency="Euro" Timestamp="2015-06-21" Source="{p:StaticResource Ariva}"/>
+            <Dividend Period="2013" Value="{InMio 1860.92}" Currency="Euro" Timestamp="2015-06-21" Source="{p:StaticResource Ariva}"/>
+            <Dividend Period="2014" Value="{InMio 2283.504}" Currency="Euro" Timestamp="2015-06-21" Source="{p:StaticResource Ariva}"/>
         </Series>
         <Series>
-            <SharesOutstanding Year="2010" Value="{InMio 465.20}" Timestamp="2015-07-05" Source="{p:StaticResource Ariva}"/>
-            <SharesOutstanding Year="2011" Value="{InMio 465.19}" Timestamp="2015-07-05" Source="{p:StaticResource Ariva}"/>
-            <SharesOutstanding Year="2012" Value="{InMio 465.23}" Timestamp="2015-07-05" Source="{p:StaticResource Ariva}"/>
-            <SharesOutstanding Year="2013" Value="{InMio 465.23}" Timestamp="2015-07-05" Source="{p:StaticResource Ariva}"/>
-            <SharesOutstanding Year="2014" Value="{InMio 475.73}" Timestamp="2015-07-05" Source="{p:StaticResource Ariva}"/>
+            <SharesOutstanding Period="2010" Value="{InMio 465.20}" Timestamp="2015-07-05" Source="{p:StaticResource Ariva}"/>
+            <SharesOutstanding Period="2011" Value="{InMio 465.19}" Timestamp="2015-07-05" Source="{p:StaticResource Ariva}"/>
+            <SharesOutstanding Period="2012" Value="{InMio 465.23}" Timestamp="2015-07-05" Source="{p:StaticResource Ariva}"/>
+            <SharesOutstanding Period="2013" Value="{InMio 465.23}" Timestamp="2015-07-05" Source="{p:StaticResource Ariva}"/>
+            <SharesOutstanding Period="2014" Value="{InMio 475.73}" Timestamp="2015-07-05" Source="{p:StaticResource Ariva}"/>
         </Series>
     </Stock>
 </DataSheet>

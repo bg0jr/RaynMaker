@@ -58,9 +58,7 @@ namespace RaynMaker.Blade.AnalysisSpec
                 row = new TableRow();
 
                 var series = ( Series )context.ProvideValue( dataRow.Value );
-                var values = series.Values
-                    .Cast<IAnualDatum>()
-                    .ToList();
+                var values = series.Values;
 
                 Contract.Requires( values
                     .OfType<ICurrencyDatum>()
@@ -73,7 +71,8 @@ namespace RaynMaker.Blade.AnalysisSpec
 
                 for( int year = EndYear - Count + 1; year <= EndYear; ++year )
                 {
-                    var value = values.SingleOrDefault( v => v.Year == year );
+                    var period = new YearPeriod { Year = year };
+                    var value = values.SingleOrDefault( v => v.Period.Equals(period) );
                     if( value == null )
                     {
                         row.Cell( "n.a." ).TextAlignment = TextAlignment.Right;
@@ -98,7 +97,7 @@ namespace RaynMaker.Blade.AnalysisSpec
             context.Document.Blocks.Add( table );
         }
 
-        private static string GetHeader( Row dataRow, IEnumerable<IAnualDatum> values )
+        private static string GetHeader( Row dataRow, IEnumerable<IDatum> values )
         {
             if( values.Any() )
             {

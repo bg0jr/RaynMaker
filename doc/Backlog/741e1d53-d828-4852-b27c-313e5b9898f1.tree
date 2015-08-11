@@ -34,6 +34,9 @@
       <Node Id="e5e448af-986c-4b3e-b889-b67a4ad2c435">
         <Caption><![CDATA[Anual and daily datum]]></Caption>
       </Node>
+      <Node Id="008a526d-60c7-42b9-94b2-d774e7530134">
+        <Caption><![CDATA[Convert AnualTable into GenericTable]]></Caption>
+      </Node>
     </Node>
   </Node>
 </Tree>

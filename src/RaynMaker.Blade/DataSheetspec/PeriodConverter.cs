@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace RaynMaker.Blade.DataSheetSpec
 {
-    public sealed class CurrencyConverter : TypeConverter
+    public sealed class PeriodConverter : TypeConverter
     {
         public override bool CanConvertFrom( ITypeDescriptorContext context, Type sourceType )
         {
@@ -19,12 +19,22 @@ namespace RaynMaker.Blade.DataSheetSpec
             }
 
             string text = value as string;
-            if( text != null )
+            if( text == null )
             {
-                return Currencies.Parse( text );
+                return base.ConvertFrom( context, culture, value );
             }
 
-            return base.ConvertFrom( context, culture, value );
+            int year;
+            if( int.TryParse( text, out year ) )
+            {
+                return new YearPeriod { Year = year };
+            }
+
+            var converter = new DateTimeConverter();
+            return new DayPeriod
+            {
+                Date = ( DateTime )converter.ConvertFrom( text )
+            };
         }
 
         public override bool CanConvertTo( ITypeDescriptorContext context, Type destinationType )

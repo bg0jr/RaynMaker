@@ -103,11 +103,9 @@
     <Compile Include="AnalysisSpec\Rule.cs" />
     <Compile Include="AnalysisSpec\TextBlock.cs" />
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="DataSheetSpec\AnualDatum.cs" />
-    <Compile Include="DataSheetSpec\DailyDatum.cs" />
-    <Compile Include="DataSheetSpec\IAnualDatum.cs" />
-    <Compile Include="DataSheetSpec\IAnualFinancialDatum.cs" />
-    <Compile Include="DataSheetSpec\IDailyDatum.cs" />
+    <Compile Include="DataSheetSpec\PeriodConverter.cs" />
+    <Compile Include="DataSheetSpec\CurrencyDatum.cs" />
+    <Compile Include="DataSheetSpec\DayPeriod.cs" />
     <Compile Include="DataSheetSpec\Datums\Assets.cs" />
     <Compile Include="DataSheetSpec\CurrenciesSheet.cs" />
     <Compile Include="DataSheetSpec\DerivedDatum.cs" />
@@ -122,9 +120,12 @@
     <Compile Include="DataSheetSpec\Datums\Equity.cs" />
     <Compile Include="DataSheetSpec\Datums\NetIncome.cs" />
     <Compile Include="DataSheetSpec\Datums\SharesOutstanding.cs" />
+    <Compile Include="DataSheetSpec\IPeriod.cs" />
+    <Compile Include="DataSheetSpec\PeriodExtensions.cs" />
     <Compile Include="DataSheetSpec\Translation.cs" />
     <Compile Include="AnalysisSpec\Providers\GenericDatumProvider.cs" />
     <Compile Include="AnalysisSpec\Providers\CurrentPrice.cs" />
+    <Compile Include="DataSheetSpec\YearPeriod.cs" />
     <Compile Include="Engine\ExpressionEvaluator.cs" />
     <Compile Include="AnalysisSpec\Functions.cs" />
     <Compile Include="Engine\FigureProviderContextExtensions.cs" />

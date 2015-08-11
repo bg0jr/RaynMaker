@@ -48,13 +48,9 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
 
             var resultSeries = new Series();
 
-            bool isAnual = allLhs.OfType<IAnualDatum>().Any();
-
             foreach( var lhs in allLhs )
             {
-                var rhs = allRhs.SingleOrDefault( e => isAnual ?
-                    ( ( IAnualDatum )e ).Year == ( ( IAnualDatum )lhs ).Year :
-                    ( ( IDailyDatum )e ).Date == ( ( IDailyDatum )lhs ).Date );
+                var rhs = allRhs.SingleOrDefault( e => e.Period.Equals( lhs.Period ) );
 
                 if( rhs == null )
                 {
@@ -63,17 +59,9 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
 
                 var result = new DerivedDatum
                 {
-                    Value = myJoinOperator( lhs.Value, rhs.Value )
+                    Value = myJoinOperator( lhs.Value, rhs.Value ),
+                    Period = lhs.Period
                 };
-
-                if( isAnual )
-                {
-                    result.Year = ( ( IAnualDatum )lhs ).Year;
-                }
-                else
-                {
-                    result.Date = ( ( IDailyDatum )lhs ).Date;
-                }
 
                 if( PreserveCurrency )
                 {

@@ -3,9 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RaynMaker.Blade.DataSheetSpec.Datums
 {
-    public class Price : DailyDatum, ICurrencyDatum
+    public class Price : CurrencyDatum
     {
-        [Required]
-        public Currency Currency { get; set; }
     }
 }

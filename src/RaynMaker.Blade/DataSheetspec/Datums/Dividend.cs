@@ -5,9 +5,7 @@ namespace RaynMaker.Blade.DataSheetSpec.Datums
     /// <summary>
     /// Total dividend payment. NOT per share
     /// </summary>
-    public class Dividend : AnualDatum, ICurrencyDatum
+    public class Dividend : CurrencyDatum
     {
-        [Required]
-        public Currency Currency { get; set; }
     }
 }

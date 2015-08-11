@@ -29,18 +29,9 @@ namespace RaynMaker.Blade.AnalysisSpec
         /// </summary>
         public static IDatum Growth( IEnumerable<IDatum> series )
         {
-            IReadOnlyList<IDatum> sortedSeries = series
-                .OfType<IAnualDatum>()
-                .OrderBy( d => d.Year )
+            var sortedSeries = series
+                .OrderBy( d => d.Period )
                 .ToList();
-
-            if( !sortedSeries.Any() )
-            {
-                sortedSeries = series
-                    .OfType<IDailyDatum>()
-                    .OrderBy( d => d.Date )
-                    .ToList();
-            }
 
             var rates = new List<double>( sortedSeries.Count - 1 );
             for( int i = 1; i < sortedSeries.Count; ++i )

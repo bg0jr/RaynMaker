@@ -29,13 +29,13 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
 
         public sealed override object ProvideValue( IFigureProviderContext context )
         {
-            var allLhs = context.GetSeries<IAnualDatum>( myLhsSeriesName );
+            var allLhs = context.GetSeries<IDatum>( myLhsSeriesName );
             if( !allLhs.Any() )
             {
                 AddFailureReason( "Missing input for {0}", myLhsSeriesName );
             }
 
-            var allRhs = context.GetSeries<IAnualDatum>( myRhsSeriesName );
+            var allRhs = context.GetSeries<IDatum>( myRhsSeriesName );
             if( !allLhs.Any() )
             {
                 AddFailureReason( "Missing input for {0}", myRhsSeriesName );
@@ -49,19 +49,19 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
             var resultSeries = new Series();
 
             var lhs = allLhs
-                .OrderByDescending( a => a.Year )
+                .OrderByDescending( a => a.Period )
                 .First();
 
-            var rhs = allRhs.SingleOrDefault( d => d.Year == lhs.Year );
+            var rhs = allRhs.SingleOrDefault( d => d.Period.Equals( lhs.Period ) );
             if( rhs == null )
             {
-                AddFailureReason( "No '{0}' for year {1} found", myRhsSeriesName, lhs.Year );
+                AddFailureReason( "No '{0}' for period {1} found", myRhsSeriesName, lhs.Period );
                 return null;
             }
 
             var result = new DerivedDatum
             {
-                Year = lhs.Year,
+                Period = lhs.Period,
                 Value = myRatioCalculationOperator( lhs.Value, rhs.Value )
             };
 

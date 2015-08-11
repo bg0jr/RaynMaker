@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RaynMaker.Blade.DataSheetSpec
 {
-    public class DerivedDatum : IDailyDatum, IAnualFinancialDatum
+    public class DerivedDatum : IDatum, ICurrencyDatum
     {
         public DerivedDatum()
         {
@@ -15,14 +15,12 @@ namespace RaynMaker.Blade.DataSheetSpec
 
         public double Value { get; set; }
 
-        public DateTime Date { get; set; }
-
-        public int Year { get; set; }
-
         public Currency Currency { get; set; }
 
         public string Source { get { return "Calculated"; } }
 
         public List<IDatum> Inputs { get; private set; }
+
+        public IPeriod Period { get; set; }
     }
 }
