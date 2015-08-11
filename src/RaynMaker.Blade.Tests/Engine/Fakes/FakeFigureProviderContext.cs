@@ -17,9 +17,9 @@ namespace RaynMaker.Blade.Tests.Engine.Fakes
         {
         }
 
-        public IEnumerable<T> GetSeries<T>( string name )
+        public IDatumSeries GetSeries( string name )
         {
-            return Enumerable.Empty<T>();
+            return Series.Empty;
         }
     }
 }

@@ -29,13 +29,13 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
 
         public sealed override object ProvideValue( IFigureProviderContext context )
         {
-            var allLhs = context.GetSeries<IDatum>( myLhsSeriesName );
+            var allLhs = context.GetSeries( myLhsSeriesName );
             if( !allLhs.Any() )
             {
                 AddFailureReason( "Missing input for {0}", myLhsSeriesName );
             }
 
-            var allRhs = context.GetSeries<IDatum>( myRhsSeriesName );
+            var allRhs = context.GetSeries( myRhsSeriesName );
             if( !allLhs.Any() )
             {
                 AddFailureReason( "Missing input for {0}", myRhsSeriesName );

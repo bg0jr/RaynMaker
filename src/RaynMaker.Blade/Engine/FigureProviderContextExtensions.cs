@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using RaynMaker.Blade.DataSheetSpec;
 
 namespace RaynMaker.Blade.Engine
 {
     static class FigureProviderContextExtensions
     {
-        public static IEnumerable<T> GetDatumSeries<T>( this IFigureProviderContext self )
+        public static IDatumSeries GetDatumSeries<T>( this IFigureProviderContext self )
         {
-            return self.GetSeries<T>( typeof( T ).Name );
+            return self.GetSeries( typeof( T ).Name );
         }
     }
 }

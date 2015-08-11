@@ -98,13 +98,12 @@ namespace RaynMaker.Blade.Engine
             return value * translation.Rate;
         }
 
-        public IEnumerable<T> GetSeries<T>( string name )
+        public IDatumSeries GetSeries( string name )
         {
             var provider = myProviders.SingleOrDefault( p => p.Name == name );
             Contract.RequiresNotNull( provider, "No provider found with name: " + name );
 
-            var series = ( IDatumSeries)provider.ProvideValue( this );
-            return series.Cast<T>();
+            return ( IDatumSeries)provider.ProvideValue( this );
         }
 
         public void EnsureCurrencyConsistency( params IEnumerable<ICurrencyDatum>[] values )

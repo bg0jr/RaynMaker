@@ -7,7 +7,7 @@ namespace RaynMaker.Blade.Engine
     {
         Asset Asset { get; }
 
-        IEnumerable<T> GetSeries<T>(string name);
+        IDatumSeries GetSeries(string name);
 
         void EnsureCurrencyConsistency( params IEnumerable<ICurrencyDatum>[] values );
     }

@@ -34,7 +34,7 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
                 return null;
             }
 
-            var values = context.GetSeries<IDatum>( mySeriesName );
+            var values = context.GetSeries( mySeriesName );
             if( !values.Any() )
             {
                 AddFailureReason( "Missing input for {0}", mySeriesName );
