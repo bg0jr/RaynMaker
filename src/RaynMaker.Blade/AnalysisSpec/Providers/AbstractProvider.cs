@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Plainion;
+using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.Engine;
 
 namespace RaynMaker.Blade.AnalysisSpec.Providers
@@ -36,5 +37,12 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
         public bool PreserveCurrency { get; set; }
         
         public abstract object ProvideValue( IFigureProviderContext context );
+       
+        protected void EnsureCurrencyConsistancy( IDatumSeries lhs, IDatumSeries rhs )
+        {
+            Contract.Requires( lhs.Currency == null || rhs.Currency == null || lhs.Currency == rhs.Currency,
+                "Currency inconsistencies detected: {0}.Currency={1} vs {2}.Currency={3}",
+                lhs.Name, lhs.Currency, rhs.Name, rhs.Currency );
+        }
     }
 }

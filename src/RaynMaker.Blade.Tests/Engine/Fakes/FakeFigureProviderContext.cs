@@ -13,10 +13,6 @@ namespace RaynMaker.Blade.Tests.Engine.Fakes
         }
         public Asset Asset { get; private set; }
 
-        public void EnsureCurrencyConsistency( params IEnumerable<ICurrencyDatum>[] values )
-        {
-        }
-
         public IDatumSeries GetSeries( string name )
         {
             return Series.Empty;

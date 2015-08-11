@@ -105,16 +105,5 @@ namespace RaynMaker.Blade.Engine
 
             return ( IDatumSeries)provider.ProvideValue( this );
         }
-
-        public void EnsureCurrencyConsistency( params IEnumerable<ICurrencyDatum>[] values )
-        {
-            var allCurrencies = values
-                .SelectMany( v => v )
-                .Select( v => v.Currency )
-                .Distinct()
-                .ToList();
-
-            Contract.Requires( allCurrencies.Count == 1, "Currency inconsistencies found: {0}", string.Join( ",", allCurrencies ) );
-        }
     }
 }

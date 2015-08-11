@@ -46,6 +46,8 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
                 return Series.Empty;
             }
 
+            EnsureCurrencyConsistancy( allLhs, allRhs );
+            
             var resultSeries = new Series();
 
             foreach( var lhs in allLhs )
@@ -65,22 +67,7 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
 
                 if( PreserveCurrency )
                 {
-                    var lhsCurrency = lhs as ICurrencyDatum;
-                    var rhsCurrency = rhs as ICurrencyDatum;
-                    if( lhsCurrency != null )
-                    {
-                        result.Currency = lhsCurrency.Currency;
-
-                        if( rhsCurrency != null )
-                        {
-                            Contract.Requires( lhsCurrency.Currency != rhsCurrency.Currency,
-                                "Currency inconsistencies found: {0} vs {1}", lhsCurrency.Currency, rhsCurrency.Currency );
-                        }
-                    }
-                    else if( rhsCurrency != null )
-                    {
-                        result.Currency = rhsCurrency.Currency;
-                    }
+                    result.Currency = allLhs.Currency ?? allRhs.Currency;
                 }
 
                 result.Inputs.Add( lhs );

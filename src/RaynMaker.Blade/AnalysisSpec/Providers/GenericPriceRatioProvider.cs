@@ -31,20 +31,27 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
             if( price == null )
             {
                 AddFailureReason( "No Price found" );
-                return null;
             }
 
             var values = context.GetSeries( mySeriesName );
             if( !values.Any() )
             {
                 AddFailureReason( "Missing input for {0}", mySeriesName );
+            }
+
+            if( FailureReasons.Any() )
+            {
                 return null;
             }
 
+            Contract.Requires( price.Currency != null, "Currency missing at price" );
+
+            Contract.Requires( values.Currency == null || price.Currency == values.Currency,
+                "Currency inconsistencies detected: Price.Currency={0} vs {1}.Currency={2}",
+                price.Currency, values.Name, values.Currency );
+
             var priceYear = price.Period.Year();
 
-            // TODO: how to specify "include?" 
-            // TODO: how to specify "one previous period"
             var value = values.SingleOrDefault( e => e.Period.Year() == priceYear );
             if( value == null )
             {
