@@ -103,6 +103,8 @@
     <Compile Include="AnalysisSpec\Rule.cs" />
     <Compile Include="AnalysisSpec\TextBlock.cs" />
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="DataSheetSpec\IDatumSeries.cs" />
+    <Compile Include="DataSheetSpec\IFreezable.cs" />
     <Compile Include="DataSheetSpec\PeriodConverter.cs" />
     <Compile Include="DataSheetSpec\CurrencyDatum.cs" />
     <Compile Include="DataSheetSpec\DayPeriod.cs" />

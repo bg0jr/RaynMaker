@@ -16,11 +16,11 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
 
         public string Name { get { return myDatumType.Name; } }
 
-        public object ProvideValue( IFigureProviderContext context)
+        public object ProvideValue( IFigureProviderContext context )
         {
-            return context.Asset.Data.OfType<Series>()
-                .Where( s => s.Values.Where( v => v.GetType() == myDatumType ).Any() )
-                .SingleOrDefault() ?? new Series();
+            return context.Asset.Data.OfType<IDatumSeries>()
+                .Where( s => s.DatumType == myDatumType )
+                .SingleOrDefault() ?? Series.Empty;
         }
     }
 }

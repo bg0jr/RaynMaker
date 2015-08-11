@@ -43,7 +43,7 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
 
             if( FailureReasons.Any() )
             {
-                return new Series();
+                return Series.Empty;
             }
 
             var resultSeries = new Series();
@@ -88,6 +88,8 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
 
                 resultSeries.Values.Add( result );
             }
+
+            resultSeries.Freeze();
 
             return resultSeries;
         }

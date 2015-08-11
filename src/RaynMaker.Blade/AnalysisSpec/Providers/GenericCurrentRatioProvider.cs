@@ -43,10 +43,8 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
 
             if( FailureReasons.Any() )
             {
-                return new Series();
+                return null;
             }
-
-            var resultSeries = new Series();
 
             var lhs = allLhs
                 .OrderByDescending( a => a.Period )
@@ -87,6 +85,7 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
 
             result.Inputs.Add( lhs );
             result.Inputs.Add( rhs );
+
             return result;
         }
     }

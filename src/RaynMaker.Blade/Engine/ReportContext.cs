@@ -103,8 +103,8 @@ namespace RaynMaker.Blade.Engine
             var provider = myProviders.SingleOrDefault( p => p.Name == name );
             Contract.RequiresNotNull( provider, "No provider found with name: " + name );
 
-            var series = ( Series )provider.ProvideValue( this );
-            return series.Values.Cast<T>();
+            var series = ( IDatumSeries)provider.ProvideValue( this );
+            return series.Cast<T>();
         }
 
         public void EnsureCurrencyConsistency( params IEnumerable<ICurrencyDatum>[] values )

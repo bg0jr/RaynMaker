@@ -91,7 +91,7 @@ namespace RaynMaker.Blade.Tests.Engine
         {
             var function = new FunctionCall( typeof( FakeFunctions ).GetMethod( "Count" ) );
 
-            function.AddArgument( new Series() );
+            function.AddArgument( Series.Empty );
 
             Assert.That( function.Arguments.Last(), Is.InstanceOf<Series>() );
         }

@@ -57,22 +57,15 @@ namespace RaynMaker.Blade.AnalysisSpec
             {
                 row = new TableRow();
 
-                var series = ( Series )context.ProvideValue( dataRow.Value );
-                var values = series.Values;
+                var series = ( IDatumSeries )context.ProvideValue( dataRow.Value );
 
-                Contract.Requires( values
-                    .OfType<ICurrencyDatum>()
-                    .Select( v => v.Currency )
-                    .Distinct()
-                    .Count() <= 1, "Currency inconsistencies found" );
-
-                var cell = row.Cell( GetHeader( dataRow, values ) );
+                var cell = row.Cell( GetHeader( dataRow, series ) );
                 cell.TextAlignment = TextAlignment.Left;
 
                 for( int year = EndYear - Count + 1; year <= EndYear; ++year )
                 {
                     var period = new YearPeriod { Year = year };
-                    var value = values.SingleOrDefault( v => v.Period.Equals(period) );
+                    var value = series.SingleOrDefault( v => v.Period.Equals( period ) );
                     if( value == null )
                     {
                         row.Cell( "n.a." ).TextAlignment = TextAlignment.Right;
