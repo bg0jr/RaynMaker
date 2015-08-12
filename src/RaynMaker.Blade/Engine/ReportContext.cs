@@ -7,6 +7,7 @@ using RaynMaker.Blade.AnalysisSpec;
 using RaynMaker.Blade.AnalysisSpec.Providers;
 using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.DataSheetSpec.Datums;
+using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Reporting;
 
 namespace RaynMaker.Blade.Engine
@@ -85,6 +86,11 @@ namespace RaynMaker.Blade.Engine
         public double TranslateCurrency( double value, Currency source, Currency target )
         {
             if( source == null && target == null )
+            {
+                return value;
+            }
+
+            if( source == target )
             {
                 return value;
             }

@@ -4,6 +4,7 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.Engine;
+using RaynMaker.Blade.Entities;
 
 namespace RaynMaker.Blade.AnalysisSpec
 {

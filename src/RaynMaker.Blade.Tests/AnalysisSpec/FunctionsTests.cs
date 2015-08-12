@@ -4,6 +4,7 @@ using RaynMaker.Blade.AnalysisSpec;
 using RaynMaker.Blade.AnalysisSpec.Providers;
 using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.DataSheetSpec.Datums;
+using RaynMaker.Blade.Entities;
 
 namespace RaynMaker.Blade.Tests.AnalysisSpec
 {

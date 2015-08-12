@@ -111,7 +111,7 @@
     <Compile Include="DataSheetSpec\CurrencyDatum.cs" />
     <Compile Include="DataSheetSpec\DayPeriod.cs" />
     <Compile Include="DataSheetSpec\Datums\Assets.cs" />
-    <Compile Include="DataSheetSpec\CurrenciesSheet.cs" />
+    <Compile Include="Entities\CurrenciesSheet.cs" />
     <Compile Include="DataSheetSpec\DerivedDatum.cs" />
     <Compile Include="DataSheetSpec\IDatum.cs" />
     <Compile Include="DataSheetSpec\InMioExtension.cs" />
@@ -126,7 +126,7 @@
     <Compile Include="DataSheetSpec\Datums\SharesOutstanding.cs" />
     <Compile Include="DataSheetSpec\IPeriod.cs" />
     <Compile Include="DataSheetSpec\PeriodExtensions.cs" />
-    <Compile Include="DataSheetSpec\Translation.cs" />
+    <Compile Include="Entities\Translation.cs" />
     <Compile Include="AnalysisSpec\Providers\GenericDatumProvider.cs" />
     <Compile Include="AnalysisSpec\Providers\CurrentPrice.cs" />
     <Compile Include="DataSheetSpec\YearPeriod.cs" />
@@ -145,9 +145,9 @@
     <Compile Include="Engine\TextEvaluator.cs" />
     <Compile Include="Model\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DataSheetSpec\Currencies.cs" />
-    <Compile Include="DataSheetSpec\Currency.cs" />
-    <Compile Include="DataSheetSpec\CurrencyConverter.cs" />
+    <Compile Include="Entities\Currencies.cs" />
+    <Compile Include="Entities\Currency.cs" />
+    <Compile Include="Entities\CurrencyConverter.cs" />
     <Compile Include="DataSheetSpec\Datum.cs" />
     <Compile Include="DataSheetSpec\Datums\Dividend.cs" />
     <Compile Include="DataSheetSpec\Series.cs" />

@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Markup;
 using Plainion.Validation;
 
-namespace RaynMaker.Blade.DataSheetSpec
+namespace RaynMaker.Blade.Entities
 {
     [DefaultProperty( "Currencies" ), ContentProperty( "Currencies" )]
     public class CurrenciesSheet : DataTemplate

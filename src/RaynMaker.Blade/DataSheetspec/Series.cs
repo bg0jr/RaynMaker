@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows.Markup;
 using Plainion;
 using Plainion.Validation;
+using RaynMaker.Blade.Entities;
 
 namespace RaynMaker.Blade.DataSheetSpec
 {
