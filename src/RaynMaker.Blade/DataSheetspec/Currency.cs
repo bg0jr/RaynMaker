@@ -2,10 +2,13 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 using System.Windows.Markup;
 
 namespace RaynMaker.Blade.DataSheetSpec
 {
+    [DataContract( Name = "Currency", Namespace = "https://github.com/bg0jr/RaynMaker" )]
+    [KnownType( typeof( Translation ) )]
     [TypeConverter( typeof( CurrencyConverter ) )]
     [DefaultProperty( "Translations" ), ContentProperty( "Translations" )]
     public class Currency
@@ -15,9 +18,11 @@ namespace RaynMaker.Blade.DataSheetSpec
             Translations = new ObservableCollection<Translation>();
         }
 
+        [DataMember]
         [Required]
         public string Name { get; set; }
 
+        [DataMember]
         public ObservableCollection<Translation> Translations { get; private set; }
 
         public override bool Equals( object obj )

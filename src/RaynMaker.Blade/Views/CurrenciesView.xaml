@@ -93,6 +93,9 @@
             </Button>
         </Grid>
 
-        <Button Grid.Row="2" Content="Save" HorizontalAlignment="Right" Margin="0,5,0,0"/>
+        <StackPanel Grid.Row="2" HorizontalAlignment="Right" Margin="0,5,0,0" Orientation="Horizontal">
+            <Button Content="OK" Command="{Binding OkCommand}" Width="50"/>
+            <Button Content="Cancel" Command="{Binding CancelCommand}" Margin="5,0,0,0" Width="50"/>
+        </StackPanel>
     </Grid>
 </UserControl>
