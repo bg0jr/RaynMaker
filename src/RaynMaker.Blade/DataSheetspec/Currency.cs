@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Windows.Markup;
@@ -11,13 +12,13 @@ namespace RaynMaker.Blade.DataSheetSpec
     {
         public Currency()
         {
-            Translations = new List<Translation>();
+            Translations = new ObservableCollection<Translation>();
         }
 
         [Required]
         public string Name { get; set; }
 
-        public List<Translation> Translations { get; private set; }
+        public ObservableCollection<Translation> Translations { get; private set; }
 
         public override bool Equals( object obj )
         {
@@ -32,7 +33,7 @@ namespace RaynMaker.Blade.DataSheetSpec
 
         public override int GetHashCode()
         {
-            return Name.GetHashCode();
+            return Name == null ? -1 : Name.GetHashCode();
         }
 
         public override string ToString()

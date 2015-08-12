@@ -173,6 +173,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Resource Include="Resources\Remove.png" />
+    <Resource Include="Resources\Add.png" />
     <Content Include="Resources\Currencies.xaml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Windows;
@@ -12,11 +12,11 @@ namespace RaynMaker.Blade.DataSheetSpec
     {
         public CurrenciesSheet()
         {
-            Currencies = new List<Currency>();
+            Currencies = new ObservableCollection<Currency>();
         }
 
         [Required, ValidateObject]
-        public IList<Currency> Currencies { get; private set; }
+        public ObservableCollection<Currency> Currencies { get; private set; }
 
         [Required]
         public int MaxAgeInDays { get; set; }

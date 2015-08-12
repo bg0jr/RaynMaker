@@ -4,9 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:dspec="clr-namespace:RaynMaker.Blade.DataSheetSpec"
+             x:Name="_this"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Margin="2">
+    <Grid Margin="3">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -18,50 +19,79 @@
             <TextBox Text="{Binding Sheet.MaxAgeInDays, Mode=TwoWay}" Width="50" Margin="5,0,0,0"/>
         </StackPanel>
 
-        <ItemsControl Grid.Row="1" ItemsSource="{Binding Sheet.Currencies}" Background="Transparent" Margin="0,2,0,0"
-                      BorderThickness="0">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid Background="AliceBlue" Margin="0,3,0,0">
-                        <Grid Margin="3">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Margin="0,2,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+            <ItemsControl Grid.Row="0" ItemsSource="{Binding Sheet.Currencies}" Background="Transparent" BorderThickness="0">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Background="AliceBlue" Margin="0,3,0,0">
+                            <Grid Margin="3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
 
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Name" VerticalAlignment="Center"/>
-                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name}" Margin="5,2,0,0" Width="100" HorizontalAlignment="Left"/>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Translations" VerticalAlignment="Top" Margin="0,2,0,0"/>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Name" VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name}" Margin="5,2,0,0" Width="100" HorizontalAlignment="Left"/>
+                                <Button Grid.Row="0" Grid.Column="1" Command="{Binding DataContext.RemoveCurrencyCommand, ElementName=_this}" CommandParameter="{Binding}" 
+                                        HorizontalAlignment="Right" Margin="0,3,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                    <Image Source="/Resources/Remove.png" Width="17" Height="17"/>
+                                </Button>
 
-                            <ItemsControl Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Translations}" 
-                                      Background="Transparent" Margin="5,2,0,0" BorderThickness="0">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
-                                            <TextBlock Text="To" VerticalAlignment="Center"/>
-                                            <TextBox Text="{Binding To}" Margin="3,0,0,0" Width="100"/>
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Translations" VerticalAlignment="Top" Margin="0,2,0,0"/>
 
-                                            <TextBlock Text="Rate" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                                            <TextBox Text="{Binding Rate}" Margin="3,0,0,0" Width="100"/>
+                                <Grid  Grid.Row="1" Grid.Column="1" Margin="5,2,0,0" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <ItemsControl ItemsSource="{Binding Translations}" Grid.Row="0" Background="Transparent" BorderThickness="0">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+                                                    <TextBlock Text="To" VerticalAlignment="Center"/>
+                                                    <TextBox Text="{Binding To}" Margin="3,0,0,0" Width="100"/>
 
-                                            <TextBlock Text="Timestamp" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                                            <TextBox Text="{Binding Timestamp}" Margin="3,0,0,0" IsEnabled="False"  />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
+                                                    <TextBlock Text="Rate" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                                    <TextBox Text="{Binding Rate}" Margin="3,0,0,0" Width="100"/>
 
+                                                    <TextBlock Text="Timestamp" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                                    <TextBox Text="{Binding Timestamp}" Margin="3,0,0,0" IsEnabled="False" Width="150"/>
+                                                    <Button Command="{Binding DataContext.RemoveTranslationCommand, ElementName=_this}" 
+                                                            CommandParameter="{Binding}" Margin="5,3,0,0" 
+                                                            Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                                        <Image Source="/Resources/Remove.png" Width="17" Height="17"/>
+                                                    </Button>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                    <Button Grid.Row="1" Command="{Binding DataContext.AddTranslationCommand, ElementName=_this}" CommandParameter="{Binding}" 
+                                            HorizontalAlignment="Left" Margin="0,3,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                        <Image Source="/Resources/Add.png" Width="18" Height="18"/>
+                                    </Button>
+                                </Grid>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <Button Grid.Row="1" Command="{Binding AddCurrencyCommand}" HorizontalAlignment="Right" Margin="0,3,0,0" 
+                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                <Image Source="/Resources/Add.png" Width="18" Height="18"/>
+            </Button>
+        </Grid>
 
         <Button Grid.Row="2" Content="Save" HorizontalAlignment="Right" Margin="0,5,0,0"/>
     </Grid>
