@@ -10,9 +10,6 @@
       <Node Id="15ade0d1-8ae4-4b79-b013-04381c2ca67d">
         <Caption><![CDATA[Add graphs to reporting]]></Caption>
       </Node>
-      <Node Id="d320a836-5f93-4962-95b5-df4f1e880c45">
-        <Caption><![CDATA[Create UI for currency translation]]></Caption>
-      </Node>
       <Node Id="c46494a3-8fd8-4faf-b150-0731cd98cded">
         <Caption><![CDATA[Create UI fo Data collection]]></Caption>
       </Node>

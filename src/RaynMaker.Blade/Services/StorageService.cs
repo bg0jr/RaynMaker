@@ -2,6 +2,7 @@
 using System.ComponentModel.Composition;
 using System.Runtime.Serialization;
 using System.Xml;
+using Plainion.Validation;
 using RaynMaker.Blade.Entities;
 
 namespace RaynMaker.Blade.Services
@@ -46,6 +47,8 @@ namespace RaynMaker.Blade.Services
 
         public void SaveCurrencies( CurrenciesSheet sheet, string path )
         {
+            RecursiveValidator.Validate( sheet );
+            
             using( var writer = XmlWriter.Create( path ) )
             {
                 var serializer = new DataContractSerializer( typeof( SerializableCurrenciesSheet ) );
