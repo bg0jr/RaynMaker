@@ -162,6 +162,7 @@
     <Compile Include="Reporting\ReportView.xaml.cs">
       <DependentUpon>ReportView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\StorageService.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="StockAnalyzer.cs" />
     <Compile Include="ViewModels\CurrenciesViewModel.cs" />
@@ -176,10 +177,10 @@
     </ApplicationDefinition>
     <Resource Include="Resources\Remove.png" />
     <Resource Include="Resources\Add.png" />
-    <Content Include="Resources\Currencies.xaml">
+    <None Include="Resources\Currencies.xdb">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
     <Page Include="Shell.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

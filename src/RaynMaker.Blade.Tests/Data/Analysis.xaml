@@ -14,7 +14,7 @@
         </AnualTable>
 
         <Rule Caption="Dividend yield" Operator="Greater" Threshold="2" Source="Fake" Value="${DividendYield}"/>
-        <Rule Caption="Market capitalization" Operator="Greater" Threshold="{d:InMio 500}"  Currency="Dollar" Source="Fake" 
+        <Rule Caption="Market capitalization" Operator="Greater" Threshold="{d:InMio 500}"  Currency="Euro" Source="Fake" 
               Value="${MarketCap}" InMillions="True"/>
     </Analysis>
 </AnalysisTemplate>

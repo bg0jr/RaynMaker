@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.IO;
-using System.Runtime.Serialization;
 using System.Windows.Input;
-using System.Windows.Markup;
-using System.Xml;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
-using Plainion.Xaml;
 using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.Model;
+using RaynMaker.Blade.Services;
 
 namespace RaynMaker.Blade.ViewModels
 {
@@ -20,12 +16,14 @@ namespace RaynMaker.Blade.ViewModels
     class CurrenciesViewModel : BindableBase, IInteractionRequestAware
     {
         private Project myProject;
-        private CurrenciesSheet mySheet;
+        private StorageService myStorageService;
 
         [ImportingConstructor]
-        public CurrenciesViewModel( Project project )
+        public CurrenciesViewModel( Project project, StorageService storageService )
         {
             myProject = project;
+            myStorageService = storageService;
+
             PropertyChangedEventManager.AddHandler( myProject, OnProjectPropertyChanged, PropertySupport.ExtractPropertyName( () => myProject.CurrenciesSheetLocation ) );
             OnProjectPropertyChanged( null, null );
 
@@ -46,8 +44,10 @@ namespace RaynMaker.Blade.ViewModels
                 return;
             }
 
-            var reader = new ValidatingXamlReader();
-            Sheet = reader.Read<CurrenciesSheet>( myProject.CurrenciesSheetLocation );
+            if( Currencies.Sheet == null )
+            {
+                Currencies.Sheet = myStorageService.LoadCurrencies( myProject.CurrenciesSheetLocation );
+            }
         }
 
         public Action FinishInteraction { get; set; }
@@ -56,8 +56,18 @@ namespace RaynMaker.Blade.ViewModels
 
         public CurrenciesSheet Sheet
         {
-            get { return mySheet; }
-            set { SetProperty( ref mySheet, value ); }
+            get { return Currencies.Sheet; }
+            set
+            {
+                if( Currencies.Sheet == value )
+                {
+                    return;
+                }
+
+                Currencies.Sheet = value;
+
+                OnPropertyChanged( () => Sheet );
+            }
         }
 
         public ICommand AddCurrencyCommand { get; private set; }
@@ -97,31 +107,8 @@ namespace RaynMaker.Blade.ViewModels
 
         private void OnOk()
         {
-            using( var writer = XmlWriter.Create( myProject.CurrenciesSheetLocation + ".db" ) )
-            {
-                var sheet = new SerializableCurrenciesSheet( Sheet );
-                var serializer = new DataContractSerializer( typeof( SerializableCurrenciesSheet ) );
-                serializer.WriteObject( writer, sheet );
-            }
-
+            myStorageService.SaveCurrencies( Sheet, myProject.CurrenciesSheetLocation );
             FinishInteraction();
-        }
-
-        [DataContract( Name = "CurrenciesSheet", Namespace = "https://github.com/bg0jr/RaynMaker" )]
-        [KnownType( typeof( Currency ) )]
-        public class SerializableCurrenciesSheet
-        {
-            public SerializableCurrenciesSheet( CurrenciesSheet sheet )
-            {
-                MaxAgeInDays = sheet.MaxAgeInDays;
-                Currencies = new ObservableCollection<Currency>( sheet.Currencies );
-            }
-
-            [DataMember]
-            public ObservableCollection<Currency> Currencies { get; private set; }
-
-            [DataMember]
-            public int MaxAgeInDays { get; set; }
         }
 
         public ICommand CancelCommand { get; private set; }

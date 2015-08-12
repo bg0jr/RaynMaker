@@ -14,16 +14,20 @@ using Plainion.Xaml;
 using RaynMaker.Blade.AnalysisSpec;
 using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.Model;
+using RaynMaker.Blade.Services;
 
 namespace RaynMaker.Blade
 {
     [Export]
     class ShellViewModel : BindableBase
     {
+        private StorageService myStorageService;
+
         [ImportingConstructor]
-        public ShellViewModel( IEventAggregator eventAggregator, Project project )
+        public ShellViewModel( IEventAggregator eventAggregator, Project project, StorageService storageService )
         {
             Project = project;
+            myStorageService = storageService;
 
             PropertyChangedEventManager.AddHandler( Project, OnProjectPropertyChanged, string.Empty );
 
@@ -56,18 +60,18 @@ namespace RaynMaker.Blade
         {
             for( int i = 1; i < args.Length; ++i )
             {
-                if( args[ i ] == "-h" || args[ i ] == "--help" )
+                if( args[ i ] == "-h" || args[ i ] == "-help" )
                 {
                     Usage();
                     Environment.Exit( 0 );
                 }
-                else if( args[ i ] == "-a" || args[ i ] == "--analysis" )
+                else if( args[ i ] == "-a" || args[ i ] == "-analysis" )
                 {
                     Contract.Requires( i + 1 < args.Length, "-a requires an argument" );
                     i++;
                     Project.AnalysisTemplateLocation = args[ i ];
                 }
-                else if( args[ i ] == "-c" || args[ i ] == "--currencies" )
+                else if( args[ i ] == "-c" || args[ i ] == "-currencies" )
                 {
                     Contract.Requires( i + 1 < args.Length, "-c requires an argument" );
                     i++;
@@ -81,7 +85,7 @@ namespace RaynMaker.Blade
 
             if( Project.CurrenciesSheetLocation == null )
             {
-                Project.CurrenciesSheetLocation = Path.Combine( Path.GetDirectoryName( GetType().Assembly.Location ), "Resources", "Currencies.xaml" );
+                Project.CurrenciesSheetLocation = Path.Combine( Path.GetDirectoryName( GetType().Assembly.Location ), "Resources", "Currencies.xdb" );
             }
         }
 
@@ -116,7 +120,7 @@ namespace RaynMaker.Blade
         {
             var reader = new ValidatingXamlReader();
 
-            Currencies.Sheet = reader.Read<CurrenciesSheet>( Project.CurrenciesSheetLocation );
+            Currencies.Sheet = myStorageService.LoadCurrencies( Project.CurrenciesSheetLocation );
             var analysisTemplate = reader.Read<AnalysisTemplate>( Project.AnalysisTemplateLocation );
             var dataSheet = reader.Read<DataSheet>( Project.DataSheetLocation );
             dataSheet.Freeze();
