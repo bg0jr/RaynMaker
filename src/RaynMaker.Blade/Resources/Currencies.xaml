@@ -6,7 +6,7 @@
                  MaxAgeInDays="7">
     <!-- http://www.finanzen.net/waehrungsrechner/ -->
 
-    <Currency x:Key="Euro" Name="Euro" />
+    <Currency Name="Euro" />
 
     <Currency Name="NOK">
         <Translation To="Euro" Timestamp="2015-08-10" Rate="0.1107 "/>

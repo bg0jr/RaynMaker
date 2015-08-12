@@ -1,9 +1,11 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Text;
 using System.Windows;
 using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
 using Plainion;
@@ -11,23 +13,39 @@ using Plainion.Prism.Events;
 using Plainion.Xaml;
 using RaynMaker.Blade.AnalysisSpec;
 using RaynMaker.Blade.DataSheetSpec;
+using RaynMaker.Blade.Model;
 
 namespace RaynMaker.Blade
 {
     [Export]
     class ShellViewModel : BindableBase
     {
-        private string myCurrenciesSheetLocation;
-        private string myAnalysisTemplateLocation;
-        private string myDataSheetLocation;
-
         [ImportingConstructor]
-        public ShellViewModel( IEventAggregator eventAggregator )
+        public ShellViewModel( IEventAggregator eventAggregator, Project project )
         {
+            Project = project;
+
+            PropertyChangedEventManager.AddHandler( Project, OnProjectPropertyChanged, string.Empty );
+
             GoCommand = new DelegateCommand( OnGo, CanGo );
+
+            OpenCurrenciesCommand = new DelegateCommand( OnOpenCurrencies );
+            OpenCurrenciesRequest = new InteractionRequest<INotification>();
 
             eventAggregator.GetEvent<ApplicationReadyEvent>().Subscribe( o => OnApplicationReady() );
         }
+
+        private void OnProjectPropertyChanged( object sender, PropertyChangedEventArgs e )
+        {
+            if( e.PropertyName == PropertySupport.ExtractPropertyName( () => Project.AnalysisTemplateLocation ) ||
+                e.PropertyName == PropertySupport.ExtractPropertyName( () => Project.CurrenciesSheetLocation ) ||
+                e.PropertyName == PropertySupport.ExtractPropertyName( () => Project.DataSheetLocation ) )
+            {
+                GoCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        public Project Project { get; private set; }
 
         private void OnApplicationReady()
         {
@@ -47,23 +65,23 @@ namespace RaynMaker.Blade
                 {
                     Contract.Requires( i + 1 < args.Length, "-a requires an argument" );
                     i++;
-                    AnalysisTemplateLocation = args[ i ];
+                    Project.AnalysisTemplateLocation = args[ i ];
                 }
                 else if( args[ i ] == "-c" || args[ i ] == "--currencies" )
                 {
                     Contract.Requires( i + 1 < args.Length, "-c requires an argument" );
                     i++;
-                    CurrenciesSheetLocation = args[ i ];
+                    Project.CurrenciesSheetLocation = args[ i ];
                 }
                 else
                 {
-                    DataSheetLocation = args[ i ];
+                    Project.DataSheetLocation = args[ i ];
                 }
             }
 
-            if( CurrenciesSheetLocation == null )
+            if( Project.CurrenciesSheetLocation == null )
             {
-                CurrenciesSheetLocation = Path.Combine( Path.GetDirectoryName( GetType().Assembly.Location ), "Resources", "Currencies.xaml" );
+                Project.CurrenciesSheetLocation = Path.Combine( Path.GetDirectoryName( GetType().Assembly.Location ), "Resources", "Currencies.xaml" );
             }
         }
 
@@ -82,47 +100,11 @@ namespace RaynMaker.Blade
             MessageBox.Show( sb.ToString(), "Commandline usage", MessageBoxButton.OK, MessageBoxImage.Information );
         }
 
-        public string CurrenciesSheetLocation
-        {
-            get { return myCurrenciesSheetLocation; }
-            set
-            {
-                if( SetProperty( ref myCurrenciesSheetLocation, value ) )
-                {
-                    GoCommand.RaiseCanExecuteChanged();
-                }
-            }
-        }
-
-        public string AnalysisTemplateLocation
-        {
-            get { return myAnalysisTemplateLocation; }
-            set
-            {
-                if( SetProperty( ref myAnalysisTemplateLocation, value ) )
-                {
-                    GoCommand.RaiseCanExecuteChanged();
-                }
-            }
-        }
-
-        public string DataSheetLocation
-        {
-            get { return myDataSheetLocation; }
-            set
-            {
-                if( SetProperty( ref myDataSheetLocation, value ) )
-                {
-                    GoCommand.RaiseCanExecuteChanged();
-                }
-            }
-        }
-
         public DelegateCommand GoCommand { get; private set; }
 
         private bool CanGo()
         {
-            return Exists( CurrenciesSheetLocation ) && Exists( AnalysisTemplateLocation ) && Exists( DataSheetLocation );
+            return Exists( Project.CurrenciesSheetLocation ) && Exists( Project.AnalysisTemplateLocation ) && Exists( Project.DataSheetLocation );
         }
 
         private bool Exists( string path )
@@ -134,9 +116,9 @@ namespace RaynMaker.Blade
         {
             var reader = new ValidatingXamlReader();
 
-            Currencies.Sheet = reader.Read<CurrenciesSheet>( CurrenciesSheetLocation );
-            var analysisTemplate = reader.Read<AnalysisTemplate>( AnalysisTemplateLocation );
-            var dataSheet = reader.Read<DataSheet>( DataSheetLocation );
+            Currencies.Sheet = reader.Read<CurrenciesSheet>( Project.CurrenciesSheetLocation );
+            var analysisTemplate = reader.Read<AnalysisTemplate>( Project.AnalysisTemplateLocation );
+            var dataSheet = reader.Read<DataSheet>( Project.DataSheetLocation );
             dataSheet.Freeze();
 
             if( dataSheet.Asset is Stock )
@@ -149,5 +131,17 @@ namespace RaynMaker.Blade
                 throw new NotSupportedException( "Asset type not supported: " + dataSheet.Asset.GetType() );
             }
         }
+
+        public DelegateCommand OpenCurrenciesCommand { get; private set; }
+
+        private void OnOpenCurrencies()
+        {
+            var notification = new Notification();
+            notification.Title = "Manage Currencies";
+
+            OpenCurrenciesRequest.Raise( notification, n => { } );
+        }
+
+        public InteractionRequest<INotification> OpenCurrenciesRequest { get; private set; }
     }
 }

@@ -1,32 +1,47 @@
 ﻿<Window x:Class="RaynMaker.Blade.Shell"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        SizeToContent="Height"
-        ResizeMode="NoResize"
-        Title="MainWindow" Width="650">
-    <Grid Margin="2">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+        xmlns:prism="http://www.codeplex.com/prism"
+        xmlns:pn="http://github.com/ronin4net/plainion"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:l="clr-namespace:RaynMaker.Blade"
+        SizeToContent="Height" ResizeMode="NoResize" Title="MainWindow" Width="650">
+    <i:Interaction.Triggers>
+        <prism:InteractionRequestTrigger SourceObject="{Binding OpenCurrenciesRequest, Mode=OneWay}">
+            <pn:PopupViewAction WindowWidth="700" WindowHeight="600" prism:RegionManager.RegionName="{x:Static l:RegionNames.CurrenciesView}"/>
+        </prism:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Currencies sheet location" Margin="5" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CurrenciesSheetLocation}" Margin="5"/>
+    <DockPanel LastChildFill="True">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_Tools">
+                <MenuItem Header="_Currencies" Command="{Binding OpenCurrenciesCommand}"/>
+            </MenuItem>
+        </Menu>
+        <Grid Margin="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="Analysis template location" Margin="5" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding AnalysisTemplateLocation}" Margin="5"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Currencies sheet location" Margin="5" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Project.CurrenciesSheetLocation}" Margin="5"/>
 
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="Data sheet location" Margin="5" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DataSheetLocation}" Margin="5"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Analysis template location" Margin="5" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Project.AnalysisTemplateLocation}" Margin="5"/>
 
-        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button  Content="Go" Command="{Binding GoCommand}"  Margin="5" Width="50"/>
-        </StackPanel>
-    </Grid>
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Data sheet location" Margin="5" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Project.DataSheetLocation}" Margin="5"/>
+
+            <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button  Content="Go" Command="{Binding GoCommand}"  Margin="5" Width="50"/>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
 </Window>

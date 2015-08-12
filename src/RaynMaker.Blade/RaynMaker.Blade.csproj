@@ -103,6 +103,7 @@
     <Compile Include="AnalysisSpec\Rule.cs" />
     <Compile Include="AnalysisSpec\TextBlock.cs" />
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="CoreModule.cs" />
     <Compile Include="DataSheetSpec\IDatumSeries.cs" />
     <Compile Include="DataSheetSpec\IFreezable.cs" />
     <Compile Include="DataSheetSpec\PeriodConverter.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="Engine\IFigureProvider.cs" />
     <Compile Include="Engine\IReportElement.cs" />
     <Compile Include="Engine\TextEvaluator.cs" />
+    <Compile Include="Model\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataSheetSpec\Currencies.cs" />
     <Compile Include="DataSheetSpec\Currency.cs" />
@@ -154,12 +156,17 @@
     <Compile Include="DataSheetSpec\Datums\Price.cs" />
     <Compile Include="DataSheetSpec\Reference.cs" />
     <Compile Include="DataSheetSpec\Stock.cs" />
+    <Compile Include="RegionNames.cs" />
     <Compile Include="Reporting\FlowDocumentExtensions.cs" />
     <Compile Include="Reporting\ReportView.xaml.cs">
       <DependentUpon>ReportView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="StockAnalyzer.cs" />
+    <Compile Include="ViewModels\CurrenciesViewModel.cs" />
+    <Compile Include="Views\CurrenciesView.xaml.cs">
+      <DependentUpon>CurrenciesView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -182,6 +189,10 @@
       <DependentUpon>Shell.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\CurrenciesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\Settings.Designer.cs">
