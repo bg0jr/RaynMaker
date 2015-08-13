@@ -91,13 +91,11 @@ namespace RaynMaker.Blade.AnalysisSpec
             context.Document.Blocks.Add( table );
         }
 
-        private static string GetHeader( Row dataRow, IEnumerable<IDatum> values )
+        private static string GetHeader( Row dataRow, IDatumSeries series )
         {
-            if( values.Any() )
+            if( series.Any() )
             {
-                var currencyProvider = values.OfType<ICurrencyDatum>().FirstOrDefault();
-                // DerivedDatum may not have currency set
-                if( currencyProvider == null || currencyProvider.Currency == null )
+                if( series.Currency == null )
                 {
                     return dataRow.InMillions ? string.Format( "{0} (in Mio.)", dataRow.Caption ) : dataRow.Caption;
                 }
@@ -105,11 +103,11 @@ namespace RaynMaker.Blade.AnalysisSpec
                 {
                     if( dataRow.InMillions )
                     {
-                        return string.Format( "{0} (in Mio. {1})", dataRow.Caption, currencyProvider.Currency.Name );
+                        return string.Format( "{0} (in Mio. {1})", dataRow.Caption, series.Currency.Name );
                     }
                     else
                     {
-                        return string.Format( "{0} ({1})", dataRow.Caption, currencyProvider.Currency.Name );
+                        return string.Format( "{0} ({1})", dataRow.Caption, series.Currency.Name );
                     }
                 }
             }

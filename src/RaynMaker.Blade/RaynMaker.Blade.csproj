@@ -120,7 +120,7 @@
     <Compile Include="DataSheetSpec\Datums\Revenue.cs" />
     <Compile Include="DataSheetSpec\Datums\Liabilities.cs" />
     <Compile Include="DataSheetSpec\Datums\Dept.cs" />
-    <Compile Include="DataSheetSpec\ICurrencyDatum.cs" />
+    <Compile Include="Entities\ICurrencyDatum.cs" />
     <Compile Include="DataSheetSpec\Datums\Equity.cs" />
     <Compile Include="DataSheetSpec\Datums\NetIncome.cs" />
     <Compile Include="DataSheetSpec\Datums\SharesOutstanding.cs" />
