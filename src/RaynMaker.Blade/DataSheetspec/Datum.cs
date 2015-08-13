@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using RaynMaker.Blade.Entities;
 
 namespace RaynMaker.Blade.DataSheetSpec
 {

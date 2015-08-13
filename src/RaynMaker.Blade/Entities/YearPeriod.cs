@@ -1,38 +1,37 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace RaynMaker.Blade.DataSheetSpec
+namespace RaynMaker.Blade.Entities
 {
-    public class DayPeriod : IPeriod
+    public class YearPeriod : IPeriod
     {
         [Required]
-        public DateTime Date { get; set; }
+        public int Year { get; set; }
 
         public bool Equals( IPeriod other )
         {
-            var otherDay = other as DayPeriod;
-            if( otherDay == null )
+            var otherYear = other as YearPeriod;
+            if( otherYear == null )
             {
                 return false;
             }
 
-            return Date == otherDay.Date;
+            return Year == otherYear.Year;
         }
 
         public int CompareTo( IPeriod other )
         {
-            var otherDay = other as DayPeriod;
-            if( otherDay == null )
+            var otherYear = other as YearPeriod;
+            if( otherYear == null )
             {
                 return -2;
             }
 
-            return Date.CompareTo( otherDay.Date );
+            return Year.CompareTo( otherYear.Year );
         }
 
         public override bool Equals( object obj )
         {
-            var other = obj as DayPeriod;
+            var other = obj as YearPeriod;
             if( other == null )
             {
                 return false;
@@ -43,12 +42,12 @@ namespace RaynMaker.Blade.DataSheetSpec
 
         public override int GetHashCode()
         {
-            return Date.GetHashCode();
+            return Year.GetHashCode();
         }
 
         public override string ToString()
         {
-            return Date.ToString();
+            return Year.ToString();
         }
     }
 }

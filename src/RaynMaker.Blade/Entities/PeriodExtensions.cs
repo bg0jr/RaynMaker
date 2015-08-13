@@ -1,7 +1,7 @@
 ﻿using System;
 using Plainion;
 
-namespace RaynMaker.Blade.DataSheetSpec
+namespace RaynMaker.Blade.Entities
 {
     public static class PeriodExtensions
     {

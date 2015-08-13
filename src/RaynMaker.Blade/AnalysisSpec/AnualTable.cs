@@ -11,6 +11,7 @@ using Plainion;
 using Plainion.Validation;
 using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.Engine;
+using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Reporting;
 
 namespace RaynMaker.Blade.AnalysisSpec

@@ -2,6 +2,7 @@
 using System.Linq;
 using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.Engine;
+using RaynMaker.Blade.Entities;
 
 namespace RaynMaker.Blade.Tests.Engine.Fakes
 {
