@@ -11,32 +11,78 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
     [TestFixture]
     public class GenericCurrentRatioProviderTests
     {
+        private const string LhsSeriesName = "S1";
+        private const string RhsSeriesName = "S2";
+
+        private Mock<IFigureProviderContext> myContext;
+        private GenericCurrentRatioProvider myProvider;
+        private IDatumSeries myLhsSeries;
+        private IDatumSeries myRhsSeries;
+
+        [SetUp]
+        public void SetUp()
+        {
+            myContext = new Mock<IFigureProviderContext> { DefaultValue = DefaultValue.Mock };
+            myContext.Setup( x => x.GetSeries( LhsSeriesName ) ).Returns( () => myLhsSeries );
+            myContext.Setup( x => x.GetSeries( RhsSeriesName ) ).Returns( () => myRhsSeries );
+
+            myProvider = new GenericCurrentRatioProvider( "dummy", LhsSeriesName, RhsSeriesName, ( lhs, rhs ) => lhs + rhs );
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            myContext = null;
+            myProvider = null;
+            myLhsSeries = null;
+            myRhsSeries = null;
+        }
+
         [Test]
         public void ProvideValue_LhsSeriesEmpty_ReturnsMissingData()
         {
-            var context = new Mock<IFigureProviderContext> { DefaultValue = DefaultValue.Mock };
-            context.Setup( x => x.GetSeries( "S1" ) ).Returns( Series.Empty );
-            context.Setup( x => x.GetSeries( "S2" ) ).Returns( new Series( CreateDatum( 2015, 1 ) ) );
-            var provider = new GenericCurrentRatioProvider( "dummy", "S1", "S2", ( lhs, rhs ) => lhs + rhs );
+            myLhsSeries = Series.Empty;
+            myRhsSeries = new Series( CreateDatum( 2015, 1 ) );
+            myRhsSeries.Freeze();
 
-            var result = provider.ProvideValue( context.Object );
+            var result = myProvider.ProvideValue( myContext.Object );
 
             Assert.That( result, Is.InstanceOf<MissingData>() );
-            Assert.That( ( ( MissingData )result ).Datum, Is.EqualTo( "S1" ) );
+            Assert.That( ( ( MissingData )result ).Datum, Is.EqualTo( LhsSeriesName ) );
         }
 
         [Test]
         public void ProvideValue_RhsSeriesEmpty_ReturnsMissingData()
         {
-            var context = new Mock<IFigureProviderContext> { DefaultValue = DefaultValue.Mock };
-            context.Setup( x => x.GetSeries( "S1" ) ).Returns( new Series( CreateDatum( 2015, 1 ) ));
-            context.Setup( x => x.GetSeries( "S2" ) ).Returns( Series.Empty );
-            var provider = new GenericCurrentRatioProvider( "dummy", "S1", "S2", ( lhs, rhs ) => lhs + rhs );
+            myLhsSeries = new Series( CreateDatum( 2015, 1 ) );
+            myLhsSeries.Freeze();
+            myRhsSeries = Series.Empty;
 
-            var result = provider.ProvideValue( context.Object );
+            var result = myProvider.ProvideValue( myContext.Object );
 
             Assert.That( result, Is.InstanceOf<MissingData>() );
-            Assert.That( ( ( MissingData )result ).Datum, Is.EqualTo( "S2" ) );
+            Assert.That( ( ( MissingData )result ).Datum, Is.EqualTo( RhsSeriesName ) );
+        }
+
+        [Test]
+        public void ProvideValue_LhsNotFrozen_Throws()
+        {
+            myLhsSeries = new Series( CreateDatum( 2015, 1 ) );
+            myRhsSeries = Series.Empty;
+
+            var ex = Assert.Throws<ArgumentException>( () => myProvider.ProvideValue( myContext.Object ) );
+            Assert.That( ex.Message, Is.StringContaining( "not frozen" ).And.StringContaining( LhsSeriesName ) );
+        }
+
+        [Test]
+        public void ProvideValue_RhsNotFrozen_Throws()
+        {
+            myLhsSeries = new Series( CreateDatum( 2015, 1 ) );
+            myLhsSeries.Freeze();
+            myRhsSeries = new Series( CreateDatum( 2015, 1 ) );
+
+            var ex = Assert.Throws<ArgumentException>( () => myProvider.ProvideValue( myContext.Object ) );
+            Assert.That( ex.Message, Is.StringContaining( "not frozen" ).And.StringContaining( RhsSeriesName ) );
         }
 
         private IDatum CreateDatum( int year, double value )

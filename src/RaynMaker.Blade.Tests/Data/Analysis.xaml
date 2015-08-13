@@ -5,7 +5,7 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:p="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <Analysis>
-        <TextBlock Caption="Current price: ">${Price.Value} ${Price.Currency.Name} (${Price.Period.Date.ToShortDateString()})</TextBlock>
+        <TextBlock Caption="Current price: ">${Price.Value} ${Price.Currency.Name} (${Price.Period.Day.ToShortDateString()})</TextBlock>
         
         <AnualTable EndYear="2014" Count="10">
             <Row Caption="Shares outstanding" Value="${SharesOutstanding}" InMillions="True"/>
