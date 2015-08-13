@@ -65,7 +65,7 @@ namespace RaynMaker.Blade.AnalysisSpec
 
                 for( int year = EndYear - Count + 1; year <= EndYear; ++year )
                 {
-                    var period = new YearPeriod { Year = year };
+                    var period = new YearPeriod( year );
                     var value = series.SingleOrDefault( v => v.Period.Equals( period ) );
                     if( value == null )
                     {

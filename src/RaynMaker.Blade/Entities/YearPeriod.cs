@@ -1,11 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Plainion;
 
 namespace RaynMaker.Blade.Entities
 {
     public class YearPeriod : IPeriod
     {
-        [Required]
-        public int Year { get; set; }
+        public YearPeriod( int year )
+        {
+            Contract.Requires( year > 0, "year must not be negative" );
+
+            Year = year;
+        }
+
+        public int Year { get; private set; }
 
         public bool Equals( IPeriod other )
         {

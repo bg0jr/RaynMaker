@@ -27,14 +27,11 @@ namespace RaynMaker.Blade.Entities
             int year;
             if( int.TryParse( text, out year ) )
             {
-                return new YearPeriod { Year = year };
+                return new YearPeriod( year );
             }
 
             var converter = new DateTimeConverter();
-            return new DayPeriod
-            {
-                Date = ( DateTime )converter.ConvertFrom( text )
-            };
+            return new DayPeriod( ( DateTime )converter.ConvertFrom( text ) );
         }
 
         public override bool CanConvertTo( ITypeDescriptorContext context, Type destinationType )

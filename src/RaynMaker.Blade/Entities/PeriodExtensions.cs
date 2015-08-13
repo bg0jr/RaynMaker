@@ -18,7 +18,7 @@ namespace RaynMaker.Blade.Entities
             var dayPeriod = self as DayPeriod;
             if( dayPeriod != null )
             {
-                return dayPeriod.Date.Year;
+                return dayPeriod.Day.Year;
             }
 
             throw new NotSupportedException( "Unsupported period type: " + self.GetType().Name );

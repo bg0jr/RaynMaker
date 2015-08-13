@@ -54,7 +54,7 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
                 value = values.SingleOrDefault( e => e.Period.Year() == priceYear - 1 );
                 if( value == null )
                 {
-                    return new MissingDataForPeriod( mySeriesName, new YearPeriod { Year = priceYear }, new YearPeriod { Year = priceYear - 1 } );
+                    return new MissingDataForPeriod( mySeriesName, new YearPeriod( priceYear ), new YearPeriod( priceYear - 1 ) );
                 }
             }
 

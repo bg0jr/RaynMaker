@@ -5,8 +5,12 @@ namespace RaynMaker.Blade.Entities
 {
     public class DayPeriod : IPeriod
     {
-        [Required]
-        public DateTime Date { get; set; }
+        public DayPeriod( DateTime day )
+        {
+            Day = day;
+        }
+
+        public DateTime Day { get; set; }
 
         public bool Equals( IPeriod other )
         {
@@ -16,7 +20,7 @@ namespace RaynMaker.Blade.Entities
                 return false;
             }
 
-            return Date == otherDay.Date;
+            return Day == otherDay.Day;
         }
 
         public int CompareTo( IPeriod other )
@@ -27,7 +31,7 @@ namespace RaynMaker.Blade.Entities
                 return -2;
             }
 
-            return Date.CompareTo( otherDay.Date );
+            return Day.CompareTo( otherDay.Day );
         }
 
         public override bool Equals( object obj )
@@ -43,12 +47,12 @@ namespace RaynMaker.Blade.Entities
 
         public override int GetHashCode()
         {
-            return Date.GetHashCode();
+            return Day.GetHashCode();
         }
 
         public override string ToString()
         {
-            return Date.ToString();
+            return Day.ToString();
         }
     }
 }

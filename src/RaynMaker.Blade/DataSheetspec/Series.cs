@@ -30,6 +30,11 @@ namespace RaynMaker.Blade.DataSheetSpec
             myValues = new List<IDatum>();
         }
 
+        internal Series( params IDatum[] items )
+        {
+            myValues = new List<IDatum>( items );
+        }
+
         [Required, ValidateObject]
         public List<IDatum> Values
         {
