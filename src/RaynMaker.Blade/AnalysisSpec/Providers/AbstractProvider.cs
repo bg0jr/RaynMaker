@@ -7,14 +7,11 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
 {
     public abstract class AbstractProvider : IFigureProvider
     {
-        private List<string> myFailureReasons;
-
         protected AbstractProvider( string name )
         {
             Contract.RequiresNotNullNotEmpty( name, "name" );
 
             Name = name;
-            myFailureReasons = new List<string>();
         
             PreserveCurrency = true;
         }

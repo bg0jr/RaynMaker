@@ -41,7 +41,7 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
                 return new MissingData( myRhsSeriesName );
             }
 
-            EnsureCurrencyConsistancy(allLhs, allRhs);
+            EnsureCurrencyConsistancy( allLhs, allRhs );
 
             var lhs = allLhs
                 .OrderByDescending( a => a.Period )
