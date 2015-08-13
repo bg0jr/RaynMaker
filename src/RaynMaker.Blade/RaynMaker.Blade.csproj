@@ -77,6 +77,15 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Controls.DataVisualization.Toolkit">
+      <HintPath>..\..\packages\WPFToolkit.DataVisualization.3.5.50211.1\lib\System.Windows.Controls.DataVisualization.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Input.Toolkit">
+      <HintPath>..\..\packages\WPFToolkit.3.5.50211.1\lib\System.Windows.Controls.Input.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Layout.Toolkit">
+      <HintPath>..\..\packages\WPFToolkit.3.5.50211.1\lib\System.Windows.Controls.Layout.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Expression.Blend.Sdk.1.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -87,6 +96,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
+    <Reference Include="WPFToolkit">
+      <HintPath>..\..\packages\WPFToolkit.3.5.50211.1\lib\WPFToolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalysisSpec\Analysis.cs" />
@@ -102,9 +114,11 @@
     <Compile Include="AnalysisSpec\Operators.cs" />
     <Compile Include="AnalysisSpec\Row.cs" />
     <Compile Include="AnalysisSpec\Rule.cs" />
+    <Compile Include="AnalysisSpec\FinancialResearchReferences.cs" />
     <Compile Include="AnalysisSpec\TextBlock.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="CoreModule.cs" />
+    <Compile Include="DataSheetSpec\FinancialResearch.cs" />
     <Compile Include="Entities\IDatumSeries.cs" />
     <Compile Include="Entities\IFreezable.cs" />
     <Compile Include="Entities\PeriodConverter.cs" />

@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RaynMaker.Blade.DataSheetSpec
 {
-    // TODO: what about derived types giving hint about semantics of the URL like "FinancialReport", "FinancialInfo"
     public class Reference
     {
         [Required]

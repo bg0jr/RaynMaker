@@ -8,11 +8,9 @@
     </DataSheet.Resources>
     <Stock Name="Volkswagen" Isin="DE0007664005">
         <Stock.Overview>
-            <Overview Homepage="http://www.volkswagenag.com"
-                      Origin="Germany"
-                      Sector="Automobile manufactor">
+            <Overview Homepage="http://www.volkswagenag.com" Origin="Germany" Sector="Automobile manufactor">
                 <Overview.References>
-                    <Reference Url="http://www.ariva.de/volkswagen-aktie"/>
+                    <FinancialResearch Url="http://www.ariva.de/volkswagen-aktie"/>
                 </Overview.References>
             </Overview>
         </Stock.Overview>
