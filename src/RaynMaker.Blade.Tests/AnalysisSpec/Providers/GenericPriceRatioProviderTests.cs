@@ -1,36 +1,45 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
 using RaynMaker.Blade.AnalysisSpec.Providers;
 using RaynMaker.Blade.DataSheetSpec;
+using RaynMaker.Blade.DataSheetSpec.Datums;
 using RaynMaker.Blade.Engine;
 using RaynMaker.Blade.Entities;
 
 namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
 {
     [TestFixture]
-    public class GenericCurrentRatioProviderTests
+    public class GenericPriceRatioProviderTests
     {
-        private const string LhsSeriesName = "S1";
         private const string RhsSeriesName = "S2";
 
         private static readonly Currency Euro = new Currency { Name = "Euro" };
         private static readonly Currency Dollar = new Currency { Name = "Dollar" };
 
         private Mock<IFigureProviderContext> myContext;
-        private GenericCurrentRatioProvider myProvider;
-        private IDatumSeries myLhsSeries;
+        private GenericPriceRatioProvider myProvider;
+        private Price myCurrentPrice;
         private IDatumSeries myRhsSeries;
 
         [SetUp]
         public void SetUp()
         {
             myContext = new Mock<IFigureProviderContext> { DefaultValue = DefaultValue.Mock };
-            myContext.Setup( x => x.GetSeries( LhsSeriesName ) ).Returns( () => myLhsSeries );
+            myContext.Setup( x => x.Asset ).Returns( () =>
+                {
+                    var asset = new Stock();
+                    if( myCurrentPrice != null )
+                    {
+                        asset.Data.Add( myCurrentPrice );
+                    }
+                    return asset;
+                } );
             myContext.Setup( x => x.GetSeries( RhsSeriesName ) ).Returns( () => myRhsSeries );
 
-            myProvider = new GenericCurrentRatioProvider( "dummy", LhsSeriesName, RhsSeriesName, ( lhs, rhs ) => lhs + rhs );
+            myProvider = new GenericPriceRatioProvider( "dummy", RhsSeriesName, ( lhs, rhs ) => lhs + rhs );
         }
 
         [TearDown]
@@ -38,28 +47,27 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         {
             myContext = null;
             myProvider = null;
-            myLhsSeries = null;
+            myCurrentPrice = null;
             myRhsSeries = null;
         }
 
         [Test]
-        public void ProvideValue_LhsSeriesEmpty_ReturnsMissingData()
+        public void ProvideValue_PriceMissing_ReturnsMissingData()
         {
-            myLhsSeries = Series.Empty;
+            myCurrentPrice = null;
             myRhsSeries = new Series( CreateDatum( 2015, 1 ) );
             myRhsSeries.Freeze();
 
             var result = myProvider.ProvideValue( myContext.Object );
 
             Assert.That( result, Is.InstanceOf<MissingData>() );
-            Assert.That( ( ( MissingData )result ).Datum, Is.EqualTo( LhsSeriesName ) );
+            Assert.That( ( ( MissingData )result ).Datum, Is.EqualTo( "Price" ) );
         }
 
         [Test]
         public void ProvideValue_RhsSeriesEmpty_ReturnsMissingData()
         {
-            myLhsSeries = new Series( CreateDatum( 2015, 1 ) );
-            myLhsSeries.Freeze();
+            myCurrentPrice = CreatePrice( "2015-01-01", 17.21, Euro );
             myRhsSeries = Series.Empty;
 
             var result = myProvider.ProvideValue( myContext.Object );
@@ -69,20 +77,20 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         }
 
         [Test]
-        public void ProvideValue_LhsNotFrozen_Throws()
+        public void ProvideValue_PriceWithoutCurrency_Throws()
         {
-            myLhsSeries = new Series( CreateDatum( 2015, 1 ) );
-            myRhsSeries = Series.Empty;
+            myCurrentPrice = CreatePrice( "2015-01-01", 17.21, null );
+            myRhsSeries = new Series( CreateDatum( 2015, 1 ) );
+            myRhsSeries.Freeze();
 
             var ex = Assert.Throws<ArgumentException>( () => myProvider.ProvideValue( myContext.Object ) );
-            Assert.That( ex.Message, Is.StringContaining( "not frozen" ).And.StringContaining( LhsSeriesName ) );
+            Assert.That( ex.Message, Is.StringContaining( "Currency missing" ) );
         }
 
         [Test]
         public void ProvideValue_RhsNotFrozen_Throws()
         {
-            myLhsSeries = new Series( CreateDatum( 2015, 1 ) );
-            myLhsSeries.Freeze();
+            myCurrentPrice = CreatePrice( "2015-01-01", 17.21, Euro );
             myRhsSeries = new Series( CreateDatum( 2015, 1 ) );
 
             var ex = Assert.Throws<ArgumentException>( () => myProvider.ProvideValue( myContext.Object ) );
@@ -92,9 +100,8 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         [Test]
         public void ProvideValue_RhsHasNoDataForPeriod_MissingDataForPeriodReturned()
         {
-            myLhsSeries = new Series( CreateDatum( 2015, 1 ) );
-            myLhsSeries.Freeze();
-            myRhsSeries = new Series( CreateDatum( 2014, 1 ) );
+            myCurrentPrice = CreatePrice( "2015-01-01", 17.21, Euro );
+            myRhsSeries = new Series( CreateDatum( 2001, 1 ) );
             myRhsSeries.Freeze();
 
             var result = myProvider.ProvideValue( myContext.Object );
@@ -106,49 +113,34 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         [Test]
         public void ProvideValue_WithValidInputData_RatioReturned()
         {
-            myLhsSeries = new Series( CreateDatum( 2015, 5 ), CreateDatum( 2014, 7 ) );
-            myLhsSeries.Freeze();
+            myCurrentPrice = CreatePrice( "2015-01-01", 17.21, Euro );
             myRhsSeries = new Series( CreateDatum( 2015, 23 ), CreateDatum( 2014, 37 ) );
-            myRhsSeries.Freeze();
-
-            var result = ( IDatum )myProvider.ProvideValue( myContext.Object );
-
-            Assert.That( result.Period, Is.EqualTo( new YearPeriod( 2015 ) ) );
-            Assert.That( result.Value, Is.EqualTo( 28 ) );
-        }
-
-        [Test]
-        public void ProvideValue_WithPreserveCurrency_CurrencyTakenOverForResult()
-        {
-            myLhsSeries = new Series( CreateDatum( 2015, 5, Euro ), CreateDatum( 2014, 7, Euro ) );
-            myLhsSeries.Freeze();
-            myRhsSeries = new Series( CreateDatum( 2015, 23, Euro ), CreateDatum( 2014, 37, Euro ) );
             myRhsSeries.Freeze();
 
             var result = ( ICurrencyDatum )myProvider.ProvideValue( myContext.Object );
 
-            Assert.That( result.Currency, Is.EqualTo( Euro ) );
+            Assert.That( result.Period, Is.EqualTo( myCurrentPrice.Period ) );
+            Assert.That( result.Value, Is.EqualTo( 17.21 + 23 ) );
+            Assert.That( result.Currency, Is.EqualTo( myCurrentPrice.Currency ) );
         }
 
         [Test]
         public void ProvideValue_WhenCalled_InputsReferenced()
         {
-            myLhsSeries = new Series( CreateDatum( 2015, 5, Euro ), CreateDatum( 2014, 7, Euro ) );
-            myLhsSeries.Freeze();
+            myCurrentPrice = CreatePrice( "2015-01-01", 17.21, Euro );
             myRhsSeries = new Series( CreateDatum( 2015, 23, Euro ), CreateDatum( 2014, 37, Euro ) );
             myRhsSeries.Freeze();
 
             var result = ( DerivedDatum )myProvider.ProvideValue( myContext.Object );
 
-            Assert.That( result.Inputs, Is.EquivalentTo( new[] { myLhsSeries.First(), myRhsSeries.First() } ) );
+            Assert.That( result.Inputs, Is.EquivalentTo( new[] { myCurrentPrice, myRhsSeries.First() } ) );
         }
 
 
         [Test]
         public void ProvideValue_InconsistentCurrencies_Throws()
         {
-            myLhsSeries = new Series( CreateDatum( 2015, 5, Euro ), CreateDatum( 2014, 7, Euro ) );
-            myLhsSeries.Freeze();
+            myCurrentPrice = CreatePrice( "2015-01-01", 17.21, Euro );
             myRhsSeries = new Series( CreateDatum( 2015, 23, Dollar ), CreateDatum( 2014, 37, Dollar ) );
             myRhsSeries.Freeze();
 
@@ -173,6 +165,19 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
             {
                 Period = new YearPeriod( year ),
                 Value = value,
+                Currency = currency,
+                Source = "Dummy",
+                Timestamp = DateTime.UtcNow
+            };
+        }
+
+        private Price CreatePrice( string day, double price, Currency currency )
+        {
+            var converter = new DateTimeConverter();
+            return new Price
+            {
+                Period = new DayPeriod( ( DateTime )converter.ConvertFrom( day ) ),
+                Value = price,
                 Currency = currency,
                 Source = "Dummy",
                 Timestamp = DateTime.UtcNow

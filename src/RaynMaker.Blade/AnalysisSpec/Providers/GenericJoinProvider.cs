@@ -35,12 +35,16 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
                 return new MissingData( myLhsSeriesName );
             }
 
+            Contract.Requires( allLhs.IsFrozen, "Series not frozen: {0}", myLhsSeriesName );
+            
             var allRhs = context.GetSeries( myRhsSeriesName );
             if( !allRhs.Any() )
             {
                 return new MissingData( myRhsSeriesName );
             }
 
+            Contract.Requires( allRhs.IsFrozen, "Series not frozen: {0}", myRhsSeriesName );
+            
             EnsureCurrencyConsistancy( allLhs, allRhs );
             
             var resultSeries = new Series();

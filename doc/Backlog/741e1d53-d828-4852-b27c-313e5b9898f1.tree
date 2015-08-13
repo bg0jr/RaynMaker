@@ -4,9 +4,6 @@
     <Caption><![CDATA[Planning]]></Caption>
     <Node Id="fd5acae3-64bf-49e6-a0a9-fbf3ac93d484">
       <Caption><![CDATA[Blade]]></Caption>
-      <Node Id="7e530557-ae05-4b1c-9fa5-d527d643ecdd">
-        <Caption><![CDATA[add UT for all providers]]></Caption>
-      </Node>
       <Node Id="15ade0d1-8ae4-4b79-b013-04381c2ca67d">
         <Caption><![CDATA[Add graphs to reporting]]></Caption>
       </Node>

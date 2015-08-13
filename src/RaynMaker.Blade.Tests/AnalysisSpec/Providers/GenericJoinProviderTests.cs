@@ -10,7 +10,7 @@ using RaynMaker.Blade.Entities;
 namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
 {
     [TestFixture]
-    public class GenericCurrentRatioProviderTests
+    public class GenericJoinProviderTests
     {
         private const string LhsSeriesName = "S1";
         private const string RhsSeriesName = "S2";
@@ -19,7 +19,7 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         private static readonly Currency Dollar = new Currency { Name = "Dollar" };
 
         private Mock<IFigureProviderContext> myContext;
-        private GenericCurrentRatioProvider myProvider;
+        private GenericJoinProvider myProvider;
         private IDatumSeries myLhsSeries;
         private IDatumSeries myRhsSeries;
 
@@ -30,7 +30,7 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
             myContext.Setup( x => x.GetSeries( LhsSeriesName ) ).Returns( () => myLhsSeries );
             myContext.Setup( x => x.GetSeries( RhsSeriesName ) ).Returns( () => myRhsSeries );
 
-            myProvider = new GenericCurrentRatioProvider( "dummy", LhsSeriesName, RhsSeriesName, ( lhs, rhs ) => lhs + rhs );
+            myProvider = new GenericJoinProvider( "dummy", LhsSeriesName, RhsSeriesName, ( lhs, rhs ) => lhs + rhs );
         }
 
         [TearDown]
@@ -90,31 +90,33 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         }
 
         [Test]
-        public void ProvideValue_RhsHasNoDataForPeriod_MissingDataForPeriodReturned()
+        public void ProvideValue_RhsHasNoDataForPeriod_ItemSkippedInJoin()
         {
-            myLhsSeries = new Series( CreateDatum( 2015, 1 ) );
+            myLhsSeries = new Series( CreateDatum( 2015, 5 ), CreateDatum( 2014, 7 ), CreateDatum( 2013, 87 ) );
             myLhsSeries.Freeze();
-            myRhsSeries = new Series( CreateDatum( 2014, 1 ) );
+            myRhsSeries = new Series( CreateDatum( 2015, 23 ), CreateDatum( 2014, 37 ) );
             myRhsSeries.Freeze();
 
-            var result = myProvider.ProvideValue( myContext.Object );
+            var result = ( IDatumSeries )myProvider.ProvideValue( myContext.Object );
 
-            Assert.That( result, Is.InstanceOf<MissingDataForPeriod>() );
-            Assert.That( ( ( MissingDataForPeriod )result ).Datum, Is.EqualTo( RhsSeriesName ) );
+            Assert.That( result.Count, Is.EqualTo( 2 ) );
         }
 
         [Test]
-        public void ProvideValue_WithValidInputData_RatioReturned()
+        public void ProvideValue_WithValidInputData_JoinReturned()
         {
             myLhsSeries = new Series( CreateDatum( 2015, 5 ), CreateDatum( 2014, 7 ) );
             myLhsSeries.Freeze();
             myRhsSeries = new Series( CreateDatum( 2015, 23 ), CreateDatum( 2014, 37 ) );
             myRhsSeries.Freeze();
 
-            var result = ( IDatum )myProvider.ProvideValue( myContext.Object );
+            var result = ( IDatumSeries )myProvider.ProvideValue( myContext.Object );
 
-            Assert.That( result.Period, Is.EqualTo( new YearPeriod( 2015 ) ) );
-            Assert.That( result.Value, Is.EqualTo( 28 ) );
+            var r2015 = result.Single( i => i.Period.Equals( new YearPeriod( 2015 ) ) );
+            Assert.That( r2015.Value, Is.EqualTo( 28 ) );
+
+            var r2014 = result.Single( i => i.Period.Equals( new YearPeriod( 2014 ) ) );
+            Assert.That( r2014.Value, Is.EqualTo( 44 ) );
         }
 
         [Test]
@@ -125,7 +127,7 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
             myRhsSeries = new Series( CreateDatum( 2015, 23, Euro ), CreateDatum( 2014, 37, Euro ) );
             myRhsSeries.Freeze();
 
-            var result = ( ICurrencyDatum )myProvider.ProvideValue( myContext.Object );
+            var result = ( IDatumSeries )myProvider.ProvideValue( myContext.Object );
 
             Assert.That( result.Currency, Is.EqualTo( Euro ) );
         }
@@ -138,11 +140,11 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
             myRhsSeries = new Series( CreateDatum( 2015, 23, Euro ), CreateDatum( 2014, 37, Euro ) );
             myRhsSeries.Freeze();
 
-            var result = ( DerivedDatum )myProvider.ProvideValue( myContext.Object );
+            var result = ( IDatumSeries )myProvider.ProvideValue( myContext.Object );
 
-            Assert.That( result.Inputs, Is.EquivalentTo( new[] { myLhsSeries.First(), myRhsSeries.First() } ) );
+            Assert.That( ( ( DerivedDatum )result.ElementAt( 0 ) ).Inputs, Is.EquivalentTo( new[] { myLhsSeries.ElementAt( 0 ), myRhsSeries.ElementAt( 0 ) } ) );
+            Assert.That( ( ( DerivedDatum )result.ElementAt( 1 ) ).Inputs, Is.EquivalentTo( new[] { myLhsSeries.ElementAt( 1 ), myRhsSeries.ElementAt( 1 ) } ) );
         }
-
 
         [Test]
         public void ProvideValue_InconsistentCurrencies_Throws()

@@ -42,6 +42,8 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
 
             Contract.Requires( price.Currency != null, "Currency missing at price" );
 
+            Contract.Requires( values.IsFrozen, "Series not frozen: {0}", mySeriesName );
+
             Contract.Requires( values.Currency == null || price.Currency == values.Currency,
                 "Currency inconsistencies detected: Price.Currency={0} vs {1}.Currency={2}",
                 price.Currency, values.Name, values.Currency );
