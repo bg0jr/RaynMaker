@@ -1,5 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="fb49c1c3-0f0d-4077-bf29-2bf59f48d194" Created="635751578011754472" LastModified="635751578309761517" Origin="fd5acae3-64bf-49e6-a0a9-fbf3ac93d484">
+<Node Id="fb49c1c3-0f0d-4077-bf29-2bf59f48d194" Created="635751578011754472" LastModified="635751600479569558" Origin="fd5acae3-64bf-49e6-a0a9-fbf3ac93d484">
   <Caption><![CDATA[Support more layouting in report]]></Caption>
-  <Content><![CDATA[- esp. several charts in a row]]></Content>
+  <Content><![CDATA[- esp. several charts in a row
+
+what if the report itself is written with FlowDocument "language"?
+we would just add some "elements" for convenience.
+and we need a preprocessor (searching e.g. for specific interface) where 
+we can fetch the data automatically and transform our "placeholders" (like
+AnualTable) into real blocks]]></Content>
 </Node>
