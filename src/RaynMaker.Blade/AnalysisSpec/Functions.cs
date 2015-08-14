@@ -55,7 +55,7 @@ namespace RaynMaker.Blade.AnalysisSpec
             return ( newValue - oldValue ) / oldValue * 100;
         }
 
-        public static IEnumerable<IDatum> Last( IEnumerable<IDatum> series, int count )
+        public static IEnumerable<IDatum> LastN( IEnumerable<IDatum> series, int count )
         {
             if( series.Count() < count )
             {
@@ -65,6 +65,13 @@ namespace RaynMaker.Blade.AnalysisSpec
             return series
                 .OrderBy( v => v.Period )
                 .Skip( series.Count() - count );
+        }
+
+        public static IDatum Last( IEnumerable<IDatum> series )
+        {
+            return series
+                .OrderBy( v => v.Period )
+                .Last();
         }
     }
 }

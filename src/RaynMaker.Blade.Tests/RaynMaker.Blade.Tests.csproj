@@ -32,7 +32,6 @@
     <Compile Include="AnalysisSpec\FunctionsTests.cs" />
     <Compile Include="AnalysisSpec\Providers\GenericPriceRatioProviderTests.cs" />
     <Compile Include="AnalysisSpec\Providers\GenericJoinProviderTests.cs" />
-    <Compile Include="AnalysisSpec\Providers\GenericCurrentRatioProviderTests.cs" />
     <Compile Include="Engine\ExpressionEvaluatorTests.cs" />
     <Compile Include="Engine\Fakes\FakeExpressionEvaluationContext.cs" />
     <Compile Include="Engine\Fakes\FakeFigureProvider.cs" />

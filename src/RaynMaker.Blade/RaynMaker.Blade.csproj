@@ -106,7 +106,6 @@
     <Compile Include="AnalysisSpec\AnualTable.cs" />
     <Compile Include="AnalysisSpec\InMillionsConverter.cs" />
     <Compile Include="AnalysisSpec\PeriodChartConverter.cs" />
-    <Compile Include="AnalysisSpec\Providers\GenericCurrentRatioProvider.cs" />
     <Compile Include="AnalysisSpec\Providers\GenericJoinProvider.cs" />
     <Compile Include="AnalysisSpec\Providers\AbstractProvider.cs" />
     <Compile Include="AnalysisSpec\Providers\GenericPriceRatioProvider.cs" />

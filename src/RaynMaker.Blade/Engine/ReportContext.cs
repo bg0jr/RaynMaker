@@ -47,6 +47,12 @@ namespace RaynMaker.Blade.Engine
                 ( lhs, rhs ) => lhs / rhs * 100 ) { PreserveCurrency = false } );
             myProviders.Add( new GenericJoinProvider( ProviderNames.DividendPerShare, typeof( Dividend ).Name, typeof( SharesOutstanding ).Name,
                 ( lhs, rhs ) => lhs / rhs ) { PreserveCurrency = true } );
+            myProviders.Add( new GenericJoinProvider( ProviderNames.DeptEquityRatio, typeof( Dept ).Name, typeof( Equity ).Name,
+                ( lhs, rhs ) => lhs / rhs ) { PreserveCurrency = false } );
+            myProviders.Add( new GenericJoinProvider( ProviderNames.InterestCoverage, typeof( EBIT ).Name, typeof( InterestExpense ).Name,
+                ( lhs, rhs ) => lhs / rhs ) { PreserveCurrency = false } );
+            myProviders.Add( new GenericJoinProvider( ProviderNames.CurrentRatio, typeof( Assets ).Name, typeof( Liabilities ).Name,
+                ( lhs, rhs ) => lhs / rhs ) { PreserveCurrency = false } );
 
             myProviders.Add( new GenericPriceRatioProvider( ProviderNames.MarketCap, typeof( SharesOutstanding ).Name,
                 ( lhs, rhs ) => lhs * rhs ) { PreserveCurrency = true } );
@@ -56,13 +62,6 @@ namespace RaynMaker.Blade.Engine
                 ( lhs, rhs ) => lhs / rhs ) { PreserveCurrency = false } );
             myProviders.Add( new GenericPriceRatioProvider( ProviderNames.DividendYield, ProviderNames.DividendPerShare,
                 ( lhs, rhs ) => rhs / lhs * 100 ) { PreserveCurrency = false } );
-
-            myProviders.Add( new GenericCurrentRatioProvider( ProviderNames.DeptEquityRatio, typeof( Dept ).Name, typeof( Equity ).Name,
-                ( lhs, rhs ) => lhs / rhs ) { PreserveCurrency = false } );
-            myProviders.Add( new GenericCurrentRatioProvider( ProviderNames.InterestCoverage, typeof( EBIT ).Name, typeof( InterestExpense ).Name,
-                ( lhs, rhs ) => lhs / rhs ) { PreserveCurrency = false } );
-            myProviders.Add( new GenericCurrentRatioProvider( ProviderNames.CurrentRatio, typeof( Assets ).Name, typeof( Liabilities ).Name,
-                ( lhs, rhs ) => lhs / rhs ) { PreserveCurrency = false } );
 
             myProviderFailures = new List<IFigureProviderFailure>();
         }

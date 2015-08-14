@@ -12,24 +12,24 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec
     public class FunctionsTests
     {
         [Test]
-        public void Last_WithZero_ReturnsEmptyCollection()
+        public void LastN_WithZero_ReturnsEmptyCollection()
         {
             var series = new[] { 1, 2, 3, 4, 5 }
                 .Select( v => new Datum { Value = v } );
 
-            var result = Functions.Last( series, 0 );
+            var result = Functions.LastN( series, 0 );
 
             Assert.That( result, Is.Empty );
         }
 
         [Test]
-        public void Last_WithOne_ReturnsCollectionWithLastItem()
+        public void LastN_WithOne_ReturnsCollectionWithLastItem()
         {
             var series = new[] { 1, 2, 3, 4, 5 }
                 .Select( v => new Datum { Value = v } )
                 .ToList();
 
-            var result = Functions.Last( series, 1 );
+            var result = Functions.LastN( series, 1 );
 
             var expected = new[] { series.Last() };
 
@@ -37,13 +37,13 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec
         }
 
         [Test]
-        public void Last_WithThree_ReturnsCollectionWithLastThreeItems()
+        public void LastN_WithThree_ReturnsCollectionWithLastThreeItems()
         {
             var series = new[] { 1, 2, 3, 4, 5 }
                 .Select( v => new Datum { Value = v } )
                 .ToList();
 
-            var result = Functions.Last( series, 3 );
+            var result = Functions.LastN( series, 3 );
 
             var expected = new[] { series[ 2 ], series[ 3 ], series[ 4 ] };
 
