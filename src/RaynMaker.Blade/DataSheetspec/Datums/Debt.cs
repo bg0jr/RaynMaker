@@ -2,7 +2,7 @@
 
 namespace RaynMaker.Blade.DataSheetSpec.Datums
 {
-    public class Dept : CurrencyDatum
+    public class Debt : CurrencyDatum
     {
     }
 }

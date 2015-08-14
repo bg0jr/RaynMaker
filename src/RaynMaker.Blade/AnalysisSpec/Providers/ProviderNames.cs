@@ -12,7 +12,7 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
         public const string BookValue = "BookValue";
         public const string PriceToBook = "PriceToBook";
         public const string CurrentRatio = "CurrentRatio";
-        public const string DeptEquityRatio = "DeptEquityRatio";
+        public const string DebtEquityRatio = "DebtEquityRatio";
         public const string ReturnOnEquity = "ReturnOnEquity";
         public static string InterestCoverage = "InterestCoverage";
         public static string DividendPerShare = "DividendPerShare";
