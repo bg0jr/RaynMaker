@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="2904e765-46f9-43ed-a188-16c265dcd274" Created="635751575729903958" LastModified="635751575979448231">
-  <Caption><![CDATA[Remove GenericCurrentRatioProvider]]></Caption>
-  <Content><![CDATA[we need series for the stability graphs
-we can use Last() function if we are only interested in last value]]></Content>
-</Node>

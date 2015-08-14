@@ -4,9 +4,6 @@
     <Caption><![CDATA[Planning]]></Caption>
     <Node Id="fd5acae3-64bf-49e6-a0a9-fbf3ac93d484">
       <Caption><![CDATA[Blade]]></Caption>
-      <Node Id="2904e765-46f9-43ed-a188-16c265dcd274">
-        <Caption><![CDATA[Remove GenericCurrentRatioProvider]]></Caption>
-      </Node>
       <Node Id="c46494a3-8fd8-4faf-b150-0731cd98cded">
         <Caption><![CDATA[Create UI fo Data collection]]></Caption>
       </Node>
