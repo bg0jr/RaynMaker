@@ -22,6 +22,12 @@
       <Node Id="008a526d-60c7-42b9-94b2-d774e7530134">
         <Caption><![CDATA[Convert AnualTable into GenericTable]]></Caption>
       </Node>
+      <Node Id="fb49c1c3-0f0d-4077-bf29-2bf59f48d194">
+        <Caption><![CDATA[Support more layouting in report]]></Caption>
+      </Node>
+      <Node Id="04f5a012-70f8-4d90-9b37-85e6b9fea0a5">
+        <Caption><![CDATA[Chart layouting: fixed chart size vs fixed bar size]]></Caption>
+      </Node>
     </Node>
   </Node>
 </Tree>

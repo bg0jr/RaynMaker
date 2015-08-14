@@ -4,8 +4,8 @@
     <Caption><![CDATA[Planning]]></Caption>
     <Node Id="fd5acae3-64bf-49e6-a0a9-fbf3ac93d484">
       <Caption><![CDATA[Blade]]></Caption>
-      <Node Id="15ade0d1-8ae4-4b79-b013-04381c2ca67d">
-        <Caption><![CDATA[Add graphs to reporting]]></Caption>
+      <Node Id="2904e765-46f9-43ed-a188-16c265dcd274">
+        <Caption><![CDATA[Remove GenericCurrentRatioProvider]]></Caption>
       </Node>
       <Node Id="c46494a3-8fd8-4faf-b150-0731cd98cded">
         <Caption><![CDATA[Create UI fo Data collection]]></Caption>
@@ -15,9 +15,6 @@
       </Node>
       <Node Id="ef9e0841-29e9-4b85-89c1-b1434d96d924">
         <Caption><![CDATA[Fetch from internet: data]]></Caption>
-      </Node>
-      <Node Id="2904e765-46f9-43ed-a188-16c265dcd274">
-        <Caption><![CDATA[Remove GenericCurrentRatioProvider]]></Caption>
       </Node>
     </Node>
   </Node>
