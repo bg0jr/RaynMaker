@@ -13,7 +13,7 @@
             <Row Caption="Dividend payout ratio" Value="${DividendPayoutRatio}"/>
         </AnualTable>
 
-        <BarChart Caption="Dividend" Source="${Dividend}"/>
+        <BarChart Caption="Dividend" Source="${Dividend}" InMillions="True"/>
         
         <Rule Caption="Dividend yield" Operator="Greater" Threshold="2" Source="Fake" Value="${DividendYield}"/>
         <Rule Caption="Market capitalization" Operator="Greater" Threshold="{d:InMio 500}"  Currency="Euro" Source="Fake" 

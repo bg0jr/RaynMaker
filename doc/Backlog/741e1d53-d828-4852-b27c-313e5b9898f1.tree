@@ -16,6 +16,9 @@
       <Node Id="ef9e0841-29e9-4b85-89c1-b1434d96d924">
         <Caption><![CDATA[Fetch from internet: data]]></Caption>
       </Node>
+      <Node Id="2904e765-46f9-43ed-a188-16c265dcd274">
+        <Caption><![CDATA[Remove GenericCurrentRatioProvider]]></Caption>
+      </Node>
     </Node>
   </Node>
 </Tree>

@@ -62,7 +62,9 @@ namespace RaynMaker.Blade.AnalysisSpec
                 return series;
             }
 
-            return series.Skip( series.Count() - count );
+            return series
+                .OrderBy( v => v.Period )
+                .Skip( series.Count() - count );
         }
     }
 }
