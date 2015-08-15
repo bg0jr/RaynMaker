@@ -1,8 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using System.IO;
 using System.Runtime.Serialization;
+using System.Windows.Markup;
 using System.Xml;
 using Plainion.Validation;
+using Plainion.Xaml;
+using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.Entities;
 
 namespace RaynMaker.Blade.Services
@@ -48,12 +52,34 @@ namespace RaynMaker.Blade.Services
         public void SaveCurrencies( CurrenciesSheet sheet, string path )
         {
             RecursiveValidator.Validate( sheet );
-            
+
             using( var writer = XmlWriter.Create( path ) )
             {
                 var serializer = new DataContractSerializer( typeof( SerializableCurrenciesSheet ) );
                 serializer.WriteObject( writer, new SerializableCurrenciesSheet( sheet ) );
             }
+        }
+
+        public string LoadAnalysisTemplate( string path )
+        {
+            return File.ReadAllText( path );
+        }
+
+        public void SaveCurrencies( string template, string path )
+        {
+            File.WriteAllText( path, template );
+        }
+
+        public DataSheet LoadDataSheet( string path )
+        {
+            var reader = new ValidatingXamlReader();
+
+            return reader.Read<DataSheet>( path );
+        }
+
+        public void SaveDataSheet( DataSheet Sheet, string path )
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -136,7 +136,7 @@ namespace RaynMaker.Blade
 
             Currencies.Sheet = myStorageService.LoadCurrencies( Project.CurrenciesSheetLocation );
             var analysisTemplate = reader.Read<AnalysisTemplate>( Project.AnalysisTemplateLocation );
-            var dataSheet = reader.Read<DataSheet>( Project.DataSheetLocation );
+            var dataSheet = myStorageService.LoadDataSheet( Project.DataSheetLocation );
             dataSheet.Freeze();
 
             if( dataSheet.Asset is Stock )

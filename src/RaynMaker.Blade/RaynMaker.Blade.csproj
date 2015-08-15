@@ -186,6 +186,7 @@
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="StockAnalyzer.cs" />
     <Compile Include="ViewModels\AnalysisTemplateEditViewModel.cs" />
+    <Compile Include="ViewModels\DataSheetEditViewModel.cs" />
     <Compile Include="ViewModels\CurrenciesViewModel.cs" />
     <Compile Include="Views\AnalysisTemplateEditView.xaml.cs">
       <DependentUpon>AnalysisTemplateEditView.xaml</DependentUpon>
