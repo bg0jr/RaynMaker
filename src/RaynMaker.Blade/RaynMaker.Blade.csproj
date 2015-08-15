@@ -183,8 +183,14 @@
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="StockAnalyzer.cs" />
     <Compile Include="ViewModels\CurrenciesViewModel.cs" />
+    <Compile Include="Views\AnalysisTemplateEditView.xaml.cs">
+      <DependentUpon>AnalysisTemplateEditView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CurrenciesView.xaml.cs">
       <DependentUpon>CurrenciesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataSheetEditView.xaml.cs">
+      <DependentUpon>DataSheetEditView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +198,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Views\DataSheetEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Resource Include="Resources\Remove.png" />
     <Resource Include="Resources\Add.png" />
     <None Include="Resources\Currencies.xdb">
@@ -210,6 +220,10 @@
       <DependentUpon>Shell.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AnalysisTemplateEditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CurrenciesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -237,7 +251,12 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\browse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Edit.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

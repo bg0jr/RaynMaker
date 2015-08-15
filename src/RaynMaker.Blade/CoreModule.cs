@@ -15,6 +15,8 @@ namespace RaynMaker.Blade
         public void Initialize()
         {
             RegionManager.RegisterViewWithRegion( RegionNames.CurrenciesView, typeof( CurrenciesView ) );
+            RegionManager.RegisterViewWithRegion( RegionNames.AnalysisTemplateEditView, typeof( AnalysisTemplateEditView ) );
+            RegionManager.RegisterViewWithRegion( RegionNames.DataSheetEditView, typeof( DataSheetEditView ) );
         }
     }
 }
