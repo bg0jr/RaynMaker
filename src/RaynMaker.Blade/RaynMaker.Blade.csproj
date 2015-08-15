@@ -19,6 +19,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.AvalonEdit">
+      <HintPath>..\..\packages\AvalonEdit.5.0.2\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.Prism.Composition, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Prism.Composition.5.0.0\lib\NET45\Microsoft.Practices.Prism.Composition.dll</HintPath>
@@ -182,6 +185,7 @@
     <Compile Include="Services\StorageService.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="StockAnalyzer.cs" />
+    <Compile Include="ViewModels\AnalysisTemplateEditViewModel.cs" />
     <Compile Include="ViewModels\CurrenciesViewModel.cs" />
     <Compile Include="Views\AnalysisTemplateEditView.xaml.cs">
       <DependentUpon>AnalysisTemplateEditView.xaml</DependentUpon>

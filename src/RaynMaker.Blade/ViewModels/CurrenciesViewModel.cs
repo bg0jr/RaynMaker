@@ -24,7 +24,8 @@ namespace RaynMaker.Blade.ViewModels
             myProject = project;
             myStorageService = storageService;
 
-            PropertyChangedEventManager.AddHandler( myProject, OnProjectPropertyChanged, PropertySupport.ExtractPropertyName( () => myProject.CurrenciesSheetLocation ) );
+            PropertyChangedEventManager.AddHandler( myProject, OnProjectPropertyChanged, 
+                PropertySupport.ExtractPropertyName( () => myProject.CurrenciesSheetLocation ) );
             OnProjectPropertyChanged( null, null );
 
             OkCommand = new DelegateCommand( OnOk );
