@@ -19,7 +19,7 @@
         <Rule Caption="Market capitalization" Operator="Greater" Threshold="{d:InMio 500}"  Currency="Euro" Source="Fake" 
               Value="${MarketCap}" InMillions="True"/>
 
-        <FinancialResearchReferences/>
+        <ReferencesSection/>
     </Analysis>
 </AnalysisTemplate>
 

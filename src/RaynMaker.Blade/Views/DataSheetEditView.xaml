@@ -2,9 +2,11 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:pn="http://github.com/ronin4net/plainion"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300"
+             x:Name="_this">
     <DockPanel LastChildFill="True" Margin="3">
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
             <Button Content="OK" Command="{Binding OkCommand}" Width="50"/>
@@ -18,8 +20,65 @@
             <GroupBox Header="Overview">
                 <Grid>
                     <Grid.RowDefinitions>
-                        
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Name" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Sheet.Asset.Name}" Margin="5,2,0,2" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Isin" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Sheet.Asset.Isin}" Margin="5,2,0,2" />
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Origin" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Sheet.Asset.Overview.Origin}" Margin="5,2,0,2" />
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Sector" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Sheet.Asset.Overview.Sector}" Margin="5,2,0,2" />
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Homepage" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Sheet.Asset.Overview.Homepage}" Margin="5,2,0,2" >
+                        <i:Interaction.Behaviors>
+                            <pn:OpenLinkOnCtrlClickBehavior/>
+                        </i:Interaction.Behaviors>
+                    </TextBox>
+
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="References" VerticalAlignment="Top" Margin="0,2,0,0"/>
+                    <Grid Grid.Row="5" Grid.Column="1" Margin="5,2,0,2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <ItemsControl Grid.Row="0" ItemsSource="{Binding Sheet.Asset.Overview.References}" MaxHeight="75">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <DockPanel LastChildFill="True">
+                                        <Button DockPanel.Dock="Right" Command="{Binding DataContext.RemoveReferenceCommand, ElementName=_this}" 
+                                            CommandParameter="{Binding}" Margin="5,0,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                            <Image Source="/Resources/Remove.png" Width="17" Height="17"/>
+                                        </Button>
+                                        <TextBox Text="{Binding Url}" Margin="0,0,0,2">
+                                            <i:Interaction.Behaviors>
+                                                <pn:OpenLinkOnCtrlClickBehavior/>
+                                            </i:Interaction.Behaviors>
+                                        </TextBox>
+                                    </DockPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <Button Grid.Row="1" Command="{Binding DataContext.AddReferenceCommand, ElementName=_this}" 
+                                            HorizontalAlignment="Left" Margin="0,3,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                            <Image Source="/Resources/Add.png" Width="17" Height="17"/>
+                        </Button>
+                    </Grid>
                 </Grid>
             </GroupBox>
         </Grid>

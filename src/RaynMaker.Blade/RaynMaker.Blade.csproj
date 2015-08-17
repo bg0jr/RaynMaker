@@ -118,13 +118,12 @@
     <Compile Include="AnalysisSpec\Operators.cs" />
     <Compile Include="AnalysisSpec\Row.cs" />
     <Compile Include="AnalysisSpec\Rule.cs" />
-    <Compile Include="AnalysisSpec\FinancialResearchReferences.cs" />
+    <Compile Include="AnalysisSpec\ReferencesSection.cs" />
     <Compile Include="AnalysisSpec\BarChart.cs" />
     <Compile Include="AnalysisSpec\Headline.cs" />
     <Compile Include="AnalysisSpec\TextBlock.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="CoreModule.cs" />
-    <Compile Include="DataSheetSpec\FinancialResearch.cs" />
     <Compile Include="Entities\IDatumSeries.cs" />
     <Compile Include="Entities\IFreezable.cs" />
     <Compile Include="Entities\PeriodConverter.cs" />

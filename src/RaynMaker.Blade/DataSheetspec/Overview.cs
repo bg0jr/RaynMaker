@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using Plainion.Validation;
 
@@ -8,7 +9,7 @@ namespace RaynMaker.Blade.DataSheetSpec
     {
         public Overview()
         {
-            References = new List<Reference>();
+            References = new ObservableCollection<Reference>();
         }
 
         [Required]
@@ -19,6 +20,6 @@ namespace RaynMaker.Blade.DataSheetSpec
         public string Origin { get; set; }
     
         [ValidateObject]
-        public List<Reference> References { get; private set; }
+        public ObservableCollection<Reference> References { get; private set; }
     }
 }

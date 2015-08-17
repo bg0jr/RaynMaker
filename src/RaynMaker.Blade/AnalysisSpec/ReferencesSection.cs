@@ -9,11 +9,11 @@ using RaynMaker.Blade.Reporting;
 
 namespace RaynMaker.Blade.AnalysisSpec
 {
-    public class FinancialResearchReferences : IReportElement
+    public class ReferencesSection : IReportElement
     {
         public void Report( ReportContext context )
         {
-            context.Document.Headline( "Financial research references" );
+            context.Document.Headline( "References" );
 
             var stock = context.Asset as Stock;
             if( stock == null )
@@ -25,17 +25,13 @@ namespace RaynMaker.Blade.AnalysisSpec
                 return;
             }
 
-            var financialReferences = stock.Overview.References
-                    .OfType<FinancialResearch>()
-                    .ToList();
-
             var list = new List();
             list.MarkerOffset = 10;
             list.MarkerStyle = TextMarkerStyle.Disc;
 
-            if( financialReferences.Count > 0 )
+            if( stock.Overview.References.Count > 0 )
             {
-                foreach( var financialRef in financialReferences )
+                foreach( var financialRef in stock.Overview.References )
                 {
                     var hyperlink = new Hyperlink( new Run( financialRef.Url.ToString() ) );
                     hyperlink.NavigateUri = financialRef.Url;

@@ -78,7 +78,7 @@
 
                                     <Button Grid.Row="1" Command="{Binding DataContext.AddTranslationCommand, ElementName=_this}" CommandParameter="{Binding}" 
                                             HorizontalAlignment="Left" Margin="0,3,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-                                        <Image Source="/Resources/Add.png" Width="18" Height="18"/>
+                                        <Image Source="/Resources/Add.png" Width="17" Height="17"/>
                                     </Button>
                                 </Grid>
                             </Grid>
@@ -89,7 +89,7 @@
 
             <Button Grid.Row="1" Command="{Binding AddCurrencyCommand}" HorizontalAlignment="Right" Margin="0,3,0,0" 
                     Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-                <Image Source="/Resources/Add.png" Width="18" Height="18"/>
+                <Image Source="/Resources/Add.png" Width="17" Height="17"/>
             </Button>
         </Grid>
 

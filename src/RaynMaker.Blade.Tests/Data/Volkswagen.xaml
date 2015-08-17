@@ -10,7 +10,7 @@
         <Stock.Overview>
             <Overview Homepage="http://www.volkswagenag.com" Origin="Germany" Sector="Automobile manufactor">
                 <Overview.References>
-                    <FinancialResearch Url="http://www.ariva.de/volkswagen-aktie"/>
+                    <Reference Url="http://www.ariva.de/volkswagen-aktie"/>
                 </Overview.References>
             </Overview>
         </Stock.Overview>

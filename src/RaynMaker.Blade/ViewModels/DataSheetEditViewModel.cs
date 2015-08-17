@@ -6,6 +6,7 @@ using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
+using Plainion;
 using RaynMaker.Blade.DataSheetSpec;
 using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Model;
@@ -19,6 +20,7 @@ namespace RaynMaker.Blade.ViewModels
         private Project myProject;
         private StorageService myStorageService;
         private DataSheet myDataSheet;
+        private Stock myStock;
 
         [ImportingConstructor]
         public DataSheetEditViewModel( Project project, StorageService storageService )
@@ -32,6 +34,9 @@ namespace RaynMaker.Blade.ViewModels
 
             OkCommand = new DelegateCommand( OnOk );
             CancelCommand = new DelegateCommand( OnCancel );
+         
+            AddReferenceCommand = new DelegateCommand( OnAddReference );
+            RemoveReferenceCommand = new DelegateCommand<Reference>( OnRemoveReference );
         }
 
         private void OnProjectPropertyChanged( object sender, PropertyChangedEventArgs e )
@@ -55,6 +60,9 @@ namespace RaynMaker.Blade.ViewModels
                     }
                 };
             }
+
+            myStock = ( Stock )Sheet.Asset;
+            Contract.Invariant( myStock != null, "No stock found in DataSheet" );
         }
 
         public Action FinishInteraction { get; set; }
@@ -81,5 +89,20 @@ namespace RaynMaker.Blade.ViewModels
         {
             FinishInteraction();
         }
+
+        public ICommand AddReferenceCommand { get; private set; }
+
+        private void OnAddReference()
+        {
+            myStock.Overview.References.Add( new Reference() );
+        }
+
+        public ICommand RemoveReferenceCommand { get; private set; }
+
+        private void OnRemoveReference( Reference reference )
+        {
+            myStock.Overview.References.Remove( reference );
+        }
+
     }
 }
