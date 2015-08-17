@@ -28,7 +28,7 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
 
         public sealed override object ProvideValue( IFigureProviderContext context )
         {
-            var price = context.Asset.Data.OfType<Price>().SingleOrDefault();
+            var price = ( Price )new CurrentPrice().ProvideValue( context );
             if( price == null )
             {
                 return new MissingData( "Price" );

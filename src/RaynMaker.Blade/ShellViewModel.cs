@@ -72,6 +72,8 @@ namespace RaynMaker.Blade
 
         private void ParseCommandLineArgs( string[] args )
         {
+            string dataSheet = null;
+
             for( int i = 1; i < args.Length; ++i )
             {
                 if( args[ i ] == "-h" || args[ i ] == "-help" )
@@ -93,7 +95,7 @@ namespace RaynMaker.Blade
                 }
                 else
                 {
-                    Project.DataSheetLocation = args[ i ];
+                    dataSheet = args[ i ];
                 }
             }
 
@@ -101,6 +103,10 @@ namespace RaynMaker.Blade
             {
                 Project.CurrenciesSheetLocation = Path.Combine( Path.GetDirectoryName( GetType().Assembly.Location ), "Resources", "Currencies.xdb" );
             }
+
+            // DataSheet has to be set after currencies are loaded because setting it here causes automatic loading which 
+            // requires currency to be loaded
+            Project.DataSheetLocation = dataSheet;
         }
 
         private void Usage()

@@ -33,7 +33,7 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
                     var asset = new Stock();
                     if( myCurrentPrice != null )
                     {
-                        asset.Data.Add( myCurrentPrice );
+                        asset.Data.Add( new Series( myCurrentPrice ) );
                     }
                     return asset;
                 } );

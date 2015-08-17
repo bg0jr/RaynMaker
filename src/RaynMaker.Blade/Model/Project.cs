@@ -13,19 +13,19 @@ namespace RaynMaker.Blade.Model
         public string CurrenciesSheetLocation
         {
             get { return myCurrenciesSheetLocation; }
-            set { SetProperty( ref myCurrenciesSheetLocation, value ); }
+            set { SetProperty( ref myCurrenciesSheetLocation, value != null ? value.Trim() : value ); }
         }
 
         public string AnalysisTemplateLocation
         {
             get { return myAnalysisTemplateLocation; }
-            set { SetProperty( ref myAnalysisTemplateLocation, value ); }
+            set { SetProperty( ref myAnalysisTemplateLocation, value != null ? value.Trim() : value ); }
         }
 
         public string DataSheetLocation
         {
             get { return myDataSheetLocation; }
-            set { SetProperty( ref myDataSheetLocation, value ); }
+            set { SetProperty( ref myDataSheetLocation, value != null ? value.Trim() : value ); }
         }
     }
 }

@@ -29,7 +29,7 @@ namespace RaynMaker.Blade.ViewModels
             myStorageService = storageService;
 
             PropertyChangedEventManager.AddHandler( myProject, OnProjectPropertyChanged,
-                PropertySupport.ExtractPropertyName( () => myProject.CurrenciesSheetLocation ) );
+                PropertySupport.ExtractPropertyName( () => myProject.DataSheetLocation ) );
             OnProjectPropertyChanged( null, null );
 
             OkCommand = new DelegateCommand( OnOk );
@@ -41,7 +41,7 @@ namespace RaynMaker.Blade.ViewModels
 
         private void OnProjectPropertyChanged( object sender, PropertyChangedEventArgs e )
         {
-            if( string.IsNullOrEmpty( myProject.CurrenciesSheetLocation ) || !File.Exists( myProject.CurrenciesSheetLocation ) )
+            if( string.IsNullOrEmpty( myProject.DataSheetLocation ) || !File.Exists( myProject.DataSheetLocation ) )
             {
                 return;
             }

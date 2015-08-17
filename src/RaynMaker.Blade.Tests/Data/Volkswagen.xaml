@@ -14,7 +14,9 @@
                 </Overview.References>
             </Overview>
         </Stock.Overview>
-        <Price Period="2015-06-19" Value="206.35" Currency="Euro" Timestamp="2015-06-21" Source="{p:StaticResource Ariva}"/>
+        <Series>
+            <Price Period="2015-06-19" Value="206.35" Currency="Euro" Timestamp="2015-06-21" Source="{p:StaticResource Ariva}"/>
+        </Series>
         <Series>
             <Dividend Period="2010" Value="{InMio 1023.44}" Currency="Euro" Timestamp="2015-06-21" Source="{p:StaticResource Ariva}"/>
             <Dividend Period="2011" Value="{InMio 1395.57}" Currency="Euro" Timestamp="2015-06-21" Source="{p:StaticResource Ariva}"/>

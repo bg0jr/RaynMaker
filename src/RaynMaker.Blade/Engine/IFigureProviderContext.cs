@@ -8,6 +8,6 @@ namespace RaynMaker.Blade.Engine
     {
         Asset Asset { get; }
 
-        IDatumSeries GetSeries(string name);
+        IDatumSeries GetSeries( string name );
     }
 }

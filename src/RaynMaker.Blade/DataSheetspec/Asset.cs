@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Windows;
 using System.Windows.Markup;
 using Plainion.Validation;
+using RaynMaker.Blade.Entities;
 
 namespace RaynMaker.Blade.DataSheetSpec
 {
@@ -12,13 +13,13 @@ namespace RaynMaker.Blade.DataSheetSpec
     {
         public Asset()
         {
-            Data = new List<object>();
+            Data = new ObservableCollection<IDatumSeries>();
         }
 
         [Required]
         public string Name { get; set; }
     
         [ValidateObject]
-        public List<object> Data { get; private set; }
+        public ObservableCollection<IDatumSeries> Data { get; private set; }
     }
 }
