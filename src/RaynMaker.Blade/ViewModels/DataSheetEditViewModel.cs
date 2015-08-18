@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.IO;
@@ -7,7 +8,9 @@ using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
 using Plainion;
+using RaynMaker.Blade.AnalysisSpec.Providers;
 using RaynMaker.Blade.DataSheetSpec;
+using RaynMaker.Blade.DataSheetSpec.Datums;
 using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Model;
 using RaynMaker.Blade.Services;
@@ -34,7 +37,7 @@ namespace RaynMaker.Blade.ViewModels
 
             OkCommand = new DelegateCommand( OnOk );
             CancelCommand = new DelegateCommand( OnCancel );
-         
+
             AddReferenceCommand = new DelegateCommand( OnAddReference );
             RemoveReferenceCommand = new DelegateCommand<Reference>( OnRemoveReference );
         }
@@ -63,6 +66,15 @@ namespace RaynMaker.Blade.ViewModels
 
             myStock = ( Stock )Sheet.Asset;
             Contract.Invariant( myStock != null, "No stock found in DataSheet" );
+
+            // data sanity - TODO: later move to creation of new DataSheet
+            var price = myStock.SeriesOf( typeof( Price ) ).Current<Price>();
+            if( price == null )
+            {
+                price = new Price();
+                myStock.Data.Add( new Series( price ) );
+            }
+
         }
 
         public Action FinishInteraction { get; set; }
@@ -79,6 +91,11 @@ namespace RaynMaker.Blade.ViewModels
 
         private void OnOk()
         {
+            // TODO: When to set timestamps? we could put it in the Entities now - whenever we change the value we update the timestamp
+            // and handle deserialization separately
+            // TODO: change "IFreezable" to "Validation" -  what is EF validation approach?
+            Sheet.Freeze();
+
             myStorageService.SaveDataSheet( Sheet, myProject.CurrenciesSheetLocation );
             FinishInteraction();
         }
@@ -102,6 +119,16 @@ namespace RaynMaker.Blade.ViewModels
         private void OnRemoveReference( Reference reference )
         {
             myStock.Overview.References.Remove( reference );
+        }
+
+        public ObservableCollection<Currency> Currencies
+        {
+            get { return Entities.Currencies.Sheet.Currencies; }
+        }
+
+        public Price Price
+        {
+            get { return myStock.SeriesOf( typeof( Price ) ).Current<Price>(); }
         }
 
     }

@@ -5,7 +5,8 @@
              xmlns:pn="http://github.com/ronin4net/plainion"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300"
+             xmlns:l="clr-namespace:RaynMaker.Blade.Entities"
+             mc:Ignorable="d" d:DesignHeight="500" d:DesignWidth="500"
              x:Name="_this">
     <DockPanel LastChildFill="True" Margin="3">
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
@@ -15,9 +16,10 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <GroupBox Header="Overview">
+            <GroupBox Header="Overview" Grid.Row="0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -89,6 +91,39 @@
                         </Button>
                     </Grid>
                 </Grid>
+            </GroupBox>
+            <GroupBox Header="Price" Grid.Row="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="Day" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Text="{Binding Price.Period}" Margin="5,0,0,2" />
+
+                    <TextBlock Grid.Column="2" Text="Value" VerticalAlignment="Center" Margin="5,0,0,2"/>
+                    <TextBox Grid.Column="3" Text="{Binding Price.Value}" Margin="5,0,0,2" />
+                    
+                    <ComboBox Grid.Column="4" ItemsSource="{Binding Currencies}" Margin="5,0,0,2" SelectedItem="{Binding Price.Currency}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    
+                    <TextBlock Grid.Column="5" Text="Source" VerticalAlignment="Center" Margin="5,0,0,2"/>
+                    <TextBox Grid.Column="6" Text="{Binding Price.Source}" Margin="5,0,0,2" />
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Data" Grid.Row="2">
+
             </GroupBox>
         </Grid>
     </DockPanel>

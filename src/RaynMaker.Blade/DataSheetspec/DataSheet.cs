@@ -18,11 +18,6 @@ namespace RaynMaker.Blade.DataSheetSpec
 
         public void Freeze()
         {
-            if( IsFrozen )
-            {
-                return;
-            }
-
             foreach( var freeezable in Asset.Data.OfType<IFreezable>() )
             {
                 freeezable.Freeze();
