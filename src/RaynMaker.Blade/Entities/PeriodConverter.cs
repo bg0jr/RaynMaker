@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Globalization;
+using System.Windows.Data;
 
 namespace RaynMaker.Blade.Entities
 {
-    public sealed class PeriodConverter : TypeConverter
+    public sealed class PeriodConverter : TypeConverter, IValueConverter
     {
         public override bool CanConvertFrom( ITypeDescriptorContext context, Type sourceType )
         {
@@ -42,6 +43,31 @@ namespace RaynMaker.Blade.Entities
         public override object ConvertTo( ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType )
         {
             throw new NotImplementedException();
+        }
+
+        public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
+        {
+            var yearPeriod = value as YearPeriod;
+            if( yearPeriod != null )
+            {
+                return yearPeriod.Year;
+            }
+
+            var dayPeriod = value as DayPeriod;
+            if( dayPeriod != null )
+            {
+                return string.Format( "{0}-{1}-{2}",
+                    dayPeriod.Day.Year,
+                    ( dayPeriod.Day.Month < 10 ? "0" : string.Empty ) + dayPeriod.Day.Month,
+                   ( dayPeriod.Day.Day < 10 ? "0" : string.Empty ) + dayPeriod.Day.Day );
+            }
+
+            throw new NotSupportedException( "Cannot convert type: " + value.GetType() );
+        }
+
+        public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )
+        {
+            return ConvertFrom( value );
         }
     }
 }

@@ -8,6 +8,9 @@
              xmlns:l="clr-namespace:RaynMaker.Blade.Entities"
              mc:Ignorable="d" d:DesignHeight="500" d:DesignWidth="500"
              x:Name="_this">
+    <UserControl.Resources>
+        <l:PeriodConverter x:Key="PeriodConverter"/>
+    </UserControl.Resources>
     <DockPanel LastChildFill="True" Margin="3">
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
             <Button Content="OK" Command="{Binding OkCommand}" Width="50"/>
@@ -105,7 +108,7 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="Day" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="1" Text="{Binding Price.Period}" Margin="5,0,0,2" />
+                    <TextBox Grid.Column="1" Text="{Binding Price.Period, Converter={StaticResource PeriodConverter}}" Margin="5,0,0,2" />
 
                     <TextBlock Grid.Column="2" Text="Value" VerticalAlignment="Center" Margin="5,0,0,2"/>
                     <TextBox Grid.Column="3" Text="{Binding Price.Value}" Margin="5,0,0,2" />

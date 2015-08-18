@@ -52,6 +52,7 @@ namespace RaynMaker.Blade.ViewModels
             if( File.Exists( myProject.DataSheetLocation ) )
             {
                 Sheet = myStorageService.LoadDataSheet( myProject.DataSheetLocation );
+                Sheet.Freeze();
             }
             else
             {
@@ -71,10 +72,12 @@ namespace RaynMaker.Blade.ViewModels
             var price = myStock.SeriesOf( typeof( Price ) ).Current<Price>();
             if( price == null )
             {
-                price = new Price();
-                myStock.Data.Add( new Series( price ) );
+                var series = new Series( new Price() );
+                series.Freeze();
+                myStock.Data.Add( series );
             }
 
+            OnPropertyChanged( () => Price );
         }
 
         public Action FinishInteraction { get; set; }
@@ -130,6 +133,5 @@ namespace RaynMaker.Blade.ViewModels
         {
             get { return myStock.SeriesOf( typeof( Price ) ).Current<Price>(); }
         }
-
     }
 }
