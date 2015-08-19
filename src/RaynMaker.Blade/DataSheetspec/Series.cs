@@ -16,6 +16,7 @@ namespace RaynMaker.Blade.DataSheetSpec
     [DefaultProperty( "Values" ), ContentProperty( "Values" )]
     public class Series : IDatumSeries
     {
+        [DataMember( Name = "Values" )]
         private List<IDatum> myValues;
 
         public static Series Empty = CreateEmpty();
@@ -37,11 +38,10 @@ namespace RaynMaker.Blade.DataSheetSpec
             myValues = new List<IDatum>( items );
         }
 
-        [DataMember]
         [Required, ValidateObject]
         public List<IDatum> Values
         {
-            get { return IsFrozen ? null : myValues; }
+            get { return myValues; }
         }
 
         public int Count

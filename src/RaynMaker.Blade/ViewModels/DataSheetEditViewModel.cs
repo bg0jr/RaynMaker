@@ -81,19 +81,7 @@ namespace RaynMaker.Blade.ViewModels
 
             OnPropertyChanged( () => Price );
 
-            var allDatumTypes = new Type[] { 
-                        typeof( SharesOutstanding ), 
-                        typeof( NetIncome ),                
-                        typeof( Equity ) ,
-                        typeof( Dividend ),                 
-                        typeof( Assets ) ,                
-                        typeof( Liabilities ) ,                
-                        typeof( Debt ) ,
-                        typeof( Revenue ) ,                
-                        typeof( EBIT ) ,                
-                        typeof( InterestExpense ) 
-                    };
-            foreach( var type in allDatumTypes )
+            foreach( var type in KnownDatums.AllExceptPrice )
             {
                 var series = ( Series )myStock.SeriesOf( type );
                 if( series == null )
@@ -150,9 +138,29 @@ namespace RaynMaker.Blade.ViewModels
             // TODO: When to set timestamps? we could put it in the Entities now - whenever we change the value we update the timestamp
             // and handle deserialization separately
             // TODO: change "IFreezable" to "Validation" -  what is EF validation approach?
-            Sheet.Freeze();
 
-            myStorageService.SaveDataSheet( Sheet, myProject.CurrenciesSheetLocation );
+            foreach( Series series in Sheet.Asset.Data.ToList() )
+            {
+                series.Unfreeze();
+                foreach( var value in series.ToList() )
+                {
+                    if( !value.Value.HasValue )
+                    {
+                        series.Values.Remove( value );
+                    }
+                }
+
+                if( series.Values.Any() )
+                {
+                    series.Freeze();
+                }
+                else
+                {
+                    Sheet.Asset.Data.Remove( series );
+                }
+            }
+
+            myStorageService.SaveDataSheet( Sheet, myProject.DataSheetLocation );
             FinishInteraction();
         }
 
@@ -179,7 +187,7 @@ namespace RaynMaker.Blade.ViewModels
 
         public ObservableCollection<Currency> Currencies
         {
-            get { return Entities.Currencies.Sheet.Currencies; }
+            get { return Entities.Currencies.Sheet != null ? Entities.Currencies.Sheet.Currencies : null; }
         }
 
         public Price Price

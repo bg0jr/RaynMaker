@@ -37,7 +37,7 @@ namespace RaynMaker.Blade.AnalysisSpec
             var rates = new List<double>( sortedSeries.Count - 1 );
             for( int i = 1; i < sortedSeries.Count; ++i )
             {
-                rates.Add( Growth( sortedSeries[ i - 1 ].Value, sortedSeries[ i ].Value ) );
+                rates.Add( Growth( sortedSeries[ i - 1 ].Value.Value, sortedSeries[ i ].Value.Value ) );
             }
 
             var result = new DerivedDatum()

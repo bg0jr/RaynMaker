@@ -6,7 +6,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:l="clr-namespace:RaynMaker.Blade"
         xmlns:win32="clr-namespace:Microsoft.Win32;assembly=PresentationFramework"
-        SizeToContent="Height" ResizeMode="NoResize" Title="MainWindow" Width="650">
+        SizeToContent="Height" ResizeMode="NoResize" Title="RaynMaker.Blade" Width="650">
     <i:Interaction.Triggers>
         <prism:InteractionRequestTrigger SourceObject="{Binding BrowseCurrenciesSheetLocationRequest, Mode=OneWay}">
             <pn:PopupFileDialogAction FileDialogType="{x:Type win32:OpenFileDialog}"/>

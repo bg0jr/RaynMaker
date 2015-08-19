@@ -26,16 +26,10 @@ namespace RaynMaker.Blade.Engine
 
             myProviders.Add( new CurrentPrice() );
 
-            myProviders.Add( new GenericDatumProvider( typeof( SharesOutstanding ) ) );
-            myProviders.Add( new GenericDatumProvider( typeof( NetIncome ) ) );
-            myProviders.Add( new GenericDatumProvider( typeof( Equity ) ) );
-            myProviders.Add( new GenericDatumProvider( typeof( Dividend ) ) );
-            myProviders.Add( new GenericDatumProvider( typeof( Assets ) ) );
-            myProviders.Add( new GenericDatumProvider( typeof( Liabilities ) ) );
-            myProviders.Add( new GenericDatumProvider( typeof( Debt ) ) );
-            myProviders.Add( new GenericDatumProvider( typeof( Revenue ) ) );
-            myProviders.Add( new GenericDatumProvider( typeof( EBIT ) ) );
-            myProviders.Add( new GenericDatumProvider( typeof( InterestExpense ) ) );
+            foreach( var datumType in KnownDatums.AllExceptPrice )
+            {
+                myProviders.Add( new GenericDatumProvider( datumType ) );
+            }
 
             myProviders.Add( new GenericJoinProvider( ProviderNames.Eps, typeof( NetIncome ).Name, typeof( SharesOutstanding ).Name,
                 ( lhs, rhs ) => lhs / rhs ) { PreserveCurrency = true } );

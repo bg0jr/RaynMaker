@@ -62,7 +62,7 @@ namespace RaynMaker.Blade.AnalysisSpec
             var valueCurrency = value is ICurrencyDatum ? ( ( ICurrencyDatum )value ).Currency : null;
             var threshold = Currency != null ? context.TranslateCurrency( Threshold, Currency, valueCurrency ) : Threshold;
 
-            bool success = Operator.Compare( value.Value, threshold );
+            bool success = Operator.Compare( value.Value.Value, threshold );
 
             var paragraph = new Paragraph()
             {
@@ -74,7 +74,7 @@ namespace RaynMaker.Blade.AnalysisSpec
 
             paragraph.Inlines.Add( new Run(
                 string.Format( "{0} {1} {2}{3} ({4:0.00}%)",
-                FormatValue( value.Value ),
+                FormatValue( value.Value.Value ),
                 Operator.Name,
                 FormatValue( threshold ),
                 valueCurrency != null ? " " + valueCurrency.Name : "",

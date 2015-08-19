@@ -124,6 +124,7 @@
     <Compile Include="AnalysisSpec\TextBlock.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="CoreModule.cs" />
+    <Compile Include="DataSheetSpec\Datums\KnownDatums.cs" />
     <Compile Include="Entities\DatumSeriesExtensions.cs" />
     <Compile Include="Entities\IDatumSeries.cs" />
     <Compile Include="Entities\IFreezable.cs" />

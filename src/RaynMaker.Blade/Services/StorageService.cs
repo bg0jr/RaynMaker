@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Windows.Markup;
@@ -8,6 +9,7 @@ using System.Xml;
 using Plainion.Validation;
 using Plainion.Xaml;
 using RaynMaker.Blade.DataSheetSpec;
+using RaynMaker.Blade.DataSheetSpec.Datums;
 using RaynMaker.Blade.Entities;
 
 namespace RaynMaker.Blade.Services
@@ -73,13 +75,33 @@ namespace RaynMaker.Blade.Services
 
         public DataSheet LoadDataSheet( string path )
         {
-            var reader = new ValidatingXamlReader();
+            if( Path.GetExtension( path ).Equals( ".xaml", System.StringComparison.OrdinalIgnoreCase ) )
+            {
+                var reader = new ValidatingXamlReader();
 
-            return reader.Read<DataSheet>( path );
+                return reader.Read<DataSheet>( path );
+            }
+            else
+            {
+                using( var reader = XmlReader.Create( path ) )
+                {
+                    var knownTypes = KnownDatums.AllExceptPrice.ToList();
+                    knownTypes.Add( typeof( Price ) );
+
+                    var serializer = new DataContractSerializer( typeof( SerializableDataSheet ), knownTypes );
+                    var serializableSheet = ( SerializableDataSheet )serializer.ReadObject( reader );
+
+                    var sheet = new DataSheet();
+                    sheet.Asset = serializableSheet.Asset;
+                    sheet.Freeze();
+
+                    return sheet;
+                }
+            }
         }
 
         [DataContract( Name = "DataSheet", Namespace = "https://github.com/bg0jr/RaynMaker" )]
-        [KnownType( typeof( Asset ) )]
+        [KnownType( typeof( Asset ) ), KnownType( typeof( Stock ) )]
         public class SerializableDataSheet
         {
             public SerializableDataSheet( DataSheet sheet )
@@ -98,7 +120,10 @@ namespace RaynMaker.Blade.Services
 
             using( var writer = XmlWriter.Create( path + ".xdb" ) )
             {
-                var serializer = new DataContractSerializer( typeof( SerializableCurrenciesSheet ) );
+                var knownTypes = KnownDatums.AllExceptPrice.ToList();
+                knownTypes.Add( typeof( Price ) );
+
+                var serializer = new DataContractSerializer( typeof( SerializableDataSheet ), knownTypes );
                 serializer.WriteObject( writer, new SerializableDataSheet( sheet ) );
             }
         }

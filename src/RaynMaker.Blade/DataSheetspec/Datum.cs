@@ -11,7 +11,7 @@ namespace RaynMaker.Blade.DataSheetSpec
     public class Datum : SerializableBindableBase, IDatum
     {
         private DateTime myTimestamp;
-        private double myValue;
+        private double? myValue;
         private string mySource;
         private IPeriod myPeriod;
 
@@ -25,7 +25,7 @@ namespace RaynMaker.Blade.DataSheetSpec
 
         [DataMember]
         [Required]
-        public double Value
+        public double? Value
         {
             get { return myValue; }
             set { SetProperty( ref myValue, value ); }

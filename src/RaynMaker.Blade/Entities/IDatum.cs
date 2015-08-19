@@ -12,7 +12,7 @@ namespace RaynMaker.Blade.Entities
         DateTime Timestamp { get; }
 
         [Required]
-        double Value { get; }
+        double? Value { get; }
 
         [Required]
         string Source { get; }

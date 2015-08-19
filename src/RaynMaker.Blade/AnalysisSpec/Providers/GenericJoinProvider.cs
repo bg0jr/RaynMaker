@@ -60,7 +60,7 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
 
                 var result = new DerivedDatum
                 {
-                    Value = myJoinOperator( lhs.Value, rhs.Value ),
+                    Value = myJoinOperator( lhs.Value.Value, rhs.Value.Value ),
                     Period = lhs.Period
                 };
 
