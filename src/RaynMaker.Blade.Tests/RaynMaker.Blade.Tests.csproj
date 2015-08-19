@@ -60,13 +60,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\Volkswagen.xaml">
-      <SubType>Designer</SubType>
+    <None Include="app.config" />
+    <Content Include="Data\Volkswagen.xdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

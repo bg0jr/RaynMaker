@@ -75,28 +75,19 @@ namespace RaynMaker.Blade.Services
 
         public DataSheet LoadDataSheet( string path )
         {
-            if( Path.GetExtension( path ).Equals( ".xaml", System.StringComparison.OrdinalIgnoreCase ) )
+            using( var reader = XmlReader.Create( path ) )
             {
-                var reader = new ValidatingXamlReader();
+                var knownTypes = KnownDatums.AllExceptPrice.ToList();
+                knownTypes.Add( typeof( Price ) );
 
-                return reader.Read<DataSheet>( path );
-            }
-            else
-            {
-                using( var reader = XmlReader.Create( path ) )
-                {
-                    var knownTypes = KnownDatums.AllExceptPrice.ToList();
-                    knownTypes.Add( typeof( Price ) );
+                var serializer = new DataContractSerializer( typeof( SerializableDataSheet ), knownTypes );
+                var serializableSheet = ( SerializableDataSheet )serializer.ReadObject( reader );
 
-                    var serializer = new DataContractSerializer( typeof( SerializableDataSheet ), knownTypes );
-                    var serializableSheet = ( SerializableDataSheet )serializer.ReadObject( reader );
+                var sheet = new DataSheet();
+                sheet.Asset = serializableSheet.Asset;
+                sheet.Freeze();
 
-                    var sheet = new DataSheet();
-                    sheet.Asset = serializableSheet.Asset;
-                    sheet.Freeze();
-
-                    return sheet;
-                }
+                return sheet;
             }
         }
 
