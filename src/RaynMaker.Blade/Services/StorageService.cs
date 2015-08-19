@@ -62,7 +62,7 @@ namespace RaynMaker.Blade.Services
         {
             RecursiveValidator.Validate( sheet );
 
-            using( var writer = XmlWriter.Create( path + ".xdb" ) )
+            using( var writer = XmlWriter.Create( path ) )
             {
                 var knownTypes = KnownDatums.AllExceptPrice.ToList();
                 knownTypes.Add( typeof( Price ) );

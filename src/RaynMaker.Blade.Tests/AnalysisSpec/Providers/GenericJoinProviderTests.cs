@@ -164,7 +164,6 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
                 Period = new YearPeriod( year ),
                 Value = value,
                 Source = "Dummy",
-                Timestamp = DateTime.UtcNow
             };
         }
 
@@ -176,7 +175,6 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
                 Value = value,
                 Currency = currency,
                 Source = "Dummy",
-                Timestamp = DateTime.UtcNow
             };
         }
     }

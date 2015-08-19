@@ -10,17 +10,17 @@ namespace RaynMaker.Blade.Entities
     [KnownType( typeof( YearPeriod ) ), KnownType( typeof( DayPeriod ) )]
     public class Datum : SerializableBindableBase, IDatum
     {
+        [DataMember( Name = "Timestamp" )]
         private DateTime myTimestamp;
         private double? myValue;
         private string mySource;
         private IPeriod myPeriod;
 
-        [DataMember]
         [Required]
         public DateTime Timestamp
         {
             get { return myTimestamp; }
-            set { SetProperty( ref myTimestamp, value ); }
+            private set { SetProperty( ref myTimestamp, value ); }
         }
 
         [DataMember]
@@ -28,7 +28,13 @@ namespace RaynMaker.Blade.Entities
         public double? Value
         {
             get { return myValue; }
-            set { SetProperty( ref myValue, value ); }
+            set
+            {
+                if( SetProperty( ref myValue, value ) )
+                {
+                    Timestamp = DateTime.Now;
+                }
+            }
         }
 
         [DataMember]

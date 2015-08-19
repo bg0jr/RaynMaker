@@ -230,7 +230,7 @@ namespace RaynMaker.Blade
         {
             var notification = new OpenFileDialogNotification();
             notification.RestoreDirectory = true;
-            notification.Filter = "XAML files (*.xaml)|*.xaml";
+            notification.Filter = "XDB files (*.xdb)|*.xdb";
             notification.FilterIndex = 0;
             notification.MultiSelect = false;
 
