@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Windows.Markup;
@@ -77,9 +78,29 @@ namespace RaynMaker.Blade.Services
             return reader.Read<DataSheet>( path );
         }
 
-        public void SaveDataSheet( DataSheet Sheet, string path )
+        [DataContract( Name = "DataSheet", Namespace = "https://github.com/bg0jr/RaynMaker" )]
+        [KnownType( typeof( Asset ) )]
+        public class SerializableDataSheet
         {
-            throw new System.NotImplementedException();
+            public SerializableDataSheet( DataSheet sheet )
+            {
+                Asset = sheet.Asset;
+            }
+
+            [DataMember]
+            [Required, ValidateObject]
+            public Asset Asset { get; set; }
+        }
+
+        public void SaveDataSheet( DataSheet sheet, string path )
+        {
+            RecursiveValidator.Validate( sheet );
+
+            using( var writer = XmlWriter.Create( path + ".xdb" ) )
+            {
+                var serializer = new DataContractSerializer( typeof( SerializableCurrenciesSheet ) );
+                serializer.WriteObject( writer, new SerializableDataSheet( sheet ) );
+            }
         }
     }
 }

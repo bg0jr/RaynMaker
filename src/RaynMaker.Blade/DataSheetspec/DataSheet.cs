@@ -11,8 +11,8 @@ namespace RaynMaker.Blade.DataSheetSpec
     [DefaultProperty( "Asset" ), ContentProperty( "Asset" )]
     public class DataSheet : DataTemplate, IFreezable
     {
-        [Required,ValidateObject]
-        public Asset Asset { get;  set; }
+        [Required, ValidateObject]
+        public Asset Asset { get; set; }
 
         public bool IsFrozen { get; private set; }
 

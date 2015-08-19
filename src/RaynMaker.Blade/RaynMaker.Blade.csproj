@@ -146,6 +146,7 @@
     <Compile Include="DataSheetSpec\Datums\SharesOutstanding.cs" />
     <Compile Include="Entities\IPeriod.cs" />
     <Compile Include="Entities\PeriodExtensions.cs" />
+    <Compile Include="Entities\SerializableBindableBase.cs" />
     <Compile Include="Entities\Translation.cs" />
     <Compile Include="AnalysisSpec\Providers\GenericDatumProvider.cs" />
     <Compile Include="AnalysisSpec\Providers\CurrentPrice.cs" />

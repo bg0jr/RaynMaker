@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 using Plainion;
 
 namespace RaynMaker.Blade.Entities
 {
+    [DataContract( Name = "YearPeriod", Namespace = "https://github.com/bg0jr/RaynMaker" )]
     public class YearPeriod : IPeriod
     {
         public YearPeriod( int year )
@@ -12,6 +14,7 @@ namespace RaynMaker.Blade.Entities
             Year = year;
         }
 
+        [DataMember]
         public int Year { get; private set; }
 
         public bool Equals( IPeriod other )

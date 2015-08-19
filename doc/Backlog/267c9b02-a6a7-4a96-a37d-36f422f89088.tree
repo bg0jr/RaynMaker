@@ -28,6 +28,9 @@
       <Node Id="04f5a012-70f8-4d90-9b37-85e6b9fea0a5">
         <Caption><![CDATA[Chart layouting: fixed chart size vs fixed bar size]]></Caption>
       </Node>
+      <Node Id="25d92fe4-3ee9-4c53-997b-1e0f9c01f114">
+        <Caption><![CDATA[Refactor datasheet editor]]></Caption>
+      </Node>
     </Node>
   </Node>
 </Tree>

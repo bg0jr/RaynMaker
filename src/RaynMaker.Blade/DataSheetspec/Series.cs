@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Windows.Markup;
 using Plainion;
 using Plainion.Validation;
@@ -11,6 +12,7 @@ using RaynMaker.Blade.Entities;
 
 namespace RaynMaker.Blade.DataSheetSpec
 {
+    [DataContract( Name = "Series", Namespace = "https://github.com/bg0jr/RaynMaker" )]
     [DefaultProperty( "Values" ), ContentProperty( "Values" )]
     public class Series : IDatumSeries
     {
@@ -35,6 +37,7 @@ namespace RaynMaker.Blade.DataSheetSpec
             myValues = new List<IDatum>( items );
         }
 
+        [DataMember]
         [Required, ValidateObject]
         public List<IDatum> Values
         {
@@ -105,6 +108,8 @@ namespace RaynMaker.Blade.DataSheetSpec
 
                     Currency = currencies.Single();
                 }
+
+                myValues.Sort( new Comparison<IDatum>( ( x, y ) => x.Period.CompareTo( y.Period ) ) );
             }
             finally
             {

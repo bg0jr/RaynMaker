@@ -112,7 +112,7 @@ namespace RaynMaker.Blade.ViewModels
                     .Select( v => ( ( YearPeriod )v.Period ).Year )
                     .ToList();
                 // select hard coded 11 years here as minimum to allow growth calc based on recent 10 years
-                for( int i = currentYear - 11; i <= currentYear; ++i )
+                for( int i = currentYear - 10; i <= currentYear; ++i )
                 {
                     if( !existingYears.Contains( i ) )
                     {

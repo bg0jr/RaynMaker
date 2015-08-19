@@ -1,17 +1,21 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Blade.Entities;
 
 namespace RaynMaker.Blade.DataSheetSpec
 {
-    public class Datum : BindableBase, IDatum
+    [DataContract( Name = "Datum", Namespace = "https://github.com/bg0jr/RaynMaker" )]
+    [KnownType( typeof( YearPeriod ) ), KnownType( typeof( DayPeriod ) )]
+    public class Datum : SerializableBindableBase, IDatum
     {
         private DateTime myTimestamp;
         private double myValue;
         private string mySource;
         private IPeriod myPeriod;
 
+        [DataMember]
         [Required]
         public DateTime Timestamp
         {
@@ -19,6 +23,7 @@ namespace RaynMaker.Blade.DataSheetSpec
             set { SetProperty( ref myTimestamp, value ); }
         }
 
+        [DataMember]
         [Required]
         public double Value
         {
@@ -26,6 +31,7 @@ namespace RaynMaker.Blade.DataSheetSpec
             set { SetProperty( ref myValue, value ); }
         }
 
+        [DataMember]
         [Required]
         public string Source
         {
@@ -33,6 +39,7 @@ namespace RaynMaker.Blade.DataSheetSpec
             set { SetProperty( ref mySource, value ); }
         }
 
+        [DataMember]
         [Required]
         public IPeriod Period
         {
