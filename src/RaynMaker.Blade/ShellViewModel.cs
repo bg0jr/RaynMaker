@@ -183,7 +183,7 @@ namespace RaynMaker.Blade
         private void OnEditCurrencies()
         {
             var notification = new Notification();
-            notification.Title = "Edit Currencies";
+            notification.Title = "Currencies";
 
             EditCurrenciesSheetRequest.Raise( notification, n => { } );
         }
@@ -217,7 +217,7 @@ namespace RaynMaker.Blade
         private void OnEditAnalysisTemplate()
         {
             var notification = new Notification();
-            notification.Title = "Edit analysis template";
+            notification.Title = "AnalysisTemplate";
 
             EditAnalysisTemplateRequest.Raise( notification, n => { } );
         }
@@ -251,7 +251,7 @@ namespace RaynMaker.Blade
         private void OnEditDataSheet()
         {
             var notification = new Notification();
-            notification.Title = "Edit data sheet";
+            notification.Title = "Datasheet";
 
             EditDataSheetRequest.Raise( notification, n => { } );
         }

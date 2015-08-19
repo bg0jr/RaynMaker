@@ -111,5 +111,10 @@ namespace RaynMaker.Blade.DataSheetSpec
                 IsFrozen = true;
             }
         }
+
+        public void Unfreeze()
+        {
+            IsFrozen = false;
+        }
     }
 }

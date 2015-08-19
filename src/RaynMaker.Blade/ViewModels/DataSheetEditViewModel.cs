@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.IO;
+using System.Linq;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
@@ -78,6 +80,57 @@ namespace RaynMaker.Blade.ViewModels
             }
 
             OnPropertyChanged( () => Price );
+
+            var allDatumTypes = new Type[] { 
+                        typeof( SharesOutstanding ), 
+                        typeof( NetIncome ),                
+                        typeof( Equity ) ,
+                        typeof( Dividend ),                 
+                        typeof( Assets ) ,                
+                        typeof( Liabilities ) ,                
+                        typeof( Debt ) ,
+                        typeof( Revenue ) ,                
+                        typeof( EBIT ) ,                
+                        typeof( InterestExpense ) 
+                    };
+            foreach( var type in allDatumTypes )
+            {
+                var series = ( Series )myStock.SeriesOf( type );
+                if( series == null )
+                {
+                    series = new Series();
+                    myStock.Data.Add( series );
+                }
+                else
+                {
+                    series.Unfreeze();
+                }
+
+                // TODO: today we only support yearly values here
+                var currentYear = DateTime.Now.Year;
+                var existingYears = series
+                    .Select( v => ( ( YearPeriod )v.Period ).Year )
+                    .ToList();
+                // select hard coded 11 years here as minimum to allow growth calc based on recent 10 years
+                for( int i = currentYear - 11; i <= currentYear; ++i )
+                {
+                    if( !existingYears.Contains( i ) )
+                    {
+                        var datum = ( Datum )Activator.CreateInstance( type );
+                        datum.Period = new YearPeriod( i );
+
+                        var currencyDatum = datum as CurrencyDatum;
+                        if( currencyDatum != null )
+                        {
+                            currencyDatum.Currency = series.Currency;
+                        }
+
+                        series.Values.Add( datum );
+                    }
+                }
+
+                series.Freeze();
+            }
         }
 
         public Action FinishInteraction { get; set; }
@@ -132,6 +185,16 @@ namespace RaynMaker.Blade.ViewModels
         public Price Price
         {
             get { return myStock.SeriesOf( typeof( Price ) ).Current<Price>(); }
+        }
+
+        public IEnumerable<IDatumSeries> DataSeries
+        {
+            get
+            {
+                return myStock.Data
+                    .Where( s => s.DatumType != typeof( Price ) )
+                    .OrderBy( s => s.DatumType.Name );
+            }
         }
     }
 }

@@ -194,6 +194,7 @@
     <Compile Include="Views\CurrenciesView.xaml.cs">
       <DependentUpon>CurrenciesView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CurrencyVisibilityConverter.cs" />
     <Compile Include="Views\DataSheetEditView.xaml.cs">
       <DependentUpon>DataSheetEditView.xaml</DependentUpon>
     </Compile>
