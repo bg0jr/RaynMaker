@@ -20,7 +20,6 @@ namespace RaynMaker.Blade.ViewModels
     [Export]
     class DataSheetEditViewModel : BindableBase, IInteractionRequestAware
     {
-        private Project myProject;
         private StorageService myStorageService;
         private DataSheet myDataSheet;
         private Stock myStock;
@@ -28,11 +27,11 @@ namespace RaynMaker.Blade.ViewModels
         [ImportingConstructor]
         public DataSheetEditViewModel( Project project, StorageService storageService )
         {
-            myProject = project;
+            Project = project;
             myStorageService = storageService;
 
-            PropertyChangedEventManager.AddHandler( myProject, OnProjectPropertyChanged,
-                PropertySupport.ExtractPropertyName( () => myProject.DataSheetLocation ) );
+            PropertyChangedEventManager.AddHandler( Project, OnProjectPropertyChanged,
+                PropertySupport.ExtractPropertyName( () => Project.DataSheetLocation ) );
             OnProjectPropertyChanged( null, null );
 
             OkCommand = new DelegateCommand( OnOk );
@@ -42,16 +41,18 @@ namespace RaynMaker.Blade.ViewModels
             RemoveReferenceCommand = new DelegateCommand<Reference>( OnRemoveReference );
         }
 
+        public Project Project { get; private set; }
+
         private void OnProjectPropertyChanged( object sender, PropertyChangedEventArgs e )
         {
-            if( string.IsNullOrEmpty( myProject.DataSheetLocation ) || !File.Exists( myProject.DataSheetLocation ) )
+            if( string.IsNullOrEmpty( Project.DataSheetLocation ) || !File.Exists( Project.DataSheetLocation ) )
             {
                 return;
             }
 
-            if( File.Exists( myProject.DataSheetLocation ) )
+            if( File.Exists( Project.DataSheetLocation ) )
             {
-                Sheet = myStorageService.LoadDataSheet( myProject.DataSheetLocation );
+                Sheet = myStorageService.LoadDataSheet( Project.DataSheetLocation );
                 Sheet.Freeze();
             }
             else
@@ -117,9 +118,6 @@ namespace RaynMaker.Blade.ViewModels
 
                 series.Freeze();
             }
-
-            // TODO: workaround to get the currencies updated
-            OnPropertyChanged( () => CurrenciesSheet );
         }
 
         public Action FinishInteraction { get; set; }
@@ -161,7 +159,7 @@ namespace RaynMaker.Blade.ViewModels
                 }
             }
 
-            myStorageService.SaveDataSheet( Sheet, myProject.DataSheetLocation );
+            myStorageService.SaveDataSheet( Sheet, Project.DataSheetLocation );
             FinishInteraction();
         }
 
@@ -184,11 +182,6 @@ namespace RaynMaker.Blade.ViewModels
         private void OnRemoveReference( Reference reference )
         {
             myStock.Overview.References.Remove( reference );
-        }
-
-        public CurrenciesSheet CurrenciesSheet
-        {
-            get { return Entities.Currencies.Sheet; }
         }
 
         public Price Price

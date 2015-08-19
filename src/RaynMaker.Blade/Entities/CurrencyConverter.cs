@@ -1,11 +1,15 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
+using Plainion;
 
 namespace RaynMaker.Blade.Entities
 {
-    public sealed class CurrencyConverter : TypeConverter
+    public sealed class CurrencyConverter : System.ComponentModel.TypeConverter
     {
+        public static CurrenciesSheet Sheet { get; set; }
+        
         public override bool CanConvertFrom( ITypeDescriptorContext context, Type sourceType )
         {
             return sourceType == typeof( string ) || base.CanConvertFrom( context, sourceType );
@@ -21,12 +25,24 @@ namespace RaynMaker.Blade.Entities
             string text = value as string;
             if( text != null )
             {
-                return Currencies.Parse( text );
+                return Parse( text );
             }
 
             return base.ConvertFrom( context, culture, value );
         }
 
+        internal static Currency Parse( string name )
+        {
+            Contract.Invariant( Sheet != null, "Currencies sheet not yet initialized" );
+
+            var currency = Sheet.Currencies
+                .FirstOrDefault( c => c.Name == name );
+
+            Contract.Requires( currency != null, "No currency found with name: " + name );
+
+            return currency;
+        }
+        
         public override bool CanConvertTo( ITypeDescriptorContext context, Type destinationType )
         {
             throw new NotImplementedException();

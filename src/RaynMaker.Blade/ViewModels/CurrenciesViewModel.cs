@@ -15,18 +15,13 @@ namespace RaynMaker.Blade.ViewModels
     [Export]
     class CurrenciesViewModel : BindableBase, IInteractionRequestAware
     {
-        private Project myProject;
         private StorageService myStorageService;
 
         [ImportingConstructor]
         public CurrenciesViewModel( Project project, StorageService storageService )
         {
-            myProject = project;
+            Project = project;
             myStorageService = storageService;
-
-            PropertyChangedEventManager.AddHandler( myProject, OnProjectPropertyChanged, 
-                PropertySupport.ExtractPropertyName( () => myProject.CurrenciesSheetLocation ) );
-            OnProjectPropertyChanged( null, null );
 
             OkCommand = new DelegateCommand( OnOk );
             CancelCommand = new DelegateCommand( OnCancel );
@@ -38,51 +33,24 @@ namespace RaynMaker.Blade.ViewModels
             RemoveTranslationCommand = new DelegateCommand<Translation>( OnRemoveTranslation );
         }
 
-        private void OnProjectPropertyChanged( object sender, PropertyChangedEventArgs e )
-        {
-            if( string.IsNullOrEmpty( myProject.CurrenciesSheetLocation ) || !File.Exists( myProject.CurrenciesSheetLocation ) )
-            {
-                return;
-            }
-
-            if( Currencies.Sheet == null )
-            {
-                Currencies.Sheet = myStorageService.LoadCurrencies( myProject.CurrenciesSheetLocation );
-            }
-        }
-
+        public Project Project { get; private set; }
+        
         public Action FinishInteraction { get; set; }
 
         public INotification Notification { get; set; }
-
-        public CurrenciesSheet Sheet
-        {
-            get { return Currencies.Sheet; }
-            set
-            {
-                if( Currencies.Sheet == value )
-                {
-                    return;
-                }
-
-                Currencies.Sheet = value;
-
-                OnPropertyChanged( () => Sheet );
-            }
-        }
 
         public ICommand AddCurrencyCommand { get; private set; }
 
         private void OnAddCurrency()
         {
-            Sheet.Currencies.Add( new Currency() );
+            Project.CurrenciesSheet.Currencies.Add( new Currency() );
         }
 
         public ICommand RemoveCurrencyCommand { get; private set; }
 
         private void OnRemoveCurrency( Currency currency )
         {
-            Sheet.Currencies.Remove( currency );
+            Project.CurrenciesSheet.Currencies.Remove( currency );
         }
 
         public ICommand AddTranslationCommand { get; private set; }
@@ -98,7 +66,7 @@ namespace RaynMaker.Blade.ViewModels
         {
             // just try to remove the translation from every currency - we will finally find the right owner.
             // not a nice approach but with current simplified design we cannot get owner currency directly so easy.
-            foreach( var currency in Sheet.Currencies )
+            foreach( var currency in Project.CurrenciesSheet.Currencies )
             {
                 currency.Translations.Remove( translation );
             }
@@ -108,7 +76,7 @@ namespace RaynMaker.Blade.ViewModels
 
         private void OnOk()
         {
-            myStorageService.SaveCurrencies( Sheet, myProject.CurrenciesSheetLocation );
+            myStorageService.SaveCurrencies( Project.CurrenciesSheet, Project.CurrenciesSheetLocation );
             FinishInteraction();
         }
 

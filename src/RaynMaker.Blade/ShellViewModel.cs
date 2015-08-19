@@ -103,6 +103,8 @@ namespace RaynMaker.Blade
                 Project.CurrenciesSheetLocation = Path.Combine( Path.GetDirectoryName( GetType().Assembly.Location ), "Resources", "Currencies.xdb" );
             }
 
+            Project.CurrenciesSheet = myStorageService.LoadCurrencies( Project.CurrenciesSheetLocation );
+            
             // DataSheet has to be set after currencies are loaded because setting it here causes automatic loading which 
             // requires currency to be loaded
             Project.DataSheetLocation = dataSheet;
@@ -139,7 +141,6 @@ namespace RaynMaker.Blade
         {
             var reader = new ValidatingXamlReader();
 
-            Currencies.Sheet = myStorageService.LoadCurrencies( Project.CurrenciesSheetLocation );
             var analysisTemplate = reader.Read<AnalysisTemplate>( Project.AnalysisTemplateLocation );
             var dataSheet = myStorageService.LoadDataSheet( Project.DataSheetLocation );
             dataSheet.Freeze();

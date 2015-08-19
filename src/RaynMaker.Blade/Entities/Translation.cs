@@ -18,7 +18,7 @@ namespace RaynMaker.Blade.Entities
             {
                 if( myTarget == null )
                 {
-                    myTarget = Currencies.Parse( To );
+                    myTarget = CurrencyConverter.Parse( To );
                 }
 
                 return myTarget;

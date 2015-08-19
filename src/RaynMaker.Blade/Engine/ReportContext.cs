@@ -94,7 +94,7 @@ namespace RaynMaker.Blade.Engine
 
             Contract.Invariant( translation != null, "No translation found from {0} to {1}", source, target );
 
-            Contract.Invariant( ( DateTime.Today - translation.Timestamp ).Days < Currencies.Sheet.MaxAgeInDays,
+            Contract.Invariant( ( DateTime.Today - translation.Timestamp ).Days < CurrencyConverter.Sheet.MaxAgeInDays,
                 "Translation rate from {0} to {1} expired", source, target );
 
             return value * translation.Rate;
