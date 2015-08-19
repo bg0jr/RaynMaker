@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Markup;
 
-namespace RaynMaker.Blade.Entities
+namespace RaynMaker.Blade.AnalysisSpec
 {
     [MarkupExtensionReturnType( typeof( double ) )]
     public class InMioExtension : MarkupExtension
