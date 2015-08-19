@@ -10,10 +10,8 @@ using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
 using Plainion;
-using RaynMaker.Blade.AnalysisSpec.Providers;
-using RaynMaker.Blade.DataSheetSpec;
-using RaynMaker.Blade.DataSheetSpec.Datums;
 using RaynMaker.Blade.Entities;
+using RaynMaker.Blade.Entities.Datums;
 using RaynMaker.Blade.Model;
 using RaynMaker.Blade.Services;
 
@@ -119,6 +117,9 @@ namespace RaynMaker.Blade.ViewModels
 
                 series.Freeze();
             }
+
+            // TODO: workaround to get the currencies updated
+            OnPropertyChanged( () => CurrenciesSheet );
         }
 
         public Action FinishInteraction { get; set; }
@@ -185,9 +186,9 @@ namespace RaynMaker.Blade.ViewModels
             myStock.Overview.References.Remove( reference );
         }
 
-        public ObservableCollection<Currency> Currencies
+        public CurrenciesSheet CurrenciesSheet
         {
-            get { return Entities.Currencies.Sheet != null ? Entities.Currencies.Sheet.Currencies : null; }
+            get { return Entities.Currencies.Sheet; }
         }
 
         public Price Price

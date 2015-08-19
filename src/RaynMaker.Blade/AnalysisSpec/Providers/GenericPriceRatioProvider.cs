@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Linq;
 using Plainion;
-using RaynMaker.Blade.DataSheetSpec;
-using RaynMaker.Blade.DataSheetSpec.Datums;
-using RaynMaker.Blade.Engine;
 using RaynMaker.Blade.Entities;
+using RaynMaker.Blade.Entities.Datums;
+using RaynMaker.Blade.Engine;
 
 namespace RaynMaker.Blade.AnalysisSpec.Providers
 {

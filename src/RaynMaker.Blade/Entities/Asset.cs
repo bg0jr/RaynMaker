@@ -8,10 +8,9 @@ using System.Windows.Markup;
 using Plainion.Validation;
 using RaynMaker.Blade.Entities;
 
-namespace RaynMaker.Blade.DataSheetSpec
+namespace RaynMaker.Blade.Entities
 {
     [DataContract( Name = "Asset", Namespace = "https://github.com/bg0jr/RaynMaker" )]
-    [DefaultProperty( "Data" ), ContentProperty( "Data" )]
     [KnownType( typeof( Series ) )]
     public abstract class Asset
     {

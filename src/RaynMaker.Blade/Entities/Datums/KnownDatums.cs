@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RaynMaker.Blade.DataSheetSpec.Datums
+namespace RaynMaker.Blade.Entities.Datums
 {
     class KnownDatums
     {

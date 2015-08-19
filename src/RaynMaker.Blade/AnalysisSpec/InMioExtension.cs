@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Markup;
 
-namespace RaynMaker.Blade.DataSheetSpec
+namespace RaynMaker.Blade.Entities
 {
     [MarkupExtensionReturnType( typeof( double ) )]
     public class InMioExtension : MarkupExtension

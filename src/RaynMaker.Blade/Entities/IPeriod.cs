@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using RaynMaker.Blade.DataSheetSpec;
+using RaynMaker.Blade.Entities;
 
 namespace RaynMaker.Blade.Entities
 {

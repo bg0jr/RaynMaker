@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
-namespace RaynMaker.Blade.DataSheetSpec.Datums
+namespace RaynMaker.Blade.Entities.Datums
 {
     /// <summary>
     /// Total dividend payment. NOT per share

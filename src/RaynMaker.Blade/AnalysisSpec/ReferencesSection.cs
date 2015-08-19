@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Navigation;
-using RaynMaker.Blade.DataSheetSpec;
+using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Engine;
 using RaynMaker.Blade.Reporting;
 

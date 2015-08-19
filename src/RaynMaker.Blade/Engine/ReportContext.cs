@@ -5,9 +5,8 @@ using System.Windows.Documents;
 using Plainion;
 using RaynMaker.Blade.AnalysisSpec;
 using RaynMaker.Blade.AnalysisSpec.Providers;
-using RaynMaker.Blade.DataSheetSpec;
-using RaynMaker.Blade.DataSheetSpec.Datums;
 using RaynMaker.Blade.Entities;
+using RaynMaker.Blade.Entities.Datums;
 using RaynMaker.Blade.Reporting;
 
 namespace RaynMaker.Blade.Engine

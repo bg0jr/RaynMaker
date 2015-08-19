@@ -8,47 +8,20 @@ using System.Windows.Markup;
 using System.Xml;
 using Plainion.Validation;
 using Plainion.Xaml;
-using RaynMaker.Blade.DataSheetSpec;
-using RaynMaker.Blade.DataSheetSpec.Datums;
 using RaynMaker.Blade.Entities;
+using RaynMaker.Blade.Entities.Datums;
 
 namespace RaynMaker.Blade.Services
 {
     [Export]
     class StorageService
     {
-        [DataContract( Name = "CurrenciesSheet", Namespace = "https://github.com/bg0jr/RaynMaker" )]
-        [KnownType( typeof( Currency ) )]
-        private class SerializableCurrenciesSheet
-        {
-            public SerializableCurrenciesSheet( CurrenciesSheet sheet )
-            {
-                MaxAgeInDays = sheet.MaxAgeInDays;
-                Currencies = new ObservableCollection<Currency>( sheet.Currencies );
-            }
-
-            [DataMember]
-            public ObservableCollection<Currency> Currencies { get; private set; }
-
-            [DataMember]
-            public int MaxAgeInDays { get; set; }
-        }
-
         public CurrenciesSheet LoadCurrencies( string path )
         {
             using( var reader = XmlReader.Create( path ) )
             {
-                var serializer = new DataContractSerializer( typeof( SerializableCurrenciesSheet ) );
-                var serializableSheet = ( SerializableCurrenciesSheet )serializer.ReadObject( reader );
-
-                var sheet = new CurrenciesSheet();
-                sheet.MaxAgeInDays = serializableSheet.MaxAgeInDays;
-                foreach( var currency in serializableSheet.Currencies )
-                {
-                    sheet.Currencies.Add( currency );
-                }
-
-                return sheet;
+                var serializer = new DataContractSerializer( typeof( CurrenciesSheet ) );
+                return ( CurrenciesSheet )serializer.ReadObject( reader );
             }
         }
 
@@ -58,8 +31,8 @@ namespace RaynMaker.Blade.Services
 
             using( var writer = XmlWriter.Create( path ) )
             {
-                var serializer = new DataContractSerializer( typeof( SerializableCurrenciesSheet ) );
-                serializer.WriteObject( writer, new SerializableCurrenciesSheet( sheet ) );
+                var serializer = new DataContractSerializer( typeof( CurrenciesSheet ) );
+                serializer.WriteObject( writer, sheet );
             }
         }
 
@@ -80,29 +53,9 @@ namespace RaynMaker.Blade.Services
                 var knownTypes = KnownDatums.AllExceptPrice.ToList();
                 knownTypes.Add( typeof( Price ) );
 
-                var serializer = new DataContractSerializer( typeof( SerializableDataSheet ), knownTypes );
-                var serializableSheet = ( SerializableDataSheet )serializer.ReadObject( reader );
-
-                var sheet = new DataSheet();
-                sheet.Asset = serializableSheet.Asset;
-                sheet.Freeze();
-
-                return sheet;
+                var serializer = new DataContractSerializer( typeof( DataSheet ), knownTypes );
+                return ( DataSheet )serializer.ReadObject( reader );
             }
-        }
-
-        [DataContract( Name = "DataSheet", Namespace = "https://github.com/bg0jr/RaynMaker" )]
-        [KnownType( typeof( Asset ) ), KnownType( typeof( Stock ) )]
-        public class SerializableDataSheet
-        {
-            public SerializableDataSheet( DataSheet sheet )
-            {
-                Asset = sheet.Asset;
-            }
-
-            [DataMember]
-            [Required, ValidateObject]
-            public Asset Asset { get; set; }
         }
 
         public void SaveDataSheet( DataSheet sheet, string path )
@@ -114,8 +67,8 @@ namespace RaynMaker.Blade.Services
                 var knownTypes = KnownDatums.AllExceptPrice.ToList();
                 knownTypes.Add( typeof( Price ) );
 
-                var serializer = new DataContractSerializer( typeof( SerializableDataSheet ), knownTypes );
-                serializer.WriteObject( writer, new SerializableDataSheet( sheet ) );
+                var serializer = new DataContractSerializer( typeof( DataSheet ), knownTypes );
+                serializer.WriteObject( writer, sheet );
             }
         }
     }

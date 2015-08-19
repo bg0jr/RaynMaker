@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq;
-using RaynMaker.Blade.DataSheetSpec;
-using RaynMaker.Blade.Engine;
 using RaynMaker.Blade.Entities;
+using RaynMaker.Blade.Engine;
 
 namespace RaynMaker.Blade.AnalysisSpec.Providers
 {

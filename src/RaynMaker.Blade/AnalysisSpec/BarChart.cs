@@ -4,7 +4,7 @@ using System.Windows.Documents;
 using System.Linq;
 using RaynMaker.Blade.Engine;
 using RaynMaker.Blade.Entities;
-using DatumSeries = RaynMaker.Blade.DataSheetSpec.Series;
+using DatumSeries = RaynMaker.Blade.Entities.Series;
 using System.Windows;
 using System.Windows.Controls.DataVisualization;
 using System.Windows.Data;

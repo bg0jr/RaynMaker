@@ -4,10 +4,9 @@ using System.Linq;
 using Moq;
 using NUnit.Framework;
 using RaynMaker.Blade.AnalysisSpec.Providers;
-using RaynMaker.Blade.DataSheetSpec;
-using RaynMaker.Blade.DataSheetSpec.Datums;
 using RaynMaker.Blade.Engine;
 using RaynMaker.Blade.Entities;
+using RaynMaker.Blade.Entities.Datums;
 
 namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
 {

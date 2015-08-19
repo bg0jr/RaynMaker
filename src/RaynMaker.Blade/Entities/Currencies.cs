@@ -3,7 +3,7 @@ using Plainion;
 
 namespace RaynMaker.Blade.Entities
 {
-    public static class Currencies
+    public class Currencies
     {
         public static CurrenciesSheet Sheet { get; set; }
 

@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <AnalysisTemplate xmlns="https://github.com/bg0jr/RaynMaker/Analysis" 
-                  xmlns:d="https://github.com/bg0jr/RaynMaker/Data"
                   xmlns:s="clr-namespace:System;assembly=mscorlib"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:p="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
@@ -16,7 +15,7 @@
         <BarChart Caption="Dividend" Source="${Dividend}" InMillions="True"/>
         
         <Rule Caption="Dividend yield" Operator="Greater" Threshold="2" Source="Fake" Value="${DividendYield}"/>
-        <Rule Caption="Market capitalization" Operator="Greater" Threshold="{d:InMio 500}"  Currency="Euro" Source="Fake" 
+        <Rule Caption="Market capitalization" Operator="Greater" Threshold="{InMio 500}"  Currency="Euro" Source="Fake" 
               Value="${MarketCap}" InMillions="True"/>
 
         <ReferencesSection/>

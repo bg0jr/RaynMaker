@@ -1,16 +1,15 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Windows;
-using System.Windows.Markup;
+using System.Runtime.Serialization;
 using Plainion.Validation;
-using RaynMaker.Blade.Entities;
 
-namespace RaynMaker.Blade.DataSheetSpec
+namespace RaynMaker.Blade.Entities
 {
-    [DefaultProperty( "Asset" ), ContentProperty( "Asset" )]
-    public class DataSheet : DataTemplate, IFreezable
+    [DataContract( Name = "DataSheet", Namespace = "https://github.com/bg0jr/RaynMaker" )]
+    [KnownType( typeof( Asset ) ), KnownType( typeof( Stock ) )]
+    public class DataSheet : IFreezable
     {
+        [DataMember]
         [Required, ValidateObject]
         public Asset Asset { get; set; }
 

@@ -115,7 +115,7 @@
                         <TextBlock Grid.Column="2" Text="Value" VerticalAlignment="Center" Margin="5,0,0,2"/>
                         <TextBox Grid.Column="3" Text="{Binding Price.Value}" Margin="5,0,0,2" />
 
-                        <ComboBox Grid.Column="4" ItemsSource="{Binding DataContext.Currencies, ElementName=_this}" Margin="5,0,0,2" SelectedItem="{Binding Price.Currency}">
+                        <ComboBox Grid.Column="4" ItemsSource="{Binding DataContext.CurrenciesSheet.Currencies, ElementName=_this}" Margin="5,0,0,2" SelectedItem="{Binding Price.Currency}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Name}"/>
@@ -154,7 +154,7 @@
                                                 <TextBlock Grid.Column="2" Text="Value" VerticalAlignment="Center" Margin="5,0,0,2"/>
                                                 <TextBox Grid.Column="3" Text="{Binding Value}" Margin="5,0,0,2" />
 
-                                                <ComboBox Grid.Column="4" ItemsSource="{Binding DataContext.Currencies, ElementName=_this}" Margin="5,0,0,2" Width="95"
+                                                <ComboBox Grid.Column="4" ItemsSource="{Binding DataContext.CurrenciesSheet.Currencies, ElementName=_this}" Margin="5,0,0,2" Width="95"
                                                           SelectedItem="{Binding Currency}" Visibility="{Binding .,Converter={StaticResource CurrencyVisibilityConverter}}">
                                                     <ComboBox.ItemTemplate>
                                                         <DataTemplate>

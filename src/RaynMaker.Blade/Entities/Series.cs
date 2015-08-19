@@ -10,10 +10,9 @@ using Plainion;
 using Plainion.Validation;
 using RaynMaker.Blade.Entities;
 
-namespace RaynMaker.Blade.DataSheetSpec
+namespace RaynMaker.Blade.Entities
 {
     [DataContract( Name = "Series", Namespace = "https://github.com/bg0jr/RaynMaker" )]
-    [DefaultProperty( "Values" ), ContentProperty( "Values" )]
     public class Series : IDatumSeries
     {
         [DataMember( Name = "Values" )]

@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using Plainion.Validation;
 
-namespace RaynMaker.Blade.DataSheetSpec
+namespace RaynMaker.Blade.Entities
 {
     [DataContract( Name = "Stock", Namespace = "https://github.com/bg0jr/RaynMaker" )]
     [KnownType( typeof( Overview ) )]

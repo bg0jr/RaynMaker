@@ -1,23 +1,27 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 using System.Windows;
 using System.Windows.Markup;
 using Plainion.Validation;
 
 namespace RaynMaker.Blade.Entities
 {
-    [DefaultProperty( "Currencies" ), ContentProperty( "Currencies" )]
-    public class CurrenciesSheet : DataTemplate
+    [DataContract( Name = "CurrenciesSheet", Namespace = "https://github.com/bg0jr/RaynMaker" )]
+    [KnownType( typeof( Currency ) )]
+    public class CurrenciesSheet
     {
         public CurrenciesSheet()
         {
             Currencies = new ObservableCollection<Currency>();
         }
 
+        [DataMember]
         [Required, ValidateObject]
         public ObservableCollection<Currency> Currencies { get; private set; }
 
+        [DataMember]
         [Required]
         public int MaxAgeInDays { get; set; }
     }

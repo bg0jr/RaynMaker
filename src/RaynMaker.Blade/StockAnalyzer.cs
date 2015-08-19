@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 using RaynMaker.Blade.AnalysisSpec;
-using RaynMaker.Blade.DataSheetSpec;
+using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Engine;
 using RaynMaker.Blade.Reporting;
 

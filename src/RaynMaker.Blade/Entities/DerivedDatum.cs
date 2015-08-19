@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using RaynMaker.Blade.Entities;
 
-namespace RaynMaker.Blade.DataSheetSpec
+namespace RaynMaker.Blade.Entities
 {
     public class DerivedDatum : IDatum, ICurrencyDatum
     {
