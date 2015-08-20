@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using RaynMaker.Blade.Entities;
 
 namespace RaynMaker.Blade.Entities
 {

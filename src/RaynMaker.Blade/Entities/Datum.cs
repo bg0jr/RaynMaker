@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using Microsoft.Practices.Prism.Mvvm;
-using RaynMaker.Blade.Entities;
 
 namespace RaynMaker.Blade.Entities
 {
