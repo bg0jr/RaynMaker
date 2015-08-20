@@ -15,7 +15,7 @@
             <pn:PopupViewAction WindowWidth="700" WindowHeight="600" prism:RegionManager.RegionName="{x:Static l:RegionNames.CurrenciesView}"/>
         </prism:InteractionRequestTrigger>
         <prism:InteractionRequestTrigger SourceObject="{Binding EditAnalysisTemplateRequest, Mode=OneWay}">
-            <pn:PopupViewAction WindowWidth="1000" WindowHeight="700" prism:RegionManager.RegionName="{x:Static l:RegionNames.AnalysisTemplateEditView}"/>
+            <pn:PopupViewAction WindowWidth="1200" WindowHeight="700" prism:RegionManager.RegionName="{x:Static l:RegionNames.AnalysisTemplateEditView}"/>
         </prism:InteractionRequestTrigger>
         <prism:InteractionRequestTrigger SourceObject="{Binding BrowseDataSheetLocationRequest, Mode=OneWay}">
             <pn:PopupFileDialogAction FileDialogType="{x:Type win32:OpenFileDialog}"/>
