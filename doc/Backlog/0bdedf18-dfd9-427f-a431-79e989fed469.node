@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="0bdedf18-dfd9-427f-a431-79e989fed469" Created="635755916347647134" LastModified="635755917578087511">
-  <Caption><![CDATA[Cleanup Freezable + Validation]]></Caption>
-  <Content><![CDATA[- thereby check which other cleanup can be done on entities
-  (e.g. automatically set Timestamp if value changed on Datum)]]></Content>
-</Node>

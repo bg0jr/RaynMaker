@@ -4,9 +4,6 @@
     <Caption><![CDATA[Planning]]></Caption>
     <Node Id="fd5acae3-64bf-49e6-a0a9-fbf3ac93d484">
       <Caption><![CDATA[Blade]]></Caption>
-      <Node Id="0bdedf18-dfd9-427f-a431-79e989fed469">
-        <Caption><![CDATA[Cleanup Freezable + Validation]]></Caption>
-      </Node>
       <Node Id="592b7c4d-d54f-456e-a668-911cd49bbcc0">
         <Caption><![CDATA[Fetch from internet: currency translation]]></Caption>
       </Node>

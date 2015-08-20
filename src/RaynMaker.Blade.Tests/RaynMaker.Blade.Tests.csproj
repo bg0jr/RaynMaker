@@ -51,6 +51,8 @@
     <Compile Include="Engine\Fakes\FakeFunctions.cs" />
     <Compile Include="Engine\FunctionCallTests.cs" />
     <Compile Include="Engine\TextEvaluatorTests.cs" />
+    <Compile Include="Entities\DatumSeriesTests.cs" />
+    <Compile Include="Fakes\DatumFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

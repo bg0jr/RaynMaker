@@ -5,6 +5,7 @@ using NUnit.Framework;
 using RaynMaker.Blade.AnalysisSpec.Providers;
 using RaynMaker.Blade.Engine;
 using RaynMaker.Blade.Entities;
+using RaynMaker.Blade.Tests.Fakes;
 
 namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
 {
@@ -45,7 +46,7 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         public void ProvideValue_LhsSeriesEmpty_ReturnsMissingData()
         {
             myLhsSeries = DatumSeries.Empty;
-            myRhsSeries = new DatumSeries( typeof( Datum ), CreateDatum( 2015, 1 ) );
+            myRhsSeries = new DatumSeries( typeof( Datum ), DatumFactory.New( 2015, 1 ) );
 
             var result = myProvider.ProvideValue( myContext.Object );
 
@@ -56,7 +57,7 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         [Test]
         public void ProvideValue_RhsSeriesEmpty_ReturnsMissingData()
         {
-            myLhsSeries = new DatumSeries( typeof( Datum ), CreateDatum( 2015, 1 ) );
+            myLhsSeries = new DatumSeries( typeof( Datum ), DatumFactory.New( 2015, 1 ) );
             myRhsSeries = DatumSeries.Empty;
 
             var result = myProvider.ProvideValue( myContext.Object );
@@ -68,8 +69,8 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         [Test]
         public void ProvideValue_RhsHasNoDataForPeriod_ItemSkippedInJoin()
         {
-            myLhsSeries = new DatumSeries( typeof( Datum ), CreateDatum( 2015, 5 ), CreateDatum( 2014, 7 ), CreateDatum( 2013, 87 ) );
-            myRhsSeries = new DatumSeries( typeof( Datum ), CreateDatum( 2015, 23 ), CreateDatum( 2014, 37 ) );
+            myLhsSeries = new DatumSeries( typeof( Datum ), DatumFactory.New( 2015, 5 ), DatumFactory.New( 2014, 7 ), DatumFactory.New( 2013, 87 ) );
+            myRhsSeries = new DatumSeries( typeof( Datum ), DatumFactory.New( 2015, 23 ), DatumFactory.New( 2014, 37 ) );
 
             var result = ( IDatumSeries )myProvider.ProvideValue( myContext.Object );
 
@@ -79,8 +80,8 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         [Test]
         public void ProvideValue_WithValidInputData_JoinReturned()
         {
-            myLhsSeries = new DatumSeries( typeof( Datum ), CreateDatum( 2015, 5 ), CreateDatum( 2014, 7 ) );
-            myRhsSeries = new DatumSeries( typeof( Datum ), CreateDatum( 2015, 23 ), CreateDatum( 2014, 37 ) );
+            myLhsSeries = new DatumSeries( typeof( Datum ), DatumFactory.New( 2015, 5 ), DatumFactory.New( 2014, 7 ) );
+            myRhsSeries = new DatumSeries( typeof( Datum ), DatumFactory.New( 2015, 23 ), DatumFactory.New( 2014, 37 ) );
 
             var result = ( IDatumSeries )myProvider.ProvideValue( myContext.Object );
 
@@ -94,8 +95,8 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         [Test]
         public void ProvideValue_WithPreserveCurrency_CurrencyTakenOverForResult()
         {
-            myLhsSeries = new DatumSeries( typeof( CurrencyDatum ), CreateDatum( 2015, 5, Euro ), CreateDatum( 2014, 7, Euro ) );
-            myRhsSeries = new DatumSeries( typeof( CurrencyDatum ), CreateDatum( 2015, 23, Euro ), CreateDatum( 2014, 37, Euro ) );
+            myLhsSeries = new DatumSeries( typeof( CurrencyDatum ), DatumFactory.New( 2015, 5, Euro ), DatumFactory.New( 2014, 7, Euro ) );
+            myRhsSeries = new DatumSeries( typeof( CurrencyDatum ), DatumFactory.New( 2015, 23, Euro ), DatumFactory.New( 2014, 37, Euro ) );
 
             var result = ( IDatumSeries )myProvider.ProvideValue( myContext.Object );
 
@@ -105,8 +106,8 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         [Test]
         public void ProvideValue_WhenCalled_InputsReferenced()
         {
-            myLhsSeries = new DatumSeries( typeof( CurrencyDatum ), CreateDatum( 2015, 5, Euro ), CreateDatum( 2014, 7, Euro ) );
-            myRhsSeries = new DatumSeries( typeof( CurrencyDatum ), CreateDatum( 2015, 23, Euro ), CreateDatum( 2014, 37, Euro ) );
+            myLhsSeries = new DatumSeries( typeof( CurrencyDatum ), DatumFactory.New( 2015, 5, Euro ), DatumFactory.New( 2014, 7, Euro ) );
+            myRhsSeries = new DatumSeries( typeof( CurrencyDatum ), DatumFactory.New( 2015, 23, Euro ), DatumFactory.New( 2014, 37, Euro ) );
 
             var result = ( IDatumSeries )myProvider.ProvideValue( myContext.Object );
 
@@ -117,32 +118,11 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         [Test]
         public void ProvideValue_InconsistentCurrencies_Throws()
         {
-            myLhsSeries = new DatumSeries( typeof( CurrencyDatum ), CreateDatum( 2015, 5, Euro ), CreateDatum( 2014, 7, Euro ) );
-            myRhsSeries = new DatumSeries( typeof( CurrencyDatum ), CreateDatum( 2015, 23, Dollar ), CreateDatum( 2014, 37, Dollar ) );
+            myLhsSeries = new DatumSeries( typeof( CurrencyDatum ), DatumFactory.New( 2015, 5, Euro ), DatumFactory.New( 2014, 7, Euro ) );
+            myRhsSeries = new DatumSeries( typeof( CurrencyDatum ), DatumFactory.New( 2015, 23, Dollar ), DatumFactory.New( 2014, 37, Dollar ) );
 
             var ex = Assert.Throws<ArgumentException>( () => myProvider.ProvideValue( myContext.Object ) );
             Assert.That( ex.Message, Is.StringContaining( "Currency inconsistencies" ) );
-        }
-
-        private IDatum CreateDatum( int year, double value )
-        {
-            return new Datum
-            {
-                Period = new YearPeriod( year ),
-                Value = value,
-                Source = "Dummy",
-            };
-        }
-
-        private IDatum CreateDatum( int year, double value, Currency currency )
-        {
-            return new CurrencyDatum
-            {
-                Period = new YearPeriod( year ),
-                Value = value,
-                Currency = currency,
-                Source = "Dummy",
-            };
         }
     }
 }
