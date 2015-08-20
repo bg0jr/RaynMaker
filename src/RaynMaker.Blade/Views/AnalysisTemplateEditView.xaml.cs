@@ -12,6 +12,7 @@ using RaynMaker.Blade.ViewModels;
 using System.Linq;
 using System.Collections.Generic;
 using RaynMaker.Blade.Engine;
+using RaynMaker.Blade.AnalysisSpec;
 
 namespace RaynMaker.Blade.Views
 {
@@ -46,6 +47,7 @@ namespace RaynMaker.Blade.Views
 
             myCompletionData = GetType().Assembly.GetTypes()
                 .Where( t => t.GetInterfaces().Any( iface => iface == typeof( IReportElement ) ) )
+                .Concat( new[] { typeof( Row ) } )
                 .Select( t => new KeywordCompletionData( t ) )
                 .ToList();
         }

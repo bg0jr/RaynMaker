@@ -8,7 +8,7 @@ namespace RaynMaker.Blade.Views
     class PropertyCompletionData : AbstractCompletionData
     {
         public PropertyCompletionData( PropertyInfo property )
-            : base( property.Name, property.Name )
+            : base( property.Name, property.PropertyType.Name )
         {
         }
 
