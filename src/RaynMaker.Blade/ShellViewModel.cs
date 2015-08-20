@@ -8,6 +8,7 @@ using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
+using Microsoft.Practices.Prism.Regions;
 using Plainion;
 using Plainion.Prism.Events;
 using Plainion.Prism.Interactivity.InteractionRequest;
@@ -25,7 +26,7 @@ namespace RaynMaker.Blade
         private StorageService myStorageService;
 
         [ImportingConstructor]
-        public ShellViewModel( IEventAggregator eventAggregator, Project project, StorageService storageService )
+        public ShellViewModel( Project project, StorageService storageService )
         {
             Project = project;
             myStorageService = storageService;
@@ -48,8 +49,8 @@ namespace RaynMaker.Blade
             BrowseDataSheetLocationRequest = new InteractionRequest<OpenFileDialogNotification>();
             EditDataSheetCommand = new DelegateCommand( OnEditDataSheet );
             EditDataSheetRequest = new InteractionRequest<INotification>();
-
-            eventAggregator.GetEvent<ApplicationReadyEvent>().Subscribe( o => OnApplicationReady() );
+            
+            ParseCommandLineArgs( Environment.GetCommandLineArgs() );
         }
 
         private void OnProjectPropertyChanged( object sender, PropertyChangedEventArgs e )
@@ -63,11 +64,6 @@ namespace RaynMaker.Blade
         }
 
         public Project Project { get; private set; }
-
-        private void OnApplicationReady()
-        {
-            ParseCommandLineArgs( Environment.GetCommandLineArgs() );
-        }
 
         private void ParseCommandLineArgs( string[] args )
         {

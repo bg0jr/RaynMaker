@@ -44,7 +44,7 @@
                                 <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name}" Margin="5,2,0,0" Width="100" HorizontalAlignment="Left"/>
                                 <Button Grid.Row="0" Grid.Column="1" Command="{Binding DataContext.RemoveCurrencyCommand, ElementName=_this}" CommandParameter="{Binding}" 
                                         HorizontalAlignment="Right" Margin="0,3,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-                                    <Image Source="/Resources/Remove.png" Width="17" Height="17"/>
+                                    <Image Source="/RaynMaker.Blade;Component/Resources/Remove.png" Width="17" Height="17"/>
                                 </Button>
 
                                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Translations" VerticalAlignment="Top" Margin="0,2,0,0"/>
@@ -69,7 +69,7 @@
                                                     <Button Command="{Binding DataContext.RemoveTranslationCommand, ElementName=_this}" 
                                                             CommandParameter="{Binding}" Margin="5,3,0,0" 
                                                             Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-                                                        <Image Source="/Resources/Remove.png" Width="17" Height="17"/>
+                                                        <Image Source="/RaynMaker.Blade;Component/Resources/Remove.png" Width="17" Height="17"/>
                                                     </Button>
                                                 </StackPanel>
                                             </DataTemplate>
@@ -78,7 +78,7 @@
 
                                     <Button Grid.Row="1" Command="{Binding DataContext.AddTranslationCommand, ElementName=_this}" CommandParameter="{Binding}" 
                                             HorizontalAlignment="Left" Margin="0,3,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-                                        <Image Source="/Resources/Add.png" Width="17" Height="17"/>
+                                        <Image Source="/RaynMaker.Blade;Component/Resources/Add.png" Width="17" Height="17"/>
                                     </Button>
                                 </Grid>
                             </Grid>
@@ -89,7 +89,7 @@
 
             <Button Grid.Row="1" Command="{Binding AddCurrencyCommand}" HorizontalAlignment="Right" Margin="0,3,0,0" 
                     Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-                <Image Source="/Resources/Add.png" Width="17" Height="17"/>
+                <Image Source="/RaynMaker.Blade;Component/Resources/Add.png" Width="17" Height="17"/>
             </Button>
         </Grid>
 

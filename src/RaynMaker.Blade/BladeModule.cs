@@ -6,14 +6,18 @@ using RaynMaker.Blade.Views;
 
 namespace RaynMaker.Blade
 {
-    [ModuleExport( typeof( CoreModule ) )]
-    public class CoreModule : IModule
+    [ModuleExport( typeof( BladeModule ) )]
+    public class BladeModule : IModule
     {
         [Import]
         public IRegionManager RegionManager { get; set; }
 
         public void Initialize()
         {
+            RegionManager.RegisterViewWithRegion( RaynMaker.Infrastructure.RegionNames.Tools, typeof( BladeMenuItem ) );
+
+            RegionManager.RegisterViewWithRegion( RegionNames.Shell, typeof( Shell ) );
+
             RegionManager.RegisterViewWithRegion( RegionNames.CurrenciesView, typeof( CurrenciesView ) );
             RegionManager.RegisterViewWithRegion( RegionNames.AnalysisTemplateEditView, typeof( AnalysisTemplateEditView ) );
             RegionManager.RegisterViewWithRegion( RegionNames.DataSheetEditView, typeof( DataSheetEditView ) );

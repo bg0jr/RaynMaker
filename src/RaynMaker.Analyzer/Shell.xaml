@@ -36,6 +36,8 @@
                     <Separator/>
                     <MenuItem Header="_Close" Command="{Binding ProjectLifecycleViewModel.CloseCommand}" InputGestureText="Alt+F4"/>
                 </MenuItem>
+                <MenuItem Header="_Tools" prism:RegionManager.RegionName="{x:Static rym:RegionNames.Tools}">
+                </MenuItem>
                 <MenuItem Header="_Help">
                     <MenuItem Header="About RaynMaker" Command="{Binding AboutCommand}"/>
                 </MenuItem>

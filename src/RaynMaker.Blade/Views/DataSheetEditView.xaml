@@ -79,7 +79,7 @@
                                         <DockPanel LastChildFill="True" HorizontalAlignment="Stretch">
                                             <Button DockPanel.Dock="Right" Command="{Binding DataContext.RemoveReferenceCommand, ElementName=_this}" 
                                             CommandParameter="{Binding}" Margin="5,0,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-                                                <Image Source="/Resources/Remove.png" Width="17" Height="17"/>
+                                                <Image Source="/RaynMaker.Blade;Component/Resources/Remove.png" Width="17" Height="17"/>
                                             </Button>
                                             <TextBox Text="{Binding Url}" Margin="0,0,0,2">
                                                 <i:Interaction.Behaviors>
@@ -92,7 +92,7 @@
                             </ListView>
                             <Button Grid.Row="1" Command="{Binding DataContext.AddReferenceCommand, ElementName=_this}" 
                                             HorizontalAlignment="Left" Margin="0,3,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-                                <Image Source="/Resources/Add.png" Width="17" Height="17"/>
+                                <Image Source="/RaynMaker.Blade;Component/Resources/Add.png" Width="17" Height="17"/>
                             </Button>
                         </Grid>
                     </Grid>

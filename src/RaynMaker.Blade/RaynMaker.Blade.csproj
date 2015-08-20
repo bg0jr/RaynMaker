@@ -7,16 +7,16 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <RootNamespace>RaynMaker.Blade</RootNamespace>
     <AssemblyName>RaynMaker.Blade</AssemblyName>
-    <OutputType>WinExe</OutputType>
+    <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <Prefer32Bit>true</Prefer32Bit>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <Prefer32Bit>true</Prefer32Bit>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.AvalonEdit">
@@ -122,8 +122,7 @@
     <Compile Include="AnalysisSpec\BarChart.cs" />
     <Compile Include="AnalysisSpec\Headline.cs" />
     <Compile Include="AnalysisSpec\TextBlock.cs" />
-    <Compile Include="Bootstrapper.cs" />
-    <Compile Include="CoreModule.cs" />
+    <Compile Include="BladeModule.cs" />
     <Compile Include="Entities\DatumByPeriodComparer.cs" />
     <Compile Include="Entities\Datums\KnownDatums.cs" />
     <Compile Include="Entities\DatumSeriesExtensions.cs" />
@@ -165,6 +164,10 @@
     <Compile Include="Engine\IFigureProvider.cs" />
     <Compile Include="Engine\IReportElement.cs" />
     <Compile Include="Engine\TextEvaluator.cs" />
+    <Compile Include="BladeMenuItem.xaml.cs">
+      <DependentUpon>BladeMenuItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BladeMenuItemModel.cs" />
     <Compile Include="Model\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Currency.cs" />
@@ -201,10 +204,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <Page Include="BladeMenuItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </ApplicationDefinition>
+    </Page>
     <Page Include="Views\DataSheetEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -219,10 +222,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -263,6 +262,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RaynMaker.Infrastructure\RaynMaker.Infrastructure.csproj">
+      <Project>{837addbe-901b-4ed9-9df4-0e259e262167}</Project>
+      <Name>RaynMaker.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
