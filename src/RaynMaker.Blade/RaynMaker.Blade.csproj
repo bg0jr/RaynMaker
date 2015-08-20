@@ -210,6 +210,9 @@
     <Compile Include="Views\DataSheetEditView.xaml.cs">
       <DependentUpon>DataSheetEditView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AbstractCompletionData.cs" />
+    <Compile Include="Views\PropertyCompletionData.cs" />
+    <Compile Include="Views\KeywordCompletionData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="BladeMenuItem.xaml">

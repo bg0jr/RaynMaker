@@ -21,7 +21,7 @@ namespace RaynMaker.Blade.Views
         private FoldingManager myFoldingManager;
         private XmlFoldingStrategy myFoldingStrategy;
         private CompletionWindow myCompletionWindow;
-        private IEnumerable<CompletionData> myCompletionData;
+        private IEnumerable<KeywordCompletionData> myCompletionData;
 
         [ImportingConstructor]
         internal AnalysisTemplateEditView( AnalysisTemplateEditViewModel viewModel )
@@ -35,6 +35,9 @@ namespace RaynMaker.Blade.Views
 
         private void OnLoaded( object sender, RoutedEventArgs e )
         {
+            myTextEditor.Options.IndentationSize = 4;
+            myTextEditor.Options.ConvertTabsToSpaces = true;
+
             myTextEditor.Document.TextChanged += OnTextChanged;
             OnTextChanged( null, null );
 
@@ -43,7 +46,7 @@ namespace RaynMaker.Blade.Views
 
             myCompletionData = GetType().Assembly.GetTypes()
                 .Where( t => t.GetInterfaces().Any( iface => iface == typeof( IReportElement ) ) )
-                .Select( t => new CompletionData( t.Name, t.Name ) )
+                .Select( t => new KeywordCompletionData( t ) )
                 .ToList();
         }
 
@@ -78,56 +81,88 @@ namespace RaynMaker.Blade.Views
         {
             if( e.Text == "<" )
             {
-                myCompletionWindow = new CompletionWindow( myTextEditor.TextArea );
-
-                var data = myCompletionWindow.CompletionList.CompletionData;
-                foreach( var item in myCompletionData )
-                {
-                    data.Add( item );
-                }
-                myCompletionWindow.Show();
-                myCompletionWindow.Closed += delegate
-                {
-                    myCompletionWindow = null;
-                };
+                HandleKeywordCompletion();
             }
-            else if( e.Text == ">" && myTextEditor.Document.GetCharAt( myTextEditor.CaretOffset - 2 ) != '/' )
+            else if( e.Text == ">" )
             {
-                var currentLine = myTextEditor.Document.GetLineByOffset( myTextEditor.CaretOffset );
-                var pos = myTextEditor.Document.LastIndexOf( '<', currentLine.Offset, myTextEditor.CaretOffset - currentLine.Offset );
-                var xmlTag = myTextEditor.Document.Text.Substring( pos + 1, myTextEditor.CaretOffset - pos - 2 );
-
-                var oldCaretOffset = myTextEditor.CaretOffset;
-
-                myTextEditor.Document.Insert( myTextEditor.CaretOffset, "</" + xmlTag + ">" );
-
-                myTextEditor.CaretOffset = oldCaretOffset;
+                HandleTagClosing();
+            }
+            else if( e.Text == " " )
+            {
+                HandlePropertyCompletion();
             }
         }
 
-        public class CompletionData : ICompletionData
+        private void HandleKeywordCompletion()
         {
-            public CompletionData( string text, string description )
+            ShowCompletionWindow( myCompletionData );
+        }
+
+        private void ShowCompletionWindow( IEnumerable<ICompletionData> competionItems )
+        {
+            myCompletionWindow = new CompletionWindow( myTextEditor.TextArea );
+
+            var data = myCompletionWindow.CompletionList.CompletionData;
+            foreach( var item in competionItems )
             {
-                Text = text;
-                Description = description;
+                data.Add( item );
+            }
+            myCompletionWindow.Show();
+            myCompletionWindow.Closed += delegate
+            {
+                myCompletionWindow = null;
+            };
+        }
+
+        private void HandleTagClosing()
+        {
+            if( myTextEditor.Document.GetCharAt( myTextEditor.CaretOffset - 2 ) == '/' )
+            {
+                return;
             }
 
-            public ImageSource Image { get { return null; } }
+            var currentLine = myTextEditor.Document.GetLineByOffset( myTextEditor.CaretOffset );
+            var lastOpenedTagPos = myTextEditor.Document.LastIndexOf( '<', currentLine.Offset, myTextEditor.CaretOffset - currentLine.Offset );
+            var spaceAfterOpenedTagPos = myTextEditor.Document.IndexOf( ' ', lastOpenedTagPos, myTextEditor.CaretOffset - lastOpenedTagPos );
+            var xmlTag = myTextEditor.Document.Text.Substring( lastOpenedTagPos + 1, spaceAfterOpenedTagPos - lastOpenedTagPos - 1 );
 
-            public string Text { get; private set; }
+            var oldCaretOffset = myTextEditor.CaretOffset;
 
-            // Use this property if you want to show a fancy UIElement in the list.
-            public object Content { get { return Text; } }
+            myTextEditor.Document.Insert( myTextEditor.CaretOffset, "</" + xmlTag + ">" );
 
-            public object Description { get; private set; }
+            myTextEditor.CaretOffset = oldCaretOffset;
+        }
 
-            public void Complete( TextArea textArea, ISegment completionSegment, EventArgs insertionRequestEventArgs )
+        private void HandlePropertyCompletion()
+        {
+            var lastClosedTagPos = myTextEditor.Document.LastIndexOf( '>', 0, myTextEditor.CaretOffset );
+            if( lastClosedTagPos < 0 )
             {
-                textArea.Document.Replace( completionSegment, this.Text );
+                lastClosedTagPos = 0;
             }
 
-            public double Priority { get { return 0; } }
+            var lastOpenedTagPos = myTextEditor.Document.LastIndexOf( '<', lastClosedTagPos, myTextEditor.CaretOffset - lastClosedTagPos );
+            if( lastOpenedTagPos < 0 )
+            {
+                return;
+            }
+
+            var spaceAfterOpenedTagPos = myTextEditor.Document.IndexOf( ' ', lastOpenedTagPos, myTextEditor.CaretOffset - lastOpenedTagPos );
+            if( spaceAfterOpenedTagPos < 0 )
+            {
+                return;
+            }
+
+            var xmlTag = myTextEditor.Document.Text.Substring( lastOpenedTagPos + 1, spaceAfterOpenedTagPos - lastOpenedTagPos - 1 );
+            var completionData = myCompletionData.SingleOrDefault( d => d.Type.Name == xmlTag );
+            if( completionData == null )
+            {
+                return;
+            }
+
+            var completionItems = completionData.Type.GetProperties()
+                .Select( p => new PropertyCompletionData( p ) );
+            ShowCompletionWindow( completionItems );
         }
     }
 }
