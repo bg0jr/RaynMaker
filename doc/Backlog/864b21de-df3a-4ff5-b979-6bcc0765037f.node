@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="864b21de-df3a-4ff5-b979-6bcc0765037f" Created="635756766316733034" LastModified="635756766608869743">
+<Node Id="864b21de-df3a-4ff5-b979-6bcc0765037f" Created="635756766316733034" LastModified="635756788893524353">
   <Caption><![CDATA[Migrate from datacontracts to EF]]></Caption>
-  <Content><![CDATA[- remove datahseets
-- start with currency]]></Content>
+  <Content><![CDATA[]]></Content>
 </Node>

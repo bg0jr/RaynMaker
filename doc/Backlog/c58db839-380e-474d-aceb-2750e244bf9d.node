@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="c58db839-380e-474d-aceb-2750e244bf9d" Created="635756788185163837" LastModified="635756788418897205">
+  <Caption><![CDATA[put sheet locations into Analyzer project for now]]></Caption>
+  <Content><![CDATA[to get rid of commandline handling in module]]></Content>
+</Node>

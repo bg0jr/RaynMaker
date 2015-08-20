@@ -6,11 +6,20 @@
       <Caption><![CDATA[Blade]]></Caption>
       <Node Id="85273046-88e8-4d31-b5a7-f643ac74106c">
         <Caption><![CDATA[Migrate to "analyzer"]]></Caption>
-        <Node Id="0781004a-f0a8-42fe-993c-4df6994ecc56">
-          <Caption><![CDATA[Convert from exe to dll and bring it in as tool]]></Caption>
+        <Node Id="c58db839-380e-474d-aceb-2750e244bf9d">
+          <Caption><![CDATA[put sheet locations into Analyzer project for now]]></Caption>
         </Node>
         <Node Id="864b21de-df3a-4ff5-b979-6bcc0765037f">
           <Caption><![CDATA[Migrate from datacontracts to EF]]></Caption>
+          <Node Id="7e861ae0-8c7a-494d-af7e-0bfb3f96cbf2">
+            <Caption><![CDATA[Currencies]]></Caption>
+          </Node>
+          <Node Id="f929e336-594e-463e-b816-616d4519dae6">
+            <Caption><![CDATA[AnalysisTemplate]]></Caption>
+          </Node>
+          <Node Id="b14d6e8e-2702-42c9-ac5d-0e3715f05664">
+            <Caption><![CDATA[DataSheet]]></Caption>
+          </Node>
         </Node>
         <Node Id="fbe68a1d-e58c-4f79-b590-765d73594cbf">
           <Caption><![CDATA[Finally remove "Blade" module]]></Caption>
