@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="fbe68a1d-e58c-4f79-b590-765d73594cbf" Created="635756766617940262" LastModified="635756766810881298">
+  <Caption><![CDATA[Finally remove "Blade" module]]></Caption>
+  <Content><![CDATA[- and put everything in the other modules]]></Content>
+</Node>

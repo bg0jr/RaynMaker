@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="25d92fe4-3ee9-4c53-997b-1e0f9c01f114" Created="635755634407658398" LastModified="635755634754458234">
+<Node Id="25d92fe4-3ee9-4c53-997b-1e0f9c01f114" Created="635755634407658398" LastModified="635756765372499027">
   <Caption><![CDATA[Refactor datasheet editor]]></Caption>
-  <Content><![CDATA[- simplify xaml
-- provide selection for sources to avoid copy and paste]]></Content>
+  <Content><![CDATA[- provide selection for sources to avoid copy and paste]]></Content>
 </Node>
