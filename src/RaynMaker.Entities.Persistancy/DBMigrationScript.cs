@@ -13,6 +13,7 @@ namespace RaynMaker.Entities.Persistancy
             Migrations = new Dictionary<int, IList<string>>();
 
             MigrationVersion1();
+            MigrationVersion2();
         }
 
         public Dictionary<int, IList<string>> Migrations { get; set; }
@@ -42,6 +43,20 @@ CREATE TABLE Stocks (
 )" );
 
             Migrations.Add( 1, steps );
+        }
+
+        private void MigrationVersion2()
+        {
+            var steps = new List<string>();
+
+            steps.Add( @"
+CREATE TABLE AnalysisTemplates (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name TEXT NOT NULL,
+    Template TEXT NOT NULL
+)" );
+
+            Migrations.Add( 2, steps );
         }
     }
 }

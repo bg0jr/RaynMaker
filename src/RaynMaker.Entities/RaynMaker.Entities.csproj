@@ -34,7 +34,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnalysisTemplate.cs" />
     <Compile Include="Company.cs" />
+    <Compile Include="IAnalysisContext.cs" />
     <Compile Include="IContextFactory.cs" />
     <Compile Include="IAssetsContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
