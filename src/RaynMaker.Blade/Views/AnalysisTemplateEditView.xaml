@@ -12,10 +12,11 @@
             <Button Content="Cancel" Command="{Binding CancelCommand}" Margin="5,0,0,0" Width="50"/>
         </StackPanel>
         <avalonEdit:TextEditor
-            Name="textEditor"
+            Name="myTextEditor"
             FontFamily="Consolas"
             SyntaxHighlighting="XML" 
             Document="{Binding Document}"
+            ShowLineNumbers="True"
             FontSize="10pt"/>
     </DockPanel>
 </UserControl>
