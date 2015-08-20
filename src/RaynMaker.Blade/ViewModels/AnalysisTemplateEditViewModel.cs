@@ -26,23 +26,11 @@ namespace RaynMaker.Blade.ViewModels
             myProject = project;
             myStorageService = storageService;
 
-            PropertyChangedEventManager.AddHandler( myProject, OnProjectPropertyChanged,
-                PropertySupport.ExtractPropertyName( () => myProject.AnalysisTemplateLocation ) );
-            OnProjectPropertyChanged( null, null );
+            Document = new TextDocument();
+            Document.Text = myStorageService.LoadAnalysisTemplateText();
 
             OkCommand = new DelegateCommand( OnOk );
             CancelCommand = new DelegateCommand( OnCancel );
-        }
-
-        private void OnProjectPropertyChanged( object sender, PropertyChangedEventArgs e )
-        {
-            if( string.IsNullOrEmpty( myProject.AnalysisTemplateLocation ) || !File.Exists( myProject.AnalysisTemplateLocation ) )
-            {
-                return;
-            }
-
-            Document = new TextDocument();
-            Document.Text = myStorageService.LoadAnalysisTemplate( myProject.AnalysisTemplateLocation );
         }
 
         public Action FinishInteraction { get; set; }
@@ -61,9 +49,9 @@ namespace RaynMaker.Blade.ViewModels
         {
             if( Document != null )
             {
-                myStorageService.SaveCurrencies( Document.Text, myProject.AnalysisTemplateLocation );
+                myStorageService.SaveAnalysisTemplate( Document.Text );
             }
-            
+
             FinishInteraction();
         }
 

@@ -2,15 +2,11 @@
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.IO;
-using System.Text;
+using System.Linq;
 using System.Windows;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
-using Microsoft.Practices.Prism.PubSubEvents;
-using Microsoft.Practices.Prism.Regions;
-using Plainion;
-using Plainion.Prism.Events;
 using Plainion.Prism.Interactivity.InteractionRequest;
 using Plainion.Xaml;
 using RaynMaker.Blade.AnalysisSpec;
@@ -43,8 +39,6 @@ namespace RaynMaker.Blade
             EditCurrenciesSheetCommand = new DelegateCommand( OnEditCurrencies );
             EditCurrenciesSheetRequest = new InteractionRequest<INotification>();
 
-            BrowseAnalysisTemplateLocationCommand = new DelegateCommand( OnBrowseAnalysisTemplateLocation );
-            BrowseAnalysisTemplateLocationRequest = new InteractionRequest<OpenFileDialogNotification>();
             EditAnalysisTemplateCommand = new DelegateCommand( OnEditAnalysisTemplate );
             EditAnalysisTemplateRequest = new InteractionRequest<INotification>();
 
@@ -67,8 +61,7 @@ namespace RaynMaker.Blade
 
         private void OnProjectPropertyChanged( object sender, PropertyChangedEventArgs e )
         {
-            if( e.PropertyName == PropertySupport.ExtractPropertyName( () => Project.AnalysisTemplateLocation ) ||
-                e.PropertyName == PropertySupport.ExtractPropertyName( () => Project.CurrenciesSheetLocation ) ||
+            if( e.PropertyName == PropertySupport.ExtractPropertyName( () => Project.CurrenciesSheetLocation ) ||
                 e.PropertyName == PropertySupport.ExtractPropertyName( () => Project.DataSheetLocation ) )
             {
                 GoCommand.RaiseCanExecuteChanged();
@@ -82,7 +75,7 @@ namespace RaynMaker.Blade
         private bool CanGo()
         {
             return myProjectHost.Project != null
-                && Exists( Project.CurrenciesSheetLocation ) && Exists( Project.AnalysisTemplateLocation ) && Exists( Project.DataSheetLocation );
+                && Exists( Project.CurrenciesSheetLocation ) && Exists( Project.DataSheetLocation );
         }
 
         private bool Exists( string path )
@@ -92,9 +85,7 @@ namespace RaynMaker.Blade
 
         private void OnGo()
         {
-            var reader = new ValidatingXamlReader();
-
-            var analysisTemplate = reader.Read<AnalysisTemplate>( Project.AnalysisTemplateLocation );
+            var analysisTemplate = myStorageService.LoadAnalysisTemplate();
             var dataSheet = myStorageService.LoadDataSheet( Project.DataSheetLocation );
 
             if( dataSheet.Asset is Stock )
@@ -141,28 +132,6 @@ namespace RaynMaker.Blade
         }
 
         public InteractionRequest<INotification> EditCurrenciesSheetRequest { get; private set; }
-
-        public DelegateCommand BrowseAnalysisTemplateLocationCommand { get; private set; }
-
-        private void OnBrowseAnalysisTemplateLocation()
-        {
-            var notification = new OpenFileDialogNotification();
-            notification.RestoreDirectory = true;
-            notification.Filter = "XAML files (*.xaml)|*.xaml";
-            notification.FilterIndex = 0;
-            notification.MultiSelect = false;
-
-            BrowseAnalysisTemplateLocationRequest.Raise( notification,
-                n =>
-                {
-                    if( n.Confirmed )
-                    {
-                        Project.AnalysisTemplateLocation = n.FileName;
-                    }
-                } );
-        }
-
-        public InteractionRequest<OpenFileDialogNotification> BrowseAnalysisTemplateLocationRequest { get; private set; }
 
         public DelegateCommand EditAnalysisTemplateCommand { get; private set; }
 

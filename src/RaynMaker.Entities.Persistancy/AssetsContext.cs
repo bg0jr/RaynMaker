@@ -7,11 +7,6 @@ namespace RaynMaker.Entities.Persistancy
 {
     class AssetsContext : DbContext, IAssetsContext
     {
-        static AssetsContext()
-        {
-            DbConfiguration.SetConfiguration( new SQLiteConfiguration() );
-        }
-
         public AssetsContext( string path )
             : base( GetConnection( path ), true )
         {

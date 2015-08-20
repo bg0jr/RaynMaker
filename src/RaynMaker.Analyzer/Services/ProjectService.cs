@@ -22,10 +22,10 @@ namespace RaynMaker.Analyzer.Services
                 Directory.CreateDirectory( project.StorageRoot );
             }
 
-            var storage = new DatabaseService( project.EntitiesSource );
-            storage.Initialize();
+            myDbService = new DatabaseService( project.DatabaseSource );
+            myDbService.Initialize();
 
-            project.SetAssetsContextFactory( storage );
+            project.SetContextFactory( myDbService );
         }
 
         protected override Project Deserialize( string file, IProgress<IProgressInfo> progress, CancellationToken cancellationToken )
@@ -46,10 +46,10 @@ namespace RaynMaker.Analyzer.Services
                 }
             }
 
-            myDbService = new DatabaseService( project.EntitiesSource );
+            myDbService = new DatabaseService( project.DatabaseSource );
             myDbService.Initialize();
 
-            project.SetAssetsContextFactory( myDbService );
+            project.SetContextFactory( myDbService );
 
             return project;
         }

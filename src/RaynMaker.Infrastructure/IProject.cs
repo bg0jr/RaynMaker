@@ -8,6 +8,8 @@ namespace RaynMaker.Infrastructure
     {
         IAssetsContext GetAssetsContext();
 
+        IAnalysisContext GetAnalysisContext();
+
         /// <summary>
         /// Temporary solution to store kind of "user data"
         /// </summary>

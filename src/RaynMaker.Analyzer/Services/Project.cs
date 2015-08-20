@@ -12,6 +12,7 @@ namespace RaynMaker.Analyzer.Services
     {
         private IContextFactory myContextFactory;
         private IAssetsContext myAssetsContext;
+        private IAnalysisContext myAnalysisContext;
         private Dictionary<string, string> myUserData;
 
         public Project()
@@ -21,19 +22,19 @@ namespace RaynMaker.Analyzer.Services
 
         public string StorageRoot { get; private set; }
 
-        public string EntitiesSource { get; private set; }
+        public string DatabaseSource { get; private set; }
 
         protected override void OnLocationChanged()
         {
             Contract.RequiresNotNullNotEmpty( Location, "Location" );
 
             StorageRoot = Path.Combine( Path.GetDirectoryName( Location ), ".rym-" + Path.GetFileNameWithoutExtension( Location ) );
-            EntitiesSource = Path.Combine( StorageRoot, "db.sqlite" );
+            DatabaseSource = Path.Combine( StorageRoot, "db.sqlite" );
 
             base.OnLocationChanged();
         }
 
-        public void SetAssetsContextFactory( IContextFactory factory )
+        public void SetContextFactory( IContextFactory factory )
         {
             Contract.RequiresNotNull( factory, "factory" );
 
@@ -50,17 +51,35 @@ namespace RaynMaker.Analyzer.Services
             return myAssetsContext;
         }
 
+        public IAnalysisContext GetAnalysisContext()
+        {
+            if( myAnalysisContext == null )
+            {
+                myAnalysisContext = myContextFactory.CreateAnalysisContext();
+            }
+
+            return myAnalysisContext;
+        }
+
         public void Dispose()
         {
-            if( myAssetsContext != null )
+            DestroyContext( ref myAssetsContext );
+            DestroyContext( ref myAnalysisContext );
+        }
+
+        private void DestroyContext<T>( ref T context ) where T : class
+        {
+            if( context == null )
             {
-                var disposable = myAssetsContext as IDisposable;
-                if( disposable != null )
-                {
-                    disposable.Dispose();
-                }
-                myAssetsContext = null;
+                return;
             }
+
+            var disposable = context as IDisposable;
+            if( disposable != null )
+            {
+                disposable.Dispose();
+            }
+            context = null;
         }
 
         public IDictionary<string, string> UserData { get { return myUserData; } }

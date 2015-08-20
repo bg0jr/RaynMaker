@@ -12,6 +12,6 @@ namespace RaynMaker.Entities
         public string Name { get; set; }
 
         [Required]
-        public string Text { get; set; }
+        public string Template { get; set; }
     }
 }

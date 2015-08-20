@@ -7,15 +7,10 @@ namespace RaynMaker.Entities.Persistancy
 {
     class AnalysisContext : DbContext, IAnalysisContext
     {
-        static AnalysisContext()
-        {
-            DbConfiguration.SetConfiguration( new SQLiteConfiguration() );
-        }
-
         public AnalysisContext( string path )
             : base( GetConnection( path ), true )
         {
-            Database.SetInitializer<AssetsContext>( null );
+            Database.SetInitializer<AnalysisContext>( null );
         }
 
         private static DbConnection GetConnection( string path )

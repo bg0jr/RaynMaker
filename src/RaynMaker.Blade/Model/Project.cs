@@ -11,7 +11,6 @@ namespace RaynMaker.Blade.Model
     {
         private IProjectHost myProjectHost;
         private string myCurrenciesSheetLocation;
-        private string myAnalysisTemplateLocation;
         private string myDataSheetLocation;
         private CurrenciesSheet myCurrenciesSheet;
 
@@ -25,7 +24,6 @@ namespace RaynMaker.Blade.Model
         void myProjectHost_Changed()
         {
             OnPropertyChanged( () => CurrenciesSheetLocation );
-            OnPropertyChanged( () => AnalysisTemplateLocation );
             OnPropertyChanged( () => DataSheetLocation );
         }
 
@@ -52,30 +50,6 @@ namespace RaynMaker.Blade.Model
                 if( SetProperty( ref myCurrenciesSheetLocation, value != null ? value.Trim() : value ) )
                 {
                     myProjectHost.Project.UserData[ "CurrenciesSheetLocation" ] = myCurrenciesSheetLocation;
-                    myProjectHost.Project.IsDirty = true;
-                }
-            }
-        }
-
-        public string AnalysisTemplateLocation
-        {
-            get
-            {
-                if( myProjectHost.Project == null )
-                {
-                    return null;
-                }
-                if( myAnalysisTemplateLocation == null && myProjectHost.Project.UserData.ContainsKey( "AnalysisTemplateLocation" ) )
-                {
-                    myAnalysisTemplateLocation = myProjectHost.Project.UserData[ "AnalysisTemplateLocation" ];
-                }
-                return myAnalysisTemplateLocation;
-            }
-            set
-            {
-                if( SetProperty( ref myAnalysisTemplateLocation, value != null ? value.Trim() : value ) )
-                {
-                    myProjectHost.Project.UserData[ "AnalysisTemplateLocation" ] = myAnalysisTemplateLocation;
                     myProjectHost.Project.IsDirty = true;
                 }
             }

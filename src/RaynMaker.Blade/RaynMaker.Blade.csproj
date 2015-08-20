@@ -19,6 +19,14 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.AvalonEdit">
       <HintPath>..\..\packages\AvalonEdit.5.0.2\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
@@ -208,6 +216,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <EmbeddedResource Include="Resources\Analysis.xaml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Page Include="Views\DataSheetEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -264,6 +275,10 @@
     <Resource Include="Resources\Edit.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RaynMaker.Entities\RaynMaker.Entities.csproj">
+      <Project>{0b9b8ac3-da99-4264-9d59-382adee06fd9}</Project>
+      <Name>RaynMaker.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RaynMaker.Infrastructure\RaynMaker.Infrastructure.csproj">
       <Project>{837addbe-901b-4ed9-9df4-0e259e262167}</Project>
       <Name>RaynMaker.Infrastructure</Name>

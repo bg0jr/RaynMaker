@@ -1,4 +1,5 @@
-﻿using System.Data.SQLite;
+﻿using System.Data.Entity;
+using System.Data.SQLite;
 using System.IO;
 using System.Linq;
 using Plainion;
@@ -9,6 +10,11 @@ namespace RaynMaker.Entities.Persistancy
     {
         private const int RequiredDatabaseVersion = 2;
         private static bool myIsInitialized;
+
+        static DatabaseService()
+        {
+            DbConfiguration.SetConfiguration( new SQLiteConfiguration() );
+        }
 
         public DatabaseService( string location )
         {
