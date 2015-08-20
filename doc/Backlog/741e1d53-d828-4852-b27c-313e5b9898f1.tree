@@ -6,9 +6,6 @@
       <Caption><![CDATA[Blade]]></Caption>
       <Node Id="85273046-88e8-4d31-b5a7-f643ac74106c">
         <Caption><![CDATA[Migrate to "analyzer"]]></Caption>
-        <Node Id="c58db839-380e-474d-aceb-2750e244bf9d">
-          <Caption><![CDATA[put sheet locations into Analyzer project for now]]></Caption>
-        </Node>
         <Node Id="864b21de-df3a-4ff5-b979-6bcc0765037f">
           <Caption><![CDATA[Migrate from datacontracts to EF]]></Caption>
           <Node Id="7e861ae0-8c7a-494d-af7e-0bfb3f96cbf2">
