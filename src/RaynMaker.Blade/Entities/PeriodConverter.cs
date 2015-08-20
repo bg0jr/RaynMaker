@@ -47,6 +47,11 @@ namespace RaynMaker.Blade.Entities
 
         public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
         {
+            if( value == null )
+            {
+                return null;
+            }
+
             var yearPeriod = value as YearPeriod;
             if( yearPeriod != null )
             {

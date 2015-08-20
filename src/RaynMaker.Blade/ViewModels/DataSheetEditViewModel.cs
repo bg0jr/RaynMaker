@@ -53,7 +53,6 @@ namespace RaynMaker.Blade.ViewModels
             if( File.Exists( Project.DataSheetLocation ) )
             {
                 Sheet = myStorageService.LoadDataSheet( Project.DataSheetLocation );
-                Sheet.Freeze();
             }
             else
             {
@@ -73,8 +72,7 @@ namespace RaynMaker.Blade.ViewModels
             var price = myStock.SeriesOf( typeof( Price ) ).Current<Price>();
             if( price == null )
             {
-                var series = new Series( new Price() );
-                series.Freeze();
+                var series = new DatumSeries( typeof( Price ), new Price() );
                 myStock.Data.Add( series );
             }
 
@@ -82,15 +80,11 @@ namespace RaynMaker.Blade.ViewModels
 
             foreach( var type in KnownDatums.AllExceptPrice )
             {
-                var series = ( Series )myStock.SeriesOf( type );
+                var series = ( DatumSeries )myStock.SeriesOf( type );
                 if( series == null )
                 {
-                    series = new Series();
+                    series = new DatumSeries( type );
                     myStock.Data.Add( series );
-                }
-                else
-                {
-                    series.Unfreeze();
                 }
 
                 // TODO: today we only support yearly values here
@@ -112,11 +106,9 @@ namespace RaynMaker.Blade.ViewModels
                             currencyDatum.Currency = series.Currency;
                         }
 
-                        series.Values.Add( datum );
+                        series.Add( datum );
                     }
                 }
-
-                series.Freeze();
             }
         }
 
@@ -138,22 +130,17 @@ namespace RaynMaker.Blade.ViewModels
             // and handle deserialization separately
             // TODO: change "IFreezable" to "Validation" -  what is EF validation approach?
 
-            foreach( Series series in Sheet.Asset.Data.ToList() )
+            foreach( DatumSeries series in Sheet.Asset.Data.ToList() )
             {
-                series.Unfreeze();
                 foreach( var value in series.ToList() )
                 {
                     if( !value.Value.HasValue )
                     {
-                        series.Values.Remove( value );
+                        series.Remove( value );
                     }
                 }
 
-                if( series.Values.Any() )
-                {
-                    series.Freeze();
-                }
-                else
+                if( !series.Any() )
                 {
                     Sheet.Asset.Data.Remove( series );
                 }

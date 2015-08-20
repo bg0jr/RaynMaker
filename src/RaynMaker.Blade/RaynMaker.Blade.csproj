@@ -124,10 +124,10 @@
     <Compile Include="AnalysisSpec\TextBlock.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="CoreModule.cs" />
+    <Compile Include="Entities\DatumByPeriodComparer.cs" />
     <Compile Include="Entities\Datums\KnownDatums.cs" />
     <Compile Include="Entities\DatumSeriesExtensions.cs" />
     <Compile Include="Entities\IDatumSeries.cs" />
-    <Compile Include="Entities\IFreezable.cs" />
     <Compile Include="Entities\PeriodConverter.cs" />
     <Compile Include="Entities\CurrencyDatum.cs" />
     <Compile Include="Entities\DayPeriod.cs" />
@@ -171,7 +171,7 @@
     <Compile Include="Entities\CurrencyConverter.cs" />
     <Compile Include="Entities\Datum.cs" />
     <Compile Include="Entities\Datums\Dividend.cs" />
-    <Compile Include="Entities\Series.cs" />
+    <Compile Include="Entities\DatumSeries.cs" />
     <Compile Include="Entities\Overview.cs" />
     <Compile Include="Entities\Asset.cs" />
     <Compile Include="Entities\DataSheet.cs" />

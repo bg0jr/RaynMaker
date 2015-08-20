@@ -8,7 +8,7 @@ using Plainion.Validation;
 namespace RaynMaker.Blade.Entities
 {
     [DataContract( Name = "Asset", Namespace = "https://github.com/bg0jr/RaynMaker" )]
-    [KnownType( typeof( Series ) )]
+    [KnownType( typeof( DatumSeries ) )]
     public abstract class Asset
     {
         public Asset()

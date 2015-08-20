@@ -102,7 +102,7 @@ namespace RaynMaker.Blade.Engine
 
         public IDatumSeries GetSeries( string name )
         {
-            return ( IDatumSeries )ProvideValueInternal( name ) ?? Series.Empty;
+            return ( IDatumSeries )ProvideValueInternal( name ) ?? DatumSeries.Empty;
         }
 
         object IExpressionEvaluationContext.ProvideValue( string name )

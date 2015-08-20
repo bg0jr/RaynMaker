@@ -13,7 +13,7 @@ namespace RaynMaker.Blade.Tests.Engine.Fakes
 
         public IDatumSeries GetSeries( string name )
         {
-            return Series.Empty;
+            return DatumSeries.Empty;
         }
     }
 }

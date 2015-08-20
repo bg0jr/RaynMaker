@@ -56,7 +56,7 @@ namespace RaynMaker.Blade.AnalysisSpec
             {
                 row = new TableRow();
 
-                var series = ( IDatumSeries )context.ProvideValue( dataRow.Value ) ?? Series.Empty;
+                var series = ( IDatumSeries )context.ProvideValue( dataRow.Value ) ?? DatumSeries.Empty;
 
                 var cell = row.Cell( GetHeader( dataRow, series ) );
                 cell.TextAlignment = TextAlignment.Left;

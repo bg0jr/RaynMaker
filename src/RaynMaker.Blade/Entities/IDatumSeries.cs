@@ -4,7 +4,7 @@ using RaynMaker.Blade.Entities;
 
 namespace RaynMaker.Blade.Entities
 {
-    public interface IDatumSeries : IReadOnlyCollection<IDatum>, IFreezable
+    public interface IDatumSeries : IReadOnlyCollection<IDatum>
     {
         string Name { get; }
 

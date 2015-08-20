@@ -44,9 +44,8 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         [Test]
         public void ProvideValue_LhsSeriesEmpty_ReturnsMissingData()
         {
-            myLhsSeries = Series.Empty;
-            myRhsSeries = new Series( CreateDatum( 2015, 1 ) );
-            myRhsSeries.Freeze();
+            myLhsSeries = DatumSeries.Empty;
+            myRhsSeries = new DatumSeries( typeof( Datum ), CreateDatum( 2015, 1 ) );
 
             var result = myProvider.ProvideValue( myContext.Object );
 
@@ -57,9 +56,8 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         [Test]
         public void ProvideValue_RhsSeriesEmpty_ReturnsMissingData()
         {
-            myLhsSeries = new Series( CreateDatum( 2015, 1 ) );
-            myLhsSeries.Freeze();
-            myRhsSeries = Series.Empty;
+            myLhsSeries = new DatumSeries( typeof( Datum ), CreateDatum( 2015, 1 ) );
+            myRhsSeries = DatumSeries.Empty;
 
             var result = myProvider.ProvideValue( myContext.Object );
 
@@ -68,33 +66,10 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         }
 
         [Test]
-        public void ProvideValue_LhsNotFrozen_Throws()
-        {
-            myLhsSeries = new Series( CreateDatum( 2015, 1 ) );
-            myRhsSeries = Series.Empty;
-
-            var ex = Assert.Throws<ArgumentException>( () => myProvider.ProvideValue( myContext.Object ) );
-            Assert.That( ex.Message, Is.StringContaining( "not frozen" ).And.StringContaining( LhsSeriesName ) );
-        }
-
-        [Test]
-        public void ProvideValue_RhsNotFrozen_Throws()
-        {
-            myLhsSeries = new Series( CreateDatum( 2015, 1 ) );
-            myLhsSeries.Freeze();
-            myRhsSeries = new Series( CreateDatum( 2015, 1 ) );
-
-            var ex = Assert.Throws<ArgumentException>( () => myProvider.ProvideValue( myContext.Object ) );
-            Assert.That( ex.Message, Is.StringContaining( "not frozen" ).And.StringContaining( RhsSeriesName ) );
-        }
-
-        [Test]
         public void ProvideValue_RhsHasNoDataForPeriod_ItemSkippedInJoin()
         {
-            myLhsSeries = new Series( CreateDatum( 2015, 5 ), CreateDatum( 2014, 7 ), CreateDatum( 2013, 87 ) );
-            myLhsSeries.Freeze();
-            myRhsSeries = new Series( CreateDatum( 2015, 23 ), CreateDatum( 2014, 37 ) );
-            myRhsSeries.Freeze();
+            myLhsSeries = new DatumSeries( typeof( Datum ), CreateDatum( 2015, 5 ), CreateDatum( 2014, 7 ), CreateDatum( 2013, 87 ) );
+            myRhsSeries = new DatumSeries( typeof( Datum ), CreateDatum( 2015, 23 ), CreateDatum( 2014, 37 ) );
 
             var result = ( IDatumSeries )myProvider.ProvideValue( myContext.Object );
 
@@ -104,10 +79,8 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         [Test]
         public void ProvideValue_WithValidInputData_JoinReturned()
         {
-            myLhsSeries = new Series( CreateDatum( 2015, 5 ), CreateDatum( 2014, 7 ) );
-            myLhsSeries.Freeze();
-            myRhsSeries = new Series( CreateDatum( 2015, 23 ), CreateDatum( 2014, 37 ) );
-            myRhsSeries.Freeze();
+            myLhsSeries = new DatumSeries( typeof( Datum ), CreateDatum( 2015, 5 ), CreateDatum( 2014, 7 ) );
+            myRhsSeries = new DatumSeries( typeof( Datum ), CreateDatum( 2015, 23 ), CreateDatum( 2014, 37 ) );
 
             var result = ( IDatumSeries )myProvider.ProvideValue( myContext.Object );
 
@@ -121,10 +94,8 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         [Test]
         public void ProvideValue_WithPreserveCurrency_CurrencyTakenOverForResult()
         {
-            myLhsSeries = new Series( CreateDatum( 2015, 5, Euro ), CreateDatum( 2014, 7, Euro ) );
-            myLhsSeries.Freeze();
-            myRhsSeries = new Series( CreateDatum( 2015, 23, Euro ), CreateDatum( 2014, 37, Euro ) );
-            myRhsSeries.Freeze();
+            myLhsSeries = new DatumSeries( typeof( CurrencyDatum ), CreateDatum( 2015, 5, Euro ), CreateDatum( 2014, 7, Euro ) );
+            myRhsSeries = new DatumSeries( typeof( CurrencyDatum ), CreateDatum( 2015, 23, Euro ), CreateDatum( 2014, 37, Euro ) );
 
             var result = ( IDatumSeries )myProvider.ProvideValue( myContext.Object );
 
@@ -134,10 +105,8 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         [Test]
         public void ProvideValue_WhenCalled_InputsReferenced()
         {
-            myLhsSeries = new Series( CreateDatum( 2015, 5, Euro ), CreateDatum( 2014, 7, Euro ) );
-            myLhsSeries.Freeze();
-            myRhsSeries = new Series( CreateDatum( 2015, 23, Euro ), CreateDatum( 2014, 37, Euro ) );
-            myRhsSeries.Freeze();
+            myLhsSeries = new DatumSeries( typeof( CurrencyDatum ), CreateDatum( 2015, 5, Euro ), CreateDatum( 2014, 7, Euro ) );
+            myRhsSeries = new DatumSeries( typeof( CurrencyDatum ), CreateDatum( 2015, 23, Euro ), CreateDatum( 2014, 37, Euro ) );
 
             var result = ( IDatumSeries )myProvider.ProvideValue( myContext.Object );
 
@@ -148,10 +117,8 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         [Test]
         public void ProvideValue_InconsistentCurrencies_Throws()
         {
-            myLhsSeries = new Series( CreateDatum( 2015, 5, Euro ), CreateDatum( 2014, 7, Euro ) );
-            myLhsSeries.Freeze();
-            myRhsSeries = new Series( CreateDatum( 2015, 23, Dollar ), CreateDatum( 2014, 37, Dollar ) );
-            myRhsSeries.Freeze();
+            myLhsSeries = new DatumSeries( typeof( CurrencyDatum ), CreateDatum( 2015, 5, Euro ), CreateDatum( 2014, 7, Euro ) );
+            myRhsSeries = new DatumSeries( typeof( CurrencyDatum ), CreateDatum( 2015, 23, Dollar ), CreateDatum( 2014, 37, Dollar ) );
 
             var ex = Assert.Throws<ArgumentException>( () => myProvider.ProvideValue( myContext.Object ) );
             Assert.That( ex.Message, Is.StringContaining( "Currency inconsistencies" ) );

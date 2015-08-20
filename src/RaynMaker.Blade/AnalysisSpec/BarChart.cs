@@ -1,13 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Windows.Controls.DataVisualization.Charting;
-using System.Windows.Documents;
 using System.Linq;
-using RaynMaker.Blade.Engine;
-using RaynMaker.Blade.Entities;
-using DatumSeries = RaynMaker.Blade.Entities.Series;
 using System.Windows;
 using System.Windows.Controls.DataVisualization;
+using System.Windows.Controls.DataVisualization.Charting;
 using System.Windows.Data;
+using System.Windows.Documents;
+using RaynMaker.Blade.Engine;
+using RaynMaker.Blade.Entities;
 
 namespace RaynMaker.Blade.AnalysisSpec
 {

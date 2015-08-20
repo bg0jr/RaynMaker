@@ -143,7 +143,6 @@ namespace RaynMaker.Blade
 
             var analysisTemplate = reader.Read<AnalysisTemplate>( Project.AnalysisTemplateLocation );
             var dataSheet = myStorageService.LoadDataSheet( Project.DataSheetLocation );
-            dataSheet.Freeze();
 
             if( dataSheet.Asset is Stock )
             {

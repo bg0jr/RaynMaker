@@ -20,7 +20,7 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
         {
             return context.Asset.Data.OfType<IDatumSeries>()
                 .Where( s => s.DatumType == myDatumType )
-                .SingleOrDefault() ?? Series.Empty;
+                .SingleOrDefault() ?? DatumSeries.Empty;
         }
     }
 }
