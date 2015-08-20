@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Threading;
 using Plainion;
 using Plainion.AppFw.Wpf.Services;
 using Plainion.Progress;
@@ -37,6 +35,17 @@ namespace RaynMaker.Analyzer.Services
             var project = new Project();
             project.Location = file;
 
+            using( var reader = new StreamReader( project.Location ) )
+            {
+                while( !reader.EndOfStream )
+                {
+                    var line = reader.ReadLine();
+                    var tokens = line.Split( new[] { "/;:;/" }, StringSplitOptions.RemoveEmptyEntries );
+
+                    project.UserData[ tokens[ 0 ] ] = tokens[ 1 ];
+                }
+            }
+
             myDbService = new DatabaseService( project.EntitiesSource );
             myDbService.Initialize();
 
@@ -49,7 +58,13 @@ namespace RaynMaker.Analyzer.Services
         {
             Contract.RequiresNotNullNotEmpty( project.Location, "project.Location" );
 
-            File.WriteAllText( project.Location, "DUMMY" );
+            using( var writer = new StreamWriter( project.Location ) )
+            {
+                foreach( var entry in project.UserData )
+                {
+                    writer.WriteLine( "{0}/;:;/{1}", entry.Key, entry.Value );
+                }
+            }
         }
 
         protected override void OnProjectChanging( Project oldProject )

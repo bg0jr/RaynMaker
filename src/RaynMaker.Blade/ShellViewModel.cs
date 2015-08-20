@@ -17,17 +17,20 @@ using RaynMaker.Blade.AnalysisSpec;
 using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Model;
 using RaynMaker.Blade.Services;
+using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Blade
 {
     [Export]
     class ShellViewModel : BindableBase
     {
+        private IProjectHost myProjectHost;
         private StorageService myStorageService;
 
         [ImportingConstructor]
-        public ShellViewModel( Project project, StorageService storageService )
+        public ShellViewModel( IProjectHost projectHost, Project project, StorageService storageService )
         {
+            myProjectHost = projectHost;
             Project = project;
             myStorageService = storageService;
 
@@ -49,8 +52,17 @@ namespace RaynMaker.Blade
             BrowseDataSheetLocationRequest = new InteractionRequest<OpenFileDialogNotification>();
             EditDataSheetCommand = new DelegateCommand( OnEditDataSheet );
             EditDataSheetRequest = new InteractionRequest<INotification>();
-            
-            ParseCommandLineArgs( Environment.GetCommandLineArgs() );
+
+            projectHost.Changed += projectHost_Changed;
+            projectHost_Changed();
+        }
+
+        void projectHost_Changed()
+        {
+            if( myProjectHost.Project != null )
+            {
+                Project.CurrenciesSheet = myStorageService.LoadCurrencies( Project.CurrenciesSheetLocation );
+            }
         }
 
         private void OnProjectPropertyChanged( object sender, PropertyChangedEventArgs e )
@@ -65,67 +77,12 @@ namespace RaynMaker.Blade
 
         public Project Project { get; private set; }
 
-        private void ParseCommandLineArgs( string[] args )
-        {
-            string dataSheet = null;
-
-            for( int i = 1; i < args.Length; ++i )
-            {
-                if( args[ i ] == "-h" || args[ i ] == "-help" )
-                {
-                    Usage();
-                    Environment.Exit( 0 );
-                }
-                else if( args[ i ] == "-a" || args[ i ] == "-analysis" )
-                {
-                    Contract.Requires( i + 1 < args.Length, "-a requires an argument" );
-                    i++;
-                    Project.AnalysisTemplateLocation = args[ i ];
-                }
-                else if( args[ i ] == "-c" || args[ i ] == "-currencies" )
-                {
-                    Contract.Requires( i + 1 < args.Length, "-c requires an argument" );
-                    i++;
-                    Project.CurrenciesSheetLocation = args[ i ];
-                }
-                else
-                {
-                    dataSheet = args[ i ];
-                }
-            }
-
-            if( Project.CurrenciesSheetLocation == null )
-            {
-                Project.CurrenciesSheetLocation = Path.Combine( Path.GetDirectoryName( GetType().Assembly.Location ), "Resources", "Currencies.xdb" );
-            }
-
-            Project.CurrenciesSheet = myStorageService.LoadCurrencies( Project.CurrenciesSheetLocation );
-            
-            // DataSheet has to be set after currencies are loaded because setting it here causes automatic loading which 
-            // requires currency to be loaded
-            Project.DataSheetLocation = dataSheet;
-        }
-
-        private void Usage()
-        {
-            var sb = new StringBuilder();
-            sb.AppendFormat( "{0} [options] <datasheet>", Path.GetFileName( GetType().GetType().Assembly.Location ) );
-            sb.AppendLine();
-            sb.AppendLine();
-            sb.AppendLine( "Options:" );
-            sb.AppendLine( "  -h/--help                   print usage" );
-            sb.AppendLine( "  -a/--analysis <file>        path to analysis sheet" );
-            sb.AppendLine( "  -c/--currencies <file>      path to currencies sheet" );
-            sb.AppendLine();
-
-            MessageBox.Show( sb.ToString(), "Commandline usage", MessageBoxButton.OK, MessageBoxImage.Information );
-        }
-
         public DelegateCommand GoCommand { get; private set; }
 
         private bool CanGo()
         {
-            return Exists( Project.CurrenciesSheetLocation ) && Exists( Project.AnalysisTemplateLocation ) && Exists( Project.DataSheetLocation );
+            return myProjectHost.Project != null
+                && Exists( Project.CurrenciesSheetLocation ) && Exists( Project.AnalysisTemplateLocation ) && Exists( Project.DataSheetLocation );
         }
 
         private bool Exists( string path )

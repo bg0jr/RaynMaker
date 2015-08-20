@@ -19,7 +19,7 @@
         <pn:MultiStyle ResourceKeys="ProjectLifecycleStyle"/>
     </Window.Style>
     <Window.InputBindings>
-        <KeyBinding Key="O" Modifiers="Control" Command="{Binding ProjectLifecycleViewModel.OpenCommand}"/>
+        <KeyBinding Key="O" Modifiers="Control" Command="{Binding ProjectLifecycleViewModel.OpenAsyncCommand}"/>
         <KeyBinding Key="F4" Modifiers="Alt" Command="{Binding ProjectLifecycleViewModel.CloseCommand}"/>
     </Window.InputBindings>
     <DockPanel LastChildFill="True">

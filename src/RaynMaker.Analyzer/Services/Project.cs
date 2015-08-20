@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Plainion;
 using Plainion.AppFw.Wpf.Infrastructure;
@@ -11,6 +12,12 @@ namespace RaynMaker.Analyzer.Services
     {
         private IContextFactory myContextFactory;
         private IAssetsContext myAssetsContext;
+        private Dictionary<string, string> myUserData;
+
+        public Project()
+        {
+            myUserData = new Dictionary<string, string>();
+        }
 
         public string StorageRoot { get; private set; }
 
@@ -55,5 +62,7 @@ namespace RaynMaker.Analyzer.Services
                 myAssetsContext = null;
             }
         }
+
+        public IDictionary<string, string> UserData { get { return myUserData; } }
     }
 }
