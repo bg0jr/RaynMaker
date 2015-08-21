@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
-namespace RaynMaker.Blade.Entities
+namespace RaynMaker.Entities
 {
     [DataContract( Name = "Currency", Namespace = "https://github.com/bg0jr/RaynMaker" )]
     [KnownType( typeof( Translation ) )]

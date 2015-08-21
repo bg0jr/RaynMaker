@@ -11,11 +11,11 @@
           <Node Id="7e861ae0-8c7a-494d-af7e-0bfb3f96cbf2">
             <Caption><![CDATA[Currencies]]></Caption>
           </Node>
-          <Node Id="f929e336-594e-463e-b816-616d4519dae6">
-            <Caption><![CDATA[AnalysisTemplate]]></Caption>
-          </Node>
           <Node Id="b14d6e8e-2702-42c9-ac5d-0e3715f05664">
             <Caption><![CDATA[DataSheet]]></Caption>
+          </Node>
+          <Node Id="0a638881-e0f1-4f3a-b948-1bf78604aa33">
+            <Caption><![CDATA[Cleanup RaynMaker.Entities ]]></Caption>
           </Node>
         </Node>
         <Node Id="fbe68a1d-e58c-4f79-b590-765d73594cbf">

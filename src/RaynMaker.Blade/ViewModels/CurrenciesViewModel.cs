@@ -9,6 +9,7 @@ using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Model;
 using RaynMaker.Blade.Services;
+using RaynMaker.Entities;
 
 namespace RaynMaker.Blade.ViewModels
 {

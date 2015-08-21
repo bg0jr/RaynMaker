@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 
-namespace RaynMaker.Blade.Entities
+namespace RaynMaker.Entities
 {
     /// <summary>
     /// Supports INotifyPropertyChanged for model entities.

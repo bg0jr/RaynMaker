@@ -8,6 +8,7 @@ using RaynMaker.Blade.Engine;
 using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Entities.Datums;
 using RaynMaker.Blade.Tests.Fakes;
+using RaynMaker.Entities;
 
 namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
 {
@@ -30,7 +31,7 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
             myContext = new Mock<IFigureProviderContext> { DefaultValue = DefaultValue.Mock };
             myContext.Setup( x => x.Asset ).Returns( () =>
                 {
-                    var asset = new Stock();
+                    var asset = new RaynMaker.Blade.Entities.Stock();
                     if( myCurrentPrice != null )
                     {
                         asset.Data.Add( new DatumSeries( typeof( Price ), myCurrentPrice ) );

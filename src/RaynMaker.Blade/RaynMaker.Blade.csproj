@@ -158,8 +158,6 @@
     <Compile Include="Entities\Datums\SharesOutstanding.cs" />
     <Compile Include="Entities\IPeriod.cs" />
     <Compile Include="Entities\PeriodExtensions.cs" />
-    <Compile Include="Entities\SerializableBindableBase.cs" />
-    <Compile Include="Entities\Translation.cs" />
     <Compile Include="AnalysisSpec\Providers\GenericDatumProvider.cs" />
     <Compile Include="AnalysisSpec\Providers\CurrentPrice.cs" />
     <Compile Include="Entities\YearPeriod.cs" />
@@ -182,7 +180,6 @@
     <Compile Include="BladeMenuItemModel.cs" />
     <Compile Include="Model\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entities\Currency.cs" />
     <Compile Include="AnalysisSpec\CurrencyConverter.cs" />
     <Compile Include="Entities\Datum.cs" />
     <Compile Include="Entities\Datums\Dividend.cs" />

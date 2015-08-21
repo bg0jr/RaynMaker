@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Entities.Datums;
+using RaynMaker.Entities;
 
 namespace RaynMaker.Blade.Tests.Fakes
 {

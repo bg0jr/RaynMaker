@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using Plainion;
 using Plainion.Validation;
+using RaynMaker.Entities;
 
 namespace RaynMaker.Blade.Entities
 {

@@ -4,6 +4,7 @@ using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Entities.Datums;
 using RaynMaker.Blade.Tests.Fakes;
 using System;
+using RaynMaker.Entities;
 
 namespace RaynMaker.Blade.Tests.Entities
 {

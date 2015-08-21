@@ -6,6 +6,7 @@ using RaynMaker.Blade.AnalysisSpec.Providers;
 using RaynMaker.Blade.Engine;
 using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Tests.Fakes;
+using RaynMaker.Entities;
 
 namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
 {

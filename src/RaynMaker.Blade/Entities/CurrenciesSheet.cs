@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Plainion.Validation;
+using RaynMaker.Entities;
 
 namespace RaynMaker.Blade.Entities
 {

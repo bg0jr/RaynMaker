@@ -9,6 +9,7 @@ using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Entities.Datums;
 using RaynMaker.Blade.Model;
 using RaynMaker.Blade.Reporting;
+using RaynMaker.Entities;
 
 namespace RaynMaker.Blade.Engine
 {

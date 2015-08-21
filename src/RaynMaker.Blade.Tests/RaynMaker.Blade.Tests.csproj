@@ -82,6 +82,10 @@
       <Project>{87f14106-b2f8-4f90-9a14-18723ad25eef}</Project>
       <Name>RaynMaker.Blade</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RaynMaker.Entities\RaynMaker.Entities.csproj">
+      <Project>{0b9b8ac3-da99-4264-9d59-382adee06fd9}</Project>
+      <Name>RaynMaker.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
