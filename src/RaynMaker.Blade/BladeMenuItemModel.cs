@@ -7,7 +7,7 @@ using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Blade
 {
-    [Export( typeof( BladeMenuItemModel ) )]
+    [Export]
     public class BladeMenuItemModel : BindableBase
     {
         private IProjectHost myProjectHost;

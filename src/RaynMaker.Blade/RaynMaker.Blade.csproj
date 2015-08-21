@@ -130,6 +130,10 @@
     <Compile Include="AnalysisSpec\BarChart.cs" />
     <Compile Include="AnalysisSpec\Headline.cs" />
     <Compile Include="AnalysisSpec\TextBlock.cs" />
+    <Compile Include="AnalysisTemplateMenuItem.xaml.cs">
+      <DependentUpon>AnalysisTemplateMenuItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AnalysisTemplateMenuItemModel.cs" />
     <Compile Include="BladeModule.cs" />
     <Compile Include="Entities\DatumByPeriodComparer.cs" />
     <Compile Include="Entities\Datums\KnownDatums.cs" />
@@ -215,6 +219,10 @@
     <Compile Include="Views\KeywordCompletionData.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="AnalysisTemplateMenuItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="BladeMenuItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
