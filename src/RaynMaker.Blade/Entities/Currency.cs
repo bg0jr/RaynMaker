@@ -7,7 +7,6 @@ namespace RaynMaker.Blade.Entities
 {
     [DataContract( Name = "Currency", Namespace = "https://github.com/bg0jr/RaynMaker" )]
     [KnownType( typeof( Translation ) )]
-    [TypeConverter( typeof( CurrencyConverter ) )]
     public class Currency : SerializableBindableBase
     {
         private string myName;

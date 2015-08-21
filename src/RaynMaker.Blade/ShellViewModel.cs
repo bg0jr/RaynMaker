@@ -85,7 +85,7 @@ namespace RaynMaker.Blade
 
         private void OnGo()
         {
-            var analysisTemplate = myStorageService.LoadAnalysisTemplate();
+            var analysisTemplate = myStorageService.LoadAnalysisTemplate( Project.CurrenciesSheet );
             var dataSheet = myStorageService.LoadDataSheet( Project.DataSheetLocation );
 
             if( dataSheet.Asset is Stock )

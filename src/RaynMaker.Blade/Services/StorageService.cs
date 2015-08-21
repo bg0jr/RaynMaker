@@ -73,11 +73,15 @@ namespace RaynMaker.Blade.Services
             return ctx.AnalysisTemplates.Single().Template;
         }
 
-        public AnalysisTemplate LoadAnalysisTemplate()
+        public AnalysisTemplate LoadAnalysisTemplate(CurrenciesSheet sheet)
         {
             var reader = new ValidatingXamlReader();
 
             var text = LoadAnalysisTemplateText();
+            
+            // required for currency translation during loading from text to entity
+            CurrencyConverter.Sheet = sheet;
+
             return reader.Read<AnalysisTemplate>( XElement.Parse( text ) );
         }
 

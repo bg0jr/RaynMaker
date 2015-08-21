@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
@@ -18,6 +19,7 @@ namespace RaynMaker.Blade.AnalysisSpec
         [Required]
         public double Threshold { get; set; }
 
+        [TypeConverter( typeof( CurrencyConverter ) )]
         public Currency Currency { get; set; }
 
         [Required]

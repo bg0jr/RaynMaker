@@ -82,13 +82,7 @@ namespace RaynMaker.Blade.Model
         public CurrenciesSheet CurrenciesSheet
         {
             get { return myCurrenciesSheet; }
-            set
-            {
-                if( SetProperty( ref myCurrenciesSheet, value ) )
-                {
-                    CurrencyConverter.Sheet = myCurrenciesSheet;
-                }
-            }
+            set { SetProperty( ref myCurrenciesSheet, value ); }
         }
     }
 }

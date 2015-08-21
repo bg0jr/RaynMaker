@@ -183,7 +183,7 @@
     <Compile Include="Model\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Currency.cs" />
-    <Compile Include="Entities\CurrencyConverter.cs" />
+    <Compile Include="AnalysisSpec\CurrencyConverter.cs" />
     <Compile Include="Entities\Datum.cs" />
     <Compile Include="Entities\Datums\Dividend.cs" />
     <Compile Include="Entities\DatumSeries.cs" />

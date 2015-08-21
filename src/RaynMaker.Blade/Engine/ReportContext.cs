@@ -16,7 +16,7 @@ namespace RaynMaker.Blade.Engine
         private List<IFigureProvider> myProviders;
         private List<IFigureProviderFailure> myProviderFailures;
 
-        public ReportContext( Asset asset, FlowDocument document )
+        public ReportContext( Asset asset,  FlowDocument document )
         {
             Asset = asset;
             Document = document;

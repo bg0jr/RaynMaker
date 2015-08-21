@@ -3,8 +3,9 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using Plainion;
+using RaynMaker.Blade.Entities;
 
-namespace RaynMaker.Blade.Entities
+namespace RaynMaker.Blade.AnalysisSpec
 {
     public sealed class CurrencyConverter : System.ComponentModel.TypeConverter
     {
