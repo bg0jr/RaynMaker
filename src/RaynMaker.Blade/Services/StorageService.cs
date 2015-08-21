@@ -11,6 +11,7 @@ using System.Data.Entity;
 using RaynMaker.Blade.AnalysisSpec;
 using Plainion.Xaml;
 using System.Xml.Linq;
+using System.Diagnostics;
 
 namespace RaynMaker.Blade.Services
 {
@@ -31,9 +32,39 @@ namespace RaynMaker.Blade.Services
             {
                 var settings = new DataContractSerializerSettings();
                 settings.PreserveObjectReferences = true;
+
                 var serializer = new DataContractSerializer( typeof( CurrenciesSheet ), settings );
                 return ( CurrenciesSheet )serializer.ReadObject( reader );
             }
+            
+            //var ctx = myProjectHost.Project.GetCurrenciesContext();
+            //if( !ctx.Currencies.Any() )
+            //{
+            //    using( var reader = XmlReader.Create( path ) )
+            //    {
+            //        var settings = new DataContractSerializerSettings();
+            //        settings.PreserveObjectReferences = true;
+
+            //        var serializer = new DataContractSerializer( typeof( CurrenciesSheet ), settings );
+            //        var sheet = ( CurrenciesSheet )serializer.ReadObject( reader );
+                    
+            //        Debugger.Launch();
+
+            //        foreach( var currency in sheet.Currencies )
+            //        {
+            //            ctx.Currencies.Add( currency );
+            //        }
+            //    }
+
+            //    ctx.SaveChanges();
+            //}
+
+            //var dbSheet = new CurrenciesSheet();
+            //foreach( var currency in ctx.Currencies )
+            //{
+            //    dbSheet.Currencies.Add( currency );
+            //}
+            //return dbSheet;
         }
 
         public void SaveCurrencies( CurrenciesSheet sheet, string path )
@@ -73,12 +104,12 @@ namespace RaynMaker.Blade.Services
             return ctx.AnalysisTemplates.Single().Template;
         }
 
-        public AnalysisTemplate LoadAnalysisTemplate(CurrenciesSheet sheet)
+        public AnalysisTemplate LoadAnalysisTemplate( CurrenciesSheet sheet )
         {
             var reader = new ValidatingXamlReader();
 
             var text = LoadAnalysisTemplateText();
-            
+
             // required for currency translation during loading from text to entity
             CurrencyConverter.Sheet = sheet;
 

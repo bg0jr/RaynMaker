@@ -13,6 +13,9 @@ namespace RaynMaker.Entities
         private Currency myTarget;
         private double myRate;
 
+        [Required]
+        public long Id { get; set; }
+        
         [DataMember( Name = "Target" )]
         [Required]
         public Currency Target

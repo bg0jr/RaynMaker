@@ -16,6 +16,9 @@ namespace RaynMaker.Entities
             Translations = new ObservableCollection<Translation>();
         }
 
+        [Required]
+        public long Id { get; set; }
+        
         [DataMember]
         [Required]
         public string Name

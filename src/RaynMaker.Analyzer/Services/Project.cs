@@ -13,6 +13,7 @@ namespace RaynMaker.Analyzer.Services
         private IContextFactory myContextFactory;
         private IAssetsContext myAssetsContext;
         private IAnalysisContext myAnalysisContext;
+        private ICurrenciesContext myCurrenciesContext;
         private Dictionary<string, string> myUserData;
 
         public Project()
@@ -61,10 +62,21 @@ namespace RaynMaker.Analyzer.Services
             return myAnalysisContext;
         }
 
+        public ICurrenciesContext GetCurrenciesContext()
+        {
+            if( myCurrenciesContext == null )
+            {
+                myCurrenciesContext = myContextFactory.CreateCurrenciesContext();
+            }
+
+            return myCurrenciesContext;
+        }
+
         public void Dispose()
         {
             DestroyContext( ref myAssetsContext );
             DestroyContext( ref myAnalysisContext );
+            DestroyContext( ref myCurrenciesContext );
         }
 
         private void DestroyContext<T>( ref T context ) where T : class

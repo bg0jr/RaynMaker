@@ -8,7 +8,7 @@ namespace RaynMaker.Entities.Persistancy
 {
     public class DatabaseService : IContextFactory
     {
-        private const int RequiredDatabaseVersion = 2;
+        private const int RequiredDatabaseVersion = 3;
         private static bool myIsInitialized;
 
         static DatabaseService()
@@ -70,12 +70,18 @@ namespace RaynMaker.Entities.Persistancy
             return new AssetsContext( Location );
         }
 
-
         public IAnalysisContext CreateAnalysisContext()
         {
             Contract.Invariant( myIsInitialized, "Initialized() not yet called" );
 
             return new AnalysisContext( Location );
+        }
+
+        public ICurrenciesContext CreateCurrenciesContext()
+        {
+            Contract.Invariant( myIsInitialized, "Initialized() not yet called" );
+
+            return new CurrenciesContext( Location );
         }
     }
 }

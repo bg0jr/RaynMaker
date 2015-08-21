@@ -5,5 +5,6 @@ namespace RaynMaker.Entities
     {
         IAssetsContext CreateAssetsContext();
         IAnalysisContext CreateAnalysisContext();
+        ICurrenciesContext CreateCurrenciesContext();
     }
 }

@@ -10,6 +10,8 @@ namespace RaynMaker.Infrastructure
 
         IAnalysisContext GetAnalysisContext();
 
+        ICurrenciesContext GetCurrenciesContext();
+
         /// <summary>
         /// Temporary solution to store kind of "user data"
         /// </summary>

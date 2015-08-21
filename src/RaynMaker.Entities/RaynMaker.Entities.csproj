@@ -38,6 +38,7 @@
     <Compile Include="AnalysisTemplate.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="Currency.cs" />
+    <Compile Include="ICurrenciesContext.cs" />
     <Compile Include="IAnalysisContext.cs" />
     <Compile Include="IContextFactory.cs" />
     <Compile Include="IAssetsContext.cs" />

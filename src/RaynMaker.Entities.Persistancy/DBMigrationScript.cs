@@ -14,6 +14,7 @@ namespace RaynMaker.Entities.Persistancy
 
             MigrationVersion1();
             MigrationVersion2();
+            MigrationVersion3();
         }
 
         public Dictionary<int, IList<string>> Migrations { get; set; }
@@ -57,6 +58,28 @@ CREATE TABLE AnalysisTemplates (
 )" );
 
             Migrations.Add( 2, steps );
+        }
+
+        private void MigrationVersion3()
+        {
+            var steps = new List<string>();
+
+            steps.Add( @"
+CREATE TABLE Currencies (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name TEXT NOT NULL
+)" );
+
+            steps.Add( @"
+CREATE TABLE Translations (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+    Rate DOUBLE NOT NULL,
+    Timestamp DATETIME  NOT NULL,
+    Currency_id INTEGER NOT NULL,
+    FOREIGN KEY(Currency_id) REFERENCES Currencies(Id)
+)" );
+
+            Migrations.Add( 3, steps );
         }
     }
 }
