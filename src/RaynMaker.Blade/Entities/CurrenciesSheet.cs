@@ -17,9 +17,5 @@ namespace RaynMaker.Blade.Entities
         [DataMember]
         [Required, ValidateObject]
         public ObservableCollection<Currency> Currencies { get; private set; }
-
-        [DataMember]
-        [Required]
-        public int MaxAgeInDays { get; set; }
     }
 }

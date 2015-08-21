@@ -7,17 +7,20 @@ using RaynMaker.Blade.AnalysisSpec;
 using RaynMaker.Blade.AnalysisSpec.Providers;
 using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Entities.Datums;
+using RaynMaker.Blade.Model;
 using RaynMaker.Blade.Reporting;
 
 namespace RaynMaker.Blade.Engine
 {
     public class ReportContext : IFigureProviderContext, IExpressionEvaluationContext
     {
+        private Project myProject;
         private List<IFigureProvider> myProviders;
         private List<IFigureProviderFailure> myProviderFailures;
 
-        public ReportContext( Asset asset,  FlowDocument document )
+        internal ReportContext( Project project, Asset asset, FlowDocument document )
         {
+            myProject = project;
             Asset = asset;
             Document = document;
 
@@ -94,7 +97,7 @@ namespace RaynMaker.Blade.Engine
 
             Contract.Invariant( translation != null, "No translation found from {0} to {1}", source, target );
 
-            Contract.Invariant( ( DateTime.Today - translation.Timestamp ).Days < CurrencyConverter.Sheet.MaxAgeInDays,
+            Contract.Invariant( ( DateTime.Today - translation.Timestamp ).Days < myProject.MaxCurrencyTranslationsAgeInDays,
                 "Translation rate from {0} to {1} expired", source, target );
 
             return value * translation.Rate;

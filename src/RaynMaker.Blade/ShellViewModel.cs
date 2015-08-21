@@ -90,7 +90,7 @@ namespace RaynMaker.Blade
 
             if( dataSheet.Asset is Stock )
             {
-                var analyzer = new StockAnalyzer( analysisTemplate.Analysis );
+                var analyzer = new StockAnalyzer( Project, analysisTemplate.Analysis );
                 analyzer.Execute( ( Stock )dataSheet.Asset );
             }
             else

@@ -16,7 +16,7 @@
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,2,0,0">
             <TextBlock Text="Max. allowed age in days:" VerticalAlignment="Center"/>
-            <TextBox Text="{Binding Project.CurrenciesSheet.MaxAgeInDays, Mode=TwoWay}" Width="50" Margin="5,0,0,0"/>
+            <TextBox Text="{Binding Project.MaxCurrencyTranslationsAgeInDays, Mode=TwoWay}" Width="50" Margin="5,0,0,0"/>
         </StackPanel>
 
         <Grid Grid.Row="1" Margin="0,2,0,0">

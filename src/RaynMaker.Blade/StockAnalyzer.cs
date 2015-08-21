@@ -6,15 +6,18 @@ using RaynMaker.Blade.AnalysisSpec;
 using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Engine;
 using RaynMaker.Blade.Reporting;
+using RaynMaker.Blade.Model;
 
 namespace RaynMaker.Blade
 {
     class StockAnalyzer
     {
+        private Project myProject;
         private Analysis myAnalysis;
 
-        public StockAnalyzer( Analysis analysis )
+        public StockAnalyzer( Project project, Analysis analysis )
         {
+            myProject = project;
             myAnalysis = analysis;
         }
 
@@ -26,7 +29,7 @@ namespace RaynMaker.Blade
 
             doc.Headline( "{0} (Isin: {1})", stock.Name, stock.Isin );
 
-            var context = new ReportContext( stock, doc );
+            var context = new ReportContext( myProject, stock, doc );
             foreach( var element in myAnalysis.Elements )
             {
                 element.Report( context );
