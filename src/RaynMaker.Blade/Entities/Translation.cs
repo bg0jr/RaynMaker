@@ -1,34 +1,52 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 
 namespace RaynMaker.Blade.Entities
 {
     [DataContract( Name = "Translation", Namespace = "https://github.com/bg0jr/RaynMaker" )]
     [KnownType( typeof( Currency ) )]
-    public class Translation
+    public class Translation : SerializableBindableBase
     {
+        private DateTime myTimestamp;
         private Currency myTarget;
+        private double myRate;
 
-        [DataMember]
-        public string To { get; set; }
-
+        [DataMember( Name = "Target" )]
+        [Required]
         public Currency Target
         {
-            get
+            get { return myTarget; }
+            set
             {
-                if( myTarget == null )
+                if( SetProperty( ref myTarget, value ) )
                 {
-                    myTarget = CurrencyConverter.Parse( To );
+                    Timestamp = DateTime.Now;
                 }
-
-                return myTarget;
             }
         }
 
         [DataMember]
-        public DateTime Timestamp { get; set; }
+        [Required]
+        public double Rate
+        {
+            get { return myRate; }
+            set
+            {
+                if( SetProperty( ref myRate, value ) )
+                {
+                    Timestamp = DateTime.Now;
+                }
+            }
+        }
 
         [DataMember]
-        public double Rate { get; set; }
+        [Required]
+        public DateTime Timestamp
+        {
+            get { return myTimestamp; }
+            private set { SetProperty( ref myTimestamp, value ); }
+        }
     }
 }

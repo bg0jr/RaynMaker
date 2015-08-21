@@ -59,13 +59,20 @@
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
                                                     <TextBlock Text="To" VerticalAlignment="Center"/>
-                                                    <TextBox Text="{Binding To}" Margin="3,0,0,0" Width="100"/>
+                                                    <ComboBox ItemsSource="{Binding DataContext.Project.CurrenciesSheet.Currencies, ElementName=_this}" 
+                                                              SelectedItem="{Binding Target, Mode=TwoWay}" Margin="3,0,0,0" Width="100">
+                                                        <ComboBox.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock Text="{Binding Name}"/>
+                                                            </DataTemplate>
+                                                        </ComboBox.ItemTemplate>
+                                                    </ComboBox>
 
                                                     <TextBlock Text="Rate" VerticalAlignment="Center" Margin="5,0,0,0"/>
                                                     <TextBox Text="{Binding Rate}" Margin="3,0,0,0" Width="100"/>
 
                                                     <TextBlock Text="Timestamp" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                                                    <TextBox Text="{Binding Timestamp}" Margin="3,0,0,0" IsEnabled="False" Width="150"/>
+                                                    <TextBox Text="{Binding Timestamp, Mode=OneWay}" Margin="3,0,0,0" IsEnabled="False" Width="150"/>
                                                     <Button Command="{Binding DataContext.RemoveTranslationCommand, ElementName=_this}" 
                                                             CommandParameter="{Binding}" Margin="5,3,0,0" 
                                                             Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">

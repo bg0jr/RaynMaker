@@ -8,8 +8,10 @@ namespace RaynMaker.Blade.Entities
     [DataContract( Name = "Currency", Namespace = "https://github.com/bg0jr/RaynMaker" )]
     [KnownType( typeof( Translation ) )]
     [TypeConverter( typeof( CurrencyConverter ) )]
-    public class Currency
+    public class Currency : SerializableBindableBase
     {
+        private string myName;
+
         public Currency()
         {
             Translations = new ObservableCollection<Translation>();
@@ -17,7 +19,11 @@ namespace RaynMaker.Blade.Entities
 
         [DataMember]
         [Required]
-        public string Name { get; set; }
+        public string Name
+        {
+            get { return myName; }
+            set { SetProperty( ref myName, value ); }
+        }
 
         [DataMember]
         public ObservableCollection<Translation> Translations { get; private set; }

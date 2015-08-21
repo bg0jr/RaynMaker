@@ -31,7 +31,7 @@ namespace RaynMaker.Blade.Entities
             return base.ConvertFrom( context, culture, value );
         }
 
-        internal static Currency Parse( string name )
+        private static Currency Parse( string name )
         {
             Contract.Invariant( Sheet != null, "Currencies sheet not yet initialized" );
 

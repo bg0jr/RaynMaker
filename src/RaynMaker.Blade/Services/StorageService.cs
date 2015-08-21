@@ -29,7 +29,9 @@ namespace RaynMaker.Blade.Services
         {
             using( var reader = XmlReader.Create( path ) )
             {
-                var serializer = new DataContractSerializer( typeof( CurrenciesSheet ) );
+                var settings = new DataContractSerializerSettings();
+                settings.PreserveObjectReferences = true;
+                var serializer = new DataContractSerializer( typeof( CurrenciesSheet ), settings );
                 return ( CurrenciesSheet )serializer.ReadObject( reader );
             }
         }
@@ -40,7 +42,10 @@ namespace RaynMaker.Blade.Services
 
             using( var writer = XmlWriter.Create( path ) )
             {
-                var serializer = new DataContractSerializer( typeof( CurrenciesSheet ) );
+                var settings = new DataContractSerializerSettings();
+                settings.PreserveObjectReferences = true;
+
+                var serializer = new DataContractSerializer( typeof( CurrenciesSheet ), settings );
                 serializer.WriteObject( writer, sheet );
             }
         }
