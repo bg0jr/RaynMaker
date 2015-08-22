@@ -35,7 +35,7 @@ namespace RaynMaker.Blade.ViewModels
         }
 
         public Project Project { get; private set; }
-        
+
         public Action FinishInteraction { get; set; }
 
         public INotification Notification { get; set; }
@@ -58,7 +58,7 @@ namespace RaynMaker.Blade.ViewModels
 
         private void OnAddTranslation( Currency owner )
         {
-            owner.Translations.Add( new Translation() );
+            owner.Translations.Add( new Translation { Source = owner } );
         }
 
         public ICommand RemoveTranslationCommand { get; private set; }

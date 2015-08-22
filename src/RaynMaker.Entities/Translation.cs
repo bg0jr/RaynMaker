@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 
@@ -10,11 +11,29 @@ namespace RaynMaker.Entities
     public class Translation : SerializableBindableBase
     {
         private DateTime myTimestamp;
+        private Currency mySource;
         private Currency myTarget;
         private double myRate;
 
         [Required]
         public long Id { get; set; }
+
+        public long SourceId { get; set; }
+
+        [Required]
+        public Currency Source
+        {
+            get { return mySource; }
+            set
+            {
+                if( SetProperty( ref mySource, value ) )
+                {
+                    Timestamp = DateTime.Now;
+                }
+            }
+        }
+
+        public long TargetId { get; set; }
         
         [DataMember( Name = "Target" )]
         [Required]

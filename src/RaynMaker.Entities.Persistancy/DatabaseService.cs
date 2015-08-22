@@ -8,7 +8,7 @@ namespace RaynMaker.Entities.Persistancy
 {
     public class DatabaseService : IContextFactory
     {
-        private const int RequiredDatabaseVersion = 3;
+        private const int RequiredDatabaseVersion = 4;
         private static bool myIsInitialized;
 
         static DatabaseService()

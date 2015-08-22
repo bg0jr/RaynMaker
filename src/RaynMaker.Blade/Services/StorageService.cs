@@ -12,6 +12,8 @@ using RaynMaker.Blade.AnalysisSpec;
 using Plainion.Xaml;
 using System.Xml.Linq;
 using System.Diagnostics;
+using RaynMaker.Entities;
+using System.Collections.Generic;
 
 namespace RaynMaker.Blade.Services
 {
@@ -28,57 +30,45 @@ namespace RaynMaker.Blade.Services
 
         public CurrenciesSheet LoadCurrencies( string path )
         {
-            using( var reader = XmlReader.Create( path ) )
+            var ctx = myProjectHost.Project.GetCurrenciesContext();
+            if( !ctx.Currencies.Any() )
             {
-                var settings = new DataContractSerializerSettings();
-                settings.PreserveObjectReferences = true;
+                using( var reader = XmlReader.Create( path ) )
+                {
+                    var settings = new DataContractSerializerSettings();
+                    settings.PreserveObjectReferences = true;
 
-                var serializer = new DataContractSerializer( typeof( CurrenciesSheet ), settings );
-                return ( CurrenciesSheet )serializer.ReadObject( reader );
+                    var serializer = new DataContractSerializer( typeof( CurrenciesSheet ), settings );
+                    var sheet = ( CurrenciesSheet )serializer.ReadObject( reader );
+
+                    SaveCurrencies( sheet, null );
+                }
             }
-            
-            //var ctx = myProjectHost.Project.GetCurrenciesContext();
-            //if( !ctx.Currencies.Any() )
-            //{
-            //    using( var reader = XmlReader.Create( path ) )
-            //    {
-            //        var settings = new DataContractSerializerSettings();
-            //        settings.PreserveObjectReferences = true;
 
-            //        var serializer = new DataContractSerializer( typeof( CurrenciesSheet ), settings );
-            //        var sheet = ( CurrenciesSheet )serializer.ReadObject( reader );
-                    
-            //        Debugger.Launch();
-
-            //        foreach( var currency in sheet.Currencies )
-            //        {
-            //            ctx.Currencies.Add( currency );
-            //        }
-            //    }
-
-            //    ctx.SaveChanges();
-            //}
-
-            //var dbSheet = new CurrenciesSheet();
-            //foreach( var currency in ctx.Currencies )
-            //{
-            //    dbSheet.Currencies.Add( currency );
-            //}
-            //return dbSheet;
+            var dbSheet = new CurrenciesSheet();
+            foreach( var currency in ctx.Currencies )
+            {
+                dbSheet.Currencies.Add( currency );
+            }
+            return dbSheet;
         }
 
         public void SaveCurrencies( CurrenciesSheet sheet, string path )
         {
-            RecursiveValidator.Validate( sheet );
+            var ctx = myProjectHost.Project.GetCurrenciesContext();
 
-            using( var writer = XmlWriter.Create( path ) )
+            foreach( var currency in sheet.Currencies.Where( c => c.Id == 0 ) )
             {
-                var settings = new DataContractSerializerSettings();
-                settings.PreserveObjectReferences = true;
+                // TODO: ensure that Translation.Source is set - cleanup soon
+                foreach( var translation in currency.Translations )
+                {
+                    translation.Source = currency;
+                }
 
-                var serializer = new DataContractSerializer( typeof( CurrenciesSheet ), settings );
-                serializer.WriteObject( writer, sheet );
+                ctx.Currencies.Add( currency );
             }
+
+            ctx.SaveChanges();
         }
 
         public string LoadAnalysisTemplateText()
@@ -104,7 +94,7 @@ namespace RaynMaker.Blade.Services
             return ctx.AnalysisTemplates.Single().Template;
         }
 
-        public AnalysisTemplate LoadAnalysisTemplate( CurrenciesSheet sheet )
+        public RaynMaker.Blade.AnalysisSpec.AnalysisTemplate LoadAnalysisTemplate( CurrenciesSheet sheet )
         {
             var reader = new ValidatingXamlReader();
 
@@ -113,7 +103,7 @@ namespace RaynMaker.Blade.Services
             // required for currency translation during loading from text to entity
             CurrencyConverter.Sheet = sheet;
 
-            return reader.Read<AnalysisTemplate>( XElement.Parse( text ) );
+            return reader.Read<RaynMaker.Blade.AnalysisSpec.AnalysisTemplate>( XElement.Parse( text ) );
         }
 
         public void SaveAnalysisTemplate( string template )
