@@ -10,6 +10,7 @@ using RaynMaker.Blade.AnalysisSpec;
 using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Entities.Datums;
 using RaynMaker.Infrastructure;
+using System.Data.Entity;
 
 namespace RaynMaker.Blade.Services
 {
@@ -42,7 +43,7 @@ namespace RaynMaker.Blade.Services
             }
 
             var dbSheet = new CurrenciesSheet();
-            foreach( var currency in ctx.Currencies )
+            foreach( var currency in ctx.Currencies.Include( c => c.Translations ) )
             {
                 dbSheet.Currencies.Add( currency );
             }
