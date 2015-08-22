@@ -3,17 +3,13 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml;
+using System.Xml.Linq;
 using Plainion.Validation;
+using Plainion.Xaml;
+using RaynMaker.Blade.AnalysisSpec;
 using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Entities.Datums;
 using RaynMaker.Infrastructure;
-using System.Data.Entity;
-using RaynMaker.Blade.AnalysisSpec;
-using Plainion.Xaml;
-using System.Xml.Linq;
-using System.Diagnostics;
-using RaynMaker.Entities;
-using System.Collections.Generic;
 
 namespace RaynMaker.Blade.Services
 {
@@ -79,7 +75,7 @@ namespace RaynMaker.Blade.Services
                 var template = new RaynMaker.Entities.AnalysisTemplate();
                 template.Name = "Default";
 
-                using( var stream = GetType().Assembly.GetManifestResourceStream( "Analysis.xaml" ) )
+                using( var stream = GetType().Assembly.GetManifestResourceStream( "RaynMaker.Blade.Resources.Analysis.xaml" ) )
                 {
                     using( var reader = new StreamReader( stream ) )
                     {
