@@ -233,10 +233,6 @@
     </Page>
     <Resource Include="Resources\Remove.png" />
     <Resource Include="Resources\Add.png" />
-    <Content Include="Resources\Currencies.xdb">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Page Include="Shell.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

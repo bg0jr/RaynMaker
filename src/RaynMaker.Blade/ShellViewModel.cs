@@ -34,8 +34,6 @@ namespace RaynMaker.Blade
 
             GoCommand = new DelegateCommand( OnGo, CanGo );
 
-            BrowseCurrenciesSheetLocationCommand = new DelegateCommand( OnBrowseCurrenciesSheetLocation );
-            BrowseCurrenciesSheetLocationRequest = new InteractionRequest<OpenFileDialogNotification>();
             EditCurrenciesSheetCommand = new DelegateCommand( OnEditCurrencies );
             EditCurrenciesSheetRequest = new InteractionRequest<INotification>();
 
@@ -55,14 +53,13 @@ namespace RaynMaker.Blade
         {
             if( myProjectHost.Project != null )
             {
-                Project.CurrenciesSheet = myStorageService.LoadCurrencies( Project.CurrenciesSheetLocation );
+                Project.CurrenciesSheet = myStorageService.LoadCurrencies();
             }
         }
 
         private void OnProjectPropertyChanged( object sender, PropertyChangedEventArgs e )
         {
-            if( e.PropertyName == PropertySupport.ExtractPropertyName( () => Project.CurrenciesSheetLocation ) ||
-                e.PropertyName == PropertySupport.ExtractPropertyName( () => Project.DataSheetLocation ) )
+            if( e.PropertyName == PropertySupport.ExtractPropertyName( () => Project.DataSheetLocation ) )
             {
                 GoCommand.RaiseCanExecuteChanged();
             }
@@ -74,8 +71,7 @@ namespace RaynMaker.Blade
 
         private bool CanGo()
         {
-            return myProjectHost.Project != null
-                && Exists( Project.CurrenciesSheetLocation ) && Exists( Project.DataSheetLocation );
+            return myProjectHost.Project != null && Exists( Project.DataSheetLocation );
         }
 
         private bool Exists( string path )
@@ -98,28 +94,6 @@ namespace RaynMaker.Blade
                 throw new NotSupportedException( "Asset type not supported: " + dataSheet.Asset.GetType() );
             }
         }
-
-        public DelegateCommand BrowseCurrenciesSheetLocationCommand { get; private set; }
-
-        private void OnBrowseCurrenciesSheetLocation()
-        {
-            var notification = new OpenFileDialogNotification();
-            notification.RestoreDirectory = true;
-            notification.Filter = "XDB files (*.xdb)|*.xdb";
-            notification.FilterIndex = 0;
-            notification.MultiSelect = false;
-
-            BrowseCurrenciesSheetLocationRequest.Raise( notification,
-                n =>
-                {
-                    if( n.Confirmed )
-                    {
-                        Project.CurrenciesSheetLocation = n.FileName;
-                    }
-                } );
-        }
-
-        public InteractionRequest<OpenFileDialogNotification> BrowseCurrenciesSheetLocationRequest { get; private set; }
 
         public DelegateCommand EditCurrenciesSheetCommand { get; private set; }
 

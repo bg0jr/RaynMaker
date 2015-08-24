@@ -77,7 +77,7 @@ namespace RaynMaker.Blade.ViewModels
 
         private void OnOk()
         {
-            myStorageService.SaveCurrencies( Project.CurrenciesSheet, Project.CurrenciesSheetLocation );
+            myStorageService.SaveCurrencies( Project.CurrenciesSheet );
             FinishInteraction();
         }
 

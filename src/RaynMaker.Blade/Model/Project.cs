@@ -11,7 +11,6 @@ namespace RaynMaker.Blade.Model
     class Project : BindableBase
     {
         private IProjectHost myProjectHost;
-        private string myCurrenciesSheetLocation;
         private string myDataSheetLocation;
         private CurrenciesSheet myCurrenciesSheet;
         private int myMaxCurrencyTranslationsAgeInDays;
@@ -27,36 +26,7 @@ namespace RaynMaker.Blade.Model
 
         void myProjectHost_Changed()
         {
-            OnPropertyChanged( () => CurrenciesSheetLocation );
             OnPropertyChanged( () => DataSheetLocation );
-        }
-
-        public string CurrenciesSheetLocation
-        {
-            get
-            {
-                if( myProjectHost.Project == null )
-                {
-                    return null;
-                }
-                if( myCurrenciesSheetLocation == null && myProjectHost.Project.UserData.ContainsKey( "CurrenciesSheetLocation" ) )
-                {
-                    myCurrenciesSheetLocation = myProjectHost.Project.UserData[ "CurrenciesSheetLocation" ];
-                }
-                if( myCurrenciesSheetLocation == null )
-                {
-                    CurrenciesSheetLocation = Path.Combine( Path.GetDirectoryName( GetType().Assembly.Location ), "Resources", "Currencies.xdb" );
-                }
-                return myCurrenciesSheetLocation;
-            }
-            set
-            {
-                if( SetProperty( ref myCurrenciesSheetLocation, value != null ? value.Trim() : value ) )
-                {
-                    myProjectHost.Project.UserData[ "CurrenciesSheetLocation" ] = myCurrenciesSheetLocation;
-                    myProjectHost.Project.IsDirty = true;
-                }
-            }
         }
 
         public string DataSheetLocation

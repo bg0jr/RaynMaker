@@ -11,6 +11,7 @@ using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Entities.Datums;
 using RaynMaker.Infrastructure;
 using System.Data.Entity;
+using RaynMaker.Entities;
 
 namespace RaynMaker.Blade.Services
 {
@@ -25,21 +26,15 @@ namespace RaynMaker.Blade.Services
             myProjectHost = projectHost;
         }
 
-        public CurrenciesSheet LoadCurrencies( string path )
+        public CurrenciesSheet LoadCurrencies()
         {
             var ctx = myProjectHost.Project.GetCurrenciesContext();
             if( !ctx.Currencies.Any() )
             {
-                using( var reader = XmlReader.Create( path ) )
-                {
-                    var settings = new DataContractSerializerSettings();
-                    settings.PreserveObjectReferences = true;
+                ctx.Currencies.Add( new Currency { Name = "Euro" } );
+                ctx.Currencies.Add( new Currency { Name = "Dollar" } );
 
-                    var serializer = new DataContractSerializer( typeof( CurrenciesSheet ), settings );
-                    var sheet = ( CurrenciesSheet )serializer.ReadObject( reader );
-
-                    SaveCurrencies( sheet, null );
-                }
+                ctx.SaveChanges();
             }
 
             var dbSheet = new CurrenciesSheet();
@@ -50,7 +45,7 @@ namespace RaynMaker.Blade.Services
             return dbSheet;
         }
 
-        public void SaveCurrencies( CurrenciesSheet sheet, string path )
+        public void SaveCurrencies( CurrenciesSheet sheet )
         {
             var ctx = myProjectHost.Project.GetCurrenciesContext();
 

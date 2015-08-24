@@ -8,9 +8,6 @@
              xmlns:win32="clr-namespace:Microsoft.Win32;assembly=PresentationFramework"
              Width="650">
     <i:Interaction.Triggers>
-        <prism:InteractionRequestTrigger SourceObject="{Binding BrowseCurrenciesSheetLocationRequest, Mode=OneWay}">
-            <pn:PopupFileDialogAction FileDialogType="{x:Type win32:OpenFileDialog}"/>
-        </prism:InteractionRequestTrigger>
         <prism:InteractionRequestTrigger SourceObject="{Binding EditCurrenciesSheetRequest, Mode=OneWay}">
             <pn:PopupViewAction WindowWidth="700" WindowHeight="600" prism:RegionManager.RegionName="{x:Static l:RegionNames.CurrenciesView}"/>
         </prism:InteractionRequestTrigger>
@@ -36,11 +33,6 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Currencies sheet location" Margin="5" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Project.CurrenciesSheetLocation}" Margin="5" VerticalAlignment="Center"/>
-        <Button Grid.Row="0" Grid.Column="2" Command="{Binding BrowseCurrenciesSheetLocationCommand}" Margin="5"
-                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-            <Image Source="/RaynMaker.Blade;Component/Resources/Browse.png" Width="20" Height="20"/>
-        </Button>
         <Button Grid.Row="0" Grid.Column="3" Command="{Binding EditCurrenciesSheetCommand}" Margin="5"
                     Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
             <Image Source="/RaynMaker.Blade;Component/Resources/Edit.png" Width="20" Height="20"/>
