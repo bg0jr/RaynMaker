@@ -9,9 +9,6 @@ namespace RaynMaker.Blade.Entities
     [KnownType( typeof( Stock ) )]
     public class DataSheet
     {
-        [DataMember( Name = "Asset" )]
-        public Stock Stock { get; set; }
-
         [DataMember]
         [Required, ValidateObject]
         public Company Company { get; set; }

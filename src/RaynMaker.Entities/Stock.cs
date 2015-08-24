@@ -9,28 +9,18 @@ using Plainion.Validation;
 namespace RaynMaker.Entities
 {
     [DataContract( Name = "Stock", Namespace = "https://github.com/bg0jr/RaynMaker" )]
-    [KnownType( typeof( Overview ) ), KnownType( typeof( DatumSeries ) )]
+    [KnownType( typeof( DatumSeries ) )]
     public class Stock : SerializableBindableBase
     {
-        private string myName;
         private string myIsin;
 
         public Stock()
         {
-            Overview = new Overview();
             Data = new ObservableCollection<IDatumSeries>();
         }
-        
+
         [Required]
         public int Id { get; set; }
-
-        [NotMapped]
-        [DataMember]
-        public string Name
-        {
-            get { return myName; }
-            set { SetProperty( ref myName, value ); }
-        }
 
         [DataMember]
         [Required]
@@ -39,10 +29,6 @@ namespace RaynMaker.Entities
             get { return myIsin; }
             set { SetProperty( ref myIsin, value ); }
         }
-
-        [NotMapped]
-        [DataMember]
-        public Overview Overview { get; set; }
 
         [NotMapped]
         [DataMember]

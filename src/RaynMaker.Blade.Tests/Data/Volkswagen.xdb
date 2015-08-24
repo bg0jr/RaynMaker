@@ -1,143 +1,149 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DataSheet xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://github.com/bg0jr/RaynMaker">
-  <Asset i:type="Stock">
-    <Data xmlns:d3p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
-      <d3p1:anyType i:type="Series">
-        <Values>
-          <d3p1:anyType i:type="Price">
-            <Period i:type="DayPeriod">
-              <Day>2015-06-19T00:00:00</Day>
-            </Period>
-            <Source>http://www.ariva.de/volkswagen-aktie/bilanz-guv</Source>
-            <Timestamp>2015-06-21T00:00:00</Timestamp>
-            <Value>206.35</Value>
-            <Currency>
-              <Name>Euro</Name>
-              <Translations />
-            </Currency>
-          </d3p1:anyType>
-        </Values>
-      </d3p1:anyType>
-      <d3p1:anyType i:type="Series">
-        <Values>
-          <d3p1:anyType i:type="Dividend">
-            <Period i:type="YearPeriod">
-              <Year>2010</Year>
-            </Period>
-            <Source>http://www.ariva.de/volkswagen-aktie/bilanz-guv</Source>
-            <Timestamp>2015-06-21T00:00:00</Timestamp>
-            <Value>1023440000</Value>
-            <Currency>
-              <Name>Euro</Name>
-              <Translations />
-            </Currency>
-          </d3p1:anyType>
-          <d3p1:anyType i:type="Dividend">
-            <Period i:type="YearPeriod">
-              <Year>2011</Year>
-            </Period>
-            <Source>http://www.ariva.de/volkswagen-aktie/bilanz-guv</Source>
-            <Timestamp>2015-06-21T00:00:00</Timestamp>
-            <Value>1395570000</Value>
-            <Currency>
-              <Name>Euro</Name>
-              <Translations />
-            </Currency>
-          </d3p1:anyType>
-          <d3p1:anyType i:type="Dividend">
-            <Period i:type="YearPeriod">
-              <Year>2012</Year>
-            </Period>
-            <Source>http://www.ariva.de/volkswagen-aktie/bilanz-guv</Source>
-            <Timestamp>2015-06-21T00:00:00</Timestamp>
-            <Value>1628305000</Value>
-            <Currency>
-              <Name>Euro</Name>
-              <Translations />
-            </Currency>
-          </d3p1:anyType>
-          <d3p1:anyType i:type="Dividend">
-            <Period i:type="YearPeriod">
-              <Year>2013</Year>
-            </Period>
-            <Source>http://www.ariva.de/volkswagen-aktie/bilanz-guv</Source>
-            <Timestamp>2015-06-21T00:00:00</Timestamp>
-            <Value>1860920000</Value>
-            <Currency>
-              <Name>Euro</Name>
-              <Translations />
-            </Currency>
-          </d3p1:anyType>
-          <d3p1:anyType i:type="Dividend">
-            <Period i:type="YearPeriod">
-              <Year>2014</Year>
-            </Period>
-            <Source>http://www.ariva.de/volkswagen-aktie/bilanz-guv</Source>
-            <Timestamp>2015-06-21T00:00:00</Timestamp>
-            <Value>2283504000</Value>
-            <Currency>
-              <Name>Euro</Name>
-              <Translations />
-            </Currency>
-          </d3p1:anyType>
-        </Values>
-      </d3p1:anyType>
-      <d3p1:anyType i:type="Series">
-        <Values>
-          <d3p1:anyType i:type="SharesOutstanding">
-            <Period i:type="YearPeriod">
-              <Year>2010</Year>
-            </Period>
-            <Source>http://www.ariva.de/volkswagen-aktie/bilanz-guv</Source>
-            <Timestamp>2015-07-05T00:00:00</Timestamp>
-            <Value>465200000</Value>
-          </d3p1:anyType>
-          <d3p1:anyType i:type="SharesOutstanding">
-            <Period i:type="YearPeriod">
-              <Year>2011</Year>
-            </Period>
-            <Source>http://www.ariva.de/volkswagen-aktie/bilanz-guv</Source>
-            <Timestamp>2015-07-05T00:00:00</Timestamp>
-            <Value>465190000</Value>
-          </d3p1:anyType>
-          <d3p1:anyType i:type="SharesOutstanding">
-            <Period i:type="YearPeriod">
-              <Year>2012</Year>
-            </Period>
-            <Source>http://www.ariva.de/volkswagen-aktie/bilanz-guv</Source>
-            <Timestamp>2015-07-05T00:00:00</Timestamp>
-            <Value>465230000</Value>
-          </d3p1:anyType>
-          <d3p1:anyType i:type="SharesOutstanding">
-            <Period i:type="YearPeriod">
-              <Year>2013</Year>
-            </Period>
-            <Source>http://www.ariva.de/volkswagen-aktie/bilanz-guv</Source>
-            <Timestamp>2015-07-05T00:00:00</Timestamp>
-            <Value>465230000</Value>
-          </d3p1:anyType>
-          <d3p1:anyType i:type="SharesOutstanding">
-            <Period i:type="YearPeriod">
-              <Year>2014</Year>
-            </Period>
-            <Source>http://www.ariva.de/volkswagen-aktie/bilanz-guv</Source>
-            <Timestamp>2015-07-05T00:00:00</Timestamp>
-            <Value>475730000</Value>
-          </d3p1:anyType>
-        </Values>
-      </d3p1:anyType>
-    </Data>
-    <Isin>DE0007664005</Isin>
-    <Name>Volkswagen</Name>
-    <Overview>
-      <Homepage>http://www.volkswagenag.com</Homepage>
-      <Origin>Germany</Origin>
-      <References>
-        <Reference>
-          <Url>http://www.ariva.de/volkswagen-aktie</Url>
-        </Reference>
-      </References>
-      <Sector>Automobile manufactor</Sector>
-    </Overview>
-  </Asset>
+<DataSheet xmlns:i="http://www.w3.org/2001/XMLSchema-instance" z:Id="1" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns="https://github.com/bg0jr/RaynMaker">
+  <Asset i:nil="true" />
+  <Company z:Id="2">
+    <Country z:Id="3">Germany</Country>
+    <Homepage z:Id="4">http://www.volkswagenag.com</Homepage>
+    <Name z:Id="5">Volkswagen</Name>
+    <References z:Id="6" z:Size="1">
+      <Reference z:Id="7">
+        <Url z:Id="8">http://www.ariva.de/volkswagen-aktie</Url>
+      </Reference>
+    </References>
+    <Sector z:Id="9">Automobile manufactor</Sector>
+    <Stocks z:Id="10" z:Size="1">
+      <Stock z:Id="11">
+        <Company z:Ref="2" i:nil="true" />
+        <Data xmlns:d5p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" z:Id="12" z:Size="3">
+          <d5p1:anyType z:Id="13" i:type="Series">
+            <Values z:Id="14" z:Size="1">
+              <d5p1:anyType z:Id="15" i:type="Price">
+                <Period z:Id="16" i:type="DayPeriod">
+                  <Day>2015-06-19T00:00:00</Day>
+                </Period>
+                <Source z:Id="17">http://www.ariva.de/volkswagen-aktie/bilanz-guv</Source>
+                <Timestamp>2015-08-24T14:14:45.9037798+02:00</Timestamp>
+                <Value>206.35</Value>
+                <Currency z:Id="18">
+                  <Name z:Id="19">Euro</Name>
+                  <Translations z:Id="20" z:Size="0" />
+                </Currency>
+              </d5p1:anyType>
+            </Values>
+          </d5p1:anyType>
+          <d5p1:anyType z:Id="21" i:type="Series">
+            <Values z:Id="22" z:Size="5">
+              <d5p1:anyType z:Id="23" i:type="Dividend">
+                <Period z:Id="24" i:type="YearPeriod">
+                  <Year>2010</Year>
+                </Period>
+                <Source z:Id="25">http://www.ariva.de/volkswagen-aktie/bilanz-guv</Source>
+                <Timestamp>2015-08-24T14:14:45.9057799+02:00</Timestamp>
+                <Value>1023440000</Value>
+                <Currency z:Id="26">
+                  <Name z:Id="27">Euro</Name>
+                  <Translations z:Id="28" z:Size="0" />
+                </Currency>
+              </d5p1:anyType>
+              <d5p1:anyType z:Id="29" i:type="Dividend">
+                <Period z:Id="30" i:type="YearPeriod">
+                  <Year>2011</Year>
+                </Period>
+                <Source z:Id="31">http://www.ariva.de/volkswagen-aktie/bilanz-guv</Source>
+                <Timestamp>2015-08-24T14:14:45.9057799+02:00</Timestamp>
+                <Value>1395570000</Value>
+                <Currency z:Id="32">
+                  <Name z:Id="33">Euro</Name>
+                  <Translations z:Id="34" z:Size="0" />
+                </Currency>
+              </d5p1:anyType>
+              <d5p1:anyType z:Id="35" i:type="Dividend">
+                <Period z:Id="36" i:type="YearPeriod">
+                  <Year>2012</Year>
+                </Period>
+                <Source z:Id="37">http://www.ariva.de/volkswagen-aktie/bilanz-guv</Source>
+                <Timestamp>2015-08-24T14:14:45.9057799+02:00</Timestamp>
+                <Value>1628305000</Value>
+                <Currency z:Id="38">
+                  <Name z:Id="39">Euro</Name>
+                  <Translations z:Id="40" z:Size="0" />
+                </Currency>
+              </d5p1:anyType>
+              <d5p1:anyType z:Id="41" i:type="Dividend">
+                <Period z:Id="42" i:type="YearPeriod">
+                  <Year>2013</Year>
+                </Period>
+                <Source z:Id="43">http://www.ariva.de/volkswagen-aktie/bilanz-guv</Source>
+                <Timestamp>2015-08-24T14:14:45.9057799+02:00</Timestamp>
+                <Value>1860920000</Value>
+                <Currency z:Id="44">
+                  <Name z:Id="45">Euro</Name>
+                  <Translations z:Id="46" z:Size="0" />
+                </Currency>
+              </d5p1:anyType>
+              <d5p1:anyType z:Id="47" i:type="Dividend">
+                <Period z:Id="48" i:type="YearPeriod">
+                  <Year>2014</Year>
+                </Period>
+                <Source z:Id="49">http://www.ariva.de/volkswagen-aktie/bilanz-guv</Source>
+                <Timestamp>2015-08-24T14:14:45.9057799+02:00</Timestamp>
+                <Value>2283504000</Value>
+                <Currency z:Id="50">
+                  <Name z:Id="51">Euro</Name>
+                  <Translations z:Id="52" z:Size="0" />
+                </Currency>
+              </d5p1:anyType>
+            </Values>
+          </d5p1:anyType>
+          <d5p1:anyType z:Id="53" i:type="Series">
+            <Values z:Id="54" z:Size="5">
+              <d5p1:anyType z:Id="55" i:type="SharesOutstanding">
+                <Period z:Id="56" i:type="YearPeriod">
+                  <Year>2010</Year>
+                </Period>
+                <Source z:Id="57">http://www.ariva.de/volkswagen-aktie/bilanz-guv</Source>
+                <Timestamp>2015-08-24T14:14:45.90678+02:00</Timestamp>
+                <Value>465200000</Value>
+              </d5p1:anyType>
+              <d5p1:anyType z:Id="58" i:type="SharesOutstanding">
+                <Period z:Id="59" i:type="YearPeriod">
+                  <Year>2011</Year>
+                </Period>
+                <Source z:Id="60">http://www.ariva.de/volkswagen-aktie/bilanz-guv</Source>
+                <Timestamp>2015-08-24T14:14:45.90678+02:00</Timestamp>
+                <Value>465190000</Value>
+              </d5p1:anyType>
+              <d5p1:anyType z:Id="61" i:type="SharesOutstanding">
+                <Period z:Id="62" i:type="YearPeriod">
+                  <Year>2012</Year>
+                </Period>
+                <Source z:Id="63">http://www.ariva.de/volkswagen-aktie/bilanz-guv</Source>
+                <Timestamp>2015-08-24T14:14:45.9077801+02:00</Timestamp>
+                <Value>465230000</Value>
+              </d5p1:anyType>
+              <d5p1:anyType z:Id="64" i:type="SharesOutstanding">
+                <Period z:Id="65" i:type="YearPeriod">
+                  <Year>2013</Year>
+                </Period>
+                <Source z:Id="66">http://www.ariva.de/volkswagen-aktie/bilanz-guv</Source>
+                <Timestamp>2015-08-24T14:14:45.9077801+02:00</Timestamp>
+                <Value>465230000</Value>
+              </d5p1:anyType>
+              <d5p1:anyType z:Id="67" i:type="SharesOutstanding">
+                <Period z:Id="68" i:type="YearPeriod">
+                  <Year>2014</Year>
+                </Period>
+                <Source z:Id="69">http://www.ariva.de/volkswagen-aktie/bilanz-guv</Source>
+                <Timestamp>2015-08-24T14:14:45.9077801+02:00</Timestamp>
+                <Value>475730000</Value>
+              </d5p1:anyType>
+            </Values>
+          </d5p1:anyType>
+        </Data>
+        <Isin z:Id="70">DE0007664005</Isin>
+        <Name i:nil="true" />
+        <Overview i:nil="true" />
+      </Stock>
+    </Stocks>
+  </Company>
 </DataSheet>

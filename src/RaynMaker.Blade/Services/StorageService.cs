@@ -124,33 +124,6 @@ namespace RaynMaker.Blade.Services
                 sheet = ( DataSheet )serializer.ReadObject( reader );
             }
 
-            if( sheet.Stock != null && sheet.Company == null )
-            {
-                var stock = sheet.Stock;
-
-                sheet.Company = new Company()
-                {
-                    Name = stock.Name,
-                    Country = stock.Overview.Country,
-                    Sector = stock.Overview.Sector,
-                    Homepage = stock.Overview.Homepage
-                };
-
-                foreach( var reference in stock.Overview.References )
-                {
-                    sheet.Company.References.Add( reference );
-                }
-
-                sheet.Company.Stocks.Add( stock );
-                stock.Company = sheet.Company;
-
-                sheet.Stock = null;
-                stock.Name = null;
-                stock.Overview = null;
-
-                SaveDataSheet( sheet, path );
-            }
-
             return sheet;
         }
 
