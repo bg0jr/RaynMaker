@@ -8,12 +8,23 @@ namespace RaynMaker.Blade.Entities
     [KnownType( typeof( Overview ) )]
     public class Stock : Asset
     {
+        private string myIsin;
+
+        public Stock()
+        {
+            Overview = new Overview();
+        }
+
         [DataMember]
         [Required]
-        public string Isin { get; set; }
+        public string Isin
+        {
+            get { return myIsin; }
+            set { SetProperty( ref myIsin, value ); }
+        }
 
         [DataMember]
         [Required, ValidateObject]
-        public Overview Overview { get; set; }
+        public Overview Overview { get; private set; }
     }
 }

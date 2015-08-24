@@ -16,16 +16,7 @@ namespace RaynMaker.Blade.Entities
         private IPeriod myPeriod;
 
         [Required]
-        public DateTime Timestamp
-        {
-            get { return myTimestamp; }
-            private set { SetProperty( ref myTimestamp, value ); }
-        }
-
-        protected void UpdateTimestamp()
-        {
-            Timestamp = DateTime.Now;
-        }
+        public long Id { get; set; }
 
         [DataMember]
         [Required]
@@ -55,6 +46,18 @@ namespace RaynMaker.Blade.Entities
         {
             get { return myPeriod; }
             set { SetProperty( ref myPeriod, value ); }
+        }
+
+        [Required]
+        public DateTime Timestamp
+        {
+            get { return myTimestamp; }
+            private set { SetProperty( ref myTimestamp, value ); }
+        }
+
+        protected void UpdateTimestamp()
+        {
+            Timestamp = DateTime.Now;
         }
     }
 }

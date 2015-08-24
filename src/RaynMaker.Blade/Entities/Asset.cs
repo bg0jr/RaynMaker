@@ -4,13 +4,16 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.Serialization;
 using Plainion.Validation;
+using RaynMaker.Entities;
 
 namespace RaynMaker.Blade.Entities
 {
     [DataContract( Name = "Asset", Namespace = "https://github.com/bg0jr/RaynMaker" )]
     [KnownType( typeof( DatumSeries ) )]
-    public abstract class Asset
+    public abstract class Asset : SerializableBindableBase
     {
+        private string myName;
+
         public Asset()
         {
             Data = new ObservableCollection<IDatumSeries>();
@@ -18,7 +21,11 @@ namespace RaynMaker.Blade.Entities
 
         [DataMember]
         [Required]
-        public string Name { get; set; }
+        public string Name
+        {
+            get { return myName; }
+            set { SetProperty( ref myName, value ); }
+        }
 
         [DataMember]
         [ValidateObject]

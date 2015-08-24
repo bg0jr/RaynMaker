@@ -58,10 +58,7 @@ namespace RaynMaker.Blade.ViewModels
             {
                 Sheet = new DataSheet
                 {
-                    Asset = new Stock
-                    {
-                        Overview = new Overview()
-                    }
+                    Asset = new Stock()
                 };
             }
 
