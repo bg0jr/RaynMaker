@@ -125,20 +125,6 @@ namespace RaynMaker.Blade.Services
                 sheet = ( DataSheet )serializer.ReadObject( reader );
             }
 
-            if( sheet.Data == null && sheet.Company.Stocks.Single().Data.Any() )
-            {
-                sheet.Data = new ObservableCollection<IDatumSeries>();
-
-                foreach( var data in sheet.Company.Stocks.Single().Data )
-                {
-                    sheet.Data.Add( data );
-                }
-
-                sheet.Company.Stocks.Single().Data = null;
-
-                SaveDataSheet( sheet, path );
-            }
-
             return sheet;
         }
 

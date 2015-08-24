@@ -23,6 +23,6 @@ namespace RaynMaker.Blade.Entities
 
         [DataMember]
         [ValidateObject]
-        public ObservableCollection<IDatumSeries> Data { get; set; }
+        public ObservableCollection<IDatumSeries> Data { get; private set; }
     }
 }

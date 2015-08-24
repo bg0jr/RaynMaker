@@ -14,11 +14,6 @@ namespace RaynMaker.Entities
     {
         private string myIsin;
 
-        public Stock()
-        {
-            Data = new ObservableCollection<IDatumSeries>();
-        }
-
         [Required]
         public int Id { get; set; }
 
@@ -29,11 +24,6 @@ namespace RaynMaker.Entities
             get { return myIsin; }
             set { SetProperty( ref myIsin, value ); }
         }
-
-        [NotMapped]
-        [DataMember]
-        [ValidateObject]
-        public ObservableCollection<IDatumSeries> Data { get; set; }
 
         [DataMember]
         [Required]
