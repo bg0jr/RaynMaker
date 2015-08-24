@@ -53,7 +53,7 @@ namespace RaynMaker.Blade.ViewModels
 
             if( File.Exists( Project.DataSheetLocation ) )
             {
-                myDataSheet= myStorageService.LoadDataSheet( Project.DataSheetLocation );
+                myDataSheet = myStorageService.LoadDataSheet( Project.DataSheetLocation );
             }
             else
             {
@@ -68,22 +68,22 @@ namespace RaynMaker.Blade.ViewModels
             Contract.Invariant( myStock != null, "No stock found in DataSheet" );
 
             // data sanity - TODO: later move to creation of new DataSheet
-            var price = myStock.SeriesOf( typeof( Price ) ).Current<Price>();
+            var price = myDataSheet.Data.SeriesOf( typeof( Price ) ).Current<Price>();
             if( price == null )
             {
                 var series = new DatumSeries( typeof( Price ), new Price() );
-                myStock.Data.Add( series );
+                myDataSheet.Data.Add( series );
             }
 
             OnPropertyChanged( () => Price );
 
             foreach( var type in KnownDatums.AllExceptPrice )
             {
-                var series = ( DatumSeries )myStock.SeriesOf( type );
+                var series = ( DatumSeries )myDataSheet.Data.SeriesOf( type );
                 if( series == null )
                 {
                     series = new DatumSeries( type );
-                    myStock.Data.Add( series );
+                    myDataSheet.Data.Add( series );
                 }
 
                 // TODO: today we only support yearly values here
@@ -129,7 +129,7 @@ namespace RaynMaker.Blade.ViewModels
             // and handle deserialization separately
             // TODO: change "IFreezable" to "Validation" -  what is EF validation approach?
 
-            foreach( DatumSeries series in Stock.Data.ToList() )
+            foreach( DatumSeries series in myDataSheet.Data.ToList() )
             {
                 foreach( var value in series.ToList() )
                 {
@@ -141,7 +141,7 @@ namespace RaynMaker.Blade.ViewModels
 
                 if( !series.Any() )
                 {
-                    Stock.Data.Remove( series );
+                    myDataSheet.Data.Remove( series );
                 }
             }
 
@@ -172,14 +172,14 @@ namespace RaynMaker.Blade.ViewModels
 
         public Price Price
         {
-            get { return myStock.SeriesOf( typeof( Price ) ).Current<Price>(); }
+            get { return myDataSheet.Data.SeriesOf( typeof( Price ) ).Current<Price>(); }
         }
 
         public IEnumerable<IDatumSeries> DataSeries
         {
             get
             {
-                return myStock.Data
+                return myDataSheet.Data
                     .Where( s => s.DatumType != typeof( Price ) )
                     .OrderBy( s => s.DatumType.Name );
             }

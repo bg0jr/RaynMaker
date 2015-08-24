@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using RaynMaker.Entities;
 
 namespace RaynMaker.Blade.Entities
@@ -20,6 +22,13 @@ namespace RaynMaker.Blade.Entities
         public static TDatumType Current<TDatumType>( this IDatumSeries self )
         {
             return ( TDatumType )self.Current();
+        }
+
+        public static IDatumSeries SeriesOf( this IEnumerable<IDatumSeries> self, Type datumType )
+        {
+            return self.OfType<IDatumSeries>()
+                .Where( s => s.DatumType == datumType )
+                .SingleOrDefault();
         }
     }
 }

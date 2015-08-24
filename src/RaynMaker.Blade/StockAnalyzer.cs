@@ -1,14 +1,12 @@
-﻿using System.IO;
-using System.Windows;
+﻿using System.Linq;
 using System.Windows.Documents;
 using System.Windows.Media;
-using RaynMaker.Blade.AnalysisSpec;
-using RaynMaker.Blade.Entities;
-using RaynMaker.Blade.Engine;
-using RaynMaker.Blade.Reporting;
-using RaynMaker.Blade.Model;
-using RaynMaker.Entities;
 using Plainion;
+using RaynMaker.Blade.AnalysisSpec;
+using RaynMaker.Blade.Engine;
+using RaynMaker.Blade.Entities;
+using RaynMaker.Blade.Model;
+using RaynMaker.Blade.Reporting;
 
 namespace RaynMaker.Blade
 {
@@ -23,17 +21,19 @@ namespace RaynMaker.Blade
             myAnalysis = analysis;
         }
 
-        public void Execute( Stock stock )
+        public void Execute( DataSheet sheet )
         {
-            Contract.RequiresNotNull( stock, "stock" );
+            Contract.RequiresNotNull( sheet, "sheet" );
 
             var doc = new FlowDocument();
             doc.FontFamily = new FontFamily( "Arial" );
             doc.FontSize = 13;
 
+            var stock = sheet.Company.Stocks.Single();
+
             doc.Headline( "{0} (Isin: {1})", stock.Company.Name, stock.Isin );
 
-            var context = new ReportContext( myProject, stock, doc );
+            var context = new ReportContext( myProject, stock, sheet, doc );
             foreach( var element in myAnalysis.Elements )
             {
                 element.Report( context );

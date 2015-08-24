@@ -79,7 +79,7 @@ namespace RaynMaker.Blade
             var dataSheet = myStorageService.LoadDataSheet( Project.DataSheetLocation );
 
             var analyzer = new StockAnalyzer( Project, analysisTemplate.Analysis );
-            analyzer.Execute( dataSheet.Company.Stocks.SingleOrDefault() );
+            analyzer.Execute( dataSheet );
         }
 
         public DelegateCommand BrowseDataSheetLocationCommand { get; private set; }

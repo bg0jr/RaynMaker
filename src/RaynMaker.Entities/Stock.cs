@@ -33,14 +33,7 @@ namespace RaynMaker.Entities
         [NotMapped]
         [DataMember]
         [ValidateObject]
-        public ObservableCollection<IDatumSeries> Data { get; private set; }
-
-        public IDatumSeries SeriesOf( Type datumType )
-        {
-            return Data.OfType<IDatumSeries>()
-                .Where( s => s.DatumType == datumType )
-                .SingleOrDefault();
-        }
+        public ObservableCollection<IDatumSeries> Data { get; set; }
 
         [DataMember]
         [Required]

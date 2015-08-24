@@ -10,7 +10,7 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
 
         public object ProvideValue( IFigureProviderContext context )
         {
-            return context.Stock.SeriesOf( typeof( Price ) ).Current();
+            return context.Data.SeriesOf( typeof( Price ) ).Current();
         }
     }
 }

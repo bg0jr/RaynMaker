@@ -9,6 +9,7 @@ using RaynMaker.Entities;
 using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Entities.Datums;
 using RaynMaker.Blade.Tests.Fakes;
+using System.Collections.Generic;
 
 namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
 {
@@ -29,15 +30,16 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         public void SetUp()
         {
             myContext = new Mock<IFigureProviderContext> { DefaultValue = DefaultValue.Mock };
-            myContext.Setup( x => x.Stock ).Returns( () =>
+            myContext.Setup( x => x.Stock ).Returns( () => new Stock() );
+            myContext.Setup( x => x.Data ).Returns( () =>
+            {
+                var data = new List<IDatumSeries>();
+                if( myCurrentPrice != null )
                 {
-                    var asset = new Stock();
-                    if( myCurrentPrice != null )
-                    {
-                        asset.Data.Add( new DatumSeries( typeof( Price ), myCurrentPrice ) );
-                    }
-                    return asset;
-                } );
+                    data.Add( new DatumSeries( typeof( Price ), myCurrentPrice ) );
+                }
+                return data;
+            } );
             myContext.Setup( x => x.GetSeries( RhsSeriesName ) ).Returns( () => myRhsSeries );
 
             myProvider = new GenericPriceRatioProvider( "dummy", RhsSeriesName, ( lhs, rhs ) => lhs + rhs );
