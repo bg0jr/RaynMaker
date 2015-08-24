@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using Plainion.Validation;
 
@@ -18,6 +19,7 @@ namespace RaynMaker.Entities
         public Company()
         {
             Stocks = new List<Stock>();
+            References = new ObservableCollection<Reference>();
         }
 
         [Required]
@@ -31,6 +33,7 @@ namespace RaynMaker.Entities
             set { SetProperty( ref myName, value ); }
         }
 
+        [NotMapped]
         [DataMember]
         [Required]
         public string Homepage
@@ -39,6 +42,7 @@ namespace RaynMaker.Entities
             set { SetProperty( ref myHomepage, value ); }
         }
 
+        [NotMapped]
         [DataMember]
         public string Sector
         {
@@ -46,6 +50,7 @@ namespace RaynMaker.Entities
             set { SetProperty( ref mySector, value ); }
         }
 
+        [NotMapped]
         [DataMember]
         public string Country
         {
@@ -53,6 +58,7 @@ namespace RaynMaker.Entities
             set { SetProperty( ref myCountry, value ); }
         }
 
+        [NotMapped]
         [DataMember]
         [ValidateObject]
         public ObservableCollection<Reference> References { get; private set; }

@@ -53,17 +53,18 @@ namespace RaynMaker.Blade.ViewModels
 
             if( File.Exists( Project.DataSheetLocation ) )
             {
-                Sheet = myStorageService.LoadDataSheet( Project.DataSheetLocation );
+                myDataSheet= myStorageService.LoadDataSheet( Project.DataSheetLocation );
             }
             else
             {
-                Sheet = new DataSheet
+                myDataSheet = new DataSheet
                 {
-                    Stock = new Stock()
+                    Company = new Company()
                 };
+                myDataSheet.Company.Stocks.Add( new Stock() );
             }
 
-            myStock = ( Stock )Sheet.Stock;
+            Stock = ( Stock )myDataSheet.Company.Stocks.SingleOrDefault();
             Contract.Invariant( myStock != null, "No stock found in DataSheet" );
 
             // data sanity - TODO: later move to creation of new DataSheet
@@ -114,10 +115,10 @@ namespace RaynMaker.Blade.ViewModels
 
         public INotification Notification { get; set; }
 
-        public DataSheet Sheet
+        public Stock Stock
         {
-            get { return myDataSheet; }
-            set { SetProperty( ref myDataSheet, value ); }
+            get { return myStock; }
+            set { SetProperty( ref myStock, value ); }
         }
 
         public ICommand OkCommand { get; private set; }
@@ -128,7 +129,7 @@ namespace RaynMaker.Blade.ViewModels
             // and handle deserialization separately
             // TODO: change "IFreezable" to "Validation" -  what is EF validation approach?
 
-            foreach( DatumSeries series in Sheet.Stock.Data.ToList() )
+            foreach( DatumSeries series in Stock.Data.ToList() )
             {
                 foreach( var value in series.ToList() )
                 {
@@ -140,11 +141,11 @@ namespace RaynMaker.Blade.ViewModels
 
                 if( !series.Any() )
                 {
-                    Sheet.Stock.Data.Remove( series );
+                    Stock.Data.Remove( series );
                 }
             }
 
-            myStorageService.SaveDataSheet( Sheet, Project.DataSheetLocation );
+            myStorageService.SaveDataSheet( myDataSheet, Project.DataSheetLocation );
             FinishInteraction();
         }
 
@@ -159,14 +160,14 @@ namespace RaynMaker.Blade.ViewModels
 
         private void OnAddReference()
         {
-            myStock.Overview.References.Add( new Reference() );
+            myStock.Company.References.Add( new Reference() );
         }
 
         public ICommand RemoveReferenceCommand { get; private set; }
 
         private void OnRemoveReference( Reference reference )
         {
-            myStock.Overview.References.Remove( reference );
+            myStock.Company.References.Remove( reference );
         }
 
         public Price Price

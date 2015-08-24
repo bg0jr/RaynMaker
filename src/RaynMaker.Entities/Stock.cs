@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.Serialization;
 using Plainion.Validation;
@@ -23,8 +24,8 @@ namespace RaynMaker.Entities
         [Required]
         public int Id { get; set; }
 
+        [NotMapped]
         [DataMember]
-        [Required]
         public string Name
         {
             get { return myName; }
@@ -39,10 +40,11 @@ namespace RaynMaker.Entities
             set { SetProperty( ref myIsin, value ); }
         }
 
+        [NotMapped]
         [DataMember]
-        [Required, ValidateObject]
-        public Overview Overview { get; private set; }
+        public Overview Overview { get; set; }
 
+        [NotMapped]
         [DataMember]
         [ValidateObject]
         public ObservableCollection<IDatumSeries> Data { get; private set; }
@@ -53,7 +55,8 @@ namespace RaynMaker.Entities
                 .Where( s => s.DatumType == datumType )
                 .SingleOrDefault();
         }
-        
+
+        [DataMember]
         [Required]
         public Company Company { get; set; }
     }

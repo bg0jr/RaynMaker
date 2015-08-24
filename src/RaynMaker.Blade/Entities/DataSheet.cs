@@ -10,7 +10,10 @@ namespace RaynMaker.Blade.Entities
     public class DataSheet
     {
         [DataMember( Name = "Asset" )]
-        [Required, ValidateObject]
         public Stock Stock { get; set; }
+
+        [DataMember]
+        [Required, ValidateObject]
+        public Company Company { get; set; }
     }
 }

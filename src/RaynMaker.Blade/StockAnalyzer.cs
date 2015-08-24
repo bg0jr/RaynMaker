@@ -8,6 +8,7 @@ using RaynMaker.Blade.Engine;
 using RaynMaker.Blade.Reporting;
 using RaynMaker.Blade.Model;
 using RaynMaker.Entities;
+using Plainion;
 
 namespace RaynMaker.Blade
 {
@@ -24,11 +25,13 @@ namespace RaynMaker.Blade
 
         public void Execute( Stock stock )
         {
+            Contract.RequiresNotNull( stock, "stock" );
+
             var doc = new FlowDocument();
             doc.FontFamily = new FontFamily( "Arial" );
             doc.FontSize = 13;
 
-            doc.Headline( "{0} (Isin: {1})", stock.Name, stock.Isin );
+            doc.Headline( "{0} (Isin: {1})", stock.Company.Name, stock.Isin );
 
             var context = new ReportContext( myProject, stock, doc );
             foreach( var element in myAnalysis.Elements )

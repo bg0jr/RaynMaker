@@ -19,9 +19,9 @@ namespace RaynMaker.Blade.AnalysisSpec
             list.MarkerOffset = 10;
             list.MarkerStyle = TextMarkerStyle.Disc;
 
-            if( context.Stock.Overview.References.Count > 0 )
+            if( context.Stock.Company.References.Count > 0 )
             {
-                foreach( var financialRef in context.Stock.Overview.References )
+                foreach( var financialRef in context.Stock.Company.References )
                 {
                     var hyperlink = new Hyperlink( new Run( financialRef.Url.ToString() ) );
                     hyperlink.NavigateUri = financialRef.Url;

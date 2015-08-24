@@ -109,16 +109,49 @@ namespace RaynMaker.Blade.Services
 
         public DataSheet LoadDataSheet( string path )
         {
+            DataSheet sheet;
+
             using( var reader = XmlReader.Create( path ) )
             {
+                var settings = new DataContractSerializerSettings();
+                settings.PreserveObjectReferences = true;
+
                 var knownTypes = KnownDatums.AllExceptPrice.ToList();
                 knownTypes.Add( typeof( Price ) );
+                settings.KnownTypes = knownTypes;
 
-                var serializer = new DataContractSerializer( typeof( DataSheet ), knownTypes );
-                var sheet =  ( DataSheet )serializer.ReadObject( reader );
-
-                return sheet;
+                var serializer = new DataContractSerializer( typeof( DataSheet ), settings );
+                sheet = ( DataSheet )serializer.ReadObject( reader );
             }
+
+            if( sheet.Stock != null && sheet.Company == null )
+            {
+                var stock = sheet.Stock;
+
+                sheet.Company = new Company()
+                {
+                    Name = stock.Name,
+                    Country = stock.Overview.Country,
+                    Sector = stock.Overview.Sector,
+                    Homepage = stock.Overview.Homepage
+                };
+
+                foreach( var reference in stock.Overview.References )
+                {
+                    sheet.Company.References.Add( reference );
+                }
+
+                sheet.Company.Stocks.Add( stock );
+                stock.Company = sheet.Company;
+
+                sheet.Stock = null;
+                stock.Name = null;
+                stock.Overview = null;
+
+                SaveDataSheet( sheet, path );
+            }
+
+            return sheet;
         }
 
         public void SaveDataSheet( DataSheet sheet, string path )
@@ -127,10 +160,14 @@ namespace RaynMaker.Blade.Services
 
             using( var writer = XmlWriter.Create( path ) )
             {
+                var settings = new DataContractSerializerSettings();
+                settings.PreserveObjectReferences = true;
+
                 var knownTypes = KnownDatums.AllExceptPrice.ToList();
                 knownTypes.Add( typeof( Price ) );
+                settings.KnownTypes = knownTypes;
 
-                var serializer = new DataContractSerializer( typeof( DataSheet ), knownTypes );
+                var serializer = new DataContractSerializer( typeof( DataSheet ), settings );
                 serializer.WriteObject( writer, sheet );
             }
         }
