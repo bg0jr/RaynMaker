@@ -8,9 +8,6 @@
         <Caption><![CDATA[Migrate to "analyzer"]]></Caption>
         <Node Id="864b21de-df3a-4ff5-b979-6bcc0765037f">
           <Caption><![CDATA[Migrate from datacontracts to EF]]></Caption>
-          <Node Id="7e861ae0-8c7a-494d-af7e-0bfb3f96cbf2">
-            <Caption><![CDATA[Currencies]]></Caption>
-          </Node>
           <Node Id="b14d6e8e-2702-42c9-ac5d-0e3715f05664">
             <Caption><![CDATA[DataSheet]]></Caption>
           </Node>
