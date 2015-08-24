@@ -78,15 +78,8 @@ namespace RaynMaker.Blade
             var analysisTemplate = myStorageService.LoadAnalysisTemplate( Project.CurrenciesSheet );
             var dataSheet = myStorageService.LoadDataSheet( Project.DataSheetLocation );
 
-            if( dataSheet.Asset is Stock )
-            {
-                var analyzer = new StockAnalyzer( Project, analysisTemplate.Analysis );
-                analyzer.Execute( ( Stock )dataSheet.Asset );
-            }
-            else
-            {
-                throw new NotSupportedException( "Asset type not supported: " + dataSheet.Asset.GetType() );
-            }
+            var analyzer = new StockAnalyzer( Project, analysisTemplate.Analysis );
+            analyzer.Execute( dataSheet.Stock );
         }
 
         public DelegateCommand BrowseDataSheetLocationCommand { get; private set; }

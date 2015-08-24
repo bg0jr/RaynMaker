@@ -18,7 +18,7 @@ namespace RaynMaker.Blade.AnalysisSpec.Providers
 
         public object ProvideValue( IFigureProviderContext context )
         {
-            return context.Asset.Data.OfType<IDatumSeries>()
+            return context.Stock.Data.OfType<IDatumSeries>()
                 .Where( s => s.DatumType == myDatumType )
                 .SingleOrDefault() ?? DatumSeries.Empty;
         }

@@ -15,7 +15,7 @@ namespace RaynMaker.Blade.AnalysisSpec
         {
             context.Document.Headline( "References" );
 
-            var stock = context.Asset as Stock;
+            var stock = context.Stock as Stock;
             if( stock == null )
             {
                 var paragraph = new Paragraph();

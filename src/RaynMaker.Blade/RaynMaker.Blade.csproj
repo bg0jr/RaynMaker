@@ -189,7 +189,6 @@
     <Compile Include="Entities\Datums\Dividend.cs" />
     <Compile Include="Entities\DatumSeries.cs" />
     <Compile Include="Entities\Overview.cs" />
-    <Compile Include="Entities\Asset.cs" />
     <Compile Include="Entities\DataSheet.cs" />
     <Compile Include="Entities\Datums\Price.cs" />
     <Compile Include="Entities\Reference.cs" />

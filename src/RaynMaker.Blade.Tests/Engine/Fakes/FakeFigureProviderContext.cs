@@ -7,9 +7,9 @@ namespace RaynMaker.Blade.Tests.Engine.Fakes
     {
         public FakeFigureProviderContext()
         {
-            Asset = new Stock();
+            Stock = new Stock();
         }
-        public Asset Asset { get; private set; }
+        public Stock Stock { get; private set; }
 
         public IDatumSeries GetSeries( string name )
         {

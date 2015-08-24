@@ -115,7 +115,9 @@ namespace RaynMaker.Blade.Services
                 knownTypes.Add( typeof( Price ) );
 
                 var serializer = new DataContractSerializer( typeof( DataSheet ), knownTypes );
-                return ( DataSheet )serializer.ReadObject( reader );
+                var sheet =  ( DataSheet )serializer.ReadObject( reader );
+
+                return sheet;
             }
         }
 

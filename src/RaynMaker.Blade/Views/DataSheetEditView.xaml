@@ -40,19 +40,19 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="Name" VerticalAlignment="Center"/>
-                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Sheet.Asset.Name}" Margin="5,2,0,2" />
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Sheet.Stock.Name}" Margin="5,2,0,2" />
 
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="Isin" VerticalAlignment="Center"/>
-                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Sheet.Asset.Isin}" Margin="5,2,0,2" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Sheet.Stock.Isin}" Margin="5,2,0,2" />
 
-                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Origin" VerticalAlignment="Center"/>
-                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Sheet.Asset.Overview.Origin}" Margin="5,2,0,2" />
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Country" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Sheet.Stock.Overview.Country}" Margin="5,2,0,2" />
 
                         <TextBlock Grid.Row="3" Grid.Column="0" Text="Sector" VerticalAlignment="Center"/>
-                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Sheet.Asset.Overview.Sector}" Margin="5,2,0,2" />
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Sheet.Stock.Overview.Sector}" Margin="5,2,0,2" />
 
                         <TextBlock Grid.Row="4" Grid.Column="0" Text="Homepage" VerticalAlignment="Center"/>
-                        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Sheet.Asset.Overview.Homepage}" Margin="5,2,0,2" >
+                        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Sheet.Stock.Overview.Homepage}" Margin="5,2,0,2" >
                             <i:Interaction.Behaviors>
                                 <pn:OpenLinkOnCtrlClickBehavior/>
                             </i:Interaction.Behaviors>
@@ -64,7 +64,7 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <ListView Grid.Row="0" ItemsSource="{Binding Sheet.Asset.Overview.References}" MaxHeight="75" Background="Transparent"
+                            <ListView Grid.Row="0" ItemsSource="{Binding Sheet.Stock.Overview.References}" MaxHeight="75" Background="Transparent"
                                   BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch">
                                 <ListView.ItemContainerStyle>
                                     <Style TargetType="{x:Type ListViewItem}">

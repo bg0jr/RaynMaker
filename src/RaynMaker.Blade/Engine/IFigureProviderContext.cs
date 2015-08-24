@@ -4,7 +4,7 @@ namespace RaynMaker.Blade.Engine
 {
     public interface IFigureProviderContext
     {
-        Asset Asset { get; }
+        Stock Stock { get; }
 
         IDatumSeries GetSeries( string name );
     }

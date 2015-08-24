@@ -19,10 +19,10 @@ namespace RaynMaker.Blade.Engine
         private List<IFigureProvider> myProviders;
         private List<IFigureProviderFailure> myProviderFailures;
 
-        internal ReportContext( Project project, Asset asset, FlowDocument document )
+        internal ReportContext( Project project, RaynMaker.Blade.Entities.Stock stock, FlowDocument document )
         {
             myProject = project;
-            Asset = asset;
+            Stock = stock;
             Document = document;
 
             myProviders = new List<IFigureProvider>();
@@ -63,7 +63,7 @@ namespace RaynMaker.Blade.Engine
             myProviderFailures = new List<IFigureProviderFailure>();
         }
 
-        public Asset Asset { get; private set; }
+        public RaynMaker.Blade.Entities.Stock Stock { get; private set; }
 
         public FlowDocument Document { get; private set; }
 

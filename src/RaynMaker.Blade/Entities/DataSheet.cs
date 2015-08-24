@@ -1,16 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Runtime.Serialization;
 using Plainion.Validation;
 
 namespace RaynMaker.Blade.Entities
 {
     [DataContract( Name = "DataSheet", Namespace = "https://github.com/bg0jr/RaynMaker" )]
-    [KnownType( typeof( Asset ) ), KnownType( typeof( Stock ) )]
+    [KnownType( typeof( Stock ) )]
     public class DataSheet
     {
-        [DataMember]
+        [DataMember( Name = "Asset" )]
         [Required, ValidateObject]
-        public Asset Asset { get; set; }
+        public Stock Stock { get; set; }
     }
 }

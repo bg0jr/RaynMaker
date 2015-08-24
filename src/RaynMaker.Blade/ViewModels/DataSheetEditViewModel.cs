@@ -58,11 +58,11 @@ namespace RaynMaker.Blade.ViewModels
             {
                 Sheet = new DataSheet
                 {
-                    Asset = new Stock()
+                    Stock = new Stock()
                 };
             }
 
-            myStock = ( Stock )Sheet.Asset;
+            myStock = ( Stock )Sheet.Stock;
             Contract.Invariant( myStock != null, "No stock found in DataSheet" );
 
             // data sanity - TODO: later move to creation of new DataSheet
@@ -127,7 +127,7 @@ namespace RaynMaker.Blade.ViewModels
             // and handle deserialization separately
             // TODO: change "IFreezable" to "Validation" -  what is EF validation approach?
 
-            foreach( DatumSeries series in Sheet.Asset.Data.ToList() )
+            foreach( DatumSeries series in Sheet.Stock.Data.ToList() )
             {
                 foreach( var value in series.ToList() )
                 {
@@ -139,7 +139,7 @@ namespace RaynMaker.Blade.ViewModels
 
                 if( !series.Any() )
                 {
-                    Sheet.Asset.Data.Remove( series );
+                    Sheet.Stock.Data.Remove( series );
                 }
             }
 
