@@ -14,7 +14,7 @@ namespace RaynMaker.Blade.Tests.Fakes
     {
         public static IDatum New( int year, double value )
         {
-            return new Datum
+            return new FakeDatum
             {
                 Period = new YearPeriod( year ),
                 Value = value,
@@ -24,7 +24,7 @@ namespace RaynMaker.Blade.Tests.Fakes
 
         public static IDatum New( int year, double value, Currency currency )
         {
-            return new CurrencyDatum
+            return new FakeCurrencyDatum
             {
                 Period = new YearPeriod( year ),
                 Value = value,

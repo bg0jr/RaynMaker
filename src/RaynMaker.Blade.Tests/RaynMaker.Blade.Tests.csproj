@@ -53,6 +53,8 @@
     <Compile Include="Engine\TextEvaluatorTests.cs" />
     <Compile Include="Entities\DatumSeriesTests.cs" />
     <Compile Include="Fakes\DatumFactory.cs" />
+    <Compile Include="Fakes\FakeCurrencyDatum.cs" />
+    <Compile Include="Fakes\FakeDatum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

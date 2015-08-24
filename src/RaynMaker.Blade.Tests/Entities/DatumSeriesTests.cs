@@ -33,7 +33,7 @@ namespace RaynMaker.Blade.Tests.Entities
         [Test]
         public void Ctor_WithElements_ElementsAddedInOrder()
         {
-            var series = new DatumSeries( typeof( CurrencyDatum ), DatumFactory.New( 2015, 5, Euro ), DatumFactory.New( 2014, 7, Euro ) );
+            var series = new DatumSeries( typeof( FakeCurrencyDatum ), DatumFactory.New( 2015, 5, Euro ), DatumFactory.New( 2014, 7, Euro ) );
 
             Assert.That( series.First().Period, Is.EqualTo( new YearPeriod( 2014 ) ) );
             Assert.That( series.Last().Period, Is.EqualTo( new YearPeriod( 2015 ) ) );
@@ -42,7 +42,7 @@ namespace RaynMaker.Blade.Tests.Entities
         [Test]
         public void Ctor_WithElements_CurrencyIsTakenOver()
         {
-            var series = new DatumSeries( typeof( CurrencyDatum ), DatumFactory.New( 2015, 5, Euro ), DatumFactory.New( 2014, 7, Euro ) );
+            var series = new DatumSeries( typeof( FakeCurrencyDatum ), DatumFactory.New( 2015, 5, Euro ), DatumFactory.New( 2014, 7, Euro ) );
 
             Assert.That( series.Currency, Is.EqualTo( Euro ) );
         }
@@ -50,7 +50,7 @@ namespace RaynMaker.Blade.Tests.Entities
         [Test]
         public void Add_WhenCalled_ElementsAddedInOrder()
         {
-            var series = new DatumSeries( typeof( CurrencyDatum ) );
+            var series = new DatumSeries( typeof( FakeCurrencyDatum ) );
 
             series.Add( DatumFactory.New( 2015, 5, Euro ) );
             series.Add( DatumFactory.New( 2014, 7, Euro ) );
@@ -62,7 +62,7 @@ namespace RaynMaker.Blade.Tests.Entities
         [Test]
         public void Add_WithICurrencyDatum_CurrencyIsTakenOver()
         {
-            var series = new DatumSeries( typeof( CurrencyDatum ) );
+            var series = new DatumSeries( typeof( FakeCurrencyDatum ) );
 
             series.Add( DatumFactory.New( 2015, 5, Euro ) );
             series.Add( DatumFactory.New( 2014, 7, Euro ) );
@@ -73,7 +73,7 @@ namespace RaynMaker.Blade.Tests.Entities
         [Test]
         public void Add_InvalidCurrency_Throws()
         {
-            var series = new DatumSeries( typeof( CurrencyDatum ) );
+            var series = new DatumSeries( typeof( FakeCurrencyDatum ) );
 
             series.Add( DatumFactory.New( 2015, 5, Euro ) );
             var ex = Assert.Throws<ArgumentException>( () => series.Add( DatumFactory.New( 2014, 7, Dollar ) ) );
@@ -83,7 +83,7 @@ namespace RaynMaker.Blade.Tests.Entities
         [Test]
         public void Add_MissingCurrencyWhenCurrencyExpected_Throws()
         {
-            var series = new DatumSeries( typeof( CurrencyDatum ) );
+            var series = new DatumSeries( typeof( FakeCurrencyDatum ) );
 
             series.Add( DatumFactory.New( 2015, 5, Euro ) );
             var ex = Assert.Throws<ArgumentException>( () => series.Add( DatumFactory.New( 2014, 7, null ) ) );
@@ -93,7 +93,7 @@ namespace RaynMaker.Blade.Tests.Entities
         [Test]
         public void Add_CurrencyUnexpected_Throws()
         {
-            var series = new DatumSeries( typeof( CurrencyDatum ) );
+            var series = new DatumSeries( typeof( FakeCurrencyDatum ) );
 
             series.Add( DatumFactory.New( 2015, 5, null ) );
             var ex = Assert.Throws<ArgumentException>( () => series.Add( DatumFactory.New( 2014, 7, Dollar ) ) );
@@ -103,7 +103,7 @@ namespace RaynMaker.Blade.Tests.Entities
         [Test]
         public void Add_DatumTypeMismatch_Throws()
         {
-            var series = new DatumSeries( typeof( Datum ) );
+            var series = new DatumSeries( typeof( FakeDatum ) );
 
             series.Add( DatumFactory.New( 2015, 5 ) );
             var ex = Assert.Throws<ArgumentException>( () => series.Add( DatumFactory.NewPrice( "2013-11-11", 7, Dollar ) ) );

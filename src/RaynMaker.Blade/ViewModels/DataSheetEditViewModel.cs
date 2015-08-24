@@ -97,10 +97,10 @@ namespace RaynMaker.Blade.ViewModels
                 {
                     if( !existingYears.Contains( i ) )
                     {
-                        var datum = ( Datum )Activator.CreateInstance( type );
+                        var datum = ( AbstractDatum )Activator.CreateInstance( type );
                         datum.Period = new YearPeriod( i );
 
-                        var currencyDatum = datum as CurrencyDatum;
+                        var currencyDatum = datum as AbstractCurrencyDatum;
                         if( currencyDatum != null )
                         {
                             currencyDatum.Currency = series.Currency;

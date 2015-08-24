@@ -6,7 +6,7 @@ namespace RaynMaker.Blade.Entities
 {
     [DataContract( Name = "CurrencyDatum", Namespace = "https://github.com/bg0jr/RaynMaker" )]
     [KnownType( typeof( Currency ) )]
-    public class CurrencyDatum : Datum, ICurrencyDatum
+    public abstract class AbstractCurrencyDatum : AbstractDatum, ICurrencyDatum
     {
         private Currency myCurrency;
 
@@ -15,7 +15,13 @@ namespace RaynMaker.Blade.Entities
         public Currency Currency
         {
             get { return myCurrency; }
-            set { SetProperty( ref myCurrency, value ); }
+            set
+            {
+                if( SetProperty( ref myCurrency, value ) )
+                {
+                    UpdateTimestamp();
+                }
+            }
         }
     }
 }

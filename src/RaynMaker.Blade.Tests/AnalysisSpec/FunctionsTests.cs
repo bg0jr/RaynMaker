@@ -3,6 +3,7 @@ using NUnit.Framework;
 using RaynMaker.Blade.AnalysisSpec;
 using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Entities.Datums;
+using RaynMaker.Blade.Tests.Fakes;
 using RaynMaker.Entities;
 
 namespace RaynMaker.Blade.Tests.AnalysisSpec
@@ -14,7 +15,7 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec
         public void LastN_WithZero_ReturnsEmptyCollection()
         {
             var series = new[] { 1, 2, 3, 4, 5 }
-                .Select( v => new Datum { Value = v } );
+                .Select( v => new FakeDatum { Value = v } );
 
             var result = Functions.LastN( series, 0 );
 
@@ -25,7 +26,7 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec
         public void LastN_WithOne_ReturnsCollectionWithLastItem()
         {
             var series = new[] { 1, 2, 3, 4, 5 }
-                .Select( v => new Datum { Value = v } )
+                .Select( v => new FakeDatum { Value = v } )
                 .ToList();
 
             var result = Functions.LastN( series, 1 );
@@ -39,7 +40,7 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec
         public void LastN_WithThree_ReturnsCollectionWithLastThreeItems()
         {
             var series = new[] { 1, 2, 3, 4, 5 }
-                .Select( v => new Datum { Value = v } )
+                .Select( v => new FakeDatum { Value = v } )
                 .ToList();
 
             var result = Functions.LastN( series, 3 );

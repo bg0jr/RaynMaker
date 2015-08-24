@@ -144,7 +144,7 @@
     <Compile Include="Entities\DatumSeriesExtensions.cs" />
     <Compile Include="Entities\IDatumSeries.cs" />
     <Compile Include="Entities\PeriodConverter.cs" />
-    <Compile Include="Entities\CurrencyDatum.cs" />
+    <Compile Include="Entities\AbstractCurrencyDatum.cs" />
     <Compile Include="Entities\DayPeriod.cs" />
     <Compile Include="Entities\Datums\Assets.cs" />
     <Compile Include="Entities\CurrenciesSheet.cs" />
@@ -185,7 +185,7 @@
     <Compile Include="Model\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AnalysisSpec\CurrencyConverter.cs" />
-    <Compile Include="Entities\Datum.cs" />
+    <Compile Include="Entities\AbstractDatum.cs" />
     <Compile Include="Entities\Datums\Dividend.cs" />
     <Compile Include="Entities\DatumSeries.cs" />
     <Compile Include="Entities\Overview.cs" />

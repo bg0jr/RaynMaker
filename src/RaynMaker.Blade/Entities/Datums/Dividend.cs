@@ -7,7 +7,7 @@ namespace RaynMaker.Blade.Entities.Datums
     /// Total dividend payment. NOT per share
     /// </summary>
     [DataContract( Name = "Dividend", Namespace = "https://github.com/bg0jr/RaynMaker" )]
-    public class Dividend : CurrencyDatum
+    public class Dividend : AbstractCurrencyDatum
     {
     }
 }

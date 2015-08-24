@@ -56,7 +56,7 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         public void ProvideValue_PriceMissing_ReturnsMissingData()
         {
             myCurrentPrice = null;
-            myRhsSeries = new DatumSeries( typeof( Datum ), DatumFactory.New( 2015, 1 ) );
+            myRhsSeries = new DatumSeries( typeof( FakeDatum ), DatumFactory.New( 2015, 1 ) );
 
             var result = myProvider.ProvideValue( myContext.Object );
 
@@ -80,7 +80,7 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         public void ProvideValue_PriceWithoutCurrency_Throws()
         {
             myCurrentPrice = DatumFactory.NewPrice( "2015-01-01", 17.21, null );
-            myRhsSeries = new DatumSeries( typeof( Datum ), DatumFactory.New( 2015, 1 ) );
+            myRhsSeries = new DatumSeries( typeof( FakeDatum ), DatumFactory.New( 2015, 1 ) );
 
             var ex = Assert.Throws<ArgumentException>( () => myProvider.ProvideValue( myContext.Object ) );
             Assert.That( ex.Message, Is.StringContaining( "Currency missing" ) );
@@ -90,7 +90,7 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         public void ProvideValue_RhsHasNoDataForPeriod_MissingDataForPeriodReturned()
         {
             myCurrentPrice = DatumFactory.NewPrice( "2015-01-01", 17.21, Euro );
-            myRhsSeries = new DatumSeries( typeof( Datum ), DatumFactory.New( 2001, 1 ) );
+            myRhsSeries = new DatumSeries( typeof( FakeDatum ), DatumFactory.New( 2001, 1 ) );
 
             var result = myProvider.ProvideValue( myContext.Object );
 
@@ -102,7 +102,7 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         public void ProvideValue_WithValidInputData_RatioReturned()
         {
             myCurrentPrice = DatumFactory.NewPrice( "2015-01-01", 17.21, Euro );
-            myRhsSeries = new DatumSeries( typeof( Datum ), DatumFactory.New( 2015, 23 ), DatumFactory.New( 2014, 37 ) );
+            myRhsSeries = new DatumSeries( typeof( FakeDatum ), DatumFactory.New( 2015, 23 ), DatumFactory.New( 2014, 37 ) );
 
             var result = ( ICurrencyDatum )myProvider.ProvideValue( myContext.Object );
 
@@ -115,7 +115,7 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         public void ProvideValue_WhenCalled_InputsReferenced()
         {
             myCurrentPrice = DatumFactory.NewPrice( "2015-01-01", 17.21, Euro );
-            myRhsSeries = new DatumSeries( typeof( CurrencyDatum ), DatumFactory.New( 2015, 23, Euro ), DatumFactory.New( 2014, 37, Euro ) );
+            myRhsSeries = new DatumSeries( typeof( FakeCurrencyDatum ), DatumFactory.New( 2015, 23, Euro ), DatumFactory.New( 2014, 37, Euro ) );
 
             var result = ( DerivedDatum )myProvider.ProvideValue( myContext.Object );
 
@@ -127,7 +127,7 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
         public void ProvideValue_InconsistentCurrencies_Throws()
         {
             myCurrentPrice = DatumFactory.NewPrice( "2015-01-01", 17.21, Euro );
-            myRhsSeries = new DatumSeries( typeof( CurrencyDatum ), DatumFactory.New( 2015, 23, Dollar ), DatumFactory.New( 2014, 37, Dollar ) );
+            myRhsSeries = new DatumSeries( typeof( FakeCurrencyDatum ), DatumFactory.New( 2015, 23, Dollar ), DatumFactory.New( 2014, 37, Dollar ) );
 
             var ex = Assert.Throws<ArgumentException>( () => myProvider.ProvideValue( myContext.Object ) );
             Assert.That( ex.Message, Is.StringContaining( "Currency inconsistencies" ) );

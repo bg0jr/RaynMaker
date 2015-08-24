@@ -7,7 +7,7 @@ namespace RaynMaker.Blade.Entities
 {
     [DataContract( Name = "Datum", Namespace = "https://github.com/bg0jr/RaynMaker" )]
     [KnownType( typeof( YearPeriod ) ), KnownType( typeof( DayPeriod ) )]
-    public class Datum : SerializableBindableBase, IDatum
+    public abstract class AbstractDatum : SerializableBindableBase, IDatum
     {
         [DataMember( Name = "Timestamp" )]
         private DateTime myTimestamp;
@@ -22,6 +22,11 @@ namespace RaynMaker.Blade.Entities
             private set { SetProperty( ref myTimestamp, value ); }
         }
 
+        protected void UpdateTimestamp()
+        {
+            Timestamp = DateTime.Now;
+        }
+
         [DataMember]
         [Required]
         public double? Value
@@ -31,7 +36,7 @@ namespace RaynMaker.Blade.Entities
             {
                 if( SetProperty( ref myValue, value ) )
                 {
-                    Timestamp = DateTime.Now;
+                    UpdateTimestamp();
                 }
             }
         }
