@@ -34,12 +34,6 @@ namespace RaynMaker.Blade
 
             GoCommand = new DelegateCommand( OnGo, CanGo );
 
-            EditCurrenciesSheetCommand = new DelegateCommand( OnEditCurrencies );
-            EditCurrenciesSheetRequest = new InteractionRequest<INotification>();
-
-            EditAnalysisTemplateCommand = new DelegateCommand( OnEditAnalysisTemplate );
-            EditAnalysisTemplateRequest = new InteractionRequest<INotification>();
-
             BrowseDataSheetLocationCommand = new DelegateCommand( OnBrowseDataSheetLocation );
             BrowseDataSheetLocationRequest = new InteractionRequest<OpenFileDialogNotification>();
             EditDataSheetCommand = new DelegateCommand( OnEditDataSheet );
@@ -94,30 +88,6 @@ namespace RaynMaker.Blade
                 throw new NotSupportedException( "Asset type not supported: " + dataSheet.Asset.GetType() );
             }
         }
-
-        public DelegateCommand EditCurrenciesSheetCommand { get; private set; }
-
-        private void OnEditCurrencies()
-        {
-            var notification = new Notification();
-            notification.Title = "Currencies";
-
-            EditCurrenciesSheetRequest.Raise( notification, n => { } );
-        }
-
-        public InteractionRequest<INotification> EditCurrenciesSheetRequest { get; private set; }
-
-        public DelegateCommand EditAnalysisTemplateCommand { get; private set; }
-
-        private void OnEditAnalysisTemplate()
-        {
-            var notification = new Notification();
-            notification.Title = "AnalysisTemplate";
-
-            EditAnalysisTemplateRequest.Raise( notification, n => { } );
-        }
-
-        public InteractionRequest<INotification> EditAnalysisTemplateRequest { get; private set; }
 
         public DelegateCommand BrowseDataSheetLocationCommand { get; private set; }
 

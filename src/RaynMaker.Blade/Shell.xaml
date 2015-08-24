@@ -8,9 +8,6 @@
              xmlns:win32="clr-namespace:Microsoft.Win32;assembly=PresentationFramework"
              Width="650">
     <i:Interaction.Triggers>
-        <prism:InteractionRequestTrigger SourceObject="{Binding EditCurrenciesSheetRequest, Mode=OneWay}">
-            <pn:PopupViewAction WindowWidth="700" WindowHeight="600" prism:RegionManager.RegionName="{x:Static l:RegionNames.CurrenciesView}"/>
-        </prism:InteractionRequestTrigger>
         <prism:InteractionRequestTrigger SourceObject="{Binding BrowseDataSheetLocationRequest, Mode=OneWay}">
             <pn:PopupFileDialogAction FileDialogType="{x:Type win32:OpenFileDialog}"/>
         </prism:InteractionRequestTrigger>
@@ -29,27 +26,20 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Currencies sheet location" Margin="5" VerticalAlignment="Center"/>
-        <Button Grid.Row="0" Grid.Column="3" Command="{Binding EditCurrenciesSheetCommand}" Margin="5"
-                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-            <Image Source="/RaynMaker.Blade;Component/Resources/Edit.png" Width="20" Height="20"/>
-        </Button>
-
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="Data sheet location" Margin="5" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Project.DataSheetLocation}" Margin="5" VerticalAlignment="Center"/>
-        <Button Grid.Row="1" Grid.Column="2" Command="{Binding BrowseDataSheetLocationCommand}" Margin="5"
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Data sheet location" Margin="5" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Project.DataSheetLocation}" Margin="5" VerticalAlignment="Center"/>
+        <Button Grid.Row="0" Grid.Column="2" Command="{Binding BrowseDataSheetLocationCommand}" Margin="5"
                     Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
             <Image Source="/RaynMaker.Blade;Component/Resources/Browse.png" Width="20" Height="20"/>
         </Button>
-        <Button Grid.Row="1" Grid.Column="3" Command="{Binding EditDataSheetCommand}" Margin="5"
+        <Button Grid.Row="0" Grid.Column="3" Command="{Binding EditDataSheetCommand}" Margin="5"
                     Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
             <Image Source="/RaynMaker.Blade;Component/Resources/Edit.png" Width="20" Height="20"/>
         </Button>
 
-        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button  Content="Go" Command="{Binding GoCommand}"  Margin="5" Width="50"/>
         </StackPanel>
     </Grid>

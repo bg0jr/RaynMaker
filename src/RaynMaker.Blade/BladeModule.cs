@@ -15,6 +15,7 @@ namespace RaynMaker.Blade
         public void Initialize()
         {
             RegionManager.RegisterViewWithRegion( RaynMaker.Infrastructure.RegionNames.Tools, typeof( AnalysisTemplateMenuItem ) );
+            RegionManager.RegisterViewWithRegion( RaynMaker.Infrastructure.RegionNames.Tools, typeof( CurrenciesMenuItem ) );
             RegionManager.RegisterViewWithRegion( RaynMaker.Infrastructure.RegionNames.Tools, typeof( BladeMenuItem ) );
 
             RegionManager.RegisterViewWithRegion( RegionNames.Shell, typeof( Shell ) );
