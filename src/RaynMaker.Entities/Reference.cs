@@ -8,15 +8,15 @@ namespace RaynMaker.Entities
     [DataContract( Name = "Reference", Namespace = "https://github.com/bg0jr/RaynMaker" )]
     public class Reference : SerializableBindableBase
     {
-        private Uri myUri;
+        private string myUri;
 
         [Required]
         public int Id { get; set; }
         
         [NotMapped]
         [DataMember]
-        [Required]
-        public Uri Url
+        [Required,Url]
+        public string Url
         {
             get { return myUri; }
             set { SetProperty( ref myUri, value ); }

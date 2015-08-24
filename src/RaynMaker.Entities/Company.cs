@@ -33,16 +33,14 @@ namespace RaynMaker.Entities
             set { SetProperty( ref myName, value ); }
         }
 
-        [NotMapped]
         [DataMember]
-        [Required]
+        [Url]
         public string Homepage
         {
             get { return myHomepage; }
             set { SetProperty( ref myHomepage, value ); }
         }
 
-        [NotMapped]
         [DataMember]
         public string Sector
         {
@@ -50,7 +48,6 @@ namespace RaynMaker.Entities
             set { SetProperty( ref mySector, value ); }
         }
 
-        [NotMapped]
         [DataMember]
         public string Country
         {
@@ -58,7 +55,6 @@ namespace RaynMaker.Entities
             set { SetProperty( ref myCountry, value ); }
         }
 
-        [NotMapped]
         [DataMember]
         [ValidateObject]
         public ObservableCollection<Reference> References { get; private set; }

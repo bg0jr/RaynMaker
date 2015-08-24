@@ -16,6 +16,7 @@ namespace RaynMaker.Entities.Persistancy
             MigrationVersion2();
             MigrationVersion3();
             MigrationVersion4();
+            MigrationVersion5();
         }
 
         public Dictionary<int, IList<string>> Migrations { get; set; }
@@ -101,6 +102,32 @@ CREATE TABLE Translations (
 )" );
 
             Migrations.Add( 4, steps );
+        }
+
+        private void MigrationVersion5()
+        {
+            var steps = new List<string>();
+
+            steps.Add( @"DROP TABLE Companies" );
+
+            steps.Add( @"
+CREATE TABLE Companies (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name TEXT NOT NULL,
+    Homepage TEXT NULL,
+    Sector TEXT NULL,
+    Country TEXT NULL
+)" );
+
+            steps.Add( @"
+CREATE TABLE References (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+    Url TEXT NOT NULL,
+    Company_id INTEGER NOT NULL,
+    FOREIGN KEY(Company_id) REFERENCES Companies(Id)
+)" );
+
+            Migrations.Add( 5, steps );
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Windows.Navigation;
 using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Engine;
 using RaynMaker.Blade.Reporting;
+using System;
 
 namespace RaynMaker.Blade.AnalysisSpec
 {
@@ -24,7 +25,7 @@ namespace RaynMaker.Blade.AnalysisSpec
                 foreach( var financialRef in context.Stock.Company.References )
                 {
                     var hyperlink = new Hyperlink( new Run( financialRef.Url.ToString() ) );
-                    hyperlink.NavigateUri = financialRef.Url;
+                    hyperlink.NavigateUri = new Uri( financialRef.Url );
                     hyperlink.RequestNavigate += OnRequestNavigate;
 
                     WeakEventManager<Hyperlink, RequestNavigateEventArgs>.AddHandler( hyperlink, "RequestNavigate", OnRequestNavigate );
