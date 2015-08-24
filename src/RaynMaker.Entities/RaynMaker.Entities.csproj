@@ -24,6 +24,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Plainion.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Plainion.Core.2.3.0.0\lib\NET45\Plainion.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -38,14 +43,25 @@
     <Compile Include="AnalysisTemplate.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="Currency.cs" />
+    <Compile Include="DatumByPeriodComparer.cs" />
+    <Compile Include="DatumSeries.cs" />
+    <Compile Include="DayPeriod.cs" />
     <Compile Include="ICurrenciesContext.cs" />
     <Compile Include="IAnalysisContext.cs" />
     <Compile Include="IContextFactory.cs" />
     <Compile Include="IAssetsContext.cs" />
+    <Compile Include="ICurrencyDatum.cs" />
+    <Compile Include="IDatum.cs" />
+    <Compile Include="IDatumSeries.cs" />
+    <Compile Include="IPeriod.cs" />
+    <Compile Include="Overview.cs" />
+    <Compile Include="PeriodConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reference.cs" />
     <Compile Include="SerializableBindableBase.cs" />
     <Compile Include="Stock.cs" />
     <Compile Include="Translation.cs" />
+    <Compile Include="YearPeriod.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

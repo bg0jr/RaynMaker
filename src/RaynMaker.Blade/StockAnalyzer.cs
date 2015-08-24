@@ -7,6 +7,7 @@ using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Engine;
 using RaynMaker.Blade.Reporting;
 using RaynMaker.Blade.Model;
+using RaynMaker.Entities;
 
 namespace RaynMaker.Blade
 {

@@ -15,23 +15,13 @@ namespace RaynMaker.Blade.AnalysisSpec
         {
             context.Document.Headline( "References" );
 
-            var stock = context.Stock as Stock;
-            if( stock == null )
-            {
-                var paragraph = new Paragraph();
-                paragraph.Inlines.Add( new Run( "none" ) );
-                context.Document.Blocks.Add( paragraph );
-
-                return;
-            }
-
             var list = new List();
             list.MarkerOffset = 10;
             list.MarkerStyle = TextMarkerStyle.Disc;
 
-            if( stock.Overview.References.Count > 0 )
+            if( context.Stock.Overview.References.Count > 0 )
             {
-                foreach( var financialRef in stock.Overview.References )
+                foreach( var financialRef in context.Stock.Overview.References )
                 {
                     var hyperlink = new Hyperlink( new Run( financialRef.Url.ToString() ) );
                     hyperlink.NavigateUri = financialRef.Url;

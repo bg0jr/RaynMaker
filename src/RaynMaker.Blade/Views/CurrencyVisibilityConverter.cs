@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 using RaynMaker.Blade.Entities;
+using RaynMaker.Entities;
 
 namespace RaynMaker.Blade.Views
 {

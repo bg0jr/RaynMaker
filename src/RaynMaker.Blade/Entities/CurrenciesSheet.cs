@@ -8,7 +8,7 @@ namespace RaynMaker.Blade.Entities
 {
     [DataContract( Name = "CurrenciesSheet", Namespace = "https://github.com/bg0jr/RaynMaker" )]
     [KnownType( typeof( Currency ) )]
-    public class CurrenciesSheet
+    public class CurrenciesSheet 
     {
         public CurrenciesSheet()
         {

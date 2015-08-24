@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace RaynMaker.Blade.Entities
+namespace RaynMaker.Entities
 {
     public interface IDatum
     {

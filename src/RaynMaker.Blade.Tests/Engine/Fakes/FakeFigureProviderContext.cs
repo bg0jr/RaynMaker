@@ -1,5 +1,6 @@
 ﻿using RaynMaker.Blade.Engine;
 using RaynMaker.Blade.Entities;
+using RaynMaker.Entities;
 
 namespace RaynMaker.Blade.Tests.Engine.Fakes
 {

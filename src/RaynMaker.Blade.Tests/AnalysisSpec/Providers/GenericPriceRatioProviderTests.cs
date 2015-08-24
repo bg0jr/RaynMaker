@@ -5,10 +5,10 @@ using Moq;
 using NUnit.Framework;
 using RaynMaker.Blade.AnalysisSpec.Providers;
 using RaynMaker.Blade.Engine;
+using RaynMaker.Entities;
 using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Entities.Datums;
 using RaynMaker.Blade.Tests.Fakes;
-using RaynMaker.Entities;
 
 namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
 {
@@ -31,7 +31,7 @@ namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
             myContext = new Mock<IFigureProviderContext> { DefaultValue = DefaultValue.Mock };
             myContext.Setup( x => x.Stock ).Returns( () =>
                 {
-                    var asset = new RaynMaker.Blade.Entities.Stock();
+                    var asset = new Stock();
                     if( myCurrentPrice != null )
                     {
                         asset.Data.Add( new DatumSeries( typeof( Price ), myCurrentPrice ) );

@@ -1,5 +1,6 @@
 ﻿using System;
 using Plainion;
+using RaynMaker.Entities;
 
 namespace RaynMaker.Blade.Entities
 {

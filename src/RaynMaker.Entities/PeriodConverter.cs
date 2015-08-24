@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace RaynMaker.Blade.Entities
+namespace RaynMaker.Entities
 {
     public sealed class PeriodConverter : TypeConverter, IValueConverter
     {

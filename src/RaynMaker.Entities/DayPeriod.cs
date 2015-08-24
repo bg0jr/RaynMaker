@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
-namespace RaynMaker.Blade.Entities
+namespace RaynMaker.Entities
 {
     [DataContract( Name = "DayPeriod", Namespace = "https://github.com/bg0jr/RaynMaker" )]
     public class DayPeriod : IPeriod

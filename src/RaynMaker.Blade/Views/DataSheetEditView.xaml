@@ -5,7 +5,7 @@
              xmlns:pn="http://github.com/ronin4net/plainion"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             xmlns:l="clr-namespace:RaynMaker.Blade.Entities"
+             xmlns:l="clr-namespace:RaynMaker.Entities;assembly=RaynMaker.Entities"
              xmlns:v="clr-namespace:RaynMaker.Blade.Views"
              mc:Ignorable="d" d:DesignHeight="500" d:DesignWidth="500"
              x:Name="_this">

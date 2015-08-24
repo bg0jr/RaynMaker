@@ -4,6 +4,7 @@ using Plainion;
 using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Entities.Datums;
 using RaynMaker.Blade.Engine;
+using RaynMaker.Entities;
 
 namespace RaynMaker.Blade.AnalysisSpec.Providers
 {

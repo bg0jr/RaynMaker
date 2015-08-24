@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using RaynMaker.Entities;
 
 namespace RaynMaker.Blade.Entities
 {

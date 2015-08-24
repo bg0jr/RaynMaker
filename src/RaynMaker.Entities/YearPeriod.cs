@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using Plainion;
 
-namespace RaynMaker.Blade.Entities
+namespace RaynMaker.Entities
 {
     [DataContract( Name = "YearPeriod", Namespace = "https://github.com/bg0jr/RaynMaker" )]
     public class YearPeriod : IPeriod

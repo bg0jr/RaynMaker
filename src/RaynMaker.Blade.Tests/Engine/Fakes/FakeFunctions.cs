@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using RaynMaker.Blade.Entities;
+using RaynMaker.Entities;
 
 namespace RaynMaker.Blade.Tests.Engine.Fakes
 {

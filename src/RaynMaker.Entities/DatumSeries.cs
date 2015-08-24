@@ -6,9 +6,8 @@ using System.Linq;
 using System.Runtime.Serialization;
 using Plainion;
 using Plainion.Validation;
-using RaynMaker.Entities;
 
-namespace RaynMaker.Blade.Entities
+namespace RaynMaker.Entities
 {
     [DataContract( Name = "Series", Namespace = "https://github.com/bg0jr/RaynMaker" )]
     public class DatumSeries : IDatumSeries
@@ -35,7 +34,7 @@ namespace RaynMaker.Blade.Entities
         {
         }
 
-        internal DatumSeries( Type datumType, params IDatum[] items )
+        public DatumSeries( Type datumType, params IDatum[] items )
             : this( datumType )
         {
             foreach( var item in items )

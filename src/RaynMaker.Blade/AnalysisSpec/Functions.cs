@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using RaynMaker.Blade.Entities;
+using RaynMaker.Entities;
 
 namespace RaynMaker.Blade.AnalysisSpec
 {

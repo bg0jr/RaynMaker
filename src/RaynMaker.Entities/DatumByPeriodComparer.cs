@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RaynMaker.Blade.Entities
+namespace RaynMaker.Entities
 {
     public class DatumByPeriodComparer : IComparer<IDatum>
     {

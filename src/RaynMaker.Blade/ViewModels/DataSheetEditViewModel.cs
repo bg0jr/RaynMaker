@@ -14,6 +14,7 @@ using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Entities.Datums;
 using RaynMaker.Blade.Model;
 using RaynMaker.Blade.Services;
+using RaynMaker.Entities;
 
 namespace RaynMaker.Blade.ViewModels
 {

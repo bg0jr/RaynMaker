@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 using Plainion.Validation;
 using RaynMaker.Entities;
 
-namespace RaynMaker.Blade.Entities
+namespace RaynMaker.Entities
 {
     [DataContract( Name = "Overview", Namespace = "https://github.com/bg0jr/RaynMaker" )]
     [KnownType( typeof( Reference ) )]
@@ -18,6 +18,9 @@ namespace RaynMaker.Blade.Entities
         {
             References = new ObservableCollection<Reference>();
         }
+
+        [Required]
+        public int Id { get; set; }
 
         [DataMember]
         [Required]

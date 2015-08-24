@@ -7,6 +7,7 @@ using NUnit.Framework;
 using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Engine;
 using RaynMaker.Blade.Tests.Engine.Fakes;
+using RaynMaker.Entities;
 
 namespace RaynMaker.Blade.Tests.Engine
 {
