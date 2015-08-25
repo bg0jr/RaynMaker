@@ -17,6 +17,7 @@ namespace RaynMaker.Entities.Persistancy
             MigrationVersion3();
             MigrationVersion4();
             MigrationVersion5();
+            MigrationVersion6();
         }
 
         public Dictionary<int, IList<string>> Migrations { get; set; }
@@ -128,6 +129,25 @@ CREATE TABLE References (
 )" );
 
             Migrations.Add( 5, steps );
+        }
+
+        private void MigrationVersion6()
+        {
+            var steps = new List<string>();
+
+            steps.Add( @"DROP TABLE Companies" );
+
+            steps.Add( @"
+CREATE TABLE Companies (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name TEXT NOT NULL,
+    Homepage TEXT NULL,
+    Sector TEXT NULL,
+    Country TEXT NULL,
+    XdbPath TEXT NULL
+)" );
+
+            Migrations.Add( 6, steps );
         }
     }
 }
