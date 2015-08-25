@@ -1,12 +1,9 @@
-﻿using System.Diagnostics;
-using System.Linq;
+﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Navigation;
-using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Engine;
-using RaynMaker.Blade.Reporting;
-using System;
 
 namespace RaynMaker.Blade.AnalysisSpec
 {

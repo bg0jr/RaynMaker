@@ -9,8 +9,6 @@ using System.Windows.Media;
 using Plainion;
 using Plainion.Validation;
 using RaynMaker.Blade.Engine;
-using RaynMaker.Blade.Entities;
-using RaynMaker.Blade.Reporting;
 using RaynMaker.Entities;
 
 namespace RaynMaker.Blade.AnalysisSpec

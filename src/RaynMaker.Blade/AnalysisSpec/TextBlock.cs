@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Markup;
 using RaynMaker.Blade.Engine;
-using RaynMaker.Blade.Reporting;
 
 namespace RaynMaker.Blade.AnalysisSpec
 {

@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Documents;
 
-namespace RaynMaker.Blade.Reporting
+namespace RaynMaker.Blade.Engine
 {
     static class FlowDocumentExtensions
     {
