@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace RaynMaker.Entities.Persistancy
 {
-    class DBMigrationScript
+    class DatabaseMigrations
     {
-        public DBMigrationScript()
+        public const int RequiredDatabaseVersion = 6;
+        
+        public DatabaseMigrations()
         {
             Migrations = new Dictionary<int, IList<string>>();
 
@@ -121,7 +123,7 @@ CREATE TABLE Companies (
 )" );
 
             steps.Add( @"
-CREATE TABLE References (
+CREATE TABLE 'References' (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
     Url TEXT NOT NULL,
     Company_id INTEGER NOT NULL,

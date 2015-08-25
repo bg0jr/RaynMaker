@@ -8,7 +8,6 @@ namespace RaynMaker.Entities.Persistancy
 {
     public class DatabaseService : IContextFactory
     {
-        private const int RequiredDatabaseVersion = 4;
         private static bool myIsInitialized;
 
         static DatabaseService()
@@ -42,8 +41,8 @@ namespace RaynMaker.Entities.Persistancy
                     schemaInfo = context.SchemaInfos.Single();
                 }
 
-                var migrationScript = new DBMigrationScript();
-                while( schemaInfo.Version < RequiredDatabaseVersion )
+                var migrationScript = new DatabaseMigrations();
+                while( schemaInfo.Version < DatabaseMigrations.RequiredDatabaseVersion )
                 {
                     schemaInfo.Version++;
                     foreach( string migration in migrationScript.Migrations[ schemaInfo.Version ] )

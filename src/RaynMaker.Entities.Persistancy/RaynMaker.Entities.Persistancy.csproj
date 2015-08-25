@@ -50,7 +50,7 @@
   <ItemGroup>
     <Compile Include="CurrenciesContext.cs" />
     <Compile Include="AnalysisContext.cs" />
-    <Compile Include="DBMigrationScript.cs" />
+    <Compile Include="DatabaseMigrations.cs" />
     <Compile Include="AssetsContext.cs" />
     <Compile Include="DatabaseService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

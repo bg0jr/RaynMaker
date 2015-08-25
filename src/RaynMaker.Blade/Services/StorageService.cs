@@ -124,9 +124,20 @@ namespace RaynMaker.Blade.Services
                 sheet = ( DataSheet )serializer.ReadObject( reader );
             }
 
+            var ctx = myProjectHost.Project.GetAssetsContext();
+
             if( sheet.Company != null )
             {
+                sheet.Company.XdbPath = Path.GetFullPath( path );
+                ctx.Companies.Add( sheet.Company );
+
+                ctx.SaveChanges();
+
+                SaveDataSheet( sheet, path );
             }
+
+            var xdbPath = Path.GetFullPath( path );
+            sheet.Company = ctx.Companies.First( c => c.XdbPath == xdbPath );
 
             return sheet;
         }
@@ -134,6 +145,14 @@ namespace RaynMaker.Blade.Services
         public void SaveDataSheet( DataSheet sheet, string path )
         {
             RecursiveValidator.Validate( sheet );
+
+            var ctx = myProjectHost.Project.GetAssetsContext();
+
+            sheet.Company.XdbPath = Path.GetFullPath( path );
+
+            ctx.SaveChanges();
+
+            sheet.Company = null;
 
             using( var writer = XmlWriter.Create( path ) )
             {

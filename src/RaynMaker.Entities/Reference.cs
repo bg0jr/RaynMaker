@@ -13,7 +13,6 @@ namespace RaynMaker.Entities
         [Required]
         public int Id { get; set; }
         
-        [NotMapped]
         [DataMember]
         [Required,Url]
         public string Url

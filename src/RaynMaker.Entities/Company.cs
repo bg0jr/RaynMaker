@@ -69,6 +69,6 @@ namespace RaynMaker.Entities
 
         [DataMember]
         [ValidateObject]
-        public IList<Stock> Stocks { get; private set; }
+        public virtual IList<Stock> Stocks { get; private set; }
     }
 }
