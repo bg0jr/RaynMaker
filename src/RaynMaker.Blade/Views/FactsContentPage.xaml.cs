@@ -5,10 +5,10 @@ using RaynMaker.Blade.ViewModels;
 namespace RaynMaker.Blade.Views
 {
     [Export]
-    public partial class DataSheetEditView : UserControl
+    public partial class FactsContentPage : UserControl
     {
         [ImportingConstructor]
-        internal DataSheetEditView(DataSheetEditViewModel viewModel)
+        internal FactsContentPage( FactsContentPageModel viewModel )
         {
             InitializeComponent();
 

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.Composition;
+﻿using System.ComponentModel;
+using System.ComponentModel.Composition;
+using System.IO;
 using System.Linq;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -8,13 +10,15 @@ using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Blade.Engine;
 using RaynMaker.Blade.Model;
 using RaynMaker.Blade.Services;
+using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Blade.ViewModels
 {
     [Export]
-    class AnalysisContentPageModel : BindableBase
+    class AnalysisContentPageModel : BindableBase, IContentPage
     {
+        private Stock myStock;
         private IProjectHost myProjectHost;
         private StorageService myStorageService;
         private FlowDocument myFlowDocument;
@@ -26,12 +30,10 @@ namespace RaynMaker.Blade.ViewModels
             Project = project;
             myStorageService = storageService;
 
-            GoCommand = new DelegateCommand( OnGo );
+            GoCommand = new DelegateCommand( OnGo, CanGo );
 
             projectHost.Changed += projectHost_Changed;
             projectHost_Changed();
-
-            OnGo();
         }
 
         void projectHost_Changed()
@@ -46,7 +48,7 @@ namespace RaynMaker.Blade.ViewModels
 
         public Project Project { get; private set; }
 
-        public ICommand GoCommand { get; private set; }
+        public DelegateCommand GoCommand { get; private set; }
 
         public FlowDocument Document
         {
@@ -54,10 +56,20 @@ namespace RaynMaker.Blade.ViewModels
             set { SetProperty( ref myFlowDocument, value ); }
         }
 
+        private bool CanGo()
+        {
+            return File.Exists( myStock.Company.XdbPath );
+        }
+
         private void OnGo()
         {
+            if( !File.Exists( myStock.Company.XdbPath ) )
+            {
+                return;
+            }
+
             var analysisTemplate = myStorageService.LoadAnalysisTemplate( Project.CurrenciesSheet );
-            var dataSheet = myStorageService.LoadDataSheet( Project.DataSheetLocation );
+            var dataSheet = myStorageService.LoadDataSheet( myStock.Company.XdbPath );
 
             var doc = new FlowDocument();
             doc.Background = Brushes.White;
@@ -77,5 +89,23 @@ namespace RaynMaker.Blade.ViewModels
 
             Document = doc;
         }
+
+        public void Initialize( Stock stock )
+        {
+            myStock = stock;
+            PropertyChangedEventManager.AddHandler( myStock, OnXdbPathChanged, PropertySupport.ExtractPropertyName( () => myStock.Company.XdbPath ) );
+        
+            OnGo();
+        }
+
+        private void OnXdbPathChanged( object sender, PropertyChangedEventArgs e )
+        {
+            GoCommand.RaiseCanExecuteChanged();
+            OnGo();
+        }
+
+        public void Cancel() { }
+
+        public void Complete() { }
     }
 }

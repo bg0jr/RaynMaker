@@ -18,21 +18,19 @@ using RaynMaker.Infrastructure;
 namespace RaynMaker.Blade.ViewModels
 {
     [Export]
-    class DataSheetEditViewModel : BindableBase, IContentPage
+    class FactsContentPageModel : BindableBase, IContentPage
     {
+        private IProjectHost myProjectHost;
         private StorageService myStorageService;
         private DataSheet myDataSheet;
         private Stock myStock;
 
         [ImportingConstructor]
-        public DataSheetEditViewModel( Project project, StorageService storageService)
+        public FactsContentPageModel( IProjectHost projectHost, Project project, StorageService storageService )
         {
+            myProjectHost = projectHost;
             Project = project;
             myStorageService = storageService;
-
-            PropertyChangedEventManager.AddHandler( Project, OnProjectPropertyChanged,
-                PropertySupport.ExtractPropertyName( () => Project.DataSheetLocation ) );
-            OnProjectPropertyChanged( null, null );
 
             AddReferenceCommand = new DelegateCommand( OnAddReference );
             RemoveReferenceCommand = new DelegateCommand<Reference>( OnRemoveReference );
@@ -42,28 +40,27 @@ namespace RaynMaker.Blade.ViewModels
 
         public string Header { get { return "Facts"; } }
 
-        private void OnProjectPropertyChanged( object sender, PropertyChangedEventArgs e )
+        public Stock Stock
         {
-            if( string.IsNullOrEmpty( Project.DataSheetLocation ) || !File.Exists( Project.DataSheetLocation ) )
-            {
-                return;
-            }
+            get { return myStock; }
+            set { SetProperty( ref myStock, value ); }
+        }
 
-            if( File.Exists( Project.DataSheetLocation ) )
+        public void Initialize( Stock stock )
+        {
+            Stock = stock;
+
+            if( File.Exists( stock.Company.XdbPath ) )
             {
-                myDataSheet = myStorageService.LoadDataSheet( Project.DataSheetLocation );
+                myDataSheet = myStorageService.LoadDataSheet( stock.Company.XdbPath );
             }
             else
             {
                 myDataSheet = new DataSheet
                 {
-                    Company = new Company()
+                    Company = stock.Company
                 };
-                myDataSheet.Company.Stocks.Add( new Stock() );
             }
-
-            Stock = ( Stock )myDataSheet.Company.Stocks.SingleOrDefault();
-            Contract.Invariant( myStock != null, "No stock found in DataSheet" );
 
             // data sanity - TODO: later move to creation of new DataSheet
             var price = myDataSheet.Data.SeriesOf( typeof( Price ) ).Current<Price>();
@@ -109,12 +106,6 @@ namespace RaynMaker.Blade.ViewModels
             }
         }
 
-        public Stock Stock
-        {
-            get { return myStock; }
-            set { SetProperty( ref myStock, value ); }
-        }
-
         public void Complete()
         {
             // TODO: When to set timestamps? we could put it in the Entities now - whenever we change the value we update the timestamp
@@ -137,7 +128,7 @@ namespace RaynMaker.Blade.ViewModels
                 }
             }
 
-            myStorageService.SaveDataSheet( myDataSheet, Project.DataSheetLocation );
+            myStorageService.SaveDataSheet( myDataSheet, myStock.Company.XdbPath );
         }
 
         public void Cancel()

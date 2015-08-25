@@ -126,16 +126,6 @@ namespace RaynMaker.Blade.Services
 
             var ctx = myProjectHost.Project.GetAssetsContext();
 
-            if( sheet.Company != null )
-            {
-                sheet.Company.XdbPath = Path.GetFullPath( path );
-                ctx.Companies.Add( sheet.Company );
-
-                ctx.SaveChanges();
-
-                SaveDataSheet( sheet, path );
-            }
-
             var xdbPath = Path.GetFullPath( path );
             sheet.Company = ctx.Companies.First( c => c.XdbPath == xdbPath );
 

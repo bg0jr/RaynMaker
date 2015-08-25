@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.Composition;
-using System.IO;
 using Microsoft.Practices.Prism.Mvvm;
 using Plainion;
 using RaynMaker.Blade.Entities;
@@ -11,7 +10,6 @@ namespace RaynMaker.Blade.Model
     class Project : BindableBase
     {
         private IProjectHost myProjectHost;
-        private string myDataSheetLocation;
         private CurrenciesSheet myCurrenciesSheet;
         private int myMaxCurrencyTranslationsAgeInDays;
 
@@ -19,38 +17,8 @@ namespace RaynMaker.Blade.Model
         public Project( IProjectHost projectHost )
         {
             myProjectHost = projectHost;
-            myProjectHost.Changed += myProjectHost_Changed;
 
             myMaxCurrencyTranslationsAgeInDays = -1;
-        }
-
-        void myProjectHost_Changed()
-        {
-            OnPropertyChanged( () => DataSheetLocation );
-        }
-
-        public string DataSheetLocation
-        {
-            get
-            {
-                if( myProjectHost.Project == null )
-                {
-                    return null;
-                }
-                if( myDataSheetLocation == null && myProjectHost.Project.UserData.ContainsKey( "DataSheetLocation" ) )
-                {
-                    myDataSheetLocation = myProjectHost.Project.UserData[ "DataSheetLocation" ];
-                }
-                return myDataSheetLocation;
-            }
-            set
-            {
-                if( SetProperty( ref myDataSheetLocation, value != null ? value.Trim() : value ) )
-                {
-                    myProjectHost.Project.UserData[ "DataSheetLocation" ] = myDataSheetLocation;
-                    myProjectHost.Project.IsDirty = true;
-                }
-            }
         }
 
         public CurrenciesSheet CurrenciesSheet
@@ -88,6 +56,5 @@ namespace RaynMaker.Blade.Model
                 }
             }
         }
-
     }
 }

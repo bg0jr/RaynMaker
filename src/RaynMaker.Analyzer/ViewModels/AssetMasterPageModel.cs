@@ -47,6 +47,11 @@ namespace RaynMaker.Analyzer.ViewModels
         {
             var args = new AssetNavigationParameters( navigationContext.Parameters );
             Header = args.Stock.Company.Name;
+
+            foreach( var contentPage in GetContentPages() )
+            {
+                contentPage.Initialize( args.Stock );
+            }
         }
 
         public ICommand OkCommand { get; private set; }
@@ -84,7 +89,7 @@ namespace RaynMaker.Analyzer.ViewModels
             {
                 contentPage.Cancel();
             }
-            
+
             myNavigation.ClosePage( this );
         }
     }

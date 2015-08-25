@@ -165,7 +165,7 @@
     <Compile Include="Services\StorageService.cs" />
     <Compile Include="ViewModels\AnalysisContentPageModel.cs" />
     <Compile Include="ViewModels\AnalysisTemplateEditViewModel.cs" />
-    <Compile Include="ViewModels\DataSheetEditViewModel.cs" />
+    <Compile Include="ViewModels\FactsContentPageModel.cs" />
     <Compile Include="ViewModels\CurrenciesViewModel.cs" />
     <Compile Include="Views\AnalysisContentPage.xaml.cs">
       <DependentUpon>AnalysisContentPage.xaml</DependentUpon>
@@ -177,8 +177,8 @@
       <DependentUpon>CurrenciesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CurrencyVisibilityConverter.cs" />
-    <Compile Include="Views\DataSheetEditView.xaml.cs">
-      <DependentUpon>DataSheetEditView.xaml</DependentUpon>
+    <Compile Include="Views\FactsContentPage.xaml.cs">
+      <DependentUpon>FactsContentPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AbstractCompletionData.cs" />
     <Compile Include="Views\PropertyCompletionData.cs" />
@@ -200,7 +200,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DataSheetEditView.xaml">
+    <Page Include="Views\FactsContentPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
