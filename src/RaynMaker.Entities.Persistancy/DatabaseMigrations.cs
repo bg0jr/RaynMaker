@@ -8,7 +8,7 @@ namespace RaynMaker.Entities.Persistancy
 {
     class DatabaseMigrations
     {
-        public const int RequiredDatabaseVersion = 6;
+        public const int RequiredDatabaseVersion = 7;
 
         public DatabaseMigrations()
         {

@@ -124,28 +124,28 @@ namespace RaynMaker.Blade.Services
                 sheet = ( DataSheet )serializer.ReadObject( reader );
             }
 
-            //var series = sheet.Data.SeriesOf( typeof( Price ) );
-            //if( series != null )
-            //{
-            //    var ctx = myProjectHost.Project.GetAssetsContext();
+            var series = sheet.Data.SeriesOf( typeof( Price ) );
+            if( series != null )
+            {
+                var ctx = myProjectHost.Project.GetAssetsContext();
 
-            //    foreach( var price in series.OfType<Price>() )
-            //    {
-            //        var sheetCurrency = price.Currency;
-            //        // enforce update by next line
-            //        price.Currency = null;
-            //        price.Currency = ctx.Currencies.Single( c => c.Name == sheetCurrency.Name );
+                foreach( var price in series.OfType<Price>() )
+                {
+                    var sheetCurrency = price.Currency;
+                    // enforce update by next line
+                    price.Currency = null;
+                    price.Currency = ctx.Currencies.Single( c => c.Name == sheetCurrency.Name );
 
-            //        stock.Prices.Add( price );
-            //    }
+                    stock.Prices.Add( price );
+                }
 
-            //    ctx.SaveChanges();
+                ctx.SaveChanges();
 
-            //    SaveDataSheet( stock, sheet );
-            //    sheet.Data.Remove( series );
-            //}
+                SaveDataSheet( stock, sheet );
+                sheet.Data.Remove( series );
+            }
 
-            //sheet.Data.Add( new DatumSeries( typeof( Price ), stock.Prices.ToArray() ) );
+            sheet.Data.Add( new DatumSeries( typeof( Price ), stock.Prices.ToArray() ) );
 
             return sheet;
         }
@@ -154,8 +154,8 @@ namespace RaynMaker.Blade.Services
         {
             RecursiveValidator.Validate( sheet );
 
-            //var series = sheet.Data.SeriesOf( typeof( Price ) );
-            //sheet.Data.Remove( series );
+            var series = sheet.Data.SeriesOf( typeof( Price ) );
+            sheet.Data.Remove( series );
 
             using( var writer = XmlWriter.Create( stock.Company.XdbPath ) )
             {
@@ -170,7 +170,7 @@ namespace RaynMaker.Blade.Services
                 serializer.WriteObject( writer, sheet );
             }
 
-            //sheet.Data.Add( series );
+            sheet.Data.Add( series );
         }
     }
 }

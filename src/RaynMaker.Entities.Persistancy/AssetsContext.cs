@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Data.Common;
+﻿using System.Data.Common;
 using System.Data.Entity;
 using System.Data.SQLite;
 using System.Diagnostics;
+using System.Reflection;
 using RaynMaker.Entities.Datums;
 
 namespace RaynMaker.Entities.Persistancy
@@ -46,7 +46,7 @@ namespace RaynMaker.Entities.Persistancy
         }
 
         public IDbSet<Currency> Currencies { get; set; }
-        
+
         public IDbSet<Company> Companies { get; set; }
 
         public IDbSet<Stock> Stocks { get; set; }

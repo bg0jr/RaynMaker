@@ -67,8 +67,6 @@ namespace RaynMaker.Blade.ViewModels
                 myDataSheet.Data.Add( series );
             }
 
-            OnPropertyChanged( () => Price );
-
             foreach( var type in KnownDatums.AllExceptPrice )
             {
                 var series = ( DatumSeries )myDataSheet.Data.SeriesOf( type );
@@ -101,6 +99,9 @@ namespace RaynMaker.Blade.ViewModels
                     }
                 }
             }
+
+            OnPropertyChanged( () => Price );
+            OnPropertyChanged( () => DataSeries );
         }
 
         public void Complete()
@@ -148,14 +149,14 @@ namespace RaynMaker.Blade.ViewModels
 
         public Price Price
         {
-            get { return myDataSheet.Data.SeriesOf( typeof( Price ) ).Current<Price>(); }
+            get { return myDataSheet == null ? null : myDataSheet.Data.SeriesOf( typeof( Price ) ).Current<Price>(); }
         }
 
         public IEnumerable<IDatumSeries> DataSeries
         {
             get
             {
-                return myDataSheet.Data
+                return myDataSheet == null ? null : myDataSheet.Data
                     .Where( s => s.DatumType != typeof( Price ) )
                     .OrderBy( s => s.DatumType.Name );
             }

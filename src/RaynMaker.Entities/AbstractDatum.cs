@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
 using System.Runtime.Serialization;
 using RaynMaker.Entities;
 
@@ -40,7 +42,15 @@ namespace RaynMaker.Entities
             set { SetProperty( ref mySource, value ); }
         }
 
+        [Required]
+        public string RawPeriod
+        {
+            get { return PeriodConverter.ConvertTo( Period ); }
+            set { Period = PeriodConverter.ConvertFrom( value ); }
+        }
+
         [DataMember]
+        [NotMapped]
         [Required]
         public IPeriod Period
         {
