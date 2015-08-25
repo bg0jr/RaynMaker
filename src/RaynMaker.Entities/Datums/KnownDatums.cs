@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RaynMaker.Blade.Entities.Datums
+namespace RaynMaker.Entities.Datums
 {
-    class KnownDatums
+    public class KnownDatums
     {
         public static readonly IEnumerable<Type> AllExceptPrice = new Type[] { 
             typeof( SharesOutstanding ), 

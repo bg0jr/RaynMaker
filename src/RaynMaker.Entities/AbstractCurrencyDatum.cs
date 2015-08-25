@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using RaynMaker.Entities;
 
-namespace RaynMaker.Blade.Entities
+namespace RaynMaker.Entities
 {
     [DataContract( Name = "CurrencyDatum", Namespace = "https://github.com/bg0jr/RaynMaker" )]
     [KnownType( typeof( Currency ) )]

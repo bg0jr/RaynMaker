@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.IO;
@@ -11,10 +10,10 @@ using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
 using Plainion;
 using RaynMaker.Blade.Entities;
-using RaynMaker.Blade.Entities.Datums;
 using RaynMaker.Blade.Model;
 using RaynMaker.Blade.Services;
 using RaynMaker.Entities;
+using RaynMaker.Entities.Datums;
 
 namespace RaynMaker.Blade.ViewModels
 {

@@ -40,12 +40,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractCurrencyDatum.cs" />
+    <Compile Include="AbstractDatum.cs" />
     <Compile Include="AnalysisTemplate.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="Currency.cs" />
     <Compile Include="DatumByPeriodComparer.cs" />
     <Compile Include="DatumSeries.cs" />
+    <Compile Include="DatumSeriesExtensions.cs" />
+    <Compile Include="Datums\Assets.cs" />
+    <Compile Include="Datums\Debt.cs" />
+    <Compile Include="Datums\Dividend.cs" />
+    <Compile Include="Datums\EBIT.cs" />
+    <Compile Include="Datums\Equity.cs" />
+    <Compile Include="Datums\InterestExpense.cs" />
+    <Compile Include="Datums\KnownDatums.cs" />
+    <Compile Include="Datums\Liabilities.cs" />
+    <Compile Include="Datums\NetIncome.cs" />
+    <Compile Include="Datums\Price.cs" />
+    <Compile Include="Datums\Revenue.cs" />
+    <Compile Include="Datums\SharesOutstanding.cs" />
     <Compile Include="DayPeriod.cs" />
+    <Compile Include="DerivedDatum.cs" />
     <Compile Include="ICurrenciesContext.cs" />
     <Compile Include="IAnalysisContext.cs" />
     <Compile Include="IContextFactory.cs" />
@@ -55,6 +71,7 @@
     <Compile Include="IDatumSeries.cs" />
     <Compile Include="IPeriod.cs" />
     <Compile Include="PeriodConverter.cs" />
+    <Compile Include="PeriodExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reference.cs" />
     <Compile Include="SerializableBindableBase.cs" />

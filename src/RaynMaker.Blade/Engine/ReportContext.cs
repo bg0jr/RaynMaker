@@ -6,10 +6,10 @@ using Plainion;
 using RaynMaker.Blade.AnalysisSpec;
 using RaynMaker.Blade.AnalysisSpec.Providers;
 using RaynMaker.Blade.Entities;
-using RaynMaker.Blade.Entities.Datums;
 using RaynMaker.Blade.Model;
 using RaynMaker.Blade.Reporting;
 using RaynMaker.Entities;
+using RaynMaker.Entities.Datums;
 
 namespace RaynMaker.Blade.Engine
 {

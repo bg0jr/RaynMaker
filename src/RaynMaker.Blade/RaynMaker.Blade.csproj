@@ -139,22 +139,7 @@
     <Compile Include="CurrenciesMenuItemModel.cs" />
     <Compile Include="AnalysisTemplateMenuItemModel.cs" />
     <Compile Include="BladeModule.cs" />
-    <Compile Include="Entities\Datums\KnownDatums.cs" />
-    <Compile Include="Entities\DatumSeriesExtensions.cs" />
-    <Compile Include="Entities\AbstractCurrencyDatum.cs" />
-    <Compile Include="Entities\Datums\Assets.cs" />
-    <Compile Include="Entities\CurrenciesSheet.cs" />
-    <Compile Include="Entities\DerivedDatum.cs" />
     <Compile Include="AnalysisSpec\InMioExtension.cs" />
-    <Compile Include="Entities\Datums\InterestExpense.cs" />
-    <Compile Include="Entities\Datums\EBIT.cs" />
-    <Compile Include="Entities\Datums\Revenue.cs" />
-    <Compile Include="Entities\Datums\Liabilities.cs" />
-    <Compile Include="Entities\Datums\Debt.cs" />
-    <Compile Include="Entities\Datums\Equity.cs" />
-    <Compile Include="Entities\Datums\NetIncome.cs" />
-    <Compile Include="Entities\Datums\SharesOutstanding.cs" />
-    <Compile Include="Entities\PeriodExtensions.cs" />
     <Compile Include="AnalysisSpec\Providers\GenericDatumProvider.cs" />
     <Compile Include="AnalysisSpec\Providers\CurrentPrice.cs" />
     <Compile Include="Engine\ExpressionEvaluator.cs" />
@@ -174,13 +159,11 @@
       <DependentUpon>BladeMenuItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="BladeMenuItemModel.cs" />
+    <Compile Include="Entities\CurrenciesSheet.cs" />
+    <Compile Include="Entities\DataSheet.cs" />
     <Compile Include="Model\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AnalysisSpec\CurrencyConverter.cs" />
-    <Compile Include="Entities\AbstractDatum.cs" />
-    <Compile Include="Entities\Datums\Dividend.cs" />
-    <Compile Include="Entities\DataSheet.cs" />
-    <Compile Include="Entities\Datums\Price.cs" />
     <Compile Include="RegionNames.cs" />
     <Compile Include="Reporting\FlowDocumentExtensions.cs" />
     <Compile Include="Reporting\ReportView.xaml.cs">

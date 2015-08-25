@@ -1,10 +1,9 @@
-﻿using NUnit.Framework;
+﻿using System;
 using System.Linq;
-using RaynMaker.Blade.Entities;
-using RaynMaker.Blade.Entities.Datums;
+using NUnit.Framework;
 using RaynMaker.Blade.Tests.Fakes;
-using System;
 using RaynMaker.Entities;
+using RaynMaker.Entities.Datums;
 
 namespace RaynMaker.Blade.Tests.Entities
 {

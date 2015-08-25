@@ -2,7 +2,7 @@
 using Plainion;
 using RaynMaker.Entities;
 
-namespace RaynMaker.Blade.Entities
+namespace RaynMaker.Entities
 {
     public static class PeriodExtensions
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using RaynMaker.Entities;
 
-namespace RaynMaker.Blade.Entities
+namespace RaynMaker.Entities
 {
     public static class DatumSeriesExtensions
     {

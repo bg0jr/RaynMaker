@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using RaynMaker.Entities;
 
-namespace RaynMaker.Blade.Entities
+namespace RaynMaker.Entities
 {
     [DataContract( Name = "Datum", Namespace = "https://github.com/bg0jr/RaynMaker" )]
     [KnownType( typeof( YearPeriod ) ), KnownType( typeof( DayPeriod ) )]

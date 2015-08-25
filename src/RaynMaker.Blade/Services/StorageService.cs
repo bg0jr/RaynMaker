@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Composition;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -8,11 +9,9 @@ using Plainion.Validation;
 using Plainion.Xaml;
 using RaynMaker.Blade.AnalysisSpec;
 using RaynMaker.Blade.Entities;
-using RaynMaker.Blade.Entities.Datums;
-using RaynMaker.Infrastructure;
-using System.Data.Entity;
 using RaynMaker.Entities;
-using System.Collections.ObjectModel;
+using RaynMaker.Entities.Datums;
+using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Blade.Services
 {

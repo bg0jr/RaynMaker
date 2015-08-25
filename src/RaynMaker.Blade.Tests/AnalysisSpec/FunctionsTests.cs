@@ -1,10 +1,9 @@
 ﻿using System.Linq;
 using NUnit.Framework;
 using RaynMaker.Blade.AnalysisSpec;
-using RaynMaker.Blade.Entities;
-using RaynMaker.Blade.Entities.Datums;
 using RaynMaker.Blade.Tests.Fakes;
 using RaynMaker.Entities;
+using RaynMaker.Entities.Datums;
 
 namespace RaynMaker.Blade.Tests.AnalysisSpec
 {
