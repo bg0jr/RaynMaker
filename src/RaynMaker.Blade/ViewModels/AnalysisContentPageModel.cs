@@ -58,7 +58,7 @@ namespace RaynMaker.Blade.ViewModels
 
         private bool CanGo()
         {
-            return File.Exists( myStock.Company.XdbPath );
+            return myStock != null && File.Exists( myStock.Company.XdbPath );
         }
 
         private void OnGo()
@@ -76,11 +76,9 @@ namespace RaynMaker.Blade.ViewModels
             doc.FontFamily = new FontFamily( "Arial" );
             doc.FontSize = 13;
 
-            var stock = dataSheet.Company.Stocks.Single();
+            doc.Headline( "{0} (Isin: {1})", myStock.Company.Name, myStock.Isin );
 
-            doc.Headline( "{0} (Isin: {1})", stock.Company.Name, stock.Isin );
-
-            var context = new ReportContext( Project, stock, dataSheet, doc );
+            var context = new ReportContext( Project, myStock, dataSheet, doc );
             foreach( var element in analysisTemplate.Analysis.Elements )
             {
                 element.Report( context );
@@ -94,7 +92,7 @@ namespace RaynMaker.Blade.ViewModels
         {
             myStock = stock;
             PropertyChangedEventManager.AddHandler( myStock, OnXdbPathChanged, PropertySupport.ExtractPropertyName( () => myStock.Company.XdbPath ) );
-        
+
             OnGo();
         }
 

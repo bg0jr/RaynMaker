@@ -56,10 +56,7 @@ namespace RaynMaker.Blade.ViewModels
             }
             else
             {
-                myDataSheet = new DataSheet
-                {
-                    Company = stock.Company
-                };
+                myDataSheet = new DataSheet();
             }
 
             // data sanity - TODO: later move to creation of new DataSheet
