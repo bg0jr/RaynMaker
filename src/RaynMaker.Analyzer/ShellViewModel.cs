@@ -57,6 +57,8 @@ namespace RaynMaker.Analyzer
             {
                 myProjectService.Load( args[ 1 ] );
             }
+
+            myNavigationService.NavigateToBrowser();
         }
 
         public ICommand AboutCommand { get; private set; }

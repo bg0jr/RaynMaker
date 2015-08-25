@@ -29,6 +29,7 @@ namespace RaynMaker.Browser.ViewModels
             myEventAggregator = eventAggregator;
 
             myProjectHost.Changed += OnProjectChanged;
+            OnProjectChanged();
 
             NewCommand = new DelegateCommand( OnNew );
             NewAssetRequest = new InteractionRequest<IConfirmation>();
@@ -39,12 +40,22 @@ namespace RaynMaker.Browser.ViewModels
 
         private void OnProjectChanged()
         {
+            if( myProjectHost.Project == null )
+            {
+                return;
+            }
+
             myContext = myProjectHost.Project.GetAssetsContext();
 
             OnPropertyChanged( () => Assets );
             OnPropertyChanged( () => HasProject );
         }
 
+        public string Header
+        {
+            get { return "Browser"; }
+        }
+        
         public bool HasProject { get { return myProjectHost.Project != null; } }
 
         public ICommand NewCommand { get; private set; }

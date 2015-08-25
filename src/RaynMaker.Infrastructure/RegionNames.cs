@@ -3,7 +3,7 @@ namespace RaynMaker.Infrastructure
 {
     public static class RegionNames
     {
-        public static string Browser = "Region.Browser";
-        public static string Tools = "Region.Tools";
+        public static readonly string Content = "Region.Content";
+        public static readonly string Tools = "Region.Tools";
     }
 }

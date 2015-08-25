@@ -1,10 +1,9 @@
 ﻿
 namespace RaynMaker.Analyzer
 {
-    class CompositionNames
+    public class CompositionNames
     {
-        public const string AssetsRegion = "Region.Assets";
-
+        public const string BrowserView = "Views.Browser";
         public const string AssetDetailsView = "Views.Asset.Details";
     }
 }

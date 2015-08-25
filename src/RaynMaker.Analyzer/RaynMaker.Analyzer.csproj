@@ -99,7 +99,6 @@
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="ViewModels\AssetDetailsViewModel.cs" />
-    <Compile Include="CompositionNames.cs" />
     <Compile Include="Views\AssetDetailsView.xaml.cs">
       <DependentUpon>AssetDetailsView.xaml</DependentUpon>
     </Compile>

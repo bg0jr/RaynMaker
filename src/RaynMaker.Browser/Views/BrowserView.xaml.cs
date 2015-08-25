@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.Composition;
 using System.Windows.Controls;
+using RaynMaker.Analyzer;
 using RaynMaker.Browser.ViewModels;
 
 namespace RaynMaker.Browser.Views
 {
-    [Export]
+    [Export( CompositionNames.BrowserView )]
     public partial class BrowserView : UserControl
     {
         [ImportingConstructor]

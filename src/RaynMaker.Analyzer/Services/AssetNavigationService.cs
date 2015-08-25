@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.Regions;
+using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Analyzer.Services
 {
@@ -26,12 +27,12 @@ namespace RaynMaker.Analyzer.Services
                 return;
             }
 
-            if( !myRegionManager.Regions.ContainsRegionWithName( CompositionNames.AssetsRegion ) )
+            if( !myRegionManager.Regions.ContainsRegionWithName( RegionNames.Content ) )
             {
                 return;
             }
 
-            myRegion = myRegionManager.Regions[ CompositionNames.AssetsRegion ];
+            myRegion = myRegionManager.Regions[ RegionNames.Content ];
             myRegion.NavigationService.NavigationFailed += OnNavigationFailed;
         }
 
@@ -40,14 +41,23 @@ namespace RaynMaker.Analyzer.Services
             throw new InvalidOperationException( "Navigation failed", e.Error );
         }
 
+        public void NavigateToBrowser()
+        {
+            RegisterRegionOnDemand();
+
+            var args = new AssetNavigationParameters();
+
+            myRegionManager.RequestNavigate( RegionNames.Content, new Uri( CompositionNames.BrowserView, UriKind.Relative ), args.Parameters );
+        }
+
         public void NavigateToAsset( long assetId )
         {
             RegisterRegionOnDemand();
-            
+
             var args = new AssetNavigationParameters();
             args.AssetId = assetId;
 
-            myRegionManager.RequestNavigate( CompositionNames.AssetsRegion, new Uri( CompositionNames.AssetDetailsView, UriKind.Relative ), args.Parameters );
+            myRegionManager.RequestNavigate( RegionNames.Content, new Uri( CompositionNames.AssetDetailsView, UriKind.Relative ), args.Parameters );
         }
     }
 }
