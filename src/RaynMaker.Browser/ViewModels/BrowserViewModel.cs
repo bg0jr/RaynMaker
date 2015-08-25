@@ -91,8 +91,18 @@ namespace RaynMaker.Browser.ViewModels
                 {
                     var ctx = myProjectHost.Project.GetAssetsContext();
 
-                    ctx.Companies.Remove( stock.Company );
-                    ctx.Stocks.Remove( stock );
+                    // force references loaded into RAM
+                    // workaround for cascading delete issue :(
+                    var ignore = stock.Company.References.Count;
+
+                    if( stock.Company.Stocks.Count == 1 )
+                    {
+                        ctx.Companies.Remove( stock.Company );
+                    }
+                    else
+                    {
+                        ctx.Stocks.Remove( stock );
+                    }
 
                     ctx.SaveChanges();
 

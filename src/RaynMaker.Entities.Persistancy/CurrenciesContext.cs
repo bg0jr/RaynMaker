@@ -32,14 +32,15 @@ namespace RaynMaker.Entities.Persistancy
                 .HasRequired( t => t.Source )
                 .WithMany( c => c.Translations )
                 .HasForeignKey( t => t.SourceId )
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete( true );
 
             builder.Entity<Translation>()
                 .HasRequired( a => a.Target )
                 .WithMany()
                 .HasForeignKey( u => u.TargetId )
-                .WillCascadeOnDelete( false );
+                .WillCascadeOnDelete( true );
         }
+
         public IDbSet<Currency> Currencies { get; set; }
     }
 }

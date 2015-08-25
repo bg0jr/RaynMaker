@@ -65,7 +65,7 @@ namespace RaynMaker.Entities
 
         [DataMember]
         [ValidateObject]
-        public ObservableCollection<Reference> References { get; private set; }
+        public virtual ObservableCollection<Reference> References { get; private set; }
 
         [DataMember]
         [ValidateObject]

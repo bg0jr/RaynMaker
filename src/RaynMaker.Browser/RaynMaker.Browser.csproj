@@ -93,7 +93,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="RegionNames.cs" />
-    <Compile Include="ViewModels\DeleteCommand.cs" />
     <Compile Include="ViewModels\NewAssetViewModel.cs" />
     <Compile Include="Views\NewAssetView.xaml.cs">
       <DependentUpon>NewAssetView.xaml</DependentUpon>

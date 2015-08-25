@@ -11,7 +11,7 @@ namespace RaynMaker.Entities
         private string myUri;
 
         [Required]
-        public int Id { get; set; }
+        public long Id { get; set; }
         
         [DataMember]
         [Required,Url]
@@ -20,5 +20,9 @@ namespace RaynMaker.Entities
             get { return myUri; }
             set { SetProperty( ref myUri, value ); }
         }
+
+        [DataMember]
+        [Required]
+        public virtual Company Company { get; set; }
     }
 }

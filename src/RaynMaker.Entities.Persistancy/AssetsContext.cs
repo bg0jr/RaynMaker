@@ -2,6 +2,7 @@
 using System.Data.Common;
 using System.Data.Entity;
 using System.Data.SQLite;
+using System.Diagnostics;
 
 namespace RaynMaker.Entities.Persistancy
 {
@@ -11,6 +12,8 @@ namespace RaynMaker.Entities.Persistancy
             : base( GetConnection( path ), true )
         {
             Database.SetInitializer<AssetsContext>( null );
+
+            this.Database.Log = stmt => Debug.WriteLine( "SQL: " + stmt );
         }
 
         private static DbConnection GetConnection( string path )

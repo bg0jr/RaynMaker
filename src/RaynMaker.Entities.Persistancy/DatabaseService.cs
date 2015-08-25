@@ -58,7 +58,7 @@ namespace RaynMaker.Entities.Persistancy
                     context.SaveChanges();
                 }
             }
-
+            
             myIsInitialized = true;
         }
 
