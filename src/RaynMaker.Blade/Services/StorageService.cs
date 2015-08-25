@@ -124,6 +124,10 @@ namespace RaynMaker.Blade.Services
                 sheet = ( DataSheet )serializer.ReadObject( reader );
             }
 
+            if( sheet.Company != null )
+            {
+            }
+
             return sheet;
         }
 

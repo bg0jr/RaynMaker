@@ -18,6 +18,7 @@ namespace RaynMaker.Browser.ViewModels
         private IProjectHost myProjectHost;
         private string myName;
         private string myIsin;
+        private string myXdbPath;
 
         [ImportingConstructor]
         public NewAssetViewModel( IProjectHost host )
@@ -42,6 +43,13 @@ namespace RaynMaker.Browser.ViewModels
             set { SetProperty( ref myIsin, value ); }
         }
 
+        [Required( ErrorMessage = "XDB path is mandatory" )]
+        public string XdbPath
+        {
+            get { return myXdbPath; }
+            set { SetProperty( ref myXdbPath, value ); }
+        }
+
         public Action FinishInteraction { get; set; }
 
         public INotification Notification { get; set; }
@@ -54,6 +62,7 @@ namespace RaynMaker.Browser.ViewModels
 
             var company = new Company();
             company.Name = Name;
+            company.XdbPath = XdbPath;
 
             var stock = new Stock();
             stock.Isin = Isin;
