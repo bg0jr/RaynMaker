@@ -1,13 +1,16 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using System.Linq;
+using System.Windows;
 using Microsoft.Practices.Prism.Regions;
 using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Analyzer.Services
 {
-    [Export( typeof( AssetNavigationService ) )]
-    class AssetNavigationService
+    [Export]
+    [Export( typeof( IAssetNavigation ) )]
+    class AssetNavigationService : IAssetNavigation
     {
         private IRegionManager myRegionManager;
         private IRegion myRegion;
@@ -59,6 +62,28 @@ namespace RaynMaker.Analyzer.Services
             args.Stock = stock;
 
             myRegionManager.RequestNavigate( RegionNames.Content, new Uri( InternalCompositionNames.AssetMasterPage, UriKind.Relative ), args.Parameters );
+        }
+
+        public void ClosePage( object page )
+        {
+            var view = myRegion.Views.Single( v => IsPage( v, page ) );
+            myRegion.Remove( view );
+        }
+
+        private bool IsPage( object view, object page )
+        {
+            if( view == page )
+            {
+                return true;
+            }
+
+            var frameworkElement = view as FrameworkElement;
+            if( frameworkElement == null )
+            {
+                return false;
+            }
+
+            return frameworkElement.DataContext == page;
         }
     }
 }

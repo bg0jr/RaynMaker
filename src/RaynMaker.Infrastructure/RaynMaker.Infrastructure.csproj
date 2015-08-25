@@ -99,6 +99,8 @@
     <Compile Include="IProjectHost.cs" />
     <Compile Include="Mvvm\IValidationAware.cs" />
     <Compile Include="Mvvm\AttributesBasedValidatableBindableBase.cs" />
+    <Compile Include="IAssetNavigation.cs" />
+    <Compile Include="IContentPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

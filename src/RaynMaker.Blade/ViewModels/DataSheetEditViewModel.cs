@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
 using Plainion;
 using RaynMaker.Blade.Entities;
@@ -14,18 +13,19 @@ using RaynMaker.Blade.Model;
 using RaynMaker.Blade.Services;
 using RaynMaker.Entities;
 using RaynMaker.Entities.Datums;
+using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Blade.ViewModels
 {
     [Export]
-    class DataSheetEditViewModel : BindableBase, IInteractionRequestAware
+    class DataSheetEditViewModel : BindableBase, IContentPage
     {
         private StorageService myStorageService;
         private DataSheet myDataSheet;
         private Stock myStock;
 
         [ImportingConstructor]
-        public DataSheetEditViewModel( Project project, StorageService storageService )
+        public DataSheetEditViewModel( Project project, StorageService storageService)
         {
             Project = project;
             myStorageService = storageService;
@@ -33,9 +33,6 @@ namespace RaynMaker.Blade.ViewModels
             PropertyChangedEventManager.AddHandler( Project, OnProjectPropertyChanged,
                 PropertySupport.ExtractPropertyName( () => Project.DataSheetLocation ) );
             OnProjectPropertyChanged( null, null );
-
-            OkCommand = new DelegateCommand( OnOk );
-            CancelCommand = new DelegateCommand( OnCancel );
 
             AddReferenceCommand = new DelegateCommand( OnAddReference );
             RemoveReferenceCommand = new DelegateCommand<Reference>( OnRemoveReference );
@@ -112,19 +109,13 @@ namespace RaynMaker.Blade.ViewModels
             }
         }
 
-        public Action FinishInteraction { get; set; }
-
-        public INotification Notification { get; set; }
-
         public Stock Stock
         {
             get { return myStock; }
             set { SetProperty( ref myStock, value ); }
         }
 
-        public ICommand OkCommand { get; private set; }
-
-        private void OnOk()
+        public void Complete()
         {
             // TODO: When to set timestamps? we could put it in the Entities now - whenever we change the value we update the timestamp
             // and handle deserialization separately
@@ -147,14 +138,10 @@ namespace RaynMaker.Blade.ViewModels
             }
 
             myStorageService.SaveDataSheet( myDataSheet, Project.DataSheetLocation );
-            FinishInteraction();
         }
 
-        public ICommand CancelCommand { get; private set; }
-
-        private void OnCancel()
+        public void Cancel()
         {
-            FinishInteraction();
         }
 
         public ICommand AddReferenceCommand { get; private set; }

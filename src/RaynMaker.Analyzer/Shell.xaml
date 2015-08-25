@@ -7,7 +7,7 @@
         xmlns:prism="http://www.codeplex.com/prism"
         xmlns:win32="clr-namespace:Microsoft.Win32;assembly=PresentationFramework"
         xmlns:l="clr-namespace:RaynMaker.Analyzer"
-        Title="RaynMaker Analyzer" Height="600" Width="1200">
+        Title="RaynMaker Analyzer" Height="750" Width="1200" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
