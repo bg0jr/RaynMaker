@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.Regions;
+using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Analyzer.Services
@@ -50,14 +51,14 @@ namespace RaynMaker.Analyzer.Services
             myRegionManager.RequestNavigate( RegionNames.Content, new Uri( CompositionNames.BrowserView, UriKind.Relative ), args.Parameters );
         }
 
-        public void NavigateToAsset( long assetId )
+        public void NavigateToAsset( Stock stock )
         {
             RegisterRegionOnDemand();
 
             var args = new AssetNavigationParameters();
-            args.AssetId = assetId;
+            args.Stock = stock;
 
-            myRegionManager.RequestNavigate( RegionNames.Content, new Uri( CompositionNames.AssetDetailsView, UriKind.Relative ), args.Parameters );
+            myRegionManager.RequestNavigate( RegionNames.Content, new Uri( InternalCompositionNames.AssetMasterPage, UriKind.Relative ), args.Parameters );
         }
     }
 }

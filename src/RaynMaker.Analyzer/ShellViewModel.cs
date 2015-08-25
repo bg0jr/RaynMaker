@@ -11,6 +11,7 @@ using Plainion.AppFw.Wpf.Infrastructure;
 using Plainion.AppFw.Wpf.ViewModels;
 using Plainion.Prism.Events;
 using RaynMaker.Analyzer.Services;
+using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
 using RaynMaker.Infrastructure.Events;
 
@@ -68,9 +69,9 @@ namespace RaynMaker.Analyzer
             Process.Start( "https://github.com/bg0jr/RaynMaker" );
         }
 
-        private void OnAssetSelected( long assetId )
+        private void OnAssetSelected( Stock stock )
         {
-            myNavigationService.NavigateToAsset( assetId );
+            myNavigationService.NavigateToAsset( stock );
         }
     }
 }

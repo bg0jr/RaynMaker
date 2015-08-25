@@ -4,11 +4,11 @@ using RaynMaker.Analyzer.ViewModels;
 
 namespace RaynMaker.Analyzer.Views
 {
-    [Export( CompositionNames.AssetDetailsView )]
-    public partial class AssetDetailsView : UserControl
+    [Export( InternalCompositionNames.AssetMasterPage )]
+    public partial class AssetMasterPage : UserControl
     {
         [ImportingConstructor]
-        internal AssetDetailsView( AssetDetailsViewModel model )
+        internal AssetMasterPage( AssetMasterPageModel model )
         {
             InitializeComponent();
 

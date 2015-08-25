@@ -43,6 +43,8 @@ namespace RaynMaker.Blade.ViewModels
 
         public Project Project { get; private set; }
 
+        public string Header { get { return "Facts"; } }
+
         private void OnProjectPropertyChanged( object sender, PropertyChangedEventArgs e )
         {
             if( string.IsNullOrEmpty( Project.DataSheetLocation ) || !File.Exists( Project.DataSheetLocation ) )

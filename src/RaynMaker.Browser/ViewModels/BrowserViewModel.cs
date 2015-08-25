@@ -130,7 +130,7 @@ namespace RaynMaker.Browser.ViewModels
         {
             if( SelectedAsset != null )
             {
-                myEventAggregator.GetEvent<AssetSelectedEvent>().Publish( SelectedAsset.Id );
+                myEventAggregator.GetEvent<AssetSelectedEvent>().Publish( SelectedAsset );
             }
         }
     }

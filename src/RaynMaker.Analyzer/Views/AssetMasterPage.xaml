@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="RaynMaker.Analyzer.Views.AssetMasterPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:rym="https://github.com/bg0jr/RaynMaker"
+             xmlns:prism="http://www.codeplex.com/prism"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <TabControl prism:RegionManager.RegionName="{x:Static rym:RegionNames.AssetContentPages}">
+        <TabControl.ItemContainerStyle>
+            <Style TargetType="{x:Type TabItem}">
+                <Setter Property="Header" Value="{Binding Content.DataContext.Header}" />
+                <Setter Property="Padding" Value="2"/>
+            </Style>
+        </TabControl.ItemContainerStyle>
+    </TabControl>
+</UserControl>

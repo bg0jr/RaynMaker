@@ -11,12 +11,12 @@ using RaynMaker.Analyzer.Services;
 namespace RaynMaker.Analyzer.ViewModels
 {
     [Export]
-    class AssetDetailsViewModel : BindableBase, INavigationAware
+    class AssetMasterPageModel : BindableBase, INavigationAware
     {
         private string myHeader;
 
         [ImportingConstructor]
-        public AssetDetailsViewModel()
+        public AssetMasterPageModel()
         {
         }
 
@@ -38,7 +38,7 @@ namespace RaynMaker.Analyzer.ViewModels
         public void OnNavigatedTo( NavigationContext navigationContext )
         {
             var args = new AssetNavigationParameters( navigationContext.Parameters );
-            Header = string.Format( "Asset {0}", args.AssetId );
+            Header =  args.Stock.Company.Name;
         }
     }
 }

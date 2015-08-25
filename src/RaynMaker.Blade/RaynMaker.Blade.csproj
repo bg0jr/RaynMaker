@@ -155,10 +155,6 @@
     <Compile Include="Engine\IFigureProvider.cs" />
     <Compile Include="Engine\IReportElement.cs" />
     <Compile Include="Engine\TextEvaluator.cs" />
-    <Compile Include="BladeMenuItem.xaml.cs">
-      <DependentUpon>BladeMenuItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="BladeMenuItemModel.cs" />
     <Compile Include="Entities\CurrenciesSheet.cs" />
     <Compile Include="Entities\DataSheet.cs" />
     <Compile Include="Model\Project.cs" />
@@ -170,11 +166,14 @@
       <DependentUpon>ReportView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\StorageService.cs" />
-    <Compile Include="ShellViewModel.cs" />
     <Compile Include="StockAnalyzer.cs" />
+    <Compile Include="ViewModels\AnalysisContentPageModel.cs" />
     <Compile Include="ViewModels\AnalysisTemplateEditViewModel.cs" />
     <Compile Include="ViewModels\DataSheetEditViewModel.cs" />
     <Compile Include="ViewModels\CurrenciesViewModel.cs" />
+    <Compile Include="Views\AnalysisContentPage.xaml.cs">
+      <DependentUpon>AnalysisContentPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AnalysisTemplateEditView.xaml.cs">
       <DependentUpon>AnalysisTemplateEditView.xaml</DependentUpon>
     </Compile>
@@ -198,27 +197,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="BladeMenuItem.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <EmbeddedResource Include="Resources\Analysis.xaml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Page Include="Views\AnalysisContentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DataSheetEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Resource Include="Resources\Remove.png" />
     <Resource Include="Resources\Add.png" />
-    <Page Include="Shell.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="Shell.xaml.cs">
-      <DependentUpon>Shell.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Page Include="Views\AnalysisTemplateEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

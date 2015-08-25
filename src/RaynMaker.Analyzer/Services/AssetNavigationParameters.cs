@@ -1,4 +1,5 @@
 ﻿using Microsoft.Practices.Prism.Regions;
+using RaynMaker.Entities;
 
 namespace RaynMaker.Analyzer.Services
 {
@@ -16,10 +17,10 @@ namespace RaynMaker.Analyzer.Services
 
         public NavigationParameters Parameters { get; private set; }
 
-        public long AssetId
+        public Stock Stock
         {
-            get { return ( long )Parameters[ "AssetId" ]; }
-            set { Parameters.Add( "AssetId", value ); }
+            get { return ( Stock )Parameters[ "Stock" ]; }
+            set { Parameters.Add( "Stock", value ); }
         }
     }
 }

@@ -93,14 +93,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="InternalCompositionNames.cs" />
     <Compile Include="Services\AssetNavigationParameters.cs" />
     <Compile Include="Services\AssetNavigationService.cs" />
     <Compile Include="Services\Project.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="ShellViewModel.cs" />
-    <Compile Include="ViewModels\AssetDetailsViewModel.cs" />
-    <Compile Include="Views\AssetDetailsView.xaml.cs">
-      <DependentUpon>AssetDetailsView.xaml</DependentUpon>
+    <Compile Include="ViewModels\AssetMasterPageModel.cs" />
+    <Compile Include="Views\AssetMasterPage.xaml.cs">
+      <DependentUpon>AssetMasterPage.xaml</DependentUpon>
     </Compile>
     <Page Include="Shell.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -114,7 +115,7 @@
       <DependentUpon>Shell.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\AssetDetailsView.xaml">
+    <Page Include="Views\AssetMasterPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
