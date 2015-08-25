@@ -9,7 +9,7 @@ namespace RaynMaker.Entities.Persistancy
     class DatabaseMigrations
     {
         public const int RequiredDatabaseVersion = 6;
-        
+
         public DatabaseMigrations()
         {
             Migrations = new Dictionary<int, IList<string>>();
@@ -20,6 +20,7 @@ namespace RaynMaker.Entities.Persistancy
             MigrationVersion4();
             MigrationVersion5();
             MigrationVersion6();
+            MigrationVersion7();
         }
 
         public Dictionary<int, IList<string>> Migrations { get; set; }
@@ -79,7 +80,7 @@ CREATE TABLE Currencies (
 CREATE TABLE Translations (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
     Rate DOUBLE NOT NULL,
-    Timestamp DATETIME  NOT NULL,
+    Timestamp DATETIME NOT NULL,
     Currency_id INTEGER NOT NULL,
     FOREIGN KEY(Currency_id) REFERENCES Currencies(Id)
 )" );
@@ -150,6 +151,26 @@ CREATE TABLE Companies (
 )" );
 
             Migrations.Add( 6, steps );
+        }
+
+        private void MigrationVersion7()
+        {
+            var steps = new List<string>();
+
+            steps.Add( @"
+CREATE TABLE Prices (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Value DOUBLE NOT NULL,
+    Source TEXT NOT NULL,
+    Period TEXT NOT NULL,
+    Timestamp DATETIME NOT NULL,
+    Currency_Id INTEGER NOT NULL,
+    Stock_Id INTEGER NOT NULL,
+    FOREIGN KEY(Currency_Id) REFERENCES Currencies(Id)
+    FOREIGN KEY(Stock_Id) REFERENCES Stocks(Id)
+)" );
+
+            Migrations.Add( 7, steps );
         }
     }
 }

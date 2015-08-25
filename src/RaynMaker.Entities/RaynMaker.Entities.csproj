@@ -62,7 +62,6 @@
     <Compile Include="Datums\SharesOutstanding.cs" />
     <Compile Include="DayPeriod.cs" />
     <Compile Include="DerivedDatum.cs" />
-    <Compile Include="ICurrenciesContext.cs" />
     <Compile Include="IAnalysisContext.cs" />
     <Compile Include="IContextFactory.cs" />
     <Compile Include="IAssetsContext.cs" />

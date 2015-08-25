@@ -28,7 +28,7 @@ namespace RaynMaker.Blade.Services
 
         public CurrenciesSheet LoadCurrencies()
         {
-            var ctx = myProjectHost.Project.GetCurrenciesContext();
+            var ctx = myProjectHost.Project.GetAssetsContext();
             if( !ctx.Currencies.Any() )
             {
                 ctx.Currencies.Add( new Currency { Name = "Euro" } );
@@ -47,7 +47,7 @@ namespace RaynMaker.Blade.Services
 
         public void SaveCurrencies( CurrenciesSheet sheet )
         {
-            var ctx = myProjectHost.Project.GetCurrenciesContext();
+            var ctx = myProjectHost.Project.GetAssetsContext();
 
             foreach( var currency in sheet.Currencies.Where( c => c.Id == 0 ) )
             {
@@ -107,11 +107,11 @@ namespace RaynMaker.Blade.Services
             ctx.SaveChanges();
         }
 
-        public DataSheet LoadDataSheet( string path )
+        public DataSheet LoadDataSheet( Stock stock )
         {
             DataSheet sheet;
 
-            using( var reader = XmlReader.Create( path ) )
+            using( var reader = XmlReader.Create( stock.Company.XdbPath ) )
             {
                 var settings = new DataContractSerializerSettings();
                 settings.PreserveObjectReferences = true;
@@ -124,14 +124,40 @@ namespace RaynMaker.Blade.Services
                 sheet = ( DataSheet )serializer.ReadObject( reader );
             }
 
+            //var series = sheet.Data.SeriesOf( typeof( Price ) );
+            //if( series != null )
+            //{
+            //    var ctx = myProjectHost.Project.GetAssetsContext();
+
+            //    foreach( var price in series.OfType<Price>() )
+            //    {
+            //        var sheetCurrency = price.Currency;
+            //        // enforce update by next line
+            //        price.Currency = null;
+            //        price.Currency = ctx.Currencies.Single( c => c.Name == sheetCurrency.Name );
+
+            //        stock.Prices.Add( price );
+            //    }
+
+            //    ctx.SaveChanges();
+
+            //    SaveDataSheet( stock, sheet );
+            //    sheet.Data.Remove( series );
+            //}
+
+            //sheet.Data.Add( new DatumSeries( typeof( Price ), stock.Prices.ToArray() ) );
+
             return sheet;
         }
 
-        public void SaveDataSheet( DataSheet sheet, string path )
+        public void SaveDataSheet( Stock stock, DataSheet sheet )
         {
             RecursiveValidator.Validate( sheet );
 
-            using( var writer = XmlWriter.Create( path ) )
+            //var series = sheet.Data.SeriesOf( typeof( Price ) );
+            //sheet.Data.Remove( series );
+
+            using( var writer = XmlWriter.Create( stock.Company.XdbPath ) )
             {
                 var settings = new DataContractSerializerSettings();
                 settings.PreserveObjectReferences = true;
@@ -143,6 +169,8 @@ namespace RaynMaker.Blade.Services
                 var serializer = new DataContractSerializer( typeof( DataSheet ), settings );
                 serializer.WriteObject( writer, sheet );
             }
+
+            //sheet.Data.Add( series );
         }
     }
 }

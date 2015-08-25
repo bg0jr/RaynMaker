@@ -38,7 +38,7 @@ namespace RaynMaker.Blade.ViewModels
 
         void projectHost_Changed()
         {
-            if( myProjectHost.Project != null )
+            if( myProjectHost.Project != null && Project.CurrenciesSheet == null )
             {
                 Project.CurrenciesSheet = myStorageService.LoadCurrencies();
             }
@@ -69,7 +69,7 @@ namespace RaynMaker.Blade.ViewModels
             }
 
             var analysisTemplate = myStorageService.LoadAnalysisTemplate( Project.CurrenciesSheet );
-            var dataSheet = myStorageService.LoadDataSheet( myStock.Company.XdbPath );
+            var dataSheet = myStorageService.LoadDataSheet( myStock );
 
             var doc = new FlowDocument();
             doc.Background = Brushes.White;

@@ -48,7 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CurrenciesContext.cs" />
     <Compile Include="AnalysisContext.cs" />
     <Compile Include="DatabaseMigrations.cs" />
     <Compile Include="AssetsContext.cs" />

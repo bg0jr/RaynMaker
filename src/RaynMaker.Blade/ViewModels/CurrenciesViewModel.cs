@@ -10,17 +10,20 @@ using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Model;
 using RaynMaker.Blade.Services;
 using RaynMaker.Entities;
+using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Blade.ViewModels
 {
     [Export]
     class CurrenciesViewModel : BindableBase, IInteractionRequestAware
     {
+        private IProjectHost myProjectHost;
         private StorageService myStorageService;
 
         [ImportingConstructor]
-        public CurrenciesViewModel( Project project, StorageService storageService )
+        public CurrenciesViewModel( IProjectHost projectHost, Project project, StorageService storageService )
         {
+            myProjectHost = projectHost;
             Project = project;
             myStorageService = storageService;
 
@@ -32,6 +35,17 @@ namespace RaynMaker.Blade.ViewModels
 
             AddTranslationCommand = new DelegateCommand<Currency>( OnAddTranslation );
             RemoveTranslationCommand = new DelegateCommand<Translation>( OnRemoveTranslation );
+
+            projectHost.Changed += projectHost_Changed;
+            projectHost_Changed();
+        }
+
+        void projectHost_Changed()
+        {
+            if( myProjectHost.Project != null && Project.CurrenciesSheet == null )
+            {
+                Project.CurrenciesSheet = myStorageService.LoadCurrencies();
+            }
         }
 
         public Project Project { get; private set; }

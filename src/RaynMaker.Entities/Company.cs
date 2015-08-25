@@ -1,14 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.Serialization;
 using Plainion.Validation;
 
 namespace RaynMaker.Entities
 {
-    [DataContract( Name = "Company", Namespace = "https://github.com/bg0jr/RaynMaker" )]
-    [KnownType( typeof( Reference ) )]
     public class Company : SerializableBindableBase
     {
         private string myName;
@@ -26,7 +22,6 @@ namespace RaynMaker.Entities
         [Required]
         public long Id { get; set; }
 
-        [DataMember]
         [Required]
         public string Name
         {
@@ -34,7 +29,6 @@ namespace RaynMaker.Entities
             set { SetProperty( ref myName, value ); }
         }
 
-        [DataMember]
         [Url]
         public string Homepage
         {
@@ -42,32 +36,27 @@ namespace RaynMaker.Entities
             set { SetProperty( ref myHomepage, value ); }
         }
 
-        [DataMember]
         public string Sector
         {
             get { return mySector; }
             set { SetProperty( ref mySector, value ); }
         }
 
-        [DataMember]
         public string Country
         {
             get { return myCountry; }
             set { SetProperty( ref myCountry, value ); }
         }
 
-        [DataMember]
         public string XdbPath
         {
             get { return myXdbPath; }
             set { SetProperty( ref myXdbPath, value ); }
         }
 
-        [DataMember]
         [ValidateObject]
         public virtual ObservableCollection<Reference> References { get; private set; }
 
-        [DataMember]
         [ValidateObject]
         public virtual IList<Stock> Stocks { get; private set; }
     }

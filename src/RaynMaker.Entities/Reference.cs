@@ -1,27 +1,21 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace RaynMaker.Entities
 {
-    [DataContract( Name = "Reference", Namespace = "https://github.com/bg0jr/RaynMaker" )]
     public class Reference : SerializableBindableBase
     {
         private string myUri;
 
         [Required]
         public long Id { get; set; }
-        
-        [DataMember]
-        [Required,Url]
+
+        [Required, Url]
         public string Url
         {
             get { return myUri; }
             set { SetProperty( ref myUri, value ); }
         }
 
-        [DataMember]
         [Required]
         public virtual Company Company { get; set; }
     }

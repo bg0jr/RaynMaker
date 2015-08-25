@@ -52,7 +52,7 @@ namespace RaynMaker.Blade.ViewModels
 
             if( File.Exists( stock.Company.XdbPath ) )
             {
-                myDataSheet = myStorageService.LoadDataSheet( stock.Company.XdbPath );
+                myDataSheet = myStorageService.LoadDataSheet( stock );
             }
             else
             {
@@ -125,7 +125,7 @@ namespace RaynMaker.Blade.ViewModels
                 }
             }
 
-            myStorageService.SaveDataSheet( myDataSheet, myStock.Company.XdbPath );
+            myStorageService.SaveDataSheet( myStock, myDataSheet );
         }
 
         public void Cancel()

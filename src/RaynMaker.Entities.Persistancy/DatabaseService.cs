@@ -75,12 +75,5 @@ namespace RaynMaker.Entities.Persistancy
 
             return new AnalysisContext( Location );
         }
-
-        public ICurrenciesContext CreateCurrenciesContext()
-        {
-            Contract.Invariant( myIsInitialized, "Initialized() not yet called" );
-
-            return new CurrenciesContext( Location );
-        }
     }
 }
