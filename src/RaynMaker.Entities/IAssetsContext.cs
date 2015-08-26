@@ -9,8 +9,8 @@ namespace RaynMaker.Entities
         IDbSet<Currency> Currencies { get; }
         
         IDbSet<Company> Companies { get; }
+
         IDbSet<Stock> Stocks { get; }
-        IDbSet<Price> Prices { get; }
 
         int SaveChanges();
     }

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -8,6 +10,7 @@ using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.Regions;
 using RaynMaker.Analyzer.Services;
 using RaynMaker.Infrastructure;
+using Plainion;
 
 namespace RaynMaker.Analyzer.ViewModels
 {
@@ -58,9 +61,24 @@ namespace RaynMaker.Analyzer.ViewModels
 
         private void OnOk()
         {
-            foreach( var contentPage in GetContentPages() )
+            try
             {
-                contentPage.Complete();
+                foreach( var contentPage in GetContentPages() )
+                {
+                    contentPage.Complete();
+                }
+            }
+            catch( DbEntityValidationException ex )
+            {
+                var newEx = new InvalidOperationException( "Entity validation failed", ex );
+                foreach( var result in ex.EntityValidationErrors )
+                {
+                    foreach( var error in result.ValidationErrors )
+                    {
+                        newEx.AddContext( result.Entry.Entity.GetType().Name + "." + error.PropertyName, error.ErrorMessage );
+                    }
+                }
+                throw newEx;
             }
 
             myNavigation.ClosePage( this );

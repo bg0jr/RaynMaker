@@ -127,8 +127,10 @@ namespace RaynMaker.Blade.Services
             }
 
             MigrateDatumToEF( stock, sheet, typeof( Price ), d => stock.Prices.Add( ( Price )d ) );
+            MigrateDatumToEF( stock, sheet, typeof( Assets ), d => stock.Company.Assets.Add( ( Assets )d ) );
 
             sheet.Data.Add( new DatumSeries( typeof( Price ), stock.Prices.ToArray() ) );
+            sheet.Data.Add( new DatumSeries( typeof( Assets ), stock.Company.Assets.ToArray() ) );
 
             return sheet;
         }
@@ -168,14 +170,12 @@ namespace RaynMaker.Blade.Services
             RecursiveValidator.Validate( sheet );
 
             var ctx = myProjectHost.Project.GetAssetsContext();
-            ctx.SaveChanges();
 
             var allSeries = new List<IDatumSeries>();
-            foreach( var datum in new[] { typeof( Price ) } )
-            {
-                var series = sheet.Data.SeriesOf( datum );
-                sheet.Data.Remove( series );
-            }
+            allSeries.Add( PrepareForSave( sheet, typeof( Price ), d => stock.Prices.Add( ( Price )d ) ) );
+            allSeries.Add( PrepareForSave( sheet, typeof( Assets ), d => stock.Company.Assets.Add( ( Assets )d ) ) );
+
+            ctx.SaveChanges();
 
             using( var writer = XmlWriter.Create( stock.Company.XdbPath ) )
             {
@@ -190,10 +190,30 @@ namespace RaynMaker.Blade.Services
                 serializer.WriteObject( writer, sheet );
             }
 
-            foreach( var series in allSeries )
+            foreach( var series in allSeries.Where( s => s != null ) )
             {
                 sheet.Data.Add( series );
             }
+        }
+        private IDatumSeries PrepareForSave( DataSheet sheet, Type datumType, Action<IDatum> InsertStatement )
+        {
+            var series = sheet.Data.SeriesOf( datumType );
+            if( series == null )
+            {
+                return null;
+            }
+
+            sheet.Data.Remove( series );
+
+            foreach( AbstractDatum datum in series )
+            {
+                if( datum.Id == 0 )
+                {
+                    InsertStatement( datum );
+                }
+            }
+
+            return series;
         }
     }
 }

@@ -51,8 +51,6 @@ namespace RaynMaker.Entities.Persistancy
 
         public IDbSet<Stock> Stocks { get; set; }
 
-        public IDbSet<Price> Prices { get; set; }
-
         public DbSet<SchemaInfo> SchemaInfos { get; set; }
     }
 }

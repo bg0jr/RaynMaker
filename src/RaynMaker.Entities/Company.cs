@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using Plainion.Validation;
+using RaynMaker.Entities.Datums;
 
 namespace RaynMaker.Entities
 {
@@ -59,5 +60,8 @@ namespace RaynMaker.Entities
 
         [ValidateObject]
         public virtual IList<Stock> Stocks { get; private set; }
+
+        [ValidateObject]
+        public virtual IList<Assets> Assets { get; private set; }
     }
 }
