@@ -18,12 +18,18 @@ namespace RaynMaker.Blade.Engine
         private List<IFigureProvider> myProviders;
         private List<IFigureProviderFailure> myProviderFailures;
 
-        internal ReportContext( Project project, Stock stock, DataSheet dataSheet, FlowDocument document )
+        internal ReportContext( Project project, Stock stock, FlowDocument document )
         {
             myProject = project;
             Stock = stock;
-            Data = dataSheet.Data;
             Document = document;
+
+            var data = new List<IDatumSeries>();
+            foreach( var datumType in Dynamics.AllDatums )
+            {
+                data.Add( Dynamics.GetDatumSeries( stock, datumType ) );
+            }
+            Data = data;
 
             myProviders = new List<IFigureProvider>();
 

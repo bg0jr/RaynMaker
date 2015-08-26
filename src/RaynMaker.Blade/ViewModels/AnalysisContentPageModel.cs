@@ -59,7 +59,6 @@ namespace RaynMaker.Blade.ViewModels
         private void OnGo()
         {
             var analysisTemplate = myStorageService.LoadAnalysisTemplate( Project.CurrenciesSheet );
-            var dataSheet = myStorageService.LoadDataSheet( myStock );
 
             var doc = new FlowDocument();
             doc.Background = Brushes.White;
@@ -68,7 +67,7 @@ namespace RaynMaker.Blade.ViewModels
 
             doc.Headline( "{0} (Isin: {1})", myStock.Company.Name, myStock.Isin );
 
-            var context = new ReportContext( Project, myStock, dataSheet, doc );
+            var context = new ReportContext( Project, myStock, doc );
             foreach( var element in analysisTemplate.Analysis.Elements )
             {
                 element.Report( context );

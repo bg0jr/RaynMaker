@@ -106,17 +106,5 @@ namespace RaynMaker.Blade.Services
 
             ctx.SaveChanges();
         }
-
-        public DataSheet LoadDataSheet( Stock stock )
-        {
-            var sheet = new DataSheet();
-
-            foreach( var datumType in Dynamics.AllDatums )
-            {
-                sheet.Data.Add( Dynamics.GetDatumSeries( stock, datumType ) );
-            }
-
-            return sheet;
-        }
     }
 }

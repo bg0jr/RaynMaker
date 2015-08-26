@@ -156,7 +156,6 @@
     <Compile Include="Engine\IReportElement.cs" />
     <Compile Include="Engine\TextEvaluator.cs" />
     <Compile Include="Entities\CurrenciesSheet.cs" />
-    <Compile Include="Entities\DataSheet.cs" />
     <Compile Include="Model\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AnalysisSpec\CurrencyConverter.cs" />
