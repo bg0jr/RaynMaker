@@ -12,7 +12,6 @@ namespace RaynMaker.Entities
         private string myHomepage;
         private string mySector;
         private string myCountry;
-        private string myXdbPath;
 
         public Company()
         {
@@ -47,12 +46,6 @@ namespace RaynMaker.Entities
         {
             get { return myCountry; }
             set { SetProperty( ref myCountry, value ); }
-        }
-
-        public string XdbPath
-        {
-            get { return myXdbPath; }
-            set { SetProperty( ref myXdbPath, value ); }
         }
 
         [ValidateObject]

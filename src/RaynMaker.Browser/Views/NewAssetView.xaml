@@ -27,7 +27,6 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,0,10,3" Text="Name"/>
@@ -40,12 +39,7 @@
                      Text="{Binding Isin, Mode=TwoWay, ValidatesOnExceptions=true, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
                      Validation.ErrorTemplate="{StaticResource RedAsteriskValidationTemplate}"/>
 
-            <TextBlock Grid.Column="0" Grid.Row="2" Margin="0,3,10,3" Text="XDB path"/>
-            <TextBox Grid.Column="1" Grid.Row="2" Margin="3,3,0,3" MinWidth="200" 
-                     Text="{Binding XdbPath, Mode=TwoWay, ValidatesOnExceptions=true, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
-                     Validation.ErrorTemplate="{StaticResource RedAsteriskValidationTemplate}"/>
-
-            <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Content="OK" Width="75" HorizontalAlignment="Right" Margin="0,10,10,0" Command="{Binding OkCommand}"/>
                 <Button Content="Cancel" Width="75" HorizontalAlignment="Right" Margin="10,10,0,0" Command="{Binding CancelCommand}"/>
             </StackPanel>

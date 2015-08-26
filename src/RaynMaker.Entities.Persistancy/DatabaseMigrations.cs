@@ -8,7 +8,7 @@ namespace RaynMaker.Entities.Persistancy
 {
     class DatabaseMigrations
     {
-        public const int RequiredDatabaseVersion = 9;
+        public const int RequiredDatabaseVersion = 10;
 
         public DatabaseMigrations()
         {
@@ -23,6 +23,7 @@ namespace RaynMaker.Entities.Persistancy
             MigrationVersion7();
             MigrationVersion8();
             MigrationVersion9();
+            MigrationVersion10();
         }
 
         public Dictionary<int, IList<string>> Migrations { get; set; }
@@ -315,6 +316,38 @@ CREATE TABLE SharesOutstandings (
 )" );
 
             Migrations.Add( 9, steps );
+        }
+
+        private void MigrationVersion10()
+        {
+            var steps = new List<string>();
+
+
+            steps.Add( @"
+COMMIT;
+
+PRAGMA foreign_keys = false;
+
+BEGIN TRANSACTION;
+CREATE TABLE Companies_new (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Name TEXT NOT NULL,
+    Homepage TEXT NULL,
+    Sector TEXT NULL,
+    Country TEXT NULL
+);
+
+INSERT INTO Companies_new SELECT Id, Name, Homepage, Sector, Country FROM Companies;
+DROP TABLE Companies;
+ALTER TABLE Companies_new RENAME TO Companies;
+COMMIT;
+
+PRAGMA foreign_keys = true;
+
+BEGIN TRANSACTION;
+" );
+
+            Migrations.Add( 10, steps );
         }
     }
 }

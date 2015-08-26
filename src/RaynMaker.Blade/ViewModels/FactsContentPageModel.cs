@@ -50,14 +50,7 @@ namespace RaynMaker.Blade.ViewModels
         {
             Stock = stock;
 
-            if( File.Exists( stock.Company.XdbPath ) )
-            {
-                myDataSheet = myStorageService.LoadDataSheet( stock );
-            }
-            else
-            {
-                myDataSheet = new DataSheet();
-            }
+            myDataSheet = myStorageService.LoadDataSheet( stock );
 
             // data sanity - TODO: later move to creation of new DataSheet
             var price = myDataSheet.Data.SeriesOf( typeof( Price ) ).Current<Price>();
@@ -105,7 +98,7 @@ namespace RaynMaker.Blade.ViewModels
                             foreignKey = type.GetProperty( "Company" );
 
                             Contract.Invariant( foreignKey != null, "ForeignKey detection failed" );
-                            
+
                             foreignKey.SetValue( datum, Stock.Company );
                         }
 

@@ -30,7 +30,7 @@ namespace RaynMaker.Blade.ViewModels
             Project = project;
             myStorageService = storageService;
 
-            GoCommand = new DelegateCommand( OnGo, CanGo );
+            GoCommand = new DelegateCommand( OnGo );
 
             projectHost.Changed += projectHost_Changed;
             projectHost_Changed();
@@ -48,7 +48,7 @@ namespace RaynMaker.Blade.ViewModels
 
         public Project Project { get; private set; }
 
-        public DelegateCommand GoCommand { get; private set; }
+        public ICommand GoCommand { get; private set; }
 
         public FlowDocument Document
         {
@@ -56,18 +56,8 @@ namespace RaynMaker.Blade.ViewModels
             set { SetProperty( ref myFlowDocument, value ); }
         }
 
-        private bool CanGo()
-        {
-            return myStock != null && File.Exists( myStock.Company.XdbPath );
-        }
-
         private void OnGo()
         {
-            if( !File.Exists( myStock.Company.XdbPath ) )
-            {
-                return;
-            }
-
             var analysisTemplate = myStorageService.LoadAnalysisTemplate( Project.CurrenciesSheet );
             var dataSheet = myStorageService.LoadDataSheet( myStock );
 
@@ -91,14 +81,7 @@ namespace RaynMaker.Blade.ViewModels
         public void Initialize( Stock stock )
         {
             myStock = stock;
-            PropertyChangedEventManager.AddHandler( myStock, OnXdbPathChanged, PropertySupport.ExtractPropertyName( () => myStock.Company.XdbPath ) );
 
-            OnGo();
-        }
-
-        private void OnXdbPathChanged( object sender, PropertyChangedEventArgs e )
-        {
-            GoCommand.RaiseCanExecuteChanged();
             OnGo();
         }
 

@@ -111,44 +111,7 @@ namespace RaynMaker.Blade.Services
 
         public DataSheet LoadDataSheet( Stock stock )
         {
-            DataSheet sheet;
-
-            using( var reader = XmlReader.Create( stock.Company.XdbPath ) )
-            {
-                var settings = new DataContractSerializerSettings();
-                settings.PreserveObjectReferences = true;
-
-                var knownTypes = KnownDatums.AllExceptPrice.ToList();
-                knownTypes.Add( typeof( Price ) );
-                settings.KnownTypes = knownTypes;
-
-                var serializer = new DataContractSerializer( typeof( DataSheet ), settings );
-                sheet = ( DataSheet )serializer.ReadObject( reader );
-            }
-
-            var ctx = myProjectHost.Project.GetAssetsContext();
-
-            var allSeries = new List<IDatumSeries>();
-            allSeries.Add( MigrateDatumToEF( stock, sheet, typeof( Price ), d => stock.Prices.Add( ( Price )d ) ) );
-            allSeries.Add( MigrateDatumToEF( stock, sheet, typeof( Assets ), d => stock.Company.Assets.Add( ( Assets )d ) ) );
-            allSeries.Add( MigrateDatumToEF( stock, sheet, typeof( Debt ), d => stock.Company.Debts.Add( ( Debt )d ) ) );
-            allSeries.Add( MigrateDatumToEF( stock, sheet, typeof( Dividend ), d => stock.Company.Dividends.Add( ( Dividend )d ) ) );
-            allSeries.Add( MigrateDatumToEF( stock, sheet, typeof( EBIT ), d => stock.Company.EBITs.Add( ( EBIT )d ) ) );
-            allSeries.Add( MigrateDatumToEF( stock, sheet, typeof( Equity ), d => stock.Company.Equities.Add( ( Equity )d ) ) );
-            allSeries.Add( MigrateDatumToEF( stock, sheet, typeof( InterestExpense ), d => stock.Company.InterestExpenses.Add( ( InterestExpense )d ) ) );
-            allSeries.Add( MigrateDatumToEF( stock, sheet, typeof( Liabilities ), d => stock.Company.Liabilities.Add( ( Liabilities )d ) ) );
-            allSeries.Add( MigrateDatumToEF( stock, sheet, typeof( NetIncome ), d => stock.Company.NetIncomes.Add( ( NetIncome )d ) ) );
-            allSeries.Add( MigrateDatumToEF( stock, sheet, typeof( Revenue ), d => stock.Company.Revenues.Add( ( Revenue )d ) ) );
-            allSeries.Add( MigrateDatumToEF( stock, sheet, typeof( SharesOutstanding ), d => stock.Company.SharesOutstandings.Add( ( SharesOutstanding )d ) ) );
-
-            ctx.SaveChanges();
-
-            SaveDataSheet( stock, sheet );
-            foreach( var series in allSeries.Where( s => s != null ) )
-            {
-                sheet.Data.Remove( series );
-            }
-
+            var sheet = new DataSheet();
             sheet.Data.Add( new DatumSeries( typeof( Price ), stock.Prices.ToArray() ) );
             sheet.Data.Add( new DatumSeries( typeof( Assets ), stock.Company.Assets.ToArray() ) );
             sheet.Data.Add( new DatumSeries( typeof( Debt ), stock.Company.Debts.ToArray() ) );
@@ -164,81 +127,33 @@ namespace RaynMaker.Blade.Services
             return sheet;
         }
 
-        private IDatumSeries MigrateDatumToEF( Stock stock, DataSheet sheet, Type datumType, Action<IDatum> InsertStatement )
-        {
-            var series = sheet.Data.SeriesOf( datumType );
-            if( series == null )
-            {
-                return null;
-            }
-
-            var ctx = myProjectHost.Project.GetAssetsContext();
-            
-            foreach( var datum in series )
-            {
-                var currencyDatum = datum as AbstractCurrencyDatum;
-                if( currencyDatum != null )
-                {
-                    var sheetCurrency = currencyDatum.Currency;
-                    // enforce update by next line
-                    currencyDatum.Currency = null;
-                    currencyDatum.Currency = ctx.Currencies.Single( c => c.Name == sheetCurrency.Name );
-                }
-
-                InsertStatement( datum );
-            }
-
-            return series;
-        }
-
         public void SaveDataSheet( Stock stock, DataSheet sheet )
         {
             RecursiveValidator.Validate( sheet );
 
             var ctx = myProjectHost.Project.GetAssetsContext();
 
-            var allSeries = new List<IDatumSeries>();
-            allSeries.Add( PrepareForSave( sheet, typeof( Price ), d => stock.Prices.Add( ( Price )d ) ) );
-            allSeries.Add( PrepareForSave( sheet, typeof( Assets ), d => stock.Company.Assets.Add( ( Assets )d ) ) );
-            allSeries.Add( PrepareForSave( sheet, typeof( Debt ), d => stock.Company.Debts.Add( ( Debt )d ) ) );
-            allSeries.Add( PrepareForSave( sheet, typeof( Dividend ), d => stock.Company.Dividends.Add( ( Dividend )d ) ) );
-            allSeries.Add( PrepareForSave( sheet, typeof( EBIT ), d => stock.Company.EBITs.Add( ( EBIT )d ) ) );
-            allSeries.Add( PrepareForSave( sheet, typeof( Equity ), d => stock.Company.Equities.Add( ( Equity )d ) ) );
-            allSeries.Add( PrepareForSave( sheet, typeof( InterestExpense ), d => stock.Company.InterestExpenses.Add( ( InterestExpense )d ) ) );
-            allSeries.Add( PrepareForSave( sheet, typeof( Liabilities ), d => stock.Company.Liabilities.Add( ( Liabilities )d ) ) );
-            allSeries.Add( PrepareForSave( sheet, typeof( NetIncome ), d => stock.Company.NetIncomes.Add( ( NetIncome )d ) ) );
-            allSeries.Add( PrepareForSave( sheet, typeof( Revenue ), d => stock.Company.Revenues.Add( ( Revenue )d ) ) );
-            allSeries.Add( PrepareForSave( sheet, typeof( SharesOutstanding ), d => stock.Company.SharesOutstandings.Add( ( SharesOutstanding )d ) ) );
+            Save( sheet, typeof( Price ), d => stock.Prices.Add( ( Price )d ) );
+            Save( sheet, typeof( Assets ), d => stock.Company.Assets.Add( ( Assets )d ) );
+            Save( sheet, typeof( Debt ), d => stock.Company.Debts.Add( ( Debt )d ) );
+            Save( sheet, typeof( Dividend ), d => stock.Company.Dividends.Add( ( Dividend )d ) );
+            Save( sheet, typeof( EBIT ), d => stock.Company.EBITs.Add( ( EBIT )d ) );
+            Save( sheet, typeof( Equity ), d => stock.Company.Equities.Add( ( Equity )d ) );
+            Save( sheet, typeof( InterestExpense ), d => stock.Company.InterestExpenses.Add( ( InterestExpense )d ) );
+            Save( sheet, typeof( Liabilities ), d => stock.Company.Liabilities.Add( ( Liabilities )d ) );
+            Save( sheet, typeof( NetIncome ), d => stock.Company.NetIncomes.Add( ( NetIncome )d ) );
+            Save( sheet, typeof( Revenue ), d => stock.Company.Revenues.Add( ( Revenue )d ) );
+            Save( sheet, typeof( SharesOutstanding ), d => stock.Company.SharesOutstandings.Add( ( SharesOutstanding )d ) );
 
             ctx.SaveChanges();
-
-            using( var writer = XmlWriter.Create( stock.Company.XdbPath ) )
-            {
-                var settings = new DataContractSerializerSettings();
-                settings.PreserveObjectReferences = true;
-
-                var knownTypes = KnownDatums.AllExceptPrice.ToList();
-                knownTypes.Add( typeof( Price ) );
-                settings.KnownTypes = knownTypes;
-
-                var serializer = new DataContractSerializer( typeof( DataSheet ), settings );
-                serializer.WriteObject( writer, sheet );
-            }
-
-            foreach( var series in allSeries.Where( s => s != null ) )
-            {
-                sheet.Data.Add( series );
-            }
         }
-        private IDatumSeries PrepareForSave( DataSheet sheet, Type datumType, Action<IDatum> InsertStatement )
+        private void Save( DataSheet sheet, Type datumType, Action<IDatum> InsertStatement )
         {
             var series = sheet.Data.SeriesOf( datumType );
             if( series == null )
             {
-                return null;
+                return;
             }
-
-            sheet.Data.Remove( series );
 
             foreach( AbstractDatum datum in series )
             {
@@ -247,8 +162,6 @@ namespace RaynMaker.Blade.Services
                     InsertStatement( datum );
                 }
             }
-
-            return series;
         }
     }
 }
