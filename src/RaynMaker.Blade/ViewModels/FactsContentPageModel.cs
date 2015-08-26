@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Plainion;
+using Plainion.Validation;
 using Plainion.Windows.Controls;
 using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Model;
@@ -21,7 +23,7 @@ namespace RaynMaker.Blade.ViewModels
     {
         private IProjectHost myProjectHost;
         private StorageService myStorageService;
-        private DataSheet myDataSheet;
+        private List<IDatumSeries> myDatums;
         private Stock myStock;
 
         [ImportingConstructor]
@@ -49,23 +51,27 @@ namespace RaynMaker.Blade.ViewModels
         {
             Stock = stock;
 
-            myDataSheet = myStorageService.LoadDataSheet( stock );
+            myDatums = new List<IDatumSeries>();
+            foreach( var datumType in Dynamics.AllDatums )
+            {
+                myDatums.Add( Dynamics.GetDatumSeries( stock, datumType ) );
+            }
 
             // data sanity - TODO: later move to creation of new DataSheet
-            var price = myDataSheet.Data.SeriesOf( typeof( Price ) ).Current<Price>();
+            var price = myDatums.SeriesOf( typeof( Price ) ).Current<Price>();
             if( price == null )
             {
                 var series = new DatumSeries( typeof( Price ), new Price() );
-                myDataSheet.Data.Add( series );
+                myDatums.Add( series );
             }
 
             foreach( var type in Dynamics.AllDatums.Where( t => t != typeof( Price ) ) )
             {
-                var series = ( DatumSeries )myDataSheet.Data.SeriesOf( type );
+                var series = ( DatumSeries )myDatums.SeriesOf( type );
                 if( series == null )
                 {
                     series = new DatumSeries( type );
-                    myDataSheet.Data.Add( series );
+                    myDatums.Add( series );
                 }
 
                 // TODO: today we only support yearly values here
@@ -118,23 +124,29 @@ namespace RaynMaker.Blade.ViewModels
             // and handle deserialization separately
             // TODO: change "IFreezable" to "Validation" -  what is EF validation approach?
 
-            foreach( DatumSeries series in myDataSheet.Data.ToList() )
-            {
-                foreach( var value in series.ToList() )
-                {
-                    if( !value.Value.HasValue )
-                    {
-                        series.Remove( value );
-                    }
-                }
+            var ctx = myProjectHost.Project.GetAssetsContext();
 
-                if( !series.Any() )
+            var datumsToValidate = myDatums
+                .SelectMany( series => series )
+                .OfType<AbstractDatum>()
+                .Where( datum => datum.Id != 0 || datum.Value.HasValue );
+
+            RecursiveValidator.Validate( datumsToValidate );
+
+            foreach( DatumSeries series in myDatums.ToList() )
+            {
+                var datums = ( IList )Dynamics.GetRelationship( Stock, series.DatumType );
+
+                foreach( AbstractDatum datum in series )
                 {
-                    myDataSheet.Data.Remove( series );
+                    if( datum.Id == 0 && datum.Value.HasValue )
+                    {
+                        datums.Add( datum );
+                    }
                 }
             }
 
-            myStorageService.SaveDataSheet( myStock, myDataSheet );
+            ctx.SaveChanges();
         }
 
         public void Cancel()
@@ -157,14 +169,14 @@ namespace RaynMaker.Blade.ViewModels
 
         public Price Price
         {
-            get { return myDataSheet == null ? null : myDataSheet.Data.SeriesOf( typeof( Price ) ).Current<Price>(); }
+            get { return myDatums == null ? null : myDatums.SeriesOf( typeof( Price ) ).Current<Price>(); }
         }
 
         public IEnumerable<IDatumSeries> DataSeries
         {
             get
             {
-                return myDataSheet == null ? null : myDataSheet.Data
+                return myDatums == null ? null : myDatums
                     .Where( s => s.DatumType != typeof( Price ) )
                     .OrderBy( s => s.DatumType.Name );
             }

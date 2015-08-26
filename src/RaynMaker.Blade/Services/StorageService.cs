@@ -118,33 +118,5 @@ namespace RaynMaker.Blade.Services
 
             return sheet;
         }
-
-        public void SaveDataSheet( Stock stock, DataSheet sheet )
-        {
-            RecursiveValidator.Validate( sheet );
-
-            var ctx = myProjectHost.Project.GetAssetsContext();
-
-            foreach( var datumType in Dynamics.AllDatums )
-            {
-                var series = sheet.Data.SeriesOf( datumType );
-                if( series == null )
-                {
-                    continue;
-                }
-
-                var datums = (IList)Dynamics.GetRelationship( stock, datumType );
-
-                foreach( AbstractDatum datum in series )
-                {
-                    if( datum.Id == 0 )
-                    {
-                        datums.Add( datum );
-                    }
-                }
-            }
-            
-            ctx.SaveChanges();
-        }
     }
 }
