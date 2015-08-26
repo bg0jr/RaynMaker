@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
+using Plainion;
 using Plainion.Windows.Controls;
 using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Model;
@@ -94,6 +95,20 @@ namespace RaynMaker.Blade.ViewModels
                             currencyDatum.Currency = series.Currency;
                         }
 
+                        var foreignKey = type.GetProperty( "Stock" );
+                        if( foreignKey != null )
+                        {
+                            foreignKey.SetValue( datum, Stock );
+                        }
+                        else
+                        {
+                            foreignKey = type.GetProperty( "Company" );
+
+                            Contract.Invariant( foreignKey != null, "ForeignKey detection failed" );
+                            
+                            foreignKey.SetValue( datum, Stock.Company );
+                        }
+
                         series.Add( datum );
                     }
                 }
@@ -106,7 +121,7 @@ namespace RaynMaker.Blade.ViewModels
         public void Complete()
         {
             TextBoxBinding.ForceSourceUpdate();
-            
+
             // TODO: When to set timestamps? we could put it in the Entities now - whenever we change the value we update the timestamp
             // and handle deserialization separately
             // TODO: change "IFreezable" to "Validation" -  what is EF validation approach?
