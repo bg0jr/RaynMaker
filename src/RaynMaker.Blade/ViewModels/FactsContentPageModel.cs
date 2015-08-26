@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.IO;
 using System.Linq;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
@@ -60,7 +59,7 @@ namespace RaynMaker.Blade.ViewModels
                 myDataSheet.Data.Add( series );
             }
 
-            foreach( var type in KnownDatums.AllExceptPrice )
+            foreach( var type in Dynamics.AllDatums.Where( t => t != typeof( Price ) ) )
             {
                 var series = ( DatumSeries )myDataSheet.Data.SeriesOf( type );
                 if( series == null )

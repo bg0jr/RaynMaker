@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.ComponentModel.Composition;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Xml;
 using System.Xml.Linq;
 using Plainion.Validation;
 using Plainion.Xaml;
@@ -112,17 +110,11 @@ namespace RaynMaker.Blade.Services
         public DataSheet LoadDataSheet( Stock stock )
         {
             var sheet = new DataSheet();
-            sheet.Data.Add( new DatumSeries( typeof( Price ), stock.Prices.ToArray() ) );
-            sheet.Data.Add( new DatumSeries( typeof( Assets ), stock.Company.Assets.ToArray() ) );
-            sheet.Data.Add( new DatumSeries( typeof( Debt ), stock.Company.Debts.ToArray() ) );
-            sheet.Data.Add( new DatumSeries( typeof( Dividend ), stock.Company.Dividends.ToArray() ) );
-            sheet.Data.Add( new DatumSeries( typeof( EBIT ), stock.Company.EBITs.ToArray() ) );
-            sheet.Data.Add( new DatumSeries( typeof( Equity ), stock.Company.Equities.ToArray() ) );
-            sheet.Data.Add( new DatumSeries( typeof( InterestExpense ), stock.Company.InterestExpenses.ToArray() ) );
-            sheet.Data.Add( new DatumSeries( typeof( Liabilities ), stock.Company.Liabilities.ToArray() ) );
-            sheet.Data.Add( new DatumSeries( typeof( NetIncome ), stock.Company.NetIncomes.ToArray() ) );
-            sheet.Data.Add( new DatumSeries( typeof( Revenue ), stock.Company.Revenues.ToArray() ) );
-            sheet.Data.Add( new DatumSeries( typeof( SharesOutstanding ), stock.Company.SharesOutstandings.ToArray() ) );
+
+            foreach( var datumType in Dynamics.AllDatums )
+            {
+                sheet.Data.Add( Dynamics.GetDatumSeries( stock, datumType ) );
+            }
 
             return sheet;
         }
@@ -133,35 +125,26 @@ namespace RaynMaker.Blade.Services
 
             var ctx = myProjectHost.Project.GetAssetsContext();
 
-            Save( sheet, typeof( Price ), d => stock.Prices.Add( ( Price )d ) );
-            Save( sheet, typeof( Assets ), d => stock.Company.Assets.Add( ( Assets )d ) );
-            Save( sheet, typeof( Debt ), d => stock.Company.Debts.Add( ( Debt )d ) );
-            Save( sheet, typeof( Dividend ), d => stock.Company.Dividends.Add( ( Dividend )d ) );
-            Save( sheet, typeof( EBIT ), d => stock.Company.EBITs.Add( ( EBIT )d ) );
-            Save( sheet, typeof( Equity ), d => stock.Company.Equities.Add( ( Equity )d ) );
-            Save( sheet, typeof( InterestExpense ), d => stock.Company.InterestExpenses.Add( ( InterestExpense )d ) );
-            Save( sheet, typeof( Liabilities ), d => stock.Company.Liabilities.Add( ( Liabilities )d ) );
-            Save( sheet, typeof( NetIncome ), d => stock.Company.NetIncomes.Add( ( NetIncome )d ) );
-            Save( sheet, typeof( Revenue ), d => stock.Company.Revenues.Add( ( Revenue )d ) );
-            Save( sheet, typeof( SharesOutstanding ), d => stock.Company.SharesOutstandings.Add( ( SharesOutstanding )d ) );
-
-            ctx.SaveChanges();
-        }
-        private void Save( DataSheet sheet, Type datumType, Action<IDatum> InsertStatement )
-        {
-            var series = sheet.Data.SeriesOf( datumType );
-            if( series == null )
+            foreach( var datumType in Dynamics.AllDatums )
             {
-                return;
-            }
-
-            foreach( AbstractDatum datum in series )
-            {
-                if( datum.Id == 0 )
+                var series = sheet.Data.SeriesOf( datumType );
+                if( series == null )
                 {
-                    InsertStatement( datum );
+                    continue;
+                }
+
+                var datums = (IList)Dynamics.GetRelationship( stock, datumType );
+
+                foreach( AbstractDatum datum in series )
+                {
+                    if( datum.Id == 0 )
+                    {
+                        datums.Add( datum );
+                    }
                 }
             }
+            
+            ctx.SaveChanges();
         }
     }
 }

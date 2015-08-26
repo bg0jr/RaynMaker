@@ -29,7 +29,7 @@ namespace RaynMaker.Blade.Engine
 
             myProviders.Add( new CurrentPrice() );
 
-            foreach( var datumType in KnownDatums.AllExceptPrice )
+            foreach( var datumType in Dynamics.AllDatums.Where( t => t != typeof( Price ) ) )
             {
                 myProviders.Add( new GenericDatumProvider( datumType ) );
             }

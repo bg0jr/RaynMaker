@@ -33,6 +33,11 @@ namespace RaynMaker.Entities
         }
 
         public DatumSeries( Type datumType, params IDatum[] items )
+            : this( datumType, ( IEnumerable<IDatum> )items )
+        {
+        }
+
+        public DatumSeries( Type datumType, IEnumerable<IDatum> items )
             : this( datumType )
         {
             foreach( var item in items )

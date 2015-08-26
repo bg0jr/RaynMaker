@@ -53,7 +53,7 @@
     <Compile Include="Datums\EBIT.cs" />
     <Compile Include="Datums\Equity.cs" />
     <Compile Include="Datums\InterestExpense.cs" />
-    <Compile Include="Datums\KnownDatums.cs" />
+    <Compile Include="Dynamics.cs" />
     <Compile Include="Datums\Liabilities.cs" />
     <Compile Include="Datums\NetIncome.cs" />
     <Compile Include="Datums\Price.cs" />
