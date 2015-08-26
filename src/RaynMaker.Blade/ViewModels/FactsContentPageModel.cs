@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
-using Plainion;
+using Plainion.Windows.Controls;
 using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Model;
 using RaynMaker.Blade.Services;
@@ -106,6 +105,8 @@ namespace RaynMaker.Blade.ViewModels
 
         public void Complete()
         {
+            TextBoxBinding.ForceSourceUpdate();
+            
             // TODO: When to set timestamps? we could put it in the Entities now - whenever we change the value we update the timestamp
             // and handle deserialization separately
             // TODO: change "IFreezable" to "Validation" -  what is EF validation approach?

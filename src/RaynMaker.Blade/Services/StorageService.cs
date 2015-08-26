@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -124,38 +126,56 @@ namespace RaynMaker.Blade.Services
                 sheet = ( DataSheet )serializer.ReadObject( reader );
             }
 
-            var series = sheet.Data.SeriesOf( typeof( Price ) );
-            if( series != null )
-            {
-                var ctx = myProjectHost.Project.GetAssetsContext();
-
-                foreach( var price in series.OfType<Price>() )
-                {
-                    var sheetCurrency = price.Currency;
-                    // enforce update by next line
-                    price.Currency = null;
-                    price.Currency = ctx.Currencies.Single( c => c.Name == sheetCurrency.Name );
-
-                    stock.Prices.Add( price );
-                }
-
-                ctx.SaveChanges();
-
-                SaveDataSheet( stock, sheet );
-                sheet.Data.Remove( series );
-            }
+            MigrateDatumToEF( stock, sheet, typeof( Price ), d => stock.Prices.Add( ( Price )d ) );
 
             sheet.Data.Add( new DatumSeries( typeof( Price ), stock.Prices.ToArray() ) );
 
             return sheet;
         }
 
+        private void MigrateDatumToEF( Stock stock, DataSheet sheet, Type datumType, Action<IDatum> InsertStatement )
+        {
+            var series = sheet.Data.SeriesOf( datumType );
+            if( series == null )
+            {
+                return;
+            }
+
+            var ctx = myProjectHost.Project.GetAssetsContext();
+
+            foreach( var datum in series )
+            {
+                var currencyDatum = datum as AbstractCurrencyDatum;
+                if( currencyDatum != null )
+                {
+                    var sheetCurrency = currencyDatum.Currency;
+                    // enforce update by next line
+                    currencyDatum.Currency = null;
+                    currencyDatum.Currency = ctx.Currencies.Single( c => c.Name == sheetCurrency.Name );
+                }
+
+                InsertStatement( datum );
+            }
+
+            ctx.SaveChanges();
+
+            SaveDataSheet( stock, sheet );
+            sheet.Data.Remove( series );
+        }
+
         public void SaveDataSheet( Stock stock, DataSheet sheet )
         {
             RecursiveValidator.Validate( sheet );
 
-            var series = sheet.Data.SeriesOf( typeof( Price ) );
-            sheet.Data.Remove( series );
+            var ctx = myProjectHost.Project.GetAssetsContext();
+            ctx.SaveChanges();
+
+            var allSeries = new List<IDatumSeries>();
+            foreach( var datum in new[] { typeof( Price ) } )
+            {
+                var series = sheet.Data.SeriesOf( datum );
+                sheet.Data.Remove( series );
+            }
 
             using( var writer = XmlWriter.Create( stock.Company.XdbPath ) )
             {
@@ -170,7 +190,10 @@ namespace RaynMaker.Blade.Services
                 serializer.WriteObject( writer, sheet );
             }
 
-            sheet.Data.Add( series );
+            foreach( var series in allSeries )
+            {
+                sheet.Data.Add( series );
+            }
         }
     }
 }
