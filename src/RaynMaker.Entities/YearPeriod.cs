@@ -4,7 +4,6 @@ using Plainion;
 
 namespace RaynMaker.Entities
 {
-    [DataContract( Name = "YearPeriod", Namespace = "https://github.com/bg0jr/RaynMaker" )]
     public class YearPeriod : IPeriod
     {
         public YearPeriod( int year )
@@ -14,7 +13,6 @@ namespace RaynMaker.Entities
             Year = year;
         }
 
-        [DataMember]
         public int Year { get; private set; }
 
         public bool Equals( IPeriod other )

@@ -5,7 +5,7 @@ using RaynMaker.Entities.Datums;
 
 namespace RaynMaker.Entities
 {
-    public class Stock : SerializableBindableBase
+    public class Stock : EntityBase
     {
         private string myIsin;
 

@@ -5,9 +5,7 @@ using System.Runtime.Serialization;
 
 namespace RaynMaker.Entities
 {
-    [DataContract( Name = "Currency", Namespace = "https://github.com/bg0jr/RaynMaker" )]
-    [KnownType( typeof( Translation ) )]
-    public class Currency : SerializableBindableBase
+    public class Currency : EntityBase
     {
         private string myName;
 
@@ -19,7 +17,6 @@ namespace RaynMaker.Entities
         [Required]
         public long Id { get; set; }
         
-        [DataMember]
         [Required]
         public string Name
         {
@@ -27,7 +24,6 @@ namespace RaynMaker.Entities
             set { SetProperty( ref myName, value ); }
         }
 
-        [DataMember]
         public ObservableCollection<Translation> Translations { get; private set; }
 
         public override bool Equals( object obj )

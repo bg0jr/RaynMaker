@@ -4,7 +4,6 @@ using System.Runtime.Serialization;
 
 namespace RaynMaker.Entities
 {
-    [DataContract( Name = "DayPeriod", Namespace = "https://github.com/bg0jr/RaynMaker" )]
     public class DayPeriod : IPeriod
     {
         public DayPeriod( DateTime day )
@@ -12,7 +11,6 @@ namespace RaynMaker.Entities
             Day = day;
         }
 
-        [DataMember]
         public DateTime Day { get; set; }
 
         public bool Equals( IPeriod other )

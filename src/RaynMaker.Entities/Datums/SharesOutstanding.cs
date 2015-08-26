@@ -1,10 +1,7 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace RaynMaker.Entities.Datums
 {
-    [DataContract( Name = "SharesOutstanding", Namespace = "https://github.com/bg0jr/RaynMaker" )]
     public class SharesOutstanding : AbstractDatum
     {
         [Required]

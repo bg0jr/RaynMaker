@@ -7,12 +7,7 @@ namespace RaynMaker.Entities
     /// <summary>
     /// Supports INotifyPropertyChanged for model entities.
     /// </summary>
-    /// <remarks>
-    /// BindableBase from Prism cannot be used with DataContractSerializer because it does not
-    /// have DataContractAttribute applied which is mandatory
-    /// </remarks>
-    [DataContract]
-    public abstract class SerializableBindableBase : INotifyPropertyChanged
+    public abstract class EntityBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

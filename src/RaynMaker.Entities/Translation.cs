@@ -6,9 +6,7 @@ using System.Runtime.Serialization;
 
 namespace RaynMaker.Entities
 {
-    [DataContract( Name = "Translation", Namespace = "https://github.com/bg0jr/RaynMaker" )]
-    [KnownType( typeof( Currency ) )]
-    public class Translation : SerializableBindableBase
+    public class Translation : EntityBase
     {
         private DateTime myTimestamp;
         private Currency mySource;
@@ -35,7 +33,6 @@ namespace RaynMaker.Entities
 
         public long TargetId { get; set; }
         
-        [DataMember( Name = "Target" )]
         [Required]
         public Currency Target
         {
@@ -49,7 +46,6 @@ namespace RaynMaker.Entities
             }
         }
 
-        [DataMember]
         [Required]
         public double Rate
         {
@@ -63,7 +59,6 @@ namespace RaynMaker.Entities
             }
         }
 
-        [DataMember]
         [Required]
         public DateTime Timestamp
         {

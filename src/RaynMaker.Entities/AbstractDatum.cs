@@ -1,17 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
-using System.Runtime.Serialization;
-using RaynMaker.Entities;
 
 namespace RaynMaker.Entities
 {
-    [DataContract( Name = "Datum", Namespace = "https://github.com/bg0jr/RaynMaker" )]
-    [KnownType( typeof( YearPeriod ) ), KnownType( typeof( DayPeriod ) )]
-    public abstract class AbstractDatum : SerializableBindableBase, IDatum
+    public abstract class AbstractDatum : EntityBase, IDatum
     {
-        [DataMember( Name = "Timestamp" )]
         private DateTime myTimestamp;
         private double? myValue;
         private string mySource;
@@ -20,7 +14,6 @@ namespace RaynMaker.Entities
         [Required]
         public long Id { get; set; }
 
-        [DataMember]
         [Required]
         public double? Value
         {
@@ -34,7 +27,6 @@ namespace RaynMaker.Entities
             }
         }
 
-        [DataMember]
         [Required]
         public string Source
         {
@@ -49,7 +41,6 @@ namespace RaynMaker.Entities
             set { Period = PeriodConverter.ConvertFrom( value ); }
         }
 
-        [DataMember]
         [NotMapped]
         [Required]
         public IPeriod Period

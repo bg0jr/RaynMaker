@@ -32,7 +32,6 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -73,7 +72,7 @@
     <Compile Include="PeriodExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reference.cs" />
-    <Compile Include="SerializableBindableBase.cs" />
+    <Compile Include="EntityBase.cs" />
     <Compile Include="Stock.cs" />
     <Compile Include="Translation.cs" />
     <Compile Include="YearPeriod.cs" />

@@ -9,14 +9,12 @@ using Plainion.Validation;
 
 namespace RaynMaker.Entities
 {
-    [DataContract( Name = "Series", Namespace = "https://github.com/bg0jr/RaynMaker" )]
     public class DatumSeries : IDatumSeries
     {
         private bool myCurrencyIsFrozen;
         private IComparer<IDatum> myComparer;
 
         [Required, ValidateObject]
-        [DataMember( Name = "Values" )]
         private List<IDatum> myValues;
 
         public static IDatumSeries Empty = new DatumSeries( null, "Empty" );
@@ -106,28 +104,6 @@ namespace RaynMaker.Entities
         IEnumerator IEnumerable.GetEnumerator()
         {
             return myValues.GetEnumerator();
-        }
-
-        [OnSerializing]
-        private void OnSerializing( StreamingContext context )
-        {
-            Contract.Invariant( myValues.Count > 0, "Empty series cannot be serialized" );
-        }
-
-        [OnDeserialized]
-        private void OnDeserialized( StreamingContext context )
-        {
-            // empty lists will not be serialized
-            DatumType = myValues.First().GetType();
-            Name = "CollectionOf" + DatumType.Name;
-
-            var currencyDatum = myValues.First() as ICurrencyDatum;
-            if( currencyDatum != null )
-            {
-                Currency = currencyDatum.Currency;
-            }
-
-            myCurrencyIsFrozen = true;
         }
     }
 }

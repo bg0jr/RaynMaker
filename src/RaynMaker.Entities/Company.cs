@@ -6,7 +6,7 @@ using RaynMaker.Entities.Datums;
 
 namespace RaynMaker.Entities
 {
-    public class Company : SerializableBindableBase
+    public class Company : EntityBase
     {
         private string myName;
         private string myHomepage;

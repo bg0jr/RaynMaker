@@ -2,7 +2,7 @@
 
 namespace RaynMaker.Entities
 {
-    public class Reference : SerializableBindableBase
+    public class Reference : EntityBase
     {
         private string myUri;
 

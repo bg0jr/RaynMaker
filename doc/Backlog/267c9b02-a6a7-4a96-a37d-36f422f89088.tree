@@ -14,9 +14,6 @@
     <Node Id="1f293ca9-b0a4-463e-90dd-37f9a6623557">
       <Caption><![CDATA[DB load performance]]></Caption>
     </Node>
-    <Node Id="c3c84509-6a50-4ab2-bea5-ee1d28abaf62">
-      <Caption><![CDATA[seems that recursive validation does not work all the time]]></Caption>
-    </Node>
     <Node Id="008a526d-60c7-42b9-94b2-d774e7530134">
       <Caption><![CDATA[Convert AnualTable into GenericTable]]></Caption>
     </Node>
