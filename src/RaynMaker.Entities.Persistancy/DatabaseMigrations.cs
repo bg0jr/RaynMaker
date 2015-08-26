@@ -8,7 +8,7 @@ namespace RaynMaker.Entities.Persistancy
 {
     class DatabaseMigrations
     {
-        public const int RequiredDatabaseVersion = 8;
+        public const int RequiredDatabaseVersion = 9;
 
         public DatabaseMigrations()
         {
@@ -22,6 +22,7 @@ namespace RaynMaker.Entities.Persistancy
             MigrationVersion6();
             MigrationVersion7();
             MigrationVersion8();
+            MigrationVersion9();
         }
 
         public Dictionary<int, IList<string>> Migrations { get; set; }
@@ -192,6 +193,128 @@ CREATE TABLE Assets (
 )" );
 
             Migrations.Add( 8, steps );
+        }
+
+        private void MigrationVersion9()
+        {
+            var steps = new List<string>();
+
+            steps.Add( @"
+CREATE TABLE Debts (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Value DOUBLE NOT NULL,
+    Source TEXT NOT NULL,
+    RawPeriod TEXT NOT NULL,
+    Timestamp DATETIME NOT NULL,
+    Currency_Id INTEGER NOT NULL,
+    Company_Id INTEGER NOT NULL,
+    FOREIGN KEY(Currency_Id) REFERENCES Currencies(Id)
+    FOREIGN KEY(Company_Id) REFERENCES Companies(Id)
+)" );
+
+            steps.Add( @"
+CREATE TABLE Dividends (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Value DOUBLE NOT NULL,
+    Source TEXT NOT NULL,
+    RawPeriod TEXT NOT NULL,
+    Timestamp DATETIME NOT NULL,
+    Currency_Id INTEGER NOT NULL,
+    Company_Id INTEGER NOT NULL,
+    FOREIGN KEY(Currency_Id) REFERENCES Currencies(Id)
+    FOREIGN KEY(Company_Id) REFERENCES Companies(Id)
+)" );
+
+            steps.Add( @"
+CREATE TABLE EBITs (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Value DOUBLE NOT NULL,
+    Source TEXT NOT NULL,
+    RawPeriod TEXT NOT NULL,
+    Timestamp DATETIME NOT NULL,
+    Currency_Id INTEGER NOT NULL,
+    Company_Id INTEGER NOT NULL,
+    FOREIGN KEY(Currency_Id) REFERENCES Currencies(Id)
+    FOREIGN KEY(Company_Id) REFERENCES Companies(Id)
+)" );
+
+            steps.Add( @"
+CREATE TABLE Equities (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Value DOUBLE NOT NULL,
+    Source TEXT NOT NULL,
+    RawPeriod TEXT NOT NULL,
+    Timestamp DATETIME NOT NULL,
+    Currency_Id INTEGER NOT NULL,
+    Company_Id INTEGER NOT NULL,
+    FOREIGN KEY(Currency_Id) REFERENCES Currencies(Id)
+    FOREIGN KEY(Company_Id) REFERENCES Companies(Id)
+)" );
+
+            steps.Add( @"
+CREATE TABLE InterestExpenses (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Value DOUBLE NOT NULL,
+    Source TEXT NOT NULL,
+    RawPeriod TEXT NOT NULL,
+    Timestamp DATETIME NOT NULL,
+    Currency_Id INTEGER NOT NULL,
+    Company_Id INTEGER NOT NULL,
+    FOREIGN KEY(Currency_Id) REFERENCES Currencies(Id)
+    FOREIGN KEY(Company_Id) REFERENCES Companies(Id)
+)" );
+
+            steps.Add( @"
+CREATE TABLE Liabilities (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Value DOUBLE NOT NULL,
+    Source TEXT NOT NULL,
+    RawPeriod TEXT NOT NULL,
+    Timestamp DATETIME NOT NULL,
+    Currency_Id INTEGER NOT NULL,
+    Company_Id INTEGER NOT NULL,
+    FOREIGN KEY(Currency_Id) REFERENCES Currencies(Id)
+    FOREIGN KEY(Company_Id) REFERENCES Companies(Id)
+)" );
+
+            steps.Add( @"
+CREATE TABLE NetIncomes (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Value DOUBLE NOT NULL,
+    Source TEXT NOT NULL,
+    RawPeriod TEXT NOT NULL,
+    Timestamp DATETIME NOT NULL,
+    Currency_Id INTEGER NOT NULL,
+    Company_Id INTEGER NOT NULL,
+    FOREIGN KEY(Currency_Id) REFERENCES Currencies(Id)
+    FOREIGN KEY(Company_Id) REFERENCES Companies(Id)
+)" );
+
+            steps.Add( @"
+CREATE TABLE Revenues (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Value DOUBLE NOT NULL,
+    Source TEXT NOT NULL,
+    RawPeriod TEXT NOT NULL,
+    Timestamp DATETIME NOT NULL,
+    Currency_Id INTEGER NOT NULL,
+    Company_Id INTEGER NOT NULL,
+    FOREIGN KEY(Currency_Id) REFERENCES Currencies(Id)
+    FOREIGN KEY(Company_Id) REFERENCES Companies(Id)
+)" );
+
+            steps.Add( @"
+CREATE TABLE SharesOutstandings (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Value DOUBLE NOT NULL,
+    Source TEXT NOT NULL,
+    RawPeriod TEXT NOT NULL,
+    Timestamp DATETIME NOT NULL,
+    Company_Id INTEGER NOT NULL,
+    FOREIGN KEY(Company_Id) REFERENCES Companies(Id)
+)" );
+
+            Migrations.Add( 9, steps );
         }
     }
 }

@@ -6,7 +6,7 @@ namespace RaynMaker.Entities.Datums
     [DataContract( Name = "Revenue", Namespace = "https://github.com/bg0jr/RaynMaker" )]
     public class Revenue : AbstractCurrencyDatum
     {
-        //[Required]
+        [Required]
         public Company Company { get; set; }
     }
 }

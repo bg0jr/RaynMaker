@@ -63,5 +63,32 @@ namespace RaynMaker.Entities
 
         [ValidateObject]
         public virtual IList<Assets> Assets { get; private set; }
+
+        [ValidateObject]
+        public virtual IList<Debt> Debts { get; private set; }
+
+        [ValidateObject]
+        public virtual IList<Dividend> Dividends { get; private set; }
+
+        [ValidateObject]
+        public virtual IList<EBIT> EBITs { get; private set; }
+
+        [ValidateObject]
+        public virtual IList<Equity> Equities { get; private set; }
+
+        [ValidateObject]
+        public virtual IList<InterestExpense> InterestExpenses { get; private set; }
+
+        [ValidateObject]
+        public virtual IList<Liabilities> Liabilities { get; private set; }
+
+        [ValidateObject]
+        public virtual IList<NetIncome> NetIncomes { get; private set; }
+
+        [ValidateObject]
+        public virtual IList<Revenue> Revenues { get; private set; }
+
+        [ValidateObject]
+        public virtual IList<SharesOutstanding> SharesOutstandings { get; private set; }
     }
 }
