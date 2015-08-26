@@ -145,14 +145,14 @@ namespace RaynMaker.Blade.ViewModels
 
         private void OnAddReference()
         {
-            myStock.Company.References.Add( new Reference() );
+            Stock.Company.References.Add( new Reference() );
         }
 
         public ICommand RemoveReferenceCommand { get; private set; }
 
         private void OnRemoveReference( Reference reference )
         {
-            myStock.Company.References.Remove( reference );
+            Stock.Company.References.Remove( reference );
         }
 
         public Price Price

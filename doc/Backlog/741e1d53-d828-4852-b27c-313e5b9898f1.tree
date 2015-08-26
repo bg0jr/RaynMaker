@@ -9,6 +9,9 @@
         <Node Id="5f9a881e-086a-4d7a-8ae8-990c9d8f24fd">
           <Caption><![CDATA[Remove DataSheet]]></Caption>
         </Node>
+        <Node Id="c7af52af-8240-4d94-abc2-dd6b679f9cdd">
+          <Caption><![CDATA[Remove CurrenciesSheet]]></Caption>
+        </Node>
         <Node Id="fbe68a1d-e58c-4f79-b590-765d73594cbf">
           <Caption><![CDATA[Finally remove "Blade" module]]></Caption>
         </Node>
