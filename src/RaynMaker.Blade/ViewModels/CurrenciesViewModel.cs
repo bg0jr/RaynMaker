@@ -1,12 +1,9 @@
 ﻿using System;
-using System.ComponentModel;
 using System.ComponentModel.Composition;
-using System.IO;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
-using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Model;
 using RaynMaker.Blade.Services;
 using RaynMaker.Entities;
@@ -35,17 +32,6 @@ namespace RaynMaker.Blade.ViewModels
 
             AddTranslationCommand = new DelegateCommand<Currency>( OnAddTranslation );
             RemoveTranslationCommand = new DelegateCommand<Translation>( OnRemoveTranslation );
-
-            projectHost.Changed += projectHost_Changed;
-            projectHost_Changed();
-        }
-
-        void projectHost_Changed()
-        {
-            if( myProjectHost.Project != null && Project.CurrenciesSheet == null )
-            {
-                Project.CurrenciesSheet = myStorageService.LoadCurrencies();
-            }
         }
 
         public Project Project { get; private set; }
@@ -58,14 +44,14 @@ namespace RaynMaker.Blade.ViewModels
 
         private void OnAddCurrency()
         {
-            Project.CurrenciesSheet.Currencies.Add( new Currency() );
+            Project.Currencies.Add( new Currency() );
         }
 
         public ICommand RemoveCurrencyCommand { get; private set; }
 
         private void OnRemoveCurrency( Currency currency )
         {
-            Project.CurrenciesSheet.Currencies.Remove( currency );
+            Project.Currencies.Remove( currency );
         }
 
         public ICommand AddTranslationCommand { get; private set; }
@@ -81,7 +67,7 @@ namespace RaynMaker.Blade.ViewModels
         {
             // just try to remove the translation from every currency - we will finally find the right owner.
             // not a nice approach but with current simplified design we cannot get owner currency directly so easy.
-            foreach( var currency in Project.CurrenciesSheet.Currencies )
+            foreach( var currency in Project.Currencies )
             {
                 currency.Translations.Remove( translation );
             }
@@ -91,7 +77,7 @@ namespace RaynMaker.Blade.ViewModels
 
         private void OnOk()
         {
-            myStorageService.SaveCurrencies( Project.CurrenciesSheet );
+            Project.Save();
             FinishInteraction();
         }
 

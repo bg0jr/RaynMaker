@@ -2,16 +2,17 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Xaml;
 using Plainion;
-using RaynMaker.Blade.Entities;
+using RaynMaker.Blade.Model;
 using RaynMaker.Entities;
 
 namespace RaynMaker.Blade.AnalysisSpec
 {
     public sealed class CurrencyConverter : System.ComponentModel.TypeConverter
     {
-        public static CurrenciesSheet Sheet { get; set; }
-        
+        internal static Project Sheet { get; set; }
+
         public override bool CanConvertFrom( ITypeDescriptorContext context, Type sourceType )
         {
             return sourceType == typeof( string ) || base.CanConvertFrom( context, sourceType );
@@ -23,6 +24,9 @@ namespace RaynMaker.Blade.AnalysisSpec
             {
                 throw base.GetConvertFromException( value );
             }
+
+            var rootProvider = ( IRootObjectProvider )context.GetService( typeof( IRootObjectProvider ) );
+            var root = rootProvider.RootObject;
 
             string text = value as string;
             if( text != null )
@@ -44,7 +48,7 @@ namespace RaynMaker.Blade.AnalysisSpec
 
             return currency;
         }
-        
+
         public override bool CanConvertTo( ITypeDescriptorContext context, Type destinationType )
         {
             throw new NotImplementedException();

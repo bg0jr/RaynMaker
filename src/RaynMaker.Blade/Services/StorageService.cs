@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.ComponentModel.Composition;
+﻿using System.ComponentModel.Composition;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using Plainion.Validation;
 using Plainion.Xaml;
 using RaynMaker.Blade.AnalysisSpec;
-using RaynMaker.Blade.Entities;
+using RaynMaker.Blade.Model;
 using RaynMaker.Entities;
-using RaynMaker.Entities.Datums;
 using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Blade.Services
@@ -24,43 +20,6 @@ namespace RaynMaker.Blade.Services
         public StorageService( IProjectHost projectHost )
         {
             myProjectHost = projectHost;
-        }
-
-        public CurrenciesSheet LoadCurrencies()
-        {
-            var ctx = myProjectHost.Project.GetAssetsContext();
-            if( !ctx.Currencies.Any() )
-            {
-                ctx.Currencies.Add( new Currency { Name = "Euro" } );
-                ctx.Currencies.Add( new Currency { Name = "Dollar" } );
-
-                ctx.SaveChanges();
-            }
-
-            var dbSheet = new CurrenciesSheet();
-            foreach( var currency in ctx.Currencies.Include( c => c.Translations ) )
-            {
-                dbSheet.Currencies.Add( currency );
-            }
-            return dbSheet;
-        }
-
-        public void SaveCurrencies( CurrenciesSheet sheet )
-        {
-            var ctx = myProjectHost.Project.GetAssetsContext();
-
-            foreach( var currency in sheet.Currencies.Where( c => c.Id == 0 ) )
-            {
-                // TODO: ensure that Translation.Source is set - cleanup soon
-                foreach( var translation in currency.Translations )
-                {
-                    translation.Source = currency;
-                }
-
-                ctx.Currencies.Add( currency );
-            }
-
-            ctx.SaveChanges();
         }
 
         public string LoadAnalysisTemplateText()
@@ -86,7 +45,7 @@ namespace RaynMaker.Blade.Services
             return ctx.AnalysisTemplates.Single().Template;
         }
 
-        public RaynMaker.Blade.AnalysisSpec.AnalysisTemplate LoadAnalysisTemplate( CurrenciesSheet sheet )
+        public RaynMaker.Blade.AnalysisSpec.AnalysisTemplate LoadAnalysisTemplate( Project sheet )
         {
             var reader = new ValidatingXamlReader();
 

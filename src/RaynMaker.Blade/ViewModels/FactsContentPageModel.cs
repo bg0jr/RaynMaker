@@ -9,7 +9,6 @@ using Microsoft.Practices.Prism.Mvvm;
 using Plainion;
 using Plainion.Validation;
 using Plainion.Windows.Controls;
-using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Model;
 using RaynMaker.Blade.Services;
 using RaynMaker.Entities;

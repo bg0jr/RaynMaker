@@ -1,13 +1,10 @@
 ﻿using System;
-using System.ComponentModel;
 using System.ComponentModel.Composition;
-using System.IO;
 using System.Windows.Input;
 using ICSharpCode.AvalonEdit.Document;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
-using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Model;
 using RaynMaker.Blade.Services;
 

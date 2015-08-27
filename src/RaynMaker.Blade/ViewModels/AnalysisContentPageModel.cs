@@ -31,17 +31,6 @@ namespace RaynMaker.Blade.ViewModels
             myStorageService = storageService;
 
             GoCommand = new DelegateCommand( OnGo );
-
-            projectHost.Changed += projectHost_Changed;
-            projectHost_Changed();
-        }
-
-        void projectHost_Changed()
-        {
-            if( myProjectHost.Project != null && Project.CurrenciesSheet == null )
-            {
-                Project.CurrenciesSheet = myStorageService.LoadCurrencies();
-            }
         }
 
         public string Header { get { return "Analysis"; } }
@@ -58,7 +47,7 @@ namespace RaynMaker.Blade.ViewModels
 
         private void OnGo()
         {
-            var analysisTemplate = myStorageService.LoadAnalysisTemplate( Project.CurrenciesSheet );
+            var analysisTemplate = myStorageService.LoadAnalysisTemplate( Project );
 
             var doc = new FlowDocument();
             doc.Background = Brushes.White;

@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:dspec="clr-namespace:RaynMaker.Blade.Entities"
              x:Name="_this"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
@@ -25,7 +24,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <ItemsControl Grid.Row="0" ItemsSource="{Binding Project.CurrenciesSheet.Currencies}" Background="Transparent" BorderThickness="0">
+            <ItemsControl Grid.Row="0" ItemsSource="{Binding Project.Currencies}" Background="Transparent" BorderThickness="0">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Background="AliceBlue" Margin="0,3,0,0">
@@ -59,7 +58,7 @@
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
                                                     <TextBlock Text="To" VerticalAlignment="Center"/>
-                                                    <ComboBox ItemsSource="{Binding DataContext.Project.CurrenciesSheet.Currencies, ElementName=_this}" 
+                                                    <ComboBox ItemsSource="{Binding DataContext.Project.Currencies, ElementName=_this}" 
                                                               SelectedItem="{Binding Target, Mode=TwoWay}" Margin="3,0,0,0" Width="100">
                                                         <ComboBox.ItemTemplate>
                                                             <DataTemplate>

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
-using RaynMaker.Blade.Entities;
 using RaynMaker.Blade.Engine;
 using RaynMaker.Blade.Tests.Engine.Fakes;
 using RaynMaker.Entities;
