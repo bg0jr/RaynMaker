@@ -3,9 +3,9 @@ using System.ComponentModel;
 using RaynMaker.Entities;
 using RaynMaker.Entities.Datums;
 
-namespace RaynMaker.Blade.Tests.Fakes
+namespace RaynMaker.Entities.Tests.Fakes
 {
-    class DatumFactory
+    public class DatumFactory
     {
         public static IDatum New( int year, double value )
         {

@@ -4,8 +4,8 @@ using Moq;
 using NUnit.Framework;
 using RaynMaker.Blade.AnalysisSpec.Providers;
 using RaynMaker.Blade.Engine;
-using RaynMaker.Blade.Tests.Fakes;
 using RaynMaker.Entities;
+using RaynMaker.Entities.Tests.Fakes;
 
 namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
 {

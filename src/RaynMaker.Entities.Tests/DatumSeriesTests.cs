@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
-using RaynMaker.Blade.Tests.Fakes;
-using RaynMaker.Entities;
 using RaynMaker.Entities.Datums;
+using RaynMaker.Entities.Tests.Fakes;
 
-namespace RaynMaker.Blade.Tests.Entities
+namespace RaynMaker.Entities.Tests.Entities
 {
     [TestFixture]
     public class DatumSeriesTests
