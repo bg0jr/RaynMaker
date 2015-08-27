@@ -28,7 +28,7 @@ namespace RaynMaker.Blade.Services
                 var template = new RaynMaker.Entities.AnalysisTemplate();
                 template.Name = "Default";
 
-                using( var stream = GetType().Assembly.GetManifestResourceStream( "RaynMaker.Blade.Resources.Analysis.xaml" ) )
+                using( var stream = GetType().Assembly.GetManifestResourceStream( "RaynMaker.Infrastructure.Resources.Analysis.xaml" ) )
                 {
                     using( var reader = new StreamReader( stream ) )
                     {

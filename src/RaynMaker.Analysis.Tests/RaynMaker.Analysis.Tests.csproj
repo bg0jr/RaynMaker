@@ -6,8 +6,8 @@
     <ProjectGuid>{E26E3116-709D-463D-81A3-81D6C9A9C195}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RaynMaker.Blade.Tests</RootNamespace>
-    <AssemblyName>RaynMaker.Blade.Tests</AssemblyName>
+    <RootNamespace>RaynMaker.Analysis.Tests</RootNamespace>
+    <AssemblyName>RaynMaker.Analysis.Tests</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
   </PropertyGroup>
@@ -61,9 +61,9 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RaynMaker.Blade\RaynMaker.Blade.csproj">
+    <ProjectReference Include="..\RaynMaker.Analysis\RaynMaker.Analysis.csproj">
       <Project>{87f14106-b2f8-4f90-9a14-18723ad25eef}</Project>
-      <Name>RaynMaker.Blade</Name>
+      <Name>RaynMaker.Analysis</Name>
     </ProjectReference>
     <ProjectReference Include="..\RaynMaker.Entities.Tests\RaynMaker.Entities.Tests.csproj">
       <Project>{479cb8a7-9096-4a4c-b825-305e2dff0456}</Project>

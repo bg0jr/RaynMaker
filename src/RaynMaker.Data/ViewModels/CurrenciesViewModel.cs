@@ -15,14 +15,12 @@ namespace RaynMaker.Blade.ViewModels
     class CurrenciesViewModel : BindableBase, IInteractionRequestAware
     {
         private IProjectHost myProjectHost;
-        private StorageService myStorageService;
 
         [ImportingConstructor]
-        public CurrenciesViewModel( IProjectHost projectHost, ILutService lutService, StorageService storageService )
+        public CurrenciesViewModel( IProjectHost projectHost, ILutService lutService )
         {
             myProjectHost = projectHost;
             CurrenciesLut = lutService.CurrenciesLut;
-            myStorageService = storageService;
 
             OkCommand = new DelegateCommand( OnOk );
             CancelCommand = new DelegateCommand( OnCancel );

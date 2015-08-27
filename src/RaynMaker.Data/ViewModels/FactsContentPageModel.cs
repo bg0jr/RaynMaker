@@ -21,16 +21,14 @@ namespace RaynMaker.Blade.ViewModels
     class FactsContentPageModel : BindableBase, IContentPage
     {
         private IProjectHost myProjectHost;
-        private StorageService myStorageService;
         private List<IDatumSeries> myDatums;
         private Stock myStock;
 
         [ImportingConstructor]
-        public FactsContentPageModel( IProjectHost projectHost, ILutService lutService, StorageService storageService )
+        public FactsContentPageModel( IProjectHost projectHost, ILutService lutService )
         {
             myProjectHost = projectHost;
             CurrenciesLut = lutService.CurrenciesLut;
-            myStorageService = storageService;
 
             AddReferenceCommand = new DelegateCommand( OnAddReference );
             RemoveReferenceCommand = new DelegateCommand<Reference>( OnRemoveReference );
