@@ -8,9 +8,10 @@ using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.Regions;
+using Plainion;
 using RaynMaker.Analyzer.Services;
 using RaynMaker.Infrastructure;
-using Plainion;
+using RaynMaker.Infrastructure.Services;
 
 namespace RaynMaker.Analyzer.ViewModels
 {

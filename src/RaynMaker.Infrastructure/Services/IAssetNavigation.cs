@@ -1,5 +1,5 @@
 ﻿
-namespace RaynMaker.Infrastructure
+namespace RaynMaker.Infrastructure.Services
 {
     public interface IAssetNavigation
     {

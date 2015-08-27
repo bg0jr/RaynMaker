@@ -5,6 +5,7 @@ using System.Windows;
 using Microsoft.Practices.Prism.Regions;
 using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
+using RaynMaker.Infrastructure.Services;
 
 namespace RaynMaker.Analyzer.Services
 {
