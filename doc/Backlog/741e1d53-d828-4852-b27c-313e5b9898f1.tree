@@ -6,9 +6,6 @@
       <Caption><![CDATA[Blade]]></Caption>
       <Node Id="85273046-88e8-4d31-b5a7-f643ac74106c">
         <Caption><![CDATA[Migrate to "analyzer"]]></Caption>
-        <Node Id="c7af52af-8240-4d94-abc2-dd6b679f9cdd">
-          <Caption><![CDATA[Remove CurrenciesSheet]]></Caption>
-        </Node>
         <Node Id="fbe68a1d-e58c-4f79-b590-765d73594cbf">
           <Caption><![CDATA[Finally remove "Blade" module]]></Caption>
         </Node>

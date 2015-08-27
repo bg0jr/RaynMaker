@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Blade.Tests", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Samples", "src\RaynMaker.Samples\RaynMaker.Samples.csproj", "{B4F336A4-8CD2-49F7-8541-97AA31EA53D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Data", "src\RaynMaker.Data\RaynMaker.Data.csproj", "{972E7886-F83D-41DF-BA26-5071C34EC2F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Entities.Tests", "src\RaynMaker.Entities.Tests\RaynMaker.Entities.Tests.csproj", "{479CB8A7-9096-4A4C-B825-305E2DFF0456}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,14 @@ Global
 		{B4F336A4-8CD2-49F7-8541-97AA31EA53D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4F336A4-8CD2-49F7-8541-97AA31EA53D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4F336A4-8CD2-49F7-8541-97AA31EA53D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{972E7886-F83D-41DF-BA26-5071C34EC2F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{972E7886-F83D-41DF-BA26-5071C34EC2F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{972E7886-F83D-41DF-BA26-5071C34EC2F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{972E7886-F83D-41DF-BA26-5071C34EC2F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{479CB8A7-9096-4A4C-B825-305E2DFF0456}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{479CB8A7-9096-4A4C-B825-305E2DFF0456}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{479CB8A7-9096-4A4C-B825-305E2DFF0456}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{479CB8A7-9096-4A4C-B825-305E2DFF0456}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
