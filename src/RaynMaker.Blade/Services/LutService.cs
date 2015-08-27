@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.Composition;
-using RaynMaker.Blade.Model;
 using RaynMaker.Infrastructure;
 using RaynMaker.Infrastructure.Services;
 

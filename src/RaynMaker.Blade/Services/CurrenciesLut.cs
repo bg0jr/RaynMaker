@@ -7,7 +7,7 @@ using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
 using RaynMaker.Infrastructure.Services;
 
-namespace RaynMaker.Blade.Model
+namespace RaynMaker.Blade.Services
 {
     class CurrenciesLut : BindableBase, ICurrenciesLut
     {

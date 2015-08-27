@@ -5,7 +5,6 @@ using System.Windows.Documents;
 using Plainion;
 using RaynMaker.Blade.AnalysisSpec;
 using RaynMaker.Blade.AnalysisSpec.Providers;
-using RaynMaker.Blade.Model;
 using RaynMaker.Entities;
 using RaynMaker.Entities.Datums;
 using RaynMaker.Infrastructure.Services;

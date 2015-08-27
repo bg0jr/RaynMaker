@@ -1,12 +1,9 @@
 ﻿using System.ComponentModel.Composition;
-using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using Plainion.Xaml;
 using RaynMaker.Blade.AnalysisSpec;
-using RaynMaker.Blade.Model;
-using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
 using RaynMaker.Infrastructure.Services;
 
