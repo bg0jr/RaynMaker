@@ -15,7 +15,7 @@
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,2,0,0">
             <TextBlock Text="Max. allowed age in days:" VerticalAlignment="Center"/>
-            <TextBox Text="{Binding Project.MaxCurrencyTranslationsAgeInDays, Mode=TwoWay}" Width="50" Margin="5,0,0,0"/>
+            <TextBox Text="{Binding CurrenciesLut.MaxCurrencyTranslationsAgeInDays, Mode=TwoWay}" Width="50" Margin="5,0,0,0"/>
         </StackPanel>
 
         <Grid Grid.Row="1" Margin="0,2,0,0">
@@ -24,7 +24,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <ItemsControl Grid.Row="0" ItemsSource="{Binding Project.Currencies}" Background="Transparent" BorderThickness="0">
+            <ItemsControl Grid.Row="0" ItemsSource="{Binding CurrenciesLut.Currencies}" Background="Transparent" BorderThickness="0">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Background="AliceBlue" Margin="0,3,0,0">
@@ -58,7 +58,7 @@
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
                                                     <TextBlock Text="To" VerticalAlignment="Center"/>
-                                                    <ComboBox ItemsSource="{Binding DataContext.Project.Currencies, ElementName=_this}" 
+                                                    <ComboBox ItemsSource="{Binding DataContext.CurrenciesLut.Currencies, ElementName=_this}" 
                                                               SelectedItem="{Binding Target, Mode=TwoWay}" Margin="3,0,0,0" Width="100">
                                                         <ComboBox.ItemTemplate>
                                                             <DataTemplate>

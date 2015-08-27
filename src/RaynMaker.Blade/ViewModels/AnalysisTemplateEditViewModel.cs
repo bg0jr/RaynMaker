@@ -13,14 +13,12 @@ namespace RaynMaker.Blade.ViewModels
     [Export]
     class AnalysisTemplateEditViewModel : BindableBase, IInteractionRequestAware
     {
-        private Project myProject;
         private StorageService myStorageService;
         private TextDocument myDocument;
 
         [ImportingConstructor]
-        public AnalysisTemplateEditViewModel( Project project, StorageService storageService )
+        public AnalysisTemplateEditViewModel(  StorageService storageService )
         {
-            myProject = project;
             myStorageService = storageService;
 
             Document = new TextDocument();

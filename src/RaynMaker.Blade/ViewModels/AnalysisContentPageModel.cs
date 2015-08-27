@@ -20,22 +20,21 @@ namespace RaynMaker.Blade.ViewModels
     {
         private Stock myStock;
         private IProjectHost myProjectHost;
+        private CurrenciesLut myCurrenciesLut;
         private StorageService myStorageService;
         private FlowDocument myFlowDocument;
 
         [ImportingConstructor]
-        public AnalysisContentPageModel( IProjectHost projectHost, Project project, StorageService storageService )
+        public AnalysisContentPageModel( IProjectHost projectHost, CurrenciesLut lut, StorageService storageService )
         {
             myProjectHost = projectHost;
-            Project = project;
+            myCurrenciesLut = lut;
             myStorageService = storageService;
 
             GoCommand = new DelegateCommand( OnGo );
         }
 
         public string Header { get { return "Analysis"; } }
-
-        public Project Project { get; private set; }
 
         public ICommand GoCommand { get; private set; }
 
@@ -47,7 +46,7 @@ namespace RaynMaker.Blade.ViewModels
 
         private void OnGo()
         {
-            var analysisTemplate = myStorageService.LoadAnalysisTemplate( Project );
+            var analysisTemplate = myStorageService.LoadAnalysisTemplate( myCurrenciesLut );
 
             var doc = new FlowDocument();
             doc.Background = Brushes.White;
@@ -56,7 +55,7 @@ namespace RaynMaker.Blade.ViewModels
 
             doc.Headline( "{0} (Isin: {1})", myStock.Company.Name, myStock.Isin );
 
-            var context = new ReportContext( Project, myStock, doc );
+            var context = new ReportContext( myCurrenciesLut, myStock, doc );
             foreach( var element in analysisTemplate.Analysis.Elements )
             {
                 element.Report( context );

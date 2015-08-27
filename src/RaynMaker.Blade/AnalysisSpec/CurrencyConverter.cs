@@ -11,7 +11,7 @@ namespace RaynMaker.Blade.AnalysisSpec
 {
     public sealed class CurrencyConverter : System.ComponentModel.TypeConverter
     {
-        internal static Project Sheet { get; set; }
+        internal static CurrenciesLut CurrenciesLut { get; set; }
 
         public override bool CanConvertFrom( ITypeDescriptorContext context, Type sourceType )
         {
@@ -25,9 +25,6 @@ namespace RaynMaker.Blade.AnalysisSpec
                 throw base.GetConvertFromException( value );
             }
 
-            var rootProvider = ( IRootObjectProvider )context.GetService( typeof( IRootObjectProvider ) );
-            var root = rootProvider.RootObject;
-
             string text = value as string;
             if( text != null )
             {
@@ -39,9 +36,9 @@ namespace RaynMaker.Blade.AnalysisSpec
 
         private static Currency Parse( string name )
         {
-            Contract.Invariant( Sheet != null, "Currencies sheet not yet initialized" );
+            Contract.Invariant( CurrenciesLut != null, "Currencies sheet not yet initialized" );
 
-            var currency = Sheet.Currencies
+            var currency = CurrenciesLut.Currencies
                 .FirstOrDefault( c => c.Name == name );
 
             Contract.Requires( currency != null, "No currency found with name: " + name );

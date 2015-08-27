@@ -26,17 +26,17 @@ namespace RaynMaker.Blade.ViewModels
         private Stock myStock;
 
         [ImportingConstructor]
-        public FactsContentPageModel( IProjectHost projectHost, Project project, StorageService storageService )
+        public FactsContentPageModel( IProjectHost projectHost, CurrenciesLut lut, StorageService storageService )
         {
             myProjectHost = projectHost;
-            Project = project;
+            CurrenciesLut = lut;
             myStorageService = storageService;
 
             AddReferenceCommand = new DelegateCommand( OnAddReference );
             RemoveReferenceCommand = new DelegateCommand<Reference>( OnRemoveReference );
         }
 
-        public Project Project { get; private set; }
+        public CurrenciesLut CurrenciesLut { get; private set; }
 
         public string Header { get { return "Facts"; } }
 

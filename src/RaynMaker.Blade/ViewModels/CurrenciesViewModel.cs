@@ -18,10 +18,10 @@ namespace RaynMaker.Blade.ViewModels
         private StorageService myStorageService;
 
         [ImportingConstructor]
-        public CurrenciesViewModel( IProjectHost projectHost, Project project, StorageService storageService )
+        public CurrenciesViewModel( IProjectHost projectHost, CurrenciesLut lut, StorageService storageService )
         {
             myProjectHost = projectHost;
-            Project = project;
+            CurrenciesLut = lut;
             myStorageService = storageService;
 
             OkCommand = new DelegateCommand( OnOk );
@@ -34,7 +34,7 @@ namespace RaynMaker.Blade.ViewModels
             RemoveTranslationCommand = new DelegateCommand<Translation>( OnRemoveTranslation );
         }
 
-        public Project Project { get; private set; }
+        public CurrenciesLut CurrenciesLut { get; private set; }
 
         public Action FinishInteraction { get; set; }
 
@@ -44,14 +44,14 @@ namespace RaynMaker.Blade.ViewModels
 
         private void OnAddCurrency()
         {
-            Project.Currencies.Add( new Currency() );
+            CurrenciesLut.Currencies.Add( new Currency() );
         }
 
         public ICommand RemoveCurrencyCommand { get; private set; }
 
         private void OnRemoveCurrency( Currency currency )
         {
-            Project.Currencies.Remove( currency );
+            CurrenciesLut.Currencies.Remove( currency );
         }
 
         public ICommand AddTranslationCommand { get; private set; }
@@ -67,7 +67,7 @@ namespace RaynMaker.Blade.ViewModels
         {
             // just try to remove the translation from every currency - we will finally find the right owner.
             // not a nice approach but with current simplified design we cannot get owner currency directly so easy.
-            foreach( var currency in Project.Currencies )
+            foreach( var currency in CurrenciesLut.Currencies )
             {
                 currency.Translations.Remove( translation );
             }
@@ -77,7 +77,7 @@ namespace RaynMaker.Blade.ViewModels
 
         private void OnOk()
         {
-            Project.Save();
+            CurrenciesLut.Save();
             FinishInteraction();
         }
 

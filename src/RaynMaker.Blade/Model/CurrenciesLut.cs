@@ -10,13 +10,13 @@ using RaynMaker.Infrastructure;
 namespace RaynMaker.Blade.Model
 {
     [Export]
-    class Project : BindableBase
+    class CurrenciesLut : BindableBase
     {
         private IProjectHost myProjectHost;
         private int myMaxCurrencyTranslationsAgeInDays;
 
         [ImportingConstructor]
-        public Project( IProjectHost projectHost )
+        public CurrenciesLut( IProjectHost projectHost )
         {
             myProjectHost = projectHost;
             myProjectHost.Changed += OnProjectChanged;
