@@ -8,6 +8,7 @@ using RaynMaker.Blade.Model;
 using RaynMaker.Blade.Services;
 using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
+using RaynMaker.Infrastructure.Services;
 
 namespace RaynMaker.Blade.ViewModels
 {
@@ -18,10 +19,10 @@ namespace RaynMaker.Blade.ViewModels
         private StorageService myStorageService;
 
         [ImportingConstructor]
-        public CurrenciesViewModel( IProjectHost projectHost, CurrenciesLut lut, StorageService storageService )
+        public CurrenciesViewModel( IProjectHost projectHost, ILutService lutService, StorageService storageService )
         {
             myProjectHost = projectHost;
-            CurrenciesLut = lut;
+            CurrenciesLut = lutService.CurrenciesLut;
             myStorageService = storageService;
 
             OkCommand = new DelegateCommand( OnOk );
@@ -34,7 +35,7 @@ namespace RaynMaker.Blade.ViewModels
             RemoveTranslationCommand = new DelegateCommand<Translation>( OnRemoveTranslation );
         }
 
-        public CurrenciesLut CurrenciesLut { get; private set; }
+        public ICurrenciesLut CurrenciesLut { get; private set; }
 
         public Action FinishInteraction { get; set; }
 

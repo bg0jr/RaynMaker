@@ -8,16 +8,17 @@ using RaynMaker.Blade.AnalysisSpec.Providers;
 using RaynMaker.Blade.Model;
 using RaynMaker.Entities;
 using RaynMaker.Entities.Datums;
+using RaynMaker.Infrastructure.Services;
 
 namespace RaynMaker.Blade.Engine
 {
     public class ReportContext : IFigureProviderContext, IExpressionEvaluationContext
     {
-        private CurrenciesLut myCurrenciesLut;
+        private ICurrenciesLut myCurrenciesLut;
         private List<IFigureProvider> myProviders;
         private List<IFigureProviderFailure> myProviderFailures;
 
-        internal ReportContext( CurrenciesLut lut, Stock stock, FlowDocument document )
+        internal ReportContext( ICurrenciesLut lut, Stock stock, FlowDocument document )
         {
             myCurrenciesLut = lut;
             Stock = stock;

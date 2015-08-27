@@ -14,6 +14,7 @@ using RaynMaker.Blade.Services;
 using RaynMaker.Entities;
 using RaynMaker.Entities.Datums;
 using RaynMaker.Infrastructure;
+using RaynMaker.Infrastructure.Services;
 
 namespace RaynMaker.Blade.ViewModels
 {
@@ -26,17 +27,17 @@ namespace RaynMaker.Blade.ViewModels
         private Stock myStock;
 
         [ImportingConstructor]
-        public FactsContentPageModel( IProjectHost projectHost, CurrenciesLut lut, StorageService storageService )
+        public FactsContentPageModel( IProjectHost projectHost, ILutService lutService, StorageService storageService )
         {
             myProjectHost = projectHost;
-            CurrenciesLut = lut;
+            CurrenciesLut = lutService.CurrenciesLut;
             myStorageService = storageService;
 
             AddReferenceCommand = new DelegateCommand( OnAddReference );
             RemoveReferenceCommand = new DelegateCommand<Reference>( OnRemoveReference );
         }
 
-        public CurrenciesLut CurrenciesLut { get; private set; }
+        public ICurrenciesLut CurrenciesLut { get; private set; }
 
         public string Header { get { return "Facts"; } }
 

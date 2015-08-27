@@ -1,58 +1,27 @@
 ﻿using System.Collections.ObjectModel;
-using System.ComponentModel.Composition;
 using System.Data.Entity;
 using System.Linq;
 using Microsoft.Practices.Prism.Mvvm;
 using Plainion;
 using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
+using RaynMaker.Infrastructure.Services;
 
 namespace RaynMaker.Blade.Model
 {
-    [Export]
-    class CurrenciesLut : BindableBase
+    class CurrenciesLut : BindableBase, ICurrenciesLut
     {
         private IProjectHost myProjectHost;
         private int myMaxCurrencyTranslationsAgeInDays;
 
-        [ImportingConstructor]
         public CurrenciesLut( IProjectHost projectHost )
         {
             myProjectHost = projectHost;
-            myProjectHost.Changed += OnProjectChanged;
 
             Currencies = new ObservableCollection<Currency>();
             myMaxCurrencyTranslationsAgeInDays = -1;
-
-            OnProjectChanged();
         }
 
-        private void OnProjectChanged()
-        {
-            myMaxCurrencyTranslationsAgeInDays = -1;
-
-            LoadCurrencies();
-        }
-
-        private void LoadCurrencies()
-        {
-            var ctx = myProjectHost.Project.GetAssetsContext();
-            if( !ctx.Currencies.Any() )
-            {
-                ctx.Currencies.Add( new Currency { Name = "Euro" } );
-                ctx.Currencies.Add( new Currency { Name = "Dollar" } );
-
-                ctx.SaveChanges();
-            }
-
-            foreach( var currency in ctx.Currencies.Include( c => c.Translations ) )
-            {
-                Currencies.Add( currency );
-            }
-
-            OnPropertyChanged( () => Currencies );
-        }
-        
         public ObservableCollection<Currency> Currencies { get; private set; }
 
         public int MaxCurrencyTranslationsAgeInDays
@@ -85,6 +54,25 @@ namespace RaynMaker.Blade.Model
             }
         }
 
+        public void Reload()
+        {
+            myMaxCurrencyTranslationsAgeInDays = -1;
+
+            var ctx = myProjectHost.Project.GetAssetsContext();
+            if( !ctx.Currencies.Any() )
+            {
+                ctx.Currencies.Add( new Currency { Name = "Euro" } );
+                ctx.Currencies.Add( new Currency { Name = "Dollar" } );
+
+                ctx.SaveChanges();
+            }
+
+            foreach( var currency in ctx.Currencies.Include( c => c.Translations ) )
+            {
+                Currencies.Add( currency );
+            }
+        }
+        
         public void Save()
         {
             var ctx = myProjectHost.Project.GetAssetsContext();

@@ -160,6 +160,7 @@
     <Compile Include="AnalysisSpec\CurrencyConverter.cs" />
     <Compile Include="RegionNames.cs" />
     <Compile Include="Engine\FlowDocumentExtensions.cs" />
+    <Compile Include="Services\LutService.cs" />
     <Compile Include="Services\StorageService.cs" />
     <Compile Include="ViewModels\AnalysisContentPageModel.cs" />
     <Compile Include="ViewModels\AnalysisTemplateEditViewModel.cs" />

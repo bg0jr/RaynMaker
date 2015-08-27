@@ -106,6 +106,8 @@
     </Compile>
     <AppDesigner Include="Properties\" />
     <Compile Include="RegionNames.cs" />
+    <Compile Include="Services\ICurrenciesLut.cs" />
+    <Compile Include="Services\ILutService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

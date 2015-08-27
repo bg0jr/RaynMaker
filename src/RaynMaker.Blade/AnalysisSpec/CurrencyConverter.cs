@@ -6,12 +6,13 @@ using System.Xaml;
 using Plainion;
 using RaynMaker.Blade.Model;
 using RaynMaker.Entities;
+using RaynMaker.Infrastructure.Services;
 
 namespace RaynMaker.Blade.AnalysisSpec
 {
     public sealed class CurrencyConverter : System.ComponentModel.TypeConverter
     {
-        internal static CurrenciesLut CurrenciesLut { get; set; }
+        internal static ICurrenciesLut CurrenciesLut { get; set; }
 
         public override bool CanConvertFrom( ITypeDescriptorContext context, Type sourceType )
         {

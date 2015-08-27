@@ -8,6 +8,7 @@ using RaynMaker.Blade.AnalysisSpec;
 using RaynMaker.Blade.Model;
 using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
+using RaynMaker.Infrastructure.Services;
 
 namespace RaynMaker.Blade.Services
 {
@@ -45,7 +46,7 @@ namespace RaynMaker.Blade.Services
             return ctx.AnalysisTemplates.Single().Template;
         }
 
-        public RaynMaker.Blade.AnalysisSpec.AnalysisTemplate LoadAnalysisTemplate( CurrenciesLut lut )
+        public RaynMaker.Blade.AnalysisSpec.AnalysisTemplate LoadAnalysisTemplate( ICurrenciesLut lut )
         {
             var reader = new ValidatingXamlReader();
 

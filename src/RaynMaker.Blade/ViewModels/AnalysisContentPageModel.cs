@@ -12,6 +12,7 @@ using RaynMaker.Blade.Model;
 using RaynMaker.Blade.Services;
 using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
+using RaynMaker.Infrastructure.Services;
 
 namespace RaynMaker.Blade.ViewModels
 {
@@ -20,15 +21,15 @@ namespace RaynMaker.Blade.ViewModels
     {
         private Stock myStock;
         private IProjectHost myProjectHost;
-        private CurrenciesLut myCurrenciesLut;
+        private ICurrenciesLut myCurrenciesLut;
         private StorageService myStorageService;
         private FlowDocument myFlowDocument;
 
         [ImportingConstructor]
-        public AnalysisContentPageModel( IProjectHost projectHost, CurrenciesLut lut, StorageService storageService )
+        public AnalysisContentPageModel( IProjectHost projectHost, ILutService lutService, StorageService storageService )
         {
             myProjectHost = projectHost;
-            myCurrenciesLut = lut;
+            myCurrenciesLut = lutService.CurrenciesLut;
             myStorageService = storageService;
 
             GoCommand = new DelegateCommand( OnGo );
