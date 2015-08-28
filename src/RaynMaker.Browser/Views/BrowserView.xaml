@@ -73,7 +73,7 @@
                                                 CommandParameter="{Binding}"
                                                 HorizontalAlignment="Right" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                                             <Button.Content>
-                                                <Image Source="/RaynMaker.Browser;Component/Resources/cancel.png" Width="16" Height="16"/>
+                                                <Image Source="/RaynMaker.Infrastructure;Component/Resources/Remove.png" Width="16" Height="16"/>
                                             </Button.Content>
                                         </Button>
                                     </DataTemplate>

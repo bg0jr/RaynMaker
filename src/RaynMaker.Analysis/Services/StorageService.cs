@@ -43,7 +43,7 @@ namespace RaynMaker.Analysis.Services
             return ctx.AnalysisTemplates.Single().Template;
         }
 
-        public RaynMaker.Analysis.AnalysisSpec.AnalysisTemplate LoadAnalysisTemplate( ICurrenciesLut lut )
+        public AnalysisTemplate LoadAnalysisTemplate( ICurrenciesLut lut )
         {
             var reader = new ValidatingXamlReader();
 
@@ -52,7 +52,7 @@ namespace RaynMaker.Analysis.Services
             // required for currency translation during loading from text to entity
             CurrencyConverter.CurrenciesLut = lut;
 
-            return reader.Read<RaynMaker.Analysis.AnalysisSpec.AnalysisTemplate>( XElement.Parse( text ) );
+            return reader.Read<AnalysisTemplate>( XElement.Parse( text ) );
         }
 
         public void SaveAnalysisTemplate( string template )
