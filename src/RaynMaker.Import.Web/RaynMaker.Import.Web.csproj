@@ -13,6 +13,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -24,9 +26,12 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BrowserForm.cs" />
+    <Compile Include="BrowserForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="BrowserForm.Designer.cs">
       <DependentUpon>BrowserForm.cs</DependentUpon>
     </Compile>
@@ -34,12 +39,16 @@
     <Compile Include="DatumLocatorValidation\LocatorValidationResult.cs" />
     <Compile Include="DatumLocatorValidation\ParameterizedDatumLocator.cs" />
     <Compile Include="DatumLocatorValidation\ValidationController.cs" />
-    <Compile Include="DatumLocatorValidation\ValidationForm.cs" />
+    <Compile Include="DatumLocatorValidation\ValidationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DatumLocatorValidation\ValidationForm.Designer.cs">
       <DependentUpon>ValidationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DatumLocatorValidation\Validator.cs" />
-    <Compile Include="EditCaptureForm.cs" />
+    <Compile Include="EditCaptureForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="EditCaptureForm.Designer.cs">
       <DependentUpon>EditCaptureForm.cs</DependentUpon>
     </Compile>
@@ -47,7 +56,9 @@
     <Compile Include="HtmlElementExtensions.cs" />
     <Compile Include="HtmlMarker.cs" />
     <Compile Include="IBrowser.cs" />
-    <Compile Include="InputForm.cs" />
+    <Compile Include="InputForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="InputForm.Designer.cs">
       <DependentUpon>InputForm.cs</DependentUpon>
     </Compile>
@@ -79,6 +90,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RaynMaker.Import\RaynMaker.Import.csproj">
+      <Project>{4cd006fa-b1a2-4e57-a0f1-db32259ff70a}</Project>
+      <Name>RaynMaker.Import</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
