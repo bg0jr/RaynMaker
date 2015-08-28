@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Blade;
 using Blade.Collections;
-using RaynMaker.Import.Html;
 using Blade.Data;
+using RaynMaker.Import.Html;
 using RaynMaker.Import.Html.WinForms;
 
-namespace RaynMaker.Import.Web
+namespace RaynMaker.Import.Web.ViewModels
 {
     public class MarkupDocument : IDisposable
     {

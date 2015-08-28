@@ -7,7 +7,7 @@ using Blade.Collections;
 using RaynMaker.Import.Html;
 using RaynMaker.Import.Html.WinForms;
 
-namespace RaynMaker.Import.Web
+namespace RaynMaker.Import.Web.ViewModels
 {
     /// <summary>
     /// Helper class to work with markups in HTML documents.

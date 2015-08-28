@@ -1,12 +1,8 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
-using System.Linq;
-
 using Blade;
-using RaynMaker.Import.Html;
 
-namespace RaynMaker.Import.Web
+namespace RaynMaker.Import.Web.ViewModels
 {
     /// <summary>
     /// Extensions to the Windows.Forms.HtmlElement class.

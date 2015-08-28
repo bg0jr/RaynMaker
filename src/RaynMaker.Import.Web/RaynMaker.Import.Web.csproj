@@ -98,8 +98,8 @@
       <DependentUpon>EditCaptureForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DatumLocatorValidation\GenericTypeConverter.cs" />
-    <Compile Include="HtmlElementExtensions.cs" />
-    <Compile Include="HtmlMarker.cs" />
+    <Compile Include="ViewModels\HtmlElementExtensions.cs" />
+    <Compile Include="ViewModels\HtmlMarker.cs" />
     <Compile Include="IBrowser.cs" />
     <Compile Include="Views\InputForm.cs">
       <SubType>Form</SubType>
@@ -107,7 +107,7 @@
     <Compile Include="Views\InputForm.Designer.cs">
       <DependentUpon>InputForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MarkupDocument.cs" />
+    <Compile Include="ViewModels\MarkupDocument.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
