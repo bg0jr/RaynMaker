@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Blade.Binding;
+using Plainion.Xaml;
 using RaynMaker.Import.Spec;
-using Blade.Collections;
 
 namespace RaynMaker.Import
 {
@@ -49,7 +48,7 @@ namespace RaynMaker.Import
                 .SelectMany( doc => doc.DatumLocators )
                 .ToList();
 
-            datumLocatorsFromXaml.Foreach( Add );
+            datumLocatorsFromXaml.ForEach( Add );
         }
     }
 }

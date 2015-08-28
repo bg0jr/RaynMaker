@@ -10,8 +10,14 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Plainion.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Plainion.Core.2.4.0.0\lib\NET45\Plainion.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -19,6 +25,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Blade\Collections\ActiveList.cs" />
+    <Compile Include="Blade\Collections\IArray.cs" />
+    <Compile Include="Blade\Collections\Set.cs" />
+    <Compile Include="Blade\Data\CellDimension.cs" />
+    <Compile Include="Blade\Data\DataRowExtensions.cs" />
+    <Compile Include="Blade\Data\DataTableExtensions.cs" />
+    <Compile Include="Blade\Data\TableExtractionSettings.cs" />
+    <Compile Include="Blade\INamedObject.cs" />
+    <Compile Include="Blade\Reflection\MemberMatcher.cs" />
+    <Compile Include="Blade\Reflection\Reflector.cs" />
+    <Compile Include="Blade\Reflection\TransformAction.cs" />
+    <Compile Include="Blade\Reflection\TransformActionSet.cs" />
     <Compile Include="Core\CacheSettings.cs" />
     <Compile Include="Core\CachingNavigator.cs" />
     <Compile Include="Core\ComInterfaces.cs" />
@@ -102,6 +120,9 @@
     <Compile Include="Spec\UriType.cs" />
     <Compile Include="Spec\ValueFormat.cs" />
     <Compile Include="ValidRangePolicy.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
