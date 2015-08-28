@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using RaynMaker.Import;
-using RaynMaker.Import.DatumLocators;
 using RaynMaker.Import.Web.DatumLocatorValidation;
 
 namespace RaynMaker.Import.Web.DatumLocationValidation
