@@ -53,7 +53,7 @@ namespace RaynMaker.Analysis.ViewModels
             doc.Headline( "{0} (Isin: {1})", myStock.Company.Name, myStock.Isin );
 
             var context = new ReportContext( myCurrenciesLut, myStock, doc );
-            foreach( var element in analysisTemplate.Analysis.Elements )
+            foreach( var element in analysisTemplate.Elements )
             {
                 element.Report( context );
             }
