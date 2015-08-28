@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace RaynMaker.Import.Core
 {
-    [CLSCompliant(false)]
+    //[CLSCompliant(false)]
     [StructLayout( LayoutKind.Sequential )]
     [System.Diagnostics.CodeAnalysis.SuppressMessage( "Microsoft.Naming", "CA1705:LongAcronymsShouldBePascalCased" )]
     [System.Diagnostics.CodeAnalysis.SuppressMessage( "Microsoft.Performance", "CA1815:OverrideEqualsAndOperatorEqualsOnValueTypes" )]
@@ -24,7 +24,7 @@ namespace RaynMaker.Import.Core
         public int bottom;
     }
 
-    [CLSCompliant( false )]
+    //[CLSCompliant( false )]
     [ComVisible( true ), Guid( "00000118-0000-0000-C000-000000000046" ), InterfaceType( ComInterfaceType.InterfaceIsIUnknown )]
     public interface IOleClientSite
     {
@@ -53,7 +53,7 @@ namespace RaynMaker.Import.Core
         int RequestNewObjectLayout();
     }
 
-    [CLSCompliant( false )]
+    //[CLSCompliant( false )]
     [ComVisible( true ), ComImport(),
     Guid( "00000112-0000-0000-C000-000000000046" ),
     InterfaceTypeAttribute( ComInterfaceType.InterfaceIsIUnknown )]

@@ -6,7 +6,7 @@ using HtmlAgilityPack;
 
 namespace RaynMaker.Import.Html.AgilityPack
 {
-    [CLSCompliant(false)]
+    //[CLSCompliant(false)]
     public class HtmlDocumentAdapter : IHtmlDocument
     {
         private IDictionary<HtmlNode, HtmlElementAdapter> myElementAdapters;

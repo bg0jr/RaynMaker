@@ -3,11 +3,10 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
 using RaynMaker.Import;
-using RaynMaker.Import.Properties;
 
 namespace RaynMaker.Import.Core
 {
-    [CLSCompliant( false )]
+    //[CLSCompliant( false )]
     [ComVisible( true )]
     public class DownloadController : IOleClientSite, IDownloadController
     {
@@ -33,7 +32,7 @@ namespace RaynMaker.Import.Core
             int rc = oleObject.SetClientSite( this );
             if ( rc != 0 )
             {
-                throw new COMException( ErrorMessages.UnknownComError, rc );
+                throw new COMException( "Unknown COM error", rc );
             }
         }
 
@@ -48,7 +47,7 @@ namespace RaynMaker.Import.Core
             int rc = obj.SetClientSite( this );
             if ( rc != 0 )
             {
-                throw new COMException( ErrorMessages.UnknownComError, rc );
+                throw new COMException( "Unknown COM error", rc );
             }
         }
 
