@@ -84,10 +84,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataModule.cs" />
-    <Compile Include="CurrenciesMenuItem.xaml.cs">
+    <Compile Include="Views\CurrenciesMenuItem.xaml.cs">
       <DependentUpon>CurrenciesMenuItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CurrenciesMenuItemModel.cs" />
+    <Compile Include="ViewModels\CurrenciesMenuItemModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -110,7 +110,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="CurrenciesMenuItem.xaml">
+    <Page Include="Views\CurrenciesMenuItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -5,15 +5,15 @@ using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Infrastructure;
 
-namespace RaynMaker.Data
+namespace RaynMaker.Analysis.ViewModels
 {
     [Export]
-    public class CurrenciesMenuItemModel : BindableBase
+    public class AnalysisTemplateMenuItemModel : BindableBase
     {
         private IProjectHost myProjectHost;
 
         [ImportingConstructor]
-        public CurrenciesMenuItemModel( IProjectHost projectHost )
+        public AnalysisTemplateMenuItemModel( IProjectHost projectHost )
         {
             myProjectHost = projectHost;
             myProjectHost.Changed += myProjectHost_Changed;
@@ -32,7 +32,7 @@ namespace RaynMaker.Data
         private void OnInvoke()
         {
             var notification = new Notification();
-            notification.Title = "Currencies";
+            notification.Title = "Analysis template";
 
             InvokeRequest.Raise( notification, c => { } );
         }

@@ -1,13 +1,14 @@
 ﻿using System.ComponentModel.Composition;
 using System.Windows.Controls;
+using RaynMaker.Data.ViewModels;
 
-namespace RaynMaker.Analysis
+namespace RaynMaker.Data.Views
 {
     [Export]
-    public partial class AnalysisTemplateMenuItem : MenuItem
+    public partial class CurrenciesMenuItem : MenuItem
     {
         [ImportingConstructor]
-        public AnalysisTemplateMenuItem( AnalysisTemplateMenuItemModel model )
+        public CurrenciesMenuItem( CurrenciesMenuItemModel model )
         {
             InitializeComponent();
 

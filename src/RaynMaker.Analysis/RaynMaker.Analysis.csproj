@@ -130,10 +130,10 @@
     <Compile Include="AnalysisSpec\BarChart.cs" />
     <Compile Include="AnalysisSpec\Headline.cs" />
     <Compile Include="AnalysisSpec\TextBlock.cs" />
-    <Compile Include="AnalysisTemplateMenuItem.xaml.cs">
+    <Compile Include="Views\AnalysisTemplateMenuItem.xaml.cs">
       <DependentUpon>AnalysisTemplateMenuItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AnalysisTemplateMenuItemModel.cs" />
+    <Compile Include="ViewModels\AnalysisTemplateMenuItemModel.cs" />
     <Compile Include="AnalysisModule.cs" />
     <Compile Include="AnalysisSpec\InMioExtension.cs" />
     <Compile Include="AnalysisSpec\Providers\GenericDatumProvider.cs" />
@@ -169,7 +169,7 @@
     <Compile Include="Views\KeywordCompletionData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="AnalysisTemplateMenuItem.xaml">
+    <Page Include="Views\AnalysisTemplateMenuItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
