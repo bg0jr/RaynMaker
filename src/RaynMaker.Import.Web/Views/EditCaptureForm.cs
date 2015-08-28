@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace RaynMaker.Import.Web
+namespace RaynMaker.Import.Web.Views
 {
     public partial class EditCaptureForm : Form
     {

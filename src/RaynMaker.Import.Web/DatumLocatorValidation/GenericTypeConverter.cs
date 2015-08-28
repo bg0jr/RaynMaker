@@ -6,7 +6,7 @@ using System.ComponentModel;
 using RaynMaker.Import;
 using System.Globalization;
 
-namespace RaynMaker.Import.Web
+namespace RaynMaker.Import.Web.DatumLocatorValidation
 {
     class GenericTypeConverter : System.ComponentModel.TypeConverter
     {

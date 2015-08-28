@@ -1,4 +1,4 @@
-namespace RaynMaker.Import.Web
+namespace RaynMaker.Import.Web.Views
 {
     partial class BrowserForm
     {

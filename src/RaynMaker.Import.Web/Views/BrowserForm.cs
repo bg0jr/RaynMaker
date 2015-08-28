@@ -12,7 +12,7 @@ using RaynMaker.Import.Html;
 using RaynMaker.Import.Web.DatumLocationValidation;
 using RaynMaker.Import.Spec;
 
-namespace RaynMaker.Import.Web
+namespace RaynMaker.Import.Web.Views
 {
     public partial class BrowserForm : UserControl, IBrowser
     {

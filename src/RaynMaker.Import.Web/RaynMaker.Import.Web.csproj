@@ -74,10 +74,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ImportWebModule.cs" />
-    <Compile Include="BrowserForm.cs">
+    <Compile Include="Views\BrowserForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="BrowserForm.Designer.cs">
+    <Compile Include="Views\BrowserForm.Designer.cs">
       <DependentUpon>BrowserForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DatumLocatorValidation\LocatorListViewItem.cs" />
@@ -91,20 +91,20 @@
       <DependentUpon>ValidationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DatumLocatorValidation\Validator.cs" />
-    <Compile Include="EditCaptureForm.cs">
+    <Compile Include="Views\EditCaptureForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditCaptureForm.Designer.cs">
+    <Compile Include="Views\EditCaptureForm.Designer.cs">
       <DependentUpon>EditCaptureForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GenericTypeConverter.cs" />
+    <Compile Include="DatumLocatorValidation\GenericTypeConverter.cs" />
     <Compile Include="HtmlElementExtensions.cs" />
     <Compile Include="HtmlMarker.cs" />
     <Compile Include="IBrowser.cs" />
-    <Compile Include="InputForm.cs">
+    <Compile Include="Views\InputForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InputForm.Designer.cs">
+    <Compile Include="Views\InputForm.Designer.cs">
       <DependentUpon>InputForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MarkupDocument.cs" />
@@ -117,21 +117,21 @@
     <Compile Include="Views\WebSpyMenuItem.xaml.cs">
       <DependentUpon>WebSpyMenuItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WebSpyView.xaml.cs">
+    <Compile Include="Views\WebSpyView.xaml.cs">
       <DependentUpon>WebSpyView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BrowserForm.resx">
+    <EmbeddedResource Include="Views\BrowserForm.resx">
       <DependentUpon>BrowserForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DatumLocatorValidation\ValidationForm.resx">
       <DependentUpon>ValidationForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EditCaptureForm.resx">
+    <EmbeddedResource Include="Views\EditCaptureForm.resx">
       <DependentUpon>EditCaptureForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InputForm.resx">
+    <EmbeddedResource Include="Views\InputForm.resx">
       <DependentUpon>InputForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
@@ -140,7 +140,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="WebSpyView.xaml">
+    <Page Include="Views\WebSpyView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
