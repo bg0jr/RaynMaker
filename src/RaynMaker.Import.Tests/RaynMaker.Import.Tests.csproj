@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="..\..\build\Globals.msbuild" />
+  <PropertyGroup>
+    <ProjectGuid>{60A81643-28BD-42C6-B1E9-51C77275A335}</ProjectGuid>
+    <RootNamespace>RaynMaker.Import.Tests</RootNamespace>
+    <AssemblyName>RaynMaker.Import.Tests</AssemblyName>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\HtmlDocumentTest.cs" />
+    <Compile Include="Core\PatternMatchingTests.cs" />
+    <Compile Include="Html\HtmlDocumentExtensionsTests.cs" />
+    <Compile Include="Html\HtmlElementExtensionsTests.cs" />
+    <Compile Include="Html\HtmlFormTests.cs" />
+    <Compile Include="Html\HtmlPathTests.cs" />
+    <Compile Include="Html\HtmlTableTests.cs" />
+    <Compile Include="Html\TestBase.cs" />
+    <Compile Include="LookupPolicyTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\GenericDatumProviderTest.cs" />
+    <Compile Include="ProxyPoolTest.cs" />
+    <Compile Include="Spec\AbstractDimensionalFormatTest.cs" />
+    <Compile Include="Spec\FormatColumnTest.cs" />
+    <Compile Include="Spec\PathSeriesFormatTest.cs" />
+    <Compile Include="Spec\PathSingleValueFormatTest.cs" />
+    <Compile Include="Spec\SeparatorSeriesFormatTest.cs" />
+    <Compile Include="Spec\ValueFormatTest.cs" />
+    <Compile Include="TestBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="TestData\ariva-prices.csv" />
+    <None Include="TestData\eps.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestData\ariva.fund.DE0005140008.html" />
+    <Content Include="TestData\ariva.overview.US0138171014.html" />
+    <Content Include="TestData\ariva.prices.DE0005003404.html" />
+    <Content Include="TestData\Core\ariva.overview.US0138171014.html" />
+    <Content Include="TestData\Html\ariva.historicalprices.DE0008404005.html" />
+    <Content Include="TestData\Html\ariva.html" />
+    <Content Include="TestData\Html\yahoo-bmw-all.html" />
+    <Content Include="TestData\yahoo.result.DE0005003404.html" />
+    <Content Include="TestData\yahoo.search.DE0005003404.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RaynMaker.Import\RaynMaker.Import.csproj">
+      <Project>{4cd006fa-b1a2-4e57-a0f1-db32259ff70a}</Project>
+      <Name>RaynMaker.Import</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
