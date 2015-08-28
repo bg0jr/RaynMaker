@@ -6,14 +6,13 @@ using System.Net;
 using System.Threading;
 using System.Windows.Forms;
 using Blade;
-using Maui;
 using RaynMaker.Import.Html;
 using RaynMaker.Import.Html.WinForms;
 using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Core
 {
-    public class LegacyDocumentBrowser : ManagedObject, IServiceComponent, IDocumentBrowser
+    public class LegacyDocumentBrowser : ManagedObject, IDocumentBrowser
     {
         private DownloadController myDownloadController;
         private bool myIsInitialized = false;
@@ -67,10 +66,6 @@ namespace RaynMaker.Import.Core
             {
                 base.Dispose( disposing );
             }
-        }
-
-        public void Init( ServiceProvider serviceProvider )
-        {
         }
 
         public WebBrowser Browser

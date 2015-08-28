@@ -2,7 +2,6 @@
 using System.Linq;
 using RaynMaker.Import;
 using RaynMaker.Import.DatumLocators;
-using Maui;
 using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Web.DatumLocatorValidation
@@ -11,12 +10,10 @@ namespace RaynMaker.Import.Web.DatumLocatorValidation
     public class ValidationController
     {
         private IEnumerable<ParameterizedDatumLocator> myDatumLocators;
-        private ServiceProvider myServiceProvider;
 
         public ValidationController()
         {
             myDatumLocators = BuildDatumLocators();
-            myServiceProvider = new ServiceProvider();
         }
 
         private IEnumerable<ParameterizedDatumLocator> BuildDatumLocators()
@@ -60,7 +57,8 @@ namespace RaynMaker.Import.Web.DatumLocatorValidation
 
         public LocatorValidationResult Validate( ParameterizedDatumLocator locator )
         {
-            var provider = new Validator( myServiceProvider.Browser() );
+            var browser = DocumentBrowserFactory.Create();
+            var provider = new Validator( browser );
             return provider.Fetch( locator );
         }
     }

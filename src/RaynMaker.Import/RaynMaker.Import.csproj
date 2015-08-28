@@ -78,6 +78,7 @@
     <Compile Include="DatumLocators\NavigationBits.cs" />
     <Compile Include="DatumLocators\StandingDatumProviders.cs" />
     <Compile Include="DatumProviderFactory.cs" />
+    <Compile Include="DocumentBrowserFactory.cs" />
     <Compile Include="DocumentLoaderFactory.cs" />
     <Compile Include="EvaluatorPolicy.cs" />
     <Compile Include="FirstNonNullPolicy.cs" />
@@ -101,16 +102,15 @@
     <Compile Include="IDocumentLoader.cs" />
     <Compile Include="IDownloadController.cs" />
     <Compile Include="IFetchPolicy.cs" />
+    <Compile Include="Importer.cs" />
     <Compile Include="INavigator.cs" />
     <Compile Include="IResultPolicy.cs" />
     <Compile Include="LookupPolicy.cs" />
-    <Compile Include="Maui\IServiceComponent.cs" />
-    <Compile Include="Maui\ServiceProvider.cs" />
     <Compile Include="PassThroughPolicy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\GenericDatumProvider.cs" />
     <Compile Include="ProxyPool.cs" />
-    <Compile Include="ServiceProviderExtensions.cs" />
+    <Compile Include="ScopeLookupPolicy.cs" />
     <Compile Include="SingleResultValue.cs" />
     <Compile Include="Spec\AbsolutePositionLocator.cs" />
     <Compile Include="Spec\AbstractDimensionalFormat.cs" />

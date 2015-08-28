@@ -13,18 +13,21 @@ using System.Windows.Shapes;
 using System.Windows.Forms.Integration;
 using System.Security;
 using System.Windows.Forms;
+using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
+using System.ComponentModel.Composition;
 
 namespace RaynMaker.Import.Web
 {
     /// <summary>
     /// Interaction logic for WebSpy.xaml
     /// </summary>
-    public partial class WebSpyWindow : Window
+    [Export]
+    public partial class WebSpyView : System.Windows.Controls.UserControl
     {
         private WindowsFormsHost myHost;
         private BrowserForm myBrowser;
 
-        public WebSpyWindow()
+        public WebSpyView()
         {
             InitializeComponent();
         }
@@ -44,9 +47,9 @@ namespace RaynMaker.Import.Web
             myContent.Children.Add( myHost );
         }
 
-        private void Window_Closed( object sender, EventArgs e )
-        {
-            myBrowser.Dispose();
-        }
+        //private void Window_Closed( object sender, EventArgs e )
+        //{
+        //    myBrowser.Dispose();
+        //}
     }
 }
