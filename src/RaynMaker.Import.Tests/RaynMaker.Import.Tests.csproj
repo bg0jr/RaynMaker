@@ -45,19 +45,41 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="TestData\ariva-prices.csv" />
-    <None Include="TestData\eps.csv" />
+    <None Include="TestData\ariva-prices.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\eps.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestData\ariva.fund.DE0005140008.html" />
-    <Content Include="TestData\ariva.overview.US0138171014.html" />
-    <Content Include="TestData\ariva.prices.DE0005003404.html" />
-    <Content Include="TestData\Core\ariva.overview.US0138171014.html" />
-    <Content Include="TestData\Html\ariva.historicalprices.DE0008404005.html" />
-    <Content Include="TestData\Html\ariva.html" />
-    <Content Include="TestData\Html\yahoo-bmw-all.html" />
-    <Content Include="TestData\yahoo.result.DE0005003404.html" />
-    <Content Include="TestData\yahoo.search.DE0005003404.html" />
+    <Content Include="TestData\ariva.fund.DE0005140008.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\ariva.overview.US0138171014.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\ariva.prices.DE0005003404.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Core\ariva.overview.US0138171014.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Html\ariva.historicalprices.DE0008404005.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Html\ariva.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Html\yahoo-bmw-all.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\yahoo.result.DE0005003404.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\yahoo.search.DE0005003404.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RaynMaker.Import\RaynMaker.Import.csproj">

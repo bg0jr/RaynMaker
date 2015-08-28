@@ -8,6 +8,7 @@ using RaynMaker.Import.Html;
 namespace RaynMaker.Import.Tests.Html
 {
     [TestFixture]
+    [RequiresSTA]
     public class HtmlDocumentExtensionsTests : TestBase
     {
         [Test]

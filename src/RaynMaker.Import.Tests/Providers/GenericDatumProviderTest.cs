@@ -11,6 +11,7 @@ namespace RaynMaker.Import.Tests.Providers
 {
     // TODO: lets have an additional test for the result validation and with multiple sites
     [TestFixture]
+    [RequiresSTA]
     public class GenericDatumProviderTest : TestBase
     {
         /// <summary>
@@ -23,7 +24,7 @@ namespace RaynMaker.Import.Tests.Providers
             DatumLocator locator = new DatumLocator( "StockPrices",
                 new Site( "Ariva",
                     new Navigation( DocumentType.Html,
-                        Path.Combine( TestDataRoot, "Recognition", "ariva.prices.${stock.isin}.html" ) ),
+                        Path.Combine( TestDataRoot,  "ariva.prices.${stock.isin}.html" ) ),
                     new PathTableFormat( "Ariava.Prices",
                         "/BODY[0]/DIV[5]/DIV[0]/DIV[3]/DIV[0]/TABLE[${TableIndex}]",
                         new FormatColumn( "date", typeof( DateTime ), "dd.MM.yy" ),
@@ -77,7 +78,7 @@ namespace RaynMaker.Import.Tests.Providers
             var locator = new DatumLocator( "Eps",
                 new Site( "Ariva",
                     new Navigation( DocumentType.Html,
-                        Path.Combine( TestDataRoot, "Recognition", "ariva.fund.${stock.isin}.html" ) ),
+                        Path.Combine( TestDataRoot, "ariva.fund.${stock.isin}.html" ) ),
                     new PathSeriesFormat( "Ariava.Eps" )
                     {
                         Path = "/BODY[0]/DIV[5]/DIV[0]/DIV[3]/TABLE[7]/TBODY[0]/TR[5]/TD[1]",

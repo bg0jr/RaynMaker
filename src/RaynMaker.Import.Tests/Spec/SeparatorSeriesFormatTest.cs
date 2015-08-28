@@ -25,7 +25,7 @@ namespace RaynMaker.Import.Tests.Spec
             myFormat.SkipColumns = new int[] { 0, 2, 3 };
             myFormat.SkipRows = new int[] { 1 };
 
-            myEpsFile = Path.Combine( TestDataRoot, "Recognition", "eps.csv" );
+            myEpsFile = Path.Combine( TestDataRoot, "eps.csv" );
         }
 
         [Test]

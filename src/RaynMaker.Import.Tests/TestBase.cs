@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.IO;
 using Blade;
+using NUnit.Framework;
 
 namespace RaynMaker.Import.Tests
 {
@@ -9,10 +10,7 @@ namespace RaynMaker.Import.Tests
     {
         public TestBase()
         {
-            string dir = Path.GetFileNameWithoutExtension( GetType().Assembly.CodeBase );
-            dir = dir.Replace( "RaynMaker.Import.", string.Empty );
-            dir = dir.Replace( ".Tests", string.Empty );
-            TestDataRoot = Path.Combine( GetType().GetAssemblyPath(), "TestData", dir );
+            TestDataRoot = Path.Combine( GetType().GetAssemblyPath(), "TestData" );
         }
 
         protected string TestDataRoot { get; private set; }

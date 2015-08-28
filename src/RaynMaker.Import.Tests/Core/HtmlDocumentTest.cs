@@ -6,6 +6,7 @@ using RaynMaker.Import.Spec;
 namespace RaynMaker.Import.Tests.Core
 {
     [TestFixture]
+    [RequiresSTA]
     public class HtmlDocumentTest : TestBase
     {
         private IDocumentBrowser myBrowser = null;
@@ -25,7 +26,7 @@ namespace RaynMaker.Import.Tests.Core
         [Test]
         public void WpknFromAriva()
         {
-            var inputFile = Path.Combine( TestDataRoot, "Recognition", "Core", "ariva.overview.US0138171014.html" );
+            var inputFile = Path.Combine( TestDataRoot,  "Core", "ariva.overview.US0138171014.html" );
             var doc = myBrowser.GetDocument( new Navigation( DocumentType.Html, inputFile ) );
 
             var format = new PathSingleValueFormat( "Ariva.Wpkn" );

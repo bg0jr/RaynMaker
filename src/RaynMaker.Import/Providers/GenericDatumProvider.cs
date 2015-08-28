@@ -10,13 +10,13 @@ namespace RaynMaker.Import.Providers
     {
         private static readonly ILogger myLogger = LoggerFactory.GetLogger( typeof( GenericDatumProvider ) );
 
-        private IDocumentBrowser myWebScrapSC;
+        private IDocumentBrowser myBrowser;
         private IResultPolicy myResultPolicy;
         private IFetchPolicy myFetchPolicy;
 
-        public GenericDatumProvider( IDocumentBrowser webScrapSC, DatumLocator locator, IFetchPolicy fetchPolicy, IResultPolicy resultPolicy )
+        public GenericDatumProvider( IDocumentBrowser browser, DatumLocator locator, IFetchPolicy fetchPolicy, IResultPolicy resultPolicy )
         {
-            myWebScrapSC = webScrapSC;
+            myBrowser = browser;
             Locator = locator;
             FetchPolicy = fetchPolicy;
             ResultPolicy = resultPolicy;
@@ -92,7 +92,7 @@ namespace RaynMaker.Import.Providers
             {
                 modifiedNavigation = FetchPolicy.GetNavigation( site );
 
-                var doc = myWebScrapSC.GetDocument( modifiedNavigation );
+                var doc = myBrowser.GetDocument( modifiedNavigation );
                 if ( doc == null )
                 {
                     throw new Exception( "Failed to navigate to the document" );

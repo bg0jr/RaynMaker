@@ -22,7 +22,7 @@ namespace RaynMaker.Import.Tests.Spec
             myFormat.TimeAxisPosition = 0;
             myFormat.SeriesNamePosition = 0;
 
-            myPricesFile = Path.Combine( TestDataRoot, "Recognition", "ariva-prices.csv" );
+            myPricesFile = Path.Combine( TestDataRoot, "ariva-prices.csv" );
         }
 
         [Test]

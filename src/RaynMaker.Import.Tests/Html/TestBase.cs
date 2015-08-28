@@ -24,7 +24,7 @@ namespace RaynMaker.Import.Tests.Html
 
         protected IHtmlDocument LoadDocument( string name )
         {
-            string file = Path.Combine( TestDataRoot, "Recognition", "Html" );
+            string file = Path.Combine( TestDataRoot,  "Html" );
             file = Path.Combine( file, name );
 
             var navi = new Navigation( DocumentType.Html, new NavigatorUrl( UriType.Request, file ) );
