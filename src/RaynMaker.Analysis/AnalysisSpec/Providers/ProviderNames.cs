@@ -1,5 +1,5 @@
 ﻿
-namespace RaynMaker.Blade.AnalysisSpec.Providers
+namespace RaynMaker.Analysis.AnalysisSpec.Providers
 {
     class ProviderNames
     {

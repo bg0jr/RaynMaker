@@ -9,13 +9,13 @@ using Microsoft.Practices.Prism.Mvvm;
 using Plainion;
 using Plainion.Validation;
 using Plainion.Windows.Controls;
-using RaynMaker.Blade.Services;
+using RaynMaker.Data.Services;
 using RaynMaker.Entities;
 using RaynMaker.Entities.Datums;
 using RaynMaker.Infrastructure;
 using RaynMaker.Infrastructure.Services;
 
-namespace RaynMaker.Blade.ViewModels
+namespace RaynMaker.Data.ViewModels
 {
     [Export]
     class FactsContentPageModel : BindableBase, IContentPage

@@ -3,11 +3,11 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using Plainion.Xaml;
-using RaynMaker.Blade.AnalysisSpec;
+using RaynMaker.Analysis.AnalysisSpec;
 using RaynMaker.Infrastructure;
 using RaynMaker.Infrastructure.Services;
 
-namespace RaynMaker.Blade.Services
+namespace RaynMaker.Analysis.Services
 {
     [Export]
     class StorageService
@@ -43,7 +43,7 @@ namespace RaynMaker.Blade.Services
             return ctx.AnalysisTemplates.Single().Template;
         }
 
-        public RaynMaker.Blade.AnalysisSpec.AnalysisTemplate LoadAnalysisTemplate( ICurrenciesLut lut )
+        public RaynMaker.Analysis.AnalysisSpec.AnalysisTemplate LoadAnalysisTemplate( ICurrenciesLut lut )
         {
             var reader = new ValidatingXamlReader();
 
@@ -52,7 +52,7 @@ namespace RaynMaker.Blade.Services
             // required for currency translation during loading from text to entity
             CurrencyConverter.CurrenciesLut = lut;
 
-            return reader.Read<RaynMaker.Blade.AnalysisSpec.AnalysisTemplate>( XElement.Parse( text ) );
+            return reader.Read<RaynMaker.Analysis.AnalysisSpec.AnalysisTemplate>( XElement.Parse( text ) );
         }
 
         public void SaveAnalysisTemplate( string template )

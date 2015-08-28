@@ -5,7 +5,7 @@ using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Infrastructure;
 
-namespace RaynMaker.Blade
+namespace RaynMaker.Analysis
 {
     [Export]
     public class AnalysisTemplateMenuItemModel : BindableBase

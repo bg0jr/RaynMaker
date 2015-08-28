@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.Composition;
 using System.Windows.Controls;
 
-namespace RaynMaker.Blade
+namespace RaynMaker.Data
 {
     [Export]
     public partial class CurrenciesMenuItem : MenuItem

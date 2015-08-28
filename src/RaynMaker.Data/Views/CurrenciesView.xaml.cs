@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.Composition;
 using System.Windows.Controls;
-using RaynMaker.Blade.ViewModels;
+using RaynMaker.Data.ViewModels;
 
-namespace RaynMaker.Blade.Views
+namespace RaynMaker.Data.Views
 {
     [Export]
     public partial class CurrenciesView : UserControl

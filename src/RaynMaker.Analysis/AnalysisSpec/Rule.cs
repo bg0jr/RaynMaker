@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
-using RaynMaker.Blade.Engine;
+using RaynMaker.Analysis.Engine;
 using RaynMaker.Entities;
 
-namespace RaynMaker.Blade.AnalysisSpec
+namespace RaynMaker.Analysis.AnalysisSpec
 {
     public class Rule : IReportElement
     {

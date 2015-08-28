@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RaynMaker.Blade.Engine;
+using RaynMaker.Analysis.Engine;
 
-namespace RaynMaker.Blade.Tests.Engine.Fakes
+namespace RaynMaker.Analysis.Tests.Engine.Fakes
 {
     class FakeExpressionEvaluationContext : IExpressionEvaluationContext
     {

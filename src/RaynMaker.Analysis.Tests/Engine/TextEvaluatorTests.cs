@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
-using RaynMaker.Blade.Engine;
-using RaynMaker.Blade.Tests.Engine.Fakes;
+using RaynMaker.Analysis.Engine;
+using RaynMaker.Analysis.Tests.Engine.Fakes;
 
-namespace RaynMaker.Blade.Tests.Engine
+namespace RaynMaker.Analysis.Tests.Engine
 {
     [TestFixture]
     public class TextEvaluatorTests

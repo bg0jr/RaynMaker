@@ -2,9 +2,9 @@
 using Microsoft.Practices.Prism.MefExtensions.Modularity;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
-using RaynMaker.Blade.Views;
+using RaynMaker.Analysis.Views;
 
-namespace RaynMaker.Blade
+namespace RaynMaker.Analysis
 {
     [ModuleExport( typeof( AnalysisModule ) )]
     public class AnalysisModule : IModule

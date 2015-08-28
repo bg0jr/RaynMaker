@@ -8,13 +8,13 @@ using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Folding;
-using RaynMaker.Blade.ViewModels;
+using RaynMaker.Analysis.ViewModels;
 using System.Linq;
 using System.Collections.Generic;
-using RaynMaker.Blade.Engine;
-using RaynMaker.Blade.AnalysisSpec;
+using RaynMaker.Analysis.Engine;
+using RaynMaker.Analysis.AnalysisSpec;
 
-namespace RaynMaker.Blade.Views
+namespace RaynMaker.Analysis.Views
 {
     [Export]
     public partial class AnalysisTemplateEditView : UserControl

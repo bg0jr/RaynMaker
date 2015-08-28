@@ -3,7 +3,7 @@ using System.Linq;
 using Plainion;
 using RaynMaker.Entities;
 
-namespace RaynMaker.Blade.Engine
+namespace RaynMaker.Analysis.Engine
 {
     class MissingDataForPeriod : IFigureProviderFailure
     {

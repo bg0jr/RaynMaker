@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using Plainion;
-using RaynMaker.Blade.Engine;
+using RaynMaker.Analysis.Engine;
 using RaynMaker.Entities;
 
-namespace RaynMaker.Blade.AnalysisSpec.Providers
+namespace RaynMaker.Analysis.AnalysisSpec.Providers
 {
     /// <summary>
     /// Joins two input series using the given operator.

@@ -8,10 +8,10 @@ using System.Windows.Markup;
 using System.Windows.Media;
 using Plainion;
 using Plainion.Validation;
-using RaynMaker.Blade.Engine;
+using RaynMaker.Analysis.Engine;
 using RaynMaker.Entities;
 
-namespace RaynMaker.Blade.AnalysisSpec
+namespace RaynMaker.Analysis.AnalysisSpec
 {
     [DefaultProperty( "Rows" ), ContentProperty( "Rows" )]
     public class AnualTable : IReportElement

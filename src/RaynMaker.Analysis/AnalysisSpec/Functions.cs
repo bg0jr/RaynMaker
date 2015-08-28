@@ -2,7 +2,7 @@
 using System.Linq;
 using RaynMaker.Entities;
 
-namespace RaynMaker.Blade.AnalysisSpec
+namespace RaynMaker.Analysis.AnalysisSpec
 {
     class Functions
     {

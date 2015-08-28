@@ -1,5 +1,5 @@
 ﻿
-namespace RaynMaker.Blade
+namespace RaynMaker.Data
 {
     class RegionNames
     {

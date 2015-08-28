@@ -4,13 +4,13 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
-using RaynMaker.Blade.Engine;
-using RaynMaker.Blade.Services;
+using RaynMaker.Analysis.Engine;
+using RaynMaker.Analysis.Services;
 using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
 using RaynMaker.Infrastructure.Services;
 
-namespace RaynMaker.Blade.ViewModels
+namespace RaynMaker.Analysis.ViewModels
 {
     [Export]
     class AnalysisContentPageModel : BindableBase, IContentPage

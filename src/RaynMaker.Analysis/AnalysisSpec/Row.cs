@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RaynMaker.Blade.AnalysisSpec
+namespace RaynMaker.Analysis.AnalysisSpec
 {
     public class Row
     {

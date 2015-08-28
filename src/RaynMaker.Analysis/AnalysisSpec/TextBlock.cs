@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Markup;
-using RaynMaker.Blade.Engine;
+using RaynMaker.Analysis.Engine;
 
-namespace RaynMaker.Blade.AnalysisSpec
+namespace RaynMaker.Analysis.AnalysisSpec
 {
     [DefaultProperty( "Text" ), ContentProperty( "Text" )]
     public class TextBlock : IReportElement

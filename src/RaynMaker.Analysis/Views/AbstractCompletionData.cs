@@ -4,7 +4,7 @@ using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
 
-namespace RaynMaker.Blade.Views
+namespace RaynMaker.Analysis.Views
 {
     abstract class AbstractCompletionData : ICompletionData
     {

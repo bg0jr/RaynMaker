@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Markup;
 using Plainion.Validation;
 
-namespace RaynMaker.Blade.AnalysisSpec
+namespace RaynMaker.Analysis.AnalysisSpec
 {
     [DefaultProperty( "Analysis" ), ContentProperty( "Analysis" )]
     public class AnalysisTemplate : DataTemplate

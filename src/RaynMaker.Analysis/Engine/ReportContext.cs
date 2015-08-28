@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Documents;
 using Plainion;
-using RaynMaker.Blade.AnalysisSpec;
-using RaynMaker.Blade.AnalysisSpec.Providers;
+using RaynMaker.Analysis.AnalysisSpec;
+using RaynMaker.Analysis.AnalysisSpec.Providers;
 using RaynMaker.Entities;
 using RaynMaker.Entities.Datums;
 using RaynMaker.Infrastructure.Services;
 
-namespace RaynMaker.Blade.Engine
+namespace RaynMaker.Analysis.Engine
 {
     public class ReportContext : IFigureProviderContext, IExpressionEvaluationContext
     {

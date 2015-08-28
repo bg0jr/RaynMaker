@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 using RaynMaker.Entities;
 
-namespace RaynMaker.Blade.AnalysisSpec
+namespace RaynMaker.Analysis.AnalysisSpec
 {
     class PeriodChartConverter : IValueConverter
     {

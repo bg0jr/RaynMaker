@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 using Plainion;
-using RaynMaker.Blade.Engine;
+using RaynMaker.Analysis.Engine;
 using RaynMaker.Entities;
 using RaynMaker.Entities.Datums;
 
-namespace RaynMaker.Blade.AnalysisSpec.Providers
+namespace RaynMaker.Analysis.AnalysisSpec.Providers
 {
     /// <summary>
     /// Returns a ratio of a given datum to the current price

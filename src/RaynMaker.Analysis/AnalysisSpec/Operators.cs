@@ -2,7 +2,7 @@
 using System.Reflection;
 using Plainion;
 
-namespace RaynMaker.Blade.AnalysisSpec
+namespace RaynMaker.Analysis.AnalysisSpec
 {
     public class Operators
     {

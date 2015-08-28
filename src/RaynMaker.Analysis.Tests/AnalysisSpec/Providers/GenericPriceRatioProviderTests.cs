@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
-using RaynMaker.Blade.AnalysisSpec.Providers;
-using RaynMaker.Blade.Engine;
+using RaynMaker.Analysis.AnalysisSpec.Providers;
+using RaynMaker.Analysis.Engine;
 using RaynMaker.Entities;
 using RaynMaker.Entities.Datums;
 using RaynMaker.Entities.Tests.Fakes;
 
-namespace RaynMaker.Blade.Tests.AnalysisSpec.Providers
+namespace RaynMaker.Analysis.Tests.AnalysisSpec.Providers
 {
     [TestFixture]
     public class GenericPriceRatioProviderTests

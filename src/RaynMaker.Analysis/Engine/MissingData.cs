@@ -1,6 +1,6 @@
 ﻿using Plainion;
 
-namespace RaynMaker.Blade.Engine
+namespace RaynMaker.Analysis.Engine
 {
     class MissingData : IFigureProviderFailure
     {

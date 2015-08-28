@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
-using RaynMaker.Blade.Engine;
-using RaynMaker.Blade.Tests.Engine.Fakes;
+using RaynMaker.Analysis.Engine;
+using RaynMaker.Analysis.Tests.Engine.Fakes;
 using RaynMaker.Entities;
 
-namespace RaynMaker.Blade.Tests.Engine
+namespace RaynMaker.Analysis.Tests.Engine
 {
     [TestFixture]
     public class FunctionCallTests

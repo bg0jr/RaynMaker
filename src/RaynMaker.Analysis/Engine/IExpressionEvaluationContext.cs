@@ -1,5 +1,5 @@
 ﻿
-namespace RaynMaker.Blade.Engine
+namespace RaynMaker.Analysis.Engine
 {
     interface IExpressionEvaluationContext
     {

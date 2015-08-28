@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Data;
 using RaynMaker.Entities;
 
-namespace RaynMaker.Blade.Views
+namespace RaynMaker.Data.Views
 {
     public class CurrencyVisibilityConverter : IValueConverter
     {

@@ -3,9 +3,9 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Navigation;
-using RaynMaker.Blade.Engine;
+using RaynMaker.Analysis.Engine;
 
-namespace RaynMaker.Blade.AnalysisSpec
+namespace RaynMaker.Analysis.AnalysisSpec
 {
     public class ReferencesSection : IReportElement
     {

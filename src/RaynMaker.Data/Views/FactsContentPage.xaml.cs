@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.Composition;
 using System.Windows.Controls;
 using Microsoft.Practices.Prism.Regions;
-using RaynMaker.Blade.ViewModels;
+using RaynMaker.Data.ViewModels;
 
-namespace RaynMaker.Blade.Views
+namespace RaynMaker.Data.Views
 {
     [Export]
     [ViewSortHint( "100" )]

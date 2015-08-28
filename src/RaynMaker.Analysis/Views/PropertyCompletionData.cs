@@ -3,7 +3,7 @@ using System.Reflection;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
 
-namespace RaynMaker.Blade.Views
+namespace RaynMaker.Analysis.Views
 {
     class PropertyCompletionData : AbstractCompletionData
     {

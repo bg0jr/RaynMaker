@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using RaynMaker.Entities;
 
-namespace RaynMaker.Blade.Tests.Engine.Fakes
+namespace RaynMaker.Analysis.Tests.Engine.Fakes
 {
     class FakeFunctions
     {

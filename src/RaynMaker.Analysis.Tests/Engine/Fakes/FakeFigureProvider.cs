@@ -1,7 +1,7 @@
 ﻿using System;
-using RaynMaker.Blade.Engine;
+using RaynMaker.Analysis.Engine;
 
-namespace RaynMaker.Blade.Tests.Engine.Fakes
+namespace RaynMaker.Analysis.Tests.Engine.Fakes
 {
     class FakeFigureProvider : IFigureProvider
     {

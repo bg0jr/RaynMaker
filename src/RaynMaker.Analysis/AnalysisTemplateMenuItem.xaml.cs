@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.Composition;
 using System.Windows.Controls;
 
-namespace RaynMaker.Blade
+namespace RaynMaker.Analysis
 {
     [Export]
     public partial class AnalysisTemplateMenuItem : MenuItem

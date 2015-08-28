@@ -2,7 +2,7 @@
 using RaynMaker.Infrastructure;
 using RaynMaker.Infrastructure.Services;
 
-namespace RaynMaker.Blade.Services
+namespace RaynMaker.Data.Services
 {
     class LutService : ILutService
     {

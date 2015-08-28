@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RaynMaker.Blade.Views
+namespace RaynMaker.Analysis.Views
 {
     class KeywordCompletionData : AbstractCompletionData
     {

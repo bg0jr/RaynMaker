@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using RaynMaker.Entities;
 
-namespace RaynMaker.Blade.Engine
+namespace RaynMaker.Analysis.Engine
 {
     static class FigureProviderContextExtensions
     {

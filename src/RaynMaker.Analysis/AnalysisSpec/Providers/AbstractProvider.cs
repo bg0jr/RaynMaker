@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Plainion;
-using RaynMaker.Blade.Engine;
+using RaynMaker.Analysis.Engine;
 using RaynMaker.Entities;
 
-namespace RaynMaker.Blade.AnalysisSpec.Providers
+namespace RaynMaker.Analysis.AnalysisSpec.Providers
 {
     public abstract class AbstractProvider : IFigureProvider
     {

@@ -6,7 +6,7 @@ using Plainion;
 using RaynMaker.Entities;
 using RaynMaker.Infrastructure.Services;
 
-namespace RaynMaker.Blade.AnalysisSpec
+namespace RaynMaker.Analysis.AnalysisSpec
 {
     public sealed class CurrencyConverter : System.ComponentModel.TypeConverter
     {

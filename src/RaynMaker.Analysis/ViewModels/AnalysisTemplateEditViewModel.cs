@@ -5,9 +5,9 @@ using ICSharpCode.AvalonEdit.Document;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
-using RaynMaker.Blade.Services;
+using RaynMaker.Analysis.Services;
 
-namespace RaynMaker.Blade.ViewModels
+namespace RaynMaker.Analysis.ViewModels
 {
     [Export]
     class AnalysisTemplateEditViewModel : BindableBase, IInteractionRequestAware
