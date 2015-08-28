@@ -43,7 +43,7 @@ namespace RaynMaker.Import.Web
                 myMarker.UnmarkAll();
 
                 mySelectedElement = value;
-                if ( mySelectedElement == null )
+                if( mySelectedElement == null )
                 {
                     myTable = null;
                 }
@@ -61,7 +61,7 @@ namespace RaynMaker.Import.Web
             get { return myDocument != null ? myDocument.Document : null; }
             set
             {
-                if ( myDocument != null )
+                if( myDocument != null )
                 {
                     myDocument.Document.Click -= HtmlDocument_Click;
                 }
@@ -78,13 +78,13 @@ namespace RaynMaker.Import.Web
             get { return myAnchor; }
             set
             {
-                SelectedElement = (HtmlElementAdapter)myDocument.GetElementByPath( HtmlPath.Parse( value ) );
+                SelectedElement = ( HtmlElementAdapter )myDocument.GetElementByPath( HtmlPath.Parse( value ) );
             }
         }
 
         public void Dispose()
         {
-            if ( myDocument != null )
+            if( myDocument != null )
             {
                 myDocument.Document.Click -= HtmlDocument_Click;
             }
@@ -120,7 +120,7 @@ namespace RaynMaker.Import.Web
             get { return mySkipRows; }
             set
             {
-                if ( value.Length == 0 )
+                if( value.Length == 0 )
                 {
                     value = null;
                 }
@@ -134,7 +134,7 @@ namespace RaynMaker.Import.Web
             get { return mySkipColumns; }
             set
             {
-                if ( value.Length == 0 )
+                if( value.Length == 0 )
                 {
                     value = null;
                 }
@@ -148,7 +148,7 @@ namespace RaynMaker.Import.Web
             get { return myRowHeader; }
             set
             {
-                if ( value < 0 )
+                if( value < 0 )
                 {
                     value = -1;
                 }
@@ -162,7 +162,7 @@ namespace RaynMaker.Import.Web
             get { return myColumnHeader; }
             set
             {
-                if ( value < 0 )
+                if( value < 0 )
                 {
                     value = -1;
                 }
@@ -188,7 +188,7 @@ namespace RaynMaker.Import.Web
 
         private void TemplateChanged()
         {
-            if ( mySelectedElement == null )
+            if( mySelectedElement == null || mySelectedElement.TagName.Equals( "INPUT", StringComparison.OrdinalIgnoreCase ) )
             {
                 return;
             }
@@ -196,12 +196,12 @@ namespace RaynMaker.Import.Web
             // unmark all first
             myMarker.UnmarkAll();
 
-            if ( myDimension == CellDimension.Row )
+            if( myDimension == CellDimension.Row )
             {
                 myMarker.MarkTableRow( mySelectedElement.Element );
                 DoSkipColumns();
             }
-            else if ( myDimension == CellDimension.Column )
+            else if( myDimension == CellDimension.Column )
             {
                 myMarker.MarkTableColumn( mySelectedElement.Element );
                 DoSkipRows();
@@ -219,15 +219,15 @@ namespace RaynMaker.Import.Web
 
         private void ValidateSeriesName()
         {
-            if ( mySeriesName == null )
+            if( mySeriesName == null )
             {
                 return;
             }
 
             IHtmlElement header = null;
-            if ( myDimension == CellDimension.Column )
+            if( myDimension == CellDimension.Column )
             {
-                if ( myColumnHeader != -1 )
+                if( myColumnHeader != -1 )
                 {
                     header = FindColumnHeader( myColumnHeader )( mySelectedElement );
                 }
@@ -235,13 +235,13 @@ namespace RaynMaker.Import.Web
             else
             {
                 // row or cell
-                if ( myRowHeader != -1 )
+                if( myRowHeader != -1 )
                 {
                     header = FindRowHeader( myRowHeader )( mySelectedElement );
                 }
             }
 
-            if ( header != null && !header.InnerText.Contains( mySeriesName ) )
+            if( header != null && !header.InnerText.Contains( mySeriesName ) )
             {
                 ValidationChanged( false );
             }
@@ -253,7 +253,7 @@ namespace RaynMaker.Import.Web
 
         private void FireValidationChanged( bool isValid )
         {
-            if ( ValidationChanged != null )
+            if( ValidationChanged != null )
             {
                 ValidationChanged( isValid );
             }
@@ -299,7 +299,7 @@ namespace RaynMaker.Import.Web
 
         private void MarkHeader( int pos, Func<int, Func<IHtmlElement, IHtmlElement>> FindHeaderCreator )
         {
-            if ( pos == -1 )
+            if( pos == -1 )
             {
                 return;
             }
@@ -307,7 +307,7 @@ namespace RaynMaker.Import.Web
             var FindHeader = FindHeaderCreator( pos );
 
             List<IHtmlElement> header = null;
-            if ( myDimension == CellDimension.None )
+            if( myDimension == CellDimension.None )
             {
                 // mark single column/row 
                 header = new List<IHtmlElement>();
@@ -329,12 +329,12 @@ namespace RaynMaker.Import.Web
 
         private void SkipElements( int[] positions, Func<int, IHtmlElement> GetCellAt )
         {
-            if ( positions == null )
+            if( positions == null )
             {
                 return;
             }
 
-            positions.Foreach( pos => myMarker.UnmarkElement( ( (HtmlElementAdapter)GetCellAt( pos ) ).Element ) );
+            positions.Foreach( pos => myMarker.UnmarkElement( ( ( HtmlElementAdapter )GetCellAt( pos ) ).Element ) );
         }
     }
 }
