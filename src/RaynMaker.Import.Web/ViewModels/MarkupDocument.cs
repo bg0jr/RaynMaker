@@ -28,7 +28,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
         public MarkupDocument()
         {
-            myMarker = new HtmlMarker( myDocument );
+            myMarker = new HtmlMarker();
             Reset();
         }
 
@@ -69,6 +69,8 @@ namespace RaynMaker.Import.Web.ViewModels
 
                 myDocument = new HtmlDocumentAdapter( value );
                 myDocument.Document.Click += HtmlDocument_Click;
+
+                myMarker.Document = myDocument;
             }
         }
 
@@ -119,7 +121,7 @@ namespace RaynMaker.Import.Web.ViewModels
             get { return mySkipRows; }
             set
             {
-                if( value.Length == 0 )
+                if( value != null && value.Length == 0 )
                 {
                     value = null;
                 }
@@ -133,7 +135,7 @@ namespace RaynMaker.Import.Web.ViewModels
             get { return mySkipColumns; }
             set
             {
-                if( value.Length == 0 )
+                if( value != null && value.Length == 0 )
                 {
                     value = null;
                 }

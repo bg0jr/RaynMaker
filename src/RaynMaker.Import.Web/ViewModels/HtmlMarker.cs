@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Blade;
 using Blade.Collections;
+using Plainion;
 using RaynMaker.Import.Html;
 using RaynMaker.Import.Html.WinForms;
 
@@ -20,22 +21,20 @@ namespace RaynMaker.Import.Web.ViewModels
     /// </summary>
     public class HtmlMarker
     {
-        private HtmlDocumentAdapter myDocument;
-
         /// <summary>
         /// Constructor.
         /// <remarks>
         /// Default markup color: yellow.
         /// </remarks>
         /// </summary>
-        public HtmlMarker( HtmlDocumentAdapter document)
+        public HtmlMarker( )
         {
-            myDocument = document;
-
             MarkedElements = new List<HtmlElement>();
             DefaultColor = Color.Yellow;
         }
 
+        public HtmlDocumentAdapter Document {get;set;}
+        
         /// <summary>
         /// List of marked elements.
         /// </summary>
@@ -123,7 +122,7 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             start.Require( x => start != null );
 
-            HtmlTable.GetRow( myDocument.Create( start ) )
+            HtmlTable.GetRow( Document.Create( start ) )
                 .OfType<HtmlElementAdapter>()
                 .Foreach( e => MarkElement( e.Element, color ) );
         }
@@ -144,7 +143,7 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             start.Require( x => start != null );
 
-            HtmlTable.GetColumn( myDocument.Create( start ) )
+            HtmlTable.GetColumn( Document.Create( start ) )
                 .OfType<HtmlElementAdapter>()
                 .Foreach( e => MarkElement( e.Element, color ) );
         }

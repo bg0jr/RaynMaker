@@ -75,12 +75,6 @@
   <ItemGroup>
     <Compile Include="ImportWebModule.cs" />
     <Compile Include="ViewModels\WebSpyViewModel.cs" />
-    <Compile Include="Views\BrowserForm.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\BrowserForm.Designer.cs">
-      <DependentUpon>BrowserForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="DatumLocatorValidation\LocatorListViewItem.cs" />
     <Compile Include="DatumLocatorValidation\LocatorValidationResult.cs" />
     <Compile Include="DatumLocatorValidation\ParameterizedDatumLocator.cs" />
@@ -123,9 +117,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\BrowserForm.resx">
-      <DependentUpon>BrowserForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="DatumLocatorValidation\ValidationForm.resx">
       <DependentUpon>ValidationForm.cs</DependentUpon>
     </EmbeddedResource>
