@@ -15,7 +15,7 @@
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
     -->
-    <DockPanel Name="myContent" LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid DockPanel.Dock="Top" >
             <Menu>
                 <Menu.ItemsPanel>
@@ -29,8 +29,73 @@
             </Menu>
         </Grid>
 
-        <WindowsFormsHost HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0">
-            <l:BrowserForm x:Name="myBrowser"/>
-        </WindowsFormsHost>
+        <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="3">
+            <Grid DockPanel.Dock="Top" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="URL" VerticalAlignment="Center"/>
+                <TextBox Grid.Column="1" Text="{Binding Url}" Margin="5,0,0,0"/>
+                <Button Grid.Column="2" Content="Go" Command="{Binding GoCommand}" Margin="5,0,0,0"/>
+            </Grid>
+
+            <Grid DockPanel.Dock="Bottom">
+                <TabControl>
+                    <TabItem Header="Data description">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Selected path"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"/>
+                            <TextBlock Grid.Row="0" Grid.Column="4" Text="=>" HorizontalAlignment="Center"/>
+                            <TextBox Grid.Row="0" Grid.Column="5"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Dimension"/>
+                            <ComboBox Grid.Row="1" Grid.Column="1" Width="100"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="2" Text="Series name contains"/>
+                            <TextBox Grid.Row="1" Grid.Column="3"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Row header column"/>
+                            <TextBox Grid.Row="2" Grid.Column="1"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="2" Text="Skip rows"/>
+                            <TextBox Grid.Row="2" Grid.Column="3" Width="50" HorizontalAlignment="Left"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Column header row"/>
+                            <TextBox Grid.Row="3" Grid.Column="1"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="2" Text="Skip columns"/>
+                            <TextBox Grid.Row="3" Grid.Column="3" Width="50" HorizontalAlignment="Left"/>
+
+                            <Button Grid.Row="3" Grid.Column="4" Content="Reset" Margin="3"/>
+                            <Button Grid.Row="3" Grid.Column="5" Content="Search path" Margin="3"/>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Navigation">
+                        
+                    </TabItem>
+                </TabControl>
+            </Grid>
+
+            <WindowsFormsHost HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0">
+                <l:BrowserForm x:Name="myBrowser"/>
+            </WindowsFormsHost>
+        </DockPanel>
     </DockPanel>
 </UserControl>
