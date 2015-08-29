@@ -13,6 +13,8 @@ using System.Linq;
 using Blade;
 using Plainion;
 using RaynMaker.Import.Html;
+using System.ComponentModel;
+using Microsoft.Practices.Prism.Mvvm;
 
 namespace RaynMaker.Import.Web.Views
 {
@@ -43,11 +45,11 @@ namespace RaynMaker.Import.Web.Views
             myMarkupDocument = new MarkupDocument();
             myMarkupDocument.ValidationChanged += SeriesName_ValidationChanged;
 
-            myDimension.ItemsSource = Enum.GetValues( typeof( CellDimension ) );
-
             DataContext = viewModel;
 
             Loaded += WebSpyView_Loaded;
+
+            PropertyChangedEventManager.AddHandler( myViewModel.DataFormat, OnSelectedDimensionChanged, PropertySupport.ExtractPropertyName( () => myViewModel.DataFormat.SelectedDimension ) );
         }
 
         private void WebSpyView_Loaded( object sender, RoutedEventArgs e )
@@ -66,8 +68,8 @@ namespace RaynMaker.Import.Web.Views
 
         private void myBrowser_DocumentCompleted( object sender, System.Windows.Forms.WebBrowserDocumentCompletedEventArgs e )
         {
-            myPath.Text = "";
-            myValue.Text = "";
+            myViewModel.DataFormat.Path = "";
+            myViewModel.DataFormat.Value = "";
 
             if( myMarkupDocument.Document != null )
             {
@@ -88,17 +90,17 @@ namespace RaynMaker.Import.Web.Views
 
         private void HtmlDocument_Click( object sender, System.Windows.Forms.HtmlElementEventArgs e )
         {
-            myPath.Text = myMarkupDocument.SelectedElement.GetPath().ToString();
-            myValue.Text = myMarkupDocument.SelectedElement.InnerText;
+            myViewModel.DataFormat.Path = myMarkupDocument.SelectedElement.GetPath().ToString();
+            myViewModel.DataFormat.Value = myMarkupDocument.SelectedElement.InnerText;
         }
 
         private void mySearchPath_Click( object sender, RoutedEventArgs e )
         {
-            myMarkupDocument.Anchor = myPath.Text;
+            myMarkupDocument.Anchor = myViewModel.DataFormat.Path;
 
             if( myMarkupDocument.SelectedElement != null )
             {
-                myValue.Text = myMarkupDocument.SelectedElement.InnerText;
+                myViewModel.DataFormat.Value = myMarkupDocument.SelectedElement.InnerText;
             }
         }
 
@@ -115,9 +117,9 @@ namespace RaynMaker.Import.Web.Views
         //    base.OnHandleDestroyed( e );
         //}
 
-        private void myDimension_SelectedIndexChanged( object sender, RoutedEventArgs e )
+        private void OnSelectedDimensionChanged( object sender, PropertyChangedEventArgs e )
         {
-            myMarkupDocument.Dimension = ( CellDimension )myDimension.SelectedValue;
+            myMarkupDocument.Dimension = myViewModel.DataFormat.SelectedDimension;
         }
 
         private void mySkipRows_TextChanged( object sender, RoutedEventArgs eventArgs )
@@ -147,10 +149,8 @@ namespace RaynMaker.Import.Web.Views
 
         private void myReset_Click( object sender, RoutedEventArgs e )
         {
-            myPath.Text = "";
-            myValue.Text = "";
-
-            myDimension.SelectedIndex = 0;
+            myViewModel.DataFormat.Path = "";
+            myViewModel.DataFormat.Value = "";
 
             mySkipColumns.Text = "";
             mySkipRows.Text = "";
@@ -182,8 +182,6 @@ namespace RaynMaker.Import.Web.Views
                 UpdateTemplate( -1 );
                 return;
             }
-
-            CellDimension dimension = ( CellDimension )myDimension.SelectedValue;
 
             try
             {

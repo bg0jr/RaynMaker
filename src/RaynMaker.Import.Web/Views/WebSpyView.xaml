@@ -7,6 +7,7 @@
              xmlns:prism="http://www.codeplex.com/prism"
              xmlns:pn="http://github.com/ronin4net/plainion"
              xmlns:l="clr-namespace:RaynMaker.Import.Web.Views"
+             xmlns:data="clr-namespace:Blade.Data;assembly=RaynMaker.Import"
              xmlns:winforms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
              mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="700">
     <!--
@@ -40,7 +41,7 @@
                     <TabItem Header="Navigation" DataContext="{Binding Navigation}">
                         <l:NavigationView Margin="2"/>
                     </TabItem>
-                    <TabItem Header="Data description" >
+                    <TabItem Header="Data description" DataContext="{Binding DataFormat}">
                         <Grid Margin="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
@@ -57,13 +58,23 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
+                            <Grid.Resources>
+                                <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type data:CellDimension}" x:Key="CellDimension">
+                                    <ObjectDataProvider.MethodParameters>
+                                        <x:Type TypeName="data:CellDimension" />
+                                    </ObjectDataProvider.MethodParameters>
+                                </ObjectDataProvider>
+                            </Grid.Resources>
+                            
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Selected path" VerticalAlignment="Center"/>
-                            <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" x:Name="myPath" Margin="5,2,0,0"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"  Text="{Binding Path}" Margin="5,2,0,0"/>
                             <TextBlock Grid.Row="0" Grid.Column="4" Text="=>" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <TextBox Grid.Row="0" Grid.Column="5" x:Name="myValue" Margin="5,2,0,0"/>
+                            <TextBox Grid.Row="0" Grid.Column="5" Text="{Binding Value}" Margin="5,2,0,0"/>
 
                             <TextBlock Grid.Row="1" Grid.Column="0" Text="Dimension" VerticalAlignment="Center"/>
-                            <ComboBox Grid.Row="1" Grid.Column="1" Width="100" x:Name="myDimension"  Margin="5,2,0,0" SelectionChanged="myDimension_SelectedIndexChanged"/>
+                            <ComboBox Grid.Row="1" Grid.Column="1" Width="100" Margin="5,2,0,0"
+                                      ItemsSource="{Binding Source={StaticResource CellDimension}, Mode=OneTime}" 
+                                      SelectedItem="{Binding SelectedDimension}"/>
 
                             <TextBlock Grid.Row="1" Grid.Column="2" Text="Series name contains" VerticalAlignment="Center" Margin="5,0,0,0"/>
                             <TextBox Grid.Row="1" Grid.Column="3" x:Name="mySeriesName"  Margin="5,2,0,0" TextChanged="mySeriesName_TextChanged"/>
