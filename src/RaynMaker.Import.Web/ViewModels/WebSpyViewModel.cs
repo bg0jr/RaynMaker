@@ -14,15 +14,27 @@ namespace RaynMaker.Import.Web.ViewModels
     [Export]
     class WebSpyViewModel : BindableBase
     {
-        private string myUrl;
+        private IBrowser myBrowser;
 
         public WebSpyViewModel()
         {
             StartValidationCommand = new DelegateCommand( OnStartValidation );
-            GoCommand = new DelegateCommand( OnGo );
+
+            AddressBar = new AddressBarViewModel();
+            Navigation = new NavigationViewModel();
+            DataFormat = new DataFormatViewModel();
         }
 
-        public IBrowser Browser { get; set; }
+        public IBrowser Browser
+        {
+            get { return myBrowser; }
+            set
+            {
+                myBrowser = value;
+                AddressBar.Browser = myBrowser;
+                Navigation.Browser = myBrowser;
+            }
+        }
 
         public ICommand StartValidationCommand { get; private set; }
 
@@ -32,23 +44,10 @@ namespace RaynMaker.Import.Web.ViewModels
             form.Show();
         }
 
-        public string Url
-        {
-            get { return myUrl; }
-            set { SetProperty( ref myUrl, value ); }
-        }
+        public AddressBarViewModel AddressBar { get; private set; }
 
-        public ICommand GoCommand { get; private set; }
+        public NavigationViewModel Navigation { get; private set; }
 
-        private void OnGo()
-        {
-            if( string.IsNullOrEmpty( myUrl ) )
-            {
-                return;
-            }
-
-            Browser.Navigate( myUrl );
-        }
-
+        public DataFormatViewModel DataFormat { get; private set; }
     }
 }

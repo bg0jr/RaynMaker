@@ -22,7 +22,6 @@ namespace RaynMaker.Import.Web.Views
         private WebSpyViewModel myViewModel;
         private MarkupDocument myMarkupDocument = null;
         private LegacyDocumentBrowser myDocumentBrowser = null;
-        private bool myIsCapturing = false;
 
         [ImportingConstructor]
         internal WebSpyView( WebSpyViewModel viewModel )
@@ -58,10 +57,10 @@ namespace RaynMaker.Import.Web.Views
 
         private void myBrowser_Navigating( object sender, System.Windows.Forms.WebBrowserNavigatingEventArgs e )
         {
-            if( myIsCapturing )
+            if( myViewModel.Navigation.IsCapturing )
             {
-                myNavUrls.AppendText( new NavigatorUrl( UriType.Request, e.Url ).ToString() );
-                myNavUrls.AppendText( Environment.NewLine );
+                myViewModel.Navigation.NavigationUrls += new NavigatorUrl( UriType.Request, e.Url ).ToString();
+                myViewModel.Navigation.NavigationUrls += Environment.NewLine;
             }
         }
 
@@ -78,12 +77,12 @@ namespace RaynMaker.Import.Web.Views
             myMarkupDocument.Document = myDocumentBrowser.Document;
             myMarkupDocument.Document.Click += HtmlDocument_Click;
 
-            myViewModel.Url = myMarkupDocument.Document.Url.ToString();
+            myViewModel.AddressBar.Url = myMarkupDocument.Document.Url.ToString();
 
-            if( myIsCapturing )
+            if( myViewModel.Navigation.IsCapturing )
             {
-                myNavUrls.AppendText( new NavigatorUrl( UriType.Response, myDocumentBrowser.Browser.Document.Url ).ToString() );
-                myNavUrls.AppendText( Environment.NewLine );
+                myViewModel.Navigation.NavigationUrls += new NavigatorUrl( UriType.Response, myDocumentBrowser.Browser.Document.Url ).ToString();
+                myViewModel.Navigation.NavigationUrls += Environment.NewLine;
             }
         }
 
@@ -220,86 +219,14 @@ namespace RaynMaker.Import.Web.Views
             }
         }
 
-        private void myCapture_Click( object sender, RoutedEventArgs e )
-        {
-            myIsCapturing = !myIsCapturing;
-
-            if( myIsCapturing )
-            {
-                myCapture.Content = "Stop capturing";
-            }
-            else
-            {
-                myCapture.Content = "Start capturing";
-            }
-
-            myReplay.IsEnabled = !myIsCapturing;
-        }
-
-        private IList<NavigatorUrl> GetNavigationSteps()
-        {
-            var q = from token in myNavUrls.Text.Split( new string[] { Environment.NewLine }, StringSplitOptions.None )
-                    where !token.IsNullOrTrimmedEmpty()
-                    select NavigatorUrl.Parse( token );
-
-            // the last url must be a request
-            return ( from navUrl in q
-                     where !( navUrl == q.Last() && navUrl.UrlType == UriType.Response )
-                     select navUrl ).ToList();
-        }
-
-        private void myReplay_Click( object sender, RoutedEventArgs e )
-        {
-            var q = GetNavigationSteps();
-
-            var macroPattern = new Regex( @"(\$\{.*\})" );
-            var filtered = new List<NavigatorUrl>();
-            foreach( NavigatorUrl navUrl in q )
-            {
-                var md = macroPattern.Match( navUrl.UrlString );
-                if( md.Success )
-                {
-                    string macro = md.Groups[ 1 ].Value;
-                    string value = InputForm.Show( "Enter macro value", "Enter value for macro " + macro );
-                    if( value != null )
-                    {
-                        filtered.Add( new NavigatorUrl( navUrl.UrlType, navUrl.UrlString.Replace( macro, value ) ) );
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                else
-                {
-                    filtered.Add( navUrl );
-                }
-            }
-
-            myDocumentBrowser.LoadDocument( filtered );
-
-            /*
-Request: http://www.ariva.de/search/search.m?searchname=${stock.Symbol}&url=/quote/profile.m
-Response: http://www.ariva.de/quote/profile.m?secu={(\d+)}
-Request: http://www.ariva.de/statistics/facunda.m?secu={0}&page=-1             
-             */
-        }
-
-        private void myEditCapture_Click( object sender, RoutedEventArgs e )
-        {
-            EditCaptureForm form = new EditCaptureForm();
-            form.NavUrls = myNavUrls.Text;
-            var result = form.ShowDialog();
-
-            if( result == System.Windows.Forms.DialogResult.OK )
-            {
-                myNavUrls.Text = form.NavUrls;
-            }
-        }
-
         public void Navigate( string url )
         {
             myDocumentBrowser.Navigate( url );
+        }
+
+        public void LoadDocument( IEnumerable<NavigatorUrl> urls )
+        {
+            myDocumentBrowser.LoadDocument( urls );
         }
     }
 }

@@ -31,25 +31,16 @@
         </Grid>
 
         <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="3">
-            <Grid DockPanel.Dock="Top" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                
-                <TextBlock Grid.Column="0" Text="URL" VerticalAlignment="Center"/>
-                <TextBox Grid.Column="1" Text="{Binding Url}" Margin="5,0,0,0">
-                    <i:Interaction.Behaviors>
-                        <pn:TextBoxRaiseCommandOnEnterBehavior Command="{Binding GoCommand}"/>
-                    </i:Interaction.Behaviors>
-                </TextBox>
-                <Button Grid.Column="2" Content="Go" Command="{Binding GoCommand}" Margin="5,0,0,0"/>
+            <Grid DockPanel.Dock="Top" DataContext="{Binding AddressBar}">
+                <l:AddressBarView/>
             </Grid>
 
             <Grid DockPanel.Dock="Bottom">
                 <TabControl Height="140">
-                    <TabItem Header="Data description">
+                    <TabItem Header="Navigation" DataContext="{Binding Navigation}">
+                        <l:NavigationView Margin="2"/>
+                    </TabItem>
+                    <TabItem Header="Data description" >
                         <Grid Margin="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
@@ -65,7 +56,7 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            
+
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Selected path" VerticalAlignment="Center"/>
                             <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" x:Name="myPath" Margin="5,2,0,0"/>
                             <TextBlock Grid.Row="0" Grid.Column="4" Text="=>" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -91,26 +82,6 @@
 
                             <Button Grid.Row="3" Grid.Column="4" Content="Reset" Margin="3" x:Name="myReset" Click="myReset_Click"/>
                             <Button Grid.Row="3" Grid.Column="5" Content="Search path" Margin="3" x:Name="mySearchPath" Click="mySearchPath_Click"/>
-                        </Grid>
-                    </TabItem>
-                    <TabItem Header="Navigation">
-                        <Grid Margin="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            
-                            <TextBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" TextWrapping="NoWrap" AcceptsReturn="True" Height="100"
-                                     VerticalAlignment="Top" x:Name="myNavUrls"/>
-
-                            <Button Grid.Row="0" Grid.Column="1" Content="Start capturing" x:Name="myCapture" Margin="5,0,0,2" Click="myCapture_Click"/>
-                            <Button Grid.Row="1" Grid.Column="1" Content="Replay" x:Name="myReplay" Margin="5,2,0,2" Click="myReplay_Click"/>
-                            <Button Grid.Row="2" Grid.Column="1" Content="Edit" x:Name="myEditCapture" Margin="5,2,0,0" VerticalAlignment="Top" Click="myEditCapture_Click"/>
                         </Grid>
                     </TabItem>
                 </TabControl>

@@ -77,7 +77,11 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IBrowser.cs" />
     <Compile Include="ImportWebModule.cs" />
+    <Compile Include="ViewModels\AddressBarViewModel.cs" />
+    <Compile Include="ViewModels\DataFormatViewModel.cs" />
+    <Compile Include="ViewModels\NavigationViewModel.cs" />
     <Compile Include="ViewModels\WebSpyViewModel.cs" />
     <Compile Include="DatumLocatorValidation\LocatorListViewItem.cs" />
     <Compile Include="DatumLocatorValidation\LocatorValidationResult.cs" />
@@ -90,6 +94,12 @@
       <DependentUpon>ValidationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DatumLocatorValidation\Validator.cs" />
+    <Compile Include="Views\AddressBarView.xaml.cs">
+      <DependentUpon>AddressBarView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataFormatView.xaml.cs">
+      <DependentUpon>DataFormatView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditCaptureForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,7 +109,6 @@
     <Compile Include="DatumLocatorValidation\GenericTypeConverter.cs" />
     <Compile Include="ViewModels\HtmlElementExtensions.cs" />
     <Compile Include="ViewModels\HtmlMarker.cs" />
-    <Compile Include="IBrowser.cs" />
     <Compile Include="Views\InputForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +122,9 @@
     <AppDesigner Include="Properties\" />
     <Compile Include="RegionNames.cs" />
     <Compile Include="ViewModels\WebSpyMenuItemModel.cs" />
+    <Compile Include="Views\NavigationView.xaml.cs">
+      <DependentUpon>NavigationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WebSpyMenuItem.xaml.cs">
       <DependentUpon>WebSpyMenuItem.xaml</DependentUpon>
     </Compile>
@@ -132,6 +144,18 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\AddressBarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DataFormatView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NavigationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\WebSpyMenuItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
