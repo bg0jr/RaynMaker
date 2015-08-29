@@ -8,7 +8,7 @@
              xmlns:pn="http://github.com/ronin4net/plainion"
              xmlns:l="clr-namespace:RaynMaker.Import.Web.Views"
              xmlns:winforms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
-             mc:Ignorable="d" d:DesignHeight="1000" d:DesignWidth="700">
+             mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="700">
     <!--
     <i:Interaction.Triggers>
         <prism:InteractionRequestTrigger SourceObject="{Binding InvokeRequest, Mode=OneWay}">
@@ -37,15 +37,20 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
+                
                 <TextBlock Grid.Column="0" Text="URL" VerticalAlignment="Center"/>
-                <TextBox Grid.Column="1" Text="{Binding Url}" Margin="5,0,0,0"/>
+                <TextBox Grid.Column="1" Text="{Binding Url}" Margin="5,0,0,0">
+                    <i:Interaction.Behaviors>
+                        <pn:TextBoxRaiseCommandOnEnterBehavior Command="{Binding GoCommand}"/>
+                    </i:Interaction.Behaviors>
+                </TextBox>
                 <Button Grid.Column="2" Content="Go" Command="{Binding GoCommand}" Margin="5,0,0,0"/>
             </Grid>
 
             <Grid DockPanel.Dock="Bottom">
-                <TabControl>
+                <TabControl Height="140">
                     <TabItem Header="Data description">
-                        <Grid>
+                        <Grid Margin="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
@@ -61,35 +66,35 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Selected path"/>
-                            <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" x:Name="myPath"/>
-                            <TextBlock Grid.Row="0" Grid.Column="4" Text="=>" HorizontalAlignment="Center"/>
-                            <TextBox Grid.Row="0" Grid.Column="5" x:Name="myValue"/>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Selected path" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" x:Name="myPath" Margin="5,2,0,0"/>
+                            <TextBlock Grid.Row="0" Grid.Column="4" Text="=>" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="0" Grid.Column="5" x:Name="myValue" Margin="5,2,0,0"/>
 
-                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Dimension"/>
-                            <ComboBox Grid.Row="1" Grid.Column="1" Width="100" x:Name="myDimension" SelectionChanged="myDimension_SelectedIndexChanged"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Dimension" VerticalAlignment="Center"/>
+                            <ComboBox Grid.Row="1" Grid.Column="1" Width="100" x:Name="myDimension"  Margin="5,2,0,0" SelectionChanged="myDimension_SelectedIndexChanged"/>
 
-                            <TextBlock Grid.Row="1" Grid.Column="2" Text="Series name contains"/>
-                            <TextBox Grid.Row="1" Grid.Column="3" x:Name="mySeriesName" TextChanged="mySeriesName_TextChanged"/>
+                            <TextBlock Grid.Row="1" Grid.Column="2" Text="Series name contains" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                            <TextBox Grid.Row="1" Grid.Column="3" x:Name="mySeriesName"  Margin="5,2,0,0" TextChanged="mySeriesName_TextChanged"/>
 
-                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Row header column"/>
-                            <TextBox Grid.Row="2" Grid.Column="1" x:Name="myRowHeader" TextChanged="myRowHeader_TextChanged"/>
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Row header column" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" x:Name="myRowHeader" Margin="5,2,0,0" TextChanged="myRowHeader_TextChanged"/>
 
-                            <TextBlock Grid.Row="2" Grid.Column="2" Text="Skip rows"/>
-                            <TextBox Grid.Row="2" Grid.Column="3" Width="50" HorizontalAlignment="Left" x:Name="mySkipRows" TextChanged="mySkipRows_TextChanged"/>
+                            <TextBlock Grid.Row="2" Grid.Column="2" Text="Skip rows" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                            <TextBox Grid.Row="2" Grid.Column="3" Width="50" HorizontalAlignment="Left" x:Name="mySkipRows" Margin="5,2,0,0" TextChanged="mySkipRows_TextChanged"/>
 
-                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Column header row"/>
-                            <TextBox Grid.Row="3" Grid.Column="1" x:Name="myColumnHeader" TextChanged="myColumnHeader_TextChanged"/>
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Column header row" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="3" Grid.Column="1" x:Name="myColumnHeader" Margin="5,2,0,0" VerticalAlignment="Center" TextChanged="myColumnHeader_TextChanged"/>
 
-                            <TextBlock Grid.Row="3" Grid.Column="2" Text="Skip columns"/>
-                            <TextBox Grid.Row="3" Grid.Column="3" Width="50" HorizontalAlignment="Left" x:Name="mySkipColumns" TextChanged="mySkipColumns_TextChanged"/>
+                            <TextBlock Grid.Row="3" Grid.Column="2" Text="Skip columns" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                            <TextBox Grid.Row="3" Grid.Column="3" Width="50" HorizontalAlignment="Left" x:Name="mySkipColumns" Margin="5,2,0,0" VerticalAlignment="Center" TextChanged="mySkipColumns_TextChanged"/>
 
                             <Button Grid.Row="3" Grid.Column="4" Content="Reset" Margin="3" x:Name="myReset" Click="myReset_Click"/>
                             <Button Grid.Row="3" Grid.Column="5" Content="Search path" Margin="3" x:Name="mySearchPath" Click="mySearchPath_Click"/>
                         </Grid>
                     </TabItem>
                     <TabItem Header="Navigation">
-                        <Grid>
+                        <Grid Margin="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
@@ -97,14 +102,15 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             
-                            <TextBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" TextWrapping="NoWrap" AcceptsReturn="True" x:Name="myNavUrls"/>
+                            <TextBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" TextWrapping="NoWrap" AcceptsReturn="True" Height="100"
+                                     VerticalAlignment="Top" x:Name="myNavUrls"/>
 
-                            <Button Grid.Row="0" Grid.Column="1" Content="Start capturing" x:Name="myCapture" Click="myCapture_Click"/>
-                            <Button Grid.Row="1" Grid.Column="1" Content="Replay" x:Name="myReplay" Click="myReplay_Click"/>
-                            <Button Grid.Row="2" Grid.Column="1" Content="Edit" x:Name="myEditCapture" Click="myEditCapture_Click"/>
+                            <Button Grid.Row="0" Grid.Column="1" Content="Start capturing" x:Name="myCapture" Margin="5,0,0,2" Click="myCapture_Click"/>
+                            <Button Grid.Row="1" Grid.Column="1" Content="Replay" x:Name="myReplay" Margin="5,2,0,2" Click="myReplay_Click"/>
+                            <Button Grid.Row="2" Grid.Column="1" Content="Edit" x:Name="myEditCapture" Margin="5,2,0,0" VerticalAlignment="Top" Click="myEditCapture_Click"/>
                         </Grid>
                     </TabItem>
                 </TabControl>
