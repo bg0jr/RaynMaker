@@ -1,42 +1,30 @@
 ﻿using System.ComponentModel.Composition;
-using System.Security;
 using System.Windows;
-using System.Windows.Forms.Integration;
+using System.Windows.Controls;
+using RaynMaker.Import.Web.ViewModels;
 
 namespace RaynMaker.Import.Web.Views
 {
-    /// <summary>
-    /// Interaction logic for WebSpy.xaml
-    /// </summary>
     [Export]
-    public partial class WebSpyView : System.Windows.Controls.UserControl
+    public partial class WebSpyView : UserControl
     {
-        private WindowsFormsHost myHost;
-        private BrowserForm myBrowser;
+        private WebSpyViewModel myViewModel;
 
-        public WebSpyView()
+        [ImportingConstructor]
+        internal WebSpyView( WebSpyViewModel viewModel )
         {
+            myViewModel = viewModel;
+
             InitializeComponent();
+
+            DataContext = viewModel;
+
+            Loaded += WebSpyView_Loaded;
         }
 
-        [SecuritySafeCritical]
-        private void Window_Loaded( object sender, RoutedEventArgs e )
+        private void WebSpyView_Loaded( object sender, RoutedEventArgs e )
         {
-            myHost = new WindowsFormsHost();
-            myHost.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
-            myHost.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
-            myHost.Margin = new Thickness( 0 );
-
-            myBrowser = new BrowserForm();
-
-            myHost.Child = myBrowser;
-
-            myContent.Children.Add( myHost );
+            myViewModel.Browser = myBrowser;
         }
-
-        //private void Window_Closed( object sender, EventArgs e )
-        //{
-        //    myBrowser.Dispose();
-        //}
     }
 }

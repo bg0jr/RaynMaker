@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ImportWebModule.cs" />
+    <Compile Include="ViewModels\WebSpyViewModel.cs" />
     <Compile Include="Views\BrowserForm.cs">
       <SubType>UserControl</SubType>
     </Compile>

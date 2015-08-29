@@ -1,7 +1,36 @@
 ﻿<UserControl x:Class="RaynMaker.Import.Web.Views.WebSpyView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Loaded="Window_Loaded" Width="1045" Height="700">
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:prism="http://www.codeplex.com/prism"
+             xmlns:pn="http://github.com/ronin4net/plainion"
+             xmlns:l="clr-namespace:RaynMaker.Import.Web.Views"
+             mc:Ignorable="d" d:DesignHeight="1000" d:DesignWidth="700">
+    <!--
+    <i:Interaction.Triggers>
+        <prism:InteractionRequestTrigger SourceObject="{Binding InvokeRequest, Mode=OneWay}">
+            <pn:PopupViewAction WindowWidth="1200" WindowHeight="700"/>
+        </prism:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
+    -->
     <DockPanel Name="myContent" LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid DockPanel.Dock="Top" >
+            <Menu>
+                <Menu.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <DockPanel HorizontalAlignment="Stretch"/>
+                    </ItemsPanelTemplate>
+                </Menu.ItemsPanel>
+                <MenuItem Header="_Tools">
+                    <MenuItem Header="_Validation ..." Command="{Binding StartValidationCommand}" />
+                </MenuItem>
+            </Menu>
+        </Grid>
+
+        <WindowsFormsHost HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0">
+            <l:BrowserForm x:Name="myBrowser"/>
+        </WindowsFormsHost>
     </DockPanel>
 </UserControl>

@@ -291,12 +291,6 @@ Request: http://www.ariva.de/statistics/facunda.m?secu={0}&page=-1
             }
         }
 
-        private void myValidateDatumLocatorsMenu_Click( object sender, EventArgs e )
-        {
-            var form = new ValidationForm( this );
-            form.Show();
-        }
-
         public void Navigate( string url )
         {
             Cursor.Current = Cursors.WaitCursor;

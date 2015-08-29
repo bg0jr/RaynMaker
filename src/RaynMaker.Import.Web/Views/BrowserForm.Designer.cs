@@ -379,32 +379,6 @@ namespace RaynMaker.Import.Web.Views
             this.myCapture.UseVisualStyleBackColor = true;
             this.myCapture.Click += new System.EventHandler(this.myCapture_Click);
             // 
-            // menuStrip1
-            // 
-            this.menuStrip1.BackColor = System.Drawing.SystemColors.Menu;
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem2});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(784, 24);
-            this.menuStrip1.TabIndex = 5;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.myValidateDatumProvidersMenu});
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(48, 20);
-            this.toolStripMenuItem2.Text = "&Tools";
-            // 
-            // myValidateDatumProvidersMenu
-            // 
-            this.myValidateDatumProvidersMenu.Name = "myValidateDatumProvidersMenu";
-            this.myValidateDatumProvidersMenu.Size = new System.Drawing.Size(211, 22);
-            this.myValidateDatumProvidersMenu.Text = "Validate datum locators ...";
-            this.myValidateDatumProvidersMenu.Click += new System.EventHandler(this.myValidateDatumLocatorsMenu_Click);
-            // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
