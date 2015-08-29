@@ -4,14 +4,14 @@
     <Caption><![CDATA[Planning]]></Caption>
     <Node Id="dbf5bb03-f0e5-46aa-9a8a-714b030f46bf">
       <Caption><![CDATA[Import.Web]]></Caption>
-      <Node Id="3bce78dd-94ce-4361-a088-a91bf96747b7">
-        <Caption><![CDATA[WebSpyView - code behind to xaml]]></Caption>
+      <Node Id="a586b584-cf19-4caf-b920-e251426e7842">
+        <Caption><![CDATA[Migrate WebSpy to MVVM]]></Caption>
       </Node>
-      <Node Id="30d6c890-7ee0-4777-8dcf-b2e01eb39443">
-        <Caption><![CDATA[move navigation and tabs to xaml]]></Caption>
+      <Node Id="91c9b2a1-420e-4a4c-9a31-1fcea152f47f">
+        <Caption><![CDATA[Create usability concept to use WebSpy for DataLocator creation]]></Caption>
       </Node>
-      <Node Id="ad1f7128-7896-4422-93bd-2ba916fb6555">
-        <Caption><![CDATA[Switch to WebBrowser control]]></Caption>
+      <Node Id="514dabde-6dfb-4827-94cc-4f8b451d7289">
+        <Caption><![CDATA[Persist DataLocators]]></Caption>
       </Node>
     </Node>
   </Node>
