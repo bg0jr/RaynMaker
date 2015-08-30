@@ -122,7 +122,7 @@
                     <TextBox Grid.Column="6" Text="{Binding Price.Source}" Margin="5,0,0,2" />
                 </Grid>
             </GroupBox>
-            <ItemsControl ItemsSource="{Binding DataSeries, Mode=OneTime}" Grid.Row="2">
+            <ItemsControl ItemsSource="{Binding DataSeries}" Grid.Row="2">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <GroupBox Header="{Binding DatumType.Name}">

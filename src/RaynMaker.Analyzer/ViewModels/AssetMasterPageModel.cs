@@ -17,7 +17,6 @@ using RaynMaker.Infrastructure.Services;
 namespace RaynMaker.Analyzer.ViewModels
 {
     [Export]
-    [PartCreationPolicy( CreationPolicy.NonShared )]
     class AssetMasterPageModel : BindableBase, INavigationAware
     {
         private Stock myStock;
@@ -41,9 +40,9 @@ namespace RaynMaker.Analyzer.ViewModels
 
         public bool IsNavigationTarget( NavigationContext navigationContext )
         {
-            var args = new AssetNavigationParameters( navigationContext.Parameters );
-
-            return myStock == args.Stock;
+            //var args = new AssetNavigationParameters( navigationContext.Parameters );
+            //return myStock == args.Stock;
+            return true;
         }
 
         public void OnNavigatedFrom( NavigationContext navigationContext )

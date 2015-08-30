@@ -9,7 +9,6 @@ using Microsoft.Practices.Prism.Mvvm;
 using Plainion;
 using Plainion.Validation;
 using Plainion.Windows.Controls;
-using RaynMaker.Data.Services;
 using RaynMaker.Entities;
 using RaynMaker.Entities.Datums;
 using RaynMaker.Infrastructure;

@@ -5,7 +5,6 @@ using RaynMaker.Analyzer.ViewModels;
 namespace RaynMaker.Analyzer.Views
 {
     [Export( InternalCompositionNames.AssetMasterPage )]
-    [PartCreationPolicy( CreationPolicy.NonShared )]
     public partial class AssetMasterPage : UserControl
     {
         [ImportingConstructor]
