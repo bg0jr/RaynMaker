@@ -55,21 +55,19 @@ namespace RaynMaker.Data.ViewModels
             }
 
             // data sanity - TODO: later move to creation of new DataSheet
-            var price = myDatums.SeriesOf( typeof( Price ) ).Current<Price>();
-            if( price == null )
             {
-                var series = new DatumSeries( typeof( Price ), new Price() );
-                myDatums.Add( series );
+                var series = ( DatumSeries )myDatums.SeriesOf( typeof( Price ) );
+
+                var price = myDatums.SeriesOf( typeof( Price ) );
+                if( series.Current<Price>() == null )
+                {
+                    series.Add( new Price() );
+                }
             }
 
             foreach( var type in Dynamics.AllDatums.Where( t => t != typeof( Price ) ) )
             {
                 var series = ( DatumSeries )myDatums.SeriesOf( type );
-                if( series == null )
-                {
-                    series = new DatumSeries( type );
-                    myDatums.Add( series );
-                }
 
                 // TODO: today we only support yearly values here
                 var currentYear = DateTime.Now.Year;

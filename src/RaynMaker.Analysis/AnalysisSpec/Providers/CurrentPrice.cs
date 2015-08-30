@@ -10,7 +10,12 @@ namespace RaynMaker.Analysis.AnalysisSpec.Providers
 
         public object ProvideValue( IFigureProviderContext context )
         {
-            return context.Data.SeriesOf( typeof( Price ) ).Current();
+            var price = context.Data.SeriesOf( typeof( Price ) ).Current();
+            if( price == null )
+            {
+                return new MissingData( "Price", null );
+            }
+            return price;
         }
     }
 }

@@ -8,6 +8,11 @@ namespace RaynMaker.Analysis.AnalysisSpec
     {
         public static IDatum Average( IEnumerable<IDatum> series )
         {
+            if( !series.Any() )
+            {
+                return null;
+            }
+
             var result = new DerivedDatum()
             {
                 Value = series.Average( d => d.Value )
@@ -29,6 +34,11 @@ namespace RaynMaker.Analysis.AnalysisSpec
         /// </summary>
         public static IDatum Growth( IEnumerable<IDatum> series )
         {
+            if( !series.Any() )
+            {
+                return null;
+            }
+
             var sortedSeries = series
                 .OrderBy( d => d.Period )
                 .ToList();
@@ -70,7 +80,7 @@ namespace RaynMaker.Analysis.AnalysisSpec
         {
             return series
                 .OrderBy( v => v.Period )
-                .Last();
+                .LastOrDefault();
         }
     }
 }

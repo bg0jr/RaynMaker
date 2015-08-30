@@ -233,7 +233,11 @@ namespace RaynMaker.Analysis.Engine
             Contract.Requires( myData.Tokens.Index + 2 < myData.Tokens.Count, "')' misssing at " + ( myData.Tokens.Index + 1 ) );
             Contract.Requires( myData.Tokens[ myData.Tokens.Index + 2 ] == ")", "Parameters not supported at " + ( myData.Tokens.Index + 2 ) );
 
-            Contract.Invariant( myData.Result != null, "Cannot call method '{0}' on null", myData.Tokens.Current );
+            if( myData.Result == null )
+            {
+                myData.Tokens.Index += 2;
+                return;
+            }
 
             var method = myData.Result.GetType().GetMethod( myData.Tokens.Current );
 
@@ -246,7 +250,10 @@ namespace RaynMaker.Analysis.Engine
 
         private void CallProperty()
         {
-            Contract.Invariant( myData.Result != null, "Cannot call property '{0}' on null", myData.Tokens.Current );
+            if( myData.Result == null )
+            {
+                return;
+            }
 
             var property = myData.Result.GetType().GetProperty( myData.Tokens.Current );
 

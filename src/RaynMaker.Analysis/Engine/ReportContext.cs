@@ -134,7 +134,7 @@ namespace RaynMaker.Analysis.Engine
             if( failure != null )
             {
                 myProviderFailures.Add( failure );
-                return null;
+                return failure.DefaultValue;
             }
 
             return result;

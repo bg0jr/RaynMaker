@@ -32,13 +32,13 @@ namespace RaynMaker.Analysis.AnalysisSpec.Providers
             var allLhs = context.GetSeries( myLhsSeriesName );
             if( !allLhs.Any() )
             {
-                return new MissingData( myLhsSeriesName );
+                return new MissingData( myLhsSeriesName, DatumSeries.Empty );
             }
 
             var allRhs = context.GetSeries( myRhsSeriesName );
             if( !allRhs.Any() )
             {
-                return new MissingData( myRhsSeriesName );
+                return new MissingData( myRhsSeriesName, DatumSeries.Empty );
             }
 
             EnsureCurrencyConsistancy( allLhs, allRhs );

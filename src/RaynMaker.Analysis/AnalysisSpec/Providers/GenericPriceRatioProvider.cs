@@ -27,16 +27,16 @@ namespace RaynMaker.Analysis.AnalysisSpec.Providers
 
         public sealed override object ProvideValue( IFigureProviderContext context )
         {
-            var price = ( Price )new CurrentPrice().ProvideValue( context );
+            var price = (Price)context.Data.SeriesOf( typeof( Price ) ).Current();
             if( price == null )
             {
-                return new MissingData( "Price" );
+                return new MissingData( "Price",null );
             }
 
             var values = context.GetSeries( mySeriesName );
             if( !values.Any() )
             {
-                return new MissingData( mySeriesName );
+                return new MissingData( mySeriesName, DatumSeries.Empty );
             }
 
             Contract.Requires( price.Currency != null, "Currency missing at price" );

@@ -16,7 +16,7 @@ namespace RaynMaker.Entities
 
             return self
                 .OrderByDescending( v => v.Period )
-                .First();
+                .FirstOrDefault();
         }
 
         public static TDatumType Current<TDatumType>( this IDatumSeries self )
