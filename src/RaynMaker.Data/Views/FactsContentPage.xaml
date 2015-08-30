@@ -126,44 +126,58 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <GroupBox Header="{Binding DatumType.Name}">
-                            <ItemsControl ItemsSource="{Binding}">
-                                <ItemsControl.Resources>
-                                    <v:CurrencyVisibilityConverter x:Key="CurrencyVisibilityConverter"/>
-                                </ItemsControl.Resources>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="100"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="100"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                
+                                <Grid.Resources>
+                                    <v:InMillionsConverter x:Key="InMillionsConverter" DatumSeries="{Binding}"/>
+                                </Grid.Resources>
 
-                                            <TextBlock Grid.Column="0" Text="Year" VerticalAlignment="Center"/>
-                                            <TextBox Grid.Column="1" Text="{Binding Period, Converter={StaticResource PeriodConverter}}" Margin="5,0,0,2" />
+                                <CheckBox Grid.Row="0" IsChecked="{Binding InMillions, Source={StaticResource InMillionsConverter}}" 
+                                          Content="In Millions" Margin="0,2,0,2"/>
+                                
+                                <ItemsControl Grid.Row="1" ItemsSource="{Binding}">
+                                    <ItemsControl.Resources>
+                                        <v:CurrencyVisibilityConverter x:Key="CurrencyVisibilityConverter"/>
+                                    </ItemsControl.Resources>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="100"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="100"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
 
-                                            <TextBlock Grid.Column="2" Text="Value" VerticalAlignment="Center" Margin="5,0,0,2"/>
-                                            <TextBox Grid.Column="3" Text="{Binding Value}" Margin="5,0,0,2" />
+                                                <TextBlock Grid.Column="0" Text="Year" VerticalAlignment="Center"/>
+                                                <TextBox Grid.Column="1" Text="{Binding Period, Converter={StaticResource PeriodConverter}}" Margin="5,0,0,2" />
 
-                                            <ComboBox Grid.Column="4" ItemsSource="{Binding DataContext.CurrenciesLut.Currencies, ElementName=_this}" Margin="5,0,0,2" Width="95"
+                                                <TextBlock Grid.Column="2" Text="Value" VerticalAlignment="Center" Margin="5,0,0,2"/>
+                                                <TextBox Grid.Column="3" Text="{Binding Value, Converter={StaticResource InMillionsConverter}}" Margin="5,0,0,2" />
+
+                                                <ComboBox Grid.Column="4" ItemsSource="{Binding DataContext.CurrenciesLut.Currencies, ElementName=_this}" Margin="5,0,0,2" Width="95"
                                                           SelectedItem="{Binding Currency}" Visibility="{Binding .,Converter={StaticResource CurrencyVisibilityConverter}}">
-                                                <ComboBox.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock Text="{Binding Name}"/>
-                                                    </DataTemplate>
-                                                </ComboBox.ItemTemplate>
-                                            </ComboBox>
+                                                    <ComboBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding Name}"/>
+                                                        </DataTemplate>
+                                                    </ComboBox.ItemTemplate>
+                                                </ComboBox>
 
-                                            <TextBlock Grid.Column="5" Text="Source" VerticalAlignment="Center" Margin="5,0,0,2"/>
-                                            <TextBox Grid.Column="6" Text="{Binding Source}" Margin="5,0,0,2" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
+                                                <TextBlock Grid.Column="5" Text="Source" VerticalAlignment="Center" Margin="5,0,0,2"/>
+                                                <TextBox Grid.Column="6" Text="{Binding Source}" Margin="5,0,0,2" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Grid>
                         </GroupBox>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

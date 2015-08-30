@@ -104,6 +104,7 @@
     <Compile Include="Views\FactsContentPage.xaml.cs">
       <DependentUpon>FactsContentPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\InMillionsConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -1,31 +1,19 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
+﻿using System;
+using System.Linq.Expressions;
+using Microsoft.Practices.Prism.Mvvm;
 
 namespace RaynMaker.Entities
 {
-    /// <summary>
-    /// Supports INotifyPropertyChanged for model entities.
-    /// </summary>
-    public abstract class EntityBase : INotifyPropertyChanged
+    public abstract class EntityBase : BindableBase
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual bool SetProperty<T>( ref T storage, T value, [CallerMemberName] string propertyName = null )
+        public void RaisePropertyChanged( string propertyName )
         {
-            if( object.Equals( storage, value ) )
-            {
-                return false;
-            }
+            OnPropertyChanged( propertyName );
+        }
 
-            storage = value;
-
-            if( PropertyChanged != null )
-            {
-                PropertyChanged( this, new PropertyChangedEventArgs( propertyName ) );
-            }
-
-            return true;
+        public void RaisePropertyChanged<T>( Expression<Func<T>> propertyExpression )
+        {
+            OnPropertyChanged( propertyExpression );
         }
     }
 }
