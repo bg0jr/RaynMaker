@@ -50,6 +50,9 @@ namespace RaynMaker.Import.Web.Views
             Loaded += WebSpyView_Loaded;
 
             PropertyChangedEventManager.AddHandler( myViewModel.DataFormat, OnSelectedDimensionChanged, PropertySupport.ExtractPropertyName( () => myViewModel.DataFormat.SelectedDimension ) );
+            PropertyChangedEventManager.AddHandler( myViewModel.DataFormat, OnSeriesNameChanged, PropertySupport.ExtractPropertyName( () => myViewModel.DataFormat.SeriesName ) );
+            PropertyChangedEventManager.AddHandler( myViewModel.DataFormat, OnRowHeaderColumnChanged, PropertySupport.ExtractPropertyName( () => myViewModel.DataFormat.RowHeaderColumn ) );
+            PropertyChangedEventManager.AddHandler( myViewModel.DataFormat, OnSkipRowsChanged, PropertySupport.ExtractPropertyName( () => myViewModel.DataFormat.SkipRows ) );
         }
 
         private void WebSpyView_Loaded( object sender, RoutedEventArgs e )
@@ -122,29 +125,29 @@ namespace RaynMaker.Import.Web.Views
             myMarkupDocument.Dimension = myViewModel.DataFormat.SelectedDimension;
         }
 
-        private void mySkipRows_TextChanged( object sender, RoutedEventArgs eventArgs )
+        private void OnSkipRowsChanged( object sender, PropertyChangedEventArgs eventArgs )
         {
-            SkipElements( mySkipRows, x => myMarkupDocument.SkipRows = x );
+            SkipElements( myViewModel.DataFormat.SkipRows, x => myMarkupDocument.SkipRows = x );
         }
 
         private void mySkipColumns_TextChanged( object sender, RoutedEventArgs eventArgs )
         {
-            SkipElements( mySkipColumns, x => myMarkupDocument.SkipColumns = x );
+            SkipElements( mySkipColumns.Text, x => myMarkupDocument.SkipColumns = x );
         }
 
-        private void myRowHeader_TextChanged( object sender, RoutedEventArgs e )
+        private void OnRowHeaderColumnChanged( object sender, PropertyChangedEventArgs e )
         {
-            MarkHeader( myRowHeader, x => myMarkupDocument.RowHeader = x );
+            MarkHeader( myViewModel.DataFormat.RowHeaderColumn, x => myMarkupDocument.RowHeader = x );
         }
 
         private void myColumnHeader_TextChanged( object sender, RoutedEventArgs e )
         {
-            MarkHeader( myColumnHeader, x => myMarkupDocument.ColumnHeader = x );
+            MarkHeader( myColumnHeader.Text, x => myMarkupDocument.ColumnHeader = x );
         }
 
-        private void mySeriesName_TextChanged( object sender, RoutedEventArgs eventArgs )
+        private void OnSeriesNameChanged( object sender, PropertyChangedEventArgs e )
         {
-            myMarkupDocument.SeriesName = mySeriesName.Text;
+            myMarkupDocument.SeriesName = myViewModel.DataFormat.SeriesName;
         }
 
         private void myReset_Click( object sender, RoutedEventArgs e )
@@ -152,31 +155,23 @@ namespace RaynMaker.Import.Web.Views
             myViewModel.DataFormat.Path = "";
             myViewModel.DataFormat.Value = "";
 
-            mySkipColumns.Text = "";
-            mySkipRows.Text = "";
-            myRowHeader.Text = "";
-            myColumnHeader.Text = "";
-            mySeriesName.Text = "";
+            mySkipColumns.Text = string.Empty;
+            myViewModel.DataFormat.SkipRows = string.Empty;
+            myViewModel.DataFormat.RowHeaderColumn = string.Empty;
+            myColumnHeader.Text = string.Empty;
+            myViewModel.DataFormat.SeriesName = string.Empty;
 
             myMarkupDocument.Reset();
         }
 
         private void SeriesName_ValidationChanged( bool isValid )
         {
-            if( isValid )
-            {
-                mySeriesName.Background = Brushes.White;
-            }
-            else
-            {
-                mySeriesName.Background = Brushes.Red;
-            }
+            myViewModel.DataFormat.IsValid = isValid;
         }
 
-
-        private void MarkHeader( TextBox config, Action<int> UpdateTemplate )
+        private void MarkHeader( string text, Action<int> UpdateTemplate )
         {
-            string str = config.Text.TrimOrNull();
+            string str = text.TrimOrNull();
             if( string.IsNullOrEmpty( str ) )
             {
                 UpdateTemplate( -1 );
@@ -193,15 +188,15 @@ namespace RaynMaker.Import.Web.Views
             }
         }
 
-        private void SkipElements( TextBox config, Action<int[]> UpdateTemplate )
+        private void SkipElements( string text, Action<int[]> UpdateTemplate )
         {
-            if( config.Text.IsNullOrTrimmedEmpty() )
+            if( text.IsNullOrTrimmedEmpty() )
             {
                 UpdateTemplate( null );
                 return;
             }
 
-            string[] tokens = config.Text.Split( ',' );
+            string[] tokens = text.Split( ',' );
 
             try
             {

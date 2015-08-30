@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="fc0ac8c3-8c48-40a6-886c-e8805243d1bf" Created="635765409895664532" LastModified="635765411134555393">
+  <Caption><![CDATA[Attachments]]></Caption>
+  <Content><![CDATA[- similar to references linked to company
+- upload via UI
+- guid in db folder
+- title
+
+==> maybe we split "Facts" tab then into two?
+    ("Overview", Key Figures")]]></Content>
+</Node>

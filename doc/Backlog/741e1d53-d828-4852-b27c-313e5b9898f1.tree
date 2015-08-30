@@ -14,5 +14,8 @@
         <Caption><![CDATA[Persist DataLocators]]></Caption>
       </Node>
     </Node>
+    <Node Id="fc0ac8c3-8c48-40a6-886c-e8805243d1bf">
+      <Caption><![CDATA[Attachments]]></Caption>
+    </Node>
   </Node>
 </Tree>

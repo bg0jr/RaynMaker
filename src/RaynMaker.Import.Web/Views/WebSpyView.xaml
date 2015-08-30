@@ -77,13 +77,27 @@
                                       SelectedItem="{Binding SelectedDimension}"/>
 
                             <TextBlock Grid.Row="1" Grid.Column="2" Text="Series name contains" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                            <TextBox Grid.Row="1" Grid.Column="3" x:Name="mySeriesName"  Margin="5,2,0,0" TextChanged="mySeriesName_TextChanged"/>
+                            <TextBox Grid.Row="1" Grid.Column="3" Margin="5,2,0,0" Text="{Binding SeriesName}">
+                                <TextBox.Style>
+                                    <Style TargetType="{x:Type TextBox}">
+                                        <Setter Property="Background" Value="White"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsValid}" Value="True">
+                                                <Setter Property="Background" Value="White"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsValid}" Value="False">
+                                                <Setter Property="Background" Value="Red"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
 
                             <TextBlock Grid.Row="2" Grid.Column="0" Text="Row header column" VerticalAlignment="Center"/>
-                            <TextBox Grid.Row="2" Grid.Column="1" x:Name="myRowHeader" Margin="5,2,0,0" TextChanged="myRowHeader_TextChanged"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" Margin="5,2,0,0" Text="{Binding RowHeaderColumn}"/>
 
                             <TextBlock Grid.Row="2" Grid.Column="2" Text="Skip rows" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                            <TextBox Grid.Row="2" Grid.Column="3" Width="50" HorizontalAlignment="Left" x:Name="mySkipRows" Margin="5,2,0,0" TextChanged="mySkipRows_TextChanged"/>
+                            <TextBox Grid.Row="2" Grid.Column="3" Width="50" HorizontalAlignment="Left" Margin="5,2,0,0" Text="{Binding SkipRows}"/>
 
                             <TextBlock Grid.Row="3" Grid.Column="0" Text="Column header row" VerticalAlignment="Center"/>
                             <TextBox Grid.Row="3" Grid.Column="1" x:Name="myColumnHeader" Margin="5,2,0,0" VerticalAlignment="Center" TextChanged="myColumnHeader_TextChanged"/>
