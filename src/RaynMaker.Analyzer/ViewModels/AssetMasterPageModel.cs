@@ -10,15 +10,17 @@ using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.Regions;
 using Plainion;
 using RaynMaker.Analyzer.Services;
+using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
 using RaynMaker.Infrastructure.Services;
 
 namespace RaynMaker.Analyzer.ViewModels
 {
     [Export]
+    [PartCreationPolicy( CreationPolicy.NonShared )]
     class AssetMasterPageModel : BindableBase, INavigationAware
     {
-        private string myHeader;
+        private Stock myStock;
         private IAssetNavigation myNavigation;
         private IRegionManager myRegionManager;
 
@@ -34,13 +36,14 @@ namespace RaynMaker.Analyzer.ViewModels
 
         public string Header
         {
-            get { return myHeader; }
-            private set { SetProperty( ref myHeader, value ); }
+            get { return myStock == null ? null : myStock.Company.Name; }
         }
 
         public bool IsNavigationTarget( NavigationContext navigationContext )
         {
-            return true;
+            var args = new AssetNavigationParameters( navigationContext.Parameters );
+
+            return myStock == args.Stock;
         }
 
         public void OnNavigatedFrom( NavigationContext navigationContext )
@@ -50,7 +53,9 @@ namespace RaynMaker.Analyzer.ViewModels
         public void OnNavigatedTo( NavigationContext navigationContext )
         {
             var args = new AssetNavigationParameters( navigationContext.Parameters );
-            Header = args.Stock.Company.Name;
+
+            myStock = args.Stock;
+            OnPropertyChanged( () => Header );
 
             foreach( var contentPage in GetContentPages() )
             {

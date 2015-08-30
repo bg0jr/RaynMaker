@@ -57,6 +57,7 @@ namespace RaynMaker.Data.Services
         public void Reload()
         {
             myMaxCurrencyTranslationsAgeInDays = -1;
+            Currencies.Clear();
 
             var ctx = myProjectHost.Project.GetAssetsContext();
             if( !ctx.Currencies.Any() )

@@ -43,7 +43,7 @@ namespace RaynMaker.Analyzer.Services
 
         private void OnNavigationFailed( object sender, RegionNavigationFailedEventArgs e )
         {
-            throw new InvalidOperationException( "Navigation failed", e.Error );
+            throw e.Error;
         }
 
         public void NavigateToBrowser()
