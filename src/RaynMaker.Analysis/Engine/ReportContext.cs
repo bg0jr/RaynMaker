@@ -133,6 +133,7 @@ namespace RaynMaker.Analysis.Engine
             var failure = result as IFigureProviderFailure;
             if( failure != null )
             {
+                // TODO: handle duplicates
                 myProviderFailures.Add( failure );
                 return failure.DefaultValue;
             }
