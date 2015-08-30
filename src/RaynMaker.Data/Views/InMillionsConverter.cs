@@ -58,7 +58,7 @@ namespace RaynMaker.Data.Views
                 return null;
             }
 
-            var dValue = double.Parse( text );
+            var dValue = double.Parse( text, CultureInfo.InvariantCulture );
             return InMillions ? dValue * 1000000 : dValue;
         }
 

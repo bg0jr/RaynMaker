@@ -54,13 +54,16 @@ namespace RaynMaker.Data.ViewModels
             }
 
             // data sanity - TODO: later move to creation of new DataSheet
+            Currency defaultCurrency=null;
             {
                 var series = ( DatumSeries )myDatums.SeriesOf( typeof( Price ) );
-
-                var price = myDatums.SeriesOf( typeof( Price ) );
                 if( series.Current<Price>() == null )
                 {
                     series.Add( new Price() );
+                }
+                else
+                {
+                    defaultCurrency = series.Current<Price>().Currency;
                 }
             }
 
@@ -84,7 +87,15 @@ namespace RaynMaker.Data.ViewModels
                         var currencyDatum = datum as AbstractCurrencyDatum;
                         if( currencyDatum != null )
                         {
-                            currencyDatum.Currency = series.Currency;
+                            if( series.Currency == null )
+                            {
+                                // this will also set series.Currency behind the scenes
+                                currencyDatum.Currency = defaultCurrency;
+                            }
+                            else
+                            {
+                                currencyDatum.Currency = series.Currency;
+                            }
                         }
 
                         var foreignKey = type.GetProperty( "Stock" );

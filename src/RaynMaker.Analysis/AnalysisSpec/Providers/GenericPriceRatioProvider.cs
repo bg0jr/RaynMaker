@@ -18,8 +18,8 @@ namespace RaynMaker.Analysis.AnalysisSpec.Providers
         public GenericPriceRatioProvider( string name, string seriesName, Func<double, double, double> CalculateRatio )
             : base( name )
         {
-            Contract.RequiresNotNullNotEmpty( seriesName, "rhsSeriesName" );
-            Contract.RequiresNotNull( CalculateRatio, "Join" );
+            Contract.RequiresNotNullNotEmpty( seriesName, "seriesName" );
+            Contract.RequiresNotNull( CalculateRatio, "CalculateRatio" );
 
             mySeriesName = seriesName;
             myRatioCalculationOperator = CalculateRatio;
@@ -53,7 +53,7 @@ namespace RaynMaker.Analysis.AnalysisSpec.Providers
                 value = values.SingleOrDefault( e => e.Period.Year() == priceYear - 1 );
                 if( value == null )
                 {
-                    return new MissingDataForPeriod( mySeriesName, new YearPeriod( priceYear ), new YearPeriod( priceYear - 1 ) );
+                    return new MissingDataForPeriod( mySeriesName,null, new YearPeriod( priceYear ), new YearPeriod( priceYear - 1 ) );
                 }
             }
 

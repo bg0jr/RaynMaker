@@ -7,7 +7,7 @@ namespace RaynMaker.Analysis.Engine
 {
     class MissingDataForPeriod : IFigureProviderFailure
     {
-        public MissingDataForPeriod( string datum,object defaultValue , IPeriod period, params IPeriod[] periods )
+        public MissingDataForPeriod( string datum, object defaultValue, IPeriod period, params IPeriod[] periods )
         {
             Contract.RequiresNotNullNotEmpty( datum, "datum" );
             Contract.RequiresNotNull( period, "period" );
@@ -24,7 +24,7 @@ namespace RaynMaker.Analysis.Engine
         public string Datum { get; private set; }
 
         public object DefaultValue { get; private set; }
-        
+
         public IReadOnlyCollection<IPeriod> Period { get; private set; }
 
         public override string ToString()
