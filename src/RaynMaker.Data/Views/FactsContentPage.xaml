@@ -59,7 +59,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <ListView Grid.Row="0" ItemsSource="{Binding Sheet.Stock.Company.References}" MaxHeight="75" Background="Transparent"
+                        <ListView Grid.Row="0" ItemsSource="{Binding Stock.Company.References}" MaxHeight="75" Background="Transparent"
                                   BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch">
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="{x:Type ListViewItem}">
