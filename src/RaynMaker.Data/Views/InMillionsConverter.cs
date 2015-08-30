@@ -51,12 +51,15 @@ namespace RaynMaker.Data.Views
 
         public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )
         {
-            if( value == null )
+            var text = ( string )value;
+
+            if( string.IsNullOrEmpty( text ) )
             {
                 return null;
             }
 
-            return InMillions ? ( double )value * 1000000 : value;
+            var dValue = double.Parse( text );
+            return InMillions ? dValue * 1000000 : dValue;
         }
 
         protected override Freezable CreateInstanceCore()
