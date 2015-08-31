@@ -3,6 +3,73 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:data="clr-namespace:Blade.Data;assembly=RaynMaker.Import"
              mc:Ignorable="d" 
              d:DesignHeight="150" d:DesignWidth="700">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.Resources>
+            <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type data:CellDimension}" x:Key="CellDimension">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="data:CellDimension" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+        </Grid.Resources>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Selected path" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"  Text="{Binding Path}" Margin="5,2,0,0"/>
+        <TextBlock Grid.Row="0" Grid.Column="4" Text="=>" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="0" Grid.Column="5" Text="{Binding Value}" Margin="5,2,0,0"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Dimension" VerticalAlignment="Center"/>
+        <ComboBox Grid.Row="1" Grid.Column="1" Width="100" Margin="5,2,0,0"
+                                      ItemsSource="{Binding Source={StaticResource CellDimension}, Mode=OneTime}" 
+                                      SelectedItem="{Binding SelectedDimension}"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="Series name contains" VerticalAlignment="Center" Margin="5,0,0,0"/>
+        <TextBox Grid.Row="1" Grid.Column="3" Margin="5,2,0,0" Text="{Binding SeriesName, UpdateSourceTrigger=PropertyChanged}">
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="Background" Value="White"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsValid}" Value="True">
+                            <Setter Property="Background" Value="White"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsValid}" Value="False">
+                            <Setter Property="Background" Value="Red"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Row header column" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="5,2,0,0" Text="{Binding RowHeaderColumn, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="2" Text="Skip rows" VerticalAlignment="Center" Margin="5,0,0,0"/>
+        <TextBox Grid.Row="2" Grid.Column="3" Width="50" HorizontalAlignment="Left" Margin="5,2,0,0" Text="{Binding SkipRows, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Column header row" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding ColumnHeaderRow, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="2" Text="Skip columns" VerticalAlignment="Center" Margin="5,0,0,0"/>
+        <TextBox Grid.Row="3" Grid.Column="3" Width="50" HorizontalAlignment="Left" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding SkipColumns, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Button Grid.Row="3" Grid.Column="4" Content="Reset" Margin="3" Command="{Binding ResetCommand}"/>
+        <Button Grid.Row="3" Grid.Column="5" Content="Search path" Margin="3" Command="{Binding SearchPathCommand}"/>
+    </Grid>
 </UserControl>

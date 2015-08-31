@@ -17,6 +17,7 @@ namespace RaynMaker.Import.Web
             RegionManager.RegisterViewWithRegion( RaynMaker.Infrastructure.RegionNames.Tools, typeof( WebSpyMenuItem ) );
 
             RegionManager.RegisterViewWithRegion( RegionNames.WebSpyView, typeof( WebSpyView ) );
+            RegionManager.RegisterViewWithRegion( RegionNames.EditCaptureView, typeof( EditCaptureView ) );
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Blade;
 using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Views;
@@ -21,10 +22,12 @@ namespace RaynMaker.Import.Web.ViewModels
             CaptureCommand = new DelegateCommand( OnCapture );
             ReplayCommand = new DelegateCommand( OnReplay );
             EditCommand = new DelegateCommand( OnEdit );
+
+            EditCaptureRequest = new InteractionRequest<IConfirmation>();
         }
 
         public IBrowser Browser { get; set; }
-        
+
         public string NavigationUrls
         {
             get { return myNavigationUrls; }
@@ -87,26 +90,25 @@ namespace RaynMaker.Import.Web.ViewModels
             }
 
             Browser.LoadDocument( filtered );
-
-            /*
-Request: http://www.ariva.de/search/search.m?searchname=${stock.Symbol}&url=/quote/profile.m
-Response: http://www.ariva.de/quote/profile.m?secu={(\d+)}
-Request: http://www.ariva.de/statistics/facunda.m?secu={0}&page=-1             
-             */
         }
 
         public ICommand EditCommand { get; private set; }
 
         private void OnEdit()
         {
-            EditCaptureForm form = new EditCaptureForm();
-            form.NavUrls = NavigationUrls;
-            var result = form.ShowDialog();
+            var notification = new Confirmation();
+            notification.Title = "Edit capture";
+            notification.Content = NavigationUrls;
 
-            if( result == System.Windows.Forms.DialogResult.OK )
+            EditCaptureRequest.Raise( notification, c =>
             {
-                NavigationUrls = form.NavUrls;
-            }
+                if( c.Confirmed )
+                {
+                    NavigationUrls = (string)c.Content;
+                }
+            } );
         }
+
+        public InteractionRequest<IConfirmation> EditCaptureRequest { get; private set; }
     }
 }

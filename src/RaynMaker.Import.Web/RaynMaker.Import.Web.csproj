@@ -81,6 +81,7 @@
     <Compile Include="ImportWebModule.cs" />
     <Compile Include="ViewModels\AddressBarViewModel.cs" />
     <Compile Include="ViewModels\DataFormatViewModel.cs" />
+    <Compile Include="ViewModels\EditCaptureViewModel.cs" />
     <Compile Include="ViewModels\NavigationViewModel.cs" />
     <Compile Include="ViewModels\WebSpyViewModel.cs" />
     <Compile Include="DatumLocatorValidation\LocatorListViewItem.cs" />
@@ -100,15 +101,12 @@
     <Compile Include="Views\DataFormatView.xaml.cs">
       <DependentUpon>DataFormatView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\EditCaptureForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\EditCaptureForm.Designer.cs">
-      <DependentUpon>EditCaptureForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="DatumLocatorValidation\GenericTypeConverter.cs" />
     <Compile Include="ViewModels\HtmlElementExtensions.cs" />
     <Compile Include="ViewModels\HtmlMarker.cs" />
+    <Compile Include="Views\EditCaptureView.xaml.cs">
+      <DependentUpon>EditCaptureView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\InputForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +123,7 @@
     <Compile Include="Views\NavigationView.xaml.cs">
       <DependentUpon>NavigationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\TextBoxBinding.cs" />
     <Compile Include="Views\WebSpyMenuItem.xaml.cs">
       <DependentUpon>WebSpyMenuItem.xaml</DependentUpon>
     </Compile>
@@ -136,9 +135,6 @@
     <EmbeddedResource Include="DatumLocatorValidation\ValidationForm.resx">
       <DependentUpon>ValidationForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\EditCaptureForm.resx">
-      <DependentUpon>EditCaptureForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\InputForm.resx">
       <DependentUpon>InputForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -149,6 +145,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DataFormatView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditCaptureView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
