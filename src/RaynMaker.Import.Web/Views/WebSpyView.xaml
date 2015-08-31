@@ -77,7 +77,7 @@
                                       SelectedItem="{Binding SelectedDimension}"/>
 
                             <TextBlock Grid.Row="1" Grid.Column="2" Text="Series name contains" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                            <TextBox Grid.Row="1" Grid.Column="3" Margin="5,2,0,0" Text="{Binding SeriesName}">
+                            <TextBox Grid.Row="1" Grid.Column="3" Margin="5,2,0,0" Text="{Binding SeriesName, UpdateSourceTrigger=PropertyChanged}">
                                 <TextBox.Style>
                                     <Style TargetType="{x:Type TextBox}">
                                         <Setter Property="Background" Value="White"/>
@@ -94,19 +94,19 @@
                             </TextBox>
 
                             <TextBlock Grid.Row="2" Grid.Column="0" Text="Row header column" VerticalAlignment="Center"/>
-                            <TextBox Grid.Row="2" Grid.Column="1" Margin="5,2,0,0" Text="{Binding RowHeaderColumn}"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" Margin="5,2,0,0" Text="{Binding RowHeaderColumn, UpdateSourceTrigger=PropertyChanged}"/>
 
                             <TextBlock Grid.Row="2" Grid.Column="2" Text="Skip rows" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                            <TextBox Grid.Row="2" Grid.Column="3" Width="50" HorizontalAlignment="Left" Margin="5,2,0,0" Text="{Binding SkipRows}"/>
+                            <TextBox Grid.Row="2" Grid.Column="3" Width="50" HorizontalAlignment="Left" Margin="5,2,0,0" Text="{Binding SkipRows, UpdateSourceTrigger=PropertyChanged}"/>
 
                             <TextBlock Grid.Row="3" Grid.Column="0" Text="Column header row" VerticalAlignment="Center"/>
-                            <TextBox Grid.Row="3" Grid.Column="1" x:Name="myColumnHeader" Margin="5,2,0,0" VerticalAlignment="Center" TextChanged="myColumnHeader_TextChanged"/>
+                            <TextBox Grid.Row="3" Grid.Column="1" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding ColumnHeaderRow, UpdateSourceTrigger=PropertyChanged}"/>
 
                             <TextBlock Grid.Row="3" Grid.Column="2" Text="Skip columns" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                            <TextBox Grid.Row="3" Grid.Column="3" Width="50" HorizontalAlignment="Left" x:Name="mySkipColumns" Margin="5,2,0,0" VerticalAlignment="Center" TextChanged="mySkipColumns_TextChanged"/>
+                            <TextBox Grid.Row="3" Grid.Column="3" Width="50" HorizontalAlignment="Left" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding SkipColumns, UpdateSourceTrigger=PropertyChanged}"/>
 
-                            <Button Grid.Row="3" Grid.Column="4" Content="Reset" Margin="3" x:Name="myReset" Click="myReset_Click"/>
-                            <Button Grid.Row="3" Grid.Column="5" Content="Search path" Margin="3" x:Name="mySearchPath" Click="mySearchPath_Click"/>
+                            <Button Grid.Row="3" Grid.Column="4" Content="Reset" Margin="3" Command="{Binding ResetCommand}"/>
+                            <Button Grid.Row="3" Grid.Column="5" Content="Search path" Margin="3" Command="{Binding SearchPathCommand}"/>
                         </Grid>
                     </TabItem>
                 </TabControl>
