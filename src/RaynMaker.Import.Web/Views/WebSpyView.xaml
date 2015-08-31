@@ -9,46 +9,24 @@
              xmlns:l="clr-namespace:RaynMaker.Import.Web.Views"
              xmlns:winforms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
              mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="700">
-    <!--
-    <i:Interaction.Triggers>
-        <prism:InteractionRequestTrigger SourceObject="{Binding InvokeRequest, Mode=OneWay}">
-            <pn:PopupViewAction WindowWidth="1200" WindowHeight="700"/>
-        </prism:InteractionRequestTrigger>
-    </i:Interaction.Triggers>
-    -->
-    <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <Grid DockPanel.Dock="Top" >
-            <Menu>
-                <Menu.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <DockPanel HorizontalAlignment="Stretch"/>
-                    </ItemsPanelTemplate>
-                </Menu.ItemsPanel>
-                <MenuItem Header="_Tools">
-                    <MenuItem Header="_Validation ..." Command="{Binding StartValidationCommand}" />
-                </MenuItem>
-            </Menu>
+    <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="3">
+        <Grid DockPanel.Dock="Top" DataContext="{Binding AddressBar}">
+            <l:AddressBarView/>
         </Grid>
 
-        <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="3">
-            <Grid DockPanel.Dock="Top" DataContext="{Binding AddressBar}">
-                <l:AddressBarView/>
-            </Grid>
+        <Grid DockPanel.Dock="Bottom">
+            <TabControl Height="140">
+                <TabItem Header="Navigation" DataContext="{Binding Navigation}">
+                    <l:NavigationView Margin="2"/>
+                </TabItem>
+                <TabItem Header="Data description" DataContext="{Binding DataFormat}">
+                    <l:DataFormatView Margin="2"/>
+                </TabItem>
+            </TabControl>
+        </Grid>
 
-            <Grid DockPanel.Dock="Bottom">
-                <TabControl Height="140">
-                    <TabItem Header="Navigation" DataContext="{Binding Navigation}">
-                        <l:NavigationView Margin="2"/>
-                    </TabItem>
-                    <TabItem Header="Data description" DataContext="{Binding DataFormat}">
-                        <l:DataFormatView Margin="2"/>
-                    </TabItem>
-                </TabControl>
-            </Grid>
-
-            <WindowsFormsHost HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0">
-                <winforms:WebBrowser x:Name="myBrowser"/>
-            </WindowsFormsHost>
-        </DockPanel>
+        <WindowsFormsHost HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,2,0,2">
+            <winforms:WebBrowser x:Name="myBrowser"/>
+        </WindowsFormsHost>
     </DockPanel>
 </UserControl>

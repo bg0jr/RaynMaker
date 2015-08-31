@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Import.Core;
 using RaynMaker.Import.Spec;
-using RaynMaker.Import.Web.DatumLocationValidation;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
@@ -20,8 +14,6 @@ namespace RaynMaker.Import.Web.ViewModels
 
         public WebSpyViewModel()
         {
-            StartValidationCommand = new DelegateCommand( OnStartValidation );
-
             AddressBar = new AddressBarViewModel();
             Navigation = new NavigationViewModel();
             DataFormat = new DataFormatViewModel();
@@ -43,6 +35,8 @@ namespace RaynMaker.Import.Web.ViewModels
 
                 AddressBar.Browser = this;
                 Navigation.Browser = this;
+
+                Navigate( "http://www.google.com" );
             }
         }
 
@@ -89,14 +83,6 @@ namespace RaynMaker.Import.Web.ViewModels
         public void LoadDocument( IEnumerable<NavigatorUrl> urls )
         {
             myDocumentBrowser.LoadDocument( urls );
-        }
-
-        public ICommand StartValidationCommand { get; private set; }
-
-        private void OnStartValidation()
-        {
-            var form = new ValidationForm( this );
-            form.Show();
         }
 
         public AddressBarViewModel AddressBar { get; private set; }

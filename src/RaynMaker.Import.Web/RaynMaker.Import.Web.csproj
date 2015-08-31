@@ -85,24 +85,12 @@
     <Compile Include="ViewModels\EditCaptureViewModel.cs" />
     <Compile Include="ViewModels\NavigationViewModel.cs" />
     <Compile Include="ViewModels\WebSpyViewModel.cs" />
-    <Compile Include="DatumLocatorValidation\LocatorListViewItem.cs" />
-    <Compile Include="DatumLocatorValidation\LocatorValidationResult.cs" />
-    <Compile Include="DatumLocatorValidation\ParameterizedDatumLocator.cs" />
-    <Compile Include="DatumLocatorValidation\ValidationController.cs" />
-    <Compile Include="DatumLocatorValidation\ValidationForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DatumLocatorValidation\ValidationForm.Designer.cs">
-      <DependentUpon>ValidationForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DatumLocatorValidation\Validator.cs" />
     <Compile Include="Views\AddressBarView.xaml.cs">
       <DependentUpon>AddressBarView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DataFormatView.xaml.cs">
       <DependentUpon>DataFormatView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DatumLocatorValidation\GenericTypeConverter.cs" />
     <Compile Include="ViewModels\HtmlElementExtensions.cs" />
     <Compile Include="ViewModels\HtmlMarker.cs" />
     <Compile Include="Views\EditCaptureView.xaml.cs">
@@ -128,11 +116,6 @@
     <Compile Include="Views\WebSpyView.xaml.cs">
       <DependentUpon>WebSpyView.xaml</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DatumLocatorValidation\ValidationForm.resx">
-      <DependentUpon>ValidationForm.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\AddressBarView.xaml">

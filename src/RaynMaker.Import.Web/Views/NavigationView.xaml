@@ -49,8 +49,8 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button Grid.Row="1" Grid.Column="1" Content="Replay" Margin="5,2,0,2" Command="{Binding ReplayCommand}"
-                                    IsEnabled="{Binding IsCapturing, Converter={StaticResource NotConverter}}"/>
-        <Button Grid.Row="2" Grid.Column="1" Content="Edit" Margin="5,2,0,0" VerticalAlignment="Top" Command="{Binding EditCommand}"/>
+        <Button Grid.Row="1" Grid.Column="1" Content="Edit" Margin="5,2,0,0" Command="{Binding EditCommand}"/>
+        <Button Grid.Row="2" Grid.Column="1" Content="Replay" Margin="5,30,0,2" Command="{Binding ReplayCommand}"
+                VerticalAlignment="Top" IsEnabled="{Binding IsCapturing, Converter={StaticResource NotConverter}}"/>
     </Grid>
 </UserControl>
