@@ -13,6 +13,9 @@
         <prism:InteractionRequestTrigger SourceObject="{Binding EditCaptureRequest, Mode=OneWay}">
             <pn:PopupViewAction WindowWidth="500" WindowHeight="250" prism:RegionManager.RegionName="{x:Static l:RegionNames.EditCaptureView}"/>
         </prism:InteractionRequestTrigger>
+        <prism:InteractionRequestTrigger SourceObject="{Binding InputMacroValueRequest, Mode=OneWay}">
+            <pn:PopupViewAction ResizeMode="NoResize" WindowWidth="200" IsModal="True" prism:RegionManager.RegionName="{x:Static l:RegionNames.InputMacroValueView}"/>
+        </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
     <UserControl.Resources>
         <pn:NotConverter x:Key="NotConverter"/>

@@ -81,6 +81,7 @@
     <Compile Include="ImportWebModule.cs" />
     <Compile Include="ViewModels\AddressBarViewModel.cs" />
     <Compile Include="ViewModels\DataFormatViewModel.cs" />
+    <Compile Include="ViewModels\InputMacroValueViewModel.cs" />
     <Compile Include="ViewModels\EditCaptureViewModel.cs" />
     <Compile Include="ViewModels\NavigationViewModel.cs" />
     <Compile Include="ViewModels\WebSpyViewModel.cs" />
@@ -107,12 +108,6 @@
     <Compile Include="Views\EditCaptureView.xaml.cs">
       <DependentUpon>EditCaptureView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\InputForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\InputForm.Designer.cs">
-      <DependentUpon>InputForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\MarkupDocument.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -120,6 +115,9 @@
     <AppDesigner Include="Properties\" />
     <Compile Include="RegionNames.cs" />
     <Compile Include="ViewModels\WebSpyMenuItemModel.cs" />
+    <Compile Include="Views\InputMacroValueView.xaml.cs">
+      <DependentUpon>InputMacroValueView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\NavigationView.xaml.cs">
       <DependentUpon>NavigationView.xaml</DependentUpon>
     </Compile>
@@ -135,9 +133,6 @@
     <EmbeddedResource Include="DatumLocatorValidation\ValidationForm.resx">
       <DependentUpon>ValidationForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\InputForm.resx">
-      <DependentUpon>InputForm.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\AddressBarView.xaml">
@@ -149,6 +144,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EditCaptureView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InputMacroValueView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

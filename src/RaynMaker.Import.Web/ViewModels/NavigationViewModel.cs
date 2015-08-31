@@ -24,6 +24,7 @@ namespace RaynMaker.Import.Web.ViewModels
             EditCommand = new DelegateCommand( OnEdit );
 
             EditCaptureRequest = new InteractionRequest<IConfirmation>();
+            InputMacroValueRequest = new InteractionRequest<IConfirmation>();
         }
 
         public IBrowser Browser { get; set; }
@@ -73,7 +74,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 if( md.Success )
                 {
                     string macro = md.Groups[ 1 ].Value;
-                    string value = InputForm.Show( "Enter macro value", "Enter value for macro " + macro );
+                    string value = GetValue( macro );
                     if( value != null )
                     {
                         filtered.Add( new NavigatorUrl( navUrl.UrlType, navUrl.UrlString.Replace( macro, value ) ) );
@@ -92,6 +93,27 @@ namespace RaynMaker.Import.Web.ViewModels
             Browser.LoadDocument( filtered );
         }
 
+        private string GetValue( string macro )
+        {
+            var notification = new Confirmation();
+            notification.Title = "Enter macro value";
+            notification.Content = macro;
+
+            string result = null;
+
+            InputMacroValueRequest.Raise( notification, c =>
+            {
+                if( c.Confirmed )
+                {
+                    result = (  string )c.Content ;
+                }
+            } );
+
+            return result;
+        }
+
+        public InteractionRequest<IConfirmation> InputMacroValueRequest { get; private set; }
+
         public ICommand EditCommand { get; private set; }
 
         private void OnEdit()
@@ -104,7 +126,7 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 if( c.Confirmed )
                 {
-                    NavigationUrls = (string)c.Content;
+                    NavigationUrls = ( string )c.Content;
                 }
             } );
         }
