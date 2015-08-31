@@ -12,7 +12,7 @@ using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Core
 {
-    public class LegacyDocumentBrowser : ManagedObject, IDocumentBrowser
+    public class LegacyDocumentBrowser : IDisposable, IDocumentBrowser
     {
         private DownloadController myDownloadController;
         private bool myIsInitialized = false;
@@ -42,29 +42,15 @@ namespace RaynMaker.Import.Core
                 BrowserOptions.Utf8;
         }
 
-        protected override void Dispose( bool disposing )
+        public void Dispose()
         {
-            try
+            if( Browser != null )
             {
-                if ( IsDisposed )
+                if( myOwnWebBrowser )
                 {
-                    return;
+                    Browser.Dispose();
                 }
-
-                if ( disposing )
-                {
-                    // TODO: restore the old proxy
-                    if ( myOwnWebBrowser )
-                    {
-                        Browser.Dispose();
-                    }
-                }
-
                 Browser = null;
-            }
-            finally
-            {
-                base.Dispose( disposing );
             }
         }
 
@@ -117,18 +103,18 @@ namespace RaynMaker.Import.Core
             string param = null;
 
             var last = navigationSteps.Last().UrlString;
-            foreach ( NavigatorUrl navUrl in navigationSteps )
+            foreach( NavigatorUrl navUrl in navigationSteps )
             {
                 this.Require( x => navUrl.UrlType != UriType.None );
 
-                if ( navUrl.UrlType == UriType.Request )
+                if( navUrl.UrlType == UriType.Request )
                 {
                     string url = navUrl.UrlString;
-                    if ( param != null )
+                    if( param != null )
                     {
                         url = string.Format( url, param );
                     }
-                    else if ( HasPlaceHolder( url ) )
+                    else if( HasPlaceHolder( url ) )
                     {
                         var ex = new ApplicationException( "Did not find a parameter for placeholder" );
                         ex.Data[ "Url" ] = url;
@@ -136,7 +122,7 @@ namespace RaynMaker.Import.Core
                         throw ex;
                     }
 
-                    if ( navUrl.UrlString == last )
+                    if( navUrl.UrlString == last )
                     {
                         return url;
                     }
@@ -160,30 +146,30 @@ namespace RaynMaker.Import.Core
         {
             Browser.Navigate( url );
 
-            while ( !
-                (Browser.ReadyState == WebBrowserReadyState.Complete ||
-                (Browser.ReadyState == WebBrowserReadyState.Interactive && !Browser.IsBusy)) )
+            while( !
+                ( Browser.ReadyState == WebBrowserReadyState.Complete ||
+                ( Browser.ReadyState == WebBrowserReadyState.Interactive && !Browser.IsBusy ) ) )
             {
                 Thread.Sleep( 100 );
                 Application.DoEvents();
             }
 
-            return new HtmlDocumentAdapter(Browser.Document);
+            return new HtmlDocumentAdapter( Browser.Document );
         }
-        
+
         public IDocument GetDocument( Navigation navi )
         {
             var doc = TryNavigateWithWildcards( navi );
-            if ( doc != null )
+            if( doc != null )
             {
                 return doc;
             }
 
-            if ( navi.DocumentType == DocumentType.Html )
+            if( navi.DocumentType == DocumentType.Html )
             {
                 return new HtmlDocumentHandle( LoadDocument( navi.Uris ) );
             }
-            else if ( navi.DocumentType == DocumentType.Text )
+            else if( navi.DocumentType == DocumentType.Text )
             {
                 return new TextDocument( DownloadFile( navi.Uris ) );
             }
@@ -197,9 +183,9 @@ namespace RaynMaker.Import.Core
         private string DownloadFile( IEnumerable<NavigatorUrl> navigationSteps )
         {
             string url = NavigateToFinalSite( navigationSteps );
-            return DownloadFile( new Uri(url) );
+            return DownloadFile( new Uri( url ) );
         }
-        
+
         private string DownloadFile( string uri )
         {
             // TODO: check for protocol in url - maybe the file is local
@@ -209,7 +195,7 @@ namespace RaynMaker.Import.Core
 
         private string DownloadFile( Uri uri )
         {
-            if ( uri.IsFile )
+            if( uri.IsFile )
             {
                 return ( File.Exists( uri.LocalPath ) ? uri.LocalPath : null );
             }
@@ -221,19 +207,19 @@ namespace RaynMaker.Import.Core
             try
             {
                 // Send the 'HttpWebRequest' and wait for response.
-                response = (HttpWebResponse)request.GetResponse();
+                response = ( HttpWebResponse )request.GetResponse();
                 responseStream = response.GetResponseStream();
 
                 //System.Text.Encoding ec = System.Text.Encoding.GetEncoding( "utf-8" );
                 string file = Path.GetTempFileName();
-                using ( StreamReader reader = new StreamReader( responseStream ) )
+                using( StreamReader reader = new StreamReader( responseStream ) )
                 {
                     char[] chars = new Char[ DownloadChunkSize ];
                     int count = reader.Read( chars, 0, DownloadChunkSize );
 
-                    using ( StreamWriter writer = new StreamWriter( file ) )
+                    using( StreamWriter writer = new StreamWriter( file ) )
                     {
-                        while ( count > 0 )
+                        while( count > 0 )
                         {
                             writer.Write( chars, 0, count );
                             count = reader.Read( chars, 0, DownloadChunkSize );
@@ -246,11 +232,11 @@ namespace RaynMaker.Import.Core
             }
             finally
             {
-                if ( response != null )
+                if( response != null )
                 {
                     response.Close();
                 }
-                if ( responseStream != null )
+                if( responseStream != null )
                 {
                     responseStream.Close();
                 }
@@ -259,11 +245,11 @@ namespace RaynMaker.Import.Core
 
         private IDocument Navigate( DocumentType docType, NavigatorUrl url )
         {
-            if ( docType == DocumentType.Html )
+            if( docType == DocumentType.Html )
             {
                 return new HtmlDocumentHandle( LoadDocument( url.UrlString ) );
             }
-            else if ( docType == DocumentType.Text )
+            else if( docType == DocumentType.Text )
             {
                 return new TextDocument( DownloadFile( url.UrlString ) );
             }
@@ -275,7 +261,7 @@ namespace RaynMaker.Import.Core
         // navigation -> policy based?
         private IDocument TryNavigateWithWildcards( Navigation navi )
         {
-            if ( navi.Uris.Count != 1 )
+            if( navi.Uris.Count != 1 )
             {
                 // we can only handle single urls
                 return null;
@@ -283,7 +269,7 @@ namespace RaynMaker.Import.Core
 
             var url = navi.Uris[ 0 ];
             Uri uri = new Uri( url.UrlString );
-            if ( !uri.IsFile && !uri.IsUnc )
+            if( !uri.IsFile && !uri.IsUnc )
             {
                 // we cannot handle e.g. http now
                 return null;
@@ -291,7 +277,7 @@ namespace RaynMaker.Import.Core
 
             // currently we only handle "/xyz/*/file.txt"
             int pos = url.UrlString.IndexOf( "/*/" );
-            if ( pos <= 0 )
+            if( pos <= 0 )
             {
                 // no pattern found
                 return null;
@@ -303,16 +289,16 @@ namespace RaynMaker.Import.Core
 
             // now try everything with "or" 
             // first path which returns s.th. wins
-            foreach ( string dir in dirs )
+            foreach( string dir in dirs )
             {
                 string tmpFile = Path.Combine( dir, file );
-                if ( !File.Exists( tmpFile ) )
+                if( !File.Exists( tmpFile ) )
                 {
                     continue;
                 }
 
                 var doc = Navigate( navi.DocumentType, new NavigatorUrl( url.UrlType, tmpFile ) );
-                if ( doc != null )
+                if( doc != null )
                 {
                     return doc;
                 }
@@ -328,7 +314,7 @@ namespace RaynMaker.Import.Core
             int begin = url.IndexOf( '{' );
             int end = url.IndexOf( '}' );
 
-            if ( begin < 0 || end < 0 )
+            if( begin < 0 || end < 0 )
             {
                 return false;
             }
@@ -338,12 +324,13 @@ namespace RaynMaker.Import.Core
 
         private void WebBrowser_Navigating( object sender, WebBrowserNavigatingEventArgs e )
         {
-            if ( IsDisposed )
+            if( Browser == null )
             {
+                // already disposed
                 return;
             }
 
-            if ( myIsInitialized )
+            if( myIsInitialized )
             {
                 return;
             }

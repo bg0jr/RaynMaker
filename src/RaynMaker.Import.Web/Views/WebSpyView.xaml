@@ -9,24 +9,34 @@
              xmlns:l="clr-namespace:RaynMaker.Import.Web.Views"
              xmlns:winforms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
              mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="700">
-    <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="3">
-        <Grid DockPanel.Dock="Top" DataContext="{Binding AddressBar}">
-            <l:AddressBarView/>
-        </Grid>
+    <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <!--
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="3">
+            <TextBlock Text="Locators" VerticalAlignment="Center"/>
+            <ComboBox Width="100" Margin="5,0,0,0"/>
+            <Button Content="New" Command="{Binding CopyLocatorCommand}" Margin="5,0,0,0"/>
+            <Button Content="Copy" Command="{Binding NewLocatorCommand}" Margin="5,0,0,0"/>
+        </StackPanel>
+        -->
+        <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="3">
+            <Grid DockPanel.Dock="Top" DataContext="{Binding AddressBar}">
+                <l:AddressBarView/>
+            </Grid>
 
-        <Grid DockPanel.Dock="Bottom">
-            <TabControl Height="140">
-                <TabItem Header="Navigation" DataContext="{Binding Navigation}">
-                    <l:NavigationView Margin="2"/>
-                </TabItem>
-                <TabItem Header="Data description" DataContext="{Binding DataFormat}">
-                    <l:DataFormatView Margin="2"/>
-                </TabItem>
-            </TabControl>
-        </Grid>
+            <Grid DockPanel.Dock="Bottom">
+                <TabControl Height="140">
+                    <TabItem Header="Navigation" DataContext="{Binding Navigation}">
+                        <l:NavigationView Margin="2"/>
+                    </TabItem>
+                    <TabItem Header="Data description" DataContext="{Binding DataFormat}">
+                        <l:DataFormatView Margin="2"/>
+                    </TabItem>
+                </TabControl>
+            </Grid>
 
-        <WindowsFormsHost HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,2,0,2">
-            <winforms:WebBrowser x:Name="myBrowser"/>
-        </WindowsFormsHost>
+            <WindowsFormsHost HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,2,0,2">
+                <winforms:WebBrowser x:Name="myBrowser"/>
+            </WindowsFormsHost>
+        </DockPanel>
     </DockPanel>
 </UserControl>

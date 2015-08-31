@@ -21,15 +21,7 @@ namespace Blade
             type.Require( ( Type x ) => type != null );
             return new Uri( Path.GetDirectoryName( type.Assembly.CodeBase ) ).LocalPath;
         }
-        /// <summary>
-        /// Returns the assembly configuration of the assembly this type has been
-        /// loaded from.
-        /// </summary>
-        public static string GetAssemblyConfig( this Type type )
-        {
-            type.Require( ( Type x ) => type != null );
-            return new Uri( type.Assembly.CodeBase ).LocalPath + ".config";
-        }
+
         /// <summary>
         /// Returns the values of all static members of the given type which 
         /// have the specified type.
@@ -49,6 +41,7 @@ namespace Blade
             }
             yield break;
         }
+
         /// <summary>
         /// Returns true if the given type implements or extends the given interface.
         /// </summary>
@@ -56,12 +49,5 @@ namespace Blade
         {
             return type.GetInterface( iface.ToString() ) != null;
         }
-        /// <summary>
-        /// Returns true if the given type has the given attribute applied.
-        /// </summary>
-        public static bool HasAttribute( this Type type, Type attr )
-        {
-            return Attribute.GetCustomAttribute( type, attr ) != null;
-        }
-    }
+   }
 }

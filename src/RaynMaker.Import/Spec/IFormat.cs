@@ -2,7 +2,7 @@
 
 namespace RaynMaker.Import.Spec
 {
-    public interface IFormat : INamedObject
+    public interface IFormat 
     {
         IFormat Clone();
     }

@@ -42,9 +42,7 @@
     <Compile Include="Blade\Data\TableExtractionSettings.cs" />
     <Compile Include="Blade\DbC.cs" />
     <Compile Include="Blade\FallibleActionResult.cs" />
-    <Compile Include="Blade\INamedObject.cs" />
     <Compile Include="Blade\IO\CsvReader.cs" />
-    <Compile Include="Blade\ManagedObject.cs" />
     <Compile Include="Blade\NumberExtensions.cs" />
     <Compile Include="Blade\ObjectExtensions.cs" />
     <Compile Include="Blade\Reflection\Let.cs" />

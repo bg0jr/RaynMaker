@@ -1,13 +1,9 @@
 ﻿using System.Collections.Generic;
-using Blade;
 using Blade.Reflection;
-using System.ComponentModel;
-using System.ComponentModel.Design;
-using System.Drawing.Design;
 
 namespace RaynMaker.Import.Spec
 {
-    public class DatumLocator : INamedObject
+    public class DatumLocator
     {
         public DatumLocator( string datum, params Site[] sites )
             : this( datum, new List<Site>( sites ) )
@@ -25,11 +21,6 @@ namespace RaynMaker.Import.Spec
             Datum = rules.ApplyTo<string>( () => provider.Datum );
             Sites = rules.ApplyTo<IList<Site>>( () => provider.Sites );
         }
-
-        /// <summary>
-        /// Actually returns the datum.
-        /// </summary>
-        public string Name { get { return Datum; } }
        
         public string Datum { get; private set; }
 

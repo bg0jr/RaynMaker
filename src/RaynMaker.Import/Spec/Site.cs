@@ -3,7 +3,7 @@ using Blade.Reflection;
 
 namespace RaynMaker.Import.Spec
 {
-    public class Site : INamedObject
+    public class Site 
     {
         public Site( string name )
             : this( name, null, null, null )

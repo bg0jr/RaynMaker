@@ -23,7 +23,7 @@ namespace RaynMaker.Import.Providers
         }
 
         public DatumLocator Locator { get; private set; }
-        
+
         /// <summary>
         /// Gets/sets the <see cref="IResultPolicy"/>.
         /// Default: <see cref="FirstNonNullPolicy"/>
@@ -37,7 +37,7 @@ namespace RaynMaker.Import.Providers
             }
             set
             {
-                myResultPolicy = (value != null ? value : new FirstNonNullPolicy());
+                myResultPolicy = ( value != null ? value : new FirstNonNullPolicy() );
             }
         }
 
@@ -54,12 +54,12 @@ namespace RaynMaker.Import.Providers
             }
             set
             {
-                myFetchPolicy = (value != null ? value : new PassThroughPolicy());
+                myFetchPolicy = ( value != null ? value : new PassThroughPolicy() );
             }
         }
 
         public string Datum { get { return Locator.Datum; } }
-        
+
         /// <summary>
         /// Tries to fetch data from the given sites.
         /// If a site result passes the ResultValidator the fetching stops.
@@ -67,14 +67,14 @@ namespace RaynMaker.Import.Providers
         /// </summary>
         public IResultPolicy Fetch()
         {
-            Site site = Locator.Sites.FirstOrDefault( s => Fetch( s, Locator.Name ) );
-            if ( site == null )
+            Site site = Locator.Sites.FirstOrDefault( s => Fetch( s, Locator.Datum ) );
+            if( site == null )
             {
                 return null;
             }
 
             // finish the table
-            if ( ResultPolicy.ResultTable != null )
+            if( ResultPolicy.ResultTable != null )
             {
                 // XXX: find a better way
                 ResultPolicy.ResultTable.TableName = Locator.Datum;
@@ -93,7 +93,7 @@ namespace RaynMaker.Import.Providers
                 modifiedNavigation = FetchPolicy.GetNavigation( site );
 
                 var doc = myBrowser.GetDocument( modifiedNavigation );
-                if ( doc == null )
+                if( doc == null )
                 {
                     throw new Exception( "Failed to navigate to the document" );
                 }
@@ -102,14 +102,14 @@ namespace RaynMaker.Import.Providers
                 var result = FetchPolicy.ApplyPreprocessing( doc.ExtractTable( modifiedFormat ) );
 
                 // valid result? stop fetching?
-                if ( ResultPolicy.Validate( site, result ) )
+                if( ResultPolicy.Validate( site, result ) )
                 {
                     return true;
                 }
 
                 throw new Exception( "Result not valid" );
             }
-            catch ( Exception ex )
+            catch( Exception ex )
             {
                 ex.Data[ "Datum" ] = datum;
                 ex.Data[ "SiteName" ] = site.Name;
@@ -135,35 +135,35 @@ namespace RaynMaker.Import.Providers
 
             try
             {
-                if ( result == null || result.ResultTable == null )
+                if( result == null || result.ResultTable == null )
                 {
                     throw new InvalidOperationException( "Could not get any result" );
                 }
 
-                if ( result.ResultTable.Rows.Count > 1 )
+                if( result.ResultTable.Rows.Count > 1 )
                 {
                     throw new InvalidOperationException( "Result contains non-scalar data" );
                 }
 
                 var valueCols = result.ResultTable.Columns.ToSet().Where( c => !c.IsDateColumn() ).ToList();
-                if ( valueCols.Count == 0 )
+                if( valueCols.Count == 0 )
                 {
                     throw new InvalidOperationException( "Could not find a value column in result" );
                 }
-                else if ( valueCols.Count > 1 )
+                else if( valueCols.Count > 1 )
                 {
                     throw new InvalidOperationException( "Result contains more than one value column" );
                 }
 
                 var value = result.ResultTable.Rows[ 0 ][ valueCols[ 0 ].ColumnName ];
-                if ( value == DBNull.Value )
+                if( value == DBNull.Value )
                 {
                     throw new InvalidOperationException( "Could not get any result (got empty table)" );
                 }
 
-                return new SingleResultValue<T>( result.Sites.Single(), (T)value );
+                return new SingleResultValue<T>( result.Sites.Single(), ( T )value );
             }
-            catch ( Exception ex )
+            catch( Exception ex )
             {
                 var exception = new ApplicationException( ex.Message, ex );
                 exception.Data[ "Locator.Datum" ] = Locator.Datum;
