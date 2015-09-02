@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using Blade;
 using Blade.Collections;
-using Blade.Reflection;
 using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import

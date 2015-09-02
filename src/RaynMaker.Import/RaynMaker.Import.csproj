@@ -45,11 +45,6 @@
     <Compile Include="Blade\IO\CsvReader.cs" />
     <Compile Include="Blade\NumberExtensions.cs" />
     <Compile Include="Blade\ObjectExtensions.cs" />
-    <Compile Include="Blade\Reflection\Let.cs" />
-    <Compile Include="Blade\Reflection\MemberMatcher.cs" />
-    <Compile Include="Blade\Reflection\Reflector.cs" />
-    <Compile Include="Blade\Reflection\TransformAction.cs" />
-    <Compile Include="Blade\Reflection\TransformActionSet.cs" />
     <Compile Include="Blade\StringBuilderExtensions.cs" />
     <Compile Include="Blade\StringExtensions.cs" />
     <Compile Include="Blade\Text\Evaluator.cs" />
