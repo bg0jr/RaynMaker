@@ -17,7 +17,7 @@ namespace RaynMaker.Import.Spec
         public static Navigation Empty = new Navigation();
 
         private Navigation()
-            :this( DocumentType.None)
+            : this( DocumentType.None )
         {
         }
 
@@ -27,7 +27,7 @@ namespace RaynMaker.Import.Spec
         }
 
         public Navigation( DocumentType docType, params NavigatorUrl[] urls )
-            : this( docType, (IEnumerable<NavigatorUrl>)urls )
+            : this( docType, ( IEnumerable<NavigatorUrl> )urls )
         {
         }
 
@@ -47,10 +47,10 @@ namespace RaynMaker.Import.Spec
             return hashCodeString.GetHashCode();
         }
 
-        public Navigation( Navigation navi, params TransformAction[] rules )
+        public Navigation( DocumentType docType, IArray<NavigatorUrl> uris )
         {
-            DocumentType = rules.ApplyTo<DocumentType>( () => navi.DocumentType );
-            Uris = rules.ApplyTo<IArray<NavigatorUrl>>( () => navi.Uris );
+            DocumentType = docType;
+            Uris = uris;
 
             UrisHashCode = CreateUrisHashCode();
         }
@@ -69,7 +69,7 @@ namespace RaynMaker.Import.Spec
             sb.Append( DocumentType );
 
             sb.Append( ", Uris: [" );
-            foreach ( var uri in Uris )
+            foreach( var uri in Uris )
             {
                 sb.Append( uri.ToString() );
                 sb.Append( "," );

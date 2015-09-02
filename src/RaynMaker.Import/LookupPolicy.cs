@@ -50,8 +50,7 @@ namespace RaynMaker.Import
 
         public Navigation GetNavigation( Site site )
         {
-            return new Navigation( site.Navigation,
-                Let.Member( () => site.Navigation.Uris ).Become( Update( site.Navigation.Uris ) ) );
+            return new Navigation( site.Navigation.DocumentType, Update( site.Navigation.Uris ) );
         }
 
         public IFormat GetFormat( Site site )
@@ -60,47 +59,47 @@ namespace RaynMaker.Import
 
             // XXX: find a better way!!
             //      go for transformation rules
-            foreach ( var pi in newFormat.GetType().GetProperties() )
+            foreach( var pi in newFormat.GetType().GetProperties() )
             {
-                if ( !pi.CanWrite )
+                if( !pi.CanWrite )
                 {
                     continue;
                 }
 
-                if ( pi.PropertyType == typeof( string ) )
+                if( pi.PropertyType == typeof( string ) )
                 {
-                    pi.SetValue( newFormat, LookupInternal( (string)pi.GetValue( newFormat, null ) ), null );
+                    pi.SetValue( newFormat, LookupInternal( ( string )pi.GetValue( newFormat, null ) ), null );
                 }
-                else if ( pi.PropertyType == typeof( Anchor ) )
+                else if( pi.PropertyType == typeof( Anchor ) )
                 {
                     // xxx: hack to get string replacement in anchors running
-                    var anchor = (Anchor)pi.GetValue( newFormat, null );
-                    if ( anchor != null )
+                    var anchor = ( Anchor )pi.GetValue( newFormat, null );
+                    if( anchor != null )
                     {
                         var colLocator = anchor.Column;
                         var rowLocator = anchor.Row;
                         var locator = colLocator as StringContainsLocator;
-                        if ( locator != null )
+                        if( locator != null )
                         {
                             colLocator = new StringContainsLocator( locator.SeriesToScan, LookupInternal( locator.Pattern ) );
                         }
                         locator = rowLocator as StringContainsLocator;
-                        if ( locator != null )
+                        if( locator != null )
                         {
                             rowLocator = new StringContainsLocator( locator.SeriesToScan, LookupInternal( locator.Pattern ) );
                         }
                         pi.SetValue( newFormat, Anchor.ForCell( rowLocator, colLocator ), null );
                     }
                 }
-                else if ( pi.PropertyType.HasInterface( typeof( IEnumerable ) ) )
+                else if( pi.PropertyType.HasInterface( typeof( IEnumerable ) ) )
                 {
                     var list = new List<object>();
                     bool changed = false;
-                    foreach ( var obj in (IEnumerable)pi.GetValue( newFormat, null ) )
+                    foreach( var obj in ( IEnumerable )pi.GetValue( newFormat, null ) )
                     {
-                        if ( obj.GetType() == typeof( string ) )
+                        if( obj.GetType() == typeof( string ) )
                         {
-                            list.Add( LookupInternal( (string)obj ) );
+                            list.Add( LookupInternal( ( string )obj ) );
                             changed = true;
                         }
                         else
@@ -109,9 +108,9 @@ namespace RaynMaker.Import
                         }
                     }
 
-                    if ( changed )
+                    if( changed )
                     {
-                        if ( pi.PropertyType.IsArray )
+                        if( pi.PropertyType.IsArray )
                         {
                             throw new NotSupportedException( "Unable to handle properties of type System.Array" );
                         }
@@ -155,13 +154,13 @@ namespace RaynMaker.Import
 
         private Formular TransformFormular( Formular originalFormular )
         {
-            if ( originalFormular == null )
+            if( originalFormular == null )
             {
                 return null;
             }
 
             var transformedForm = new Formular( originalFormular.Name );
-            foreach ( var origParam in originalFormular.Parameters )
+            foreach( var origParam in originalFormular.Parameters )
             {
                 transformedForm.Parameters[ origParam.Key ] = LookupInternal( origParam.Value );
             }
@@ -172,7 +171,7 @@ namespace RaynMaker.Import
         private string LookupTable( string str )
         {
             StringBuilder sb = new StringBuilder( str );
-            foreach ( var pair in Lut )
+            foreach( var pair in Lut )
             {
                 sb.Replace( pair.Key, pair.Value );
             }
