@@ -11,15 +11,13 @@ namespace RaynMaker.Import.Providers
         private static readonly ILogger myLogger = LoggerFactory.GetLogger( typeof( GenericDatumProvider ) );
 
         private IDocumentBrowser myBrowser;
-        private IResultPolicy myResultPolicy;
-        private IFetchPolicy myFetchPolicy;
 
         public GenericDatumProvider( IDocumentBrowser browser, DatumLocator locator, IFetchPolicy fetchPolicy, IResultPolicy resultPolicy )
         {
             myBrowser = browser;
             Locator = locator;
-            FetchPolicy = fetchPolicy;
-            ResultPolicy = resultPolicy;
+            FetchPolicy = fetchPolicy ?? new PassThroughPolicy();
+            ResultPolicy = resultPolicy ?? new FirstNonNullPolicy();
         }
 
         public DatumLocator Locator { get; private set; }
@@ -29,34 +27,14 @@ namespace RaynMaker.Import.Providers
         /// Default: <see cref="FirstNonNullPolicy"/>
         /// If null is passed in the default is used again.
         /// </summary>
-        public IResultPolicy ResultPolicy
-        {
-            get
-            {
-                return myResultPolicy;
-            }
-            set
-            {
-                myResultPolicy = ( value != null ? value : new FirstNonNullPolicy() );
-            }
-        }
+        public IResultPolicy ResultPolicy { get; private set; }
 
         /// <summary>
         /// Gets/sets the <see cref="IFetchPolicy"/>.
         /// Default: <see cref="PassThroughPolicy"/>
         /// If null is passed in the default is used again.
         /// </summary>
-        public IFetchPolicy FetchPolicy
-        {
-            get
-            {
-                return myFetchPolicy;
-            }
-            set
-            {
-                myFetchPolicy = ( value != null ? value : new PassThroughPolicy() );
-            }
-        }
+        public IFetchPolicy FetchPolicy { get; private set; }
 
         public string Datum { get { return Locator.Datum; } }
 

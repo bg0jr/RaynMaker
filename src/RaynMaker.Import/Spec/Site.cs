@@ -18,14 +18,6 @@ namespace RaynMaker.Import.Spec
             Content = content;
         }
 
-        public Site( Site site, params TransformAction[] rules )
-        {
-            Name = rules.ApplyTo<string>( () => site.Name );
-            Navigation = rules.ApplyTo<Navigation>( () => site.Navigation );
-            Format = rules.ApplyTo<IFormat>( () => site.Format );
-            Content = rules.ApplyTo<DataContent>( () => site.Content );
-        }
-
         public string Name { get; private set; }
 
         public Navigation Navigation { get; set; }

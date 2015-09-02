@@ -24,18 +24,6 @@ namespace RaynMaker.Import.Spec
             TimeAxisPosition = -1;
         }
 
-        protected AbstractSeriesFormat( AbstractSeriesFormat format, params TransformAction[] rules )
-            : base( format, rules )
-        {
-            Expand = rules.ApplyTo<CellDimension>( () => format.Expand );
-
-            SeriesNamePosition = rules.ApplyTo<int>( () => format.SeriesNamePosition );
-            TimeAxisPosition = rules.ApplyTo<int>( () => format.TimeAxisPosition );
-
-            ValueFormat = rules.ApplyTo<FormatColumn>( () => format.ValueFormat );
-            TimeAxisFormat = rules.ApplyTo<FormatColumn>( () => format.TimeAxisFormat );
-        }
-
         /// <summary>
         /// Creates a deep copy of the given object.
         /// </summary>

@@ -24,14 +24,6 @@ namespace RaynMaker.Import.Spec
             SkipRows = null;
         }
 
-        /// <summary/>
-        protected AbstractDimensionalFormat( AbstractDimensionalFormat format, params TransformAction[] rules )
-            : base( format, rules )
-        {
-            SkipColumns = rules.ApplyTo<int[]>( () => format.SkipColumns );
-            SkipRows = rules.ApplyTo<int[]>( () => format.SkipRows );
-        }
-
         /// <summary>
         /// Rows to skip while parsing input.
         /// </summary>

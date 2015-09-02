@@ -16,12 +16,6 @@ namespace RaynMaker.Import.Spec
             Sites = sites;
         }
 
-        public DatumLocator( DatumLocator provider, params TransformAction[] rules )
-        {
-            Datum = rules.ApplyTo<string>( () => provider.Datum );
-            Sites = rules.ApplyTo<IList<Site>>( () => provider.Sites );
-        }
-       
         public string Datum { get; private set; }
 
         public IList<Site> Sites { get; private set; }
