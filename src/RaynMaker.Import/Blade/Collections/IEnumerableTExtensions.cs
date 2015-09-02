@@ -58,53 +58,7 @@ namespace Blade.Collections
                 action( current, num++ );
             }
         }
-        /// <summary>
-        /// Removes the elements of the given list for which the predicate returns true.
-        /// </summary>
-        public static void RemoveIf<T>( this IList<T> list, Func<T, bool> pred )
-        {
-            list.Where( pred ).ToList<T>().Foreach( delegate( T x )
-            {
-                list.Remove( x );
-            } );
-        }
-        /// <summary>
-        /// Returns the first element of the given list for which pred returns true.
-        /// If nothing was found the given defaultValue will be returned.
-        /// </summary>
-        public static T FirstOrDefault<T>( this IEnumerable<T> list, Predicate<T> pred, T defaultValue )
-        {
-            foreach( T current in list )
-            {
-                if( pred( current ) )
-                {
-                    return current;
-                }
-            }
-            return defaultValue;
-        }
-        /// <summary>
-        /// Returns concatenated enumerable of the given values.
-        /// </summary>
-        public static IEnumerable<T> Concat<T>( this IEnumerable<T> list, params T[] values )
-        {
-            foreach( T current in list )
-            {
-                yield return current;
-            }
-            try
-            {
-                for( int i = 0; i < values.Length; i++ )
-                {
-                    T t = values[ i ];
-                    yield return t;
-                }
-            }
-            finally
-            {
-            }
-            yield break;
-        }
+
         /// <summary>
         /// Concats the given input lists.
         /// The input lists are not modified.
@@ -132,59 +86,7 @@ namespace Blade.Collections
             }
             yield break;
         }
-        /// <summary>
-        /// Substracts the right-hand-side array from the left-hand-site IEnumerable.
-        /// </summary>
-        public static IEnumerable<T> Substract<T>( this IEnumerable<T> lhs_in, params T[] rhs_in )
-        {
-            return
-                from e in lhs_in
-                where !rhs_in.Contains( e )
-                select e;
-        }
-        /// <summary>
-        /// Substracts the right-hand-side IEnumerable from the left-hand-site IEnumerable.
-        /// </summary>
-        public static IEnumerable<T> Substract<T>( this IEnumerable<T> lhs_in, IEnumerable<T> rhs_in )
-        {
-            return
-                from e in lhs_in
-                where !rhs_in.Contains( e )
-                select e;
-        }
-        /// <summary>
-        /// Checks whether the given two arrays are equal. Means: both
-        /// arrays contain the same elements independent of the element 
-        /// order in the arrays.
-        /// </summary>
-        public static bool IsSame<T>( this IEnumerable<T> lhs_in, IEnumerable<T> rhs_in )
-        {
-            return lhs_in.All( ( T e ) => rhs_in.Contains( e ) ) && rhs_in.All( ( T e ) => lhs_in.Contains( e ) );
-        }
-        /// <summary>
-        /// Returns a IList representation of the given list or null if the 
-        /// argument is null.
-        /// </summary>
-        public static IList<T> ToListOrDefault<T>( this IEnumerable<T> list )
-        {
-            if( list == null )
-            {
-                return null;
-            }
-            return list.ToList<T>();
-        }
-        /// <summary>
-        /// Returns a Queue representation of the given list or null if the 
-        /// argument is null.
-        /// </summary>
-        public static Queue<T> ToQueueOrDefault<T>( this IEnumerable<T> list )
-        {
-            if( list == null )
-            {
-                return null;
-            }
-            return new Queue<T>( list );
-        }
+
         /// <summary />
         public static int IndexOf<T>( this IEnumerable<T> list, Func<T, bool> pred )
         {
@@ -199,74 +101,7 @@ namespace Blade.Collections
             }
             return -1;
         }
-        /// <summary>
-        /// Intersects all sets of the given super set.
-        /// </summary>
-        /// <returns>null if super set is null, empty set if super set is empty</returns>
-        public static IEnumerable<T> IntersectAll<T>( this IEnumerable<IEnumerable<T>> superSet )
-        {
-            if( superSet == null )
-            {
-                return null;
-            }
-            if( !superSet.Any<IEnumerable<T>>() )
-            {
-                return new List<T>();
-            }
-            IEnumerable<T> enumerable = superSet.First<IEnumerable<T>>();
-            foreach( IEnumerable<T> current in superSet.Skip( 1 ) )
-            {
-                enumerable = enumerable.Intersect( current );
-            }
-            return enumerable;
-        }
-        /// <summary>
-        /// Returns elements from the sequence until the condition is true.
-        /// The element for which the condition became true will also be returned.
-        /// </summary>
-        public static IEnumerable<T> TakeUntil<T>( this IEnumerable<T> list, Func<T, bool> predicate )
-        {
-            foreach( T current in list )
-            {
-                yield return current;
-                if( predicate( current ) )
-                {
-                    yield break;
-                }
-            }
-            yield break;
-        }
-        /// <summary />
-        public static bool IsEmpty<T>( this IEnumerable<T> list )
-        {
-            return !list.Any<T>();
-        }
 
-        /// <summary>
-        /// Filers the set by the given type.
-        /// </summary>
-        public static IEnumerable Is<T>( this IEnumerable list )
-        {
-            foreach( object current in list )
-            {
-                if( current is T )
-                {
-                    yield return current;
-                }
-            }
-            yield break;
-        }
-        /// <summary>
-        /// Loops over the given set and executes the given action for each
-        /// item in the set. Passes the item itself and its index to the action.
-        /// </summary>
-        public static void Foreach( this IEnumerable list, Action<object> action )
-        {
-            foreach( object current in list )
-            {
-                action( current );
-            }
-        }
         /// <summary>
         /// Converts the given set into a generic one so that
         /// it can be used with LinQ.
