@@ -44,8 +44,6 @@
     <Compile Include="Blade\FallibleActionResult.cs" />
     <Compile Include="Blade\IO\CsvReader.cs" />
     <Compile Include="Blade\NumberExtensions.cs" />
-    <Compile Include="Blade\ObjectExtensions.cs" />
-    <Compile Include="Blade\StringBuilderExtensions.cs" />
     <Compile Include="Blade\StringExtensions.cs" />
     <Compile Include="Blade\Text\Evaluator.cs" />
     <Compile Include="Blade\TypeExtensions.cs" />

@@ -30,30 +30,15 @@ namespace Blade
         /// <summary>
         /// Checks the given condition.
         /// </summary>
-        [Conditional( "DBC_CHECK_ALL" )]
-        public static void Assert<T>( this T obj, Expression<Func<T, bool>> pred )
-        {
-            obj.Require( pred, null );
-        }
-        /// <summary>
-        /// Checks the given condition and throws the given message if it fails.
-        /// </summary>
-        [Conditional( "DBC_CHECK_ALL" )]
-        public static void Assert<T>( this T obj, Expression<Func<T, bool>> pred, string msg )
-        {
-            obj.Require( pred, msg );
-        }
-        /// <summary>
-        /// Checks the given condition.
-        /// </summary>
         public static void Require<T>( this T obj, Expression<Func<T, bool>> pred )
         {
             obj.Require( pred, null );
         }
+
         /// <summary>
         /// Checks the given condition and throws the given message if it fails.
         /// </summary>
-        public static void Require<T>( this T obj, Expression<Func<T, bool>> pred, string msg )
+        private static void Require<T>( this T obj, Expression<Func<T, bool>> pred, string msg )
         {
             Func<T, bool> func = pred.Compile();
             if( func( obj ) )

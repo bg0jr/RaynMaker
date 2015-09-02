@@ -30,7 +30,8 @@ namespace Blade.Collections
             sb.Append( t.ToString() );
             list.Skip( 1 ).Foreach( delegate( T item )
             {
-                sb.Append( sep ).Add( item.ToString() );
+                sb.Append( sep );
+                sb.Append( item.ToString() );
             } );
             return sb.ToString();
         }
