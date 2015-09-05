@@ -1,4 +1,5 @@
-﻿
+﻿using System.Collections.Generic;
+
 namespace RaynMaker.Import.Spec
 {
     public class Site
@@ -12,7 +13,7 @@ namespace RaynMaker.Import.Spec
         {
             Name = name;
             Navigation = navi;
-            Format = format;
+            Formats = new List<IFormat> { format };
             Content = content;
         }
 
@@ -20,7 +21,7 @@ namespace RaynMaker.Import.Spec
 
         public Navigation Navigation { get; set; }
 
-        public IFormat Format { get; set; }
+        public IList<IFormat> Formats { get; private set; }
 
         public DataContent Content { get; set; }
     }

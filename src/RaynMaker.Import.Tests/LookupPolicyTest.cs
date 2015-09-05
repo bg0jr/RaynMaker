@@ -1,9 +1,9 @@
-﻿using NUnit.Framework;
-using RaynMaker.Import;
+﻿using System.Linq;
+using NUnit.Framework;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Tests;
 
-namespace  RaynMaker.Import.Providers
+namespace RaynMaker.Import.Providers
 {
     [TestFixture]
     public class LookupPolicyTest : TestBase
@@ -22,9 +22,9 @@ namespace  RaynMaker.Import.Providers
             var fetchPolicy = new LookupPolicy();
             fetchPolicy.Lut[ "${TableIndex}" ] = "0";
 
-            var format = (SeparatorSeriesFormat)fetchPolicy.GetFormat( site );
+            var format = ( SeparatorSeriesFormat )fetchPolicy.GetFormat( site.Formats.Single() );
 
-            Assert.That( ( (StringContainsLocator)format.Anchor.Row ).Pattern, Is.EqualTo( ">>0<<" ) );
+            Assert.That( ( ( StringContainsLocator )format.Anchor.Row ).Pattern, Is.EqualTo( ">>0<<" ) );
         }
     }
 }

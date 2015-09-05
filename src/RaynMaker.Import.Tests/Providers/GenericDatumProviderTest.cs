@@ -1,11 +1,10 @@
 ﻿using System;
-using Blade.Data;
-using Blade.IO;
-using RaynMaker.Import;
-using RaynMaker.Import.Providers;
-using NUnit.Framework;
-using RaynMaker.Import.Spec;
 using System.IO;
+using System.Linq;
+using Blade.Data;
+using NUnit.Framework;
+using RaynMaker.Import.Providers;
+using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Tests.Providers
 {
@@ -24,7 +23,7 @@ namespace RaynMaker.Import.Tests.Providers
             DatumLocator locator = new DatumLocator( "StockPrices",
                 new Site( "Ariva",
                     new Navigation( DocumentType.Html,
-                        Path.Combine( TestDataRoot,  "ariva.prices.${stock.isin}.html" ) ),
+                        Path.Combine( TestDataRoot, "ariva.prices.${stock.isin}.html" ) ),
                     new PathTableFormat( "Ariava.Prices",
                         "/BODY[0]/DIV[5]/DIV[0]/DIV[3]/DIV[0]/TABLE[${TableIndex}]",
                         new FormatColumn( "date", typeof( DateTime ), "dd.MM.yy" ),
@@ -46,7 +45,7 @@ namespace RaynMaker.Import.Tests.Providers
 
             var result = provider.Fetch();
 
-            Assert.AreEqual( "/BODY[0]/DIV[5]/DIV[0]/DIV[3]/DIV[0]/TABLE[${TableIndex}]", ((PathTableFormat)locator.Sites[ 0 ].Format).Path );
+            Assert.AreEqual( "/BODY[0]/DIV[5]/DIV[0]/DIV[3]/DIV[0]/TABLE[${TableIndex}]", ( ( PathTableFormat )locator.Sites[ 0 ].Formats.Single() ).Path );
 
             Assert.IsNotNull( result );
             Assert.IsNotNull( result.ResultTable );
@@ -61,15 +60,15 @@ namespace RaynMaker.Import.Tests.Providers
             Assert.AreEqual( "close", table.Columns[ 2 ].ColumnName );
             Assert.AreEqual( "volume", table.Columns[ 3 ].ColumnName );
 
-            Assert.AreEqual( GetDate( "2008-07-07" ), (DateTime)table.Rows[ 0 ][ "date" ] );
-            Assert.AreEqual( 38.37d, (double)table.Rows[ 0 ][ "open" ], 0.000001d );
-            Assert.AreEqual( 38.93d, (double)table.Rows[ 0 ][ "close" ], 0.000001d );
-            Assert.AreEqual( 1155400, (int)table.Rows[ 0 ][ "volume" ] );
+            Assert.AreEqual( GetDate( "2008-07-07" ), ( DateTime )table.Rows[ 0 ][ "date" ] );
+            Assert.AreEqual( 38.37d, ( double )table.Rows[ 0 ][ "open" ], 0.000001d );
+            Assert.AreEqual( 38.93d, ( double )table.Rows[ 0 ][ "close" ], 0.000001d );
+            Assert.AreEqual( 1155400, ( int )table.Rows[ 0 ][ "volume" ] );
 
-            Assert.AreEqual( GetDate( "2008-06-09" ), (DateTime)table.Rows[ 20 ][ "date" ] );
-            Assert.AreEqual( 45.21d, (double)table.Rows[ 20 ][ "open" ], 0.000001d );
-            Assert.AreEqual( 44.50d, (double)table.Rows[ 20 ][ "close" ], 0.000001d );
-            Assert.AreEqual( 1113865, (int)table.Rows[ 20 ][ "volume" ] );
+            Assert.AreEqual( GetDate( "2008-06-09" ), ( DateTime )table.Rows[ 20 ][ "date" ] );
+            Assert.AreEqual( 45.21d, ( double )table.Rows[ 20 ][ "open" ], 0.000001d );
+            Assert.AreEqual( 44.50d, ( double )table.Rows[ 20 ][ "close" ], 0.000001d );
+            Assert.AreEqual( 1113865, ( int )table.Rows[ 20 ][ "volume" ] );
         }
 
         [Test]
@@ -105,10 +104,10 @@ namespace RaynMaker.Import.Tests.Providers
 
             Assert.AreEqual( 6, table.Rows.Count );
 
-            Assert.AreEqual( 2002, (int)table.Rows[ 0 ][ 1 ] );
-            Assert.AreEqual( 0.64d, (double)table.Rows[ 0 ][ 0 ], 0.00001d );
-            Assert.AreEqual( 2007, (int)table.Rows[ 5 ][ 1 ] );
-            Assert.AreEqual( 13.65d, (double)table.Rows[ 5 ][ 0 ], 0.00001d );
+            Assert.AreEqual( 2002, ( int )table.Rows[ 0 ][ 1 ] );
+            Assert.AreEqual( 0.64d, ( double )table.Rows[ 0 ][ 0 ], 0.00001d );
+            Assert.AreEqual( 2007, ( int )table.Rows[ 5 ][ 1 ] );
+            Assert.AreEqual( 13.65d, ( double )table.Rows[ 5 ][ 0 ], 0.00001d );
         }
     }
 }

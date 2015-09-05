@@ -14,9 +14,9 @@ namespace RaynMaker.Import
         /// without any modification.
         /// <seealso cref="IFetchPolicy.GetNavigation"/>
         /// </summary>
-        public virtual Navigation GetNavigation( Site site )
+        public virtual Navigation GetNavigation( Navigation navigation )
         {
-            return site.Navigation;
+            return navigation;
         }
 
         /// <summary>
@@ -24,9 +24,9 @@ namespace RaynMaker.Import
         /// without any modification.
         /// <seealso cref="IFetchPolicy.GetFormat"/>
         /// </summary>
-        public virtual IFormat GetFormat( Site site )
+        public virtual IFormat GetFormat( IFormat format )
         {
-            return site.Format;
+            return format;
         }
 
         /// <summary>

@@ -47,14 +47,14 @@ namespace RaynMaker.Import
         /// </summary>
         public Func<string, string> Lookup { get; private set; }
 
-        public Navigation GetNavigation( Site site )
+        public Navigation GetNavigation( Navigation navigation )
         {
-            return new Navigation( site.Navigation.DocumentType, Update( site.Navigation.Uris ).ToList() );
+            return new Navigation( navigation.DocumentType, Update( navigation.Uris ).ToList() );
         }
 
-        public IFormat GetFormat( Site site )
+        public IFormat GetFormat( IFormat format )
         {
-            var newFormat = site.Format.Clone();
+            var newFormat = format.Clone();
 
             // XXX: find a better way!!
             //      go for transformation rules

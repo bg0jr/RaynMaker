@@ -66,23 +66,44 @@ namespace RaynMaker.Import.Providers
             Navigation modifiedNavigation = null;
             IFormat modifiedFormat = null;
 
+            IDocument doc = null;
+
             try
             {
-                modifiedNavigation = FetchPolicy.GetNavigation( site );
+                modifiedNavigation = FetchPolicy.GetNavigation( site.Navigation );
 
-                var doc = myBrowser.GetDocument( modifiedNavigation );
+                doc = myBrowser.GetDocument( modifiedNavigation );
                 if( doc == null )
                 {
                     throw new Exception( "Failed to navigate to the document" );
                 }
+            }
+            catch( Exception ex )
+            {
+                ex.Data[ "Datum" ] = datum;
+                ex.Data[ "SiteName" ] = site.Name;
+                ex.Data[ "OriginalNavigation" ] = site.Navigation;
+                ex.Data[ "ModifiedNavigation" ] = modifiedNavigation;
 
-                modifiedFormat = FetchPolicy.GetFormat( site );
-                var result = FetchPolicy.ApplyPreprocessing( doc.ExtractTable( modifiedFormat ) );
+                myLogger.Warning( ex, "Failed to fetch '{0}' from site {1}", datum, site.Name );
+            }
 
-                // valid result? stop fetching?
-                if( ResultPolicy.Validate( site, result ) )
+            IFormat origFormat = null;
+
+            try
+            {
+                foreach( var format in site.Formats )
                 {
-                    return true;
+                    origFormat = format;
+
+                    modifiedFormat = FetchPolicy.GetFormat( origFormat );
+                    var result = FetchPolicy.ApplyPreprocessing( doc.ExtractTable( modifiedFormat ) );
+
+                    // valid result? stop fetching?
+                    if( ResultPolicy.Validate( site, result ) )
+                    {
+                        return true;
+                    }
                 }
 
                 throw new Exception( "Result not valid" );
@@ -91,7 +112,7 @@ namespace RaynMaker.Import.Providers
             {
                 ex.Data[ "Datum" ] = datum;
                 ex.Data[ "SiteName" ] = site.Name;
-                ex.Data[ "OriginalFormat" ] = site.Format;
+                ex.Data[ "OriginalFormat" ] = origFormat;
                 ex.Data[ "OriginalNavigation" ] = site.Navigation;
                 ex.Data[ "ModifiedFormat" ] = modifiedFormat;
                 ex.Data[ "ModifiedNavigation" ] = modifiedNavigation;
