@@ -4,6 +4,7 @@ using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Import.Core;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Web.Model;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
@@ -15,9 +16,11 @@ namespace RaynMaker.Import.Web.ViewModels
         public WebSpyViewModel()
         {
             AddressBar = new AddressBarViewModel();
-            Datums = new DatumSelectionViewModel();
-            Navigation = new NavigationViewModel();
-            DataFormat = new DataFormatViewModel();
+
+            var session = new Session();
+            Datums = new DatumSelectionViewModel( session );
+            Navigation = new NavigationViewModel( session );
+            DataFormat = new DataFormatViewModel( session );
         }
 
         public System.Windows.Forms.WebBrowser Browser
@@ -45,8 +48,7 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             if( Navigation.IsCapturing )
             {
-                Navigation.NavigationUrls += new NavigatorUrl( UriType.Request, e.Url ).ToString();
-                Navigation.NavigationUrls += Environment.NewLine;
+                Navigation.Urls.Add( new NavigatorUrl( UriType.Request, e.Url ) );
             }
         }
 
@@ -58,8 +60,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             if( Navigation.IsCapturing )
             {
-                Navigation.NavigationUrls += new NavigatorUrl( UriType.Response, myDocumentBrowser.Browser.Document.Url ).ToString();
-                Navigation.NavigationUrls += Environment.NewLine;
+                Navigation.Urls.Add( new NavigatorUrl( UriType.Response, myDocumentBrowser.Browser.Document.Url ) );
             }
         }
 

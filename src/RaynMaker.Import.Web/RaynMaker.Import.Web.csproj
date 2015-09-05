@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="IBrowser.cs" />
     <Compile Include="ImportWebModule.cs" />
+    <Compile Include="Model\Session.cs" />
     <Compile Include="ViewModels\AddressBarViewModel.cs" />
     <Compile Include="ViewModels\DataFormatViewModel.cs" />
     <Compile Include="ViewModels\DatumSelectionViewModel.cs" />
@@ -173,5 +174,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

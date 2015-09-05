@@ -25,14 +25,14 @@ namespace RaynMaker.Import.Spec
         }
 
         public Navigation( DocumentType docType, params NavigatorUrl[] urls )
-            : this( docType, ( IEnumerable<NavigatorUrl> )urls )
+            : this( docType, ( IReadOnlyList<NavigatorUrl> )urls )
         {
         }
 
-        public Navigation( DocumentType docType, IEnumerable<NavigatorUrl> urls )
+        public Navigation( DocumentType docType, IReadOnlyList<NavigatorUrl> urls )
         {
             DocumentType = docType;
-            Uris = urls.ToArrayList();
+            Uris = urls;
 
             UrisHashCode = CreateUrisHashCode();
         }
@@ -45,16 +45,8 @@ namespace RaynMaker.Import.Spec
             return hashCodeString.GetHashCode();
         }
 
-        public Navigation( DocumentType docType, IArray<NavigatorUrl> uris )
-        {
-            DocumentType = docType;
-            Uris = uris;
-
-            UrisHashCode = CreateUrisHashCode();
-        }
-
-        public DocumentType DocumentType { get; private set; }
-        public IArray<NavigatorUrl> Uris { get; private set; }
+        public DocumentType DocumentType { get; set; }
+        public IReadOnlyList<NavigatorUrl> Uris { get; set; }
 
         public int UrisHashCode { get; private set; }
 

@@ -49,7 +49,7 @@ namespace RaynMaker.Import
 
         public Navigation GetNavigation( Site site )
         {
-            return new Navigation( site.Navigation.DocumentType, Update( site.Navigation.Uris ) );
+            return new Navigation( site.Navigation.DocumentType, Update( site.Navigation.Uris ).ToList() );
         }
 
         public IFormat GetFormat( Site site )
@@ -139,9 +139,9 @@ namespace RaynMaker.Import
             return Lookup( str );
         }
 
-        private IArray<NavigatorUrl> Update( IArray<NavigatorUrl> urls )
+        private IEnumerable<NavigatorUrl> Update( IReadOnlyList<NavigatorUrl> urls )
         {
-            return urls.Select( url => TransformNavigatorUrl( url ) ).ToArrayList();
+            return urls.Select( url => TransformNavigatorUrl( url ) );
         }
 
         private NavigatorUrl TransformNavigatorUrl( NavigatorUrl url )

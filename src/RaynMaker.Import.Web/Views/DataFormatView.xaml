@@ -23,7 +23,7 @@
         </Grid.RowDefinitions>
 
         <Grid.Resources>
-            <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type data:CellDimension}" x:Key="CellDimension">
+            <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type data:CellDimension}" x:Key="CellDimensions">
                 <ObjectDataProvider.MethodParameters>
                     <x:Type TypeName="data:CellDimension" />
                 </ObjectDataProvider.MethodParameters>
@@ -37,7 +37,7 @@
 
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Dimension" VerticalAlignment="Center"/>
         <ComboBox Grid.Row="1" Grid.Column="1" Width="100" Margin="5,2,0,0"
-                                      ItemsSource="{Binding Source={StaticResource CellDimension}, Mode=OneTime}" 
+                                      ItemsSource="{Binding Source={StaticResource CellDimensions}, Mode=OneTime}" 
                                       SelectedItem="{Binding SelectedDimension}"/>
 
         <TextBlock Grid.Row="1" Grid.Column="2" Text="Series name contains" VerticalAlignment="Center" Margin="5,0,0,0"/>

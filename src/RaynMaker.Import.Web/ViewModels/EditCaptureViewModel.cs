@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows.Input;
@@ -8,13 +9,15 @@ using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
 using Plainion.Prism.Interactivity.InteractionRequest;
 using Plainion.Windows.Controls;
+using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
     [Export]
     class EditCaptureViewModel : BindableBase, IInteractionRequestAware
     {
-        private string myNavUrls;
+        private IEnumerable<NavigatorUrl> myUrls;
+        private NavigatorUrl mySelectedUrl;
         private string mySelectedMacro;
         private string myRegExp;
         private string myRegExpTarget;
@@ -34,10 +37,16 @@ namespace RaynMaker.Import.Web.ViewModels
             CancelCommand = new DelegateCommand( OnCancel );
         }
 
-        public string NavUrls
+        public IEnumerable<NavigatorUrl> Urls
         {
-            get { return myNavUrls; }
-            set { SetProperty( ref myNavUrls, value ); }
+            get { return myUrls; }
+            set { SetProperty( ref myUrls, value ); }
+        }
+
+        public NavigatorUrl SelectedUrl
+        {
+            get { return mySelectedUrl; }
+            set { SetProperty( ref mySelectedUrl, value ); }
         }
 
         public string SelectedText
@@ -95,7 +104,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             Notification.TrySetConfirmed( true );
 
-            Notification.Content = NavUrls;
+            Notification.Content = Urls;
 
             FinishInteraction();
         }
@@ -116,7 +125,7 @@ namespace RaynMaker.Import.Web.ViewModels
             set
             {
                 myNotification = value;
-                NavUrls = ( string )myNotification.Content;
+                Urls = ( IEnumerable<NavigatorUrl> )myNotification.Content;
             }
         }
     }

@@ -1,7 +1,7 @@
 ﻿
 namespace RaynMaker.Import.Spec
 {
-    public class Site 
+    public class Site
     {
         public Site( string name )
             : this( name, null, null, null )
@@ -16,7 +16,7 @@ namespace RaynMaker.Import.Spec
             Content = content;
         }
 
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
         public Navigation Navigation { get; set; }
 

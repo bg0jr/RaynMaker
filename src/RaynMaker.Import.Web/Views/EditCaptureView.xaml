@@ -19,24 +19,42 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" TextWrapping="NoWrap" AcceptsReturn="True"
-                 Text="{Binding NavUrls, UpdateSourceTrigger=PropertyChanged}" v:TextBoxBinding.SelectedText="{Binding SelectedText}"/>
+        <ListBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" ItemsSource="{Binding Urls}" SelectedItem="{Binding SelectedUrl}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="Macros" VerticalAlignment="Center"/>
-        <ComboBox Grid.Row="1" Grid.Column="1" Margin="5,5,0,0" ItemsSource="{Binding Macros}" SelectedItem="{Binding SelectedMacro}"/>
-        <Button Grid.Row="1" Grid.Column="2" Content="Insert Macro" Margin="5,5,0,0" Command="{Binding InsertMacroCommand}"/>
+                        <TextBlock Grid.Column="0" Text="{Binding UrlType}"/>
+                        <TextBlock Grid.Column="1" Text="{Binding UrlString}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="RegExp" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Margin="5,5,0,0" Width="100" Text="{Binding RegExp}"/>
-        <Button Grid.Row="2" Grid.Column="2" Content="Insert RegExp" Margin="5,5,0,0" Command="{Binding InsertRegExpCommand}"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Url" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,5,0,0"
+                 Text="{Binding SelectedUrl.UrlString}" v:TextBoxBinding.SelectedText="{Binding SelectedText}"/>
 
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="RegExp target" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="3" Grid.Column="1" Margin="5,5,0,0" Width="100" IsEnabled="False" Text="{Binding RegExpTarget}"/>
-        <Button Grid.Row="3" Grid.Column="2" Content="Insert RegExp target" Margin="5,5,0,0" Command="{Binding InsertRegExpTargetCommand}"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Macros" VerticalAlignment="Center"/>
+        <ComboBox Grid.Row="2" Grid.Column="1" Margin="5,5,0,0" ItemsSource="{Binding Macros}" SelectedItem="{Binding SelectedMacro}"/>
+        <Button Grid.Row="2" Grid.Column="2" Content="Insert Macro" Margin="5,5,0,0" Command="{Binding InsertMacroCommand}"/>
 
-        <StackPanel Grid.Row="4" Grid.Column="3"  Orientation="Horizontal" HorizontalAlignment="Right">
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="RegExp" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="5,5,0,0" Width="100" Text="{Binding RegExp}"/>
+        <Button Grid.Row="3" Grid.Column="2" Content="Insert RegExp" Margin="5,5,0,0" Command="{Binding InsertRegExpCommand}"/>
+
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="RegExp target" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Margin="5,5,0,0" Width="100" IsEnabled="False" Text="{Binding RegExpTarget}"/>
+        <Button Grid.Row="4" Grid.Column="2" Content="Insert RegExp target" Margin="5,5,0,0" Command="{Binding InsertRegExpTargetCommand}"/>
+
+        <StackPanel Grid.Row="5" Grid.Column="3"  Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Ok" Margin="5,5,0,0" Command="{Binding OkCommand}" Width="50"/>
             <Button Content="Cancel" Margin="5,5,0,0" Command="{Binding CancelCommand}" Width="50"/>
         </StackPanel>

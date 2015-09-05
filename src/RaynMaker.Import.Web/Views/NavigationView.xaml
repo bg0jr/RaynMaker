@@ -7,6 +7,7 @@
              xmlns:prism="http://www.codeplex.com/prism"
              xmlns:pn="http://github.com/ronin4net/plainion"
              xmlns:l="clr-namespace:RaynMaker.Import.Web"
+             xmlns:spec="clr-namespace:RaynMaker.Import.Spec;assembly=RaynMaker.Import"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <i:Interaction.Triggers>
@@ -28,13 +29,73 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" TextWrapping="NoWrap" AcceptsReturn="True" Height="100"
-                 VerticalAlignment="Top" Text="{Binding NavigationUrls, UpdateSourceTrigger=PropertyChanged}"/>
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <Button Grid.Row="0" Grid.Column="1" Margin="5,0,0,2" Command="{Binding CaptureCommand}">
+            <Grid.Resources>
+                <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type spec:DocumentType}" x:Key="DocumentType">
+                    <ObjectDataProvider.MethodParameters>
+                        <x:Type TypeName="spec:DocumentType" />
+                    </ObjectDataProvider.MethodParameters>
+                </ObjectDataProvider>
+            </Grid.Resources>
+            
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Sites" VerticalAlignment="Center"/>
+            <ComboBox Grid.Row="0" Grid.Column="1" Margin="5,0,0,2" Width="150" ItemsSource="{Binding Sites}" SelectedItem="{Binding SelectedSite}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Grid.Row="0" Grid.Column="2" Margin="5,0,0,2" Command="{Binding AddSiteCommand}">
+                <Image Source="/RaynMaker.Infrastructure;Component/Resources/Add.png" Width="17" Height="17"/>
+            </Button>
+            <Button Grid.Row="0" Grid.Column="3" Margin="5,0,0,2" Command="{Binding RemoveSiteCommand}">
+                <Image Source="/RaynMaker.Infrastructure;Component/Resources/Remove.png" Width="17" Height="17"/>
+            </Button>
+            
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Name" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="5,0,0,2" Text="{Binding SiteName}"/>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Document type" VerticalAlignment="Center"/>
+            <ComboBox Grid.Row="2" Grid.Column="1" Margin="5,0,0,2" Width="150" 
+                      ItemsSource="{Binding Source={StaticResource DocumentType}, Mode=OneTime}" 
+                      SelectedItem="{Binding SelectedDocumentType}"/>
+        </Grid>
+        
+        <ListBox Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" MinHeight="100" VerticalAlignment="Top" Margin="0,3,0,0"
+                 ItemsSource="{Binding Urls}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="{Binding UrlType}"/>
+                        <TextBlock Grid.Column="1" Text="{Binding UrlString}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button Grid.Row="1" Grid.Column="1" Margin="5,3,0,2" Command="{Binding CaptureCommand}">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Content" Value="Start capturing"/>
@@ -49,8 +110,8 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button Grid.Row="1" Grid.Column="1" Content="Edit" Margin="5,2,0,0" Command="{Binding EditCommand}"/>
-        <Button Grid.Row="2" Grid.Column="1" Content="Replay" Margin="5,30,0,2" Command="{Binding ReplayCommand}"
+        <Button Grid.Row="2" Grid.Column="1" Content="Edit" Margin="5,2,0,0" Command="{Binding EditCommand}"/>
+        <Button Grid.Row="3" Grid.Column="1" Content="Replay" Margin="5,30,0,2" Command="{Binding ReplayCommand}"
                 VerticalAlignment="Top" IsEnabled="{Binding IsCapturing, Converter={StaticResource NotConverter}}"/>
     </Grid>
 </UserControl>

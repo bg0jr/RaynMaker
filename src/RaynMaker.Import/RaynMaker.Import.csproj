@@ -30,9 +30,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Blade\Collections\ActiveList.cs" />
-    <Compile Include="Blade\Collections\IArray.cs" />
-    <Compile Include="Blade\Collections\IArrayExtensions.cs" />
     <Compile Include="Blade\Collections\IEnumerableTExtensions.cs" />
     <Compile Include="Blade\Data\CellDimension.cs" />
     <Compile Include="Blade\Data\DataColumnExtensions.cs" />

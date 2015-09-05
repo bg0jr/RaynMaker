@@ -11,7 +11,7 @@
              mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="700">
     <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid DockPanel.Dock="Top" Margin="3">
-            <TabControl Height="140">
+            <TabControl Height="210">
                 <TabItem Header="Datums" DataContext="{Binding Datums}">
                     <l:DatumSelectionView Margin="0"/>
                 </TabItem>

@@ -1,38 +1,158 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Input;
-using Blade;
+using Blade.Collections;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
+using Plainion;
 using RaynMaker.Import.Spec;
-using RaynMaker.Import.Web.Views;
+using RaynMaker.Import.Web.Model;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
     class NavigationViewModel : BindableBase
     {
+        private Session mySession;
+        private Site mySelectedSite;
+        private string mySiteName;
+        private DocumentType mySelectedDocumentType;
         private bool myIsCapturing;
-        private string myNavigationUrls;
 
-        public NavigationViewModel()
+        public NavigationViewModel( Session session )
         {
+            Contract.RequiresNotNull( session, "session" );
+
+            mySession = session;
+
+            PropertyChangedEventManager.AddHandler( mySession, OnCurrentLocatorChanged, PropertySupport.ExtractPropertyName( () => mySession.CurrentLocator ) );
+            OnCurrentLocatorChanged( null, null );
+
+            AddSiteCommand = new DelegateCommand( OnAddSite );
+            RemoveSiteCommand = new DelegateCommand( OnRemoveSite );
+
             CaptureCommand = new DelegateCommand( OnCapture );
             ReplayCommand = new DelegateCommand( OnReplay );
             EditCommand = new DelegateCommand( OnEdit );
 
             EditCaptureRequest = new InteractionRequest<IConfirmation>();
             InputMacroValueRequest = new InteractionRequest<IConfirmation>();
+
+            Urls = new ObservableCollection<NavigatorUrl>();
+
+            WeakEventManager<INotifyCollectionChanged, NotifyCollectionChangedEventArgs>.AddHandler( Urls, "CollectionChanged", OnUrlChanged );
+        }
+
+        private void OnCurrentLocatorChanged( object sender, PropertyChangedEventArgs e )
+        {
+            if( mySession.CurrentLocator != null )
+            {
+                Sites = new ObservableCollection<Site>( mySession.CurrentLocator.Sites );
+                SelectedSite = Sites.FirstOrDefault();
+            }
+            else
+            {
+                Sites = new ObservableCollection<Site>();
+                SelectedSite = Sites.FirstOrDefault();
+            }
         }
 
         public IBrowser Browser { get; set; }
 
-        public string NavigationUrls
+        public ObservableCollection<Site> Sites { get; private set; }
+
+        public Site SelectedSite
         {
-            get { return myNavigationUrls; }
-            set { SetProperty( ref myNavigationUrls, value ); }
+            get { return mySelectedSite; }
+            set
+            {
+                if( SetProperty( ref mySelectedSite, value ) )
+                {
+                    mySession.CurrentSite = mySelectedSite;
+
+                    if( mySelectedSite != null )
+                    {
+                        mySelectedDocumentType = mySelectedSite.Navigation.DocumentType;
+                        Urls.Clear();
+                        Urls.AddRange( mySelectedSite.Navigation.Uris );
+                        SiteName = mySelectedSite.Name;
+                    }
+                    else
+                    {
+                        mySelectedDocumentType = DocumentType.None;
+                        mySiteName = null;
+                    }
+                }
+            }
+        }
+
+        public ICommand AddSiteCommand { get; private set; }
+
+        private void OnAddSite()
+        {
+            var site = new Site( "unknown" );
+            site.Navigation = new Navigation( DocumentType.Html );
+
+            mySession.CurrentLocator.Sites.Add( site );
+
+            Sites.Add( site );
+            SelectedSite = site;
+        }
+
+        public ICommand RemoveSiteCommand { get; private set; }
+
+        private void OnRemoveSite()
+        {
+            var site = SelectedSite;
+
+            Sites.Remove( site );
+            SelectedSite = Sites.FirstOrDefault();
+
+            mySession.CurrentLocator.Sites.Add( site );
+        }
+
+        public string SiteName
+        {
+            get { return mySiteName; }
+            set
+            {
+                if( SetProperty( ref mySiteName, value ) )
+                {
+                    if( SelectedSite != null && SelectedSite.Name != mySiteName )
+                    {
+                        SelectedSite.Name = mySiteName;
+
+                        // force refresh of selected site to force update of combobox
+                        var old = SelectedSite;
+                        SelectedSite = null;
+                        SelectedSite = old;
+                    }
+                }
+            }
+        }
+
+        public DocumentType SelectedDocumentType
+        {
+            get { return mySelectedDocumentType; }
+            set
+            {
+                if( SetProperty( ref mySelectedDocumentType, value ) )
+                {
+                    SelectedSite.Navigation.DocumentType = mySelectedDocumentType;
+                }
+            }
+        }
+
+        public ObservableCollection<NavigatorUrl> Urls { get; private set; }
+
+        private void OnUrlChanged( object sender, NotifyCollectionChangedEventArgs e )
+        {
+            mySelectedSite.Navigation.Uris = Urls;
         }
 
         public bool IsCapturing
@@ -48,27 +168,13 @@ namespace RaynMaker.Import.Web.ViewModels
             IsCapturing = !IsCapturing;
         }
 
-        private IList<NavigatorUrl> GetNavigationSteps()
-        {
-            var q = from token in NavigationUrls.Split( new string[] { Environment.NewLine }, StringSplitOptions.None )
-                    where !token.IsNullOrTrimmedEmpty()
-                    select NavigatorUrl.Parse( token );
-
-            // the last url must be a request
-            return ( from navUrl in q
-                     where !( navUrl == q.Last() && navUrl.UrlType == UriType.Response )
-                     select navUrl ).ToList();
-        }
-
         public ICommand ReplayCommand { get; private set; }
 
         private void OnReplay()
         {
-            var q = GetNavigationSteps();
-
             var macroPattern = new Regex( @"(\$\{.*\})" );
             var filtered = new List<NavigatorUrl>();
-            foreach( NavigatorUrl navUrl in q )
+            foreach( var navUrl in Urls )
             {
                 var md = macroPattern.Match( navUrl.UrlString );
                 if( md.Success )
@@ -105,7 +211,7 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 if( c.Confirmed )
                 {
-                    result = (  string )c.Content ;
+                    result = ( string )c.Content;
                 }
             } );
 
@@ -120,13 +226,14 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             var notification = new Confirmation();
             notification.Title = "Edit capture";
-            notification.Content = NavigationUrls;
+            notification.Content = Urls;
 
             EditCaptureRequest.Raise( notification, c =>
             {
                 if( c.Confirmed )
                 {
-                    NavigationUrls = ( string )c.Content;
+                    Urls.Clear();
+                    Urls.AddRange( ( IEnumerable<NavigatorUrl> )c.Content );
                 }
             } );
         }

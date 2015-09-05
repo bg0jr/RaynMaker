@@ -6,12 +6,15 @@ using Blade;
 using Blade.Data;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
+using Plainion;
 using RaynMaker.Import.Html;
+using RaynMaker.Import.Web.Model;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
     class DataFormatViewModel : BindableBase
     {
+        private Session mySession;
         private string myPath;
         private string myValue;
         private CellDimension mySelectedDimension;
@@ -23,8 +26,12 @@ namespace RaynMaker.Import.Web.ViewModels
         private string mySkipColumns;
         private MarkupDocument myMarkupDocument;
 
-        public DataFormatViewModel()
+        public DataFormatViewModel( Session session )
         {
+            Contract.RequiresNotNull( session, "session" );
+
+            mySession = session;
+
             IsValid = true;
 
             ResetCommand = new DelegateCommand( OnReset );
