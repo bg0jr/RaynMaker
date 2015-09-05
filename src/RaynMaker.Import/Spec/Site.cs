@@ -1,20 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace RaynMaker.Import.Spec
 {
     public class Site
     {
         public Site( string name )
-            : this( name, null, null, null )
+            : this( name, null, null )
         {
         }
 
-        public Site( string name, Navigation navi, IFormat format, DataContent content )
+        public Site( string name, Navigation navi, params IFormat[] formats )
         {
             Name = name;
             Navigation = navi;
-            Formats = new List<IFormat> { format };
-            Content = content;
+            Formats = formats.ToList();
         }
 
         public string Name { get; set; }
@@ -22,7 +22,5 @@ namespace RaynMaker.Import.Spec
         public Navigation Navigation { get; set; }
 
         public IList<IFormat> Formats { get; private set; }
-
-        public DataContent Content { get; set; }
     }
 }

@@ -59,7 +59,6 @@
     <Compile Include="Core\WebUtil.cs" />
     <Compile Include="Core\WinFormHtmlDocumentLoader.cs" />
     <Compile Include="DatumLocatorRepository.cs" />
-    <Compile Include="DatumLocators\ContentsBits.cs" />
     <Compile Include="DatumLocators\DatumLocatorDefinitions.cs" />
     <Compile Include="DatumLocators\FormatBits.cs" />
     <Compile Include="DatumLocators\Formats.cs" />
@@ -108,7 +107,6 @@
     <Compile Include="Spec\Anchor.cs" />
     <Compile Include="Spec\BitsCollection.cs" />
     <Compile Include="Spec\CsvFormat.cs" />
-    <Compile Include="Spec\DataContent.cs" />
     <Compile Include="Spec\DatumLocator.cs" />
     <Compile Include="Spec\Document.cs" />
     <Compile Include="Spec\DocumentType.cs" />

@@ -16,8 +16,7 @@ namespace RaynMaker.Import.Providers
                    new SeparatorSeriesFormat( "Ariava.Prices" )
                        {
                            Anchor = Anchor.ForRow( new StringContainsLocator( 0, ">>${TableIndex}<<" ) )
-                       },
-                   new DataContent( "Euro" ) );
+                       });
 
             var fetchPolicy = new LookupPolicy();
             fetchPolicy.Lut[ "${TableIndex}" ] = "0";

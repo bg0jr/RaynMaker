@@ -14,41 +14,37 @@ namespace RaynMaker.Import.DatumLocators
                     Bits.Navigations.Ariva.Overview,
                     new PathSingleValueFormat( "Ariva.Wpkn" )
                     {
-                        Path = @"/BODY[0]/DIV[2]/DIV[1]/DIV[4]/DIV[2]/DIV[0]",                                 
+                        Path = @"/BODY[0]/DIV[2]/DIV[1]/DIV[4]/DIV[2]/DIV[0]",
                         ValueFormat = new ValueFormat( new Regex( @"WKN: ([\d\w\W]+)" ) )
-                    },
-                    Bits.Contents.FreeText )
+                    } )
                 );
 
             public static DatumLocator StockSymbol = new DatumLocator( "Symbol",
-                new Site("Ariva",
+                new Site( "Ariva",
                     Bits.Navigations.Ariva.Overview,
                     new PathSingleValueFormat( "Ariva.Symbol" )
                     {
                         Path = @"/BODY[0]/DIV[2]/DIV[1]/DIV[4]/DIV[2]",
                         ValueFormat = new ValueFormat( new Regex( @"Symbol: (\w+)" ) )
-                    },
-                    Bits.Contents.FreeText ),
-                new Site("Ariva.Ticker",
+                    } ),
+                new Site( "Ariva.Ticker",
                     Bits.Navigations.Ariva.Fundamentals,
-                    new PathSingleValueFormat("Ariva.Symbol")
+                    new PathSingleValueFormat( "Ariva.Symbol" )
                     {
                         Path = @"/BODY[0]/DIV[2]/DIV[1]/TABLE[1]/TBODY[0]/TR[0]/TD[1]",
-                        ValueFormat = new ValueFormat(new Regex(@"(\w+)"))
-                    },
-                    Bits.Contents.FreeText),
-                new Site("Yahoo",
+                        ValueFormat = new ValueFormat( new Regex( @"(\w+)" ) )
+                    } ),
+                new Site( "Yahoo",
                     Bits.Navigations.Yahoo.StocksExchangeList,
                     new PathSeriesFormat( "Yahoo.Symbol" )
                     {
                         Path = @"/BODY[0]/DIV[1]/DIV[0]/DIV[1]/DIV[0]/DIV[0]/DIV[0]/DIV[0]/DIV[0]/TABLE[0]",
-                        Anchor = Anchor.ForCell(new RegexPatternLocator(0, new Regex(@"\.F$")), new AbsolutePositionLocator(0)),
+                        Anchor = Anchor.ForCell( new RegexPatternLocator( 0, new Regex( @"\.F$" ) ), new AbsolutePositionLocator( 0 ) ),
                         TimeAxisPosition = 0,
                         Expand = CellDimension.None,
                         SeriesNamePosition = 0,
-                        ValueFormat = new FormatColumn("symbol", typeof(string), string.Empty, new Regex(@"^(\w+)\."))
-                    },
-                    Bits.Contents.FreeText )
+                        ValueFormat = new FormatColumn( "symbol", typeof( string ), string.Empty, new Regex( @"^(\w+)\." ) )
+                    } )
                 );
 
             public static DatumLocator CompanyName = new DatumLocator( "CompanyName",
@@ -58,8 +54,7 @@ namespace RaynMaker.Import.DatumLocators
                     {
                         Path = @"/BODY[0]/DIV[2]/DIV[1]/TABLE[0]/TBODY[0]/TR[0]/TD[0]/H1[0]",
                         ValueFormat = new ValueFormat( new Regex( @"^(.*)\s*(Aktie)?\s*$" ) )
-                    },
-                    Bits.Contents.FreeText )
+                    } )
                 );
 
             public static DatumLocator Sector = new DatumLocator( "Sector",
@@ -69,8 +64,7 @@ namespace RaynMaker.Import.DatumLocators
                     {
                         Path = @"/BODY[0]/DIV[2]/DIV[1]/DIV[7]/DIV[1]/TABLE[0]/TBODY[0]/TR[0]/TD[1]",
                         ValueFormat = new ValueFormat()
-                    },
-                    Bits.Contents.FreeText )
+                    } )
                 );
         }
     }

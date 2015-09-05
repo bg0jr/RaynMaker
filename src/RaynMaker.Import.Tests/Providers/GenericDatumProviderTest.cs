@@ -33,8 +33,7 @@ namespace RaynMaker.Import.Tests.Providers
                         {
                             SkipRows = new int[] { 0, 1 },
                             SkipColumns = new int[] { 0, 3, 4 }
-                        },
-                    new DataContent( "Euro" ) ) );
+                        } ) );
 
             LookupPolicy fetchPolicy = new LookupPolicy();
             fetchPolicy.Lut[ "${stock.isin}" ] = "DE0005003404";
@@ -86,8 +85,7 @@ namespace RaynMaker.Import.Tests.Providers
                         SeriesNamePosition = 0,
                         ValueFormat = new FormatColumn( "value", typeof( double ), "000000,0000" ),
                         TimeAxisFormat = new FormatColumn( "year", typeof( int ), "0000" )
-                    },
-                    new DataContent( "Euro" ) ) );
+                    } ) );
 
             var fetchPolicy = new LookupPolicy();
             fetchPolicy.Lut[ "${stock.isin}" ] = "DE0005140008";
