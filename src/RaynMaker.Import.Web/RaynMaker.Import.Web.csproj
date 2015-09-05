@@ -81,6 +81,7 @@
     <Compile Include="ImportWebModule.cs" />
     <Compile Include="ViewModels\AddressBarViewModel.cs" />
     <Compile Include="ViewModels\DataFormatViewModel.cs" />
+    <Compile Include="ViewModels\DatumSelectionViewModel.cs" />
     <Compile Include="ViewModels\InputMacroValueViewModel.cs" />
     <Compile Include="ViewModels\EditCaptureViewModel.cs" />
     <Compile Include="ViewModels\NavigationViewModel.cs" />
@@ -93,6 +94,9 @@
     </Compile>
     <Compile Include="ViewModels\HtmlElementExtensions.cs" />
     <Compile Include="ViewModels\HtmlMarker.cs" />
+    <Compile Include="Views\DatumSelectionView.xaml.cs">
+      <DependentUpon>DatumSelectionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditCaptureView.xaml.cs">
       <DependentUpon>EditCaptureView.xaml</DependentUpon>
     </Compile>
@@ -126,6 +130,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\DatumSelectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\EditCaptureView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -148,6 +156,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RaynMaker.Entities\RaynMaker.Entities.csproj">
+      <Project>{0b9b8ac3-da99-4264-9d59-382adee06fd9}</Project>
+      <Name>RaynMaker.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RaynMaker.Import\RaynMaker.Import.csproj">
       <Project>{4cd006fa-b1a2-4e57-a0f1-db32259ff70a}</Project>
       <Name>RaynMaker.Import</Name>

@@ -15,6 +15,7 @@ namespace RaynMaker.Import.Web.ViewModels
         public WebSpyViewModel()
         {
             AddressBar = new AddressBarViewModel();
+            Datums = new DatumSelectionViewModel();
             Navigation = new NavigationViewModel();
             DataFormat = new DataFormatViewModel();
         }
@@ -86,6 +87,8 @@ namespace RaynMaker.Import.Web.ViewModels
         }
 
         public AddressBarViewModel AddressBar { get; private set; }
+
+        public DatumSelectionViewModel Datums { get; private set; }
 
         public NavigationViewModel Navigation { get; private set; }
 
