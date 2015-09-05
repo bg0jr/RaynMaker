@@ -39,7 +39,7 @@ namespace RaynMaker.Import.Spec
 
         public UriType UrlType { get; private set; }
 
-        public string UrlString { get; private set; }
+        public string UrlString { get; set; }
 
         public Uri Url
         {
@@ -47,7 +47,7 @@ namespace RaynMaker.Import.Spec
             {
                 // gets evaluated the first time this property is called
                 // this way we allow partly-evaluated/partly-constructed url strings
-                if ( myUrl == null )
+                if( myUrl == null )
                 {
                     myUrl = new Uri( UrlString );
                 }
@@ -72,7 +72,7 @@ namespace RaynMaker.Import.Spec
         public static NavigatorUrl Parse( string str )
         {
             int pos = str.IndexOf( ':' );
-            if ( pos < 0 )
+            if( pos < 0 )
             {
                 throw new ArgumentException( "Invalid string syntax: " + str );
             }

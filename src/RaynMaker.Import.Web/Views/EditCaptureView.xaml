@@ -39,7 +39,7 @@
         </ListBox>
 
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Url" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,5,0,0"
+        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,5,0,0"
                  Text="{Binding SelectedUrl.UrlString}" v:TextBoxBinding.SelectedText="{Binding SelectedText}"/>
 
         <TextBlock Grid.Row="2" Grid.Column="0" Text="Macros" VerticalAlignment="Center"/>
