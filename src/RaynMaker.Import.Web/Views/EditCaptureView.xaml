@@ -42,17 +42,16 @@
         <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,5,0,0"
                  Text="{Binding SelectedUrl.UrlString}" v:TextBoxBinding.SelectedText="{Binding SelectedText}"/>
 
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="Macros" VerticalAlignment="Center"/>
-        <ComboBox Grid.Row="2" Grid.Column="1" Margin="5,5,0,0" ItemsSource="{Binding Macros}" SelectedItem="{Binding SelectedMacro}"/>
-        <Button Grid.Row="2" Grid.Column="2" Content="Insert Macro" Margin="5,5,0,0" Command="{Binding InsertMacroCommand}"/>
-
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="RegExp" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="3" Grid.Column="1" Margin="5,5,0,0" Width="100" Text="{Binding RegExp}"/>
-        <Button Grid.Row="3" Grid.Column="2" Content="Insert RegExp" Margin="5,5,0,0" Command="{Binding InsertRegExpCommand}"/>
-
-        <TextBlock Grid.Row="4" Grid.Column="0" Text="RegExp target" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Margin="5,5,0,0" Width="100" IsEnabled="False" Text="{Binding RegExpTarget}"/>
-        <Button Grid.Row="4" Grid.Column="2" Content="Insert RegExp target" Margin="5,5,0,0" Command="{Binding InsertRegExpTargetCommand}"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" TextWrapping="Wrap">
+            <Run FontWeight="SemiBold">Macros: </Run>
+            <Run>Enter the following macros to create placeholders for asset identification: ${Isin}, ${Wpkn}, ${Symbol}</Run>
+            <LineBreak/>
+            <Run FontWeight="SemiBold">RegExp: </Run>
+            <Run>Replace site specific identifiers in response URLs with regular expressions embedded in {}, e.g.: {(.*)}</Run>
+            <LineBreak/>
+            <Run FontWeight="SemiBold">RegExp: </Run>
+            <Run>Enter {0} in Reqest URLs where the matched value of the regular expressions should be inserted</Run>
+        </TextBlock>
 
         <StackPanel Grid.Row="5" Grid.Column="3"  Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Ok" Margin="5,5,0,0" Command="{Binding OkCommand}" Width="50"/>

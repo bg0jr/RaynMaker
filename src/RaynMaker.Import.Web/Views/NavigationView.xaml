@@ -13,7 +13,7 @@
              d:DesignHeight="150" d:DesignWidth="300">
     <i:Interaction.Triggers>
         <prism:InteractionRequestTrigger SourceObject="{Binding EditCaptureRequest, Mode=OneWay}">
-            <pn:PopupViewAction WindowWidth="500" WindowHeight="250" prism:RegionManager.RegionName="{x:Static l:RegionNames.EditCaptureView}"/>
+            <pn:PopupViewAction WindowWidth="700" WindowHeight="250" prism:RegionManager.RegionName="{x:Static l:RegionNames.EditCaptureView}"/>
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
     <Grid>
