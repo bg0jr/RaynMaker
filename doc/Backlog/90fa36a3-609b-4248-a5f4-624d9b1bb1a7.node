@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7" Created="635771470975688770" LastModified="635771472681636344">
+  <Caption><![CDATA[change datalocator ER]]></Caption>
+  <Content><![CDATA[- from datalocators, sites, navigation and formats 
+TO
+- "DataSources" replace "Site"
+- "ConnectionDescriptor" replace "Navigation"
+- "DatumDescriptor" replace "DatumLocator"
+- "??" replace "Format"
+
+a DS has one connectiondescr
+a DS has multiple DD
+a DD has multiple "formats"]]></Content>
+</Node>

@@ -4,11 +4,11 @@
     <Caption><![CDATA[Planning]]></Caption>
     <Node Id="dbf5bb03-f0e5-46aa-9a8a-714b030f46bf">
       <Caption><![CDATA[Import.Web]]></Caption>
-      <Node Id="a586b584-cf19-4caf-b920-e251426e7842">
-        <Caption><![CDATA[Migrate WebSpy to MVVM]]></Caption>
+      <Node Id="1ae01f1b-03b8-495a-aaf6-2e9c25fb8df0">
+        <Caption><![CDATA[Validation]]></Caption>
       </Node>
-      <Node Id="91c9b2a1-420e-4a4c-9a31-1fcea152f47f">
-        <Caption><![CDATA[Create usability concept to use WebSpy for DataLocator creation]]></Caption>
+      <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">
+        <Caption><![CDATA[change datalocator ER]]></Caption>
       </Node>
       <Node Id="514dabde-6dfb-4827-94cc-4f8b451d7289">
         <Caption><![CDATA[Persist DataLocators]]></Caption>
