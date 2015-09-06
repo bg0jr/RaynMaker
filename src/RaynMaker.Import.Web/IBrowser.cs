@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using RaynMaker.Import.Html;
 using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Web
@@ -9,7 +10,7 @@ namespace RaynMaker.Import.Web
     {
         void Navigate( string url );
 
-        void LoadDocument( IEnumerable<NavigatorUrl> urls );
+        IHtmlDocument LoadDocument( IEnumerable<NavigatorUrl> urls );
 
         event Action<Uri> Navigating;
 

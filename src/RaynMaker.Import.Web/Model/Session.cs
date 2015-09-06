@@ -9,6 +9,7 @@ namespace RaynMaker.Import.Web.Model
         private IList<DatumLocator> myLocators;
         private DatumLocator myCurrentLocator;
         private Site myCurrentSite;
+        private PathSeriesFormat myCurrentFormat;
 
         public Session()
         {
@@ -34,8 +35,15 @@ namespace RaynMaker.Import.Web.Model
             set { SetProperty( ref myCurrentSite, value ); }
         }
 
+        public PathSeriesFormat CurrentFormat
+        {
+            get { return myCurrentFormat; }
+            set { SetProperty( ref myCurrentFormat, value ); }
+        }
+
         public void Reset()
         {
+            CurrentFormat = null;
             CurrentSite = null;
             CurrentLocator = null;
             

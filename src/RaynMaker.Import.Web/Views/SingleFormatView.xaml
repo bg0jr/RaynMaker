@@ -20,6 +20,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Grid.Resources>
@@ -68,5 +69,11 @@
 
         <TextBlock Grid.Row="3" Grid.Column="2" Text="Skip columns" VerticalAlignment="Center" Margin="5,0,0,0"/>
         <TextBox Grid.Row="3" Grid.Column="3" Width="50" HorizontalAlignment="Left" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding SkipColumns, UpdateSourceTrigger=PropertyChanged}"/>
+       
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Time format" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding TimeFormat}"/>
+      
+        <TextBlock Grid.Row="4" Grid.Column="2" Text="Value format" VerticalAlignment="Center" Margin="5,0,0,0"/>
+        <TextBox Grid.Row="4" Grid.Column="3" Width="50" HorizontalAlignment="Left" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding ValueFormat}"/>
     </Grid>
 </UserControl>

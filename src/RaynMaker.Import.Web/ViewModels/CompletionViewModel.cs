@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
+using Blade.Data;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
+using RaynMaker.Import.Html.WinForms;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Model;
 
@@ -58,7 +60,27 @@ namespace RaynMaker.Import.Web.ViewModels
                 }
             }
 
-            Browser.LoadDocument( filtered );
+            var doc = Browser.LoadDocument( filtered );
+
+            var markupDoc = new MarkupDocument();
+            markupDoc.Document = ( ( HtmlDocumentAdapter )doc ).Document;
+            markupDoc.Anchor = mySession.CurrentFormat.Path;
+            markupDoc.Dimension = mySession.CurrentFormat.Expand;
+            markupDoc.SeriesName = mySession.CurrentFormat.SeriesName;
+            if( mySession.CurrentFormat.Expand == CellDimension.Row )
+            {
+                markupDoc.ColumnHeaderRow = mySession.CurrentFormat.TimeAxisPosition;
+                markupDoc.RowHeaderColumn = mySession.CurrentFormat.SeriesNamePosition;
+            }
+            else if( mySession.CurrentFormat.Expand == CellDimension.Column )
+            {
+                markupDoc.RowHeaderColumn = mySession.CurrentFormat.TimeAxisPosition;
+                markupDoc.ColumnHeaderRow = mySession.CurrentFormat.SeriesNamePosition;
+            }
+            markupDoc.SkipColumns = mySession.CurrentFormat.SkipColumns;
+            markupDoc.SkipRows = mySession.CurrentFormat.SkipRows;
+
+            markupDoc.Apply();
         }
 
         private string GetValue( string macro )
@@ -81,7 +103,7 @@ namespace RaynMaker.Import.Web.ViewModels
         }
 
         public InteractionRequest<IConfirmation> InputMacroValueRequest { get; private set; }
-        
+
         public ICommand ClearCommand { get; private set; }
 
         private void OnClear()

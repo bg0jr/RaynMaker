@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Import.Core;
+using RaynMaker.Import.Html;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Model;
 
@@ -86,9 +87,9 @@ namespace RaynMaker.Import.Web.ViewModels
             myDocumentBrowser.Navigate( url );
         }
 
-        public void LoadDocument( IEnumerable<NavigatorUrl> urls )
+        public IHtmlDocument LoadDocument( IEnumerable<NavigatorUrl> urls )
         {
-            myDocumentBrowser.LoadDocument( urls );
+            return myDocumentBrowser.LoadDocument( urls );
         }
 
         public event Action<Uri> Navigating;

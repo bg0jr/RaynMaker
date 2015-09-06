@@ -144,7 +144,7 @@ namespace RaynMaker.Import.Web.ViewModels
             }
         }
 
-        public int RowHeader
+        public int RowHeaderColumn
         {
             get { return myRowHeader; }
             set
@@ -158,7 +158,7 @@ namespace RaynMaker.Import.Web.ViewModels
             }
         }
 
-        public int ColumnHeader
+        public int ColumnHeaderRow
         {
             get { return myColumnHeader; }
             set

@@ -21,6 +21,8 @@ namespace RaynMaker.Import.Web.ViewModels
         private string myColumnHeaderRow;
         private string mySkipRows;
         private string mySkipColumns;
+        private string myTimeFormat;
+        private string myValueFormat;
         private MarkupDocument myMarkupDocument;
 
         public SingleFormatViewModel( PathSeriesFormat format )
@@ -34,14 +36,16 @@ namespace RaynMaker.Import.Web.ViewModels
             myMarkupDocument = new MarkupDocument();
             myMarkupDocument.ValidationChanged += SeriesName_ValidationChanged;
 
-            Path = "";
             Value = "";
 
-            SkipColumns = null;
-            SkipRows = null;
-            RowHeaderColumn = null;
-            ColumnHeaderRow = null;
-            SeriesName = null;
+            Path = Format.Path;
+            SkipColumns = string.Join( ",", format.SkipColumns );
+            SkipRows = string.Join( ",", format.SkipRows );
+            RowHeaderColumn = ( format.Expand == CellDimension.Row ? Format.TimeAxisPosition : Format.SeriesNamePosition ).ToString();
+            ColumnHeaderRow = ( format.Expand == CellDimension.Row ? Format.SeriesNamePosition : Format.TimeAxisPosition ).ToString();
+            SeriesName = format.SeriesNamePosition.ToString();
+            TimeFormat = Format.TimeAxisFormat.Format;
+            ValueFormat = Format.ValueFormat.Format;
         }
 
         public PathSeriesFormat Format { get; private set; }
@@ -149,7 +153,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 if( SetProperty( ref myRowHeaderColumn, value ) )
                 {
                     UpdateHeaders();
-                    MarkHeader( myRowHeaderColumn, x => myMarkupDocument.RowHeader = x );
+                    MarkHeader( myRowHeaderColumn, x => myMarkupDocument.RowHeaderColumn = x );
                 }
             }
         }
@@ -195,7 +199,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 if( SetProperty( ref myColumnHeaderRow, value ) )
                 {
                     UpdateHeaders();
-                    MarkHeader( myColumnHeaderRow, x => myMarkupDocument.ColumnHeader = x );
+                    MarkHeader( myColumnHeaderRow, x => myMarkupDocument.ColumnHeaderRow = x );
                 }
             }
         }
@@ -244,6 +248,30 @@ namespace RaynMaker.Import.Web.ViewModels
                 {
                     Format.SkipColumns = GetIntArray( mySkipColumns );
                     myMarkupDocument.SkipColumns = Format.SkipColumns;
+                }
+            }
+        }
+
+        public string TimeFormat
+        {
+            get { return myTimeFormat; }
+            set
+            {
+                if( SetProperty( ref myTimeFormat, value ) )
+                {
+                    Format.TimeAxisFormat = new FormatColumn( "time", typeof( int ), myTimeFormat );
+                }
+            }
+        }
+
+        public string ValueFormat
+        {
+            get { return myValueFormat; }
+            set
+            {
+                if( SetProperty( ref myValueFormat, value ) )
+                {
+                    Format.ValueFormat = new FormatColumn( "value", typeof( double ), myValueFormat );
                 }
             }
         }

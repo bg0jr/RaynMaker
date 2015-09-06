@@ -152,7 +152,7 @@ namespace RaynMaker.Import.Spec
                     return DateTime.ParseExact( value.ToString(), Format, CultureInfo.InvariantCulture );
                 }
 
-                char decimalSep = Format.ToCharArray().FirstOrDefault( c => !Char.IsDigit( c ) );
+                char decimalSep = Format.ToCharArray().LastOrDefault( c => !Char.IsDigit( c ) );
 
                 if ( Type == typeof( long ) )
                 {
