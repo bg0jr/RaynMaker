@@ -6,6 +6,7 @@ using RaynMaker.Import.Core;
 using RaynMaker.Import.Html;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Model;
+using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
@@ -14,13 +15,14 @@ namespace RaynMaker.Import.Web.ViewModels
     {
         private LegacyDocumentBrowser myDocumentBrowser = null;
 
-        public WebSpyViewModel()
+        [ImportingConstructor]
+        public WebSpyViewModel( IProjectHost projectHost )
         {
             var session = new Session();
             Datums = new DatumSelectionViewModel( session );
             Navigation = new NavigationViewModel( session );
             Formats = new DataFormatsViewModel( session );
-            Completion = new CompletionViewModel( session );
+            Completion = new CompletionViewModel( session, projectHost );
         }
 
         public System.Windows.Forms.WebBrowser Browser

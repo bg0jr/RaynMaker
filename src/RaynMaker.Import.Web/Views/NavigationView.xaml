@@ -13,7 +13,7 @@
              d:DesignHeight="150" d:DesignWidth="300">
     <i:Interaction.Triggers>
         <prism:InteractionRequestTrigger SourceObject="{Binding EditCaptureRequest, Mode=OneWay}">
-            <pn:PopupViewAction WindowWidth="700" WindowHeight="250" prism:RegionManager.RegionName="{x:Static l:RegionNames.EditCaptureView}"/>
+            <pn:PopupViewAction WindowWidth="700" WindowHeight="500" prism:RegionManager.RegionName="{x:Static l:RegionNames.EditCaptureView}"/>
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
     <Grid>
@@ -80,15 +80,10 @@
                  ItemsSource="{Binding Urls}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0" Text="{Binding UrlType}"/>
-                        <TextBlock Grid.Column="1" Text="{Binding UrlString}"/>
-                    </Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding UrlType}" FontWeight="SemiBold"/>
+                        <TextBlock Text="{Binding UrlString}" Margin="5,0,0,0"/>
+                    </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

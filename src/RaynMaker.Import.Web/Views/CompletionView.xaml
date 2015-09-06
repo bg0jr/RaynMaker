@@ -8,12 +8,7 @@
              xmlns:pn="http://github.com/ronin4net/plainion"
              xmlns:l="clr-namespace:RaynMaker.Import.Web"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="300">
-    <i:Interaction.Triggers>
-        <prism:InteractionRequestTrigger SourceObject="{Binding InputMacroValueRequest, Mode=OneWay}">
-            <pn:PopupViewAction ResizeMode="NoResize" WindowWidth="200" IsModal="True" prism:RegionManager.RegionName="{x:Static l:RegionNames.InputMacroValueView}"/>
-        </prism:InteractionRequestTrigger>
-    </i:Interaction.Triggers>
+             d:DesignHeight="100" d:DesignWidth="500">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -24,7 +19,25 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Button Grid.Row="0" Grid.Column="0" Content="Validate" Command="{Binding ValidateCommand}" Margin="0,3,0,0"/>
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+            <TextBlock Text="Select a stock" VerticalAlignment="Center"/>
+            <ComboBox Margin="5,3,0,0" ItemsSource="{Binding Stocks}" SelectedItem="{Binding SelectedStock}" Width="200">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="{Binding Isin}"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Company.Name}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Content="Validate" Command="{Binding ValidateCommand}" Margin="5,3,0,0"/>
+        </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="1"  Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
             <Button Content="Clear" Command="{Binding ClearCommand}" Margin="0,3,0,3" />

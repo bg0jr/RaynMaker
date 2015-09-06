@@ -54,6 +54,8 @@ namespace RaynMaker.Import.Web.ViewModels
                 {
                     OnAdd();
                 }
+
+                SelectedFormatIndex = 0;
             }
         }
 
@@ -91,8 +93,11 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 if( SetProperty( ref mySelectedFormatIndex, value ) )
                 {
-                    Formats[ mySelectedFormatIndex ].Document = myDocument;
-                    Formats[ mySelectedFormatIndex ].Apply();
+                    if( mySelectedFormatIndex != -1 )
+                    {
+                        Formats[ mySelectedFormatIndex ].Document = myDocument;
+                        Formats[ mySelectedFormatIndex ].Apply();
+                    }
                 }
             }
         }

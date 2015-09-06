@@ -1,33 +1,74 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
+using Blade.Collections;
 using Blade.Data;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
+using Microsoft.Practices.Prism.Mvvm;
+using RaynMaker.Entities;
 using RaynMaker.Import.Html.WinForms;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Model;
+using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
-    class CompletionViewModel
+    class CompletionViewModel : BindableBase
     {
         private Session mySession;
+        private IProjectHost myProjectHost;
+        private Stock mySelectedStock;
 
-        public CompletionViewModel( Session session )
+        public CompletionViewModel( Session session, IProjectHost projectHost )
         {
             mySession = session;
+            myProjectHost = projectHost;
+            myProjectHost.Changed += OnProjectChanged;
 
-            ValidateCommand = new DelegateCommand( OnValidate );
+            Stocks = new ObservableCollection<Stock>();
+
+            ValidateCommand = new DelegateCommand( OnValidate, CanValidate );
             ClearCommand = new DelegateCommand( OnClear );
             SaveCommand = new DelegateCommand( OnSave );
 
-            InputMacroValueRequest = new InteractionRequest<IConfirmation>();
+            OnProjectChanged();
+        }
+
+        private void OnProjectChanged()
+        {
+            if( myProjectHost.Project == null )
+            {
+                return;
+            }
+
+            var ctx = myProjectHost.Project.GetAssetsContext();
+            Stocks.AddRange( ctx.Stocks );
+            SelectedStock = Stocks.FirstOrDefault();
         }
 
         public IBrowser Browser { get; set; }
 
-        public ICommand ValidateCommand { get; private set; }
+        public ObservableCollection<Stock> Stocks { get; private set; }
+
+        public Stock SelectedStock
+        {
+            get { return mySelectedStock; }
+            set
+            {
+                if( SetProperty( ref mySelectedStock, value ) )
+                {
+                    ValidateCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        public DelegateCommand ValidateCommand { get; private set; }
+
+        private bool CanValidate() { return SelectedStock != null; }
 
         private void OnValidate()
         {
@@ -36,18 +77,18 @@ namespace RaynMaker.Import.Web.ViewModels
                 return;
             }
 
-            var macroPattern = new Regex( @"(\$\{.*\})" );
+            var macroPattern = new Regex( @"\$\{(.*)\}" );
             var filtered = new List<NavigatorUrl>();
             foreach( var navUrl in mySession.CurrentSite.Navigation.Uris )
             {
                 var md = macroPattern.Match( navUrl.UrlString );
                 if( md.Success )
                 {
-                    string macro = md.Groups[ 1 ].Value;
-                    string value = GetValue( macro );
+                    var macroId = md.Groups[ 1 ].Value;
+                    var value = GetMacroValue( macroId );
                     if( value != null )
                     {
-                        filtered.Add( new NavigatorUrl( navUrl.UrlType, navUrl.UrlString.Replace( macro, value ) ) );
+                        filtered.Add( new NavigatorUrl( navUrl.UrlType, navUrl.UrlString.Replace( macroId, value ) ) );
                     }
                     else
                     {
@@ -83,26 +124,15 @@ namespace RaynMaker.Import.Web.ViewModels
             markupDoc.Apply();
         }
 
-        private string GetValue( string macro )
+        private string GetMacroValue( string macroId )
         {
-            var notification = new Confirmation();
-            notification.Title = "Enter macro value";
-            notification.Content = macro;
-
-            string result = null;
-
-            InputMacroValueRequest.Raise( notification, c =>
+            if( macroId.Equals( "isin", StringComparison.OrdinalIgnoreCase ) )
             {
-                if( c.Confirmed )
-                {
-                    result = ( string )c.Content;
-                }
-            } );
+                return SelectedStock.Isin;
+            }
 
-            return result;
+            throw new NotSupportedException( "Unknown macro: " + macroId );
         }
-
-        public InteractionRequest<IConfirmation> InputMacroValueRequest { get; private set; }
 
         public ICommand ClearCommand { get; private set; }
 

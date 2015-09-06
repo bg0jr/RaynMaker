@@ -25,15 +25,10 @@
         <ListBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" ItemsSource="{Binding Urls}" SelectedItem="{Binding SelectedUrl}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0" Text="{Binding UrlType}"/>
-                        <TextBlock Grid.Column="1" Text="{Binding UrlString}"/>
-                    </Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding UrlType}" FontWeight="SemiBold"/>
+                        <TextBlock Text="{Binding UrlString}" Margin="5,0,0,0"/>
+                    </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
@@ -44,7 +39,7 @@
 
         <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" TextWrapping="Wrap">
             <Run FontWeight="SemiBold">Macros: </Run>
-            <Run>Enter the following macros to create placeholders for asset identification: ${Isin}, ${Wpkn}, ${Symbol}</Run>
+            <Run>Enter the following macros to create placeholders for asset identification: ${Isin}</Run>
             <LineBreak/>
             <Run FontWeight="SemiBold">RegExp: </Run>
             <Run>Replace site specific identifiers in response URLs with regular expressions embedded in {}, e.g.: {(.*)}</Run>

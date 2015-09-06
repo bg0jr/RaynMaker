@@ -4,6 +4,9 @@
     <Caption><![CDATA[Planning]]></Caption>
     <Node Id="dbf5bb03-f0e5-46aa-9a8a-714b030f46bf">
       <Caption><![CDATA[Import.Web]]></Caption>
+      <Node Id="b2465443-7280-429e-8b1f-042d2f1a1edf">
+        <Caption><![CDATA[Deletion of NavigatorUrl entries]]></Caption>
+      </Node>
       <Node Id="1ae01f1b-03b8-495a-aaf6-2e9c25fb8df0">
         <Caption><![CDATA[Validation]]></Caption>
       </Node>

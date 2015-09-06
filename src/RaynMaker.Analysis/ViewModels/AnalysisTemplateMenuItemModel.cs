@@ -24,7 +24,7 @@ namespace RaynMaker.Analysis.ViewModels
 
         public bool IsEnabled { get { return myProjectHost.Project != null; } }
 
-        void myProjectHost_Changed()
+        private void myProjectHost_Changed()
         {
             OnPropertyChanged( () => IsEnabled );
         }

@@ -185,7 +185,10 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 if( SetProperty( ref mySelectedDocumentType, value ) )
                 {
-                    SelectedSite.Navigation.DocumentType = mySelectedDocumentType;
+                    if( SelectedSite != null )
+                    {
+                        SelectedSite.Navigation.DocumentType = mySelectedDocumentType;
+                    }
                 }
             }
         }
@@ -194,7 +197,10 @@ namespace RaynMaker.Import.Web.ViewModels
 
         private void OnUrlChanged( object sender, NotifyCollectionChangedEventArgs e )
         {
-            mySelectedSite.Navigation.Uris = Urls;
+            if( mySelectedSite != null )
+            {
+                mySelectedSite.Navigation.Uris = Urls;
+            }
         }
 
         public bool IsCapturing
