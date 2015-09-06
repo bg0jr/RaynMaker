@@ -50,5 +50,7 @@ namespace RaynMaker.Import.Spec
         /// indicates that the link should be extracted instead of the display text.
         /// </summary>
         public bool ExtractLinkUrl { get; set; }
+
+        public string SeriesName { get; set; }
     }
 }

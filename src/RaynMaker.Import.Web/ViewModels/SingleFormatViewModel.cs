@@ -28,7 +28,7 @@ namespace RaynMaker.Import.Web.ViewModels
             Contract.RequiresNotNull( format, "format" );
 
             Format = format;
-            
+
             IsValid = true;
 
             myMarkupDocument = new MarkupDocument();
@@ -114,6 +114,8 @@ namespace RaynMaker.Import.Web.ViewModels
                 if( SetProperty( ref mySelectedDimension, value ) )
                 {
                     Format.Expand = mySelectedDimension;
+                    UpdateHeaders();
+
                     myMarkupDocument.Dimension = mySelectedDimension;
                 }
             }
@@ -126,6 +128,8 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 if( SetProperty( ref mySeriesName, value ) )
                 {
+                    Format.SeriesName = mySeriesName;
+
                     myMarkupDocument.SeriesName = mySeriesName;
                 }
             }
@@ -144,8 +148,23 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 if( SetProperty( ref myRowHeaderColumn, value ) )
                 {
+                    UpdateHeaders();
                     MarkHeader( myRowHeaderColumn, x => myMarkupDocument.RowHeader = x );
                 }
+            }
+        }
+
+        private void UpdateHeaders()
+        {
+            if( Format.Expand == CellDimension.Row )
+            {
+                Format.TimeAxisPosition = int.Parse( ColumnHeaderRow );
+                Format.SeriesNamePosition = int.Parse( RowHeaderColumn );
+            }
+            else if( Format.Expand == CellDimension.Column )
+            {
+                Format.TimeAxisPosition = int.Parse( RowHeaderColumn );
+                Format.SeriesNamePosition = int.Parse( ColumnHeaderRow );
             }
         }
 
@@ -175,6 +194,7 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 if( SetProperty( ref myColumnHeaderRow, value ) )
                 {
+                    UpdateHeaders();
                     MarkHeader( myColumnHeaderRow, x => myMarkupDocument.ColumnHeader = x );
                 }
             }
@@ -187,33 +207,32 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 if( SetProperty( ref mySkipRows, value ) )
                 {
-                    SkipElements( mySkipRows, x => myMarkupDocument.SkipRows = x );
+                    Format.SkipRows = GetIntArray( mySkipRows );
+                    myMarkupDocument.SkipRows = Format.SkipRows;
                 }
             }
         }
 
-        private void SkipElements( string text, Action<int[]> UpdateTemplate )
+        private int[] GetIntArray( string value )
         {
-            if( text.IsNullOrTrimmedEmpty() )
+            if( string.IsNullOrWhiteSpace( value ) )
             {
-                UpdateTemplate( null );
-                return;
+                return null;
             }
-
-            string[] tokens = text.Split( ',' );
 
             try
             {
-                var positions = from t in tokens
-                                where !t.IsNullOrTrimmedEmpty()
-                                select Convert.ToInt32( t );
-
-                UpdateTemplate( positions.ToArray() );
+                return value.Split( ',' )
+                    .Where( t => !t.IsNullOrTrimmedEmpty() )
+                    .Select( t => Convert.ToInt32( t ) )
+                    .ToArray();
             }
             catch
             {
                 //errorProvider1.SetError( config, "Must be: <number> [, <number> ]*" );
             }
+
+            return null;
         }
 
         public string SkipColumns
@@ -223,7 +242,8 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 if( SetProperty( ref mySkipColumns, value ) )
                 {
-                    SkipElements( mySkipColumns, x => myMarkupDocument.SkipColumns = x );
+                    Format.SkipColumns = GetIntArray( mySkipColumns );
+                    myMarkupDocument.SkipColumns = Format.SkipColumns;
                 }
             }
         }

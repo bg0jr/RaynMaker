@@ -81,6 +81,7 @@
     <Compile Include="ImportWebModule.cs" />
     <Compile Include="Model\Session.cs" />
     <Compile Include="ViewModels\AddressBarViewModel.cs" />
+    <Compile Include="ViewModels\CompletionViewModel.cs" />
     <Compile Include="ViewModels\DataFormatsViewModel.cs" />
     <Compile Include="ViewModels\DatumSelectionViewModel.cs" />
     <Compile Include="ViewModels\InputMacroValueViewModel.cs" />
@@ -90,6 +91,9 @@
     <Compile Include="ViewModels\WebSpyViewModel.cs" />
     <Compile Include="Views\AddressBarView.xaml.cs">
       <DependentUpon>AddressBarView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CompletionView.xaml.cs">
+      <DependentUpon>CompletionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DataFormatsView.xaml.cs">
       <DependentUpon>DataFormatsView.xaml</DependentUpon>
@@ -129,6 +133,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\AddressBarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CompletionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

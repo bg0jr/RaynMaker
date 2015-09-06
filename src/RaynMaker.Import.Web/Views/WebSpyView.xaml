@@ -21,6 +21,9 @@
                 <TabItem Header="Data description" DataContext="{Binding Formats}">
                     <l:DataFormatsView Margin="0"/>
                 </TabItem>
+                <TabItem Header="Validate &amp; Complete" DataContext="{Binding Completion}">
+                    <l:CompletionView Margin="0"/>
+                </TabItem>
             </TabControl>
         </Grid>
 

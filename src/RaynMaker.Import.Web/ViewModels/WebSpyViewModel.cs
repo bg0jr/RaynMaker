@@ -21,6 +21,7 @@ namespace RaynMaker.Import.Web.ViewModels
             Datums = new DatumSelectionViewModel( session );
             Navigation = new NavigationViewModel( session );
             Formats = new DataFormatsViewModel( session );
+            Completion = new CompletionViewModel( session );
         }
 
         public System.Windows.Forms.WebBrowser Browser
@@ -94,5 +95,7 @@ namespace RaynMaker.Import.Web.ViewModels
         public NavigationViewModel Navigation { get; private set; }
 
         public DataFormatsViewModel Formats { get; private set; }
+
+        public CompletionViewModel Completion { get; private set; }
     }
 }
