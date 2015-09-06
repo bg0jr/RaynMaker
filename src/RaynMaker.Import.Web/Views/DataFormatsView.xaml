@@ -8,12 +8,16 @@
              d:DesignHeight="150" d:DesignWidth="700">
     <DockPanel LastChildFill="True">
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <StackPanel.Resources>
+                <l:OffsetConverter x:Key="Plus1" Offset="1"/>
+            </StackPanel.Resources>
+            
             <Button Content="&lt;" Command="{Binding PreviousCommand}" Width="25"/>
             <Border BorderBrush="Black" BorderThickness="1" Margin="5,0,0,0" Width="50">
                 <TextBlock VerticalAlignment="Center">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0}/{1}">
-                            <Binding Path="SelectedFormatIndex"/>
+                            <Binding Path="SelectedFormatIndex" Converter="{StaticResource Plus1}"/>
                             <Binding Path="Formats.Count"/>
                         </MultiBinding>
                     </TextBlock.Text>

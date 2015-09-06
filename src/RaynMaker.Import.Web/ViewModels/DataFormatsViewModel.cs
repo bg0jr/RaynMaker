@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
@@ -74,7 +76,10 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 if( SetProperty( ref myDocument, value ) )
                 {
-                    Formats[ mySelectedFormatIndex ].Document = myDocument;
+                    if( 0 <= mySelectedFormatIndex && mySelectedFormatIndex < Formats.Count )
+                    {
+                        Formats[ mySelectedFormatIndex ].Document = myDocument;
+                    }
                 }
             }
         }

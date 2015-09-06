@@ -115,6 +115,7 @@
     <Compile Include="Views\NavigationView.xaml.cs">
       <DependentUpon>NavigationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\OffsetConverter.cs" />
     <Compile Include="Views\SingleFormatView.xaml.cs">
       <DependentUpon>SingleFormatView.xaml</DependentUpon>
     </Compile>
