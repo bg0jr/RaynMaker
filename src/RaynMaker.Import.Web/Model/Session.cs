@@ -33,5 +33,13 @@ namespace RaynMaker.Import.Web.Model
             get { return myCurrentSite; }
             set { SetProperty( ref myCurrentSite, value ); }
         }
+
+        public void Reset()
+        {
+            CurrentSite = null;
+            CurrentLocator = null;
+            
+            myLocators.Clear();
+        }
     }
 }

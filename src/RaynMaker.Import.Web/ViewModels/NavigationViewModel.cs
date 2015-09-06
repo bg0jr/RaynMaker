@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 using Blade.Collections;
@@ -19,6 +19,7 @@ namespace RaynMaker.Import.Web.ViewModels
     class NavigationViewModel : BindableBase
     {
         private Session mySession;
+        private IBrowser myBrowser;
         private Site mySelectedSite;
         private string mySiteName;
         private DocumentType mySelectedDocumentType;
@@ -31,38 +32,78 @@ namespace RaynMaker.Import.Web.ViewModels
             mySession = session;
 
             PropertyChangedEventManager.AddHandler( mySession, OnCurrentLocatorChanged, PropertySupport.ExtractPropertyName( () => mySession.CurrentLocator ) );
-            OnCurrentLocatorChanged( null, null );
 
             AddSiteCommand = new DelegateCommand( OnAddSite );
             RemoveSiteCommand = new DelegateCommand( OnRemoveSite );
 
             CaptureCommand = new DelegateCommand( OnCapture );
-            ReplayCommand = new DelegateCommand( OnReplay );
             EditCommand = new DelegateCommand( OnEdit );
 
             EditCaptureRequest = new InteractionRequest<IConfirmation>();
-            InputMacroValueRequest = new InteractionRequest<IConfirmation>();
 
+            Sites = new ObservableCollection<Site>();
             Urls = new ObservableCollection<NavigatorUrl>();
 
             WeakEventManager<INotifyCollectionChanged, NotifyCollectionChangedEventArgs>.AddHandler( Urls, "CollectionChanged", OnUrlChanged );
+
+            AddressBar = new AddressBarViewModel();
+
+            OnCurrentLocatorChanged( null, null );
         }
 
         private void OnCurrentLocatorChanged( object sender, PropertyChangedEventArgs e )
         {
+            Sites.Clear();
+
             if( mySession.CurrentLocator != null )
             {
-                Sites = new ObservableCollection<Site>( mySession.CurrentLocator.Sites );
-                SelectedSite = Sites.FirstOrDefault();
+                Sites.AddRange( mySession.CurrentLocator.Sites );
             }
-            else
+
+            SelectedSite = Sites.FirstOrDefault();
+        }
+
+        public IBrowser Browser
+        {
+            get { return myBrowser; }
+            set
             {
-                Sites = new ObservableCollection<Site>();
-                SelectedSite = Sites.FirstOrDefault();
+                var oldBrowser = myBrowser;
+                if( SetProperty( ref myBrowser, value ) )
+                {
+                    AddressBar.Browser = myBrowser;
+
+                    if( oldBrowser != null )
+                    {
+                        oldBrowser.Navigating -= OnBrowserNavigating;
+                        oldBrowser.DocumentCompleted -= BrowserDocumentCompleted;
+                    }
+                    if( myBrowser != null )
+                    {
+                        myBrowser.Navigating += OnBrowserNavigating;
+                        myBrowser.DocumentCompleted += BrowserDocumentCompleted;
+                    }
+                }
             }
         }
 
-        public IBrowser Browser { get; set; }
+        private void OnBrowserNavigating( Uri url )
+        {
+            if( IsCapturing )
+            {
+                Urls.Add( new NavigatorUrl( UriType.Request, url ) );
+            }
+        }
+
+        private void BrowserDocumentCompleted( System.Windows.Forms.HtmlDocument doc )
+        {
+            AddressBar.Url = doc.Url.ToString();
+
+            if( IsCapturing )
+            {
+                Urls.Add( new NavigatorUrl( UriType.Response, doc.Url ) );
+            }
+        }
 
         public ObservableCollection<Site> Sites { get; private set; }
 
@@ -75,17 +116,18 @@ namespace RaynMaker.Import.Web.ViewModels
                 {
                     mySession.CurrentSite = mySelectedSite;
 
+                    Urls.Clear();
+
                     if( mySelectedSite != null )
                     {
-                        mySelectedDocumentType = mySelectedSite.Navigation.DocumentType;
-                        Urls.Clear();
                         Urls.AddRange( mySelectedSite.Navigation.Uris );
+                        SelectedDocumentType = mySelectedSite.Navigation.DocumentType;
                         SiteName = mySelectedSite.Name;
                     }
                     else
                     {
-                        mySelectedDocumentType = DocumentType.None;
-                        mySiteName = null;
+                        SelectedDocumentType = DocumentType.None;
+                        SiteName = null;
                     }
                 }
             }
@@ -168,58 +210,6 @@ namespace RaynMaker.Import.Web.ViewModels
             IsCapturing = !IsCapturing;
         }
 
-        public ICommand ReplayCommand { get; private set; }
-
-        private void OnReplay()
-        {
-            var macroPattern = new Regex( @"(\$\{.*\})" );
-            var filtered = new List<NavigatorUrl>();
-            foreach( var navUrl in Urls )
-            {
-                var md = macroPattern.Match( navUrl.UrlString );
-                if( md.Success )
-                {
-                    string macro = md.Groups[ 1 ].Value;
-                    string value = GetValue( macro );
-                    if( value != null )
-                    {
-                        filtered.Add( new NavigatorUrl( navUrl.UrlType, navUrl.UrlString.Replace( macro, value ) ) );
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                else
-                {
-                    filtered.Add( navUrl );
-                }
-            }
-
-            Browser.LoadDocument( filtered );
-        }
-
-        private string GetValue( string macro )
-        {
-            var notification = new Confirmation();
-            notification.Title = "Enter macro value";
-            notification.Content = macro;
-
-            string result = null;
-
-            InputMacroValueRequest.Raise( notification, c =>
-            {
-                if( c.Confirmed )
-                {
-                    result = ( string )c.Content;
-                }
-            } );
-
-            return result;
-        }
-
-        public InteractionRequest<IConfirmation> InputMacroValueRequest { get; private set; }
-
         public ICommand EditCommand { get; private set; }
 
         private void OnEdit()
@@ -239,5 +229,7 @@ namespace RaynMaker.Import.Web.ViewModels
         }
 
         public InteractionRequest<IConfirmation> EditCaptureRequest { get; private set; }
+
+        public AddressBarViewModel AddressBar { get; private set; }
     }
 }

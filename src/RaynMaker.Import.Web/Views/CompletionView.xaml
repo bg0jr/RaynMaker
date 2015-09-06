@@ -3,18 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:prism="http://www.codeplex.com/prism"
+             xmlns:pn="http://github.com/ronin4net/plainion"
+             xmlns:l="clr-namespace:RaynMaker.Import.Web"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="100" d:DesignWidth="300">
+    <i:Interaction.Triggers>
+        <prism:InteractionRequestTrigger SourceObject="{Binding InputMacroValueRequest, Mode=OneWay}">
+            <pn:PopupViewAction ResizeMode="NoResize" WindowWidth="200" IsModal="True" prism:RegionManager.RegionName="{x:Static l:RegionNames.InputMacroValueView}"/>
+        </prism:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Button Grid.Row="0" Grid.Column="0" Content="Clear" Command="{Binding ClearCommand}" Margin="0,3,0,0"/>
-        <Button Grid.Row="0" Grid.Column="1" Content="Save" Command="{Binding SaveCommand}" Margin="10,3,0,0"/>
+        <Button Grid.Row="0" Grid.Column="0" Content="Validate" Command="{Binding ValidateCommand}" Margin="0,3,0,0"/>
+
+        <StackPanel Grid.Row="1" Grid.Column="1"  Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <Button Content="Clear" Command="{Binding ClearCommand}" Margin="0,3,0,3" />
+            <Button Grid.Row="1" Grid.Column="2" Content="Save" Command="{Binding SaveCommand}" Margin="5,3,3,3" />
+        </StackPanel>
     </Grid>
 </UserControl>

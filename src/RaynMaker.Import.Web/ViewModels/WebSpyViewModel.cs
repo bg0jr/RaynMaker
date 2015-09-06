@@ -15,8 +15,6 @@ namespace RaynMaker.Import.Web.ViewModels
 
         public WebSpyViewModel()
         {
-            AddressBar = new AddressBarViewModel();
-
             var session = new Session();
             Datums = new DatumSelectionViewModel( session );
             Navigation = new NavigationViewModel( session );
@@ -38,8 +36,9 @@ namespace RaynMaker.Import.Web.ViewModels
 
                 // TODO: how to disable images in browser
 
-                AddressBar.Browser = this;
                 Navigation.Browser = this;
+                Formats.Browser = this;
+                Completion.Browser = this;
 
                 Navigate( "http://www.google.com" );
             }
@@ -47,21 +46,17 @@ namespace RaynMaker.Import.Web.ViewModels
 
         private void myBrowser_Navigating( object sender, System.Windows.Forms.WebBrowserNavigatingEventArgs e )
         {
-            if( Navigation.IsCapturing )
+            if( Navigating != null )
             {
-                Navigation.Urls.Add( new NavigatorUrl( UriType.Request, e.Url ) );
+                Navigating( e.Url );
             }
         }
 
         private void myBrowser_DocumentCompleted( object sender, System.Windows.Forms.WebBrowserDocumentCompletedEventArgs e )
         {
-            Formats.Document = myDocumentBrowser.Document;
-
-            AddressBar.Url = myDocumentBrowser.Document.Url.ToString();
-
-            if( Navigation.IsCapturing )
+            if( DocumentCompleted != null )
             {
-                Navigation.Urls.Add( new NavigatorUrl( UriType.Response, myDocumentBrowser.Browser.Document.Url ) );
+                DocumentCompleted( myDocumentBrowser.Document );
             }
         }
 
@@ -78,6 +73,14 @@ namespace RaynMaker.Import.Web.ViewModels
         //    base.OnHandleDestroyed( e );
         //}
 
+        public DatumSelectionViewModel Datums { get; private set; }
+
+        public NavigationViewModel Navigation { get; private set; }
+
+        public DataFormatsViewModel Formats { get; private set; }
+
+        public CompletionViewModel Completion { get; private set; }
+
         public void Navigate( string url )
         {
             myDocumentBrowser.Navigate( url );
@@ -88,14 +91,8 @@ namespace RaynMaker.Import.Web.ViewModels
             myDocumentBrowser.LoadDocument( urls );
         }
 
-        public AddressBarViewModel AddressBar { get; private set; }
+        public event Action<Uri> Navigating;
 
-        public DatumSelectionViewModel Datums { get; private set; }
-
-        public NavigationViewModel Navigation { get; private set; }
-
-        public DataFormatsViewModel Formats { get; private set; }
-
-        public CompletionViewModel Completion { get; private set; }
+        public event Action<System.Windows.Forms.HtmlDocument> DocumentCompleted;
     }
 }

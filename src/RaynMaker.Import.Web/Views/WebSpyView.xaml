@@ -27,14 +27,10 @@
             </TabControl>
         </Grid>
 
-        <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="3">
-            <Grid DockPanel.Dock="Top" DataContext="{Binding AddressBar}">
-                <l:AddressBarView/>
-            </Grid>
-
+        <Grid Margin="3">
             <WindowsFormsHost HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,2,0,2">
                 <winforms:WebBrowser x:Name="myBrowser"/>
             </WindowsFormsHost>
-        </DockPanel>
+        </Grid>
     </DockPanel>
 </UserControl>

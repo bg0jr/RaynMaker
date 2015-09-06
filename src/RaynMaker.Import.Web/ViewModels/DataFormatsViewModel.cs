@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows;
@@ -17,6 +18,7 @@ namespace RaynMaker.Import.Web.ViewModels
         private Session mySession;
         private int mySelectedFormatIndex;
         private HtmlDocument myDocument;
+        private IBrowser myBrowser;
 
         public DataFormatsViewModel( Session session )
         {
@@ -54,6 +56,31 @@ namespace RaynMaker.Import.Web.ViewModels
             }
         }
 
+        public IBrowser Browser
+        {
+            get { return myBrowser; }
+            set
+            {
+                var oldBrowser = myBrowser;
+                if( SetProperty( ref myBrowser, value ) )
+                {
+                    if( oldBrowser != null )
+                    {
+                        oldBrowser.DocumentCompleted -= BrowserDocumentCompleted;
+                    }
+                    if( myBrowser != null )
+                    {
+                        myBrowser.DocumentCompleted += BrowserDocumentCompleted;
+                    }
+                }
+            }
+        }
+
+        private void BrowserDocumentCompleted( HtmlDocument doc )
+        {
+            Document = doc;
+        }
+        
         public ObservableCollection<SingleFormatViewModel> Formats { get; private set; }
 
         public int SelectedFormatIndex
