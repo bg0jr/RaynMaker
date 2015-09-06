@@ -18,8 +18,8 @@
                 <TabItem Header="Navigation" DataContext="{Binding Navigation}">
                     <l:NavigationView Margin="0"/>
                 </TabItem>
-                <TabItem Header="Data description" DataContext="{Binding DataFormat}">
-                    <l:DataFormatView Margin="0"/>
+                <TabItem Header="Data description" DataContext="{Binding Formats}">
+                    <l:DataFormatsView Margin="0"/>
                 </TabItem>
             </TabControl>
         </Grid>

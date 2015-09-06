@@ -62,10 +62,12 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Button Grid.Row="0" Grid.Column="2" Margin="5,0,0,2" Command="{Binding AddSiteCommand}">
+            <Button Grid.Row="0" Grid.Column="2" Margin="5,0,0,2" Command="{Binding AddSiteCommand}" 
+                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                 <Image Source="/RaynMaker.Infrastructure;Component/Resources/Add.png" Width="17" Height="17"/>
             </Button>
-            <Button Grid.Row="0" Grid.Column="3" Margin="5,0,0,2" Command="{Binding RemoveSiteCommand}">
+            <Button Grid.Row="0" Grid.Column="3" Margin="5,0,0,2" Command="{Binding RemoveSiteCommand}" 
+                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
                 <Image Source="/RaynMaker.Infrastructure;Component/Resources/Remove.png" Width="17" Height="17"/>
             </Button>
             

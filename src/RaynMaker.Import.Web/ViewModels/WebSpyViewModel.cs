@@ -20,7 +20,7 @@ namespace RaynMaker.Import.Web.ViewModels
             var session = new Session();
             Datums = new DatumSelectionViewModel( session );
             Navigation = new NavigationViewModel( session );
-            DataFormat = new DataFormatViewModel( session );
+            Formats = new DataFormatsViewModel( session );
         }
 
         public System.Windows.Forms.WebBrowser Browser
@@ -54,7 +54,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
         private void myBrowser_DocumentCompleted( object sender, System.Windows.Forms.WebBrowserDocumentCompletedEventArgs e )
         {
-            DataFormat.Document = myDocumentBrowser.Document;
+            Formats.Document = myDocumentBrowser.Document;
 
             AddressBar.Url = myDocumentBrowser.Document.Url.ToString();
 
@@ -93,6 +93,6 @@ namespace RaynMaker.Import.Web.ViewModels
 
         public NavigationViewModel Navigation { get; private set; }
 
-        public DataFormatViewModel DataFormat { get; private set; }
+        public DataFormatsViewModel Formats { get; private set; }
     }
 }

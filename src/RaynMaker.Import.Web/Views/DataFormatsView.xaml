@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="RaynMaker.Import.Web.Views.DataFormatsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:l="clr-namespace:RaynMaker.Import.Web.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="700">
+    <DockPanel LastChildFill="True">
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <Button Content="&lt;" Command="{Binding PreviousCommand}" Width="25"/>
+            <Border BorderBrush="Black" BorderThickness="1" Margin="5,0,0,0" Width="50">
+                <TextBlock VerticalAlignment="Center">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0}/{1}">
+                            <Binding Path="SelectedFormatIndex"/>
+                            <Binding Path="Formats.Count"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </Border>
+            <Button Content="&gt;" Command="{Binding NextCommand}" Margin="5,0,0,0" Width="25"/>
+            
+            <Button Command="{Binding AddCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="5,0,0,0">
+                <Image Source="/RaynMaker.Infrastructure;Component/Resources/Add.png" Width="17" Height="17"/>
+            </Button>
+            <Button Command="{Binding RemoveCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="5,0,0,0">
+                <Image Source="/RaynMaker.Infrastructure;Component/Resources/Remove.png" Width="17" Height="17"/>
+            </Button>
+        </StackPanel>
+        
+        <TabControl ItemsSource="{Binding Formats}" SelectedIndex="{Binding SelectedFormatIndex}">
+            <TabControl.ItemContainerStyle>
+                <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </Style>
+            </TabControl.ItemContainerStyle>
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <l:SingleFormatView/>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+    </DockPanel>
+</UserControl>

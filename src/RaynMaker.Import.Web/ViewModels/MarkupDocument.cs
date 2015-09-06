@@ -50,7 +50,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 {
                     myTable = mySelectedElement.FindEmbeddingTable();
 
-                    TemplateChanged();
+                    Apply();
                 }
             }
         }
@@ -112,7 +112,7 @@ namespace RaynMaker.Import.Web.ViewModels
             get { return myDimension; }
             set
             {
-                myDimension = value; TemplateChanged();
+                myDimension = value; Apply();
             }
         }
 
@@ -126,7 +126,7 @@ namespace RaynMaker.Import.Web.ViewModels
                     value = null;
                 }
                 mySkipRows = value;
-                TemplateChanged();
+                Apply();
             }
         }
 
@@ -140,7 +140,7 @@ namespace RaynMaker.Import.Web.ViewModels
                     value = null;
                 }
                 mySkipColumns = value;
-                TemplateChanged();
+                Apply();
             }
         }
 
@@ -154,7 +154,7 @@ namespace RaynMaker.Import.Web.ViewModels
                     value = -1;
                 }
                 myRowHeader = value;
-                TemplateChanged();
+                Apply();
             }
         }
 
@@ -168,7 +168,7 @@ namespace RaynMaker.Import.Web.ViewModels
                     value = -1;
                 }
                 myColumnHeader = value;
-                TemplateChanged();
+                Apply();
             }
         }
 
@@ -187,7 +187,7 @@ namespace RaynMaker.Import.Web.ViewModels
             SelectedElement = myDocument.Create( myDocument.Document.GetElementFromPoint( e.ClientMousePosition ) );
         }
 
-        private void TemplateChanged()
+        public void Apply()
         {
             if( mySelectedElement == null || mySelectedElement.TagName.Equals( "INPUT", StringComparison.OrdinalIgnoreCase ) )
             {

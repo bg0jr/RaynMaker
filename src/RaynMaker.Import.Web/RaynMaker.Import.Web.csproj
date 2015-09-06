@@ -81,17 +81,18 @@
     <Compile Include="ImportWebModule.cs" />
     <Compile Include="Model\Session.cs" />
     <Compile Include="ViewModels\AddressBarViewModel.cs" />
-    <Compile Include="ViewModels\DataFormatViewModel.cs" />
+    <Compile Include="ViewModels\DataFormatsViewModel.cs" />
     <Compile Include="ViewModels\DatumSelectionViewModel.cs" />
     <Compile Include="ViewModels\InputMacroValueViewModel.cs" />
     <Compile Include="ViewModels\EditCaptureViewModel.cs" />
     <Compile Include="ViewModels\NavigationViewModel.cs" />
+    <Compile Include="ViewModels\SingleFormatViewModel.cs" />
     <Compile Include="ViewModels\WebSpyViewModel.cs" />
     <Compile Include="Views\AddressBarView.xaml.cs">
       <DependentUpon>AddressBarView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DataFormatView.xaml.cs">
-      <DependentUpon>DataFormatView.xaml</DependentUpon>
+    <Compile Include="Views\DataFormatsView.xaml.cs">
+      <DependentUpon>DataFormatsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\HtmlElementExtensions.cs" />
     <Compile Include="ViewModels\HtmlMarker.cs" />
@@ -114,6 +115,9 @@
     <Compile Include="Views\NavigationView.xaml.cs">
       <DependentUpon>NavigationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SingleFormatView.xaml.cs">
+      <DependentUpon>SingleFormatView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TextBoxBinding.cs" />
     <Compile Include="Views\WebSpyMenuItem.xaml.cs">
       <DependentUpon>WebSpyMenuItem.xaml</DependentUpon>
@@ -127,7 +131,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DataFormatView.xaml">
+    <Page Include="Views\DataFormatsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -144,6 +148,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NavigationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SingleFormatView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

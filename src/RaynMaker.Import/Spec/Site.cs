@@ -6,7 +6,7 @@ namespace RaynMaker.Import.Spec
     public class Site
     {
         public Site( string name )
-            : this( name, null, null )
+            : this( name, null )
         {
         }
 

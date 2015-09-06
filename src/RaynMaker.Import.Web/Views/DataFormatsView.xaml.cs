@@ -2,9 +2,9 @@
 
 namespace RaynMaker.Import.Web.Views
 {
-    public partial class DataFormatView : UserControl
+    public partial class DataFormatsView : UserControl
     {
-        public DataFormatView()
+        public DataFormatsView()
         {
             InitializeComponent();
         }

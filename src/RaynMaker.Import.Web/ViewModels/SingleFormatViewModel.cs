@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Input;
 using Blade;
 using Blade.Data;
-using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Plainion;
 using RaynMaker.Import.Html;
-using RaynMaker.Import.Web.Model;
+using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
-    class DataFormatViewModel : BindableBase
+    class SingleFormatViewModel : BindableBase
     {
-        private Session mySession;
         private string myPath;
         private string myValue;
         private CellDimension mySelectedDimension;
@@ -26,20 +23,28 @@ namespace RaynMaker.Import.Web.ViewModels
         private string mySkipColumns;
         private MarkupDocument myMarkupDocument;
 
-        public DataFormatViewModel( Session session )
+        public SingleFormatViewModel( PathSeriesFormat format )
         {
-            Contract.RequiresNotNull( session, "session" );
+            Contract.RequiresNotNull( format, "format" );
 
-            mySession = session;
-
+            Format = format;
+            
             IsValid = true;
-
-            ResetCommand = new DelegateCommand( OnReset );
-            SearchPathCommand = new DelegateCommand( OnSearchPath );
 
             myMarkupDocument = new MarkupDocument();
             myMarkupDocument.ValidationChanged += SeriesName_ValidationChanged;
+
+            Path = "";
+            Value = "";
+
+            SkipColumns = null;
+            SkipRows = null;
+            RowHeaderColumn = null;
+            ColumnHeaderRow = null;
+            SeriesName = null;
         }
+
+        public PathSeriesFormat Format { get; private set; }
 
         private void SeriesName_ValidationChanged( bool isValid )
         {
@@ -51,8 +56,10 @@ namespace RaynMaker.Import.Web.ViewModels
             get { return myMarkupDocument.Document; }
             set
             {
-                Path = "";
-                Value = "";
+                if( myMarkupDocument.Document == value )
+                {
+                    return;
+                }
 
                 if( myMarkupDocument.Document != null )
                 {
@@ -70,11 +77,27 @@ namespace RaynMaker.Import.Web.ViewModels
             Path = myMarkupDocument.SelectedElement.GetPath().ToString();
             Value = myMarkupDocument.SelectedElement.InnerText;
         }
-        
+
         public string Path
         {
             get { return myPath; }
-            set { SetProperty( ref myPath, value ); }
+            set
+            {
+                if( SetProperty( ref myPath, value ) )
+                {
+                    Format.Path = myPath;
+
+                    if( !string.IsNullOrWhiteSpace( myPath ) )
+                    {
+                        myMarkupDocument.Anchor = myPath;
+
+                        if( myMarkupDocument.SelectedElement != null )
+                        {
+                            Value = myMarkupDocument.SelectedElement.InnerText;
+                        }
+                    }
+                }
+            }
         }
 
         public string Value
@@ -90,6 +113,7 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 if( SetProperty( ref mySelectedDimension, value ) )
                 {
+                    Format.Expand = mySelectedDimension;
                     myMarkupDocument.Dimension = mySelectedDimension;
                 }
             }
@@ -143,7 +167,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 //errorProvider1.SetError( config, "Must be: <number> [, <number> ]*" );
             }
         }
-        
+
         public string ColumnHeaderRow
         {
             get { return myColumnHeaderRow; }
@@ -204,32 +228,9 @@ namespace RaynMaker.Import.Web.ViewModels
             }
         }
 
-        public ICommand ResetCommand { get; private set; }
-
-        private void OnReset()
+        public void Apply()
         {
-            Path = "";
-            Value = "";
-
-            SkipColumns = string.Empty;
-            SkipRows = string.Empty;
-            RowHeaderColumn = string.Empty;
-            ColumnHeaderRow = string.Empty;
-            SeriesName = string.Empty;
-
-            myMarkupDocument.Reset();
-        }
-
-        public ICommand SearchPathCommand { get; private set; }
-
-        private void OnSearchPath()
-        {
-            myMarkupDocument.Anchor = Path;
-
-            if( myMarkupDocument.SelectedElement != null )
-            {
-                Value = myMarkupDocument.SelectedElement.InnerText;
-            }
+            myMarkupDocument.Apply();
         }
     }
 }
