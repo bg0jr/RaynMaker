@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:v="clr-namespace:RaynMaker.Import.Web.Views"
+             x:Name="_this"
              mc:Ignorable="d" 
              d:DesignHeight="250" d:DesignWidth="500">
     <Grid Margin="3">
@@ -22,16 +23,55 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <ListBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" ItemsSource="{Binding Urls}" SelectedItem="{Binding SelectedUrl}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding UrlType}" FontWeight="SemiBold"/>
-                        <TextBlock Text="{Binding UrlString}" Margin="5,0,0,0"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" x:Name="Col1Resizer" Width="{Binding ElementName=Col1, Path=ActualWidth}"/>
+            <Grid Grid.Column="1" x:Name="Col2Resizer"/>
+            <Grid Grid.Column="2" x:Name="Col3Resizer"  Width="{Binding ElementName=Col3, Path=ActualWidth}"/>
+        </Grid>
+
+        <ListView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" ItemsSource="{Binding Urls}" SelectedItem="{Binding SelectedUrl}">
+            <ListView.View>
+                <GridView>
+                    <GridView.ColumnHeaderContainerStyle>
+                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </Style>
+                    </GridView.ColumnHeaderContainerStyle>
+                    <GridViewColumn x:Name="Col1">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding UrlType}" FontWeight="SemiBold"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="Col2" Width="{Binding ActualWidth, ElementName=Col2Resizer}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding UrlString}" Margin="5,0,0,0"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn x:Name="Col3">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding DataContext.DeleteUrlCommand, ElementName=_this}" CommandParameter="{Binding}"
+                                        HorizontalAlignment="Right" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                    <Button.Content>
+                                        <Image Source="/RaynMaker.Infrastructure;Component/Resources/Remove.png" Width="16" Height="16"/>
+                                    </Button.Content>
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Url" VerticalAlignment="Center"/>
         <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,5,0,0"

@@ -21,7 +21,7 @@
 
         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
             <TextBlock Text="Select a stock" VerticalAlignment="Center"/>
-            <ComboBox Margin="5,3,0,0" ItemsSource="{Binding Stocks}" SelectedItem="{Binding SelectedStock}" Width="200">
+            <ComboBox Margin="5,3,0,0" ItemsSource="{Binding Stocks}" SelectedItem="{Binding SelectedStock}" Width="250">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -31,7 +31,7 @@
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Grid.Column="0" Text="{Binding Isin}"/>
-                            <TextBlock Grid.Column="1" Text="{Binding Company.Name}"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Company.Name}" Margin="10,0,0,0"/>
                         </Grid>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>

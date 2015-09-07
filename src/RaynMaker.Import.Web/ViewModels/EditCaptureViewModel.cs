@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
+using Blade.Collections;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
@@ -15,26 +17,32 @@ namespace RaynMaker.Import.Web.ViewModels
     [Export]
     class EditCaptureViewModel : BindableBase, IInteractionRequestAware
     {
-        private IEnumerable<NavigatorUrl> myUrls;
         private NavigatorUrl mySelectedUrl;
         private INotification myNotification;
 
         public EditCaptureViewModel()
         {
+            Urls = new ObservableCollection<NavigatorUrl>();
+
+            DeleteUrlCommand = new DelegateCommand<NavigatorUrl>( OnDeleteUrl );
+
             OkCommand = new DelegateCommand( OnOk );
             CancelCommand = new DelegateCommand( OnCancel );
         }
 
-        public IEnumerable<NavigatorUrl> Urls
-        {
-            get { return myUrls; }
-            set { SetProperty( ref myUrls, value ); }
-        }
+        public ObservableCollection<NavigatorUrl> Urls { get; private set; }
 
         public NavigatorUrl SelectedUrl
         {
             get { return mySelectedUrl; }
             set { SetProperty( ref mySelectedUrl, value ); }
+        }
+
+        public ICommand DeleteUrlCommand { get; private set; }
+
+        private void OnDeleteUrl( NavigatorUrl url )
+        {
+            Urls.Remove( url );
         }
 
         public ICommand OkCommand { get; private set; }
@@ -45,7 +53,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             Notification.TrySetConfirmed( true );
 
-            Notification.Content = Urls;
+            Notification.Content = Urls.ToList();
 
             FinishInteraction();
         }
@@ -66,7 +74,10 @@ namespace RaynMaker.Import.Web.ViewModels
             set
             {
                 myNotification = value;
-                Urls = ( IEnumerable<NavigatorUrl> )myNotification.Content;
+
+                Urls.Clear();
+                Urls.AddRange( ( IEnumerable<NavigatorUrl> )myNotification.Content );
+                SelectedUrl = Urls.FirstOrDefault();
             }
         }
     }
