@@ -23,6 +23,7 @@ namespace RaynMaker.Import.Web.ViewModels
         private string mySkipColumns;
         private string myTimeFormat;
         private string myValueFormat;
+        private bool myInMillions;
         private MarkupDocument myMarkupDocument;
 
         public SingleFormatViewModel( PathSeriesFormat format )
@@ -272,6 +273,18 @@ namespace RaynMaker.Import.Web.ViewModels
                 if( SetProperty( ref myValueFormat, value ) )
                 {
                     Format.ValueFormat = new FormatColumn( "value", typeof( double ), myValueFormat );
+                }
+            }
+        }
+
+        public bool InMillions
+        {
+            get { return myInMillions; }
+            set
+            {
+                if( SetProperty( ref myInMillions, value ) )
+                {
+                    Format.InMillions = myInMillions;
                 }
             }
         }

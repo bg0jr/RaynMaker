@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
@@ -95,6 +92,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 {
                     if( mySelectedFormatIndex != -1 )
                     {
+                        mySession.CurrentFormat = Formats[ mySelectedFormatIndex ].Format;
                         Formats[ mySelectedFormatIndex ].Document = myDocument;
                         Formats[ mySelectedFormatIndex ].Apply();
                     }

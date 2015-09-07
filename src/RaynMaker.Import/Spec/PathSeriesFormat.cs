@@ -52,5 +52,7 @@ namespace RaynMaker.Import.Spec
         public bool ExtractLinkUrl { get; set; }
 
         public string SeriesName { get; set; }
+
+        public bool InMillions { get; set; }
     }
 }
