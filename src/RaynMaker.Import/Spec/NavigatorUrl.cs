@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using Blade;
 
 namespace RaynMaker.Import.Spec
@@ -8,6 +9,7 @@ namespace RaynMaker.Import.Spec
     /// Because of transformation from Navigation object
     /// </summary>
     [Serializable]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "NavigatorUrl" )]
     public class NavigatorUrl
     {
         private Uri myUrl = null;
@@ -37,8 +39,10 @@ namespace RaynMaker.Import.Spec
             Formular = form;
         }
 
+        [DataMember]
         public UriType UrlType { get; private set; }
 
+        [DataMember( Name = "Url" )]
         public string UrlString { get; set; }
 
         public Uri Url
@@ -56,11 +60,8 @@ namespace RaynMaker.Import.Spec
             }
         }
 
-        public Formular Formular
-        {
-            get;
-            private set;
-        }
+        [DataMember]
+        public Formular Formular { get; private set; }
 
         public override string ToString()
         {

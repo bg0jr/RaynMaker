@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Import.Spec;
 
@@ -19,7 +20,16 @@ namespace RaynMaker.Import.Web.Model
         public DatumLocator CurrentLocator
         {
             get { return myCurrentLocator; }
-            set { SetProperty( ref myCurrentLocator, value ); }
+            set
+            {
+                if( SetProperty( ref myCurrentLocator, value ) )
+                {
+                    if( myCurrentLocator != null )
+                    {
+                        CurrentSite = myCurrentLocator.Sites.FirstOrDefault();
+                    }
+                }
+            }
         }
 
         public IEnumerable<DatumLocator> Locators { get { return myLocators; } }
@@ -32,7 +42,16 @@ namespace RaynMaker.Import.Web.Model
         public Site CurrentSite
         {
             get { return myCurrentSite; }
-            set { SetProperty( ref myCurrentSite, value ); }
+            set
+            {
+                if( SetProperty( ref myCurrentSite, value ) )
+                {
+                    if( myCurrentSite != null )
+                    {
+                        CurrentFormat = (PathSeriesFormat)myCurrentSite.Formats.FirstOrDefault();
+                    }
+                }
+            }
         }
 
         public PathSeriesFormat CurrentFormat

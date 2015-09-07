@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace RaynMaker.Import.Spec
 {
@@ -6,6 +7,7 @@ namespace RaynMaker.Import.Spec
     /// Base class of all formats.
     /// </summary>
     [Serializable]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "AbstractFormat" )]
     public abstract class AbstractFormat : IFormat
     {
         protected AbstractFormat( string name )
@@ -15,6 +17,7 @@ namespace RaynMaker.Import.Spec
 
         public abstract IFormat Clone();
 
+        [DataMember]
         public string Name { get; private set; }
     }
 }

@@ -6,6 +6,8 @@ namespace RaynMaker.Infrastructure
 {
     public interface IProject
     {
+        string StorageRoot { get; }
+
         IAssetsContext GetAssetsContext();
 
         IAnalysisContext GetAnalysisContext();

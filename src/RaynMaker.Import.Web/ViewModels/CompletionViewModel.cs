@@ -7,12 +7,12 @@ using System.Windows.Input;
 using Blade.Collections;
 using Blade.Data;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Entities;
 using RaynMaker.Import.Html.WinForms;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Model;
+using RaynMaker.Import.Web.Services;
 using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Import.Web.ViewModels
@@ -21,13 +21,15 @@ namespace RaynMaker.Import.Web.ViewModels
     {
         private Session mySession;
         private IProjectHost myProjectHost;
+        private StorageService myStorageService;
         private Stock mySelectedStock;
 
-        public CompletionViewModel( Session session, IProjectHost projectHost )
+        public CompletionViewModel( Session session, IProjectHost projectHost, StorageService storageService )
         {
             mySession = session;
             myProjectHost = projectHost;
             myProjectHost.Changed += OnProjectChanged;
+            myStorageService = storageService;
 
             Stocks = new ObservableCollection<Stock>();
 
@@ -145,7 +147,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
         private void OnSave()
         {
-
+            myStorageService.Store( mySession.Locators );
         }
     }
 }

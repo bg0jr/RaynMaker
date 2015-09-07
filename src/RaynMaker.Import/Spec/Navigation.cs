@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
-using Blade.Collections;
 
 namespace RaynMaker.Import.Spec
 {
@@ -10,6 +10,7 @@ namespace RaynMaker.Import.Spec
     /// Descripes the steps for automated site navigation.
     /// </summary>
     [Serializable]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "Navigation" )]
     public class Navigation
     {
         public static Navigation Empty = new Navigation();
@@ -25,14 +26,14 @@ namespace RaynMaker.Import.Spec
         }
 
         public Navigation( DocumentType docType, params NavigatorUrl[] urls )
-            : this( docType, ( IReadOnlyList<NavigatorUrl> )urls )
+            : this( docType, urls.ToList() )
         {
         }
 
-        public Navigation( DocumentType docType, IReadOnlyList<NavigatorUrl> urls )
+        public Navigation( DocumentType docType, IEnumerable<NavigatorUrl> urls )
         {
             DocumentType = docType;
-            Uris = urls;
+            Uris = urls.ToList();
 
             UrisHashCode = CreateUrisHashCode();
         }
@@ -45,9 +46,13 @@ namespace RaynMaker.Import.Spec
             return hashCodeString.GetHashCode();
         }
 
+        [DataMember]
         public DocumentType DocumentType { get; set; }
-        public IReadOnlyList<NavigatorUrl> Uris { get; set; }
 
+        [DataMember]
+        public List<NavigatorUrl> Uris { get; private set; }
+
+        [DataMember]
         public int UrisHashCode { get; private set; }
 
         public override string ToString()

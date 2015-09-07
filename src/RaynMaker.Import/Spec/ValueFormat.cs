@@ -5,6 +5,7 @@ using System.Text;
 using Blade;
 using Plainion;
 using System.Text.RegularExpressions;
+using System.Runtime.Serialization;
 
 namespace RaynMaker.Import.Spec
 {
@@ -12,6 +13,7 @@ namespace RaynMaker.Import.Spec
     /// Describes how to get a value from a string
     /// </summary>
     [Serializable]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "ValueFormat" )]
     public class ValueFormat : IEquatable<ValueFormat>
     {
         private string myFormat = null;
@@ -75,26 +77,29 @@ namespace RaynMaker.Import.Spec
         /// Group "1" will be used for further processing
         /// </remarks>
         /// </summary>
+        [DataMember]
         public Regex ExtractionPattern { get; private set; }
 
         /// <summary>
         /// Will always be trimmed.
         /// If the format is a regex we will only take group zero.
         /// </summary>
+        [DataMember]
         public string Format
         {
-            get
-            {
-                return myFormat;
-            }
-            set
-            {
-                myFormat = value.TrimOrNull();
-            }
+            get { return myFormat; }
+            set { myFormat = value.TrimOrNull(); }
         }
 
         /// <summary/>
         public Type Type { get; private set; }
+
+        [DataMember( Name = "Type" )]
+        private string SerializedType
+        {
+            get { return Type.AssemblyQualifiedName; }
+            set { Type = Type.GetType( value ); }
+        }
 
         /// <summary/>
         public override string ToString()
@@ -119,15 +124,15 @@ namespace RaynMaker.Import.Spec
             try
             {
                 value = value.TrimOrNull();
-                if ( string.IsNullOrEmpty( value ) )
+                if( string.IsNullOrEmpty( value ) )
                 {
                     return null;
                 }
 
-                if ( ExtractionPattern != null )
+                if( ExtractionPattern != null )
                 {
                     var md = ExtractionPattern.Match( value );
-                    if ( md.Success )
+                    if( md.Success )
                     {
                         value = md.Groups[ 1 ].Value;
                     }
@@ -137,30 +142,30 @@ namespace RaynMaker.Import.Spec
                     }
                 }
 
-                if ( string.IsNullOrEmpty( value ) )
+                if( string.IsNullOrEmpty( value ) )
                 {
                     return null;
                 }
 
-                if ( string.IsNullOrEmpty( Format ) )
+                if( string.IsNullOrEmpty( Format ) )
                 {
                     return value;
                 }
 
-                if ( Type == typeof( DateTime ) )
+                if( Type == typeof( DateTime ) )
                 {
                     return DateTime.ParseExact( value.ToString(), Format, CultureInfo.InvariantCulture );
                 }
 
                 char decimalSep = Format.ToCharArray().LastOrDefault( c => !Char.IsDigit( c ) );
 
-                if ( Type == typeof( long ) )
+                if( Type == typeof( long ) )
                 {
                     // all other non-digit numbers are treated as thousands separators now
                     value = value.TakeBefore( decimalSep ).RemoveAll( c => !Char.IsDigit( c ) );
                     return long.Parse( value.TakeBefore( decimalSep ) );
                 }
-                else if ( Type == typeof( int ) )
+                else if( Type == typeof( int ) )
                 {
                     // all other non-digit numbers are treated as thousands separators now
                     value = value.TakeBefore( decimalSep ).RemoveAll( c => !Char.IsDigit( c ) );
@@ -171,18 +176,18 @@ namespace RaynMaker.Import.Spec
                 nfi.NumberDecimalSeparator = decimalSep.ToString();
                 nfi.NumberDecimalDigits = Format.Length - Format.IndexOf( decimalSep ) - 1; ;
 
-                if ( Type == typeof( float ) )
+                if( Type == typeof( float ) )
                 {
                     return float.Parse( value, nfi );
                 }
-                else if ( Type == typeof( double ) )
+                else if( Type == typeof( double ) )
                 {
                     return double.Parse( value, nfi );
                 }
 
                 return value;
             }
-            catch ( FormatException ex )
+            catch( FormatException ex )
             {
                 ex.AddContext( "Format", Format );
                 ex.AddContext( "Value", value );
@@ -197,12 +202,12 @@ namespace RaynMaker.Import.Spec
 
         public override bool Equals( object other )
         {
-            if ( !( other is ValueFormat ) )
+            if( !( other is ValueFormat ) )
             {
                 return false;
             }
 
-            return Equals( (ValueFormat)other );
+            return Equals( ( ValueFormat )other );
         }
 
         public override int GetHashCode()

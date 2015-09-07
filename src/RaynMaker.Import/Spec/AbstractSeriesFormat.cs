@@ -2,6 +2,7 @@
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Serialization;
 using Blade.Data;
 
 namespace RaynMaker.Import.Spec
@@ -14,6 +15,7 @@ namespace RaynMaker.Import.Spec
     /// </summary>
     // TODO: actually we no longer need "expand" if we have an anchor
     [Serializable]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "AbstractSeriesFormat" )]
     public abstract class AbstractSeriesFormat : AbstractDimensionalFormat
     {
         protected AbstractSeriesFormat( string name )
@@ -53,33 +55,39 @@ namespace RaynMaker.Import.Spec
         /// <summary>
         /// Direction of the series in the "table".
         /// </summary>
+        [DataMember]
         public CellDimension Expand { get; set; }
 
         /// <summary>
         /// Position of the series name: the column
         /// if Expand == Row, the row otherwise.
         /// </summary>
+        [DataMember]
         public int SeriesNamePosition { get; set; }
 
         /// <summary>
         /// Position of the time axis: the row
         /// if Expand == Row, the column otherwise.
         /// </summary>
+        [DataMember]
         public int TimeAxisPosition { get; set; }
 
         /// <summary>
         /// Format of the value column.
         /// </summary>
+        [DataMember]
         public FormatColumn ValueFormat { get; set; }
 
         /// <summary>
         /// Format of the time axis column.
         /// </summary>
+        [DataMember]
         public FormatColumn TimeAxisFormat { get; set; }
 
         /// <summary>
         /// Defines how to find the position of the series in the table.
         /// </summary>
+        [DataMember]
         public Anchor Anchor { get; set; }
 
         /// <summary>

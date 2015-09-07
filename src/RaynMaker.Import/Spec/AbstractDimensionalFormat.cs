@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace RaynMaker.Import.Spec
 {
@@ -7,6 +8,7 @@ namespace RaynMaker.Import.Spec
     /// Base class of all single or multi dimensional formats.
     /// </summary>
     [Serializable]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "AbstractDimensionalFormat" )]
     public abstract class AbstractDimensionalFormat : AbstractFormat
     {
         private int[] mySkipRows = null;
@@ -23,6 +25,7 @@ namespace RaynMaker.Import.Spec
         /// <summary>
         /// Rows to skip while parsing input.
         /// </summary>
+        [DataMember]
         public int[] SkipRows
         {
             get { return mySkipRows; }
@@ -32,6 +35,7 @@ namespace RaynMaker.Import.Spec
         /// <summary>
         /// Columns to skip while parsing input.
         /// </summary>
+        [DataMember]
         public int[] SkipColumns
         {
             get { return mySkipColumns; }

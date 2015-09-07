@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using Blade;
@@ -10,6 +11,7 @@ namespace RaynMaker.Import.Spec
     /// TODO: maybe we should have a generic FormatColumn passing the type info via generic type param
     /// </summary>
     [Serializable]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "FormatColumn" )]
     public class FormatColumn : ValueFormat
     {
         public FormatColumn( string name )
@@ -26,6 +28,7 @@ namespace RaynMaker.Import.Spec
             : this( name, type, format, null )
         {
         }
+
         public FormatColumn( string name, Type type, string format, Regex extractionPattern )
             : base( type, format, extractionPattern )
         {
@@ -45,6 +48,7 @@ namespace RaynMaker.Import.Spec
             Name = other.Name;
         }
 
+        [DataMember]
         public string Name { get; private set; }
 
         public override string ToString()

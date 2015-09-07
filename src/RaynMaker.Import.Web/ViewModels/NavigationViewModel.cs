@@ -199,7 +199,8 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             if( mySelectedSite != null )
             {
-                mySelectedSite.Navigation.Uris = Urls;
+                mySelectedSite.Navigation.Uris.Clear();
+                mySelectedSite.Navigation.Uris.AddRange( Urls );
             }
         }
 

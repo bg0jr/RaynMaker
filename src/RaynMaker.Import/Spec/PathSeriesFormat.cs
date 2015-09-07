@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace RaynMaker.Import.Spec
 {
@@ -7,6 +8,7 @@ namespace RaynMaker.Import.Spec
     /// has a hierarchical structure like XML or HTML documents.
     /// </summary>
     [Serializable]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "PathSeriesFormat" )]
     public class PathSeriesFormat : AbstractSeriesFormat
     {
         public PathSeriesFormat( string name )
@@ -43,16 +45,20 @@ namespace RaynMaker.Import.Spec
         /// <summary>
         /// Path which describes the position of the series.
         /// </summary>
+        [DataMember]
         public string Path { get; set; }
 
         /// <summary>
         /// In case of a document that supports link extraction below the actual value this property
         /// indicates that the link should be extracted instead of the display text.
         /// </summary>
+        [DataMember]
         public bool ExtractLinkUrl { get; set; }
 
+        [DataMember]
         public string SeriesName { get; set; }
 
+        [DataMember]
         public bool InMillions { get; set; }
     }
 }

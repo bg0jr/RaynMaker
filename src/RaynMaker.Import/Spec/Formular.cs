@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using Blade.Collections;
 
@@ -10,6 +11,7 @@ namespace RaynMaker.Import.Spec
     /// Identifies a formular in a document by name.
     /// Specified parameters will be set when submitting the form.
     /// </summary>
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "Formular" )]
     public class Formular
     {
         public static Formular Empty = new Formular( string.Empty );
@@ -24,22 +26,16 @@ namespace RaynMaker.Import.Spec
             Name = name;
             Parameters = new Dictionary<string, string>();
 
-            foreach ( var param in parameters )
+            foreach( var param in parameters )
             {
                 Parameters.Add( param.Item1, param.Item2 );
             }
         }
 
-        public string Name
-        {
-            get;
-            private set;
-        }
+        [DataMember]
+        public string Name { get; private set; }
 
-        public IDictionary<string, string> Parameters
-        {
-            get;
-            private set;
-        }
+        [DataMember]
+        public IDictionary<string, string> Parameters { get; private set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace RaynMaker.Import.Spec
@@ -11,6 +12,7 @@ namespace RaynMaker.Import.Spec
     /// if both are set we get a cell
     /// </remarks>
     /// </summary>
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "Anchor" )]
     public class Anchor
     {
         protected Anchor( ICellLocator row, ICellLocator col )
@@ -22,11 +24,13 @@ namespace RaynMaker.Import.Spec
         /// <summary>
         /// Defines how to get a column
         /// </summary>
+        [DataMember]
         public ICellLocator Column { get; private set; }
 
         /// <summary>
         /// Defines how to get a row
         /// </summary>
+        [DataMember]
         public ICellLocator Row { get; private set; }
 
         public static Anchor ForRow( ICellLocator row )

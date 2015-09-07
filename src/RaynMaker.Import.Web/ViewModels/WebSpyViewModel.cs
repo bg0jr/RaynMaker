@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Linq;
 using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Import.Core;
 using RaynMaker.Import.Html;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Model;
+using RaynMaker.Import.Web.Services;
 using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Import.Web.ViewModels
@@ -16,13 +18,22 @@ namespace RaynMaker.Import.Web.ViewModels
         private LegacyDocumentBrowser myDocumentBrowser = null;
 
         [ImportingConstructor]
-        public WebSpyViewModel( IProjectHost projectHost )
+        public WebSpyViewModel( IProjectHost projectHost, StorageService storageService )
         {
             var session = new Session();
+
+            foreach( var locator in storageService.Load() )
+            {
+                session.AddLocator( locator );
+            }
+
+            session.CurrentLocator = session.Locators.FirstOrDefault();
+
+
             Datums = new DatumSelectionViewModel( session );
             Navigation = new NavigationViewModel( session );
             Formats = new DataFormatsViewModel( session );
-            Completion = new CompletionViewModel( session, projectHost );
+            Completion = new CompletionViewModel( session, projectHost, storageService );
         }
 
         public System.Windows.Forms.WebBrowser Browser
