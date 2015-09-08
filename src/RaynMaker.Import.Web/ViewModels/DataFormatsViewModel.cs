@@ -26,6 +26,8 @@ namespace RaynMaker.Import.Web.ViewModels
 
             PropertyChangedEventManager.AddHandler( mySession, OnCurrentSiteChanged, PropertySupport.ExtractPropertyName( () => mySession.CurrentSite ) );
 
+            mySelectedFormatIndex = -1;
+
             Formats = new ObservableCollection<SingleFormatViewModel>();
 
             PreviousCommand = new DelegateCommand( OnPrevious, CanPrevious );

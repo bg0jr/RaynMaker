@@ -24,7 +24,15 @@ namespace RaynMaker.Import.Web.ViewModels
             mySession = session;
 
             Datums = Dynamics.AllDatums;
-            SelectedDatum = typeof( Price );
+
+            if( mySession.CurrentLocator != null )
+            {
+                SelectedDatum = Datums.FirstOrDefault( d => d.Name == mySession.CurrentLocator.Datum );
+            }
+            else
+            {
+                SelectedDatum = typeof( Price );
+            }
         }
 
         public IEnumerable<Type> Datums { get; private set; }

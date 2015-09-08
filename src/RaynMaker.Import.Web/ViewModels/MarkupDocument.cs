@@ -65,12 +65,13 @@ namespace RaynMaker.Import.Web.ViewModels
                     myDocument.Document.Click -= HtmlDocument_Click;
                 }
 
-                SelectedElement = null;
-
                 myDocument = new HtmlDocumentAdapter( value );
                 myDocument.Document.Click += HtmlDocument_Click;
 
                 myMarker.Document = myDocument;
+
+                // Internally adjusts SelectedElement
+                Anchor = Anchor;
             }
         }
 
@@ -79,7 +80,16 @@ namespace RaynMaker.Import.Web.ViewModels
             get { return myAnchor; }
             set
             {
-                SelectedElement = ( HtmlElementAdapter )myDocument.GetElementByPath( HtmlPath.Parse( value ) );
+                myAnchor = value;
+
+                if( myDocument != null && myAnchor != null )
+                {
+                    SelectedElement = ( HtmlElementAdapter )myDocument.GetElementByPath( HtmlPath.Parse( value ) );
+                }
+                else
+                {
+                    SelectedElement = null;
+                }
             }
         }
 
@@ -112,7 +122,8 @@ namespace RaynMaker.Import.Web.ViewModels
             get { return myDimension; }
             set
             {
-                myDimension = value; Apply();
+                myDimension = value;
+                Apply();
             }
         }
 
@@ -184,7 +195,15 @@ namespace RaynMaker.Import.Web.ViewModels
 
         private void HtmlDocument_Click( object sender, HtmlElementEventArgs e )
         {
-            SelectedElement = myDocument.Create( myDocument.Document.GetElementFromPoint( e.ClientMousePosition ) );
+            var element = myDocument.Document.GetElementFromPoint( e.ClientMousePosition );
+
+            if( element.Parent.IsMarked() )
+            {
+                element = element.Parent;
+            }
+
+            var adapter = myDocument.Create( element );
+            SelectedElement = adapter;
         }
 
         public void Apply()
@@ -220,7 +239,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
         private void ValidateSeriesName()
         {
-            if( mySeriesName == null )
+            if( mySelectedElement == null || mySeriesName == null )
             {
                 return;
             }
@@ -244,11 +263,11 @@ namespace RaynMaker.Import.Web.ViewModels
 
             if( header != null && !header.InnerText.Contains( mySeriesName ) )
             {
-                ValidationChanged( false );
+                FireValidationChanged( false );
             }
             else
             {
-                ValidationChanged( true );
+                FireValidationChanged( true );
             }
         }
 

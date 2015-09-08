@@ -116,16 +116,20 @@ namespace RaynMaker.Import.Web.ViewModels
                 {
                     mySession.CurrentSite = mySelectedSite;
 
-                    Urls.Clear();
-
                     if( mySelectedSite != null )
                     {
-                        Urls.AddRange( mySelectedSite.Navigation.Uris );
+                        // changing Urls property will automatically be reflected in mySelectedSite.Navigation.Uris.
+                        // -> make a copy!
+                        var modelUrls = mySelectedSite.Navigation.Uris.ToList();
+                        Urls.Clear();
+                        Urls.AddRange( modelUrls );
+
                         SelectedDocumentType = mySelectedSite.Navigation.DocumentType;
                         SiteName = mySelectedSite.Name;
                     }
                     else
                     {
+                        Urls.Clear();
                         SelectedDocumentType = DocumentType.None;
                         SiteName = null;
                     }

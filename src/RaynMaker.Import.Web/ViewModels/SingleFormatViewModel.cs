@@ -40,10 +40,11 @@ namespace RaynMaker.Import.Web.ViewModels
             Value = "";
 
             Path = Format.Path;
+            SelectedDimension = Format.Expand;
             SkipColumns = string.Join( ",", format.SkipColumns );
             SkipRows = string.Join( ",", format.SkipRows );
             RowHeaderColumn = ( format.Expand == CellDimension.Row ? Format.TimeAxisPosition : Format.SeriesNamePosition ).ToString();
-            ColumnHeaderRow = ( format.Expand == CellDimension.Row ? Format.SeriesNamePosition : Format.TimeAxisPosition ).ToString();
+            ColumnHeaderRow = ( format.Expand == CellDimension.Column ? Format.SeriesNamePosition : Format.TimeAxisPosition ).ToString();
             SeriesName = format.SeriesNamePosition.ToString();
             TimeFormat = Format.TimeAxisFormat.Format;
             ValueFormat = Format.ValueFormat.Format;
@@ -74,6 +75,11 @@ namespace RaynMaker.Import.Web.ViewModels
                 myMarkupDocument.Document = value;
 
                 myMarkupDocument.Document.Click += HtmlDocument_Click;
+
+                if( myMarkupDocument.SelectedElement != null )
+                {
+                    HtmlDocument_Click( null, null );
+                }
             }
         }
 
@@ -163,13 +169,13 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             if( Format.Expand == CellDimension.Row )
             {
-                Format.TimeAxisPosition = int.Parse( ColumnHeaderRow );
-                Format.SeriesNamePosition = int.Parse( RowHeaderColumn );
+                Format.TimeAxisPosition = ColumnHeaderRow != null ? int.Parse( ColumnHeaderRow ) : -1;
+                Format.SeriesNamePosition = RowHeaderColumn != null ? int.Parse( RowHeaderColumn ) : -1;
             }
             else if( Format.Expand == CellDimension.Column )
             {
-                Format.TimeAxisPosition = int.Parse( RowHeaderColumn );
-                Format.SeriesNamePosition = int.Parse( ColumnHeaderRow );
+                Format.TimeAxisPosition = RowHeaderColumn != null ? int.Parse( RowHeaderColumn ) : -1;
+                Format.SeriesNamePosition = ColumnHeaderRow != null ? int.Parse( ColumnHeaderRow ) : -1;
             }
         }
 

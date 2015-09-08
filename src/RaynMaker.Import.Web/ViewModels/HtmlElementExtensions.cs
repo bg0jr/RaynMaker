@@ -20,12 +20,12 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             e.Require( x => e != null );
 
-            if ( e.IsMarked() )
+            if( e.IsMarked() )
             {
                 return;
             }
 
-            if ( e.InnerHtml == null )
+            if( e.InnerHtml == null )
             {
                 // create a pseudo element
                 e.AppendChild( e.Document.CreateElement( "SPAN" ) );
@@ -34,8 +34,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             string text = ( e.InnerText == null ? "&nbsp;" : e.InnerText.Trim() );
 
-            e.InnerHtml = string.Format(
-                "<span id=\"__maui_markup__\" style=\"color:black;background-color:{0}\">{1}</b>",
+            e.InnerHtml = string.Format( "<SPAN id=\"__maui_markup__\" style=\"color:black;background-color:{0}\">{1}</SPAN>",
                 ColorTranslator.ToHtml( color ), text );
         }
 
@@ -46,7 +45,7 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             e.Require( x => e != null );
 
-            if ( !e.IsMarked() )
+            if( !e.IsMarked() )
             {
                 return;
             }
@@ -61,7 +60,7 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             e.Require( x => e != null );
 
-            return ( e.Children.Count>0 && e.FirstChild.Id == "__maui_markup__" );
+            return ( e.Children.Count > 0 && e.Children[ 0 ].Id == "__maui_markup__" );
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Mvvm;
+using RaynMaker.Entities.Datums;
 using RaynMaker.Import.Core;
 using RaynMaker.Import.Html;
 using RaynMaker.Import.Spec;
@@ -28,7 +29,6 @@ namespace RaynMaker.Import.Web.ViewModels
             }
 
             session.CurrentLocator = session.Locators.FirstOrDefault();
-
 
             Datums = new DatumSelectionViewModel( session );
             Navigation = new NavigationViewModel( session );

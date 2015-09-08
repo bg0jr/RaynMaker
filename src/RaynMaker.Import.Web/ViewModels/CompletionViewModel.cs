@@ -79,18 +79,18 @@ namespace RaynMaker.Import.Web.ViewModels
                 return;
             }
 
-            var macroPattern = new Regex( @"\$\{(.*)\}" );
+            var macroPattern = new Regex( @"(\$\{.*\})" );
             var filtered = new List<NavigatorUrl>();
             foreach( var navUrl in mySession.CurrentSite.Navigation.Uris )
             {
                 var md = macroPattern.Match( navUrl.UrlString );
                 if( md.Success )
                 {
-                    var macroId = md.Groups[ 1 ].Value;
-                    var value = GetMacroValue( macroId );
+                    var macro = md.Groups[ 1 ].Value;
+                    var value = GetMacroValue( macro.Substring( 2, macro.Length - 3 ) );
                     if( value != null )
                     {
-                        filtered.Add( new NavigatorUrl( navUrl.UrlType, navUrl.UrlString.Replace( macroId, value ) ) );
+                        filtered.Add( new NavigatorUrl( navUrl.UrlType, navUrl.UrlString.Replace( macro, value ) ) );
                     }
                     else
                     {

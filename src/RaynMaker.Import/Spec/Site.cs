@@ -27,5 +27,12 @@ namespace RaynMaker.Import.Spec
 
         [DataMember]
         public IList<IFormat> Formats { get; private set; }
+
+        [OnDeserialized]
+        private void OnDeserialized( StreamingContext context )
+        {
+            // make writeable again
+            Formats = Formats.ToList();
+        }
     }
 }
