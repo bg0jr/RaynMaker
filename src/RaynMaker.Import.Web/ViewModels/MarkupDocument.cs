@@ -51,6 +51,8 @@ namespace RaynMaker.Import.Web.ViewModels
                     myTable = mySelectedElement.FindEmbeddingTable();
 
                     Apply();
+
+                    mySelectedElement.Element.ScrollIntoView( false );
                 }
             }
         }
