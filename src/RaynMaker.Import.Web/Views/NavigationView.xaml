@@ -10,7 +10,7 @@
              xmlns:v="clr-namespace:RaynMaker.Import.Web.Views"
              xmlns:spec="clr-namespace:RaynMaker.Import.Spec;assembly=RaynMaker.Import"
              mc:Ignorable="d" 
-             d:DesignHeight="150" d:DesignWidth="300">
+             d:DesignHeight="150" d:DesignWidth="500">
     <i:Interaction.Triggers>
         <prism:InteractionRequestTrigger SourceObject="{Binding EditCaptureRequest, Mode=OneWay}">
             <pn:PopupViewAction WindowWidth="700" WindowHeight="500" prism:RegionManager.RegionName="{x:Static l:RegionNames.EditCaptureView}"/>
@@ -34,7 +34,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -63,12 +63,15 @@
                 <Image Source="/RaynMaker.Infrastructure;Component/Resources/Add.png" Width="17" Height="17"/>
             </Button>
             <Button Grid.Row="0" Grid.Column="3" Margin="5,0,0,2" Command="{Binding RemoveSiteCommand}" 
-                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" HorizontalAlignment="Left">
                 <Image Source="/RaynMaker.Infrastructure;Component/Resources/Remove.png" Width="17" Height="17"/>
             </Button>
             
             <TextBlock Grid.Row="1" Grid.Column="0" Text="Name" VerticalAlignment="Center"/>
             <TextBox Grid.Row="1" Grid.Column="1" Margin="5,0,0,2" Text="{Binding SiteName}"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="5,2,0,2"
+                       Text="Sites are queried alphabetically when fetching data. Put numbers at the beginning of the name (with leading zeros) to define your preferences." 
+                       VerticalAlignment="Stretch" TextWrapping="Wrap"/>
 
             <TextBlock Grid.Row="2" Grid.Column="0" Text="Document type" VerticalAlignment="Center"/>
             <ComboBox Grid.Row="2" Grid.Column="1" Margin="5,0,0,2" Width="150" 

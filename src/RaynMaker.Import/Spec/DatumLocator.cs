@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace RaynMaker.Import.Spec
@@ -22,5 +23,12 @@ namespace RaynMaker.Import.Spec
 
         [DataMember]
         public IList<Site> Sites { get; private set; }
+
+        [OnDeserialized]
+        private void OnDeserialized( StreamingContext context )
+        {
+            // make writeable again
+            Sites = Sites.ToList();
+        }
     }
 }

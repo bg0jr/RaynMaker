@@ -57,7 +57,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             if( mySession.CurrentLocator != null )
             {
-                Sites.AddRange( mySession.CurrentLocator.Sites );
+                Sites.AddRange( mySession.CurrentLocator.Sites.OrderBy( s => s.Name ) );
             }
 
             SelectedSite = Sites.FirstOrDefault();
@@ -146,7 +146,10 @@ namespace RaynMaker.Import.Web.ViewModels
 
             mySession.CurrentLocator.Sites.Add( site );
 
-            Sites.Add( site );
+            // sorting ...
+            Sites.Clear();
+            Sites.AddRange( mySession.CurrentLocator.Sites.OrderBy( s => s.Name ) );
+
             SelectedSite = site;
         }
 
@@ -159,7 +162,7 @@ namespace RaynMaker.Import.Web.ViewModels
             Sites.Remove( site );
             SelectedSite = Sites.FirstOrDefault();
 
-            mySession.CurrentLocator.Sites.Add( site );
+            mySession.CurrentLocator.Sites.Remove( site );
         }
 
         public string SiteName
@@ -173,9 +176,14 @@ namespace RaynMaker.Import.Web.ViewModels
                     {
                         SelectedSite.Name = mySiteName;
 
-                        // force refresh of selected site to force update of combobox
                         var old = SelectedSite;
                         SelectedSite = null;
+                        
+                        // sorting ...
+                        Sites.Clear();
+                        Sites.AddRange( mySession.CurrentLocator.Sites.OrderBy( s => s.Name ) );
+
+                        // force update of caption of combobox
                         SelectedSite = old;
                     }
                 }
