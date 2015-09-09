@@ -39,15 +39,19 @@ namespace RaynMaker.Import.Web.ViewModels
 
             Value = "";
 
+            // first set properties without side-effects to others
             Path = Format.Path;
-            SelectedDimension = Format.Expand;
             SkipColumns = string.Join( ",", format.SkipColumns );
             SkipRows = string.Join( ",", format.SkipRows );
-            RowHeaderColumn = ( format.Expand == CellDimension.Row ? Format.TimeAxisPosition : Format.SeriesNamePosition ).ToString();
-            ColumnHeaderRow = ( format.Expand == CellDimension.Column ? Format.SeriesNamePosition : Format.TimeAxisPosition ).ToString();
             SeriesName = format.SeriesNamePosition.ToString();
             TimeFormat = Format.TimeAxisFormat.Format;
             ValueFormat = Format.ValueFormat.Format;
+
+            ColumnHeaderRow = ( format.Expand == CellDimension.Row ? Format.TimeAxisPosition : Format.SeriesNamePosition ).ToString();
+            RowHeaderColumn = ( format.Expand == CellDimension.Row ? Format.SeriesNamePosition : Format.TimeAxisPosition ).ToString();
+
+            // needs to be AFTER RowHeaderColumn and ColumnHeaderRow
+            SelectedDimension = Format.Expand;
         }
 
         public PathSeriesFormat Format { get; private set; }
@@ -125,7 +129,17 @@ namespace RaynMaker.Import.Web.ViewModels
                 if( SetProperty( ref mySelectedDimension, value ) )
                 {
                     Format.Expand = mySelectedDimension;
-                    UpdateHeaders();
+
+                    if( Format.Expand == CellDimension.Row )
+                    {
+                        Format.TimeAxisPosition = ColumnHeaderRow != null ? int.Parse( ColumnHeaderRow ) : -1;
+                        Format.SeriesNamePosition = RowHeaderColumn != null ? int.Parse( RowHeaderColumn ) : -1;
+                    }
+                    else if( Format.Expand == CellDimension.Column )
+                    {
+                        Format.TimeAxisPosition = RowHeaderColumn != null ? int.Parse( RowHeaderColumn ) : -1;
+                        Format.SeriesNamePosition = ColumnHeaderRow != null ? int.Parse( ColumnHeaderRow ) : -1;
+                    }
 
                     myMarkupDocument.Dimension = mySelectedDimension;
                 }
@@ -159,23 +173,18 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 if( SetProperty( ref myRowHeaderColumn, value ) )
                 {
-                    UpdateHeaders();
+                    // only update EXACTLY the corresponding model
+                    if( Format.Expand == CellDimension.Row )
+                    {
+                        Format.SeriesNamePosition = RowHeaderColumn != null ? int.Parse( RowHeaderColumn ) : -1;
+                    }
+                    else if( Format.Expand == CellDimension.Column )
+                    {
+                        Format.TimeAxisPosition = RowHeaderColumn != null ? int.Parse( RowHeaderColumn ) : -1;
+                    }
+
                     MarkHeader( myRowHeaderColumn, x => myMarkupDocument.RowHeaderColumn = x );
                 }
-            }
-        }
-
-        private void UpdateHeaders()
-        {
-            if( Format.Expand == CellDimension.Row )
-            {
-                Format.TimeAxisPosition = ColumnHeaderRow != null ? int.Parse( ColumnHeaderRow ) : -1;
-                Format.SeriesNamePosition = RowHeaderColumn != null ? int.Parse( RowHeaderColumn ) : -1;
-            }
-            else if( Format.Expand == CellDimension.Column )
-            {
-                Format.TimeAxisPosition = RowHeaderColumn != null ? int.Parse( RowHeaderColumn ) : -1;
-                Format.SeriesNamePosition = ColumnHeaderRow != null ? int.Parse( ColumnHeaderRow ) : -1;
             }
         }
 
@@ -205,7 +214,16 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 if( SetProperty( ref myColumnHeaderRow, value ) )
                 {
-                    UpdateHeaders();
+                    // only update EXACTLY the corresponding model
+                    if( Format.Expand == CellDimension.Row )
+                    {
+                        Format.TimeAxisPosition = ColumnHeaderRow != null ? int.Parse( ColumnHeaderRow ) : -1;
+                    }
+                    else if( Format.Expand == CellDimension.Column )
+                    {
+                        Format.SeriesNamePosition = ColumnHeaderRow != null ? int.Parse( ColumnHeaderRow ) : -1;
+                    }
+
                     MarkHeader( myColumnHeaderRow, x => myMarkupDocument.ColumnHeaderRow = x );
                 }
             }
