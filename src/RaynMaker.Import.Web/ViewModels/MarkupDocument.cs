@@ -65,6 +65,11 @@ namespace RaynMaker.Import.Web.ViewModels
                     myDocument.Document.Click -= HtmlDocument_Click;
                 }
 
+                if( value == null )
+                {
+                    return;
+                }
+
                 myDocument = new HtmlDocumentAdapter( value );
                 myDocument.Document.Click += HtmlDocument_Click;
 

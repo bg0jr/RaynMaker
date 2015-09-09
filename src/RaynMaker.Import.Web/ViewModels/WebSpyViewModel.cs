@@ -21,6 +21,10 @@ namespace RaynMaker.Import.Web.ViewModels
         [ImportingConstructor]
         public WebSpyViewModel( IProjectHost projectHost, StorageService storageService )
         {
+            // TODO: caused by KeepAliveDelayedRegionCreationBehavior all the "heavy" logic below already runs when
+            // starting the up - NOT when we open this window here
+            // -> how could we get it lazy again to improve app startup performance?
+
             var session = new Session();
 
             foreach( var locator in storageService.Load() )

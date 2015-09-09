@@ -43,7 +43,7 @@ namespace RaynMaker.Import.Web.ViewModels
             Path = Format.Path;
             SkipColumns = string.Join( ",", format.SkipColumns );
             SkipRows = string.Join( ",", format.SkipRows );
-            SeriesName = format.SeriesNamePosition.ToString();
+            SeriesName = format.SeriesName;
             TimeFormat = Format.TimeAxisFormat.Format;
             ValueFormat = Format.ValueFormat.Format;
 
@@ -66,10 +66,11 @@ namespace RaynMaker.Import.Web.ViewModels
             get { return myMarkupDocument.Document; }
             set
             {
-                if( myMarkupDocument.Document == value )
-                {
-                    return;
-                }
+                // always force update because the document reference does NOT change!
+                //if( myMarkupDocument.Document == value )
+                //{
+                //    return;
+                //}
 
                 if( myMarkupDocument.Document != null )
                 {
@@ -78,6 +79,11 @@ namespace RaynMaker.Import.Web.ViewModels
 
                 myMarkupDocument.Document = value;
 
+                if( myMarkupDocument.Document == null )
+                {
+                    return;
+                }
+                
                 myMarkupDocument.Document.Click += HtmlDocument_Click;
 
                 if( myMarkupDocument.SelectedElement != null )

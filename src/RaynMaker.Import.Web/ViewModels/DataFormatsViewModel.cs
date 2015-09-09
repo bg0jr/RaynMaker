@@ -107,12 +107,13 @@ namespace RaynMaker.Import.Web.ViewModels
             get { return myDocument; }
             set
             {
-                if( SetProperty( ref myDocument, value ) )
+                // always force update because the document reference does NOT change!
+
+                myDocument = value;
+
+                if( 0 <= mySelectedFormatIndex && mySelectedFormatIndex < Formats.Count )
                 {
-                    if( 0 <= mySelectedFormatIndex && mySelectedFormatIndex < Formats.Count )
-                    {
-                        Formats[ mySelectedFormatIndex ].Document = myDocument;
-                    }
+                    Formats[ mySelectedFormatIndex ].Document = myDocument;
                 }
             }
         }
