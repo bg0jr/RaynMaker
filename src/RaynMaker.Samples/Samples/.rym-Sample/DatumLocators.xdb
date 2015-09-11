@@ -1,0 +1,62 @@
+<DatumLocator i:type="DatumLocatorSheet" xmlns="https://github.com/bg0jr/RaynMaker/Import/Spec" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+  <Locators>
+    <DatumLocator>
+      <Datum>Dividend</Datum>
+      <Sites>
+        <Site>
+          <Formats xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+            <a:anyType i:type="PathSeriesFormat">
+              <Name/>
+              <SkipColumns>
+                <a:int>6</a:int>
+              </SkipColumns>
+              <SkipRows/>
+              <Anchor i:nil="true"/>
+              <Expand>Row</Expand>
+              <SeriesNamePosition>0</SeriesNamePosition>
+              <TimeAxisFormat>
+                <ExtractionPattern i:nil="true" xmlns:b="http://schemas.datacontract.org/2004/07/System.Text.RegularExpressions"/>
+                <Format>0000</Format>
+                <Type>System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</Type>
+                <Name>time</Name>
+              </TimeAxisFormat>
+              <TimeAxisPosition>0</TimeAxisPosition>
+              <ValueFormat>
+                <ExtractionPattern i:nil="true" xmlns:b="http://schemas.datacontract.org/2004/07/System.Text.RegularExpressions"/>
+                <Format>000000,0000</Format>
+                <Type>System.Double, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</Type>
+                <Name>value</Name>
+              </ValueFormat>
+              <ExtractLinkUrl>false</ExtractLinkUrl>
+              <InMillions>false</InMillions>
+              <Path>/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/TABLE[3]/TBODY[0]/TR[9]/TD[1]</Path>
+              <SeriesName>Dividendenaussch</SeriesName>
+            </a:anyType>
+          </Formats>
+          <Name>Ariva</Name>
+          <Navigation>
+            <DocumentType>Html</DocumentType>
+            <Uris>
+              <NavigatorUrl>
+                <Formular i:nil="true"/>
+                <Url>http://www.ariva.de/search/search.m?searchname=${Isin}</Url>
+                <UrlType>Request</UrlType>
+              </NavigatorUrl>
+              <NavigatorUrl>
+                <Formular i:nil="true"/>
+                <Url>http://www.ariva.de/{(.*)}?</Url>
+                <UrlType>Response</UrlType>
+              </NavigatorUrl>
+              <NavigatorUrl>
+                <Formular i:nil="true"/>
+                <Url>http://www.ariva.de/{0}/bilanz-guv</Url>
+                <UrlType>Request</UrlType>
+              </NavigatorUrl>
+            </Uris>
+            <UrisHashCode>757602046</UrisHashCode>
+          </Navigation>
+        </Site>
+      </Sites>
+    </DatumLocator>
+  </Locators>
+</DatumLocator>
