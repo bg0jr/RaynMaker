@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="b2465443-7280-429e-8b1f-042d2f1a1edf" Created="635771494898477075" LastModified="635771495286019241">
-  <Caption><![CDATA[Deletion of NavigatorUrl entries]]></Caption>
-  <Content><![CDATA[logic to always delete related request/response?]]></Content>
-</Node>
