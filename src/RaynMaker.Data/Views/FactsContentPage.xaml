@@ -130,15 +130,16 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                
+
                                 <Grid.Resources>
                                     <v:InMillionsConverter x:Key="InMillionsConverter" DatumSeries="{Binding}"/>
                                 </Grid.Resources>
 
                                 <CheckBox Grid.Row="0" IsChecked="{Binding InMillions, Source={StaticResource InMillionsConverter}}" 
                                           Content="In Millions" Margin="0,2,0,2"/>
-                                
+
                                 <ItemsControl Grid.Row="1" ItemsSource="{Binding}">
                                     <ItemsControl.Resources>
                                         <v:CurrencyVisibilityConverter x:Key="CurrencyVisibilityConverter"/>
@@ -177,6 +178,11 @@
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
+
+                                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Button Content="Import" Command="{Binding DataContext.ImportCommand, ElementName=_this}" 
+                                            CommandParameter="{Binding}" Margin="0,3,0,0"/>
+                                </StackPanel>
                             </Grid>
                         </GroupBox>
                     </DataTemplate>

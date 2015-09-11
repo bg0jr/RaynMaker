@@ -31,7 +31,12 @@ namespace RaynMaker.Data.ViewModels
 
             AddReferenceCommand = new DelegateCommand( OnAddReference );
             RemoveReferenceCommand = new DelegateCommand<Reference>( OnRemoveReference );
+
+            ImportCommand = new DelegateCommand<DatumSeries>( OnImport, CanImport );
         }
+
+        [Import( AllowDefault = true )]
+        public IDataProvider DataProvider { get; set; }
 
         public ICurrenciesLut CurrenciesLut { get; private set; }
 
@@ -54,7 +59,7 @@ namespace RaynMaker.Data.ViewModels
             }
 
             // data sanity - TODO: later move to creation of new DataSheet
-            Currency defaultCurrency=null;
+            Currency defaultCurrency = null;
             {
                 var series = ( DatumSeries )myDatums.SeriesOf( typeof( Price ) );
                 if( series.Current<Price>() == null )
@@ -185,6 +190,19 @@ namespace RaynMaker.Data.ViewModels
                     .Where( s => s.DatumType != typeof( Price ) )
                     .OrderBy( s => s.DatumType.Name );
             }
+        }
+
+        public DelegateCommand<DatumSeries> ImportCommand { get; private set; }
+
+        private bool CanImport( DatumSeries series )
+        {
+            return DataProvider != null;
+        }
+
+        private void OnImport( DatumSeries series )
+        {
+            var currentYear = DateTime.Now.Year;
+            var values = DataProvider.Get( Stock, series.DatumType, new YearPeriod( currentYear - 10 ), new YearPeriod( currentYear ) );
         }
     }
 }
