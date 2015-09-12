@@ -173,8 +173,9 @@ namespace RaynMaker.Import.Spec
                 }
 
                 NumberFormatInfo nfi = new NumberFormatInfo();
+                nfi.NumberGroupSeparator = Format.ToCharArray().First( c => !Char.IsDigit( c ) ).ToString();
                 nfi.NumberDecimalSeparator = decimalSep.ToString();
-                nfi.NumberDecimalDigits = Format.Length - Format.IndexOf( decimalSep ) - 1; ;
+                nfi.NumberDecimalDigits = Format.Length - Format.IndexOf( decimalSep ) - 1;
 
                 if( Type == typeof( float ) )
                 {

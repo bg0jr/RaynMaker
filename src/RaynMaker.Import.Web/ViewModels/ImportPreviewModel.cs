@@ -12,6 +12,7 @@ using RaynMaker.Import.Spec;
 using RaynMaker.Import.Html;
 using RaynMaker.Import.Web.Services;
 using Plainion;
+using System.Data;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
@@ -20,6 +21,7 @@ namespace RaynMaker.Import.Web.ViewModels
         private StorageService myStorageService;
         private LegacyDocumentBrowser myDocumentBrowser = null;
         private Site mySelectedSite;
+        private Type myDatumType;
 
         public ImportPreviewModel( StorageService storageService )
         {
@@ -54,6 +56,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
         private void OnCancel()
         {
+            Data = Enumerable.Empty<IDatum>();
             FinishAction();
         }
 
@@ -74,7 +77,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
         public ObservableCollection<Site> Sites { get; private set; }
 
-        private Site SelectedSite
+        public Site SelectedSite
         {
             get { return mySelectedSite; }
             set
@@ -93,20 +96,38 @@ namespace RaynMaker.Import.Web.ViewModels
                 return;
             }
 
+            var data = new List<IDatum>();
+
             var provider = new BasicDatumProvider( this );
 
             var formats = mySelectedSite.Formats.Cast<PathSeriesFormat>();
+            var format = formats.First();
 
             provider.Navigate( mySelectedSite, Stock );
-            provider.Mark( formats.First() );
+            provider.Mark( format );
 
-            var table = provider.GetResult( formats.First() );
+            var table = provider.GetResult( format );
+            Currency currency = null; // TODO - how do we handle that!!
+            foreach( DataRow row in table.Rows )
+            {
+                var year = ( int )row[ format.TimeAxisFormat.Name ];
+                var value = ( double )row[ format.ValueFormat.Name ];
+
+                var datum = Dynamics.CreateDatum( Stock, myDatumType, new YearPeriod( year ), currency );
+                datum.Value = format.InMillions ? value * 1000000 : value;
+
+                data.Add( datum );
+            }
+
+            Data = data;
         }
 
         public void Fetch( Type datum )
         {
+            myDatumType = datum;
+
             var datumLocator = myStorageService.Load()
-                .SingleOrDefault( l => l.Datum == datum.Name );
+                .SingleOrDefault( l => l.Datum == myDatumType.Name );
 
             if( datumLocator == null || datumLocator.Sites.Count == 0 )
             {

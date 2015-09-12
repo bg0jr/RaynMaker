@@ -51,5 +51,33 @@ namespace RaynMaker.Entities
         {
             return new DatumSeries( datumType, GetRelationship( stock, datumType ) );
         }
+
+        public static AbstractDatum CreateDatum( Stock stock, Type datumType, IPeriod period, Currency currency )
+        {
+            var datum = ( AbstractDatum )Activator.CreateInstance( datumType );
+            datum.Period = period;
+
+            var currencyDatum = datum as AbstractCurrencyDatum;
+            if( currencyDatum != null )
+            {
+                currencyDatum.Currency = currency;
+            }
+
+            var foreignKey = datumType.GetProperty( "Stock" );
+            if( foreignKey != null )
+            {
+                foreignKey.SetValue( datum, stock );
+            }
+            else
+            {
+                foreignKey = datumType.GetProperty( "Company" );
+
+                Contract.Invariant( foreignKey != null, "ForeignKey detection failed" );
+
+                foreignKey.SetValue( datum, stock.Company );
+            }
+
+            return datum;
+        }
     }
 }

@@ -86,37 +86,8 @@ namespace RaynMaker.Data.ViewModels
                 {
                     if( !existingYears.Contains( i ) )
                     {
-                        var datum = ( AbstractDatum )Activator.CreateInstance( type );
-                        datum.Period = new YearPeriod( i );
-
-                        var currencyDatum = datum as AbstractCurrencyDatum;
-                        if( currencyDatum != null )
-                        {
-                            if( series.Currency == null )
-                            {
-                                // this will also set series.Currency behind the scenes
-                                currencyDatum.Currency = defaultCurrency;
-                            }
-                            else
-                            {
-                                currencyDatum.Currency = series.Currency;
-                            }
-                        }
-
-                        var foreignKey = type.GetProperty( "Stock" );
-                        if( foreignKey != null )
-                        {
-                            foreignKey.SetValue( datum, Stock );
-                        }
-                        else
-                        {
-                            foreignKey = type.GetProperty( "Company" );
-
-                            Contract.Invariant( foreignKey != null, "ForeignKey detection failed" );
-
-                            foreignKey.SetValue( datum, Stock.Company );
-                        }
-
+                        var datum = Dynamics.CreateDatum( Stock, type, new YearPeriod( i ),
+                            series.Currency != null ? series.Currency : defaultCurrency );
                         series.Add( datum );
                     }
                 }
@@ -202,7 +173,7 @@ namespace RaynMaker.Data.ViewModels
         private void OnImport( DatumSeries series )
         {
             var currentYear = DateTime.Now.Year;
-            var values = DataProvider.Get( Stock, series.DatumType, new YearPeriod( currentYear - 10 ), new YearPeriod( currentYear ) );
+            var data = DataProvider.Get( Stock, series.DatumType, new YearPeriod( currentYear - 10 ), new YearPeriod( currentYear ) );
         }
     }
 }
