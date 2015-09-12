@@ -31,9 +31,7 @@
     <Compile Include="Html\HtmlPathTests.cs" />
     <Compile Include="Html\HtmlTableTests.cs" />
     <Compile Include="Html\TestBase.cs" />
-    <Compile Include="LookupPolicyTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Providers\GenericDatumProviderTest.cs" />
     <Compile Include="ProxyPoolTest.cs" />
     <Compile Include="Spec\AbstractDimensionalFormatTest.cs" />
     <Compile Include="Spec\FormatColumnTest.cs" />
