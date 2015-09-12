@@ -38,6 +38,8 @@ namespace RaynMaker.Import.Web
 
             previewViewModel.Fetch( datum );
 
+            preview.Top = 0;
+            preview.Left = 0;
             preview.Show();
         }
     }
