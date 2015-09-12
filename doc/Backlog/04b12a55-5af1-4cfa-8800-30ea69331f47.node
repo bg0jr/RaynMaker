@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="04b12a55-5af1-4cfa-8800-30ea69331f47" Created="635776670715428610" LastModified="635776671723956294">
+  <Caption><![CDATA[Cleanup Import]]></Caption>
+  <Content><![CDATA[- create clean design
+  - documents
+  - iDocumentBrowser/Loader/Navigator
+  - datasources
+  - ...
+
+decide between spec and services behind.
+
+should the extraction logic inside the format?
+which pattern do we use?]]></Content>
+</Node>

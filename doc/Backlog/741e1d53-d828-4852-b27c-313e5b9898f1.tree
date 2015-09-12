@@ -4,6 +4,12 @@
     <Caption><![CDATA[Planning]]></Caption>
     <Node Id="dbf5bb03-f0e5-46aa-9a8a-714b030f46bf">
       <Caption><![CDATA[Refactoring]]></Caption>
+      <Node Id="7ca3ba59-f538-4716-a99b-36cd0d3570c7">
+        <Caption><![CDATA[Cleanup Blade]]></Caption>
+      </Node>
+      <Node Id="04b12a55-5af1-4cfa-8800-30ea69331f47">
+        <Caption><![CDATA[Cleanup Import]]></Caption>
+      </Node>
       <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">
         <Caption><![CDATA[change datalocator ER]]></Caption>
       </Node>
