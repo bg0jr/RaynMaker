@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Blade.Data;
 using Blade.Collections;
 using Blade;
+using Plainion;
 
 namespace RaynMaker.Import.Html
 {
@@ -20,8 +21,8 @@ namespace RaynMaker.Import.Html
         /// </summary>
         public static IHtmlElement GetElementByPath( this IHtmlDocument doc, HtmlPath path )
         {
-            doc.Require( d => doc != null );
-            path.Require( p => path != null );
+            Contract.RequiresNotNull( doc, "doc" );
+            Contract.RequiresNotNull( path, "path" );
 
             var root = doc.Body.GetRoot();
             if ( root == null )
@@ -113,8 +114,8 @@ namespace RaynMaker.Import.Html
         /// cell itself as HtmlElement is returned</param>
         public static FallibleActionResult<DataTable> ExtractTable( this IHtmlDocument doc, HtmlPath path, bool textOnly )
         {
-            doc.Require( x => doc != null );
-            path.Require( x => path != null );
+            Contract.RequiresNotNull( doc, "doc" );
+            Contract.RequiresNotNull( path, "path" );
 
             HtmlTable htmlTable = doc.GetTableByPath( path );
             if ( htmlTable == null )

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Plainion;
 
 namespace Blade
 {
@@ -18,7 +19,8 @@ namespace Blade
         /// </summary>
         public static string GetAssemblyPath( this Type type )
         {
-            type.Require( ( Type x ) => type != null );
+            Contract.RequiresNotNull( type, "type" );
+
             return new Uri( Path.GetDirectoryName( type.Assembly.CodeBase ) ).LocalPath;
         }
 

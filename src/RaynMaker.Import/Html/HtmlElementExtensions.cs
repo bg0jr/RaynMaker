@@ -5,6 +5,7 @@ using System.Linq;
 
 using Blade;
 using System.Collections.Generic;
+using Plainion;
 
 namespace RaynMaker.Import.Html
 {
@@ -31,7 +32,7 @@ namespace RaynMaker.Import.Html
         /// </summary>
         public static HtmlPath GetPath( this IHtmlElement element )
         {
-            element.Require( x => element != null );
+            Contract.RequiresNotNull( element, "element" );
 
             HtmlPath path = new HtmlPath();
 
@@ -51,7 +52,7 @@ namespace RaynMaker.Import.Html
         /// </summary>
         public static int GetChildPos( this IHtmlElement element )
         {
-            element.Require( x => element != null );
+            Contract.RequiresNotNull( element, "element" );
 
             if ( element.Parent == null )
             {
@@ -81,8 +82,8 @@ namespace RaynMaker.Import.Html
         /// </summary>
         public static IHtmlElement GetChildAt( this IHtmlElement parent, string tagName, int pos )
         {
-            parent.Require( x => parent != null );
-            tagName.Require( x => !string.IsNullOrEmpty( tagName ) );
+            Contract.RequiresNotNull( parent, "parent" );
+            Contract.RequiresNotNullNotEmpty( tagName, "tagName" );
 
             int childPos = 0;
             foreach ( var child in parent.Children )
@@ -124,8 +125,8 @@ namespace RaynMaker.Import.Html
         /// <returns>the parent found if any, null otherwise</returns>
         public static IHtmlElement FindParent( this IHtmlElement start, Predicate<IHtmlElement> cond, Predicate<IHtmlElement> abortIf )
         {
-            start.Require( x => start != null );
-            start.Require( x => !abortIf( start ) );
+            Contract.RequiresNotNull( start, "start" );
+            Contract.Requires( !abortIf( start ), "start must not be already the target" );
 
             var parent = start.Parent;
             while ( parent != null && !abortIf( parent ) )
@@ -147,7 +148,7 @@ namespace RaynMaker.Import.Html
         /// </summary>
         public static HtmlTable FindEmbeddingTable( this IHtmlElement start )
         {
-            start.Require( x => start != null );
+            Contract.RequiresNotNull( start, "start" );
 
             if ( start.TagName == "TABLE" )
             {

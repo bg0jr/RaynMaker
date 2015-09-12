@@ -63,7 +63,7 @@ namespace RaynMaker.Import.Spec
         /// <summary/>
         public ValueFormat( ValueFormat other )
         {
-            this.Require( x => other != null );
+            Contract.RequiresNotNull( other, "other" );
 
             Format = other.Format;
             Type = other.Type;

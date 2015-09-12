@@ -58,7 +58,7 @@ namespace RaynMaker.Import.Web.ViewModels
         /// </summary>
         public void MarkElement( HtmlElement e, Color color )
         {
-            e.Require( x => e != null );
+            Contract.RequiresNotNull( e != null, "e" );
 
             if ( IsMarked( e ) )
             {
@@ -76,7 +76,7 @@ namespace RaynMaker.Import.Web.ViewModels
         /// </summary>
         public void UnmarkElement( HtmlElement e )
         {
-            e.Require( x => e != null );
+            Contract.RequiresNotNull( e != null, "e" );
 
             if ( !IsMarked( e ) )
             {
@@ -101,7 +101,7 @@ namespace RaynMaker.Import.Web.ViewModels
         /// </summary>
         public bool IsMarked( HtmlElement e )
         {
-            e.Require( x => e != null );
+            Contract.RequiresNotNull( e != null, "e" );
 
             return MarkedElements.Contains( e );
         }
@@ -120,7 +120,7 @@ namespace RaynMaker.Import.Web.ViewModels
         /// </summary>
         public void MarkTableRow( HtmlElement start, Color color )
         {
-            start.Require( x => start != null );
+            Contract.RequiresNotNull( start != null, "start" );
 
             HtmlTable.GetRow( Document.Create( start ) )
                 .OfType<HtmlElementAdapter>()
@@ -141,7 +141,7 @@ namespace RaynMaker.Import.Web.ViewModels
         /// </summary>
         public void MarkTableColumn( HtmlElement start, Color color )
         {
-            start.Require( x => start != null );
+            Contract.RequiresNotNull( start != null, "start" );
 
             HtmlTable.GetColumn( Document.Create( start ) )
                 .OfType<HtmlElementAdapter>()

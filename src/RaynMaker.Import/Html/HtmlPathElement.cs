@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Text;
 
 using Blade;
+using Plainion;
 
 namespace RaynMaker.Import.Html
 {
@@ -22,8 +23,8 @@ namespace RaynMaker.Import.Html
         {
             tagName = tagName.TrimOrNull();
 
-            this.Require( x => !string.IsNullOrEmpty( tagName ) );
-            this.Require( x => pos >= 0 );
+            Contract.RequiresNotNullNotEmpty( tagName, "tagName" );
+            Contract.Requires( pos >= 0, "pos must be >= 0" );
 
             TagName = tagName.ToUpper();
             Position = pos;

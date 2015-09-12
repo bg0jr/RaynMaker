@@ -11,6 +11,7 @@ using System.IO;
 using System.Web;
 using RaynMaker.Import.Html;
 using RaynMaker.Import.Spec;
+using Plainion;
 
 namespace RaynMaker.Import.Core
 {
@@ -87,7 +88,7 @@ namespace RaynMaker.Import.Core
             Uri currentUrl = null;
             foreach ( NavigatorUrl navUrl in navigationSteps )
             {
-                this.Require( x => navUrl.UrlType != UriType.None );
+                Contract.Invariant( navUrl.UrlType != UriType.None, "UrlType must NOT be None" );
 
                 if ( navUrl.UrlType == UriType.Request )
                 {

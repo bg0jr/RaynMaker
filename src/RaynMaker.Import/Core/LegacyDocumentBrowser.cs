@@ -6,6 +6,7 @@ using System.Net;
 using System.Threading;
 using System.Windows.Forms;
 using Blade;
+using Plainion;
 using RaynMaker.Import.Html;
 using RaynMaker.Import.Html.WinForms;
 using RaynMaker.Import.Spec;
@@ -105,7 +106,7 @@ namespace RaynMaker.Import.Core
             var last = navigationSteps.Last().UrlString;
             foreach( NavigatorUrl navUrl in navigationSteps )
             {
-                this.Require( x => navUrl.UrlType != UriType.None );
+                Contract.Invariant( navUrl.UrlType != UriType.None, "UrlType must NOT be None" );
 
                 if( navUrl.UrlType == UriType.Request )
                 {

@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using Blade;
+using Plainion;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
@@ -18,7 +19,7 @@ namespace RaynMaker.Import.Web.ViewModels
         /// </summary>
         public static void MarkElement( this HtmlElement e, Color color )
         {
-            e.Require( x => e != null );
+            Contract.RequiresNotNull( e != null, "e" );
 
             if( e.IsMarked() )
             {
@@ -43,7 +44,7 @@ namespace RaynMaker.Import.Web.ViewModels
         /// </summary>
         public static void UnmarkElement( this HtmlElement e )
         {
-            e.Require( x => e != null );
+            Contract.RequiresNotNull( e != null, "e" );
 
             if( !e.IsMarked() )
             {
@@ -58,7 +59,7 @@ namespace RaynMaker.Import.Web.ViewModels
         /// </summary>
         public static bool IsMarked( this HtmlElement e )
         {
-            e.Require( x => e != null );
+            Contract.RequiresNotNull( e != null, "e" );
 
             return ( e.Children.Count > 0 && e.Children[ 0 ].Id == "__maui_markup__" );
         }

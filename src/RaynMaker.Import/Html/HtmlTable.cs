@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Linq;
 
 using Blade;
+using Plainion;
 
 namespace RaynMaker.Import.Html
 {
@@ -20,7 +21,8 @@ namespace RaynMaker.Import.Html
         /// <param name="root">html element pointing to the table</param>
         public HtmlTable( IHtmlElement root )
         {
-            this.Require( x => root != null && root.TagName == "TABLE" );
+            Contract.RequiresNotNull( root, "root" );
+            Contract.Requires( root.TagName=="TABLE", "root must be TABLE element" );
 
             TableElement = root;
         }
@@ -66,7 +68,7 @@ namespace RaynMaker.Import.Html
         /// </summary>
         public static IHtmlElement GetEmbeddingTD( IHtmlElement e )
         {
-            e.Require( x => e != null );
+            Contract.RequiresNotNull( e, "e" );
 
             if ( e.TagName == "TD" )
             {
@@ -95,7 +97,7 @@ namespace RaynMaker.Import.Html
         /// </summary>
         public static IHtmlElement GetEmbeddingTR( IHtmlElement e )
         {
-            e.Require( x => e != null );
+            Contract.RequiresNotNull( e, "e" );
 
             if ( e.TagName == "TR" )
             {
@@ -156,7 +158,7 @@ namespace RaynMaker.Import.Html
         /// </summary>
         public static IEnumerable<IHtmlElement> GetRow( IHtmlElement cell )
         {
-            cell.Require( x => cell != null );
+            Contract.RequiresNotNull( cell, "cell" );
 
             var row = GetEmbeddingTR( cell );
             if ( row == null )
@@ -174,7 +176,7 @@ namespace RaynMaker.Import.Html
         /// </summary>
         public static IEnumerable<IHtmlElement> GetColumn( IHtmlElement cell )
         {
-            cell.Require( x => cell != null );
+            Contract.RequiresNotNull( cell, "cell" );
 
             HtmlTable table = cell.FindEmbeddingTable();
             if ( table == null )

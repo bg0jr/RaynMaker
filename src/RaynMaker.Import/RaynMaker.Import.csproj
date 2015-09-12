@@ -36,10 +36,8 @@
     <Compile Include="Blade\Data\DataRowExtensions.cs" />
     <Compile Include="Blade\Data\DataTableExtensions.cs" />
     <Compile Include="Blade\Data\TableExtractionSettings.cs" />
-    <Compile Include="Blade\DbC.cs" />
     <Compile Include="Blade\FallibleActionResult.cs" />
     <Compile Include="Blade\IO\CsvReader.cs" />
-    <Compile Include="Blade\NumberExtensions.cs" />
     <Compile Include="Blade\StringExtensions.cs" />
     <Compile Include="Blade\Text\Evaluator.cs" />
     <Compile Include="Blade\TypeExtensions.cs" />

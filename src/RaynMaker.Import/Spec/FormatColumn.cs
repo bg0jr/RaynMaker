@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using Blade;
+using Plainion;
 
 namespace RaynMaker.Import.Spec
 {
@@ -32,7 +33,7 @@ namespace RaynMaker.Import.Spec
         public FormatColumn( string name, Type type, string format, Regex extractionPattern )
             : base( type, format, extractionPattern )
         {
-            this.Require( x => !string.IsNullOrEmpty( name ) );
+            Contract.RequiresNotNullNotEmpty( name, "name" );
 
             Name = name;
         }
@@ -43,7 +44,7 @@ namespace RaynMaker.Import.Spec
         public FormatColumn( FormatColumn other )
             : base( other )
         {
-            this.Require( x => other != null );
+            Contract.RequiresNotNull( other, "other" );
 
             Name = other.Name;
         }

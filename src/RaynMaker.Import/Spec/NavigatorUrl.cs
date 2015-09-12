@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using Blade;
+using Plainion;
 
 namespace RaynMaker.Import.Spec
 {
@@ -32,7 +33,7 @@ namespace RaynMaker.Import.Spec
 
         public NavigatorUrl( UriType uriType, string url, Formular form )
         {
-            uriType.Require( x => uriType != UriType.None );
+            Contract.Requires( uriType != UriType.None, "uriType must NOT be None" );
 
             UrlType = uriType;
             UrlString = url;
