@@ -87,6 +87,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IBrowserBase.cs" />
     <Compile Include="IBrowser.cs" />
     <Compile Include="ImportWebModule.cs" />
     <Compile Include="Model\Session.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="ViewModels\ImportPreviewModel.cs" />
     <Compile Include="ViewModels\NavigationViewModel.cs" />
     <Compile Include="ViewModels\SingleFormatViewModel.cs" />
+    <Compile Include="ViewModels\BasicDatumProvider.cs" />
     <Compile Include="ViewModels\WebSpyViewModel.cs" />
     <Compile Include="Views\AddressBarView.xaml.cs">
       <DependentUpon>AddressBarView.xaml</DependentUpon>

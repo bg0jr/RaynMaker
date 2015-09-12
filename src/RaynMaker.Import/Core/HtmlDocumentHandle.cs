@@ -9,7 +9,7 @@ namespace RaynMaker.Import.Core
 {
     public class HtmlDocumentHandle : IDocument
     {
-        internal HtmlDocumentHandle( IHtmlDocument doc )
+        public HtmlDocumentHandle( IHtmlDocument doc )
         {
             Content = doc;
             Location = doc.Url.ToString();

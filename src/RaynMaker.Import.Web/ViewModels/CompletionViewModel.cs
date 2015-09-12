@@ -79,61 +79,9 @@ namespace RaynMaker.Import.Web.ViewModels
                 return;
             }
 
-            var macroPattern = new Regex( @"(\$\{.*\})" );
-            var filtered = new List<NavigatorUrl>();
-            foreach( var navUrl in mySession.CurrentSite.Navigation.Uris )
-            {
-                var md = macroPattern.Match( navUrl.UrlString );
-                if( md.Success )
-                {
-                    var macro = md.Groups[ 1 ].Value;
-                    var value = GetMacroValue( macro.Substring( 2, macro.Length - 3 ) );
-                    if( value != null )
-                    {
-                        filtered.Add( new NavigatorUrl( navUrl.UrlType, navUrl.UrlString.Replace( macro, value ) ) );
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                else
-                {
-                    filtered.Add( navUrl );
-                }
-            }
-
-            var doc = Browser.LoadDocument( filtered );
-
-            var markupDoc = new MarkupDocument();
-            markupDoc.Document = ( ( HtmlDocumentAdapter )doc ).Document;
-            markupDoc.Anchor = mySession.CurrentFormat.Path;
-            markupDoc.Dimension = mySession.CurrentFormat.Expand;
-            markupDoc.SeriesName = mySession.CurrentFormat.SeriesName;
-            if( mySession.CurrentFormat.Expand == CellDimension.Row )
-            {
-                markupDoc.ColumnHeaderRow = mySession.CurrentFormat.TimeAxisPosition;
-                markupDoc.RowHeaderColumn = mySession.CurrentFormat.SeriesNamePosition;
-            }
-            else if( mySession.CurrentFormat.Expand == CellDimension.Column )
-            {
-                markupDoc.RowHeaderColumn = mySession.CurrentFormat.TimeAxisPosition;
-                markupDoc.ColumnHeaderRow = mySession.CurrentFormat.SeriesNamePosition;
-            }
-            markupDoc.SkipColumns = mySession.CurrentFormat.SkipColumns;
-            markupDoc.SkipRows = mySession.CurrentFormat.SkipRows;
-
-            markupDoc.Apply();
-        }
-
-        private string GetMacroValue( string macroId )
-        {
-            if( macroId.Equals( "isin", StringComparison.OrdinalIgnoreCase ) )
-            {
-                return SelectedStock.Isin;
-            }
-
-            throw new NotSupportedException( "Unknown macro: " + macroId );
+            var provider = new BasicDatumProvider( Browser );
+            provider.Navigate( mySession.CurrentSite, SelectedStock );
+            provider.Mark( mySession.CurrentFormat );
         }
 
         public ICommand ClearCommand { get; private set; }
