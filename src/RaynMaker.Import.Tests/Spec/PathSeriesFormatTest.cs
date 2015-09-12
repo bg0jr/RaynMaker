@@ -1,8 +1,8 @@
 ﻿using System.Data;
 using System.IO;
 using System.Text.RegularExpressions;
-using Blade.IO;
 using NUnit.Framework;
+using RaynMaker.Import.Core;
 using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Tests.Spec

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using Blade;
-using Plainion;
-using System.Text.RegularExpressions;
 using System.Runtime.Serialization;
+using System.Text;
+using System.Text.RegularExpressions;
+using Plainion;
 
 namespace RaynMaker.Import.Spec
 {
@@ -162,14 +161,14 @@ namespace RaynMaker.Import.Spec
                 if( Type == typeof( long ) )
                 {
                     // all other non-digit numbers are treated as thousands separators now
-                    value = value.TakeBefore( decimalSep ).RemoveAll( c => !Char.IsDigit( c ) );
-                    return long.Parse( value.TakeBefore( decimalSep ) );
+                    value = TakeBefore( value, decimalSep ).RemoveAll( c => !Char.IsDigit( c ) );
+                    return long.Parse( TakeBefore( value, decimalSep ) );
                 }
                 else if( Type == typeof( int ) )
                 {
                     // all other non-digit numbers are treated as thousands separators now
-                    value = value.TakeBefore( decimalSep ).RemoveAll( c => !Char.IsDigit( c ) );
-                    return int.Parse( value.TakeBefore( decimalSep ) );
+                    value = TakeBefore( value, decimalSep ).RemoveAll( c => !Char.IsDigit( c ) );
+                    return int.Parse( TakeBefore( value, decimalSep ) );
                 }
 
                 NumberFormatInfo nfi = new NumberFormatInfo();
@@ -194,6 +193,16 @@ namespace RaynMaker.Import.Spec
                 ex.AddContext( "Value", value );
                 throw;
             }
+        }
+
+        private static string TakeBefore( string s, char separator )
+        {
+            int num = s.IndexOf( separator );
+            if( num >= 0 )
+            {
+                return s.Substring( 0, num );
+            }
+            return s;
         }
 
         public bool Equals( ValueFormat other )

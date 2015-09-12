@@ -37,9 +37,7 @@
     <Compile Include="Blade\Data\DataTableExtensions.cs" />
     <Compile Include="Blade\Data\TableExtractionSettings.cs" />
     <Compile Include="Html\FallibleActionResult.cs" />
-    <Compile Include="Blade\IO\CsvReader.cs" />
-    <Compile Include="Blade\StringExtensions.cs" />
-    <Compile Include="Blade\Text\Evaluator.cs" />
+    <Compile Include="Core\CsvReader.cs" />
     <Compile Include="Core\CacheSettings.cs" />
     <Compile Include="Core\CachingNavigator.cs" />
     <Compile Include="Core\ComInterfaces.cs" />

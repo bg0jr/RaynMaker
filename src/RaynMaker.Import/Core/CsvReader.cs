@@ -4,17 +4,15 @@ using System.Globalization;
 using System.IO;
 using Plainion;
 
-namespace Blade.IO
+namespace RaynMaker.Import.Core
 {
-    /// <summary />
     public class CsvReader
     {
-        /// <summary />
         public static DataTable Read( string file, string separator )
         {
             return CsvReader.Read( file, separator, true );
         }
-        /// <summary />
+
         public static DataTable Read( string file, string separator, bool skipEmptyRows )
         {
             if( string.IsNullOrEmpty( separator ) )

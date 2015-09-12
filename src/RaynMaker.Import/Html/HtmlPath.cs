@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-
-using Blade;
 using Blade.Collections;
-using System;
 
 namespace RaynMaker.Import.Html
 {
@@ -35,7 +33,7 @@ namespace RaynMaker.Import.Html
         {
             get
             {
-                if ( Elements.Count == 0 )
+                if( Elements.Count == 0 )
                 {
                     return null;
                 }
@@ -63,7 +61,7 @@ namespace RaynMaker.Import.Html
         /// </summary>
         public Point GetTableCellPosition()
         {
-            if ( !PointsToTableCell )
+            if( !PointsToTableCell )
             {
                 return Point.Empty;
             }
@@ -71,15 +69,15 @@ namespace RaynMaker.Import.Html
             Point p = new Point();
             p.X = Last.Position;
 
-            foreach ( HtmlPathElement tr in Elements.Reverse() )
+            foreach( HtmlPathElement tr in Elements.Reverse() )
             {
-                if ( tr.IsTableOrTBody )
+                if( tr.IsTableOrTBody )
                 {
                     // then this is a currupt path
                     return Point.Empty;
                 }
 
-                if ( tr.TagName == "TR" )
+                if( tr.TagName == "TR" )
                 {
                     p.Y = tr.Position;
                     return p;
@@ -99,13 +97,13 @@ namespace RaynMaker.Import.Html
         /// <summary/>
         public static HtmlPath Parse( string pathStr )
         {
-            if ( string.IsNullOrEmpty( pathStr ) )
+            if( string.IsNullOrEmpty( pathStr ) )
             {
                 throw new ArgumentException( "value is null or empty string", "pathStr" );
             }
 
             var pathElements = pathStr.Split( PathSeparator )
-                .Where( token => !token.IsNullOrTrimmedEmpty() )
+                .Where( token => !string.IsNullOrWhiteSpace( token ) )
                 .Select( token => HtmlPathElement.Parse( token ) );
 
             return new HtmlPath( pathElements );

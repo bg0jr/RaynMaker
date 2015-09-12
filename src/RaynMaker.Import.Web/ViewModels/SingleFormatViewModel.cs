@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
-using Blade;
 using Blade.Data;
 using Microsoft.Practices.Prism.Mvvm;
 using Plainion;
@@ -83,7 +82,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 {
                     return;
                 }
-                
+
                 myMarkupDocument.Document.Click += HtmlDocument_Click;
 
                 if( myMarkupDocument.SelectedElement != null )
@@ -258,7 +257,7 @@ namespace RaynMaker.Import.Web.ViewModels
             try
             {
                 return value.Split( ',' )
-                    .Where( t => !t.IsNullOrTrimmedEmpty() )
+                    .Where( t => !string.IsNullOrWhiteSpace( t ) )
                     .Select( t => Convert.ToInt32( t ) )
                     .ToArray();
             }
