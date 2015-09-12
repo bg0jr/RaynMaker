@@ -59,11 +59,6 @@
     <Compile Include="Core\WebUtil.cs" />
     <Compile Include="Core\WinFormHtmlDocumentLoader.cs" />
     <Compile Include="DatumLocatorRepository.cs" />
-    <Compile Include="DatumLocators\DatumLocatorDefinitions.cs" />
-    <Compile Include="DatumLocators\FormatBits.cs" />
-    <Compile Include="DatumLocators\Formats.cs" />
-    <Compile Include="DatumLocators\NavigationBits.cs" />
-    <Compile Include="DatumLocators\StandingDatumProviders.cs" />
     <Compile Include="DatumProviderFactory.cs" />
     <Compile Include="DocumentBrowserFactory.cs" />
     <Compile Include="DocumentLoaderFactory.cs" />
@@ -89,7 +84,6 @@
     <Compile Include="IDocumentLoader.cs" />
     <Compile Include="IDownloadController.cs" />
     <Compile Include="IFetchPolicy.cs" />
-    <Compile Include="Importer.cs" />
     <Compile Include="INavigator.cs" />
     <Compile Include="IResultPolicy.cs" />
     <Compile Include="LookupPolicy.cs" />

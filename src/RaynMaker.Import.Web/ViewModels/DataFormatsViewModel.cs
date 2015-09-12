@@ -5,7 +5,6 @@ using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Plainion;
-using RaynMaker.Import.DatumLocators;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Model;
 
@@ -147,12 +146,14 @@ namespace RaynMaker.Import.Web.ViewModels
         private void OnAdd()
         {
             var format = new PathSeriesFormat( string.Empty );
-            format.ValueFormat = new FormatColumn( "value", typeof( double ), Format.PriceEN );
-            format.TimeAxisFormat = new FormatColumn( "time", typeof( int ), Format.Number );
+            format.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000.0000" );
+            format.TimeAxisFormat = new FormatColumn( "time", typeof( int ), "0000" );
 
             mySession.CurrentSite.Formats.Add( format );
 
             Formats.Add( new SingleFormatViewModel( format ) );
+
+            SelectedFormatIndex = Formats.Count - 1;
 
             PreviousCommand.RaiseCanExecuteChanged();
             NextCommand.RaiseCanExecuteChanged();
