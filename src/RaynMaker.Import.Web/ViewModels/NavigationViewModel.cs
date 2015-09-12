@@ -6,11 +6,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using Blade.Collections;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
 using Plainion;
+using Plainion.Collections;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Model;
 

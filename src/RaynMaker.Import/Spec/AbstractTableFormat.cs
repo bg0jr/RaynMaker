@@ -2,7 +2,6 @@
 using System.Data;
 using System.Linq;
 using System.Text;
-using Blade.Collections;
 
 namespace RaynMaker.Import.Spec
 {
@@ -16,7 +15,7 @@ namespace RaynMaker.Import.Spec
         protected AbstractTableFormat( string name, params FormatColumn[] cols )
             : base( name )
         {
-            if ( cols == null )
+            if( cols == null )
             {
                 throw new ArgumentNullException( "cols" );
             }
@@ -30,15 +29,15 @@ namespace RaynMaker.Import.Spec
             StringBuilder sb = new StringBuilder();
 
             sb.Append( "BaseTableFormat: SkipRows='" );
-            sb.Append( SkipRows.Join( ',' ) );
+            sb.Append( string.Join( ",", SkipRows ) );
             sb.Append( "', Columns(" );
-            for ( int i = 0; i < Columns.Length; ++i )
+            for( int i = 0; i < Columns.Length; ++i )
             {
                 sb.Append( "[" );
                 sb.Append( Columns[ i ].ToString() );
                 sb.Append( "]" );
 
-                if ( i < Columns.Length - 1 )
+                if( i < Columns.Length - 1 )
                 {
                     sb.Append( ", " );
                 }
@@ -58,8 +57,10 @@ namespace RaynMaker.Import.Spec
         public DataTable ToFormattedTable( DataTable rawTable )
         {
             DataTable table = new DataTable();
-            Columns.Foreach( col => table.Columns.Add( col.Name, col.Type ) );
-
+            foreach( var col in Columns )
+            {
+                table.Columns.Add( col.Name, col.Type );
+            }
             ToFormattedTable( rawTable, table );
 
             return table;
@@ -67,9 +68,9 @@ namespace RaynMaker.Import.Spec
 
         public void ToFormattedTable( DataTable rawTable, DataTable targetTable )
         {
-            for ( int r = 0; r < rawTable.Rows.Count; ++r )
+            for( int r = 0; r < rawTable.Rows.Count; ++r )
             {
-                if ( SkipRows.Contains( r ) )
+                if( SkipRows.Contains( r ) )
                 {
                     continue;
                 }
@@ -78,14 +79,14 @@ namespace RaynMaker.Import.Spec
                 DataRow row = targetTable.NewRow();
                 int targetCol = 0;
                 bool isEmpty = true;
-                for ( int c = 0; c < rawRow.ItemArray.Length; ++c )
+                for( int c = 0; c < rawRow.ItemArray.Length; ++c )
                 {
-                    if ( SkipColumns.Contains( c ) )
+                    if( SkipColumns.Contains( c ) )
                     {
                         continue;
                     }
 
-                    if ( targetCol == Columns.Length )
+                    if( targetCol == Columns.Length )
                     {
                         break;
                     }
@@ -93,7 +94,7 @@ namespace RaynMaker.Import.Spec
                     FormatColumn formatCol = Columns[ targetCol ];
                     object value = formatCol.Convert( rawRow[ c ].ToString() );
                     row[ formatCol.Name ] = ( value != null ? value : DBNull.Value );
-                    if ( row[ formatCol.Name ] != DBNull.Value )
+                    if( row[ formatCol.Name ] != DBNull.Value )
                     {
                         isEmpty = false;
                     }
@@ -101,7 +102,7 @@ namespace RaynMaker.Import.Spec
                     targetCol++;
                 }
 
-                if ( !isEmpty )
+                if( !isEmpty )
                 {
                     targetTable.Rows.Add( row );
                 }

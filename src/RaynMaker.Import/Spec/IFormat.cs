@@ -1,6 +1,4 @@
-﻿using Blade;
-
-namespace RaynMaker.Import.Spec
+﻿namespace RaynMaker.Import.Spec
 {
     public interface IFormat 
     {

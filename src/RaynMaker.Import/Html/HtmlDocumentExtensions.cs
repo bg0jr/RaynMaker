@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
-using Blade.Collections;
 using Plainion;
 using RaynMaker.Import.Spec;
 
@@ -23,16 +22,16 @@ namespace RaynMaker.Import.Html
             Contract.RequiresNotNull( path, "path" );
 
             var root = doc.Body.GetRoot();
-            if ( root == null )
+            if( root == null )
             {
                 return null;
             }
 
-            foreach ( var element in path.Elements )
+            foreach( var element in path.Elements )
             {
                 root = root.GetChildAt( element.TagName, element.Position );
 
-                if ( root == null )
+                if( root == null )
                 {
                     return null;
                 }
@@ -47,7 +46,7 @@ namespace RaynMaker.Import.Html
         public static string GetTextByPath( this IHtmlDocument doc, HtmlPath path )
         {
             var e = doc.GetElementByPath( path );
-            if ( e == null )
+            if( e == null )
             {
                 return null;
             }
@@ -63,7 +62,7 @@ namespace RaynMaker.Import.Html
         public static HtmlTable GetTableByPath( this IHtmlDocument doc, HtmlPath path )
         {
             var start = doc.GetElementByPath( path );
-            if ( start == null )
+            if( start == null )
             {
                 return null;
             }
@@ -78,7 +77,7 @@ namespace RaynMaker.Import.Html
 
         private static IHtmlElement GetFormByName( this IHtmlElement element, string formName )
         {
-            foreach ( var child in element.Children )
+            foreach( var child in element.Children )
             {
                 if( child.TagName.Equals( "form", StringComparison.OrdinalIgnoreCase )
                     && child.GetAttribute( "name" ).Equals( formName, StringComparison.OrdinalIgnoreCase ) )
@@ -88,7 +87,7 @@ namespace RaynMaker.Import.Html
                 else
                 {
                     var form = child.GetFormByName( formName );
-                    if ( form != null )
+                    if( form != null )
                     {
                         return form;
                     }
@@ -117,7 +116,7 @@ namespace RaynMaker.Import.Html
             Contract.RequiresNotNull( path, "path" );
 
             HtmlTable htmlTable = doc.GetTableByPath( path );
-            if ( htmlTable == null )
+            if( htmlTable == null )
             {
                 return FallibleActionResult<DataTable>.CreateFailureResult( "Could not get table by path" );
             }
@@ -126,23 +125,23 @@ namespace RaynMaker.Import.Html
             // TODO: should we get the culture from the HTML page somehow?
             table.Locale = CultureInfo.InvariantCulture;
 
-            Func<IHtmlElement, object> GetContent = element => (textOnly ? (object)element.InnerText : element);
+            Func<IHtmlElement, object> GetContent = element => ( textOnly ? ( object )element.InnerText : element );
 
-            foreach ( var tr in htmlTable.Rows )
+            foreach( var tr in htmlTable.Rows )
             {
                 var htmlRow = new List<IHtmlElement>();
-                foreach ( var td in tr.Children )
+                foreach( var td in tr.Children )
                 {
-                    if ( td.TagName == "TD" || td.TagName == "TH" )
+                    if( td.TagName == "TD" || td.TagName == "TH" )
                     {
                         htmlRow.Add( td );
                     }
                 }
 
                 // add columns if necessary
-                if ( htmlRow.Count > table.Columns.Count )
+                if( htmlRow.Count > table.Columns.Count )
                 {
-                    (htmlRow.Count - table.Columns.Count).Times( x => table.Columns.Add( string.Empty, typeof( object ) ) );
+                    ( htmlRow.Count - table.Columns.Count ).Times( x => table.Columns.Add( string.Empty, typeof( object ) ) );
                 }
 
                 // add new row to table
@@ -151,10 +150,13 @@ namespace RaynMaker.Import.Html
                 table.AcceptChanges();
 
                 // add data
-                htmlRow.ForeachIndex( ( element, idx ) => row[ idx ] = GetContent( element ) );
+                for( int i = 0; i < htmlRow.Count; ++i )
+                {
+                    row[ i ] = GetContent( htmlRow[ i ] );
+                }
             }
 
-            if ( table.Rows.Count == 0 )
+            if( table.Rows.Count == 0 )
             {
                 table.Dispose();
                 return FallibleActionResult<DataTable>.CreateFailureResult( "Table was empty" );
@@ -181,27 +183,27 @@ namespace RaynMaker.Import.Html
         /// <param name="tableSettings">the table specific configuration</param>
         public static FallibleActionResult<DataTable> ExtractTable( this IHtmlDocument doc, HtmlPath path, TableExtractionSettings tableSettings, HtmlExtractionSettings htmlSettings )
         {
-            if ( !path.PointsToTable && !path.PointsToTableCell )
+            if( !path.PointsToTable && !path.PointsToTableCell )
             {
                 throw new InvalidExpressionException( "Path neither points to table nor to cell" );
             }
 
             FallibleActionResult<DataTable> result = ExtractTable( doc, path, !htmlSettings.ExtractLinkUrl );
-            if ( !result.Success )
+            if( !result.Success )
             {
                 // pass throu failure result
                 return result;
             }
 
             // path points to whole table => return whole table
-            if ( path.PointsToTable )
+            if( path.PointsToTable )
             {
                 return result;
             }
 
             // get the x,y position of the cell the path is pointing to
             Point cellCoords = path.GetTableCellPosition();
-            if ( cellCoords.X < 0 || cellCoords.Y < 0 )
+            if( cellCoords.X < 0 || cellCoords.Y < 0 )
             {
                 throw new InvalidExpressionException( "Path expression corrupt: cell position in table could not be calculated" );
             }
@@ -209,9 +211,9 @@ namespace RaynMaker.Import.Html
             // get the value of the raw cell. extract the link url if configured.
             Func<object, object> GetValue = e =>
             {
-                if ( htmlSettings.ExtractLinkUrl )
+                if( htmlSettings.ExtractLinkUrl )
                 {
-                    return ((IHtmlElement)e).FirstLinkOrInnerText();
+                    return ( ( IHtmlElement )e ).FirstLinkOrInnerText();
                 }
                 else
                 {
@@ -220,7 +222,7 @@ namespace RaynMaker.Import.Html
             };
 
             var t = result.Value.ExtractSeries( cellCoords, GetValue, tableSettings );
-            if ( t == null )
+            if( t == null )
             {
                 return FallibleActionResult<DataTable>.CreateFailureResult( "Could not extract series specified" );
             }

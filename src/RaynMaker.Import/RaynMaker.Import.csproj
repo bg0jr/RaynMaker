@@ -30,7 +30,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Blade\Collections\IEnumerableTExtensions.cs" />
     <Compile Include="Spec\CellDimension.cs" />
     <Compile Include="Spec\DataColumnExtensions.cs" />
     <Compile Include="Spec\DataRowExtensions.cs" />

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Blade.Collections;
 using RaynMaker.Import.Html;
 using RaynMaker.Import.Html.WinForms;
 using RaynMaker.Import.Spec;
@@ -349,9 +348,10 @@ namespace RaynMaker.Import.Web.ViewModels
                     .ToList();
             }
 
-            header
-                .Cast<HtmlElementAdapter>()
-                .Foreach( e => myMarker.MarkElement( e.Element, Color.SteelBlue ) );
+            foreach( var e in header.Cast<HtmlElementAdapter>() )
+            {
+                myMarker.MarkElement( e.Element, Color.SteelBlue );
+            }
         }
 
         private void SkipElements( int[] positions, Func<int, IHtmlElement> GetCellAt )
@@ -361,7 +361,10 @@ namespace RaynMaker.Import.Web.ViewModels
                 return;
             }
 
-            positions.Foreach( pos => myMarker.UnmarkElement( ( ( HtmlElementAdapter )GetCellAt( pos ) ).Element ) );
+            foreach( var pos in positions )
+            {
+                myMarker.UnmarkElement( ( ( HtmlElementAdapter )GetCellAt( pos ) ).Element );
+            }
         }
     }
 }

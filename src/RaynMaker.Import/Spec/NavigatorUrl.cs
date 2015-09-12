@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using Blade;
 using Plainion;
 
 namespace RaynMaker.Import.Spec

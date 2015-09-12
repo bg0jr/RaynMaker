@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using Blade.Collections;
 
 namespace RaynMaker.Import.Html
 {
@@ -91,7 +90,7 @@ namespace RaynMaker.Import.Html
         /// <summary/>
         public override string ToString()
         {
-            return PathSeparator + Elements.Join( PathSeparator );
+            return PathSeparator + string.Join( PathSeparator.ToString(), Elements );
         }
 
         /// <summary/>

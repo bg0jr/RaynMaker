@@ -2,8 +2,6 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Blade;
-using Blade.Collections;
 using Plainion;
 using RaynMaker.Import.Html;
 using RaynMaker.Import.Html.WinForms;
@@ -27,14 +25,14 @@ namespace RaynMaker.Import.Web.ViewModels
         /// Default markup color: yellow.
         /// </remarks>
         /// </summary>
-        public HtmlMarker( )
+        public HtmlMarker()
         {
             MarkedElements = new List<HtmlElement>();
             DefaultColor = Color.Yellow;
         }
 
-        public HtmlDocumentAdapter Document {get;set;}
-        
+        public HtmlDocumentAdapter Document { get; set; }
+
         /// <summary>
         /// List of marked elements.
         /// </summary>
@@ -60,7 +58,7 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             Contract.RequiresNotNull( e != null, "e" );
 
-            if ( IsMarked( e ) )
+            if( IsMarked( e ) )
             {
                 // unmark first - maybe it was marked with another color before
                 UnmarkElement( e );
@@ -78,7 +76,7 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             Contract.RequiresNotNull( e != null, "e" );
 
-            if ( !IsMarked( e ) )
+            if( !IsMarked( e ) )
             {
                 return;
             }
@@ -93,7 +91,10 @@ namespace RaynMaker.Import.Web.ViewModels
         /// </summary>
         public void UnmarkAll()
         {
-            MarkedElements.ToList().Foreach( UnmarkElement );
+            foreach( var e in MarkedElements.ToList() )
+            {
+                UnmarkElement( e );
+            }
         }
 
         /// <summary>
@@ -122,9 +123,10 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             Contract.RequiresNotNull( start != null, "start" );
 
-            HtmlTable.GetRow( Document.Create( start ) )
-                .OfType<HtmlElementAdapter>()
-                .Foreach( e => MarkElement( e.Element, color ) );
+            foreach( var e in HtmlTable.GetRow( Document.Create( start ) ).OfType<HtmlElementAdapter>() )
+            {
+                MarkElement( e.Element, color );
+            }
         }
 
         /// <summary>
@@ -143,9 +145,10 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             Contract.RequiresNotNull( start != null, "start" );
 
-            HtmlTable.GetColumn( Document.Create( start ) )
-                .OfType<HtmlElementAdapter>()
-                .Foreach( e => MarkElement( e.Element, color ) );
+            foreach( var e in HtmlTable.GetColumn( Document.Create( start ) ).OfType<HtmlElementAdapter>() )
+            {
+                MarkElement( e.Element, color );
+            }
         }
     }
 }
