@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Blade
+namespace RaynMaker.Import.Html
 {
     /// <summary>
     /// Used to return a result from a function which could fail and 

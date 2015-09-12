@@ -10,9 +10,10 @@ namespace RaynMaker.Import.Tests
     {
         public TestBase()
         {
-            TestDataRoot = Path.Combine( GetType().GetAssemblyPath(), "TestData" );
+            var assemblyPath = new Uri( Path.GetDirectoryName( GetType().Assembly.CodeBase ) ).LocalPath;
+            TestDataRoot = Path.Combine( assemblyPath, "TestData" );
         }
-
+        
         protected string TestDataRoot { get; private set; }
 
         /// <summary>
