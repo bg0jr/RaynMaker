@@ -4,8 +4,8 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using Blade.Collections;
-using Blade.Data;
 using Plainion;
+using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Html
 {

@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Blade.Data
+namespace RaynMaker.Import.Spec
 {
     /// <summary>
     /// Extension to the System.Data.DataRow class.

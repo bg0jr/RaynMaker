@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Blade.Data
+namespace RaynMaker.Import.Spec
 {
     /// <summary>
     /// Extensions to System.Data.DataColumn.

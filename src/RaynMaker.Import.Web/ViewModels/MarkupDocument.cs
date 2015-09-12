@@ -4,9 +4,9 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Blade.Collections;
-using Blade.Data;
 using RaynMaker.Import.Html;
 using RaynMaker.Import.Html.WinForms;
+using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Web.ViewModels
 {

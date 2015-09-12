@@ -3,7 +3,6 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.Serialization;
-using Blade.Data;
 
 namespace RaynMaker.Import.Spec
 {

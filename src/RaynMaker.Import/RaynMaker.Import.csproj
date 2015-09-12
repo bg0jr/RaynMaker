@@ -31,11 +31,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Blade\Collections\IEnumerableTExtensions.cs" />
-    <Compile Include="Blade\Data\CellDimension.cs" />
-    <Compile Include="Blade\Data\DataColumnExtensions.cs" />
-    <Compile Include="Blade\Data\DataRowExtensions.cs" />
-    <Compile Include="Blade\Data\DataTableExtensions.cs" />
-    <Compile Include="Blade\Data\TableExtractionSettings.cs" />
+    <Compile Include="Spec\CellDimension.cs" />
+    <Compile Include="Spec\DataColumnExtensions.cs" />
+    <Compile Include="Spec\DataRowExtensions.cs" />
+    <Compile Include="Spec\DataTableExtensions.cs" />
+    <Compile Include="Spec\TableExtractionSettings.cs" />
     <Compile Include="Html\FallibleActionResult.cs" />
     <Compile Include="Core\CsvReader.cs" />
     <Compile Include="Core\CacheSettings.cs" />

@@ -1,9 +1,9 @@
 ﻿using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Blade.Data;
 using NUnit.Framework;
 using RaynMaker.Import.Html;
+using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Tests.Html
 {
