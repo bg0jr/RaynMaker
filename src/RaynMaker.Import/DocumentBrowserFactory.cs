@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RaynMaker.Import.Core;
+﻿using RaynMaker.Import.Core;
 
 namespace RaynMaker.Import
 {
@@ -16,7 +11,7 @@ namespace RaynMaker.Import
 
         private static IDocumentBrowser CreateLegacyDocumentBrowser()
         {
-            var browser = new LegacyDocumentBrowser();
+            var browser = new WinFormsDocumentBrowser();
 
             browser.DownloadController.Options = BrowserOptions.NoActiveXDownload |
                 BrowserOptions.NoBehaviors | BrowserOptions.NoJava | BrowserOptions.NoScripts |

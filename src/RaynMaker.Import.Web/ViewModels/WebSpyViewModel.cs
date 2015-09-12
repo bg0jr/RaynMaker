@@ -16,7 +16,7 @@ namespace RaynMaker.Import.Web.ViewModels
     [Export]
     class WebSpyViewModel : BindableBase, IBrowser
     {
-        private LegacyDocumentBrowser myDocumentBrowser = null;
+        private WinFormsDocumentBrowser myDocumentBrowser = null;
 
         [ImportingConstructor]
         public WebSpyViewModel( IProjectHost projectHost, StorageService storageService )
@@ -44,7 +44,7 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             set
             {
-                myDocumentBrowser = new LegacyDocumentBrowser( value );
+                myDocumentBrowser = new WinFormsDocumentBrowser( value );
                 myDocumentBrowser.Browser.Navigating += myBrowser_Navigating;
                 myDocumentBrowser.Browser.DocumentCompleted += myBrowser_DocumentCompleted;
 

@@ -12,14 +12,14 @@ using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Core
 {
-    public class LegacyDocumentBrowser : IDisposable, IDocumentBrowser
+    public class WinFormsDocumentBrowser : IDisposable, IDocumentBrowser
     {
         private DownloadController myDownloadController;
         private bool myIsInitialized = false;
         private bool myOwnWebBrowser = false;
         private const int DownloadChunkSize = 1024; // bytes
 
-        public LegacyDocumentBrowser()
+        public WinFormsDocumentBrowser()
             : this( new WebBrowser() )
         {
             myOwnWebBrowser = true;
@@ -29,7 +29,7 @@ namespace RaynMaker.Import.Core
         /// Creates a WebScrapSC with a given/existing WebBrowser control.
         /// The ownership of the WebBrowser control passed is not taken over.
         /// </summary>
-        public LegacyDocumentBrowser( WebBrowser webBrowser )
+        public WinFormsDocumentBrowser( WebBrowser webBrowser )
         {
             myOwnWebBrowser = false;
 

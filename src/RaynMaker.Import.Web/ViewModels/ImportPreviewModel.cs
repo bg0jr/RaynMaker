@@ -22,7 +22,7 @@ namespace RaynMaker.Import.Web.ViewModels
         private static readonly ILogger myLogger = LoggerFactory.GetLogger( typeof( ImportPreviewModel ) );
 
         private StorageService myStorageService;
-        private LegacyDocumentBrowser myDocumentBrowser = null;
+        private WinFormsDocumentBrowser myDocumentBrowser = null;
         private Site mySelectedSite;
         private Type myDatumType;
         private List<IDatum> myData;
@@ -110,7 +110,7 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             set
             {
-                myDocumentBrowser = new LegacyDocumentBrowser( value );
+                myDocumentBrowser = new WinFormsDocumentBrowser( value );
 
                 if( SelectedSite != null )
                 {

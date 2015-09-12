@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
 using RaynMaker.Import.Html.WinForms;
-using RaynMaker.Import.Html;
 
 namespace RaynMaker.Import.Core
 {

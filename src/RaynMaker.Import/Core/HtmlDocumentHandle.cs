@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Data;
-using System.Windows.Forms;
 using RaynMaker.Import.Html;
-using RaynMaker.Import.Html.WinForms;
 using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Core

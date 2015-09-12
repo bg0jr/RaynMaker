@@ -45,7 +45,7 @@
     <Compile Include="Core\DownloadController.cs" />
     <Compile Include="Core\HtmlDocumentHandle.cs" />
     <Compile Include="Core\HtmlDocumentLoader.cs" />
-    <Compile Include="Core\LegacyDocumentBrowser.cs" />
+    <Compile Include="Core\WinFormsDocumentBrowser.cs" />
     <Compile Include="Core\Navigator.cs" />
     <Compile Include="Core\PatternMatching.cs" />
     <Compile Include="Core\TextDocument.cs" />
