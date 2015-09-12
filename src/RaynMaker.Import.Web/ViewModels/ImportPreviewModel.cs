@@ -13,15 +13,20 @@ using RaynMaker.Import.Html;
 using RaynMaker.Import.Web.Services;
 using Plainion;
 using System.Data;
+using Plainion.Logging;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
     class ImportPreviewModel : BindableBase, IBrowserBase
     {
+        private static readonly ILogger myLogger = LoggerFactory.GetLogger( typeof( ImportPreviewModel ) );
+
         private StorageService myStorageService;
         private LegacyDocumentBrowser myDocumentBrowser = null;
         private Site mySelectedSite;
         private Type myDatumType;
+        private List<IDatum> myData;
+        private bool myOverwriteExistingValues;
 
         public ImportPreviewModel( StorageService storageService )
         {
@@ -31,8 +36,10 @@ namespace RaynMaker.Import.Web.ViewModels
 
             OkCommand = new DelegateCommand( OnOk );
             CancelCommand = new DelegateCommand( OnCancel );
+            ApplyCommand = new DelegateCommand( OnApply );
 
             Sites = new ObservableCollection<Site>();
+            myData = new List<IDatum>();
         }
 
         public Stock Stock { get; set; }
@@ -41,23 +48,56 @@ namespace RaynMaker.Import.Web.ViewModels
 
         public IPeriod To { get; set; }
 
-        public IEnumerable<IDatum> Data { get; set; }
+        public ICollection<IDatum> Series { get; set; }
 
         public Action FinishAction { get; set; }
 
         public ICommand OkCommand { get; private set; }
 
+        public bool OverwriteExistingValues
+        {
+            get { return myOverwriteExistingValues; }
+            set { SetProperty( ref myOverwriteExistingValues, value ); }
+        }
+
         private void OnOk()
         {
+            PublishData();
             FinishAction();
+        }
+
+        // only take over new datums and values for datums which have no value yet
+        private void PublishData()
+        {
+            foreach( var datum in myData )
+            {
+                var existingDatum = Series.SingleOrDefault( d => d.Period.Equals( datum.Period ) );
+                if( existingDatum == null )
+                {
+                    Series.Add( datum );
+                    continue;
+                }
+
+                if( !existingDatum.Value.HasValue || OverwriteExistingValues )
+                {
+                    ( ( AbstractDatum )existingDatum ).Value = datum.Value;
+                    ( ( AbstractDatum )existingDatum ).Source = datum.Source;
+                }
+            }
         }
 
         public ICommand CancelCommand { get; private set; }
 
         private void OnCancel()
         {
-            Data = Enumerable.Empty<IDatum>();
             FinishAction();
+        }
+
+        public ICommand ApplyCommand { get; private set; }
+
+        private void OnApply()
+        {
+            PublishData();
         }
 
         public System.Windows.Forms.WebBrowser Browser
@@ -96,30 +136,63 @@ namespace RaynMaker.Import.Web.ViewModels
                 return;
             }
 
-            var data = new List<IDatum>();
+            myData.Clear();
 
             var provider = new BasicDatumProvider( this );
 
             var formats = mySelectedSite.Formats.Cast<PathSeriesFormat>();
-            var format = formats.First();
 
-            provider.Navigate( mySelectedSite, Stock );
-            provider.Mark( format );
-
-            var table = provider.GetResult( format );
-            Currency currency = null; // TODO - how do we handle that!!
-            foreach( DataRow row in table.Rows )
+            foreach( var format in formats )
             {
-                var year = ( int )row[ format.TimeAxisFormat.Name ];
-                var value = ( double )row[ format.ValueFormat.Name ];
+                try
+                {
+                    provider.Navigate( mySelectedSite, Stock );
+                }
+                catch( Exception ex )
+                {
+                    ex.Data[ "Datum" ] = myDatumType.Name;
+                    ex.Data[ "SiteName" ] = mySelectedSite.Name;
+                    ex.Data[ "OriginalNavigation" ] = mySelectedSite.Navigation;
+                    //ex.Data[ "ModifiedNavigation" ] = modifiedNavigation;
 
-                var datum = Dynamics.CreateDatum( Stock, myDatumType, new YearPeriod( year ), currency );
-                datum.Value = format.InMillions ? value * 1000000 : value;
+                    myLogger.Error( ex, "Failed to fetch '{0}' from site {1}", myDatumType.Name, mySelectedSite.Name );
+                }
 
-                data.Add( datum );
+                try
+                {
+                    provider.Mark( format );
+
+                    // already extract data here to check for format issues etc
+
+                    var table = provider.GetResult( format );
+                    Currency currency = null; // TODO - how do we handle that!!
+                    foreach( DataRow row in table.Rows )
+                    {
+                        var year = ( int )row[ format.TimeAxisFormat.Name ];
+                        var value = ( double )row[ format.ValueFormat.Name ];
+
+                        var datum = Dynamics.CreateDatum( Stock, myDatumType, new YearPeriod( year ), currency );
+                        datum.Source = mySelectedSite.Name;
+
+                        datum.Value = format.InMillions ? value * 1000000 : value;
+
+                        myData.Add( datum );
+                    }
+
+                    // we found s.th. with this format 
+                    // -> skip alternative formats
+                    break;
+                }
+                catch( Exception ex )
+                {
+                    ex.Data[ "Datum" ] = myDatumType.Name;
+                    ex.Data[ "SiteName" ] = mySelectedSite.Name;
+                    ex.Data[ "OriginalNavigation" ] = mySelectedSite.Navigation;
+                    ex.Data[ "OriginalFormat" ] = format;
+
+                    myLogger.Error( ex, "Failed to fetch '{0}' from site {1}", myDatumType.Name, mySelectedSite.Name );
+                }
             }
-
-            Data = data;
         }
 
         public void Fetch( Type datum )

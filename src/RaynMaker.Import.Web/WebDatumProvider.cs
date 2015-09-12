@@ -21,13 +21,14 @@ namespace RaynMaker.Import.Web
             myStorageService = storageService;
         }
 
-        public IEnumerable<IDatum> Get( Stock stock, Type datum, IPeriod from, IPeriod to )
+        public void Fetch( Stock stock, Type datum, ICollection<IDatum> series, IPeriod from, IPeriod to )
         {
             var previewViewModel = new ImportPreviewModel(myStorageService)
             {
                 Stock = stock,
                 From = from,
                 To = to,
+                Series = series
             };
 
             var preview = new ImportPreview( previewViewModel );
@@ -37,9 +38,7 @@ namespace RaynMaker.Import.Web
 
             previewViewModel.Fetch( datum );
 
-            preview.ShowDialog();
-
-            return previewViewModel.Data;
+            preview.Show();
         }
     }
 }

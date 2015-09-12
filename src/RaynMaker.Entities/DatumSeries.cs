@@ -9,7 +9,7 @@ using Plainion.Validation;
 
 namespace RaynMaker.Entities
 {
-    public class DatumSeries : IDatumSeries
+    public class DatumSeries : IDatumSeries, ICollection<IDatum>
     {
         private bool myCurrencyIsFrozen;
         private IComparer<IDatum> myComparer;
@@ -90,10 +90,11 @@ namespace RaynMaker.Entities
             myValues.Insert( index, datum );
         }
 
-        public void Remove( IDatum datum )
+        public bool Remove( IDatum datum )
         {
             Contract.RequiresNotNull( datum, "datum" );
-            myValues.Remove( datum );
+            
+            return myValues.Remove( datum );
         }
 
         public int Count
@@ -109,6 +110,26 @@ namespace RaynMaker.Entities
         IEnumerator IEnumerable.GetEnumerator()
         {
             return myValues.GetEnumerator();
+        }
+
+        public void Clear()
+        {
+            myValues.Clear();
+        }
+
+        public bool Contains( IDatum item )
+        {
+            return myValues.Contains( item );
+        }
+
+        public void CopyTo( IDatum[] array, int arrayIndex )
+        {
+            myValues.CopyTo( array, arrayIndex );
+        }
+
+        public bool IsReadOnly
+        {
+            get { return false; }
         }
     }
 }

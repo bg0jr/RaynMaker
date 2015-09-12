@@ -173,7 +173,12 @@ namespace RaynMaker.Data.ViewModels
         private void OnImport( DatumSeries series )
         {
             var currentYear = DateTime.Now.Year;
-            var data = DataProvider.Get( Stock, series.DatumType, new YearPeriod( currentYear - 10 ), new YearPeriod( currentYear ) );
+            
+            DataProvider.Fetch( Stock, 
+                series.DatumType, 
+                series,
+                new YearPeriod( currentYear - 10 ), 
+                new YearPeriod( currentYear ) );
         }
     }
 }

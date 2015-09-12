@@ -9,6 +9,6 @@ namespace RaynMaker.Infrastructure.Services
         /// <summary>
         /// From and To dates are included in the result series
         /// </summary>
-        IEnumerable<IDatum> Get( Stock stock, Type datum, IPeriod from, IPeriod to );
+        void Fetch( Stock stock, Type datum, ICollection<IDatum> series, IPeriod from, IPeriod to );
     }
 }
