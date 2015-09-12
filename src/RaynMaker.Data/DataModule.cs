@@ -16,10 +16,11 @@ namespace RaynMaker.Data
         {
             RegionManager.RegisterViewWithRegion( RaynMaker.Infrastructure.RegionNames.Tools, typeof( CurrenciesMenuItem ) );
 
-            RegionManager.RegisterViewWithRegion( RaynMaker.Infrastructure.RegionNames.AssetContentPages, typeof( FactsContentPage ) );
+            RegionManager.RegisterViewWithRegion( RaynMaker.Infrastructure.RegionNames.AssetContentPages, typeof( OverviewContentPage ) );
+            RegionManager.RegisterViewWithRegion( RaynMaker.Infrastructure.RegionNames.AssetContentPages, typeof( FiguresContentPage ) );
 
             RegionManager.RegisterViewWithRegion( RegionNames.CurrenciesView, typeof( CurrenciesView ) );
-            RegionManager.RegisterViewWithRegion( RegionNames.DataSheetEditView, typeof( FactsContentPage ) );
+            RegionManager.RegisterViewWithRegion( RegionNames.DataSheetEditView, typeof( OverviewContentPage ) );
         }
     }
 }

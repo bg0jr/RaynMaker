@@ -6,11 +6,11 @@ using RaynMaker.Data.ViewModels;
 namespace RaynMaker.Data.Views
 {
     [Export]
-    [ViewSortHint( "100" )]
-    public partial class FactsContentPage : UserControl
+    [ViewSortHint( "110" )]
+    public partial class FiguresContentPage : UserControl
     {
         [ImportingConstructor]
-        internal FactsContentPage( FactsContentPageModel viewModel )
+        internal FiguresContentPage( FiguresContentPageModel viewModel )
         {
             InitializeComponent();
 

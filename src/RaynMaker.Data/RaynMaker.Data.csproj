@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataModule.cs" />
+    <Compile Include="ViewModels\OverviewContentPageModel.cs" />
     <Compile Include="Views\CurrenciesMenuItem.xaml.cs">
       <DependentUpon>CurrenciesMenuItem.xaml</DependentUpon>
     </Compile>
@@ -96,13 +97,16 @@
     <Compile Include="Services\CurrenciesLut.cs" />
     <Compile Include="Services\LutService.cs" />
     <Compile Include="ViewModels\CurrenciesViewModel.cs" />
-    <Compile Include="ViewModels\FactsContentPageModel.cs" />
+    <Compile Include="ViewModels\FiguresContentPageModel.cs" />
     <Compile Include="Views\CurrenciesView.xaml.cs">
       <DependentUpon>CurrenciesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CurrencyVisibilityConverter.cs" />
-    <Compile Include="Views\FactsContentPage.xaml.cs">
-      <DependentUpon>FactsContentPage.xaml</DependentUpon>
+    <Compile Include="Views\OverviewContentPage.xaml.cs">
+      <DependentUpon>OverviewContentPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FiguresContentPage.xaml.cs">
+      <DependentUpon>FiguresContentPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\InMillionsConverter.cs" />
   </ItemGroup>
@@ -119,7 +123,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\FactsContentPage.xaml">
+    <Page Include="Views\OverviewContentPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FiguresContentPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

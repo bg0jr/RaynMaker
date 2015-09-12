@@ -17,20 +17,17 @@ using RaynMaker.Infrastructure.Services;
 namespace RaynMaker.Data.ViewModels
 {
     [Export]
-    class FactsContentPageModel : BindableBase, IContentPage
+    class FiguresContentPageModel : BindableBase, IContentPage
     {
         private IProjectHost myProjectHost;
         private List<IDatumSeries> myDatums;
         private Stock myStock;
 
         [ImportingConstructor]
-        public FactsContentPageModel( IProjectHost projectHost, ILutService lutService )
+        public FiguresContentPageModel( IProjectHost projectHost, ILutService lutService )
         {
             myProjectHost = projectHost;
             CurrenciesLut = lutService.CurrenciesLut;
-
-            AddReferenceCommand = new DelegateCommand( OnAddReference );
-            RemoveReferenceCommand = new DelegateCommand<Reference>( OnRemoveReference );
 
             ImportCommand = new DelegateCommand<DatumSeries>( OnImport, CanImport );
         }
@@ -40,7 +37,7 @@ namespace RaynMaker.Data.ViewModels
 
         public ICurrenciesLut CurrenciesLut { get; private set; }
 
-        public string Header { get { return "Facts"; } }
+        public string Header { get { return "Figures"; } }
 
         public Stock Stock
         {
@@ -101,10 +98,6 @@ namespace RaynMaker.Data.ViewModels
         {
             TextBoxBinding.ForceSourceUpdate();
 
-            // TODO: When to set timestamps? we could put it in the Entities now - whenever we change the value we update the timestamp
-            // and handle deserialization separately
-            // TODO: change "IFreezable" to "Validation" -  what is EF validation approach?
-
             var ctx = myProjectHost.Project.GetAssetsContext();
 
             var datumsToValidate = myDatums
@@ -132,20 +125,6 @@ namespace RaynMaker.Data.ViewModels
 
         public void Cancel()
         {
-        }
-
-        public ICommand AddReferenceCommand { get; private set; }
-
-        private void OnAddReference()
-        {
-            Stock.Company.References.Add( new Reference() );
-        }
-
-        public ICommand RemoveReferenceCommand { get; private set; }
-
-        private void OnRemoveReference( Reference reference )
-        {
-            Stock.Company.References.Remove( reference );
         }
 
         public Price Price
