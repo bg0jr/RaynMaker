@@ -23,8 +23,8 @@
 &lt;/ItemContent&gt;</Content>
     </DesignerItem>
     <DesignerItem>
-      <Left>670.4</Left>
-      <Top>508.3</Top>
+      <Left>672</Left>
+      <Top>483.50000000000006</Top>
       <Width>78</Width>
       <Height>65</Height>
       <ID>0135c471-8870-4b3c-88d1-2ef45807ec17</ID>
@@ -73,8 +73,8 @@
 &lt;/ItemContent&gt;</Content>
     </DesignerItem>
     <DesignerItem>
-      <Left>670.4</Left>
-      <Top>621.899999999999</Top>
+      <Left>672</Left>
+      <Top>597.099999999999</Top>
       <Width>78</Width>
       <Height>65</Height>
       <ID>cc592b4c-1376-437c-b74a-7d7bcb4b4d91</ID>
@@ -94,7 +94,7 @@
 &lt;/ItemContent&gt;</Content>
     </DesignerItem>
     <DesignerItem>
-      <Left>301.59999999999991</Left>
+      <Left>300.79999999999984</Left>
       <Top>29.099999999999994</Top>
       <Width>169.19999999999996</Width>
       <Height>69.000000000000014</Height>
@@ -116,7 +116,7 @@
         &lt;av:RowDefinition Height="1" /&gt;
         &lt;av:RowDefinition Height="*" /&gt;
       &lt;/av:Grid.RowDefinitions&gt;
-      &lt;av:TextBlock Text="DocumentLocatorTemplate" Name="ClassName" Margin="5,5,5,5" HorizontalAlignment="Center" IsHitTestVisible="False" av:Grid.Row="0" /&gt;
+      &lt;av:TextBlock Text="DataLocatorTemplate" Name="ClassName" Margin="5,5,5,5" HorizontalAlignment="Center" IsHitTestVisible="False" av:Grid.Row="0" /&gt;
       &lt;av:Line X1="0" Y1="0" X2="1" Y2="1" Stretch="Fill" Stroke="#FF000000" StrokeThickness="1" av:Grid.Row="1" /&gt;
     &lt;/av:Grid&gt;
   &lt;/av:Border&gt;
@@ -223,8 +223,8 @@
 &lt;/ItemContent&gt;</Content>
     </DesignerItem>
     <DesignerItem>
-      <Left>448.80000000000007</Left>
-      <Top>621.90000000000009</Top>
+      <Left>450.40000000000009</Left>
+      <Top>597.10000000000014</Top>
       <Width>157.19999999999985</Width>
       <Height>65</Height>
       <ID>cbcef777-1fcf-4297-ba1b-a95b844f2752</ID>
@@ -252,8 +252,8 @@
 &lt;/ItemContent&gt;</Content>
     </DesignerItem>
     <DesignerItem>
-      <Left>251.20000000000005</Left>
-      <Top>568.30000000000018</Top>
+      <Left>252.80000000000007</Left>
+      <Top>543.50000000000023</Top>
       <Width>78</Width>
       <Height>65</Height>
       <ID>b4a599ac-7a9d-429a-b5ac-95efab43ea3e</ID>
@@ -273,8 +273,8 @@
 &lt;/ItemContent&gt;</Content>
     </DesignerItem>
     <DesignerItem>
-      <Left>229.19999999999982</Left>
-      <Top>591.10000000000014</Top>
+      <Left>230.79999999999984</Left>
+      <Top>566.30000000000018</Top>
       <Width>78</Width>
       <Height>65</Height>
       <ID>f1e44334-5fd9-47a9-99fc-b8b760885898</ID>
@@ -294,8 +294,8 @@
 &lt;/ItemContent&gt;</Content>
     </DesignerItem>
     <DesignerItem>
-      <Left>205.59999999999991</Left>
-      <Top>621.90000000000009</Top>
+      <Left>207.19999999999993</Left>
+      <Top>597.10000000000014</Top>
       <Width>78</Width>
       <Height>65</Height>
       <ID>497a03d0-b5db-4fd4-93ac-0d9339a9bb40</ID>
@@ -357,41 +357,12 @@
 &lt;/ItemContent&gt;</Content>
     </DesignerItem>
     <DesignerItem>
-      <Left>694.4000000000002</Left>
-      <Top>9.8999999999999915</Top>
-      <Width>173.99999999999986</Width>
-      <Height>141.80000000000007</Height>
-      <ID>1174aef9-3720-4ac0-8bd5-f4213695f6e1</ID>
-      <zIndex>28</zIndex>
-      <IsGroup>false</IsGroup>
-      <ParentID>3835f581-b97e-4963-9044-967a369183bf</ParentID>
-      <Content Version="1">&lt;ItemContent xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation"&gt;
-  &lt;ItemContent.Properties&gt;
-    &lt;ItemPropertyCollection Capacity="4"&gt;
-      &lt;ItemProperty ElementName="ClassName" ElementProperty="Text" DisplayName="Caption" IsComponentName="True" /&gt;
-      &lt;ItemProperty ElementName="Body" ElementProperty="Background" DisplayName="Fill" IsComponentName="False" /&gt;
-    &lt;/ItemPropertyCollection&gt;
-  &lt;/ItemContent.Properties&gt;
-  &lt;av:Border BorderThickness="2,2,2,2" BorderBrush="#FF000000" Name="Body" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"&gt;
-    &lt;av:Grid&gt;
-      &lt;av:Grid.RowDefinitions&gt;
-        &lt;av:RowDefinition Height="Auto" /&gt;
-        &lt;av:RowDefinition Height="1" /&gt;
-        &lt;av:RowDefinition Height="*" /&gt;
-      &lt;/av:Grid.RowDefinitions&gt;
-      &lt;av:TextBlock Text="DataSource" Name="ClassName" Margin="5,5,5,5" HorizontalAlignment="Center" IsHitTestVisible="False" av:Grid.Row="0" /&gt;
-      &lt;av:Line X1="0" Y1="0" X2="1" Y2="1" Stretch="Fill" Stroke="#FF000000" StrokeThickness="1" av:Grid.Row="1" /&gt;
-    &lt;/av:Grid&gt;
-  &lt;/av:Border&gt;
-&lt;/ItemContent&gt;</Content>
-    </DesignerItem>
-    <DesignerItem>
       <Left>927.2</Left>
       <Top>223.50000000000006</Top>
       <Width>174.8</Width>
       <Height>49</Height>
       <ID>4aee2ad8-6328-4115-aedb-a8637e1c1934</ID>
-      <zIndex>29</zIndex>
+      <zIndex>28</zIndex>
       <IsGroup>false</IsGroup>
       <ParentID>00000000-0000-0000-0000-000000000000</ParentID>
       <Content Version="1">&lt;ItemContent xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation"&gt;
@@ -408,41 +379,6 @@
     &lt;/av:Grid&gt;
   &lt;/av:Grid&gt;
 &lt;/ItemContent&gt;</Content>
-    </DesignerItem>
-    <DesignerItem>
-      <Left>700.16397515527922</Left>
-      <Top>41.90000000000002</Top>
-      <Width>151.66459627329212</Width>
-      <Height>89.80000000000004</Height>
-      <ID>36f1f7ee-7e78-4064-a492-1f959d47fa98</ID>
-      <zIndex>31</zIndex>
-      <IsGroup>false</IsGroup>
-      <ParentID>3835f581-b97e-4963-9044-967a369183bf</ParentID>
-      <Content Version="1">&lt;ItemContent xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation"&gt;
-  &lt;ItemContent.Properties&gt;
-    &lt;ItemPropertyCollection Capacity="4"&gt;
-      &lt;ItemProperty ElementName="Text" ElementProperty="Text" DisplayName="Text" IsComponentName="True" /&gt;
-      &lt;ItemProperty ElementName="Text" ElementProperty="FontWeight" DisplayName="Font Weight" IsComponentName="False" /&gt;
-      &lt;ItemProperty ElementName="Text" ElementProperty="FontSize" DisplayName="Font Size" IsComponentName="False" /&gt;
-    &lt;/ItemPropertyCollection&gt;
-  &lt;/ItemContent.Properties&gt;
-  &lt;av:Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch"&gt;
-    &lt;av:Grid Margin="2,2,2,2"&gt;
-      &lt;av:TextBlock Text="+ Name&amp;#xD;&amp;#xA;&amp;#xD;&amp;#xA;Describes where concrete datum instances are located" TextWrapping="Wrap" Name="Text" Margin="3,3,3,3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsHitTestVisible="False" /&gt;
-    &lt;/av:Grid&gt;
-  &lt;/av:Grid&gt;
-&lt;/ItemContent&gt;</Content>
-    </DesignerItem>
-    <DesignerItem>
-      <Left>694.4000000000002</Left>
-      <Top>9.8999999999999915</Top>
-      <Width>173.9999999999998</Width>
-      <Height>141.80000000000007</Height>
-      <ID>3835f581-b97e-4963-9044-967a369183bf</ID>
-      <zIndex>32</zIndex>
-      <IsGroup>true</IsGroup>
-      <ParentID>00000000-0000-0000-0000-000000000000</ParentID>
-      <Content Version="1">&lt;ItemContent xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" /&gt;</Content>
     </DesignerItem>
     <DesignerItem>
       <Left>167.1999999999999</Left>
@@ -473,6 +409,70 @@
   &lt;/av:Border&gt;
 &lt;/ItemContent&gt;</Content>
     </DesignerItem>
+    <DesignerItem>
+      <Left>731.20000000000027</Left>
+      <Top>27.499999999999986</Top>
+      <Width>175.59999999999971</Width>
+      <Height>149</Height>
+      <ID>e670e3b1-2147-4eb1-b4e0-5f31be8a78f2</ID>
+      <zIndex>30</zIndex>
+      <IsGroup>false</IsGroup>
+      <ParentID>0e2ece5d-89c7-4f90-87e1-dcff26a0f193</ParentID>
+      <Content Version="1">&lt;ItemContent xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation"&gt;
+  &lt;ItemContent.Properties&gt;
+    &lt;ItemPropertyCollection Capacity="4"&gt;
+      &lt;ItemProperty ElementName="ClassName" ElementProperty="Text" DisplayName="Caption" IsComponentName="True" /&gt;
+      &lt;ItemProperty ElementName="Body" ElementProperty="Background" DisplayName="Fill" IsComponentName="False" /&gt;
+    &lt;/ItemPropertyCollection&gt;
+  &lt;/ItemContent.Properties&gt;
+  &lt;av:Border BorderThickness="2,2,2,2" BorderBrush="#FF000000" Name="Body" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"&gt;
+    &lt;av:Grid&gt;
+      &lt;av:Grid.RowDefinitions&gt;
+        &lt;av:RowDefinition Height="Auto" /&gt;
+        &lt;av:RowDefinition Height="1" /&gt;
+        &lt;av:RowDefinition Height="*" /&gt;
+      &lt;/av:Grid.RowDefinitions&gt;
+      &lt;av:TextBlock Text="DataSource" Name="ClassName" Margin="5,5,5,5" HorizontalAlignment="Center" IsHitTestVisible="False" av:Grid.Row="0" /&gt;
+      &lt;av:Line X1="0" Y1="0" X2="1" Y2="1" Stretch="Fill" Stroke="#FF000000" StrokeThickness="1" av:Grid.Row="1" /&gt;
+    &lt;/av:Grid&gt;
+  &lt;/av:Border&gt;
+&lt;/ItemContent&gt;</Content>
+    </DesignerItem>
+    <DesignerItem>
+      <Left>735.20000000000027</Left>
+      <Top>59.500000000000014</Top>
+      <Width>161.9999999999996</Width>
+      <Height>109.80000000000005</Height>
+      <ID>20b528ca-e947-424e-a0f0-30f34aa81b8e</ID>
+      <zIndex>31</zIndex>
+      <IsGroup>false</IsGroup>
+      <ParentID>0e2ece5d-89c7-4f90-87e1-dcff26a0f193</ParentID>
+      <Content Version="1">&lt;ItemContent xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation"&gt;
+  &lt;ItemContent.Properties&gt;
+    &lt;ItemPropertyCollection Capacity="4"&gt;
+      &lt;ItemProperty ElementName="Text" ElementProperty="Text" DisplayName="Text" IsComponentName="True" /&gt;
+      &lt;ItemProperty ElementName="Text" ElementProperty="FontWeight" DisplayName="Font Weight" IsComponentName="False" /&gt;
+      &lt;ItemProperty ElementName="Text" ElementProperty="FontSize" DisplayName="Font Size" IsComponentName="False" /&gt;
+    &lt;/ItemPropertyCollection&gt;
+  &lt;/ItemContent.Properties&gt;
+  &lt;av:Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch"&gt;
+    &lt;av:Grid Margin="2,2,2,2"&gt;
+      &lt;av:TextBlock Text="+ Vendor (&amp;quot;Ariva&amp;quot;)&amp;#xD;&amp;#xA;+ Name (&amp;quot;Key Figures&amp;quot;)&amp;#xD;&amp;#xA;+ Quality (int)&amp;#xD;&amp;#xA;" TextWrapping="Wrap" Name="Text" Margin="3,3,3,3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsHitTestVisible="False" /&gt;
+    &lt;/av:Grid&gt;
+  &lt;/av:Grid&gt;
+&lt;/ItemContent&gt;</Content>
+    </DesignerItem>
+    <DesignerItem>
+      <Left>731.20000000000027</Left>
+      <Top>27.499999999999986</Top>
+      <Width>175.59999999999968</Width>
+      <Height>149</Height>
+      <ID>0e2ece5d-89c7-4f90-87e1-dcff26a0f193</ID>
+      <zIndex>34</zIndex>
+      <IsGroup>true</IsGroup>
+      <ParentID>00000000-0000-0000-0000-000000000000</ParentID>
+      <Content Version="1">&lt;ItemContent xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" /&gt;</Content>
+    </DesignerItem>
   </DesignerItems>
   <Connections>
     <Connection>
@@ -485,7 +485,7 @@
       <IsDotted>false</IsDotted>
       <zIndex>4</zIndex>
       <Properties>&lt;ItemPropertyCollection Capacity="8" xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="Caption" DisplayName="Caption" IsComponentName="True" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="IsDotted" DisplayName="IsDotted" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SourceArrowSymbol" DisplayName="SourceArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SinkArrowSymbol" DisplayName="SinkArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="PART_ConnectionPath" ElementProperty="Stroke" DisplayName="Stroke" IsComponentName="False" /&gt;&lt;/ItemPropertyCollection&gt;</Properties>
-      <Caption />
+      <Caption></Caption>
     </Connection>
     <Connection>
       <SourceID>8f9fc4c8-fe45-4d05-a361-3139b1e5d063</SourceID>
@@ -497,7 +497,7 @@
       <IsDotted>false</IsDotted>
       <zIndex>5</zIndex>
       <Properties>&lt;ItemPropertyCollection Capacity="8" xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="Caption" DisplayName="Caption" IsComponentName="True" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="IsDotted" DisplayName="IsDotted" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SourceArrowSymbol" DisplayName="SourceArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SinkArrowSymbol" DisplayName="SinkArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="PART_ConnectionPath" ElementProperty="Stroke" DisplayName="Stroke" IsComponentName="False" /&gt;&lt;/ItemPropertyCollection&gt;</Properties>
-      <Caption />
+      <Caption></Caption>
     </Connection>
     <Connection>
       <SourceID>0135c471-8870-4b3c-88d1-2ef45807ec17</SourceID>
@@ -509,7 +509,7 @@
       <IsDotted>false</IsDotted>
       <zIndex>6</zIndex>
       <Properties>&lt;ItemPropertyCollection Capacity="8" xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="Caption" DisplayName="Caption" IsComponentName="True" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="IsDotted" DisplayName="IsDotted" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SourceArrowSymbol" DisplayName="SourceArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SinkArrowSymbol" DisplayName="SinkArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="PART_ConnectionPath" ElementProperty="Stroke" DisplayName="Stroke" IsComponentName="False" /&gt;&lt;/ItemPropertyCollection&gt;</Properties>
-      <Caption />
+      <Caption></Caption>
     </Connection>
     <Connection>
       <SourceID>fabf7cff-44bb-4911-8cbf-bea44a234f2f</SourceID>
@@ -521,7 +521,7 @@
       <IsDotted>false</IsDotted>
       <zIndex>9</zIndex>
       <Properties>&lt;ItemPropertyCollection Capacity="8" xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="Caption" DisplayName="Caption" IsComponentName="True" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="IsDotted" DisplayName="IsDotted" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SourceArrowSymbol" DisplayName="SourceArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SinkArrowSymbol" DisplayName="SinkArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="PART_ConnectionPath" ElementProperty="Stroke" DisplayName="Stroke" IsComponentName="False" /&gt;&lt;/ItemPropertyCollection&gt;</Properties>
-      <Caption />
+      <Caption></Caption>
     </Connection>
     <Connection>
       <SourceID>bbeccc29-6d41-48d6-8f0b-e9daab64acfd</SourceID>
@@ -533,7 +533,7 @@
       <IsDotted>false</IsDotted>
       <zIndex>11</zIndex>
       <Properties>&lt;ItemPropertyCollection Capacity="8" xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="Caption" DisplayName="Caption" IsComponentName="True" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="IsDotted" DisplayName="IsDotted" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SourceArrowSymbol" DisplayName="SourceArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SinkArrowSymbol" DisplayName="SinkArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="PART_ConnectionPath" ElementProperty="Stroke" DisplayName="Stroke" IsComponentName="False" /&gt;&lt;/ItemPropertyCollection&gt;</Properties>
-      <Caption />
+      <Caption></Caption>
     </Connection>
     <Connection>
       <SourceID>f7399f1e-afff-43f8-b811-7b281a5bf815</SourceID>
@@ -545,7 +545,7 @@
       <IsDotted>false</IsDotted>
       <zIndex>13</zIndex>
       <Properties>&lt;ItemPropertyCollection Capacity="8" xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="Caption" DisplayName="Caption" IsComponentName="True" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="IsDotted" DisplayName="IsDotted" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SourceArrowSymbol" DisplayName="SourceArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SinkArrowSymbol" DisplayName="SinkArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="PART_ConnectionPath" ElementProperty="Stroke" DisplayName="Stroke" IsComponentName="False" /&gt;&lt;/ItemPropertyCollection&gt;</Properties>
-      <Caption />
+      <Caption></Caption>
     </Connection>
     <Connection>
       <SourceID>e6d138ab-2607-4be8-9510-cd7246c22205</SourceID>
@@ -557,7 +557,7 @@
       <IsDotted>false</IsDotted>
       <zIndex>15</zIndex>
       <Properties>&lt;ItemPropertyCollection Capacity="8" xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="Caption" DisplayName="Caption" IsComponentName="True" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="IsDotted" DisplayName="IsDotted" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SourceArrowSymbol" DisplayName="SourceArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SinkArrowSymbol" DisplayName="SinkArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="PART_ConnectionPath" ElementProperty="Stroke" DisplayName="Stroke" IsComponentName="False" /&gt;&lt;/ItemPropertyCollection&gt;</Properties>
-      <Caption />
+      <Caption></Caption>
     </Connection>
     <Connection>
       <SourceID>2378aac0-55ae-4ebc-9fee-16ec464e9e66</SourceID>
@@ -569,7 +569,7 @@
       <IsDotted>false</IsDotted>
       <zIndex>16</zIndex>
       <Properties>&lt;ItemPropertyCollection Capacity="8" xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="Caption" DisplayName="Caption" IsComponentName="True" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="IsDotted" DisplayName="IsDotted" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SourceArrowSymbol" DisplayName="SourceArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SinkArrowSymbol" DisplayName="SinkArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="PART_ConnectionPath" ElementProperty="Stroke" DisplayName="Stroke" IsComponentName="False" /&gt;&lt;/ItemPropertyCollection&gt;</Properties>
-      <Caption />
+      <Caption></Caption>
     </Connection>
     <Connection>
       <SourceID>cc592b4c-1376-437c-b74a-7d7bcb4b4d91</SourceID>
@@ -581,7 +581,7 @@
       <IsDotted>false</IsDotted>
       <zIndex>19</zIndex>
       <Properties>&lt;ItemPropertyCollection Capacity="8" xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="Caption" DisplayName="Caption" IsComponentName="True" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="IsDotted" DisplayName="IsDotted" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SourceArrowSymbol" DisplayName="SourceArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SinkArrowSymbol" DisplayName="SinkArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="PART_ConnectionPath" ElementProperty="Stroke" DisplayName="Stroke" IsComponentName="False" /&gt;&lt;/ItemPropertyCollection&gt;</Properties>
-      <Caption />
+      <Caption></Caption>
     </Connection>
     <Connection>
       <SourceID>cbcef777-1fcf-4297-ba1b-a95b844f2752</SourceID>
@@ -593,7 +593,7 @@
       <IsDotted>false</IsDotted>
       <zIndex>20</zIndex>
       <Properties>&lt;ItemPropertyCollection Capacity="8" xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="Caption" DisplayName="Caption" IsComponentName="True" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="IsDotted" DisplayName="IsDotted" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SourceArrowSymbol" DisplayName="SourceArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SinkArrowSymbol" DisplayName="SinkArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="PART_ConnectionPath" ElementProperty="Stroke" DisplayName="Stroke" IsComponentName="False" /&gt;&lt;/ItemPropertyCollection&gt;</Properties>
-      <Caption />
+      <Caption></Caption>
     </Connection>
     <Connection>
       <SourceID>cbcef777-1fcf-4297-ba1b-a95b844f2752</SourceID>
@@ -605,7 +605,7 @@
       <IsDotted>false</IsDotted>
       <zIndex>22</zIndex>
       <Properties>&lt;ItemPropertyCollection Capacity="8" xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="Caption" DisplayName="Caption" IsComponentName="True" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="IsDotted" DisplayName="IsDotted" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SourceArrowSymbol" DisplayName="SourceArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SinkArrowSymbol" DisplayName="SinkArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="PART_ConnectionPath" ElementProperty="Stroke" DisplayName="Stroke" IsComponentName="False" /&gt;&lt;/ItemPropertyCollection&gt;</Properties>
-      <Caption />
+      <Caption></Caption>
     </Connection>
     <Connection>
       <SourceID>cbcef777-1fcf-4297-ba1b-a95b844f2752</SourceID>
@@ -617,7 +617,7 @@
       <IsDotted>false</IsDotted>
       <zIndex>24</zIndex>
       <Properties>&lt;ItemPropertyCollection Capacity="8" xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="Caption" DisplayName="Caption" IsComponentName="True" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="IsDotted" DisplayName="IsDotted" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SourceArrowSymbol" DisplayName="SourceArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SinkArrowSymbol" DisplayName="SinkArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="PART_ConnectionPath" ElementProperty="Stroke" DisplayName="Stroke" IsComponentName="False" /&gt;&lt;/ItemPropertyCollection&gt;</Properties>
-      <Caption />
+      <Caption></Caption>
     </Connection>
     <Connection>
       <SourceID>4aee2ad8-6328-4115-aedb-a8637e1c1934</SourceID>
@@ -627,33 +627,33 @@
       <SourceArrowSymbol>None</SourceArrowSymbol>
       <SinkArrowSymbol>None</SinkArrowSymbol>
       <IsDotted>true</IsDotted>
-      <zIndex>30</zIndex>
+      <zIndex>29</zIndex>
       <Properties>&lt;ItemPropertyCollection Capacity="8" xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="Caption" DisplayName="Caption" IsComponentName="True" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="IsDotted" DisplayName="IsDotted" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SourceArrowSymbol" DisplayName="SourceArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SinkArrowSymbol" DisplayName="SinkArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="PART_ConnectionPath" ElementProperty="Stroke" DisplayName="Stroke" IsComponentName="False" /&gt;&lt;/ItemPropertyCollection&gt;</Properties>
-      <Caption />
+      <Caption></Caption>
     </Connection>
     <Connection>
-      <SourceID>1174aef9-3720-4ac0-8bd5-f4213695f6e1</SourceID>
+      <SourceID>e670e3b1-2147-4eb1-b4e0-5f31be8a78f2</SourceID>
       <SinkID>fabf7cff-44bb-4911-8cbf-bea44a234f2f</SinkID>
       <SourceConnectorName>Left</SourceConnectorName>
       <SinkConnectorName>Right</SinkConnectorName>
       <SourceArrowSymbol>None</SourceArrowSymbol>
       <SinkArrowSymbol>Arrow</SinkArrowSymbol>
       <IsDotted>true</IsDotted>
-      <zIndex>33</zIndex>
+      <zIndex>32</zIndex>
       <Properties>&lt;ItemPropertyCollection Capacity="8" xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="Caption" DisplayName="Caption" IsComponentName="True" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="IsDotted" DisplayName="IsDotted" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SourceArrowSymbol" DisplayName="SourceArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SinkArrowSymbol" DisplayName="SinkArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="PART_ConnectionPath" ElementProperty="Stroke" DisplayName="Stroke" IsComponentName="False" /&gt;&lt;/ItemPropertyCollection&gt;</Properties>
-      <Caption>has one</Caption>
+      <Caption>Has One</Caption>
     </Connection>
     <Connection>
-      <SourceID>1174aef9-3720-4ac0-8bd5-f4213695f6e1</SourceID>
+      <SourceID>e670e3b1-2147-4eb1-b4e0-5f31be8a78f2</SourceID>
       <SinkID>8f9fc4c8-fe45-4d05-a361-3139b1e5d063</SinkID>
       <SourceConnectorName>Bottom</SourceConnectorName>
       <SinkConnectorName>TopLeft</SinkConnectorName>
       <SourceArrowSymbol>None</SourceArrowSymbol>
       <SinkArrowSymbol>Arrow</SinkArrowSymbol>
       <IsDotted>true</IsDotted>
-      <zIndex>34</zIndex>
+      <zIndex>33</zIndex>
       <Properties>&lt;ItemPropertyCollection Capacity="8" xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="Caption" DisplayName="Caption" IsComponentName="True" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="IsDotted" DisplayName="IsDotted" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SourceArrowSymbol" DisplayName="SourceArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SinkArrowSymbol" DisplayName="SinkArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="PART_ConnectionPath" ElementProperty="Stroke" DisplayName="Stroke" IsComponentName="False" /&gt;&lt;/ItemPropertyCollection&gt;</Properties>
-      <Caption>has many</Caption>
+      <Caption>Has Many</Caption>
     </Connection>
   </Connections>
 </Root>
