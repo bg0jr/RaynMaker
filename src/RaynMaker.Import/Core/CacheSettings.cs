@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace RaynMaker.Import.Core
 {
@@ -13,16 +10,8 @@ namespace RaynMaker.Import.Core
             MaxCacheSizeInKB = 50 * 1024;
         }
 
-        public TimeSpan MaxEntryLiveTime
-        {
-            get;
-            set;
-        }
+        public TimeSpan MaxEntryLiveTime { get; set; }
 
-        public int MaxCacheSizeInKB
-        {
-            get;
-            set;
-        }
+        public int MaxCacheSizeInKB { get; set; }
     }
 }

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using RaynMaker.Import.Html;
 using HtmlAgilityPack;
+using RaynMaker.Import.Html;
 using RaynMaker.Import.Html.AgilityPack;
 
 namespace RaynMaker.Import.Core

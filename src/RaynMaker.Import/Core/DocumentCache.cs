@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using RaynMaker.Import.Spec;
 using Plainion.Logging;
+using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Core
 {
@@ -27,7 +26,7 @@ namespace RaynMaker.Import.Core
             Settings = settings;
 
             myCacheFolder = Path.Combine( Path.GetTempPath(), "RaynMaker.Import.Cache" );
-            if ( !Directory.Exists( myCacheFolder ) )
+            if( !Directory.Exists( myCacheFolder ) )
             {
                 Directory.CreateDirectory( myCacheFolder );
             }
@@ -36,21 +35,17 @@ namespace RaynMaker.Import.Core
             myIndex = CacheIndex.LoadOrCreate( myIndexFile );
         }
 
-        public CacheSettings Settings
-        {
-            get;
-            private set;
-        }
+        public CacheSettings Settings { get; private set; }
 
         internal Uri TryGet( Navigation key )
         {
             var entry = myIndex.TryGet( key.UrisHashCode );
-            if ( entry == null )
+            if( entry == null )
             {
                 return null;
             }
 
-            if ( entry.IsExpired )
+            if( entry.IsExpired )
             {
                 // found but live time of entry expired
                 myIndex.Remove( key.UrisHashCode );
@@ -83,7 +78,7 @@ namespace RaynMaker.Import.Core
         {
             var expirationTime = DateTime.Now.Add( Settings.MaxEntryLiveTime );
 
-            if ( document.IsFile )
+            if( document.IsFile )
             {
                 return new CacheEntryBase( key.UrisHashCode, expirationTime, document );
             }
@@ -98,7 +93,7 @@ namespace RaynMaker.Import.Core
 
         private void ShrinkCacheIfRequired( CacheEntryBase entry )
         {
-            while ( myIndex.CacheSizeInKB + entry.SizeInKB > Settings.MaxCacheSizeInKB )
+            while( myIndex.CacheSizeInKB + entry.SizeInKB > Settings.MaxCacheSizeInKB )
             {
                 var entryToRemove = myIndex.Entries
                     .OrderBy( e => e.ExpirationTime )
@@ -125,7 +120,7 @@ namespace RaynMaker.Import.Core
 
             internal CacheEntryBase TryGet( int id )
             {
-                if ( !myCacheEntries.ContainsKey( id ) )
+                if( !myCacheEntries.ContainsKey( id ) )
                 {
                     return null;
                 }
@@ -136,7 +131,7 @@ namespace RaynMaker.Import.Core
             internal void Remove( int id )
             {
                 var entry = TryGet( id );
-                if ( entry == null )
+                if( entry == null )
                 {
                     return;
                 }
@@ -163,23 +158,23 @@ namespace RaynMaker.Import.Core
 
             internal static CacheIndex LoadOrCreate( string indexFile )
             {
-                if ( !File.Exists( indexFile ) )
+                if( !File.Exists( indexFile ) )
                 {
                     return new CacheIndex();
                 }
 
                 try
                 {
-                    using ( var fileStream = new FileStream( indexFile, FileMode.Open, FileAccess.Read ) )
+                    using( var fileStream = new FileStream( indexFile, FileMode.Open, FileAccess.Read ) )
                     {
-                        using ( var stream = new BufferedStream( fileStream ) )
+                        using( var stream = new BufferedStream( fileStream ) )
                         {
                             var formatter = new BinaryFormatter();
-                            return (CacheIndex)formatter.Deserialize( stream );
+                            return ( CacheIndex )formatter.Deserialize( stream );
                         }
                     }
                 }
-                catch ( Exception ex )
+                catch( Exception ex )
                 {
                     myLogger.Warning( "Failed to load cache (skipping): {0}", ex.Message );
                     return new CacheIndex();
@@ -190,16 +185,16 @@ namespace RaynMaker.Import.Core
             {
                 try
                 {
-                    using ( var fileStream = new FileStream( indexFile, FileMode.Create, FileAccess.Write ) )
+                    using( var fileStream = new FileStream( indexFile, FileMode.Create, FileAccess.Write ) )
                     {
-                        using ( var stream = new BufferedStream( fileStream ) )
+                        using( var stream = new BufferedStream( fileStream ) )
                         {
                             var formatter = new BinaryFormatter();
                             formatter.Serialize( stream, this );
                         }
                     }
                 }
-                catch ( Exception ex )
+                catch( Exception ex )
                 {
                     myLogger.Warning( "Failed to store cache (skipping): {0}", ex.Message );
                 }
@@ -274,7 +269,7 @@ namespace RaynMaker.Import.Core
                 base.Destroy();
 
                 // cache might be broken
-                if ( File.Exists( Uri.LocalPath ) )
+                if( File.Exists( Uri.LocalPath ) )
                 {
                     File.Delete( Uri.LocalPath );
                 }

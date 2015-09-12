@@ -14,6 +14,7 @@ namespace RaynMaker.Import.Core
         }
 
         public string Location { get; private set; }
+
         public IHtmlDocument Content { get; private set; }
 
         public DataTable ExtractTable( IFormat format )
