@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="7ca3ba59-f538-4716-a99b-36cd0d3570c7" Created="635776670387879875" LastModified="635776670690077160">
-  <Caption><![CDATA[Cleanup Blade]]></Caption>
-  <Content><![CDATA[- remove dead code
-- decide for Plainion or RaynMaker
-- get rid of the namespace]]></Content>
-</Node>
