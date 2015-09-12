@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
-using System.Windows.Forms;
-using Blade.Data;
 using Blade.Collections;
-using Blade;
+using Blade.Data;
 using Plainion;
 
 namespace RaynMaker.Import.Html
@@ -82,7 +80,8 @@ namespace RaynMaker.Import.Html
         {
             foreach ( var child in element.Children )
             {
-                if ( child.TagName.EqualsI( "form" ) && child.GetAttribute( "name" ).EqualsI( formName ) )
+                if( child.TagName.Equals( "form", StringComparison.OrdinalIgnoreCase )
+                    && child.GetAttribute( "name" ).Equals( formName, StringComparison.OrdinalIgnoreCase ) )
                 {
                     return child;
                 }

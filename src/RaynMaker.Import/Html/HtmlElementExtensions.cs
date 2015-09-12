@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Linq;
-
-using Blade;
 using System.Collections.Generic;
+using System.Linq;
 using Plainion;
 
 namespace RaynMaker.Import.Html
@@ -19,7 +15,7 @@ namespace RaynMaker.Import.Html
         /// </summary>
         public static IHtmlElement GetRoot( this IHtmlElement child )
         {
-            while ( child != null && !child.TagName.EqualsI( "html" ) )
+            while( child != null && !child.TagName.Equals( "html", StringComparison.OrdinalIgnoreCase ) )
             {
                 child = child.Parent;
             }

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Blade;
 using Blade.Collections;
+using Plainion;
 
 namespace RaynMaker.Import.Spec
 {
@@ -24,7 +22,7 @@ namespace RaynMaker.Import.Spec
 
         public int GetLocation( IEnumerable<string> list )
         {
-            return list.IndexOf( item => item.ContainsI( Pattern ) );
+            return list.IndexOf( item => item.Contains( Pattern, StringComparison.OrdinalIgnoreCase ) );
         }
     }
 }

@@ -88,7 +88,7 @@ namespace RaynMaker.Import.Spec
         public string Format
         {
             get { return myFormat; }
-            set { myFormat = value.TrimOrNull(); }
+            set { myFormat = value != null ? value.Trim() : null; }
         }
 
         /// <summary/>
@@ -123,7 +123,7 @@ namespace RaynMaker.Import.Spec
         {
             try
             {
-                value = value.TrimOrNull();
+                value = value != null ? value.Trim() : null;
                 if( string.IsNullOrEmpty( value ) )
                 {
                     return null;

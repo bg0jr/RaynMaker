@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Web;
-using Blade;
 using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Html
@@ -12,11 +10,11 @@ namespace RaynMaker.Import.Html
     {
         public HtmlForm( IHtmlElement element )
         {
-            if ( element == null )
+            if( element == null )
             {
                 throw new ArgumentNullException( "element" );
             }
-            if ( !element.TagName.EqualsI( "form" ) )
+            if( !element.TagName.Equals( "form", StringComparison.OrdinalIgnoreCase ) )
             {
                 throw new ArgumentException( "Element is not a html form element" );
             }
@@ -71,14 +69,14 @@ namespace RaynMaker.Import.Html
             var parameters = new Dictionary<string, string>();
 
             var inputElements = FormElement.GetInnerElements()
-                .Where( child => child.TagName.EqualsI( "input" ) )
+                .Where( child => child.TagName.Equals( "input", StringComparison.OrdinalIgnoreCase ) )
                 .Where( child => child.GetAttribute( "type" ) != "submit" );
-            foreach ( var input in inputElements )
+            foreach( var input in inputElements )
             {
                 parameters[ input.GetAttribute( "name" ) ] = input.GetAttribute( "value" );
             }
 
-            foreach ( var param in formular.Parameters )
+            foreach( var param in formular.Parameters )
             {
                 parameters[ param.Key ] = param.Value;
             }

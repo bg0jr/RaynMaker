@@ -79,7 +79,7 @@ namespace RaynMaker.Import.Spec
                 throw new ArgumentException( "Invalid string syntax: " + str );
             }
 
-            UriType type = str.Substring( 0, pos ).Trim().ToEnum<UriType>();
+            var type = ( UriType )Enum.Parse( typeof( UriType ), str.Substring( 0, pos ).Trim(), true );
             return new NavigatorUrl( type, str.Substring( pos + 1 ).Trim() );
         }
 

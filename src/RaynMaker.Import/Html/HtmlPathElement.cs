@@ -21,7 +21,7 @@ namespace RaynMaker.Import.Html
         /// <param name="pos">position of the HTML element in the list of its parents children with the same tag name</param>
         public HtmlPathElement( string tagName, int pos )
         {
-            tagName = tagName.TrimOrNull();
+            tagName = tagName != null ? tagName.Trim() : null;
 
             Contract.RequiresNotNullNotEmpty( tagName, "tagName" );
             Contract.Requires( pos >= 0, "pos must be >= 0" );

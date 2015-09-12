@@ -196,7 +196,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
         private void MarkHeader( string text, Action<int> UpdateTemplate )
         {
-            string str = text.TrimOrNull();
+            string str = text != null ? text.Trim() : null;
             if( string.IsNullOrEmpty( str ) )
             {
                 UpdateTemplate( -1 );

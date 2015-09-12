@@ -11,17 +11,6 @@ namespace Blade
     /// </summary>
     public static class StringExtensions
     {
-        /// <summary>
-        /// Trims the given string. Returns null if the given string is null.
-        /// </summary>
-        public static string TrimOrNull( this string value )
-        {
-            if( value == null )
-            {
-                return null;
-            }
-            return value.Trim();
-        }
 
         /// <summary>
         /// Checks whether the string is null or empty after
@@ -35,10 +24,6 @@ namespace Blade
         /// <summary>
         /// Parses the given string into the specified enum type.
         /// </summary>
-        public static T ToEnum<T>( this string str )
-        {
-            return ( T )( ( object )Enum.Parse( typeof( T ), str, true ) );
-        }
 
         /// <summary>
         /// Returns all chars before a given separator.
@@ -53,22 +38,6 @@ namespace Blade
                 return s.Substring( 0, num );
             }
             return s;
-        }
-
-        /// <summary>
-        /// Compares strings ignoring case.
-        /// </summary>
-        public static bool EqualsI( this string lhs, string rhs )
-        {
-            return lhs.Equals( rhs, StringComparison.OrdinalIgnoreCase );
-        }
-
-        /// <summary>
-        /// Implements contains with options
-        /// </summary>
-        public static bool ContainsI( this string str, string substr )
-        {
-            return str.ToLower().Contains( substr.ToLower() );
         }
     }
 }

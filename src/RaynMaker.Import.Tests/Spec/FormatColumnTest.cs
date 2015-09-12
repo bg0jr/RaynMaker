@@ -8,7 +8,7 @@ namespace RaynMaker.Import.Tests.Spec
     public class FormatColumnTest : TestBase
     {
         [Test]
-        [ExpectedException( typeof( ArgumentException ) )]
+        [ExpectedException( typeof( ArgumentNullException ) )]
         public void CreateInvalid()
         {
             FormatColumn col = new FormatColumn( (string)null );
@@ -30,7 +30,7 @@ namespace RaynMaker.Import.Tests.Spec
         }
 
         [Test]
-        [ExpectedException( typeof( ArgumentException ) )]
+        [ExpectedException( typeof( ArgumentNullException ) )]
         public void CopyNull()
         {
             FormatColumn col = new FormatColumn( (FormatColumn)null );

@@ -9,7 +9,7 @@ namespace RaynMaker.Import.Tests.Spec
     public class ValueFormatTest : TestBase
     {
         [Test]
-        [ExpectedException( typeof( ArgumentException ) )]
+        [ExpectedException( typeof( ArgumentNullException ) )]
         public void CopyNull()
         {
             new ValueFormat( (ValueFormat)null );
