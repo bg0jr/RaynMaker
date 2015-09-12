@@ -1,19 +1,19 @@
 ﻿using System;
-using System.Linq;
-using Blade.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
+using System.Linq;
 using System.Windows.Input;
+using Blade.Collections;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
+using Plainion;
+using Plainion.Logging;
 using RaynMaker.Entities;
 using RaynMaker.Import.Core;
-using RaynMaker.Import.Spec;
 using RaynMaker.Import.Html;
+using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Services;
-using Plainion;
-using System.Data;
-using Plainion.Logging;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
@@ -82,6 +82,12 @@ namespace RaynMaker.Import.Web.ViewModels
                 {
                     ( ( AbstractDatum )existingDatum ).Value = datum.Value;
                     ( ( AbstractDatum )existingDatum ).Source = datum.Source;
+
+                    var currencyDatum = datum as ICurrencyDatum;
+                    if( currencyDatum != null )
+                    {
+                        ( ( AbstractCurrencyDatum )existingDatum ).Currency = currencyDatum.Currency;
+                    }
                 }
             }
         }
