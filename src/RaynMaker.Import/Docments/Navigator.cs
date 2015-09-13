@@ -79,6 +79,13 @@ namespace RaynMaker.Import.Documents
         {
             string param = null;
 
+            var lastRequest = navigationSteps.Last();
+            if( lastRequest.UrlType != UriType.Request )
+            {
+                // last step is a response - take the one before
+                lastRequest = navigationSteps.ElementAt( navigationSteps.Count() - 2 );
+            }
+
             Uri currentUrl = null;
             foreach ( NavigatorUrl navUrl in navigationSteps )
             {
@@ -93,7 +100,7 @@ namespace RaynMaker.Import.Documents
                     }
                     else if ( HasPlaceHolder( url ) )
                     {
-                        var ex = new ApplicationException( "Did not find a parameter for placeholder" );
+                        var ex = new ApplicationException( "Counldn't find a parameter for placeholder" );
                         ex.Data[ "Url" ] = url;
 
                         throw ex;
@@ -101,11 +108,14 @@ namespace RaynMaker.Import.Documents
 
                     currentUrl = new Uri( url );
 
-                    if ( navUrl != navigationSteps.Last() )
+                    if ( navUrl == lastRequest )
                     {
-                        // dont sent the request - we reached the end and we are not interested in the response url
-                        currentUrl = SendRequest( currentUrl );
+                        // we can stop here - we created the url for the last step
+                        // furster navigation not necessary
+                        break;
                     }
+
+                    currentUrl = SendRequest( currentUrl );
                 }
                 else if ( navUrl.UrlType == UriType.Response )
                 {

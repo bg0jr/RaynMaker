@@ -21,7 +21,7 @@ namespace RaynMaker.Import
 
         public static IDocumentBrowser CreateBrowser( System.Windows.Forms.WebBrowser webBrowser )
         {
-            var browser = new WinFormsDocumentBrowser( webBrowser );
+            var browser = new WinFormsDocumentBrowser( new Navigator(), webBrowser );
 
             browser.DownloadController.Options = BrowserOptions.NoActiveXDownload |
                 BrowserOptions.NoBehaviors | BrowserOptions.NoJava | BrowserOptions.NoScripts |

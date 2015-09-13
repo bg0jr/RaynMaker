@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Windows.Forms;
-using Plainion;
 using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Parsers.Html.WinForms;
 using RaynMaker.Import.Spec;
@@ -18,20 +15,23 @@ namespace RaynMaker.Import.Documents
         private bool myIsInitialized = false;
         private bool myOwnWebBrowser = false;
         private const int DownloadChunkSize = 1024; // bytes
+        private INavigator myNavigator;
 
-        public WinFormsDocumentBrowser()
-            : this( new WebBrowser() )
+        public WinFormsDocumentBrowser( INavigator navigator )
+            : this( navigator, new WebBrowser() )
         {
             myOwnWebBrowser = true;
         }
 
-        public WinFormsDocumentBrowser( WebBrowser webBrowser )
+        public WinFormsDocumentBrowser( INavigator navigator, WebBrowser webBrowser )
         {
-            myOwnWebBrowser = false;
+            myNavigator = navigator;
 
             Browser = webBrowser;
             Browser.Navigating += WebBrowser_Navigating;
             Browser.DocumentCompleted += WebBrowser_DocumentCompleted;
+
+            myOwnWebBrowser = false;
 
             myDownloadController = new DownloadController();
         }
@@ -65,7 +65,7 @@ namespace RaynMaker.Import.Documents
         {
             if( docType == DocumentType.Html )
             {
-                Document = new HtmlDocumentHandle( LoadDocument( url.ToString() ) );
+                Document = new HtmlDocumentHandle( LoadDocument( url ) );
             }
             else if( docType == DocumentType.Text )
             {
@@ -79,78 +79,27 @@ namespace RaynMaker.Import.Documents
 
         public void Navigate( Navigation navi )
         {
-            var doc = TryNavigateWithWildcards( navi );
-            if( doc != null )
+            var url = myNavigator.Navigate( navi );
+            if( url == null )
             {
                 return;
             }
 
             if( navi.DocumentType == DocumentType.Html )
             {
-                Document = new HtmlDocumentHandle( LoadDocument( navi.Uris ) );
+                Document = new HtmlDocumentHandle( LoadDocument( url ) );
             }
             else if( navi.DocumentType == DocumentType.Text )
             {
-                Document = new TextDocument( DownloadFile( navi.Uris ) );
+                Document = new TextDocument( DownloadFile( url ) );
             }
             else
             {
                 throw new NotSupportedException( "DocumentType: " + navi.DocumentType );
             }
         }
-        
-        private IHtmlDocument LoadDocument( IEnumerable<NavigatorUrl> navigationSteps )
-        {
-            string url = NavigateToFinalSite( navigationSteps );
-            return LoadDocument( url );
-        }
 
-        private string NavigateToFinalSite( IEnumerable<NavigatorUrl> navigationSteps )
-        {
-            IHtmlDocument doc = null;
-            string param = null;
-
-            var last = navigationSteps.Last().UrlString;
-            foreach( NavigatorUrl navUrl in navigationSteps )
-            {
-                Contract.Invariant( navUrl.UrlType != UriType.None, "UrlType must NOT be None" );
-
-                if( navUrl.UrlType == UriType.Request )
-                {
-                    string url = navUrl.UrlString;
-                    if( param != null )
-                    {
-                        url = string.Format( url, param );
-                    }
-                    else if( HasPlaceHolder( url ) )
-                    {
-                        var ex = new ApplicationException( "Did not find a parameter for placeholder" );
-                        ex.Data[ "Url" ] = url;
-
-                        throw ex;
-                    }
-
-                    if( navUrl.UrlString == last )
-                    {
-                        return url;
-                    }
-                    else
-                    {
-                        doc = LoadDocument( url );
-                    }
-                }
-                else
-                {
-                    // get param from response url if any
-                    param = PatternMatching.MatchEmbeddedRegex( navUrl.UrlString, doc.Url.ToString() );
-                }
-            }
-
-            // list empty?
-            return null;
-        }
-
-        private IHtmlDocument LoadDocument( string url )
+        private IHtmlDocument LoadDocument( Uri url )
         {
             Browser.Navigate( url );
 
@@ -163,12 +112,6 @@ namespace RaynMaker.Import.Documents
             }
 
             return new HtmlDocumentAdapter( Browser.Document );
-        }
-
-        private string DownloadFile( IEnumerable<NavigatorUrl> navigationSteps )
-        {
-            string url = NavigateToFinalSite( navigationSteps );
-            return DownloadFile( new Uri( url ) );
         }
 
         private string DownloadFile( Uri uri )
@@ -219,85 +162,6 @@ namespace RaynMaker.Import.Documents
                     responseStream.Close();
                 }
             }
-        }
-
-        private IDocument Navigate( DocumentType docType, NavigatorUrl url )
-        {
-            if( docType == DocumentType.Html )
-            {
-                return new HtmlDocumentHandle( LoadDocument( url.UrlString ) );
-            }
-            else if( docType == DocumentType.Text )
-            {
-                return new TextDocument( DownloadFile( url.Url ) );
-            }
-
-            throw new NotSupportedException( "DocumentType: " + docType );
-        }
-
-        // TODO: this should not only happen when loading a document with a complete
-        // navigation -> policy based?
-        private IDocument TryNavigateWithWildcards( Navigation navi )
-        {
-            if( navi.Uris.Count != 1 )
-            {
-                // we can only handle single urls
-                return null;
-            }
-
-            var url = navi.Uris[ 0 ];
-            Uri uri = new Uri( url.UrlString );
-            if( !uri.IsFile && !uri.IsUnc )
-            {
-                // we cannot handle e.g. http now
-                return null;
-            }
-
-            // currently we only handle "/xyz/*/file.txt"
-            int pos = url.UrlString.IndexOf( "/*/" );
-            if( pos <= 0 )
-            {
-                // no pattern found
-                return null;
-            }
-
-            string root = url.UrlString.Substring( 0, pos );
-            string file = url.UrlString.Substring( pos + 3 );
-            string[] dirs = Directory.GetDirectories( root, "*" );
-
-            // now try everything with "or" 
-            // first path which returns s.th. wins
-            foreach( string dir in dirs )
-            {
-                string tmpFile = Path.Combine( dir, file );
-                if( !File.Exists( tmpFile ) )
-                {
-                    continue;
-                }
-
-                var doc = Navigate( navi.DocumentType, new NavigatorUrl( url.UrlType, tmpFile ) );
-                if( doc != null )
-                {
-                    return doc;
-                }
-            }
-
-            // so in this case we got a pattern navigation url but we were not able
-            // to navigate to that url --> throw an exception
-            throw new Exception( "Failed to navigate to the document" );
-        }
-
-        private bool HasPlaceHolder( string url )
-        {
-            int begin = url.IndexOf( '{' );
-            int end = url.IndexOf( '}' );
-
-            if( begin < 0 || end < 0 )
-            {
-                return false;
-            }
-
-            return Math.Abs( end - begin ) < 3;
         }
 
         private void WebBrowser_Navigating( object sender, WebBrowserNavigatingEventArgs e )
