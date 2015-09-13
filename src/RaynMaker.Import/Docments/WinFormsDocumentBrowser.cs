@@ -6,7 +6,6 @@ using System.Net;
 using System.Threading;
 using System.Windows.Forms;
 using Plainion;
-using RaynMaker.Import.Documents;
 using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Parsers.Html.WinForms;
 using RaynMaker.Import.Spec;
@@ -55,32 +54,57 @@ namespace RaynMaker.Import.Documents
 
         public WebBrowser Browser { get; private set; }
 
-        /// <summary>
-        /// Default options: 
-        ///     BrowserOptions.DontRunActiveX | BrowserOptions.NoActiveXDownload |
-        ///     BrowserOptions.NoBehaviours | BrowserOptions.NoJava | BrowserOptions.NoScripts |
-        ///     BrowserOptions.UTF8
-        /// </summary>
         public IDownloadController DownloadController
         {
             get { return myDownloadController; }
         }
 
-        public void Navigate( string url )
+        public IDocument Document { get; private set; }
+
+        public void Navigate( DocumentType docType, Uri url )
         {
-            Browser.Navigate( url );
+            if( docType == DocumentType.Html )
+            {
+                Document = new HtmlDocumentHandle( LoadDocument( url.ToString() ) );
+            }
+            else if( docType == DocumentType.Text )
+            {
+                Document = new TextDocument( DownloadFile( url ) );
+            }
+            else
+            {
+                throw new NotSupportedException( "DocumentType: " + docType );
+            }
         }
 
+        public void Navigate( Navigation navi )
+        {
+            var doc = TryNavigateWithWildcards( navi );
+            if( doc != null )
+            {
+                return;
+            }
+
+            if( navi.DocumentType == DocumentType.Html )
+            {
+                Document = new HtmlDocumentHandle( LoadDocument( navi.Uris ) );
+            }
+            else if( navi.DocumentType == DocumentType.Text )
+            {
+                Document = new TextDocument( DownloadFile( navi.Uris ) );
+            }
+            else
+            {
+                throw new NotSupportedException( "DocumentType: " + navi.DocumentType );
+            }
+        }
+        
         private IHtmlDocument LoadDocument( IEnumerable<NavigatorUrl> navigationSteps )
         {
             string url = NavigateToFinalSite( navigationSteps );
             return LoadDocument( url );
         }
 
-        /// <summary>
-        /// Navigates to the final site specified by the user steps and
-        /// returns the Uri of the last site.
-        /// </summary>
         private string NavigateToFinalSite( IEnumerable<NavigatorUrl> navigationSteps )
         {
             IHtmlDocument doc = null;
@@ -141,60 +165,10 @@ namespace RaynMaker.Import.Documents
             return new HtmlDocumentAdapter( Browser.Document );
         }
 
-        public IDocument Document { get; private set; }
-
-        public void Navigate( Navigation navi )
-        {
-            var doc = TryNavigateWithWildcards( navi );
-            if( doc != null )
-            {
-                return;
-            }
-
-            if( navi.DocumentType == DocumentType.Html )
-            {
-                Document = new HtmlDocumentHandle( LoadDocument( navi.Uris ) );
-            }
-            else if( navi.DocumentType == DocumentType.Text )
-            {
-                Document = new TextDocument( DownloadFile( navi.Uris ) );
-            }
-            else
-            {
-                throw new NotSupportedException( "DocumentType: " + navi.DocumentType );
-            }
-        }
-
-        public void Navigate( DocumentType docType, Uri url )
-        {
-            if( docType == DocumentType.Html )
-            {
-                Document = new HtmlDocumentHandle( LoadDocument( url.ToString() ) );
-            }
-            else if( docType == DocumentType.Text )
-            {
-                Document = new TextDocument( DownloadFile( url ) );
-            }
-            else
-            {
-                throw new NotSupportedException( "DocumentType: " + docType );
-            }
-        }
-
-        /// <summary>
-        /// Downloads a file specified by the given user steps.
-        /// </summary>
         private string DownloadFile( IEnumerable<NavigatorUrl> navigationSteps )
         {
             string url = NavigateToFinalSite( navigationSteps );
             return DownloadFile( new Uri( url ) );
-        }
-
-        private string DownloadFile( string uri )
-        {
-            // TODO: check for protocol in url - maybe the file is local
-
-            return DownloadFile( new Uri( uri ) );
         }
 
         private string DownloadFile( Uri uri )
@@ -255,7 +229,7 @@ namespace RaynMaker.Import.Documents
             }
             else if( docType == DocumentType.Text )
             {
-                return new TextDocument( DownloadFile( url.UrlString ) );
+                return new TextDocument( DownloadFile( url.Url ) );
             }
 
             throw new NotSupportedException( "DocumentType: " + docType );
@@ -358,17 +332,6 @@ namespace RaynMaker.Import.Documents
                 DocumentCompleted( Document );
             }
         }
-
-        private Uri SelectUrl( IList<string> urls )
-        {
-            int idx = 0;
-
-            string url = urls[ idx ];
-            urls.RemoveAt( idx );
-
-            return new Uri( url );
-        }
-
 
         public event Action<Uri> Navigating;
 
