@@ -5,7 +5,7 @@ using System.Linq;
 using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Entities.Datums;
 using RaynMaker.Import.Core;
-using RaynMaker.Import.Html;
+using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Model;
 using RaynMaker.Import.Web.Services;

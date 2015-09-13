@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-namespace RaynMaker.Import.Html
+namespace RaynMaker.Import.Parsers.Html
 {
     /// <summary>
     /// Specifies a path inside a HTML document from the root to a HTML element.

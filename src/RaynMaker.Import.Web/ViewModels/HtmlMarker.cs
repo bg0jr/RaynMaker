@@ -3,8 +3,8 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Plainion;
-using RaynMaker.Import.Html;
-using RaynMaker.Import.Html.WinForms;
+using RaynMaker.Import.Parsers.Html;
+using RaynMaker.Import.Parsers.Html.WinForms;
 
 namespace RaynMaker.Import.Web.ViewModels
 {

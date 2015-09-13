@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RaynMaker.Import.Core;
+using RaynMaker.Import.Documents;
 using RaynMaker.Import.Spec;
 
-namespace RaynMaker.Import.Parsers
+namespace RaynMaker.Import.Parsers.Text
 {
     class TextParser : IDocumentParser
     {

@@ -6,8 +6,9 @@ using System.Net;
 using System.Threading;
 using System.Windows.Forms;
 using Plainion;
-using RaynMaker.Import.Html;
-using RaynMaker.Import.Html.WinForms;
+using RaynMaker.Import.Documents;
+using RaynMaker.Import.Parsers.Html;
+using RaynMaker.Import.Parsers.Html.WinForms;
 using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Core

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Data;
-using RaynMaker.Import.Html;
+using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Spec;
 
-namespace RaynMaker.Import.Core
+namespace RaynMaker.Import.Documents
 {
     public class HtmlDocumentHandle : IDocument
     {

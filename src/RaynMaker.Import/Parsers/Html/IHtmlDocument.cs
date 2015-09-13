@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RaynMaker.Import.Html
+namespace RaynMaker.Import.Parsers.Html
 {
     public interface IHtmlDocument
     {

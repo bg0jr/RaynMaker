@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace RaynMaker.Import.Html.WinForms
+namespace RaynMaker.Import.Parsers.Html.WinForms
 {
     public class HtmlElementAdapter : IHtmlElement
     {

@@ -11,7 +11,7 @@ using Plainion.Collections;
 using Plainion.Logging;
 using RaynMaker.Entities;
 using RaynMaker.Import.Core;
-using RaynMaker.Import.Html;
+using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Services;
 

@@ -1,5 +1,5 @@
 ﻿
-namespace RaynMaker.Import.Html
+namespace RaynMaker.Import.Parsers.Html
 {
     /// <summary>
     /// Defines the settings used to extract data from a Html document.

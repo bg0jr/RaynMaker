@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Plainion;
 
-namespace RaynMaker.Import.Html
+namespace RaynMaker.Import.Parsers.Html
 {
     /// <summary>
     /// Extensions to the Windows.Forms.HtmlElement class.

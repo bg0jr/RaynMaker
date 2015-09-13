@@ -2,7 +2,7 @@
 using System.Data;
 using RaynMaker.Import.Spec;
 
-namespace RaynMaker.Import.Core
+namespace RaynMaker.Import.Documents
 {
     internal class TextDocument : IDocument
     {

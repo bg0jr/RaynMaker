@@ -4,9 +4,9 @@ using System.Globalization;
 using System.IO;
 using Plainion;
 
-namespace RaynMaker.Import.Core
+namespace RaynMaker.Import.Parsers.Text
 {
-    public class CsvReader
+    class CsvReader
     {
         public static DataTable Read( string file, string separator )
         {

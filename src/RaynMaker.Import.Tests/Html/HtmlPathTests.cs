@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using RaynMaker.Import.Html;
+using RaynMaker.Import.Parsers.Html;
 
 namespace RaynMaker.Import.Tests.Html
 {

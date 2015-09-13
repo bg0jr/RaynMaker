@@ -1,7 +1,8 @@
 ﻿using System;
 using HtmlAgilityPack;
-using RaynMaker.Import.Html;
-using RaynMaker.Import.Html.AgilityPack;
+using RaynMaker.Import.Documents;
+using RaynMaker.Import.Parsers.Html;
+using RaynMaker.Import.Parsers.Html.AgilityPack;
 
 namespace RaynMaker.Import.Core
 {

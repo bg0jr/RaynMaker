@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading;
 using System.Windows.Forms;
-using RaynMaker.Import.Html.WinForms;
+using RaynMaker.Import.Documents;
+using RaynMaker.Import.Parsers.Html.WinForms;
 
 namespace RaynMaker.Import.Core
 {

@@ -4,7 +4,7 @@ using System.Text;
 
 using Plainion;
 
-namespace RaynMaker.Import.Html
+namespace RaynMaker.Import.Parsers.Html
 {
     /// <summary>
     /// Defines an element of a <see cref="HtmlPath"/>.

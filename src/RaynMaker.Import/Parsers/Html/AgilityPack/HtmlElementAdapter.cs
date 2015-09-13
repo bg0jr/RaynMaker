@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using HtmlAgilityPack;
 
-namespace RaynMaker.Import.Html.AgilityPack
+namespace RaynMaker.Import.Parsers.Html.AgilityPack
 {
     //[CLSCompliant( false )]
     public class HtmlElementAdapter : IHtmlElement

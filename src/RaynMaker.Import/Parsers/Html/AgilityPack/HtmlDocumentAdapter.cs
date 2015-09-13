@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using HtmlAgilityPack;
 
-namespace RaynMaker.Import.Html.AgilityPack
+namespace RaynMaker.Import.Parsers.Html.AgilityPack
 {
     //[CLSCompliant(false)]
     public class HtmlDocumentAdapter : IHtmlDocument

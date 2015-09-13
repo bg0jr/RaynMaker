@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Practices.Prism.Mvvm;
 using Plainion;
-using RaynMaker.Import.Html;
+using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Web.ViewModels

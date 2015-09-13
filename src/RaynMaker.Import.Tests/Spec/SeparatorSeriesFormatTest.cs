@@ -2,6 +2,7 @@
 using System.IO;
 using NUnit.Framework;
 using RaynMaker.Import.Core;
+using RaynMaker.Import.Parsers.Text;
 using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Tests.Spec

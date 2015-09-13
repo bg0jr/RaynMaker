@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using RaynMaker.Import.Html;
+using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Web

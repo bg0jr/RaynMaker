@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Plainion;
 
-namespace RaynMaker.Import.Html
+namespace RaynMaker.Import.Parsers.Html
 {
     /// <summary>
     /// Adds helpful API to an <see cref="HtmlElement"/> which represents the root of a html table.

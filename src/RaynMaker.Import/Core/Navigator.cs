@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using Plainion;
-using RaynMaker.Import.Html;
+using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Core
@@ -168,7 +168,7 @@ namespace RaynMaker.Import.Core
             using ( var loader = new WinFormHtmlDocumentLoader() )
             {
                 var document = loader.LoadHtmlDocument( url );
-                var htmlForm = new Html.WinForms.HtmlDocumentAdapter( document ).GetFormByName( formular.Name );
+                var htmlForm = new Parsers.Html.WinForms.HtmlDocumentAdapter( document ).GetFormByName( formular.Name );
                 if ( htmlForm == null )
                 {
                     return null;

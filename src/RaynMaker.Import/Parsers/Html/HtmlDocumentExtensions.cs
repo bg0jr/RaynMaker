@@ -6,7 +6,7 @@ using System.Globalization;
 using Plainion;
 using RaynMaker.Import.Spec;
 
-namespace RaynMaker.Import.Html
+namespace RaynMaker.Import.Parsers.Html
 {
     /// <summary>
     /// Extensions for the Windows.Forms.HtmlDocument class.

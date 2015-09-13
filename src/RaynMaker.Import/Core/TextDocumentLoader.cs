@@ -1,4 +1,5 @@
 ﻿using System;
+using RaynMaker.Import.Documents;
 
 namespace RaynMaker.Import.Core
 {

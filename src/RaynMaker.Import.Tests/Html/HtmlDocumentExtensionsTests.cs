@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
-using RaynMaker.Import.Html;
+using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Tests.Html

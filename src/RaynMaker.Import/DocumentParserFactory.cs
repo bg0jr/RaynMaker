@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Data;
 using RaynMaker.Import.Core;
-using RaynMaker.Import.Html;
-using RaynMaker.Import.Parsers;
+using RaynMaker.Import.Documents;
+using RaynMaker.Import.Parsers.Html;
+using RaynMaker.Import.Parsers.Text;
 using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import

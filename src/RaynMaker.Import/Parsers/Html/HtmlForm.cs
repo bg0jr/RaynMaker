@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using RaynMaker.Import.Spec;
 
-namespace RaynMaker.Import.Html
+namespace RaynMaker.Import.Parsers.Html
 {
     public class HtmlForm
     {
