@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace RaynMaker.Import.Core
+namespace RaynMaker.Import.Documents
 {
     //[CLSCompliant(false)]
     [StructLayout( LayoutKind.Sequential )]

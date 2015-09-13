@@ -4,7 +4,6 @@ using System.Data;
 using System.Text.RegularExpressions;
 using Plainion;
 using RaynMaker.Entities;
-using RaynMaker.Import.Core;
 using RaynMaker.Import.Documents;
 using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Parsers.Html.WinForms;

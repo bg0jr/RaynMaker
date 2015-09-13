@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
-using RaynMaker.Import.Core;
+using RaynMaker.Import.Documents;
 using RaynMaker.Import.Parsers.Text;
 using RaynMaker.Import.Spec;
 

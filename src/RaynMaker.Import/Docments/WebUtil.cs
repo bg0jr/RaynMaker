@@ -4,7 +4,7 @@ using System.Net;
 using Plainion;
 using Plainion.Logging;
 
-namespace RaynMaker.Import.Core
+namespace RaynMaker.Import.Documents
 {
     public static class WebUtil
     {

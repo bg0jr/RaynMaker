@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RaynMaker.Import.Core
+namespace RaynMaker.Import.Documents
 {
     public class CacheSettings
     {

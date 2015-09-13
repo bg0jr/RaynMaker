@@ -11,7 +11,7 @@ using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Parsers.Html.WinForms;
 using RaynMaker.Import.Spec;
 
-namespace RaynMaker.Import.Core
+namespace RaynMaker.Import.Documents
 {
     public class WinFormsDocumentBrowser : IDisposable, IDocumentBrowser
     {

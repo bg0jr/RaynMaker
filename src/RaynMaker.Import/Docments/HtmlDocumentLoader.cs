@@ -4,7 +4,7 @@ using RaynMaker.Import.Documents;
 using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Parsers.Html.AgilityPack;
 
-namespace RaynMaker.Import.Core
+namespace RaynMaker.Import.Documents
 {
     /// <summary>
     /// Attention: Currently it still has a lot of trouble parsing HTML !! HtmlPath from WindowsExplorer does not match!

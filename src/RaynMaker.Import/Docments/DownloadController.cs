@@ -2,7 +2,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace RaynMaker.Import.Core
+namespace RaynMaker.Import.Documents
 {
     //[CLSCompliant( false )]
     [ComVisible( true )]

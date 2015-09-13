@@ -1,7 +1,7 @@
 ﻿using System;
 using RaynMaker.Import.Documents;
 
-namespace RaynMaker.Import.Core
+namespace RaynMaker.Import.Documents
 {
     class TextDocumentLoader : IDocumentLoader
     {

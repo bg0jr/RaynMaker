@@ -4,7 +4,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Entities.Datums;
-using RaynMaker.Import.Core;
+using RaynMaker.Import.Documents;
 using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Model;

@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using RaynMaker.Import.Documents;
 using RaynMaker.Import.Parsers.Html.WinForms;
 
-namespace RaynMaker.Import.Core
+namespace RaynMaker.Import.Documents
 {
     // TODO: at the moment we dont do any cleanup!
     class WinFormHtmlDocumentLoader : IDocumentLoader, IDisposable

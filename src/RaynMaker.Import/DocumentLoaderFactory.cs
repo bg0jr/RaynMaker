@@ -1,5 +1,5 @@
 ﻿using System;
-using RaynMaker.Import.Core;
+using RaynMaker.Import.Documents;
 using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import

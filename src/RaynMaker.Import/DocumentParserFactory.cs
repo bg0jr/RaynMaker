@@ -1,5 +1,4 @@
 ﻿using System;
-using RaynMaker.Import.Core;
 using RaynMaker.Import.Documents;
 using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Parsers.Text;

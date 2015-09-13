@@ -6,7 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using Plainion.Logging;
 using RaynMaker.Import.Spec;
 
-namespace RaynMaker.Import.Core
+namespace RaynMaker.Import.Documents
 {
     class DocumentCache
     {

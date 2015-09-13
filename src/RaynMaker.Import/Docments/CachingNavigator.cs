@@ -1,7 +1,7 @@
 ﻿using System;
 using RaynMaker.Import.Spec;
 
-namespace RaynMaker.Import.Core
+namespace RaynMaker.Import.Documents
 {
     class CachingNavigator : INavigator
     {

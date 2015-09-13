@@ -7,7 +7,7 @@ using Plainion;
 using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Spec;
 
-namespace RaynMaker.Import.Core
+namespace RaynMaker.Import.Documents
 {
     public class Navigator : INavigator
     {
