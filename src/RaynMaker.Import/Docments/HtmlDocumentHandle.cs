@@ -10,10 +10,10 @@ namespace RaynMaker.Import.Documents
         public HtmlDocumentHandle( IHtmlDocument doc )
         {
             Content = doc;
-            Location = doc.Url.ToString();
+            Location = doc.Url;
         }
 
-        public string Location { get; private set; }
+        public Uri Location { get; private set; }
 
         public IHtmlDocument Content { get; private set; }
     }

@@ -6,7 +6,7 @@ using Plainion.Logging;
 
 namespace RaynMaker.Import.Documents
 {
-    public static class WebUtil
+    static class WebUtil
     {
         private static readonly ILogger myLogger = LoggerFactory.GetLogger( typeof( WebUtil ) );
 

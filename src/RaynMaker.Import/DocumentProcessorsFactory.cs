@@ -10,27 +10,22 @@ namespace RaynMaker.Import
     {
         public static IDocumentBrowser CreateBrowser()
         {
-            return CreateEnhancedDocumentBrowser();
-        }
-
-        private static IDocumentBrowser CreateLegacyDocumentBrowser()
-        {
-            var browser = new WinFormsDocumentBrowser();
-
-            browser.DownloadController.Options = BrowserOptions.NoActiveXDownload |
-                BrowserOptions.NoBehaviors | BrowserOptions.NoJava | BrowserOptions.NoScripts |
-                BrowserOptions.Utf8;
-
-            return browser;
-        }
-
-        private static IDocumentBrowser CreateEnhancedDocumentBrowser()
-        {
             var navigator = new CachingNavigator(
                 new Navigator(),
                 new DocumentCache() );
 
             var browser = new DocumentBrowser( navigator );
+
+            return browser;
+        }
+
+        public static IDocumentBrowser CreateBrowser( System.Windows.Forms.WebBrowser webBrowser )
+        {
+            var browser = new WinFormsDocumentBrowser( webBrowser );
+
+            browser.DownloadController.Options = BrowserOptions.NoActiveXDownload |
+                BrowserOptions.NoBehaviors | BrowserOptions.NoJava | BrowserOptions.NoScripts |
+                BrowserOptions.Utf8;
 
             return browser;
         }

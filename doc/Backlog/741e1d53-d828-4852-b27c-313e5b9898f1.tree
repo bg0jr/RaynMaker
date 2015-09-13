@@ -6,6 +6,12 @@
       <Caption><![CDATA[Refactoring]]></Caption>
       <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">
         <Caption><![CDATA[Cleanup Import design]]></Caption>
+        <Node Id="77a3da08-70e8-4ae1-b90d-40a5b428e21d">
+          <Caption><![CDATA[TryNavigateWithWildcards]]></Caption>
+        </Node>
+        <Node Id="b0b261be-5045-42e4-8299-10b8a7aecc67">
+          <Caption><![CDATA[Why do we need DocumentType in Navigation?]]></Caption>
+        </Node>
       </Node>
       <Node Id="514dabde-6dfb-4827-94cc-4f8b451d7289">
         <Caption><![CDATA[Persist DataLocators]]></Caption>

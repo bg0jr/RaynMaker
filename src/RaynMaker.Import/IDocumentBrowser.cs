@@ -1,13 +1,18 @@
-﻿using RaynMaker.Import.Spec;
+﻿using System;
+using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import
 {
     public interface IDocumentBrowser
     {
-        /// <summary>
-        /// Returns the document specified by given navigation.
-        /// Supports searching with wildcards if only one url is given.
-        /// </summary>
-        IDocument GetDocument( Navigation navi );
+        IDocument Document { get; }
+
+        void Navigate( DocumentType docType, Uri url );
+
+        void Navigate( Navigation navi );
+
+        event Action<Uri> Navigating;
+
+        event Action<IDocument> DocumentCompleted;
     }
 }

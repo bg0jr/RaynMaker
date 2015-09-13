@@ -13,7 +13,7 @@ using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Documents
 {
-    public class WinFormsDocumentBrowser : IDisposable, IDocumentBrowser
+    class WinFormsDocumentBrowser : IDisposable, IDocumentBrowser
     {
         private DownloadController myDownloadController;
         private bool myIsInitialized = false;
@@ -26,45 +26,34 @@ namespace RaynMaker.Import.Documents
             myOwnWebBrowser = true;
         }
 
-        /// <summary>
-        /// Creates a WebScrapSC with a given/existing WebBrowser control.
-        /// The ownership of the WebBrowser control passed is not taken over.
-        /// </summary>
         public WinFormsDocumentBrowser( WebBrowser webBrowser )
         {
             myOwnWebBrowser = false;
 
             Browser = webBrowser;
             Browser.Navigating += WebBrowser_Navigating;
+            Browser.DocumentCompleted += WebBrowser_DocumentCompleted;
 
             myDownloadController = new DownloadController();
-            myDownloadController.Options = BrowserOptions.NotRunActiveX | BrowserOptions.NoActiveXDownload |
-                BrowserOptions.NoBehaviors | BrowserOptions.NoJava | BrowserOptions.NoScripts |
-                BrowserOptions.Utf8;
         }
 
         public void Dispose()
         {
             if( Browser != null )
             {
+                Browser.Navigating -= WebBrowser_Navigating;
+                Browser.DocumentCompleted -= WebBrowser_DocumentCompleted;
+
                 if( myOwnWebBrowser )
                 {
                     Browser.Dispose();
                 }
+
                 Browser = null;
             }
         }
 
-        public WebBrowser Browser
-        {
-            get;
-            private set;
-        }
-
-        public HtmlDocument Document
-        {
-            get { return Browser.Document; }
-        }
+        public WebBrowser Browser { get; private set; }
 
         /// <summary>
         /// Default options: 
@@ -82,13 +71,7 @@ namespace RaynMaker.Import.Documents
             Browser.Navigate( url );
         }
 
-        /// <summary>
-        /// Loads a document specified by the given user steps.
-        /// Regular expressions in response URLs (embedded in {}) are matched. The
-        /// resulting parameter is set to the next request URL using 
-        /// string.Format() at placeholder {0}.
-        /// </summary>
-        public IHtmlDocument LoadDocument( IEnumerable<NavigatorUrl> navigationSteps )
+        private IHtmlDocument LoadDocument( IEnumerable<NavigatorUrl> navigationSteps )
         {
             string url = NavigateToFinalSite( navigationSteps );
             return LoadDocument( url );
@@ -158,24 +141,44 @@ namespace RaynMaker.Import.Documents
             return new HtmlDocumentAdapter( Browser.Document );
         }
 
-        public IDocument GetDocument( Navigation navi )
+        public IDocument Document { get; private set; }
+
+        public void Navigate( Navigation navi )
         {
             var doc = TryNavigateWithWildcards( navi );
             if( doc != null )
             {
-                return doc;
+                return;
             }
 
             if( navi.DocumentType == DocumentType.Html )
             {
-                return new HtmlDocumentHandle( LoadDocument( navi.Uris ) );
+                Document = new HtmlDocumentHandle( LoadDocument( navi.Uris ) );
             }
             else if( navi.DocumentType == DocumentType.Text )
             {
-                return new TextDocument( DownloadFile( navi.Uris ) );
+                Document = new TextDocument( DownloadFile( navi.Uris ) );
             }
+            else
+            {
+                throw new NotSupportedException( "DocumentType: " + navi.DocumentType );
+            }
+        }
 
-            throw new NotSupportedException( "DocumentType: " + navi.DocumentType );
+        public void Navigate( DocumentType docType, Uri url )
+        {
+            if( docType == DocumentType.Html )
+            {
+                Document = new HtmlDocumentHandle( LoadDocument( url.ToString() ) );
+            }
+            else if( docType == DocumentType.Text )
+            {
+                Document = new TextDocument( DownloadFile( url ) );
+            }
+            else
+            {
+                throw new NotSupportedException( "DocumentType: " + docType );
+            }
         }
 
         /// <summary>
@@ -339,6 +342,21 @@ namespace RaynMaker.Import.Documents
             myDownloadController.HookUp( Browser );
 
             myIsInitialized = true;
+
+            if( Navigating != null )
+            {
+                Navigating( e.Url );
+            }
+        }
+
+        private void WebBrowser_DocumentCompleted( object sender, WebBrowserDocumentCompletedEventArgs e )
+        {
+            Document = new HtmlDocumentHandle( new HtmlDocumentAdapter( Browser.Document ) );
+
+            if( DocumentCompleted != null )
+            {
+                DocumentCompleted( Document );
+            }
         }
 
         private Uri SelectUrl( IList<string> urls )
@@ -350,5 +368,10 @@ namespace RaynMaker.Import.Documents
 
             return new Uri( url );
         }
+
+
+        public event Action<Uri> Navigating;
+
+        public event Action<IDocument> DocumentCompleted;
     }
 }

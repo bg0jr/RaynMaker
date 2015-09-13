@@ -6,6 +6,7 @@ using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Entities.Datums;
 using RaynMaker.Import.Documents;
 using RaynMaker.Import.Parsers.Html;
+using RaynMaker.Import.Parsers.Html.WinForms;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Model;
 using RaynMaker.Import.Web.Services;
@@ -16,7 +17,7 @@ namespace RaynMaker.Import.Web.ViewModels
     [Export]
     class WebSpyViewModel : BindableBase, IBrowser
     {
-        private WinFormsDocumentBrowser myDocumentBrowser = null;
+        private IDocumentBrowser myDocumentBrowser = null;
 
         [ImportingConstructor]
         public WebSpyViewModel( IProjectHost projectHost, StorageService storageService )
@@ -44,9 +45,9 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             set
             {
-                myDocumentBrowser = new WinFormsDocumentBrowser( value );
-                myDocumentBrowser.Browser.Navigating += myBrowser_Navigating;
-                myDocumentBrowser.Browser.DocumentCompleted += myBrowser_DocumentCompleted;
+                myDocumentBrowser = DocumentProcessorsFactory.CreateBrowser( value );
+                myDocumentBrowser.Navigating += myBrowser_Navigating;
+                myDocumentBrowser.DocumentCompleted += myBrowser_DocumentCompleted;
 
                 // disable links
                 // TODO: we cannot use this, it disables navigation in general (Navigate() too)
@@ -62,19 +63,21 @@ namespace RaynMaker.Import.Web.ViewModels
             }
         }
 
-        private void myBrowser_Navigating( object sender, System.Windows.Forms.WebBrowserNavigatingEventArgs e )
+        private void myBrowser_Navigating( Uri url )
         {
             if( Navigating != null )
             {
-                Navigating( e.Url );
+                Navigating( url );
             }
         }
 
-        private void myBrowser_DocumentCompleted( object sender, System.Windows.Forms.WebBrowserDocumentCompletedEventArgs e )
+        private void myBrowser_DocumentCompleted( IDocument document )
         {
             if( DocumentCompleted != null )
             {
-                DocumentCompleted( myDocumentBrowser.Document );
+                var htmlDocument = ( ( HtmlDocumentHandle )myDocumentBrowser.Document ).Content;
+                var adapter = ( HtmlDocumentAdapter )htmlDocument;
+                DocumentCompleted( adapter.Document );
             }
         }
 
@@ -101,12 +104,13 @@ namespace RaynMaker.Import.Web.ViewModels
 
         public void Navigate( string url )
         {
-            myDocumentBrowser.Navigate( url );
+            myDocumentBrowser.Navigate( DocumentType.Html, new Uri( url ) );
         }
 
         public IHtmlDocument LoadDocument( IEnumerable<NavigatorUrl> urls )
         {
-            return myDocumentBrowser.LoadDocument( urls );
+            myDocumentBrowser.Navigate( new Navigation( DocumentType.Html, urls ) );
+            return ( ( HtmlDocumentHandle )myDocumentBrowser.Document ).Content;
         }
 
         public event Action<Uri> Navigating;

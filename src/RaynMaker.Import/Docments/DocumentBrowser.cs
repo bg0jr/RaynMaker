@@ -1,29 +1,80 @@
-﻿using Plainion.Logging;
+﻿using System;
+using Plainion.Logging;
 using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Documents
 {
-    internal class DocumentBrowser : IDocumentBrowser
+    class DocumentBrowser : IDocumentBrowser, IDisposable
     {
         private static readonly ILogger myLogger = LoggerFactory.GetLogger( typeof( DocumentBrowser ) );
-        
+
         private INavigator myNavigator;
 
-        internal DocumentBrowser( INavigator navigator )
+        public DocumentBrowser( INavigator navigator )
         {
             myNavigator = navigator;
+            myNavigator.Navigating += OnNavigating;
         }
 
-        public IDocument GetDocument( Navigation navi )
+        private void OnNavigating( Uri url )
+        {
+            if( Navigating != null )
+            {
+                Navigating( url );
+            }
+        }
+
+        public void Dispose()
+        {
+            if( myNavigator != null )
+            {
+                myNavigator.Navigating -= OnNavigating;
+
+                var disposable = myNavigator as IDisposable;
+                if( disposable != null )
+                {
+                    disposable.Dispose();
+                }
+
+                myNavigator = null;
+            }
+        }
+
+        public IDocument Document { get; private set; }
+
+        public void Navigate( DocumentType docType, Uri url )
+        {
+            if( Navigating != null )
+            {
+                Navigating( url );
+            }
+
+            var documentLoader = DocumentProcessorsFactory.CreateLoader( docType );
+            Document = documentLoader.Load( url );
+
+            if( DocumentCompleted != null )
+            {
+                DocumentCompleted( Document );
+            }
+        }
+
+        public void Navigate( Navigation navi )
         {
             var uri = myNavigator.Navigate( navi );
 
             myLogger.Info( "Url from navigator: {0}", uri );
 
             var documentLoader = DocumentProcessorsFactory.CreateLoader( navi.DocumentType );
-            var doc = documentLoader.Load( uri );
+            Document = documentLoader.Load( uri );
 
-            return doc;
+            if( DocumentCompleted != null )
+            {
+                DocumentCompleted( Document );
+            }
         }
+
+        public event Action<Uri> Navigating;
+
+        public event Action<IDocument> DocumentCompleted;
     }
 }

@@ -4,13 +4,13 @@ using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Documents
 {
-    internal class TextDocument : IDocument
+    public class TextDocument : IDocument
     {
         internal TextDocument( string file )
         {
-            Location = file;
+            Location = new Uri( file );
         }
 
-        public string Location { get; private set; }
+        public Uri Location { get; private set; }
     }
 }

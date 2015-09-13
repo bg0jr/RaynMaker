@@ -5,6 +5,8 @@ namespace RaynMaker.Import
 {
     public interface INavigator
     {
+        event Action<Uri> Navigating;
+
         Uri Navigate( Navigation navigation );
     }
 }

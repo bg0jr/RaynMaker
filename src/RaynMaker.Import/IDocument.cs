@@ -1,10 +1,11 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import
 {
     public interface IDocument
     {
-        string Location { get; }
+        Uri Location { get; }
     }
 }

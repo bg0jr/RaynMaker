@@ -9,7 +9,7 @@ using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Documents
 {
-    public class Navigator : INavigator
+    class Navigator : INavigator
     {
         public Uri Navigate( Navigation navigation )
         {
@@ -143,6 +143,11 @@ namespace RaynMaker.Import.Documents
             WebResponse response = null;
             try
             {
+                if( Navigating != null )
+                {
+                    Navigating( input );
+                }
+
                 var request = WebRequest.Create( input );
                 response = request.GetResponse();
 
@@ -179,5 +184,7 @@ namespace RaynMaker.Import.Documents
                 return SendRequest( formSubmitUrl );
             }
         }
+
+        public event Action<Uri> Navigating;
     }
 }

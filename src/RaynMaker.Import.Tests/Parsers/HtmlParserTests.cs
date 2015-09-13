@@ -30,13 +30,13 @@ namespace RaynMaker.Import.Tests.Parsers
         public void WpknFromAriva()
         {
             var inputFile = Path.Combine( TestDataRoot, "Core", "ariva.overview.US0138171014.html" );
-            var doc = myBrowser.GetDocument( new Navigation( DocumentType.Html, inputFile ) );
+            myBrowser.Navigate( new Navigation( DocumentType.Html, inputFile ) );
 
             var format = new PathSingleValueFormat( "Ariva.Wpkn" );
             format.Path = @"/BODY[0]/DIV[4]/DIV[0]/DIV[3]/DIV[0]";
             format.ValueFormat = new ValueFormat( typeof( int ), "00000000", new Regex( @"WKN: (\d+)" ) );
 
-            var parser = new HtmlParser( ( HtmlDocumentHandle )doc, format );
+            var parser = new HtmlParser( ( HtmlDocumentHandle )myBrowser.Document, format );
             var table = parser.ExtractTable();
 
             Assert.AreEqual( 1, table.Rows.Count );
