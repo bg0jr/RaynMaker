@@ -3,7 +3,9 @@ using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Practices.Prism.Mvvm;
 using Plainion;
+using RaynMaker.Import.Documents;
 using RaynMaker.Import.Parsers.Html;
+using RaynMaker.Import.Parsers.Html.WinForms;
 using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Web.ViewModels
@@ -59,9 +61,8 @@ namespace RaynMaker.Import.Web.ViewModels
             IsValid = isValid;
         }
 
-        public HtmlDocument Document
+        public IDocument Document
         {
-            get { return myMarkupDocument.Document; }
             set
             {
                 // always force update because the document reference does NOT change!
@@ -70,12 +71,20 @@ namespace RaynMaker.Import.Web.ViewModels
                 //    return;
                 //}
 
+                HtmlDocument doc = null;
+                if( value != null )
+                {
+                    var htmlDocument = ( ( HtmlDocumentHandle )value ).Content;
+                    var adapter = ( HtmlDocumentAdapter )htmlDocument;
+                    doc = adapter.Document;
+                }
+
                 if( myMarkupDocument.Document != null )
                 {
                     myMarkupDocument.Document.Click -= HtmlDocument_Click;
                 }
 
-                myMarkupDocument.Document = value;
+                myMarkupDocument.Document = doc;
 
                 if( myMarkupDocument.Document == null )
                 {

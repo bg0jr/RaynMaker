@@ -14,8 +14,8 @@ namespace RaynMaker.Import.Web.ViewModels
     {
         private Session mySession;
         private int mySelectedFormatIndex;
-        private HtmlDocument myDocument;
-        private IBrowser myBrowser;
+        private IDocument myDocument;
+        private IDocumentBrowser myBrowser;
 
         public DataFormatsViewModel( Session session )
         {
@@ -57,7 +57,7 @@ namespace RaynMaker.Import.Web.ViewModels
             }
         }
 
-        public IBrowser Browser
+        public IDocumentBrowser Browser
         {
             get { return myBrowser; }
             set
@@ -77,7 +77,7 @@ namespace RaynMaker.Import.Web.ViewModels
             }
         }
 
-        private void BrowserDocumentCompleted( HtmlDocument doc )
+        private void BrowserDocumentCompleted( IDocument doc )
         {
             Document = doc;
         }
@@ -101,7 +101,7 @@ namespace RaynMaker.Import.Web.ViewModels
             }
         }
 
-        public HtmlDocument Document
+        public IDocument Document
         {
             get { return myDocument; }
             set

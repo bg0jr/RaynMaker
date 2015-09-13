@@ -1,6 +1,8 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
+using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
@@ -19,7 +21,7 @@ namespace RaynMaker.Import.Web.ViewModels
             set { SetProperty( ref myUrl, value ); }
         }
 
-        public IBrowser Browser { get; set; }
+        public IDocumentBrowser Browser { get; set; }
 
         public ICommand GoCommand { get; private set; }
 
@@ -30,7 +32,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 return;
             }
 
-            Browser.Navigate( myUrl );
+            Browser.Navigate( DocumentType.Html, new Uri( myUrl ) );
         }
     }
 }

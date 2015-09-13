@@ -87,8 +87,6 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IBrowserBase.cs" />
-    <Compile Include="IBrowser.cs" />
     <Compile Include="ImportWebModule.cs" />
     <Compile Include="Model\Session.cs" />
     <Compile Include="Services\DatumLocatorSheet.cs" />

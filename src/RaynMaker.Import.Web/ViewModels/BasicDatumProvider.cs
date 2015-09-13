@@ -13,9 +13,9 @@ namespace RaynMaker.Import.Web.ViewModels
 {
     class BasicDatumProvider
     {
-        private IBrowserBase myBrowser;
+        private IDocumentBrowser myBrowser;
 
-        public BasicDatumProvider( IBrowserBase browser )
+        public BasicDatumProvider( IDocumentBrowser browser )
         {
             myBrowser = browser;
         }
@@ -51,7 +51,8 @@ namespace RaynMaker.Import.Web.ViewModels
                 }
             }
 
-            Document = myBrowser.LoadDocument( filtered );
+            myBrowser.Navigate( new Navigation( DocumentType.Html, filtered ) );
+            Document = ( ( HtmlDocumentHandle )myBrowser.Document ).Content;
         }
 
         private string GetMacroValue( string macroId, Stock stock )

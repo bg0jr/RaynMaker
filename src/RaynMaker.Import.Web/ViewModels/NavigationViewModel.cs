@@ -19,7 +19,7 @@ namespace RaynMaker.Import.Web.ViewModels
     class NavigationViewModel : BindableBase
     {
         private Session mySession;
-        private IBrowser myBrowser;
+        private IDocumentBrowser myBrowser;
         private Site mySelectedSite;
         private string mySiteName;
         private DocumentType mySelectedDocumentType;
@@ -63,7 +63,7 @@ namespace RaynMaker.Import.Web.ViewModels
             SelectedSite = Sites.FirstOrDefault();
         }
 
-        public IBrowser Browser
+        public IDocumentBrowser Browser
         {
             get { return myBrowser; }
             set
@@ -95,13 +95,13 @@ namespace RaynMaker.Import.Web.ViewModels
             }
         }
 
-        private void BrowserDocumentCompleted( System.Windows.Forms.HtmlDocument doc )
+        private void BrowserDocumentCompleted( IDocument doc )
         {
-            AddressBar.Url = doc.Url.ToString();
+            AddressBar.Url = doc.Location.ToString();
 
             if( IsCapturing )
             {
-                Urls.Add( new NavigatorUrl( UriType.Response, doc.Url ) );
+                Urls.Add( new NavigatorUrl( UriType.Response, doc.Location ) );
             }
         }
 
@@ -178,7 +178,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
                         var old = SelectedSite;
                         SelectedSite = null;
-                        
+
                         // sorting ...
                         Sites.Clear();
                         Sites.AddRange( mySession.CurrentLocator.Sites.OrderBy( s => s.Name ) );

@@ -46,7 +46,7 @@ namespace RaynMaker.Import.Web.ViewModels
             SelectedStock = Stocks.FirstOrDefault();
         }
 
-        public IBrowser Browser { get; set; }
+        public IDocumentBrowser Browser { get; set; }
 
         public ObservableCollection<Stock> Stocks { get; private set; }
 

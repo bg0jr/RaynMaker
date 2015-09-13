@@ -15,7 +15,7 @@ using RaynMaker.Infrastructure;
 namespace RaynMaker.Import.Web.ViewModels
 {
     [Export]
-    class WebSpyViewModel : BindableBase, IBrowser
+    class WebSpyViewModel : BindableBase
     {
         private IDocumentBrowser myDocumentBrowser = null;
 
@@ -46,8 +46,6 @@ namespace RaynMaker.Import.Web.ViewModels
             set
             {
                 myDocumentBrowser = DocumentProcessorsFactory.CreateBrowser( value );
-                myDocumentBrowser.Navigating += myBrowser_Navigating;
-                myDocumentBrowser.DocumentCompleted += myBrowser_DocumentCompleted;
 
                 // disable links
                 // TODO: we cannot use this, it disables navigation in general (Navigate() too)
@@ -55,29 +53,11 @@ namespace RaynMaker.Import.Web.ViewModels
 
                 // TODO: how to disable images in browser
 
-                Navigation.Browser = this;
-                Formats.Browser = this;
-                Completion.Browser = this;
+                Navigation.Browser = myDocumentBrowser;
+                Formats.Browser = myDocumentBrowser;
+                Completion.Browser = myDocumentBrowser;
 
-                Navigate( "http://www.google.com" );
-            }
-        }
-
-        private void myBrowser_Navigating( Uri url )
-        {
-            if( Navigating != null )
-            {
-                Navigating( url );
-            }
-        }
-
-        private void myBrowser_DocumentCompleted( IDocument document )
-        {
-            if( DocumentCompleted != null )
-            {
-                var htmlDocument = ( ( HtmlDocumentHandle )myDocumentBrowser.Document ).Content;
-                var adapter = ( HtmlDocumentAdapter )htmlDocument;
-                DocumentCompleted( adapter.Document );
+                myDocumentBrowser.Navigate( DocumentType.Html, new Uri( "http://www.google.com" ) );
             }
         }
 
@@ -101,20 +81,5 @@ namespace RaynMaker.Import.Web.ViewModels
         public DataFormatsViewModel Formats { get; private set; }
 
         public CompletionViewModel Completion { get; private set; }
-
-        public void Navigate( string url )
-        {
-            myDocumentBrowser.Navigate( DocumentType.Html, new Uri( url ) );
-        }
-
-        public IHtmlDocument LoadDocument( IEnumerable<NavigatorUrl> urls )
-        {
-            myDocumentBrowser.Navigate( new Navigation( DocumentType.Html, urls ) );
-            return ( ( HtmlDocumentHandle )myDocumentBrowser.Document ).Content;
-        }
-
-        public event Action<Uri> Navigating;
-
-        public event Action<System.Windows.Forms.HtmlDocument> DocumentCompleted;
     }
 }

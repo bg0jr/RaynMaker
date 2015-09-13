@@ -17,7 +17,7 @@ using RaynMaker.Import.Web.Services;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
-    class ImportPreviewModel : BindableBase, IBrowserBase
+    class ImportPreviewModel : BindableBase
     {
         private static readonly ILogger myLogger = LoggerFactory.GetLogger( typeof( ImportPreviewModel ) );
 
@@ -144,7 +144,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             myData.Clear();
 
-            var provider = new BasicDatumProvider( this );
+            var provider = new BasicDatumProvider( myDocumentBrowser );
 
             var formats = mySelectedSite.Formats.Cast<PathSeriesFormat>();
 
@@ -215,17 +215,6 @@ namespace RaynMaker.Import.Web.ViewModels
 
             Sites.AddRange( datumLocator.Sites.OrderBy( s => s.Name ) );
             SelectedSite = Sites.First();
-        }
-
-        public void Navigate( string url )
-        {
-            myDocumentBrowser.Navigate( DocumentType.Html, new Uri( url ) );
-        }
-
-        public IHtmlDocument LoadDocument( IEnumerable<NavigatorUrl> urls )
-        {
-            myDocumentBrowser.Navigate( new Navigation( DocumentType.Html, urls ) );
-            return ( ( HtmlDocumentHandle )myDocumentBrowser.Document ).Content;
         }
     }
 }
