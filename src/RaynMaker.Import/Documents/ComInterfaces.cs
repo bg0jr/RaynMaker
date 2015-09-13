@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using System.Security;
 
 namespace RaynMaker.Import.Documents
 {
@@ -127,5 +128,43 @@ namespace RaynMaker.Import.Documents
         [return: MarshalAs( UnmanagedType.I4 )]
         [PreserveSig]
         int SetColorScheme( [In] Object pLogpal ); // tagLOGPALETTE
+    }
+
+    [StructLayout( LayoutKind.Sequential )]
+    public sealed class tagCONTROLINFO
+    {
+        [MarshalAs( UnmanagedType.U4 )]
+        public int cb = Marshal.SizeOf( typeof( tagCONTROLINFO ) );
+        public IntPtr hAccel;
+        [MarshalAs( UnmanagedType.U2 )]
+        public short cAccel;
+        [MarshalAs( UnmanagedType.U4 )]
+        public int dwFlags;
+    }
+
+    [Serializable]
+    public struct MSG
+    {
+        public IntPtr hwnd;
+        public int message;
+        public IntPtr wParam;
+        public IntPtr lParam;
+        public int time;
+        public int pt_x;
+        public int pt_y;
+    }
+    
+    [Guid( "B196B288-BAB4-101A-B69C-00AA00341D07" ), InterfaceType( ComInterfaceType.InterfaceIsIUnknown ), SuppressUnmanagedCodeSecurity]
+    [ComImport]
+    public interface IOleControl
+    {
+        [PreserveSig]
+        int GetControlInfo( [Out] tagCONTROLINFO pCI );
+        [PreserveSig]
+        int OnMnemonic( [In] ref MSG pMsg );
+        [PreserveSig]
+        int OnAmbientPropertyChange( int dispID );
+        [PreserveSig]
+        int FreezeEvents( int bFreeze );
     }
 }

@@ -4,6 +4,7 @@ using System.Windows.Forms;
 
 namespace RaynMaker.Import.Documents
 {
+    // http://stackoverflow.com/questions/24463554/prevent-webbrowser-control-from-beeping-on-loading-in-winforms
     [ComVisible( true )]
     class DownloadController : IOleClientSite
     {
@@ -23,8 +24,15 @@ namespace RaynMaker.Import.Documents
                 throw new ArgumentNullException( "webBrowser" );
             }
 
-            IOleObject oleObject = ( IOleObject )webBrowser.ActiveXInstance;
+            var oleObject = ( IOleObject )webBrowser.ActiveXInstance;
             int rc = oleObject.SetClientSite( this );
+            if( rc != 0 )
+            {
+                throw new COMException( "Unknown COM error", rc );
+            }
+
+            var oleControl = ( IOleControl)webBrowser.ActiveXInstance;
+            rc = oleControl.OnAmbientPropertyChange( DISPID_AMBIENT_DLCONTROL );
             if( rc != 0 )
             {
                 throw new COMException( "Unknown COM error", rc );
