@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using Plainion;
-using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Documents
@@ -180,19 +179,20 @@ namespace RaynMaker.Import.Documents
         /// </summary>
         private Uri SubmitFormular( Uri url, Formular formular )
         {
-            using ( var loader = new WinFormHtmlDocumentLoader() )
-            {
-                var document = loader.LoadHtmlDocument( url );
-                var htmlForm = new Parsers.Html.WinForms.HtmlDocumentAdapter( document ).GetFormByName( formular.Name );
-                if ( htmlForm == null )
-                {
-                    return null;
-                }
+            throw new NotImplementedException("SubmitFormular not implemented");
+            //using ( var loader = new WinFormHtmlDocumentLoader() )
+            //{
+            //    var document = loader.LoadHtmlDocument( url );
+            //    var htmlForm = new Parsers.Html.WinForms.HtmlDocumentAdapter( document ).GetFormByName( formular.Name );
+            //    if ( htmlForm == null )
+            //    {
+            //        return null;
+            //    }
 
-                var formSubmitUrl = htmlForm.CreateSubmitUrl( formular );
+            //    var formSubmitUrl = htmlForm.CreateSubmitUrl( formular );
 
-                return SendRequest( formSubmitUrl );
-            }
+            //    return SendRequest( formSubmitUrl );
+            //}
         }
 
         public event Action<Uri> Navigating;

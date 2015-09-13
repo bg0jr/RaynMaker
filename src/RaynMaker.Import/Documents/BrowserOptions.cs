@@ -1,11 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RaynMaker.Import
+namespace RaynMaker.Import.Documents
 {
     [Flags]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage( "Microsoft.Design", "CA1028:EnumStorageShouldBeInt32" )]
     public enum BrowserOptions : long
     {
         /// <summary>
@@ -82,10 +81,5 @@ namespace RaynMaker.Import
         /// The browser will download and display video media.Equivalent to DLCTL_VIDEOS.
         /// </summary>
         Videos = 0x00000020
-    }
-
-    public interface IDownloadController
-    {
-        BrowserOptions Options { get; set; }
     }
 }

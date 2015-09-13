@@ -18,7 +18,16 @@ namespace RaynMaker.Import.Web.ViewModels
         public string Url
         {
             get { return myUrl; }
-            set { SetProperty( ref myUrl, value ); }
+            set
+            {
+                if( value != null
+                    && !value.StartsWith( "http://", StringComparison.OrdinalIgnoreCase )
+                    && !value.StartsWith( "https://", StringComparison.OrdinalIgnoreCase ) )
+                {
+                    value = "http://" + value;
+                }
+                SetProperty( ref myUrl, value );
+            }
         }
 
         public IDocumentBrowser Browser { get; set; }

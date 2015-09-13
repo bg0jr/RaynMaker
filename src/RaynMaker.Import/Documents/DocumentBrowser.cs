@@ -49,7 +49,7 @@ namespace RaynMaker.Import.Documents
                 Navigating( url );
             }
 
-            var documentLoader = DocumentProcessorsFactory.CreateLoader( docType );
+            var documentLoader = DocumentLoaderFactory.CreateLoader( docType );
             Document = documentLoader.Load( url );
 
             if( DocumentCompleted != null )
@@ -64,7 +64,7 @@ namespace RaynMaker.Import.Documents
 
             myLogger.Info( "Url from navigator: {0}", uri );
 
-            var documentLoader = DocumentProcessorsFactory.CreateLoader( navi.DocumentType );
+            var documentLoader = DocumentLoaderFactory.CreateLoader( navi.DocumentType );
             Document = documentLoader.Load( uri );
 
             if( DocumentCompleted != null )

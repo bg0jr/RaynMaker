@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace RaynMaker.Import
+namespace RaynMaker.Import.Documents
 {
-    public interface IDocumentLoader
+    interface IDocumentLoader
     {
         IDocument Load( Uri uri );
     }
