@@ -13,7 +13,7 @@ namespace RaynMaker.Import.Tests.Html
         [TestFixtureSetUp]
         public virtual void FixtureSetUp()
         {
-            myBrowser = DocumentBrowserFactory.Create();
+            myBrowser = DocumentProcessorsFactory.CreateBrowser();
         }
 
         [TestFixtureTearDown]

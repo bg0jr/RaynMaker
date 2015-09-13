@@ -20,7 +20,7 @@ namespace RaynMaker.Import.Documents
 
             myLogger.Info( "Url from navigator: {0}", uri );
 
-            var documentLoader = DocumentLoaderFactory.Create( navi.DocumentType );
+            var documentLoader = DocumentProcessorsFactory.CreateLoader( navi.DocumentType );
             var doc = documentLoader.Load( uri );
 
             return doc;

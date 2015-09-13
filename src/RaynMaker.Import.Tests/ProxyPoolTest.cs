@@ -1,6 +1,7 @@
 using System;
 using NUnit.Framework;
 using RaynMaker.Import;
+using RaynMaker.Import.Documents;
 
 namespace RaynMaker.Import.Tests
 {

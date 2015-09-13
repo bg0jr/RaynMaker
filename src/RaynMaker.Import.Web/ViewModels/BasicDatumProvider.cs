@@ -96,7 +96,7 @@ namespace RaynMaker.Import.Web.ViewModels
             Contract.Invariant( Document != null, "Document not yet loaded" );
 
             var handle = new HtmlDocumentHandle( Document );
-            var parser = DocumentParserFactory.CreateParser( handle, format );
+            var parser = DocumentProcessorsFactory.CreateParser( handle, format );
             return parser.ExtractTable();
         }
     }

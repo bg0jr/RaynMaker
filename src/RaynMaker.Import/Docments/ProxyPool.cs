@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 
-namespace RaynMaker.Import
+namespace RaynMaker.Import.Documents
 {
     [Flags]
     public enum ProxyPoolOptions

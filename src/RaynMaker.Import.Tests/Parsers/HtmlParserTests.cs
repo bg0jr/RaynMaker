@@ -17,7 +17,7 @@ namespace RaynMaker.Import.Tests.Parsers
         [SetUp]
         public void SetUp()
         {
-            myBrowser = DocumentBrowserFactory.Create();
+            myBrowser = DocumentProcessorsFactory.CreateBrowser();
         }
 
         [TearDown]
