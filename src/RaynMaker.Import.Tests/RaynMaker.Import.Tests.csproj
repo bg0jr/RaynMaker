@@ -23,7 +23,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\HtmlDocumentTest.cs" />
     <Compile Include="Core\PatternMatchingTests.cs" />
     <Compile Include="Html\HtmlDocumentExtensionsTests.cs" />
     <Compile Include="Html\HtmlElementExtensionsTests.cs" />
@@ -31,6 +30,7 @@
     <Compile Include="Html\HtmlPathTests.cs" />
     <Compile Include="Html\HtmlTableTests.cs" />
     <Compile Include="Html\TestBase.cs" />
+    <Compile Include="Parsers\HtmlParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProxyPoolTest.cs" />
     <Compile Include="Spec\AbstractDimensionalFormatTest.cs" />
@@ -88,5 +88,6 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

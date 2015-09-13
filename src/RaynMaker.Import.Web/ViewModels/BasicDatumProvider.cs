@@ -26,7 +26,7 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             Contract.RequiresNotNull( site, "site" );
             Contract.RequiresNotNull( stock, "stock" );
-            
+
             var macroPattern = new Regex( @"(\$\{.*\})" );
             var filtered = new List<NavigatorUrl>();
             foreach( var navUrl in site.Navigation.Uris )
@@ -68,7 +68,7 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             Contract.RequiresNotNull( format, "format" );
             Contract.Invariant( Document != null, "Document not yet loaded" );
-            
+
             var markupDoc = new MarkupDocument();
             markupDoc.Document = ( ( HtmlDocumentAdapter )Document ).Document;
             markupDoc.Anchor = format.Path;
@@ -90,13 +90,14 @@ namespace RaynMaker.Import.Web.ViewModels
             markupDoc.Apply();
         }
 
-        public DataTable GetResult(PathSeriesFormat format)
+        public DataTable GetResult( PathSeriesFormat format )
         {
             Contract.RequiresNotNull( format, "format" );
             Contract.Invariant( Document != null, "Document not yet loaded" );
 
             var handle = new HtmlDocumentHandle( Document );
-            return handle.ExtractTable( format );
+            var parser = DocumentParserFactory.CreateParser( handle, format );
+            return parser.ExtractTable();
         }
     }
 }

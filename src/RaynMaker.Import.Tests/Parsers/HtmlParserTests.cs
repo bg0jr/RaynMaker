@@ -1,13 +1,15 @@
 ﻿using System.IO;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
+using RaynMaker.Import.Core;
+using RaynMaker.Import.Parsers;
 using RaynMaker.Import.Spec;
 
-namespace RaynMaker.Import.Tests.Core
+namespace RaynMaker.Import.Tests.Parsers
 {
     [TestFixture]
     [RequiresSTA]
-    public class HtmlDocumentTest : TestBase
+    public class HtmlParserTests : TestBase
     {
         private IDocumentBrowser myBrowser = null;
 
@@ -26,19 +28,19 @@ namespace RaynMaker.Import.Tests.Core
         [Test]
         public void WpknFromAriva()
         {
-            var inputFile = Path.Combine( TestDataRoot,  "Core", "ariva.overview.US0138171014.html" );
+            var inputFile = Path.Combine( TestDataRoot, "Core", "ariva.overview.US0138171014.html" );
             var doc = myBrowser.GetDocument( new Navigation( DocumentType.Html, inputFile ) );
 
             var format = new PathSingleValueFormat( "Ariva.Wpkn" );
             format.Path = @"/BODY[0]/DIV[4]/DIV[0]/DIV[3]/DIV[0]";
             format.ValueFormat = new ValueFormat( typeof( int ), "00000000", new Regex( @"WKN: (\d+)" ) );
 
-            var table = doc.ExtractTable( format );
+            var parser = new HtmlParser( ( HtmlDocumentHandle )doc, format );
+            var table = parser.ExtractTable();
 
             Assert.AreEqual( 1, table.Rows.Count );
 
             Assert.AreEqual( 850206, table.Rows[ 0 ][ 0 ] );
         }
-
     }
 }

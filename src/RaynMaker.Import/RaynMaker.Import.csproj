@@ -30,6 +30,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IDocumentParser.cs" />
+    <Compile Include="DocumentParserFactory.cs" />
+    <Compile Include="Parsers\HtmlParser.cs" />
+    <Compile Include="Parsers\TextParser.cs" />
     <Compile Include="Spec\CellDimension.cs" />
     <Compile Include="Spec\DataColumnExtensions.cs" />
     <Compile Include="Spec\DataRowExtensions.cs" />
@@ -80,10 +84,8 @@
     <Compile Include="Spec\AbstractSeriesFormat.cs" />
     <Compile Include="Spec\AbstractTableFormat.cs" />
     <Compile Include="Spec\Anchor.cs" />
-    <Compile Include="Spec\BitsCollection.cs" />
     <Compile Include="Spec\CsvFormat.cs" />
     <Compile Include="Spec\DatumLocator.cs" />
-    <Compile Include="Spec\Document.cs" />
     <Compile Include="Spec\DocumentType.cs" />
     <Compile Include="Spec\FormatColumn.cs" />
     <Compile Include="Spec\Formular.cs" />
@@ -104,5 +106,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

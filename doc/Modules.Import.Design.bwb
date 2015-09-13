@@ -457,7 +457,7 @@
   &lt;/ItemContent.Properties&gt;
   &lt;av:Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch"&gt;
     &lt;av:Grid Margin="2,2,2,2"&gt;
-      &lt;av:TextBlock Text="+ Vendor (&amp;quot;Ariva&amp;quot;)&amp;#xD;&amp;#xA;+ Name (&amp;quot;Key Figures&amp;quot;)&amp;#xD;&amp;#xA;+ Quality (int)&amp;#xD;&amp;#xA;" TextWrapping="Wrap" Name="Text" Margin="3,3,3,3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsHitTestVisible="False" /&gt;
+      &lt;av:TextBlock Text="+ Vendor (&amp;quot;Ariva&amp;quot;)&amp;#xA;+ Name (&amp;quot;Key Figures&amp;quot;)&amp;#xA;+ Quality (int)&amp;#xA;" TextWrapping="Wrap" Name="Text" Margin="3,3,3,3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsHitTestVisible="False" /&gt;
     &lt;/av:Grid&gt;
   &lt;/av:Grid&gt;
 &lt;/ItemContent&gt;</Content>
