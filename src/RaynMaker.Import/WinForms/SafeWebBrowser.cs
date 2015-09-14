@@ -39,7 +39,12 @@ namespace RaynMaker.Import.WinForms
                 }
 
                 myDownloadControlFlags = value;
-                
+
+                if( ActiveXInstance == null )
+                {
+                    return;
+                }
+
                 var ctl = ( IOleControl )ActiveXInstance;
                 ctl.OnAmbientPropertyChange( DISPID_AMBIENT_DLCONTROL );
             }

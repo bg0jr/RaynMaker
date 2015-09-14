@@ -12,7 +12,7 @@ namespace RaynMaker.Import.Documents
         private SafeWebBrowser myBrowser;
         private bool myOwnWebBrowser = false;
 
-        public WinFormHtmlDocumentLoader( )
+        public WinFormHtmlDocumentLoader()
             : this( new SafeWebBrowser() )
         {
             myOwnWebBrowser = true;
