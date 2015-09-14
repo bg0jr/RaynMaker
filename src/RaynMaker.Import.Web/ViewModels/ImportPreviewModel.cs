@@ -10,8 +10,6 @@ using Plainion;
 using Plainion.Collections;
 using Plainion.Logging;
 using RaynMaker.Entities;
-using RaynMaker.Import.Documents;
-using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Services;
 using RaynMaker.Import.WinForms;
@@ -111,7 +109,7 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             set
             {
-                myDocumentBrowser = DocumentProcessorsFactory.CreateBrowser(value );
+                myDocumentBrowser = DocumentProcessorsFactory.CreateBrowser( value );
 
                 if( SelectedSite != null )
                 {

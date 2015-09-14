@@ -14,7 +14,6 @@ namespace RaynMaker.Import.WinForms
         private const int DISPID_AMBIENT_DLCONTROL = -5512;
         private int myDownloadControlFlags;
 
-        // we want our site class, not the default one
         protected override WebBrowserSiteBase CreateWebBrowserSiteBase()
         {
             return new SafeWebBrowserSite( this );
@@ -22,36 +21,39 @@ namespace RaynMaker.Import.WinForms
 
         public WebBrowserDownloadControlFlags DownloadControlFlags
         {
-            get { return ( WebBrowserDownloadControlFlags )_DownloadControlFlags; }
-            set { _DownloadControlFlags = ( int )value; }
+            get { return ( WebBrowserDownloadControlFlags )__DownloadControlFlags; }
+            set { __DownloadControlFlags = ( int )value; }
         }
 
         [Browsable( false )]
         [EditorBrowsable( EditorBrowsableState.Never )]
         [DispId( DISPID_AMBIENT_DLCONTROL )]
-        public int _DownloadControlFlags
+        public int __DownloadControlFlags
         {
             get { return myDownloadControlFlags; }
             set
             {
                 if( myDownloadControlFlags == value )
+                {
                     return;
+                }
 
                 myDownloadControlFlags = value;
-                IOleControl ctl = ( IOleControl )ActiveXInstance;
+                
+                var ctl = ( IOleControl )ActiveXInstance;
                 ctl.OnAmbientPropertyChange( DISPID_AMBIENT_DLCONTROL );
             }
         }
 
         protected class SafeWebBrowserSite : WebBrowserSite, IReflect
         {
-            private Dictionary<int, PropertyInfo> _dispidCache;
-            private SafeWebBrowser _host;
+            private Dictionary<int, PropertyInfo> myDispIdCache;
+            private SafeWebBrowser myHost;
 
             public SafeWebBrowserSite( SafeWebBrowser host )
                 : base( host )
             {
-                _host = host;
+                myHost = host;
             }
 
             object IReflect.InvokeMember( string name, BindingFlags invokeAttr, Binder binder, object target, object[] args, ParameterModifier[] modifiers, CultureInfo culture, string[] namedParameters )
@@ -62,11 +64,11 @@ namespace RaynMaker.Import.WinForms
                 if( name.StartsWith( dispidToken ) )
                 {
                     int dispid = int.Parse( name.Substring( dispidToken.Length, name.Length - dispidToken.Length - 1 ) );
-                    if( _dispidCache == null )
+                    if( myDispIdCache == null )
                     {
                         // WebBrowser has many properties, so we build a dispid cache on it
-                        _dispidCache = new Dictionary<int, PropertyInfo>();
-                        foreach( PropertyInfo pi in _host.GetType().GetProperties( BindingFlags.Public | BindingFlags.Instance ) )
+                        myDispIdCache = new Dictionary<int, PropertyInfo>();
+                        foreach( PropertyInfo pi in myHost.GetType().GetProperties( BindingFlags.Public | BindingFlags.Instance ) )
                         {
                             if( ( !pi.CanRead ) || ( pi.GetIndexParameters().Length > 0 ) )
                                 continue;
@@ -75,15 +77,15 @@ namespace RaynMaker.Import.WinForms
                             if( ( atts != null ) && ( atts.Length > 0 ) )
                             {
                                 DispIdAttribute da = ( DispIdAttribute )atts[ 0 ];
-                                _dispidCache[ da.Value ] = pi;
+                                myDispIdCache[ da.Value ] = pi;
                             }
                         }
                     }
 
                     PropertyInfo property;
-                    if( _dispidCache.TryGetValue( dispid, out property ) )
+                    if( myDispIdCache.TryGetValue( dispid, out property ) )
                     {
-                        ret = property.GetValue( _host, null );
+                        ret = property.GetValue( myHost, null );
                     }
                 }
                 return ret;

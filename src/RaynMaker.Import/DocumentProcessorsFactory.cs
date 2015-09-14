@@ -24,9 +24,6 @@ namespace RaynMaker.Import
 
         public static IDocumentBrowser CreateBrowser( SafeWebBrowser webBrowser )
         {
-            // always control the download settings
-            webBrowser.DownloadControlFlags = DocumentLoaderFactory.DownloadControlFlags;
-
             return new WinFormsDocumentBrowser( new Navigator(), webBrowser );
         }
 

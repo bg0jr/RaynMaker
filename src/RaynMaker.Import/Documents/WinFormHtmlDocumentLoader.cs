@@ -15,9 +15,6 @@ namespace RaynMaker.Import.Documents
         public WinFormHtmlDocumentLoader( )
             : this( new SafeWebBrowser() )
         {
-            // always control the download settings
-            myBrowser.DownloadControlFlags = DocumentLoaderFactory.DownloadControlFlags;
-         
             myOwnWebBrowser = true;
         }
 
@@ -25,7 +22,8 @@ namespace RaynMaker.Import.Documents
         {
             myBrowser = webBrowser;
 
-            // download settings controlled by DocumentProcessorsFactory
+            // always control the download settings
+            webBrowser.DownloadControlFlags = DocumentLoaderFactory.DownloadControlFlags;
         }
 
         public IDocument Load( Uri uri )
