@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7" Created="635771470975688770" LastModified="635776809345327786">
+<Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7" Created="635771470975688770" LastModified="635778629011955853">
   <Caption><![CDATA[Cleanup Import design]]></Caption>
   <Content><![CDATA[Import consists of the following aspects:
 - key entity is a "Document"
@@ -19,6 +19,10 @@
 - we should separate (with types) between a "Document Locator Template" (which also contains
   the "response" and a "Document Location" (which is finally just an URI)
 
+
+- we could use the serialized form as template - remember it in RAM -
+  and everytime we need a new instance (for a new stock) we just let
+  DataContractSerializer create a new instance
 
 ==> datum to Figure???]]></Content>
 </Node>

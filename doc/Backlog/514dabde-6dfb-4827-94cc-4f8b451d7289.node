@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="514dabde-6dfb-4827-94cc-4f8b451d7289" Created="635764584589978562" LastModified="635771472731849217">
-  <Caption><![CDATA[Persist DataLocators]]></Caption>
-  <Content><![CDATA[- DataContracts?
-- we could use the serialized form as template - remember it in RAM -
-  and everytime we need a new instance (for a new stock) we just let
-  DataContractSerializer create a new instance
-]]></Content>
-</Node>
