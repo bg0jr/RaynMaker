@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using Plainion;
 
@@ -19,13 +18,7 @@ namespace RaynMaker.Import.Spec
         {
             table.Rows.ToSet().Dump();
         }
-        /// <summary>
-        /// Dumps the table content as XML to Console.Out.
-        /// </summary>
-        public static void DumpAsXml( this DataTable table )
-        {
-            table.WriteXml( Console.Out );
-        }
+
         /// <summary>
         /// Extracts a cell or a series of the DataTable the given "anchor" is pointing to.
         /// If the "anchor" is "empty" the whole input table is returned.
@@ -145,86 +138,6 @@ namespace RaynMaker.Import.Spec
                 throw new InvalidExpressionException( string.Format( "Validation of series name failed: '{0}' does not contain '{1}'", result.Columns[ 0 ].ColumnName, settings.SeriesName ) );
             }
             return result;
-        }
-        /// <summary>
-        /// Writes the content of the table to the given writer in CSV
-        /// format.
-        /// The column description is not written.
-        /// </summary>
-        public static void WriteCsv( this DataTable table, TextWriter writer, string separator )
-        {
-            table.Rows.ToSet().WriteCsv( writer, separator );
-        }
-        /// <summary>
-        /// Grows the table so that the given row and column index are inside.
-        /// </summary>
-        public static void GrowToCell( this DataTable table, int row, int column )
-        {
-            int rows = Math.Max( row + 1, table.Rows.Count );
-            int columns = Math.Max( column + 1, table.Columns.Count );
-            table.ResizeTable( rows, columns );
-        }
-        /// <summary>
-        /// Resizes the table to the given number of rows and columns.
-        /// </summary>
-        public static void ResizeTable( this DataTable table, int rows, int columns )
-        {
-            while( columns > table.Columns.Count )
-            {
-                table.Columns.Add( new DataColumn() );
-            }
-            while( columns < table.Columns.Count )
-            {
-                table.Columns.RemoveAt( table.Columns.Count - 1 );
-            }
-            while( rows > table.Rows.Count )
-            {
-                table.Rows.Add( table.NewRow() );
-            }
-            while( rows < table.Rows.Count )
-            {
-                table.Rows.RemoveAt( table.Rows.Count - 1 );
-            }
-            table.AcceptChanges();
-        }
-        /// <summary>
-        /// Remove rows and columns from the end which are completely empty.
-        /// </summary>
-        public static void FitToContent( this DataTable table )
-        {
-            int num = 0;
-            int num2 = 0;
-            for( int i = 0; i < table.Rows.Count; i++ )
-            {
-                DataRow row = table.Rows[ i ];
-                if( !row.IsEmpty() )
-                {
-                    num2 = i;
-                }
-                num = Math.Max( num, DataTableExtensions.GetLastFilledColumn( row ) );
-            }
-            table.ResizeTable( num2 + 1, num + 1 );
-        }
-        private static int GetLastFilledColumn( DataRow row )
-        {
-            int result = 0;
-            for( int i = 0; i < row.ItemArray.Length; i++ )
-            {
-                if( !DataTableExtensions.IsEmptyCell( ( DataTable )null, row[ i ] ) )
-                {
-                    result = i;
-                }
-            }
-            return result;
-        }
-        /// <summary>
-        /// Defines what "empty" for a cell in a DataTable means.
-        /// </summary>
-        /// <param name="cell">cell content</param>
-        /// <param name="table">ignored - just for syntactic sugar</param>
-        public static bool IsEmptyCell( this DataTable table, object cell )
-        {
-            return cell == null || DBNull.Value.Equals( cell );
         }
     }
 }

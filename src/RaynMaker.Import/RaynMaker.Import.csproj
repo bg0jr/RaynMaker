@@ -37,7 +37,6 @@
     <Compile Include="Parsers\Html\HtmlParser.cs" />
     <Compile Include="Parsers\Text\TextParser.cs" />
     <Compile Include="Spec\CellDimension.cs" />
-    <Compile Include="Spec\DataColumnExtensions.cs" />
     <Compile Include="Spec\DataRowExtensions.cs" />
     <Compile Include="Spec\DataTableExtensions.cs" />
     <Compile Include="Spec\TableExtractionSettings.cs" />

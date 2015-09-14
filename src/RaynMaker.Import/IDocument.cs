@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Data;
-using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import
 {

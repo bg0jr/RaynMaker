@@ -22,39 +22,7 @@ namespace RaynMaker.Import.Spec
             }
             yield break;
         }
-        /// <summary>
-        /// Returns the sorted set of all indices of the given list.
-        /// </summary>
-        public static IEnumerable<int> Indices( this DataRowCollection list )
-        {
-            for( int i = 0; i < list.Count; i++ )
-            {
-                yield return i;
-            }
-            yield break;
-        }
-        /// <summary>
-        /// Dumps the table content to Console.Out.
-        /// </summary>
-        public static void WriteCsv( this IEnumerable<DataRow> rows, TextWriter writer, string separator )
-        {
-            if( rows.FirstOrDefault<DataRow>() == null )
-            {
-                return;
-            }
-            foreach( DataRow current in rows )
-            {
-                for( int i = 0; i < current.ItemArray.Length; i++ )
-                {
-                    writer.Write( current.ItemArray[ i ] );
-                    if( i + 1 < current.ItemArray.Length )
-                    {
-                        writer.Write( separator );
-                    }
-                }
-                writer.WriteLine();
-            }
-        }
+
         /// <summary>
         /// Dumps the table content to Console.Out.
         /// </summary>
@@ -87,6 +55,7 @@ namespace RaynMaker.Import.Spec
             }
             Console.WriteLine();
         }
+
         private static int GetColumnWidth( DataColumn col )
         {
             if( col == null )
@@ -99,13 +68,6 @@ namespace RaynMaker.Import.Spec
                 return num;
             }
             return 12;
-        }
-        /// <summary>
-        /// Returns true if the complete row is empty.
-        /// </summary>
-        public static bool IsEmpty( this DataRow row )
-        {
-            return row.ItemArray.All( ( object cell ) => DataTableExtensions.IsEmptyCell( ( DataTable )null, cell ) );
         }
     }
 }
