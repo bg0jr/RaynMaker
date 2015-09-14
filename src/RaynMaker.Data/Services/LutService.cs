@@ -19,6 +19,11 @@ namespace RaynMaker.Data.Services
 
         private void OnProjectChanged()
         {
+            if( myProjectHost.Project == null )
+            {
+                return;
+            }
+            
             if( CurrenciesLut == null )
             {
                 CurrenciesLut = new CurrenciesLut( myProjectHost );

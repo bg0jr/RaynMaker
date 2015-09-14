@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Import.Spec;
@@ -7,14 +8,13 @@ namespace RaynMaker.Import.Web.Model
 {
     class Session : BindableBase
     {
-        private IList<DatumLocator> myLocators;
         private DatumLocator myCurrentLocator;
         private Site myCurrentSite;
         private PathSeriesFormat myCurrentFormat;
 
         public Session()
         {
-            myLocators = new List<DatumLocator>();
+            Locators = new ObservableCollection<DatumLocator>();
         }
 
         public DatumLocator CurrentLocator
@@ -32,12 +32,7 @@ namespace RaynMaker.Import.Web.Model
             }
         }
 
-        public IEnumerable<DatumLocator> Locators { get { return myLocators; } }
-
-        public void AddLocator( DatumLocator locator )
-        {
-            myLocators.Add( locator );
-        }
+        public ObservableCollection<DatumLocator> Locators { get; private set; }
 
         public Site CurrentSite
         {
@@ -65,8 +60,8 @@ namespace RaynMaker.Import.Web.Model
             CurrentFormat = null;
             CurrentSite = null;
             CurrentLocator = null;
-            
-            myLocators.Clear();
+
+            Locators.Clear();
         }
     }
 }

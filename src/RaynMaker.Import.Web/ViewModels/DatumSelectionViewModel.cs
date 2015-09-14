@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Microsoft.Practices.Prism.Mvvm;
 using Plainion;
@@ -23,8 +24,15 @@ namespace RaynMaker.Import.Web.ViewModels
 
             mySession = session;
 
+            PropertyChangedEventManager.AddHandler( mySession, OnCurrentLocatorChanged, PropertySupport.ExtractPropertyName( () => mySession.CurrentLocator ) );
+            
             Datums = Dynamics.AllDatums;
 
+            OnCurrentLocatorChanged( null, null );
+        }
+
+        private void OnCurrentLocatorChanged( object sender, PropertyChangedEventArgs e )
+        {
             if( mySession.CurrentLocator != null )
             {
                 SelectedDatum = Datums.FirstOrDefault( d => d.Name == mySession.CurrentLocator.Datum );
@@ -34,7 +42,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 SelectedDatum = typeof( Price );
             }
         }
-
+        
         public IEnumerable<Type> Datums { get; private set; }
 
         public Type SelectedDatum
@@ -48,7 +56,7 @@ namespace RaynMaker.Import.Web.ViewModels
                     if( locator == null )
                     {
                         locator = new DatumLocator( mySelectedDatum.Name );
-                        mySession.AddLocator( locator );
+                        mySession.Locators.Add( locator );
                     }
                     mySession.CurrentLocator = locator;
                 }

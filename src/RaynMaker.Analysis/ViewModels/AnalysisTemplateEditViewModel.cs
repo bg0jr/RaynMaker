@@ -6,27 +6,42 @@ using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Analysis.Services;
+using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Analysis.ViewModels
 {
     [Export]
     class AnalysisTemplateEditViewModel : BindableBase, IInteractionRequestAware
     {
+        private IProjectHost myProjectHost;
         private StorageService myStorageService;
         private TextDocument myDocument;
 
         [ImportingConstructor]
-        public AnalysisTemplateEditViewModel(  StorageService storageService )
+        public AnalysisTemplateEditViewModel(IProjectHost projectHost,  StorageService storageService )
         {
+            myProjectHost = projectHost;
             myStorageService = storageService;
 
+            myProjectHost.Changed += OnProjectChanged;
+            OnProjectChanged();
+
             Document = new TextDocument();
-            Document.Text = myStorageService.LoadAnalysisTemplateText();
 
             OkCommand = new DelegateCommand( OnOk );
             CancelCommand = new DelegateCommand( OnCancel );
         }
 
+        private void OnProjectChanged()
+        {
+            if( myProjectHost.Project == null )
+            {
+                return;
+            }
+
+            Document.Text = myStorageService.LoadAnalysisTemplateText();
+        }
+        
         public Action FinishInteraction { get; set; }
 
         public INotification Notification { get; set; }

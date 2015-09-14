@@ -56,7 +56,7 @@ namespace RaynMaker.Analyzer
             var args = Environment.GetCommandLineArgs();
             if( args.Length == 2 )
             {
-                myProjectService.Load( args[ 1 ] );
+                myProjectService.LoadAsync( args[ 1 ] );
             }
 
             myNavigationService.NavigateToBrowser();

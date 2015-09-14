@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Mvvm;
-using RaynMaker.Entities.Datums;
-using RaynMaker.Import.Documents;
-using RaynMaker.Import.Parsers.Html;
-using RaynMaker.Import.Parsers.Html.WinForms;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Model;
 using RaynMaker.Import.Web.Services;
@@ -19,27 +14,43 @@ namespace RaynMaker.Import.Web.ViewModels
     class WebSpyViewModel : BindableBase
     {
         private IDocumentBrowser myDocumentBrowser = null;
+        private IProjectHost myProjectHost;
+        private StorageService myStorageService;
+        private Session mySession;
 
         [ImportingConstructor]
         public WebSpyViewModel( IProjectHost projectHost, StorageService storageService )
         {
-            // TODO: caused by KeepAliveDelayedRegionCreationBehavior all the "heavy" logic below already runs when
-            // starting the up - NOT when we open this window here
-            // -> how could we get it lazy again to improve app startup performance?
+            myProjectHost = projectHost;
+            myStorageService = storageService;
 
-            var session = new Session();
+            mySession = new Session();
 
-            foreach( var locator in storageService.Load() )
+            Datums = new DatumSelectionViewModel( mySession );
+            Navigation = new NavigationViewModel( mySession );
+            Formats = new DataFormatsViewModel( mySession );
+            Completion = new CompletionViewModel( mySession, myProjectHost, myStorageService );
+            
+            myProjectHost.Changed += OnProjectChanged;
+            OnProjectChanged();
+        }
+
+        private void OnProjectChanged()
+        {
+            if( myProjectHost.Project == null )
             {
-                session.AddLocator( locator );
+                return;
             }
 
-            session.CurrentLocator = session.Locators.FirstOrDefault();
+            mySession.Reset();
 
-            Datums = new DatumSelectionViewModel( session );
-            Navigation = new NavigationViewModel( session );
-            Formats = new DataFormatsViewModel( session );
-            Completion = new CompletionViewModel( session, projectHost, storageService );
+            foreach( var locator in myStorageService.Load() )
+            {
+                mySession.Locators.Add( locator );
+            }
+
+            mySession.CurrentLocator = mySession.Locators.FirstOrDefault();
+
         }
 
         public SafeWebBrowser Browser

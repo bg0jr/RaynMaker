@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="f570d534-0aff-4d7c-b83a-b9f6c8217fef" Created="635778610154597274" LastModified="635778610621463977">
+  <Caption><![CDATA[Startup Performance]]></Caption>
+  <Content><![CDATA[caused by KeepAliveDelayedRegionCreationBehavior all the UI controls are already creted when
+starting the up - NOT when we open the related window
+-> how could we get it lazy again to improve app startup performance?
+
+]]></Content>
+</Node>

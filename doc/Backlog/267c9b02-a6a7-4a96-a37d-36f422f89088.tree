@@ -32,5 +32,8 @@
     <Node Id="ef9e0841-29e9-4b85-89c1-b1434d96d924">
       <Caption><![CDATA[Fetch from internet: data]]></Caption>
     </Node>
+    <Node Id="f570d534-0aff-4d7c-b83a-b9f6c8217fef">
+      <Caption><![CDATA[Startup Performance]]></Caption>
+    </Node>
   </Node>
 </Tree>
