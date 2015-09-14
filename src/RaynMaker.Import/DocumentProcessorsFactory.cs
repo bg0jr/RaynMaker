@@ -24,7 +24,7 @@ namespace RaynMaker.Import
 
         public static IDocumentBrowser CreateBrowser( SafeWebBrowser webBrowser )
         {
-            return new WinFormsDocumentBrowser( new Navigator(), webBrowser );
+            return new WinFormsDocumentBrowser( CreateNavigator(), webBrowser );
         }
 
         public static IDocumentParser CreateParser( IDocument document, IFormat format )
