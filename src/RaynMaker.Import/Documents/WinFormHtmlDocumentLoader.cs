@@ -2,25 +2,26 @@
 using System.Threading;
 using System.Windows.Forms;
 using RaynMaker.Import.Parsers.Html.WinForms;
+using RaynMaker.Import.WinForms;
 
 namespace RaynMaker.Import.Documents
 {
     // TODO: at the moment we dont do any cleanup!
     class WinFormHtmlDocumentLoader : IDocumentLoader, IDisposable
     {
-        private WebBrowser myBrowser;
+        private SafeWebBrowser myBrowser;
         private bool myOwnWebBrowser = false;
 
         public WinFormHtmlDocumentLoader( )
-            : this( new WebBrowser() )
+            : this( new SafeWebBrowser() )
         {
             // always control the download settings
-            DocumentLoaderFactory.CreateDownloadController().HookUp( myBrowser );
+            myBrowser.DownloadControlFlags = DocumentLoaderFactory.DownloadControlFlags;
          
             myOwnWebBrowser = true;
         }
 
-        public WinFormHtmlDocumentLoader(  WebBrowser webBrowser )
+        public WinFormHtmlDocumentLoader( SafeWebBrowser webBrowser )
         {
             myBrowser = webBrowser;
 

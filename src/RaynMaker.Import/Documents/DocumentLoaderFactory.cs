@@ -1,12 +1,13 @@
 ﻿using System;
 using RaynMaker.Import.Documents;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.WinForms;
 
 namespace RaynMaker.Import.Documents
 {
     class DocumentLoaderFactory
     {
-        public static IDocumentLoader CreateLoader( DocumentType docType, System.Windows.Forms.WebBrowser webBrowser )
+        public static IDocumentLoader CreateLoader( DocumentType docType, SafeWebBrowser webBrowser )
         {
             if( docType == DocumentType.Html )
             {
@@ -16,16 +17,6 @@ namespace RaynMaker.Import.Documents
             {
                 return CreateLoader( docType );
             }
-        }
-
-        public static DownloadController CreateDownloadController()
-        {
-            return new DownloadController
-            {
-                Options = BrowserOptions.NotRunActiveX | BrowserOptions.NoActiveXDownload |
-                    BrowserOptions.NoBehaviors | BrowserOptions.NoJava | BrowserOptions.NoScripts |
-                    BrowserOptions.Utf8
-            };
         }
 
         public static IDocumentLoader CreateLoader( DocumentType docType )
@@ -47,5 +38,15 @@ namespace RaynMaker.Import.Documents
             }
         }
 
+
+        public static WebBrowserDownloadControlFlags DownloadControlFlags
+        {
+            get
+            {
+                return WebBrowserDownloadControlFlags.NotRunActiveX | WebBrowserDownloadControlFlags.NoActiveXDownload |
+                    WebBrowserDownloadControlFlags.NoBehaviors | WebBrowserDownloadControlFlags.NoJava | WebBrowserDownloadControlFlags.NoScripts |
+                    WebBrowserDownloadControlFlags.Utf8;
+            }
+        }
     }
 }

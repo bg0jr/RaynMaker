@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using Plainion;
 using RaynMaker.Import.Parsers.Html.WinForms;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.WinForms;
 
 namespace RaynMaker.Import.Documents
 {
@@ -10,7 +11,7 @@ namespace RaynMaker.Import.Documents
     {
         private INavigator myNavigator;
 
-        public WinFormsDocumentBrowser( INavigator navigator, WebBrowser webBrowser )
+        public WinFormsDocumentBrowser( INavigator navigator, SafeWebBrowser webBrowser )
         {
             myNavigator = navigator;
             // we have to send Navigating event also if user interacts with the real WebBrowser.
@@ -44,7 +45,7 @@ namespace RaynMaker.Import.Documents
             }
         }
 
-        public WebBrowser Browser { get; private set; }
+        public SafeWebBrowser Browser { get; private set; }
 
         public IDocument Document { get; private set; }
 

@@ -10,6 +10,7 @@ using RaynMaker.Import.Parsers.Html.WinForms;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Model;
 using RaynMaker.Import.Web.Services;
+using RaynMaker.Import.WinForms;
 using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Import.Web.ViewModels
@@ -41,7 +42,7 @@ namespace RaynMaker.Import.Web.ViewModels
             Completion = new CompletionViewModel( session, projectHost, storageService );
         }
 
-        public System.Windows.Forms.WebBrowser Browser
+        public SafeWebBrowser Browser
         {
             set
             {

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace RaynMaker.Import.Documents
+namespace RaynMaker.Import.WinForms
 {
     [Flags]
-    public enum BrowserOptions : long
+    public enum WebBrowserDownloadControlFlags : uint
     {
         /// <summary>
         /// No flags are set.

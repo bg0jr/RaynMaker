@@ -30,7 +30,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Documents\BrowserOptions.cs" />
+    <Compile Include="WinForms\IOleControl.cs" />
+    <Compile Include="WinForms\WebBrowserDownloadControlFlags.cs" />
     <Compile Include="Documents\DocumentLoaderFactory.cs" />
     <Compile Include="IDocumentParser.cs" />
     <Compile Include="Parsers\Html\HtmlParser.cs" />
@@ -44,10 +45,8 @@
     <Compile Include="Parsers\Text\CsvReader.cs" />
     <Compile Include="Documents\CacheSettings.cs" />
     <Compile Include="Documents\CachingNavigator.cs" />
-    <Compile Include="Documents\ComInterfaces.cs" />
     <Compile Include="Documents\DocumentBrowser.cs" />
     <Compile Include="Documents\DocumentCache.cs" />
-    <Compile Include="Documents\DownloadController.cs" />
     <Compile Include="Documents\HtmlDocumentHandle.cs" />
     <Compile Include="Documents\HtmlDocumentLoader.cs" />
     <Compile Include="Documents\WinFormsDocumentBrowser.cs" />
@@ -101,6 +100,9 @@
     <Compile Include="Spec\StringContainsLocator.cs" />
     <Compile Include="Spec\UriType.cs" />
     <Compile Include="Spec\ValueFormat.cs" />
+    <Compile Include="WinForms\SafeWebBrowser.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

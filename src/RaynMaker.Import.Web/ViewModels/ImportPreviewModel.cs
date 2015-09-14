@@ -14,6 +14,7 @@ using RaynMaker.Import.Documents;
 using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Services;
+using RaynMaker.Import.WinForms;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
@@ -106,7 +107,7 @@ namespace RaynMaker.Import.Web.ViewModels
             PublishData();
         }
 
-        public System.Windows.Forms.WebBrowser Browser
+        public SafeWebBrowser Browser
         {
             set
             {

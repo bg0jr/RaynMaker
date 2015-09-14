@@ -7,7 +7,7 @@
              xmlns:prism="http://www.codeplex.com/prism"
              xmlns:pn="http://github.com/ronin4net/plainion"
              xmlns:l="clr-namespace:RaynMaker.Import.Web.Views"
-             xmlns:winforms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+             xmlns:winforms="clr-namespace:RaynMaker.Import.WinForms;assembly=RaynMaker.Import"
              mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="700">
     <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid DockPanel.Dock="Top" Margin="3">
@@ -29,7 +29,7 @@
 
         <Grid Margin="3">
             <WindowsFormsHost HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,2,0,2">
-                <winforms:WebBrowser x:Name="myBrowser"/>
+                <winforms:SafeWebBrowser x:Name="myBrowser"/>
             </WindowsFormsHost>
         </Grid>
     </DockPanel>

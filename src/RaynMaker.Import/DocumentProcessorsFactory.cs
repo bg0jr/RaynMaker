@@ -3,6 +3,7 @@ using RaynMaker.Import.Documents;
 using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Parsers.Text;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.WinForms;
 
 namespace RaynMaker.Import
 {
@@ -21,10 +22,10 @@ namespace RaynMaker.Import
             return navigator;
         }
 
-        public static IDocumentBrowser CreateBrowser( System.Windows.Forms.WebBrowser webBrowser )
+        public static IDocumentBrowser CreateBrowser( SafeWebBrowser webBrowser )
         {
             // always control the download settings
-            DocumentLoaderFactory.CreateDownloadController().HookUp( webBrowser );
+            webBrowser.DownloadControlFlags = DocumentLoaderFactory.DownloadControlFlags;
 
             return new WinFormsDocumentBrowser( new Navigator(), webBrowser );
         }
