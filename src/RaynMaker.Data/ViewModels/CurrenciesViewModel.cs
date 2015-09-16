@@ -15,12 +15,13 @@ namespace RaynMaker.Data.ViewModels
     class CurrenciesViewModel : BindableBase, IInteractionRequestAware
     {
         private IProjectHost myProjectHost;
+        private ILutService myLutService;
 
         [ImportingConstructor]
         public CurrenciesViewModel( IProjectHost projectHost, ILutService lutService )
         {
             myProjectHost = projectHost;
-            CurrenciesLut = lutService.CurrenciesLut;
+            myLutService = lutService;
 
             OkCommand = new DelegateCommand( OnOk );
             CancelCommand = new DelegateCommand( OnCancel );
@@ -30,9 +31,23 @@ namespace RaynMaker.Data.ViewModels
 
             AddTranslationCommand = new DelegateCommand<Currency>( OnAddTranslation );
             RemoveTranslationCommand = new DelegateCommand<Translation>( OnRemoveTranslation );
+            
+            myProjectHost.Changed += OnProjectChanged;
+            OnProjectChanged();
         }
 
-        public ICurrenciesLut CurrenciesLut { get; private set; }
+        private void OnProjectChanged()
+        {
+            if( myProjectHost.Project == null )
+            {
+                return;
+            }
+
+            OnPropertyChanged( PropertySupport.ExtractPropertyName( () => CurrenciesLut ) );
+        }
+
+
+        public ICurrenciesLut CurrenciesLut { get { return myLutService.CurrenciesLut; } }
 
         public Action FinishInteraction { get; set; }
 
