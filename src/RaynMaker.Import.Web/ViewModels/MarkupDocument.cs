@@ -32,6 +32,7 @@ namespace RaynMaker.Import.Web.ViewModels
         }
 
         public Action<bool> ValidationChanged = null;
+        public Action SelectionChanged = null;
 
         public HtmlElementAdapter SelectedElement
         {
@@ -41,6 +42,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 myMarker.UnmarkAll();
 
                 mySelectedElement = value;
+
                 if( mySelectedElement == null )
                 {
                     myTable = null;
@@ -52,6 +54,11 @@ namespace RaynMaker.Import.Web.ViewModels
                     Apply();
 
                     mySelectedElement.Element.ScrollIntoView( false );
+                }
+
+                if( SelectionChanged != null )
+                {
+                    SelectionChanged();
                 }
             }
         }
@@ -203,7 +210,7 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             var element = myDocument.Document.GetElementFromPoint( e.ClientMousePosition );
 
-            if( element.Parent.IsMarked() )
+            if( myMarker.IsMarked( element.Parent ) )
             {
                 element = element.Parent;
             }
@@ -234,7 +241,7 @@ namespace RaynMaker.Import.Web.ViewModels
             }
             else
             {
-                myMarker.MarkElement( mySelectedElement.Element );
+                myMarker.Mark( mySelectedElement.Element );
             }
 
             MarkRowHeader();
@@ -288,6 +295,10 @@ namespace RaynMaker.Import.Web.ViewModels
         private void DoSkipRows()
         {
             int column = HtmlTable.GetColumnIndex( mySelectedElement );
+            if( column == -1 )
+            {
+                return;
+            }
 
             Func<int, IHtmlElement> GetCellAt = row => myTable.GetCellAt( row, column );
 
@@ -297,6 +308,10 @@ namespace RaynMaker.Import.Web.ViewModels
         private void DoSkipColumns()
         {
             int row = HtmlTable.GetRowIndex( mySelectedElement );
+            if( row == -1 )
+            {
+                return;
+            }
 
             Func<int, IHtmlElement> GetCellAt = col => myTable.GetCellAt( row, col );
 
@@ -345,12 +360,13 @@ namespace RaynMaker.Import.Web.ViewModels
                 header = myMarker.MarkedElements
                     .Select( m => myDocument.Create( m ) )
                     .Select( m => FindHeader( m ) )
+                    .Distinct()
                     .ToList();
             }
 
             foreach( var e in header.Cast<HtmlElementAdapter>() )
             {
-                myMarker.MarkElement( e.Element, Color.SteelBlue );
+                myMarker.Mark( e.Element, Color.SteelBlue );
             }
         }
 
@@ -363,7 +379,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             foreach( var pos in positions )
             {
-                myMarker.UnmarkElement( ( ( HtmlElementAdapter )GetCellAt( pos ) ).Element );
+                myMarker.Unmark( ( ( HtmlElementAdapter )GetCellAt( pos ) ).Element );
             }
         }
     }

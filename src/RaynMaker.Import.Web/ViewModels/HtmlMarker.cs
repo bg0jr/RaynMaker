@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -8,71 +9,53 @@ using RaynMaker.Import.Parsers.Html.WinForms;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
-    /// <summary>
-    /// Helper class to work with markups in HTML documents.
-    /// <remarks>
-    /// It remembers the marked up element to simplify the work with markups.
-    /// </remarks>
-    /// <seealso cref="HtmlElementExtensions.MarkElement"/>
-    /// <seealso cref="HtmlElementExtensions.UnmarkElement"/>
-    /// <seealso cref="HtmlElementExtensions.IsMarked"/>
-    /// </summary>
     public class HtmlMarker
     {
-        /// <summary>
-        /// Constructor.
-        /// <remarks>
-        /// Default markup color: yellow.
-        /// </remarks>
-        /// </summary>
+        private IList<HtmlElement> myMarkedElements;
+
         public HtmlMarker()
         {
-            MarkedElements = new List<HtmlElement>();
+            myMarkedElements = new List<HtmlElement>();
             DefaultColor = Color.Yellow;
         }
 
         public HtmlDocumentAdapter Document { get; set; }
 
-        /// <summary>
-        /// List of marked elements.
-        /// </summary>
-        public IList<HtmlElement> MarkedElements { get; private set; }
-
-        /// <summary>
-        /// Default color for markups.
-        /// </summary>
+        public IEnumerable<HtmlElement> MarkedElements { get { return myMarkedElements; } }
         public Color DefaultColor { get; set; }
 
-        /// <summary>
-        /// Marks the given element.
-        /// </summary>
-        public void MarkElement( HtmlElement e )
+        public void Mark( HtmlElement e )
         {
-            MarkElement( e, DefaultColor );
+            Mark( e, DefaultColor );
         }
 
-        /// <summary>
-        /// Marks the given element with the given color.
-        /// </summary>
-        public void MarkElement( HtmlElement e, Color color )
+        public void Mark( HtmlElement e, Color color )
         {
             Contract.RequiresNotNull( e != null, "e" );
 
             if( IsMarked( e ) )
             {
                 // unmark first - maybe it was marked with another color before
-                UnmarkElement( e );
+                Unmark( e );
             }
 
-            e.MarkElement( color );
+            if( e.InnerHtml == null )
+            {
+                // create a pseudo element
+                e.AppendChild( e.Document.CreateElement( "SPAN" ) );
+                e.InnerText = "&nbsp;";
+            }
 
-            MarkedElements.Add( e );
+            string text = e.InnerText == null ? "&nbsp;" : e.InnerText.Trim();
+
+            e.InnerHtml = string.Format( "<SPAN id=\"__maui_markup__\" style=\"color:black;background-color:{0}\">{1}</SPAN>",
+                ColorTranslator.ToHtml( color ), text );
+
+            myMarkedElements.Add( e );
+            Debug.WriteLine( GetHashCode() + "Add    : " + e.InnerText );
         }
 
-        /// <summary>
-        /// Removes the markup from the given element if any known.
-        /// </summary>
-        public void UnmarkElement( HtmlElement e )
+        public void Unmark( HtmlElement e )
         {
             Contract.RequiresNotNull( e != null, "e" );
 
@@ -81,73 +64,61 @@ namespace RaynMaker.Import.Web.ViewModels
                 return;
             }
 
-            e.UnmarkElement();
+            e.InnerHtml = e.InnerText;
 
-            MarkedElements.Remove( e );
+            myMarkedElements.Remove( e );
+            Debug.WriteLine( GetHashCode() + "Remove : " + e.InnerText );
         }
 
-        /// <summary>
-        /// Removes all the known markups.
-        /// </summary>
+        private bool HasMarkUp( HtmlElement e )
+        {
+            return ( e.Children.Count > 0 && e.Children[ 0 ].Id == "__maui_markup__" );
+        }
+
         public void UnmarkAll()
         {
-            foreach( var e in MarkedElements.ToList() )
+            foreach( var e in myMarkedElements.ToList() )
             {
-                UnmarkElement( e );
+                Unmark( e );
             }
+
+            Contract.Invariant( myMarkedElements.Count == 0, "No element expected to be selected" );
         }
 
-        /// <summary>
-        /// Indicates whether the given element is marked.
-        /// </summary>
         public bool IsMarked( HtmlElement e )
         {
             Contract.RequiresNotNull( e != null, "e" );
 
-            return MarkedElements.Contains( e );
+            return myMarkedElements.Contains( e );
         }
 
-        /// <summary>
-        /// Marks the complete row specified by the given table row or cell.
-        /// </summary>
         public void MarkTableRow( HtmlElement start )
         {
             MarkTableRow( start, DefaultColor );
         }
 
-        /// <summary>
-        /// Marks the complete row specified by the given table row or cell
-        /// with the given color.
-        /// </summary>
         public void MarkTableRow( HtmlElement start, Color color )
         {
             Contract.RequiresNotNull( start != null, "start" );
 
             foreach( var e in HtmlTable.GetRow( Document.Create( start ) ).OfType<HtmlElementAdapter>() )
             {
-                MarkElement( e.Element, color );
+                Mark( e.Element, color );
             }
         }
 
-        /// <summary>
-        /// Marks the complete column specified by the given table row or cell.
-        /// </summary>
         public void MarkTableColumn( HtmlElement start )
         {
             MarkTableColumn( start, DefaultColor );
         }
 
-        /// <summary>
-        /// Marks the complete column specified by the given table row or cell
-        /// with the given color.
-        /// </summary>
         public void MarkTableColumn( HtmlElement start, Color color )
         {
             Contract.RequiresNotNull( start != null, "start" );
 
             foreach( var e in HtmlTable.GetColumn( Document.Create( start ) ).OfType<HtmlElementAdapter>() )
             {
-                MarkElement( e.Element, color );
+                Mark( e.Element, color );
             }
         }
     }

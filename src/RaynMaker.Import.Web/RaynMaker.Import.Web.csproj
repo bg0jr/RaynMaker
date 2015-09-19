@@ -110,7 +110,6 @@
     <Compile Include="Views\DataFormatsView.xaml.cs">
       <DependentUpon>DataFormatsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\HtmlElementExtensions.cs" />
     <Compile Include="ViewModels\HtmlMarker.cs" />
     <Compile Include="Views\DatumSelectionView.xaml.cs">
       <DependentUpon>DatumSelectionView.xaml</DependentUpon>

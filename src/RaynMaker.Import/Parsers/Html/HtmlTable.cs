@@ -57,7 +57,12 @@ namespace RaynMaker.Import.Parsers.Html
         /// </summary>
         public static int GetColumnIndex( IHtmlElement e )
         {
-            return GetEmbeddingTD( e ).GetChildPos();
+            var td = GetEmbeddingTD( e );
+            if( td == null )
+            {
+                return -1;
+            }
+            return td.GetChildPos();
         }
 
         /// <summary>
@@ -86,7 +91,12 @@ namespace RaynMaker.Import.Parsers.Html
         /// </summary> 
         public static int GetRowIndex( IHtmlElement e )
         {
-            return GetEmbeddingTR( e ).GetChildPos();
+            var tr = GetEmbeddingTR( e );
+            if( tr == null )
+            {
+                return -1;
+            } 
+            return tr.GetChildPos();
         }
 
         /// <summary>

@@ -39,6 +39,12 @@ namespace RaynMaker.Import.Web.ViewModels
 
         private void OnCurrentSiteChanged( object sender, PropertyChangedEventArgs e )
         {
+            SelectedFormatIndex = -1;
+
+            foreach( var format in Formats )
+            {
+                format.Document = myDocument;
+            }
             Formats.Clear();
 
             if( mySession.CurrentSite != null )
@@ -89,8 +95,14 @@ namespace RaynMaker.Import.Web.ViewModels
             get { return mySelectedFormatIndex; }
             set
             {
+                var oldFormat = mySelectedFormatIndex;
                 if( SetProperty( ref mySelectedFormatIndex, value ) )
                 {
+                    if( oldFormat != -1 )
+                    {
+                        Formats[ oldFormat ].Document = null;
+                    }
+
                     if( mySelectedFormatIndex != -1 )
                     {
                         mySession.CurrentFormat = Formats[ mySelectedFormatIndex ].Format;

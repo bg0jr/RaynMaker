@@ -36,6 +36,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             myMarkupDocument = new MarkupDocument();
             myMarkupDocument.ValidationChanged += SeriesName_ValidationChanged;
+            myMarkupDocument.SelectionChanged += OnSelectionChanged;
 
             Value = "";
 
@@ -79,11 +80,6 @@ namespace RaynMaker.Import.Web.ViewModels
                     doc = adapter.Document;
                 }
 
-                if( myMarkupDocument.Document != null )
-                {
-                    myMarkupDocument.Document.Click -= HtmlDocument_Click;
-                }
-
                 myMarkupDocument.Document = doc;
 
                 if( myMarkupDocument.Document == null )
@@ -91,19 +87,17 @@ namespace RaynMaker.Import.Web.ViewModels
                     return;
                 }
 
-                myMarkupDocument.Document.Click += HtmlDocument_Click;
-
-                if( myMarkupDocument.SelectedElement != null )
-                {
-                    HtmlDocument_Click( null, null );
-                }
+                OnSelectionChanged();
             }
         }
 
-        private void HtmlDocument_Click( object sender, System.Windows.Forms.HtmlElementEventArgs e )
+        private void OnSelectionChanged()
         {
-            Path = myMarkupDocument.SelectedElement.GetPath().ToString();
-            Value = myMarkupDocument.SelectedElement.InnerText;
+            if( myMarkupDocument.SelectedElement != null )
+            {
+                Path = myMarkupDocument.SelectedElement.GetPath().ToString();
+                Value = myMarkupDocument.SelectedElement.InnerText;
+            }
         }
 
         public string Path
