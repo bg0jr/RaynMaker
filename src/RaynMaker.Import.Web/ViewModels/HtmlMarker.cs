@@ -48,11 +48,11 @@ namespace RaynMaker.Import.Web.ViewModels
 
             string text = e.InnerText == null ? "&nbsp;" : e.InnerText.Trim();
 
-            e.InnerHtml = string.Format( "<SPAN id=\"__maui_markup__\" style=\"color:black;background-color:{0}\">{1}</SPAN>",
+            e.InnerHtml = string.Format( "<SPAN id=\"__rym_markup__\" style=\"color:black;background-color:{0}\">{1}</SPAN>",
                 ColorTranslator.ToHtml( color ), text );
 
             myMarkedElements.Add( e );
-            Debug.WriteLine( GetHashCode() + "Add    : " + e.InnerText );
+            //Debug.WriteLine( GetHashCode() + "Add    : " + e.InnerText );
         }
 
         public void Unmark( HtmlElement e )
@@ -67,12 +67,12 @@ namespace RaynMaker.Import.Web.ViewModels
             e.InnerHtml = e.InnerText;
 
             myMarkedElements.Remove( e );
-            Debug.WriteLine( GetHashCode() + "Remove : " + e.InnerText );
+            //Debug.WriteLine( GetHashCode() + "Remove : " + e.InnerText );
         }
 
         private bool HasMarkUp( HtmlElement e )
         {
-            return ( e.Children.Count > 0 && e.Children[ 0 ].Id == "__maui_markup__" );
+            return ( e.Children.Count > 0 && e.Children[ 0 ].Id == "__rym_markup__" );
         }
 
         public void UnmarkAll()
@@ -101,7 +101,15 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             Contract.RequiresNotNull( start != null, "start" );
 
-            foreach( var e in HtmlTable.GetRow( Document.Create( start ) ).OfType<HtmlElementAdapter>() )
+            var adapter = Document.Create( start );
+
+            if( HtmlTable.GetEmbeddingTR( adapter ) == null )
+            {
+                // not clicked into table row
+                return;
+            }
+
+            foreach( var e in HtmlTable.GetRow( adapter ).OfType<HtmlElementAdapter>() )
             {
                 Mark( e.Element, color );
             }
@@ -116,7 +124,15 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             Contract.RequiresNotNull( start != null, "start" );
 
-            foreach( var e in HtmlTable.GetColumn( Document.Create( start ) ).OfType<HtmlElementAdapter>() )
+            var adapter = Document.Create( start );
+
+            if( HtmlTable.GetEmbeddingTD( adapter ) == null )
+            {
+                // not clicked into table column
+                return;
+            }
+
+            foreach( var e in HtmlTable.GetColumn( adapter ).OfType<HtmlElementAdapter>() )
             {
                 Mark( e.Element, color );
             }

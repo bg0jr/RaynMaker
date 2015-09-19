@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Microsoft.Practices.Prism.Mvvm;
@@ -63,5 +64,9 @@ namespace RaynMaker.Import.Web.Model
 
             Locators.Clear();
         }
+
+        // TODO: workaround to allow selection from validation because
+        // HtmlMarker is stateful
+        public Action ApplyCurrentFormat { get; set; }
     }
 }

@@ -75,7 +75,14 @@ namespace RaynMaker.Import.Web.ViewModels
 
             var provider = new BasicDatumProvider( Browser );
             provider.Navigate( mySession.CurrentSite, SelectedStock );
-            provider.Mark( mySession.CurrentFormat );
+            
+            // do not use Mark() API ... it creates markup which will not be removed again
+            //provider.Mark( mySession.CurrentFormat );
+
+            if( mySession.ApplyCurrentFormat != null )
+            {
+                mySession.ApplyCurrentFormat();
+            }
         }
 
         public ICommand ClearCommand { get; private set; }

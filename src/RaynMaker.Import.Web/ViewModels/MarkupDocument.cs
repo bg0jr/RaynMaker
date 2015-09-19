@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -70,6 +71,7 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 if( myDocument != null )
                 {
+                    Debug.WriteLine( GetHashCode() + ": Remove OnClick" );
                     myDocument.Document.Click -= HtmlDocument_Click;
                 }
 
@@ -79,6 +81,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 }
 
                 myDocument = new HtmlDocumentAdapter( value );
+                Debug.WriteLine( GetHashCode() + ": Add OnClick" );
                 myDocument.Document.Click += HtmlDocument_Click;
 
                 myMarker.Document = myDocument;
@@ -88,6 +91,21 @@ namespace RaynMaker.Import.Web.ViewModels
             }
         }
 
+        private void HtmlDocument_Click( object sender, HtmlElementEventArgs e )
+        {
+            Debug.WriteLine( GetHashCode() + ": OnClick" );
+
+            var element = myDocument.Document.GetElementFromPoint( e.ClientMousePosition );
+
+            if( myMarker.IsMarked( element.Parent ) )
+            {
+                element = element.Parent;
+            }
+
+            var adapter = myDocument.Create( element );
+            SelectedElement = adapter;
+        }
+        
         public string Anchor
         {
             get { return myAnchor; }
@@ -204,19 +222,6 @@ namespace RaynMaker.Import.Web.ViewModels
                 mySeriesName = value;
                 ValidateSeriesName();
             }
-        }
-
-        private void HtmlDocument_Click( object sender, HtmlElementEventArgs e )
-        {
-            var element = myDocument.Document.GetElementFromPoint( e.ClientMousePosition );
-
-            if( myMarker.IsMarked( element.Parent ) )
-            {
-                element = element.Parent;
-            }
-
-            var adapter = myDocument.Create( element );
-            SelectedElement = adapter;
         }
 
         public void Apply()

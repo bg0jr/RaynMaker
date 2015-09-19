@@ -22,6 +22,7 @@ namespace RaynMaker.Import.Web.ViewModels
             Contract.RequiresNotNull( session, "session" );
 
             mySession = session;
+            mySession.ApplyCurrentFormat = ApplyCurrentFormat;
 
             PropertyChangedEventManager.AddHandler( mySession, OnCurrentSiteChanged, PropertySupport.ExtractPropertyName( () => mySession.CurrentSite ) );
 
@@ -37,13 +38,21 @@ namespace RaynMaker.Import.Web.ViewModels
             OnCurrentSiteChanged( null, null );
         }
 
+        private void ApplyCurrentFormat()
+        {
+            if( SelectedFormatIndex != -1 )
+            {
+                Formats[ SelectedFormatIndex ].Apply();
+            }
+        }
+
         private void OnCurrentSiteChanged( object sender, PropertyChangedEventArgs e )
         {
             SelectedFormatIndex = -1;
 
             foreach( var format in Formats )
             {
-                format.Document = myDocument;
+                format.Document = null;
             }
             Formats.Clear();
 
@@ -58,8 +67,10 @@ namespace RaynMaker.Import.Web.ViewModels
                 {
                     OnAdd();
                 }
-
-                SelectedFormatIndex = 0;
+                else
+                {
+                    SelectedFormatIndex = 0;
+                }
             }
         }
 
@@ -95,6 +106,12 @@ namespace RaynMaker.Import.Web.ViewModels
             get { return mySelectedFormatIndex; }
             set
             {
+                if( value == Formats.Count )
+                {
+                    // this is caused by binding this property to TabControl
+                    value = -1;
+                }
+
                 var oldFormat = mySelectedFormatIndex;
                 if( SetProperty( ref mySelectedFormatIndex, value ) )
                 {

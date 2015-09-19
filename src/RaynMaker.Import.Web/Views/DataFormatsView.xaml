@@ -17,7 +17,7 @@
                 <TextBlock VerticalAlignment="Center">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0}/{1}">
-                            <Binding Path="SelectedFormatIndex" Converter="{StaticResource Plus1}"/>
+                            <Binding Path="SelectedFormatIndex" Converter="{StaticResource Plus1}" Mode="OneWay"/>
                             <Binding Path="Formats.Count"/>
                         </MultiBinding>
                     </TextBlock.Text>

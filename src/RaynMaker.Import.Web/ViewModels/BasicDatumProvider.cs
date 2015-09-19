@@ -89,6 +89,8 @@ namespace RaynMaker.Import.Web.ViewModels
             markupDoc.SkipRows = format.SkipRows;
 
             markupDoc.Apply();
+
+            markupDoc.Document = null;
         }
 
         public DataTable GetResult( PathSeriesFormat format )
