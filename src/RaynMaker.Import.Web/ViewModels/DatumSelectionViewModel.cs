@@ -25,8 +25,10 @@ namespace RaynMaker.Import.Web.ViewModels
             mySession = session;
 
             PropertyChangedEventManager.AddHandler( mySession, OnCurrentLocatorChanged, PropertySupport.ExtractPropertyName( () => mySession.CurrentLocator ) );
-            
-            Datums = Dynamics.AllDatums;
+
+            Datums = Dynamics.AllDatums
+                .OrderBy( d => d.Name )
+                .ToList();
 
             OnCurrentLocatorChanged( null, null );
         }

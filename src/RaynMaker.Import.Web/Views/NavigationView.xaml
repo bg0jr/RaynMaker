@@ -66,7 +66,7 @@
                     Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" HorizontalAlignment="Left">
                 <Image Source="/RaynMaker.Infrastructure;Component/Resources/Remove.png" Width="17" Height="17"/>
             </Button>
-            
+
             <TextBlock Grid.Row="1" Grid.Column="0" Text="Name" VerticalAlignment="Center"/>
             <TextBox Grid.Row="1" Grid.Column="1" Margin="5,0,0,2" Text="{Binding SiteName}">
                 <TextBox.IsEnabled>
