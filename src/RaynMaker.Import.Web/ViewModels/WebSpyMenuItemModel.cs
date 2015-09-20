@@ -1,44 +1,16 @@
 ﻿using System.ComponentModel.Composition;
-using System.Windows.Input;
-using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
-using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Infrastructure;
+using RaynMaker.Infrastructure.Mvvm;
 
-namespace RaynMaker.Import.Web
+namespace RaynMaker.Import.Web.ViewModels
 {
     [Export]
-    public class WebSpyMenuItemModel : BindableBase
+    public class WebSpyMenuItemModel : ToolMenuItemModelBase
     {
-        private IProjectHost myProjectHost;
-
         [ImportingConstructor]
         public WebSpyMenuItemModel( IProjectHost projectHost )
+            : base( projectHost, "Web Spy" )
         {
-            myProjectHost = projectHost;
-            myProjectHost.Changed += myProjectHost_Changed;
-
-            InvokeCommand = new DelegateCommand( OnInvoke );
-            InvokeRequest = new InteractionRequest<INotification>();
         }
-
-        public bool IsEnabled { get { return myProjectHost.Project != null; } }
-
-        void myProjectHost_Changed()
-        {
-            OnPropertyChanged( () => IsEnabled );
-        }
-
-        private void OnInvoke()
-        {
-            var notification = new Notification();
-            notification.Title = "WebSpyView";
-
-            InvokeRequest.Raise( notification, c => { } );
-        }
-
-        public ICommand InvokeCommand { get; private set; }
-
-        public InteractionRequest<INotification> InvokeRequest { get; private set; }
     }
 }

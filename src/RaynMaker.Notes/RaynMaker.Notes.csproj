@@ -3,18 +3,12 @@
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Import Project="..\..\build\Globals.msbuild" />
   <PropertyGroup>
-    <ProjectGuid>{837ADDBE-901B-4ED9-9DF4-0E259E262167}</ProjectGuid>
+    <ProjectGuid>{915A1FE6-9C41-4260-B32D-D958A524F177}</ProjectGuid>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <RootNamespace>RaynMaker.Infrastructure</RootNamespace>
-    <AssemblyName>RaynMaker.Infrastructure</AssemblyName>
+    <RootNamespace>RaynMaker.Notes</RootNamespace>
+    <AssemblyName>RaynMaker.Notes</AssemblyName>
     <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Practices.Prism.Composition, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -45,13 +39,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Prism.Mvvm.1.1.1\lib\net45\Microsoft.Practices.Prism.SharedInterfaces.dll</HintPath>
     </Reference>
-    <Reference Include="Plainion.AppFw.Wpf, Version=2.7.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Plainion.AppFw.Wpf.2.7.0.0\lib\NET45\Plainion.AppFw.Wpf.dll</HintPath>
-    </Reference>
-    <Reference Include="Plainion.AppFw.Wpf.Infrastructure, Version=2.7.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Plainion.AppFw.Wpf.2.7.0.0\lib\NET45\Plainion.AppFw.Wpf.Infrastructure.dll</HintPath>
+      <HintPath>..\..\packages\CommonServiceLocator.1.2\lib\portable-windows8+net40+sl5+windowsphone8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="Plainion.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -67,7 +57,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Expression.Blend.Sdk.1.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -85,61 +74,43 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompositionNames.cs" />
-    <Compile Include="Controls\DefaultConfirmationView.xaml.cs">
-      <DependentUpon>DefaultConfirmationView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\DefaultNotificationView.xaml.cs">
-      <DependentUpon>DefaultNotificationView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\OverlayViewAction.cs" />
-    <Compile Include="Controls\OverlayViewActionRegionAdapter.cs" />
-    <Compile Include="Events\AssetSelectedEvent.cs" />
-    <Compile Include="IProject.cs" />
-    <Compile Include="IProjectHost.cs" />
-    <Compile Include="Mvvm\IValidationAware.cs" />
-    <Compile Include="Mvvm\AttributesBasedValidatableBindableBase.cs" />
-    <Compile Include="Mvvm\ToolMenuItemModelBase.cs" />
-    <Compile Include="Services\IAssetNavigation.cs" />
-    <Compile Include="IContentPage.cs" />
+    <Compile Include="NotesModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
     <AppDesigner Include="Properties\" />
     <Compile Include="RegionNames.cs" />
-    <Compile Include="Services\ICurrenciesLut.cs" />
-    <Compile Include="Services\IDataProvider.cs" />
-    <Compile Include="Services\ILutService.cs" />
+    <Compile Include="ViewModels\NotesMenuItemModel.cs" />
+    <Compile Include="Views\NotesMenuItem.xaml.cs">
+      <DependentUpon>NotesMenuItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NotesView.xaml.cs">
+      <DependentUpon>NotesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\NotesViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RaynMaker.Entities\RaynMaker.Entities.csproj">
-      <Project>{0b9b8ac3-da99-4264-9d59-382adee06fd9}</Project>
-      <Name>RaynMaker.Entities</Name>
+    <ProjectReference Include="..\RaynMaker.Infrastructure\RaynMaker.Infrastructure.csproj">
+      <Project>{837addbe-901b-4ed9-9df4-0e259e262167}</Project>
+      <Name>RaynMaker.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\DefaultConfirmationView.xaml">
+    <Page Include="Views\NotesMenuItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\DefaultNotificationView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Templates.xaml">
+    <Page Include="Views\NotesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Add.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Remove.png" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,14 +1,14 @@
 ﻿using System.ComponentModel.Composition;
 using System.Windows.Controls;
-using RaynMaker.Import.Web.ViewModels;
+using RaynMaker.Notes.ViewModels;
 
-namespace RaynMaker.Import.Web.Views
+namespace RaynMaker.Notes.Views
 {
     [Export]
-    public partial class WebSpyMenuItem : MenuItem
+    public partial class NotesMenuItem : MenuItem
     {
         [ImportingConstructor]
-        public WebSpyMenuItem( WebSpyMenuItemModel model )
+        public NotesMenuItem( NotesMenuItemModel model )
         {
             InitializeComponent();
 
