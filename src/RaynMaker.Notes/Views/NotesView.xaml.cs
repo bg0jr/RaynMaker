@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.IO;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using Microsoft.Win32;
 using RaynMaker.Notes.ViewModels;
 
 namespace RaynMaker.Notes.Views
@@ -15,16 +13,30 @@ namespace RaynMaker.Notes.Views
     [Export]
     public partial class NotesView : UserControl
     {
+        private NotesViewModel myViewModel;
+
         [ImportingConstructor]
         internal NotesView( NotesViewModel viewModel )
         {
+            myViewModel = viewModel;
+
             InitializeComponent();
 
             cmbFontFamily.ItemsSource = Fonts.SystemFontFamilies.OrderBy( f => f.Source );
             cmbFontSize.ItemsSource = new List<double>() { 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72 };
 
-            DataContext = viewModel;
+            DataContext = myViewModel;
+
+            Loaded += OnLoaded;
         }
+
+        private void OnLoaded( object sender, RoutedEventArgs e )
+        {
+            myViewModel.Document = rtbEditor.Document;
+        }
+
+        // https://social.msdn.microsoft.com/Forums/vstudio/en-US/29340547-0fe6-42f9-8350-aa24ffc7d67e/richtextbox-insert-hyperlink-at-caret-position?forum=wpf
+        // http://cxhelloworld.blogspot.de/2012/05/hyperlink-in-wpf-richtextbox.html
 
         private void rtbEditor_SelectionChanged( object sender, RoutedEventArgs e )
         {
@@ -41,30 +53,6 @@ namespace RaynMaker.Notes.Views
             cmbFontSize.Text = temp.ToString();
         }
 
-        private void Open_Executed( object sender, ExecutedRoutedEventArgs e )
-        {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "Rich Text Format (*.rtf)|*.rtf|All files (*.*)|*.*";
-            if( dlg.ShowDialog() == true )
-            {
-                FileStream fileStream = new FileStream( dlg.FileName, FileMode.Open );
-                TextRange range = new TextRange( rtbEditor.Document.ContentStart, rtbEditor.Document.ContentEnd );
-                range.Load( fileStream, DataFormats.Rtf );
-            }
-        }
-
-        private void Save_Executed( object sender, ExecutedRoutedEventArgs e )
-        {
-            SaveFileDialog dlg = new SaveFileDialog();
-            dlg.Filter = "Rich Text Format (*.rtf)|*.rtf|All files (*.*)|*.*";
-            if( dlg.ShowDialog() == true )
-            {
-                FileStream fileStream = new FileStream( dlg.FileName, FileMode.Create );
-                TextRange range = new TextRange( rtbEditor.Document.ContentStart, rtbEditor.Document.ContentEnd );
-                range.Save( fileStream, DataFormats.Rtf );
-            }
-        }
-
         private void cmbFontFamily_SelectionChanged( object sender, SelectionChangedEventArgs e )
         {
             if( cmbFontFamily.SelectedItem != null )
@@ -74,6 +62,11 @@ namespace RaynMaker.Notes.Views
         private void cmbFontSize_TextChanged( object sender, TextChangedEventArgs e )
         {
             rtbEditor.Selection.ApplyPropertyValue( Inline.FontSizeProperty, cmbFontSize.Text );
+        }
+
+        private void rtbEditor_TextChanged( object sender, TextChangedEventArgs e )
+        {
+            Debug.WriteLine( "." );
         }
     }
 }

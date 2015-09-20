@@ -80,6 +80,7 @@
     </Compile>
     <AppDesigner Include="Properties\" />
     <Compile Include="RegionNames.cs" />
+    <Compile Include="Services\StorageService.cs" />
     <Compile Include="ViewModels\NotesMenuItemModel.cs" />
     <Compile Include="Views\NotesMenuItem.xaml.cs">
       <DependentUpon>NotesMenuItem.xaml</DependentUpon>
@@ -109,8 +110,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -5,15 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.CommandBindings>
-        <CommandBinding Command="ApplicationCommands.Open" Executed="Open_Executed" />
-        <CommandBinding Command="ApplicationCommands.Save" Executed="Save_Executed" />
-    </UserControl.CommandBindings>
-    <DockPanel>
+    <DockPanel LastChildFill="True">
         <ToolBar DockPanel.Dock="Top">
-            <Button Command="ApplicationCommands.Open" Content="Open"/>
-            <Button Command="ApplicationCommands.Save" Content="Save"/>
-            <Separator />
             <ToggleButton Command="EditingCommands.ToggleBold" Name="btnBold" Content="Bold"/>
             <ToggleButton Command="EditingCommands.ToggleItalic" Name="btnItalic" Content="Italic"/>
             <ToggleButton Command="EditingCommands.ToggleUnderline" Name="btnUnderline" Content="Underline"/>
@@ -21,6 +14,12 @@
             <ComboBox Name="cmbFontFamily" Width="150" SelectionChanged="cmbFontFamily_SelectionChanged" />
             <ComboBox Name="cmbFontSize" Width="50" IsEditable="True" TextBoxBase.TextChanged="cmbFontSize_TextChanged" />
         </ToolBar>
-        <RichTextBox Name="rtbEditor" SelectionChanged="rtbEditor_SelectionChanged" Background="White"/>
+
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+            <Button Content="OK" Command="{Binding OkCommand}" Width="50"/>
+            <Button Content="Cancel" Command="{Binding CancelCommand}" Margin="5,0,0,0" Width="50"/>
+        </StackPanel>
+
+        <RichTextBox Name="rtbEditor" SelectionChanged="rtbEditor_SelectionChanged" TextChanged="rtbEditor_TextChanged" Background="White"/>
     </DockPanel>
 </UserControl>
