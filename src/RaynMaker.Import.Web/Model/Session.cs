@@ -9,42 +9,26 @@ namespace RaynMaker.Import.Web.Model
 {
     class Session : BindableBase
     {
-        private DatumLocator myCurrentLocator;
-        private Site myCurrentSite;
+        private DataSource myCurrentSource;
         private PathSeriesFormat myCurrentFormat;
 
         public Session()
         {
-            Locators = new ObservableCollection<DatumLocator>();
+            Sources = new ObservableCollection<DataSource>();
         }
 
-        public DatumLocator CurrentLocator
+        public ObservableCollection<DataSource> Sources { get; private set; }
+
+        public DataSource CurrentSource
         {
-            get { return myCurrentLocator; }
+            get { return myCurrentSource; }
             set
             {
-                if( SetProperty( ref myCurrentLocator, value ) )
+                if( SetProperty( ref myCurrentSource, value ) )
                 {
-                    if( myCurrentLocator != null )
+                    if( myCurrentSource != null )
                     {
-                        CurrentSite = myCurrentLocator.Sites.FirstOrDefault();
-                    }
-                }
-            }
-        }
-
-        public ObservableCollection<DatumLocator> Locators { get; private set; }
-
-        public Site CurrentSite
-        {
-            get { return myCurrentSite; }
-            set
-            {
-                if( SetProperty( ref myCurrentSite, value ) )
-                {
-                    if( myCurrentSite != null )
-                    {
-                        CurrentFormat = (PathSeriesFormat)myCurrentSite.Formats.FirstOrDefault();
+                        CurrentFormat = (PathSeriesFormat)myCurrentSource.FormatSpecs.FirstOrDefault();
                     }
                 }
             }
@@ -59,10 +43,9 @@ namespace RaynMaker.Import.Web.Model
         public void Reset()
         {
             CurrentFormat = null;
-            CurrentSite = null;
-            CurrentLocator = null;
+            CurrentSource = null;
 
-            Locators.Clear();
+            Sources.Clear();
         }
 
         // TODO: workaround to allow selection from validation because

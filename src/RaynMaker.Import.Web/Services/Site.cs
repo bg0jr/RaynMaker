@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using RaynMaker.Import.Spec;
 
-namespace RaynMaker.Import.Spec
+namespace RaynMaker.Import.Web.Services
 {
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "Site" )]
-    public class Site
+     class Site
     {
         public Site( string name )
             : this( name, null )

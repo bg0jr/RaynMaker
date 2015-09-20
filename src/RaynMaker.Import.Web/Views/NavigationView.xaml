@@ -33,12 +33,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
@@ -50,42 +46,8 @@
                 </ObjectDataProvider>
             </Grid.Resources>
             
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Sites" VerticalAlignment="Center"/>
-            <ComboBox Grid.Row="0" Grid.Column="1" Margin="5,0,0,2" Width="150" ItemsSource="{Binding Sites}" SelectedItem="{Binding SelectedSite}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Name}"/>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-            <Button Grid.Row="0" Grid.Column="2" Margin="5,0,0,2" Command="{Binding AddSiteCommand}" 
-                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-                <Image Source="/RaynMaker.Infrastructure;Component/Resources/Add.png" Width="17" Height="17"/>
-            </Button>
-            <Button Grid.Row="0" Grid.Column="3" Margin="5,0,0,2" Command="{Binding RemoveSiteCommand}" 
-                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" HorizontalAlignment="Left">
-                <Image Source="/RaynMaker.Infrastructure;Component/Resources/Remove.png" Width="17" Height="17"/>
-            </Button>
-
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="Name" VerticalAlignment="Center"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Margin="5,0,0,2" Text="{Binding SiteName}">
-                <TextBox.IsEnabled>
-                    <Binding Path="SelectedSite">
-                        <Binding.Converter>
-                            <pn:ConverterChain>
-                                <pn:IsEmptyConverter/>
-                                <pn:NotConverter/>
-                            </pn:ConverterChain>
-                        </Binding.Converter>
-                    </Binding>
-                </TextBox.IsEnabled>
-            </TextBox>
-            <TextBlock Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="5,2,0,2"
-                       Text="Sites are queried alphabetically when fetching data. Put numbers at the beginning of the name (with leading zeros) to define your preferences." 
-                       VerticalAlignment="Stretch" TextWrapping="Wrap"/>
-
-            <TextBlock Grid.Row="2" Grid.Column="0" Text="Document type" VerticalAlignment="Center"/>
-            <ComboBox Grid.Row="2" Grid.Column="1" Margin="5,0,0,2" Width="150" 
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Document type" VerticalAlignment="Center"/>
+            <ComboBox Grid.Row="0" Grid.Column="1" Margin="5,0,0,2" Width="150" 
                       ItemsSource="{Binding Source={StaticResource DocumentType}, Mode=OneTime}" 
                       SelectedItem="{Binding SelectedDocumentType}"/>
         </Grid>

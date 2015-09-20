@@ -9,8 +9,11 @@ namespace RaynMaker.Import.Web.Services
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "DatumLocatorSheet" )]
     class DatumLocatorSheet
     {
-        [Required,ValidateObject]
         [DataMember]
         public IEnumerable<DatumLocator> Locators { get; set; }
+
+        [Required, ValidateObject]
+        [DataMember]
+        public IEnumerable<DataSource> Sources { get; set; }
     }
 }

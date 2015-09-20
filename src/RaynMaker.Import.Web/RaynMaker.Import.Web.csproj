@@ -89,12 +89,14 @@
   <ItemGroup>
     <Compile Include="ImportWebModule.cs" />
     <Compile Include="Model\Session.cs" />
+    <Compile Include="Services\DatumLocator.cs" />
     <Compile Include="Services\DatumLocatorSheet.cs" />
+    <Compile Include="Services\Site.cs" />
     <Compile Include="Services\StorageService.cs" />
     <Compile Include="ViewModels\AddressBarViewModel.cs" />
     <Compile Include="ViewModels\CompletionViewModel.cs" />
     <Compile Include="ViewModels\DataFormatsViewModel.cs" />
-    <Compile Include="ViewModels\DatumSelectionViewModel.cs" />
+    <Compile Include="ViewModels\DataSourceDefinitionViewModel.cs" />
     <Compile Include="ViewModels\EditCaptureViewModel.cs" />
     <Compile Include="ViewModels\ImportPreviewModel.cs" />
     <Compile Include="ViewModels\NavigationViewModel.cs" />
@@ -111,8 +113,8 @@
       <DependentUpon>DataFormatsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\HtmlMarker.cs" />
-    <Compile Include="Views\DatumSelectionView.xaml.cs">
-      <DependentUpon>DatumSelectionView.xaml</DependentUpon>
+    <Compile Include="Views\DataSourceDefinitionView.xaml.cs">
+      <DependentUpon>DataSourceDefinitionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EditCaptureView.xaml.cs">
       <DependentUpon>EditCaptureView.xaml</DependentUpon>
@@ -156,9 +158,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DatumSelectionView.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Views\DataSourceDefinitionView.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\EditCaptureView.xaml">
       <SubType>Designer</SubType>

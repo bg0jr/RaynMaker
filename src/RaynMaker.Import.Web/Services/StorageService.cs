@@ -20,13 +20,13 @@ namespace RaynMaker.Import.Web.Services
             myProjectHost = projectHost;
         }
 
-        public IEnumerable<DatumLocator> Load()
+        public IEnumerable<DataSource> Load()
         {
             var file = Path.Combine( myProjectHost.Project.StorageRoot, "DatumLocators.xdb" );
 
             if( !File.Exists( file ) )
             {
-                return Enumerable.Empty<DatumLocator>();
+                return Enumerable.Empty<DataSource>();
             }
 
             var sheet = Load( file );
@@ -35,7 +35,7 @@ namespace RaynMaker.Import.Web.Services
 
             RecursiveValidator.Validate( sheet );
 
-            return sheet.Locators;
+            return sheet.Sources;
         }
 
         private static DatumLocatorSheet Load( string file )
@@ -49,6 +49,8 @@ namespace RaynMaker.Import.Web.Services
 
         private void Migrate( DatumLocatorSheet sheet )
         {
+            var sources = new List<DataSource>();
+
             foreach( var locator in sheet.Locators )
             {
                 foreach( var site in locator.Sites )
@@ -57,21 +59,30 @@ namespace RaynMaker.Import.Web.Services
                     {
                         format.Datum = locator.Datum;
                     }
+
+                    sources.Add( new DataSource
+                    {
+                        Vendor = site.Name,
+                        Name = site.Name,
+                        Quality = 1,
+                        LocationSpec = site.Navigation,
+                        FormatSpecs = site.Formats
+                    } );
                 }
             }
 
             RecursiveValidator.Validate( sheet );
 
-            Store( sheet.Locators );
+            Store( sources );
         }
 
-        public void Store( IEnumerable<DatumLocator> locators )
+        public void Store( IEnumerable<DataSource> sources )
         {
             var file = Path.Combine( myProjectHost.Project.StorageRoot, "DatumLocators.xdb" );
             using( var stream = new FileStream( file, FileMode.Create, FileAccess.Write ) )
             {
                 var serializer = CreateSerializer();
-                serializer.WriteObject( stream, new DatumLocatorSheet { Locators = locators } );
+                serializer.WriteObject( stream, new DatumLocatorSheet { Sources = sources } );
             }
         }
 

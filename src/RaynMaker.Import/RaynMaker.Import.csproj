@@ -31,7 +31,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Spec\v2\DataSource.cs" />
+    <Compile Include="Spec\DataSource.cs" />
+    <Compile Include="Spec\SpecBase.cs" />
     <Compile Include="WinForms\IOleControl.cs" />
     <Compile Include="WinForms\WebBrowserDownloadControlFlags.cs" />
     <Compile Include="Documents\DocumentLoaderFactory.cs" />
@@ -84,7 +85,6 @@
     <Compile Include="Spec\AbstractTableFormat.cs" />
     <Compile Include="Spec\Anchor.cs" />
     <Compile Include="Spec\CsvFormat.cs" />
-    <Compile Include="Spec\DatumLocator.cs" />
     <Compile Include="Spec\DocumentType.cs" />
     <Compile Include="Spec\FormatColumn.cs" />
     <Compile Include="Spec\Formular.cs" />
@@ -97,7 +97,6 @@
     <Compile Include="Spec\PathTableFormat.cs" />
     <Compile Include="Spec\RegexPatternLocator.cs" />
     <Compile Include="Spec\SeparatorSeriesFormat.cs" />
-    <Compile Include="Spec\Site.cs" />
     <Compile Include="Spec\StringContainsLocator.cs" />
     <Compile Include="Spec\UriType.cs" />
     <Compile Include="Spec\ValueFormat.cs" />

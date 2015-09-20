@@ -2,9 +2,9 @@
 
 namespace RaynMaker.Import.Web.Views
 {
-    public partial class CompletionView : UserControl
+    public partial class DataSourceDefinitionView : UserControl
     {
-        public CompletionView()
+        public DataSourceDefinitionView()
         {
             InitializeComponent();
         }

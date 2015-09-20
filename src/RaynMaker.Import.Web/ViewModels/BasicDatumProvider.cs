@@ -22,14 +22,14 @@ namespace RaynMaker.Import.Web.ViewModels
 
         public IHtmlDocument Document { get; private set; }
 
-        public void Navigate( Site site, Stock stock )
+        public void Navigate( Navigation navigation, Stock stock )
         {
-            Contract.RequiresNotNull( site, "site" );
+            Contract.RequiresNotNull( navigation, "navigation" );
             Contract.RequiresNotNull( stock, "stock" );
 
             var macroPattern = new Regex( @"(\$\{.*\})" );
             var filtered = new List<NavigatorUrl>();
-            foreach( var navUrl in site.Navigation.Uris )
+            foreach( var navUrl in navigation.Uris )
             {
                 var md = macroPattern.Match( navUrl.UrlString );
                 if( md.Success )

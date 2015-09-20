@@ -9,13 +9,14 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -31,18 +32,28 @@
             </ObjectDataProvider>
         </Grid.Resources>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Selected path" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"  Text="{Binding Path}" Margin="5,2,0,0"/>
-        <TextBlock Grid.Row="0" Grid.Column="4" Text="=>" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,2,0,0"/>
-        <TextBox Grid.Row="0" Grid.Column="5" Text="{Binding Value}" Margin="5,2,0,0" Width="100"/>
+        <TextBlock Grid.Row="0"  Grid.Column="0" Text="Datum" VerticalAlignment="Center" />
+        <ComboBox Grid.Row="0" Grid.Column="1" Margin="5,2,0,0" 
+                  ItemsSource="{Binding Datums}" SelectedItem="{Binding SelectedDatum}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
 
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="Dimension" VerticalAlignment="Center"/>
-        <ComboBox Grid.Row="1" Grid.Column="1" Width="100" Margin="5,2,0,0"
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Selected path" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"  Text="{Binding Path}" Margin="5,2,0,0"/>
+        <TextBlock Grid.Row="1" Grid.Column="4" Text="=>" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,2,0,0"/>
+        <TextBox Grid.Row="1" Grid.Column="5" Text="{Binding Value}" Margin="5,2,0,0" Width="100"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Dimension" VerticalAlignment="Center"/>
+        <ComboBox Grid.Row="2" Grid.Column="1" Margin="5,2,0,0"
                                       ItemsSource="{Binding Source={StaticResource CellDimensions}, Mode=OneTime}" 
                                       SelectedItem="{Binding SelectedDimension}"/>
 
-        <TextBlock Grid.Row="1" Grid.Column="2" Text="Series name contains" VerticalAlignment="Center" Margin="5,0,0,0"/>
-        <TextBox Grid.Row="1" Grid.Column="3" Margin="5,2,0,0" Text="{Binding SeriesName, UpdateSourceTrigger=PropertyChanged}">
+        <TextBlock Grid.Row="2" Grid.Column="2" Text="Series name contains" VerticalAlignment="Center" Margin="5,0,0,0"/>
+        <TextBox Grid.Row="2" Grid.Column="3" Margin="5,2,0,0" Text="{Binding SeriesName, UpdateSourceTrigger=PropertyChanged}">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Background" Value="White"/>
@@ -58,24 +69,24 @@
             </TextBox.Style>
         </TextBox>
 
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="Row header column" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Margin="5,2,0,0" Text="{Binding RowHeaderColumn, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Row header column" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="5,2,0,0" Text="{Binding RowHeaderColumn, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <TextBlock Grid.Row="2" Grid.Column="2" Text="Skip rows" VerticalAlignment="Center" Margin="5,0,0,0"/>
-        <TextBox Grid.Row="2" Grid.Column="3" Width="50" HorizontalAlignment="Left" Margin="5,2,0,0" Text="{Binding SkipRows, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Grid.Row="3" Grid.Column="2" Text="Skip rows" VerticalAlignment="Center" Margin="5,0,0,0"/>
+        <TextBox Grid.Row="3" Grid.Column="3" Width="50" HorizontalAlignment="Left" Margin="5,2,0,0" Text="{Binding SkipRows, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="Column header row" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="3" Grid.Column="1" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding ColumnHeaderRow, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Column header row" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding ColumnHeaderRow, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <TextBlock Grid.Row="3" Grid.Column="2" Text="Skip columns" VerticalAlignment="Center" Margin="5,0,0,0"/>
-        <TextBox Grid.Row="3" Grid.Column="3" Width="50" HorizontalAlignment="Left" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding SkipColumns, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Grid.Row="4" Grid.Column="2" Text="Skip columns" VerticalAlignment="Center" Margin="5,0,0,0"/>
+        <TextBox Grid.Row="5" Grid.Column="3" Width="50" HorizontalAlignment="Left" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding SkipColumns, UpdateSourceTrigger=PropertyChanged}"/>
        
-        <TextBlock Grid.Row="4" Grid.Column="0" Text="Time format" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding TimeFormat}"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="Time format" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="5" Grid.Column="1" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding TimeFormat}"/>
       
-        <TextBlock Grid.Row="4" Grid.Column="2" Text="Value format" VerticalAlignment="Center" Margin="5,0,0,0"/>
-        <TextBox Grid.Row="4" Grid.Column="3" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding ValueFormat}"/>
-        <CheckBox Grid.Row="4" Grid.Column="4" Margin="5,2,0,0" VerticalAlignment="Center" Grid.ColumnSpan="2"
+        <TextBlock Grid.Row="5" Grid.Column="2" Text="Value format" VerticalAlignment="Center" Margin="5,0,0,0"/>
+        <TextBox Grid.Row="5" Grid.Column="3" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding ValueFormat}"/>
+        <CheckBox Grid.Row="5" Grid.Column="4" Margin="5,2,0,0" VerticalAlignment="Center" Grid.ColumnSpan="2"
                   Content="In Mio" IsChecked="{Binding InMillions}"/>
     </Grid>
 </UserControl>

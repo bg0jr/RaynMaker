@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Runtime.Serialization;
 
-namespace RaynMaker.Import.Spec
+namespace RaynMaker.Import.Web.Services
 {
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "DatumLocator" )]
-    public class DatumLocator
+    class DatumLocator
     {
         public DatumLocator( string datum, params Site[] sites )
             : this( datum, new List<Site>( sites ) )

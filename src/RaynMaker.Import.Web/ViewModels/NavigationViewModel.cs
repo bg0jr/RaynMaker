@@ -20,8 +20,6 @@ namespace RaynMaker.Import.Web.ViewModels
     {
         private Session mySession;
         private IDocumentBrowser myBrowser;
-        private Site mySelectedSite;
-        private string mySiteName;
         private DocumentType mySelectedDocumentType;
         private bool myIsCapturing;
 
@@ -31,36 +29,39 @@ namespace RaynMaker.Import.Web.ViewModels
 
             mySession = session;
 
-            PropertyChangedEventManager.AddHandler( mySession, OnCurrentLocatorChanged, PropertySupport.ExtractPropertyName( () => mySession.CurrentLocator ) );
-
-            AddSiteCommand = new DelegateCommand( OnAddSite );
-            RemoveSiteCommand = new DelegateCommand( OnRemoveSite );
+            PropertyChangedEventManager.AddHandler( mySession, OnCurrentDataSourceChanged, PropertySupport.ExtractPropertyName( () => mySession.CurrentSource ) );
 
             CaptureCommand = new DelegateCommand( OnCapture );
             EditCommand = new DelegateCommand( OnEdit );
 
             EditCaptureRequest = new InteractionRequest<IConfirmation>();
 
-            Sites = new ObservableCollection<Site>();
             Urls = new ObservableCollection<NavigatorUrl>();
 
             WeakEventManager<INotifyCollectionChanged, NotifyCollectionChangedEventArgs>.AddHandler( Urls, "CollectionChanged", OnUrlChanged );
 
             AddressBar = new AddressBarViewModel();
 
-            OnCurrentLocatorChanged( null, null );
+            OnCurrentDataSourceChanged( null, null );
         }
 
-        private void OnCurrentLocatorChanged( object sender, PropertyChangedEventArgs e )
+        private void OnCurrentDataSourceChanged( object sender, PropertyChangedEventArgs e )
         {
-            Sites.Clear();
-
-            if( mySession.CurrentLocator != null )
+            if( mySession.CurrentSource != null )
             {
-                Sites.AddRange( mySession.CurrentLocator.Sites.OrderBy( s => s.Name ) );
-            }
+                // changing Urls property will automatically be reflected in mySelectedSite.Navigation.Uris.
+                // -> make a copy!
+                var modelUrls = mySession.CurrentSource.LocationSpec.Uris.ToList();
+                Urls.Clear();
+                Urls.AddRange( modelUrls );
 
-            SelectedSite = Sites.FirstOrDefault();
+                SelectedDocumentType = mySession.CurrentSource.LocationSpec.DocumentType;
+            }
+            else
+            {
+                Urls.Clear();
+                SelectedDocumentType = DocumentType.None;
+            }
         }
 
         public IDocumentBrowser Browser
@@ -105,91 +106,6 @@ namespace RaynMaker.Import.Web.ViewModels
             }
         }
 
-        public ObservableCollection<Site> Sites { get; private set; }
-
-        public Site SelectedSite
-        {
-            get { return mySelectedSite; }
-            set
-            {
-                if( SetProperty( ref mySelectedSite, value ) )
-                {
-                    mySession.CurrentSite = mySelectedSite;
-
-                    if( mySelectedSite != null )
-                    {
-                        // changing Urls property will automatically be reflected in mySelectedSite.Navigation.Uris.
-                        // -> make a copy!
-                        var modelUrls = mySelectedSite.Navigation.Uris.ToList();
-                        Urls.Clear();
-                        Urls.AddRange( modelUrls );
-
-                        SelectedDocumentType = mySelectedSite.Navigation.DocumentType;
-                        SiteName = mySelectedSite.Name;
-                    }
-                    else
-                    {
-                        Urls.Clear();
-                        SelectedDocumentType = DocumentType.None;
-                        SiteName = null;
-                    }
-                }
-            }
-        }
-
-        public ICommand AddSiteCommand { get; private set; }
-
-        private void OnAddSite()
-        {
-            var site = new Site( "unknown" );
-            site.Navigation = new Navigation( DocumentType.Html );
-
-            mySession.CurrentLocator.Sites.Add( site );
-
-            // sorting ...
-            Sites.Clear();
-            Sites.AddRange( mySession.CurrentLocator.Sites.OrderBy( s => s.Name ) );
-
-            SelectedSite = site;
-        }
-
-        public ICommand RemoveSiteCommand { get; private set; }
-
-        private void OnRemoveSite()
-        {
-            var site = SelectedSite;
-
-            Sites.Remove( site );
-            SelectedSite = Sites.FirstOrDefault();
-
-            mySession.CurrentLocator.Sites.Remove( site );
-        }
-
-        public string SiteName
-        {
-            get { return mySiteName; }
-            set
-            {
-                if( SetProperty( ref mySiteName, value ) )
-                {
-                    if( SelectedSite != null && SelectedSite.Name != mySiteName )
-                    {
-                        SelectedSite.Name = mySiteName;
-
-                        var old = SelectedSite;
-                        SelectedSite = null;
-
-                        // sorting ...
-                        Sites.Clear();
-                        Sites.AddRange( mySession.CurrentLocator.Sites.OrderBy( s => s.Name ) );
-
-                        // force update of caption of combobox
-                        SelectedSite = old;
-                    }
-                }
-            }
-        }
-
         public DocumentType SelectedDocumentType
         {
             get { return mySelectedDocumentType; }
@@ -197,9 +113,9 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 if( SetProperty( ref mySelectedDocumentType, value ) )
                 {
-                    if( SelectedSite != null )
+                    if( mySession.CurrentSource != null )
                     {
-                        SelectedSite.Navigation.DocumentType = mySelectedDocumentType;
+                        mySession.CurrentSource.LocationSpec.DocumentType = mySelectedDocumentType;
                     }
                 }
             }
@@ -209,10 +125,10 @@ namespace RaynMaker.Import.Web.ViewModels
 
         private void OnUrlChanged( object sender, NotifyCollectionChangedEventArgs e )
         {
-            if( mySelectedSite != null )
+            if( mySession.CurrentSource != null )
             {
-                mySelectedSite.Navigation.Uris.Clear();
-                mySelectedSite.Navigation.Uris.AddRange( Urls );
+                mySession.CurrentSource.LocationSpec.Uris.Clear();
+                mySession.CurrentSource.LocationSpec.Uris.AddRange( Urls );
             }
         }
 

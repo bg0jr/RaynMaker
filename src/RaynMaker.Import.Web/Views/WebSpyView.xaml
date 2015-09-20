@@ -19,8 +19,8 @@
         <ScrollViewer Grid.Row="0" Margin="3" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
             <ItemsControl>
                 <ItemsControl.Items>
-                    <GroupBox Header="Datum" Margin="0,0,0,5">
-                        <l:DatumSelectionView DataContext="{Binding Datums}"/>
+                    <GroupBox Header="Source" Margin="0,0,0,5">
+                        <l:DataSourceDefinitionView DataContext="{Binding SourceDefinition}"/>
                     </GroupBox>
                     <GroupBox Header="Navigation" Margin="0,0,0,5">
                         <l:NavigationView DataContext="{Binding Navigation}"/>

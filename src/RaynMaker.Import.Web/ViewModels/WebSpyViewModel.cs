@@ -26,7 +26,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             mySession = new Session();
 
-            Datums = new DatumSelectionViewModel( mySession );
+            SourceDefinition = new DataSourceDefinitionViewModel( mySession );
             Navigation = new NavigationViewModel( mySession );
             Formats = new DataFormatsViewModel( mySession );
             Completion = new CompletionViewModel( mySession, myProjectHost, myStorageService );
@@ -44,13 +44,12 @@ namespace RaynMaker.Import.Web.ViewModels
 
             mySession.Reset();
 
-            foreach( var locator in myStorageService.Load() )
+            foreach( var source in myStorageService.Load() )
             {
-                mySession.Locators.Add( locator );
+                mySession.Sources.Add( source );
             }
 
-            mySession.CurrentLocator = mySession.Locators.FirstOrDefault();
-
+            mySession.CurrentSource = mySession.Sources.FirstOrDefault();
         }
 
         public SafeWebBrowser Browser
@@ -86,7 +85,7 @@ namespace RaynMaker.Import.Web.ViewModels
         //    base.OnHandleDestroyed( e );
         //}
 
-        public DatumSelectionViewModel Datums { get; private set; }
+        public DataSourceDefinitionViewModel SourceDefinition { get; private set; }
 
         public NavigationViewModel Navigation { get; private set; }
 

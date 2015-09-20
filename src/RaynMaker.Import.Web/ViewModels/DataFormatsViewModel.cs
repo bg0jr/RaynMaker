@@ -24,7 +24,7 @@ namespace RaynMaker.Import.Web.ViewModels
             mySession = session;
             mySession.ApplyCurrentFormat = ApplyCurrentFormat;
 
-            PropertyChangedEventManager.AddHandler( mySession, OnCurrentSiteChanged, PropertySupport.ExtractPropertyName( () => mySession.CurrentSite ) );
+            PropertyChangedEventManager.AddHandler( mySession, OnCurrentSiteChanged, PropertySupport.ExtractPropertyName( () => mySession.CurrentSource ) );
 
             mySelectedFormatIndex = -1;
 
@@ -56,9 +56,9 @@ namespace RaynMaker.Import.Web.ViewModels
             }
             Formats.Clear();
 
-            if( mySession.CurrentSite != null )
+            if( mySession.CurrentSource != null )
             {
-                foreach( var format in mySession.CurrentSite.Formats )
+                foreach( var format in mySession.CurrentSource.Formats )
                 {
                     Formats.Add( new SingleFormatViewModel( ( PathSeriesFormat )format ) );
                 }
@@ -178,7 +178,7 @@ namespace RaynMaker.Import.Web.ViewModels
             format.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000.0000" );
             format.TimeAxisFormat = new FormatColumn( "time", typeof( int ), "0000" );
 
-            mySession.CurrentSite.Formats.Add( format );
+            mySession.CurrentSource.Formats.Add( format );
 
             Formats.Add( new SingleFormatViewModel( format ) );
 
@@ -199,7 +199,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             var formatVM = Formats[ mySelectedFormatIndex ];
 
-            mySession.CurrentSite.Formats.Remove( formatVM.Format );
+            mySession.CurrentSource.Formats.Remove( formatVM.Format );
             Formats.Remove( formatVM );
 
             SelectedFormatIndex = Formats.Count - 1;

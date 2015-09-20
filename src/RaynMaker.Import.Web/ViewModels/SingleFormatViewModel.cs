@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Practices.Prism.Mvvm;
 using Plainion;
+using RaynMaker.Entities;
 using RaynMaker.Import.Documents;
 using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Parsers.Html.WinForms;
@@ -12,6 +14,7 @@ namespace RaynMaker.Import.Web.ViewModels
 {
     class SingleFormatViewModel : BindableBase
     {
+        private Type mySelectedDatum;
         private string myPath;
         private string myValue;
         private CellDimension mySelectedDimension;
@@ -40,7 +43,12 @@ namespace RaynMaker.Import.Web.ViewModels
 
             Value = "";
 
+            Datums = Dynamics.AllDatums
+                .OrderBy( d => d.Name )
+                .ToList();
+
             // first set properties without side-effects to others
+            SelectedDatum = Datums.FirstOrDefault( d => d.Name == Format.Datum );
             Path = Format.Path;
             SkipColumns = string.Join( ",", format.SkipColumns );
             SkipRows = string.Join( ",", format.SkipRows );
@@ -100,6 +108,22 @@ namespace RaynMaker.Import.Web.ViewModels
             }
         }
 
+        // TODO: we do not support add, remove and edit of datums as they are currently fixed by entities model.
+        // TODO: "Standing" datums also exists
+        public IEnumerable<Type> Datums { get; private set; }
+
+        public Type SelectedDatum
+        {
+            get { return mySelectedDatum; }
+            set
+            {
+                if( SetProperty( ref mySelectedDatum, value ) )
+                {
+                    Format.Datum = mySelectedDatum.Name;
+                }
+            }
+        }
+        
         public string Path
         {
             get { return myPath; }
