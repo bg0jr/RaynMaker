@@ -75,7 +75,7 @@ namespace RaynMaker.Import.Parsers.Html
         {
             Contract.RequiresNotNull( str, "str" );
 
-            string[] tokens = str.Split( OccuranceSeparator );
+            string[] tokens = str.Split( OccuranceSeparator, StringSplitOptions.RemoveEmptyEntries );
             if( tokens.Length != 2 )
             {
                 return null;

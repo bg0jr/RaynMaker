@@ -113,20 +113,25 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 myAnchor = value;
 
-                if( myDocument != null && myAnchor != null )
+                UpdateSelectedElement();
+            }
+        }
+
+        private void UpdateSelectedElement()
+        {
+            if( myDocument != null && myAnchor != null )
+            {
+                var path = HtmlPath.TryParse( myAnchor );
+                if( path == null )
                 {
-                    var path = HtmlPath.TryParse( value );
-                    if( path == null )
-                    {
-                        // TODO: signal error to UI
-                        return;
-                    }
-                    SelectedElement = ( HtmlElementAdapter )myDocument.GetElementByPath( path );
+                    // TODO: signal error to UI
+                    return;
                 }
-                else
-                {
-                    SelectedElement = null;
-                }
+                SelectedElement = ( HtmlElementAdapter )myDocument.GetElementByPath( path );
+            }
+            else
+            {
+                SelectedElement = null;
             }
         }
 
@@ -232,6 +237,12 @@ namespace RaynMaker.Import.Web.ViewModels
 
         public void Apply()
         {
+            if( mySelectedElement == null )
+            {
+                UpdateSelectedElement();
+                return;
+            }
+
             if( mySelectedElement == null || mySelectedElement.TagName.Equals( "INPUT", StringComparison.OrdinalIgnoreCase ) )
             {
                 return;
