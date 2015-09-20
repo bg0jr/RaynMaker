@@ -9,28 +9,38 @@
              xmlns:l="clr-namespace:RaynMaker.Import.Web.Views"
              xmlns:winforms="clr-namespace:RaynMaker.Import.WinForms;assembly=RaynMaker.Import"
              mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="700">
-    <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <Grid DockPanel.Dock="Top" Margin="3">
-            <TabControl Height="250">
-                <TabItem Header="Datums" DataContext="{Binding Datums}">
-                    <l:DatumSelectionView Margin="0"/>
-                </TabItem>
-                <TabItem Header="Navigation" DataContext="{Binding Navigation}">
-                    <l:NavigationView Margin="0"/>
-                </TabItem>
-                <TabItem Header="Data description" DataContext="{Binding Formats}">
-                    <l:DataFormatsView Margin="0"/>
-                </TabItem>
-                <TabItem Header="Validate &amp; Complete" DataContext="{Binding Completion}">
-                    <l:CompletionView Margin="0"/>
-                </TabItem>
-            </TabControl>
-        </Grid>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <Grid Margin="3">
+        <ScrollViewer Grid.Row="0" Margin="3" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+            <ItemsControl>
+                <ItemsControl.Items>
+                    <GroupBox Header="Datum" Margin="0,0,0,5">
+                        <l:DatumSelectionView DataContext="{Binding Datums}"/>
+                    </GroupBox>
+                    <GroupBox Header="Navigation" Margin="0,0,0,5">
+                        <l:NavigationView DataContext="{Binding Navigation}"/>
+                    </GroupBox>
+                    <GroupBox Header="Data description" Margin="0,0,0,5">
+                        <l:DataFormatsView DataContext="{Binding Formats}"/>
+                    </GroupBox>
+                    <GroupBox Header="Validate &amp; Complete" Margin="0,0,0,5">
+                        <l:CompletionView DataContext="{Binding Completion}"/>
+                    </GroupBox>
+                </ItemsControl.Items>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <GridSplitter Grid.Row="1" VerticalAlignment="Stretch"/>
+
+        <Grid Grid.Row="2" Margin="3">
             <WindowsFormsHost HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,2,0,2">
                 <winforms:SafeWebBrowser x:Name="myBrowser"/>
             </WindowsFormsHost>
         </Grid>
-    </DockPanel>
+    </Grid>
 </UserControl>
