@@ -19,7 +19,7 @@ namespace RaynMaker.Import.Spec
         /// </summary>
         public override IFormat Clone()
         {
-            var other = new PathSingleValueFormat( Name );
+            var other = new PathSingleValueFormat( Datum );
 
             other.Path = Path;
             other.ValueFormat = new ValueFormat( ValueFormat );

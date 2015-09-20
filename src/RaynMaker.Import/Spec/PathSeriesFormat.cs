@@ -29,7 +29,7 @@ namespace RaynMaker.Import.Spec
         /// </summary>
         public override IFormat Clone()
         {
-            PathSeriesFormat other = new PathSeriesFormat( Name );
+            PathSeriesFormat other = new PathSeriesFormat( Datum );
             CloneTo( other );
 
             other.Path = Path;

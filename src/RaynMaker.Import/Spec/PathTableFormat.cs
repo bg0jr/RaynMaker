@@ -14,7 +14,7 @@ namespace RaynMaker.Import.Spec
 
         public override IFormat Clone()
         {
-            PathTableFormat other = new PathTableFormat( Name, Path, Columns.ToArray() );
+            PathTableFormat other = new PathTableFormat( Datum, Path, Columns.ToArray() );
             other.SkipRows = SkipRows.ToArray();
             other.SkipColumns = SkipColumns.ToArray();
 

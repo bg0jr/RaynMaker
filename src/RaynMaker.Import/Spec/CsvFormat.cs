@@ -14,7 +14,7 @@ namespace RaynMaker.Import.Spec
 
         public override IFormat Clone()
         {
-            CsvFormat other = new CsvFormat( Name, Separator, Columns.ToArray() );
+            CsvFormat other = new CsvFormat( Datum, Separator, Columns.ToArray() );
             other.SkipRows = SkipRows.ToArray();
             other.SkipColumns = SkipColumns.ToArray();
 

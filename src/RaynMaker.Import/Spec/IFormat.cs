@@ -2,6 +2,8 @@
 {
     public interface IFormat 
     {
+        string Datum { get;  set; }
+        
         IFormat Clone();
     }
 }

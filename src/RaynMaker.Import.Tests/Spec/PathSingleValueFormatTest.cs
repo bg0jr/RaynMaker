@@ -16,7 +16,7 @@ namespace RaynMaker.Import.Tests.Spec
 
             var clone = (PathSingleValueFormat)format.Clone();
 
-            Assert.AreEqual( format.Name, clone.Name );
+            Assert.AreEqual( format.Datum, clone.Datum );
             Assert.AreEqual( format.Path, clone.Path );
             Assert.AreEqual( format.ValueFormat, format.ValueFormat );
         }

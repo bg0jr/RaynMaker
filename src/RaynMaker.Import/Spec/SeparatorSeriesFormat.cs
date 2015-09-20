@@ -20,7 +20,7 @@ namespace RaynMaker.Import.Spec
         /// </summary>
         public override IFormat Clone()
         {
-            SeparatorSeriesFormat other = new SeparatorSeriesFormat( Name );
+            SeparatorSeriesFormat other = new SeparatorSeriesFormat( Datum );
             CloneTo( other );
 
             other.Separator = Separator;

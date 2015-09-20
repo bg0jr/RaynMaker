@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using Plainion.Validation;
 using RaynMaker.Import.Spec;
 using RaynMaker.Infrastructure;
 
@@ -29,12 +29,40 @@ namespace RaynMaker.Import.Web.Services
                 return Enumerable.Empty<DatumLocator>();
             }
 
+            var sheet = Load( file );
+
+            Migrate( sheet );
+
+            RecursiveValidator.Validate( sheet );
+
+            return sheet.Locators;
+        }
+
+        private static DatumLocatorSheet Load( string file )
+        {
             using( var stream = new FileStream( file, FileMode.Open, FileAccess.Read ) )
             {
                 var serializer = CreateSerializer();
-                var sheet = ( DatumLocatorSheet )serializer.ReadObject( stream );
-                return sheet.Locators;
+                return ( DatumLocatorSheet )serializer.ReadObject( stream );
             }
+        }
+
+        private void Migrate( DatumLocatorSheet sheet )
+        {
+            foreach( var locator in sheet.Locators )
+            {
+                foreach( var site in locator.Sites )
+                {
+                    foreach( var format in site.Formats )
+                    {
+                        format.Datum = locator.Datum;
+                    }
+                }
+            }
+
+            RecursiveValidator.Validate( sheet );
+
+            Store( sheet.Locators );
         }
 
         public void Store( IEnumerable<DatumLocator> locators )
