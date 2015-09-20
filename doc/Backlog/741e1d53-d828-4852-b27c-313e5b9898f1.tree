@@ -4,6 +4,12 @@
     <Caption><![CDATA[Planning]]></Caption>
     <Node Id="dbf5bb03-f0e5-46aa-9a8a-714b030f46bf">
       <Caption><![CDATA[Refactoring]]></Caption>
+      <Node Id="86c6423b-bd81-4163-aefd-e9e894addab1">
+        <Caption><![CDATA[Bookmarks]]></Caption>
+      </Node>
+      <Node Id="ff6fb224-f43f-43e9-8e67-1778cda1bd7c">
+        <Caption><![CDATA[Paging for navigation]]></Caption>
+      </Node>
       <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">
         <Caption><![CDATA[Cleanup Import design]]></Caption>
         <Node Id="77a3da08-70e8-4ae1-b90d-40a5b428e21d">
@@ -13,9 +19,6 @@
           <Caption><![CDATA[Why do we need DocumentType in Navigation?]]></Caption>
         </Node>
       </Node>
-    </Node>
-    <Node Id="86c6423b-bd81-4163-aefd-e9e894addab1">
-      <Caption><![CDATA[Bookmarks]]></Caption>
     </Node>
     <Node Id="fc0ac8c3-8c48-40a6-886c-e8805243d1bf">
       <Caption><![CDATA[Attachments]]></Caption>
