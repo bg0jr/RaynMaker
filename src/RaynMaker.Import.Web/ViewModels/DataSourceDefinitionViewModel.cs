@@ -18,9 +18,6 @@ namespace RaynMaker.Import.Web.ViewModels
 {
     class DataSourceDefinitionViewModel : BindableBase
     {
-        private DataSource mySelectedSource;
-        private string mySiteName;
-
         public DataSourceDefinitionViewModel( Session session )
         {
             Contract.RequiresNotNull( session, "session" );

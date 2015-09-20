@@ -11,14 +11,14 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <ComboBox Grid.Row="0" ItemsSource="{Binding Sites}" Width="150" HorizontalAlignment="Left" SelectedItem="{Binding SelectedSite}">
+        <ComboBox Grid.Row="0" ItemsSource="{Binding Sources}" Width="150" HorizontalAlignment="Left" SelectedItem="{Binding SelectedSource}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Name}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
             <ComboBox.Visibility>
-                <Binding Path="Sites">
+                <Binding Path="Sources">
                     <Binding.Converter>
                         <pn:ConverterChain>
                             <pn:IsEmptyConverter/>
@@ -31,7 +31,7 @@
         </ComboBox>
         <TextBlock Grid.Row="0" Text="No DatumLocator found for this datum" Foreground="Red">
             <TextBlock.Visibility>
-                <Binding Path="Sites">
+                <Binding Path="Sources">
                     <Binding.Converter>
                         <pn:ConverterChain>
                             <pn:IsEmptyConverter/>

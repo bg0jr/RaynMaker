@@ -74,7 +74,7 @@ namespace RaynMaker.Import.Web.ViewModels
             }
 
             var provider = new BasicDatumProvider( Browser );
-            provider.Navigate( mySession.CurrentSource, SelectedStock );
+            provider.Navigate( mySession.CurrentSource.LocationSpec, SelectedStock );
             
             // do not use Mark() API ... it creates markup which will not be removed again
             //provider.Mark( mySession.CurrentFormat );
@@ -96,7 +96,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
         private void OnSave()
         {
-            myStorageService.Store( mySession.Locators );
+            myStorageService.Store( mySession.Sources );
         }
     }
 }

@@ -22,7 +22,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
         private StorageService myStorageService;
         private IDocumentBrowser myDocumentBrowser = null;
-        private Site mySelectedSite;
+        private DataSource mySelectedSource;
         private Type myDatumType;
         private List<IDatum> myData;
         private bool myOverwriteExistingValues;
@@ -37,7 +37,7 @@ namespace RaynMaker.Import.Web.ViewModels
             CancelCommand = new DelegateCommand( OnCancel );
             ApplyCommand = new DelegateCommand( OnApply );
 
-            Sites = new ObservableCollection<Site>();
+            Sources = new ObservableCollection<DataSource>();
             myData = new List<IDatum>();
         }
 
@@ -111,7 +111,7 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 myDocumentBrowser = DocumentProcessorsFactory.CreateBrowser( value );
 
-                if( SelectedSite != null )
+                if( SelectedSource != null )
                 {
                     // we already got a call to fetch the data - just te browser was missing
                     // -> we have a browser now - lets fetch the data
@@ -120,14 +120,14 @@ namespace RaynMaker.Import.Web.ViewModels
             }
         }
 
-        public ObservableCollection<Site> Sites { get; private set; }
+        public ObservableCollection<DataSource> Sources { get; private set; }
 
-        public Site SelectedSite
+        public DataSource SelectedSource
         {
-            get { return mySelectedSite; }
+            get { return mySelectedSource; }
             set
             {
-                if( SetProperty( ref mySelectedSite, value ) )
+                if( SetProperty( ref mySelectedSource, value ) )
                 {
                     TryFetch();
                 }
@@ -145,22 +145,22 @@ namespace RaynMaker.Import.Web.ViewModels
 
             var provider = new BasicDatumProvider( myDocumentBrowser );
 
-            var formats = mySelectedSite.Formats.Cast<PathSeriesFormat>();
+            var formats = mySelectedSource.FormatSpecs.Cast<PathSeriesFormat>();
 
             foreach( var format in formats )
             {
                 try
                 {
-                    provider.Navigate( mySelectedSite, Stock );
+                    provider.Navigate( mySelectedSource.LocationSpec, Stock );
                 }
                 catch( Exception ex )
                 {
                     ex.Data[ "Datum" ] = myDatumType.Name;
-                    ex.Data[ "SiteName" ] = mySelectedSite.Name;
-                    ex.Data[ "OriginalNavigation" ] = mySelectedSite.Navigation;
-                    //ex.Data[ "ModifiedNavigation" ] = modifiedNavigation;
+                    ex.Data[ "SiteName" ] = mySelectedSource.Name;
+                    ex.Data[ "OriginalLocationSpec" ] = mySelectedSource.LocationSpec;
+                    //ex.Data[ "ModifiedLocationSpec" ] = modifiedNavigation;
 
-                    myLogger.Error( ex, "Failed to fetch '{0}' from site {1}", myDatumType.Name, mySelectedSite.Name );
+                    myLogger.Error( ex, "Failed to fetch '{0}' from site {1}", myDatumType.Name, mySelectedSource.Name );
                 }
 
                 try
@@ -177,7 +177,7 @@ namespace RaynMaker.Import.Web.ViewModels
                         var value = ( double )row[ format.ValueFormat.Name ];
 
                         var datum = Dynamics.CreateDatum( Stock, myDatumType, new YearPeriod( year ), currency );
-                        datum.Source = mySelectedSite.Name;
+                        datum.Source = mySelectedSource.Name;
 
                         datum.Value = format.InMillions ? value * 1000000 : value;
 
@@ -191,11 +191,11 @@ namespace RaynMaker.Import.Web.ViewModels
                 catch( Exception ex )
                 {
                     ex.Data[ "Datum" ] = myDatumType.Name;
-                    ex.Data[ "SiteName" ] = mySelectedSite.Name;
-                    ex.Data[ "OriginalNavigation" ] = mySelectedSite.Navigation;
+                    ex.Data[ "SiteName" ] = mySelectedSource.Name;
+                    ex.Data[ "OriginalLocationSpec" ] = mySelectedSource.LocationSpec;
                     ex.Data[ "OriginalFormat" ] = format;
 
-                    myLogger.Error( ex, "Failed to fetch '{0}' from site {1}", myDatumType.Name, mySelectedSite.Name );
+                    myLogger.Error( ex, "Failed to fetch '{0}' from site {1}", myDatumType.Name, mySelectedSource.Name );
                 }
             }
         }
@@ -204,16 +204,11 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             myDatumType = datum;
 
-            var datumLocator = myStorageService.Load()
-                .SingleOrDefault( l => l.Datum == myDatumType.Name );
+            var sources = myStorageService.Load()
+                .Where( source => source.FormatSpecs.Any( f => f.Datum == myDatumType.Name ) );
 
-            if( datumLocator == null || datumLocator.Sites.Count == 0 )
-            {
-                return;
-            }
-
-            Sites.AddRange( datumLocator.Sites.OrderBy( s => s.Name ) );
-            SelectedSite = Sites.First();
+            Sources.AddRange( sources.OrderBy( s => s.Quality ) );
+            SelectedSource = Sources.FirstOrDefault();
         }
     }
 }
