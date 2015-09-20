@@ -31,11 +31,16 @@
                     <GroupBox Header="Validate &amp; Complete" Margin="0,0,0,5">
                         <l:CompletionView DataContext="{Binding Completion}"/>
                     </GroupBox>
+                    
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Reset" Command="{Binding ResetCommand}" Margin="0,3,0,3" />
+                        <Button Grid.Row="1" Grid.Column="2" Content="Save" Command="{Binding SaveCommand}" Margin="5,3,3,3" />
+                    </StackPanel>
                 </ItemsControl.Items>
             </ItemsControl>
         </ScrollViewer>
 
-        <GridSplitter Grid.Row="1" VerticalAlignment="Stretch"/>
+        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Silver"/>
 
         <Grid Grid.Row="2" Margin="3">
             <WindowsFormsHost HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,2,0,2">

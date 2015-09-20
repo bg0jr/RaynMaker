@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Windows.Input;
+using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Model;
@@ -30,6 +32,9 @@ namespace RaynMaker.Import.Web.ViewModels
             Navigation = new NavigationViewModel( mySession );
             Formats = new DataFormatsViewModel( mySession );
             Completion = new CompletionViewModel( mySession, myProjectHost, myStorageService );
+
+            ResetCommand = new DelegateCommand( OnReset );
+            SaveCommand = new DelegateCommand( OnSave );
             
             myProjectHost.Changed += OnProjectChanged;
             OnProjectChanged();
@@ -42,14 +47,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 return;
             }
 
-            mySession.Reset();
-
-            foreach( var source in myStorageService.Load() )
-            {
-                mySession.Sources.Add( source );
-            }
-
-            //mySession.CurrentSource = mySession.Sources.FirstOrDefault();
+            OnReset();
         }
 
         public SafeWebBrowser Browser
@@ -92,5 +90,26 @@ namespace RaynMaker.Import.Web.ViewModels
         public DataFormatsViewModel Formats { get; private set; }
 
         public CompletionViewModel Completion { get; private set; }
+      
+        public ICommand ResetCommand { get; private set; }
+
+        private void OnReset()
+        {
+            mySession.Reset();
+
+            foreach( var source in myStorageService.Load() )
+            {
+                mySession.Sources.Add( source );
+            }
+
+            mySession.CurrentSource = mySession.Sources.FirstOrDefault();
+        }
+
+        public ICommand SaveCommand { get; private set; }
+
+        private void OnSave()
+        {
+            myStorageService.Store( mySession.Sources );
+        }
     }
 }

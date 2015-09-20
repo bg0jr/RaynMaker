@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Plainion;
 
 namespace RaynMaker.Import.Parsers.Html
 {
@@ -12,22 +13,18 @@ namespace RaynMaker.Import.Parsers.Html
     {
         private const char PathSeparator = '/';
 
-        /// <summary/>
         public HtmlPath()
         {
             Elements = new List<HtmlPathElement>();
         }
 
-        /// <summary/>
         public HtmlPath( IEnumerable<HtmlPathElement> elements )
         {
             Elements = elements.ToList();
         }
 
-        /// <summary/>
         public IList<HtmlPathElement> Elements { get; private set; }
 
-        /// <summary/>
         public HtmlPathElement Last
         {
             get
@@ -40,13 +37,11 @@ namespace RaynMaker.Import.Parsers.Html
             }
         }
 
-        /// <summary/>
         public bool PointsToTable
         {
             get { return Last.IsTableOrTBody; }
         }
 
-        /// <summary/>
         public bool PointsToTableCell
         {
             get { return Last.TagName == "TD"; }
@@ -87,25 +82,35 @@ namespace RaynMaker.Import.Parsers.Html
             return Point.Empty;
         }
 
-        /// <summary/>
         public override string ToString()
         {
             return PathSeparator + string.Join( PathSeparator.ToString(), Elements );
         }
 
-        /// <summary/>
-        public static HtmlPath Parse( string pathStr )
+        public static HtmlPath TryParse( string pathStr )
         {
-            if( string.IsNullOrEmpty( pathStr ) )
-            {
-                throw new ArgumentException( "value is null or empty string", "pathStr" );
-            }
+            Contract.RequiresNotNull( pathStr, "pathStr" );
 
             var pathElements = pathStr.Split( PathSeparator )
                 .Where( token => !string.IsNullOrWhiteSpace( token ) )
-                .Select( token => HtmlPathElement.Parse( token ) );
+                .Select( token => HtmlPathElement.TryParse( token ) )
+                .ToList();
+
+            if( pathElements.Any( e => e == null ) )
+            {
+                return null;
+            }
 
             return new HtmlPath( pathElements );
+        }
+
+        public static HtmlPath Parse( string pathStr )
+        {
+            var path = TryParse( pathStr );
+
+            Contract.Requires( path != null, "Failed to parse '{0}'", pathStr );
+
+            return path;
         }
     }
 }

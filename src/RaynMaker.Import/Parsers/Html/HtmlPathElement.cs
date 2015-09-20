@@ -71,12 +71,32 @@ namespace RaynMaker.Import.Parsers.Html
         /// Parses the given string representation of a <see cref="HtmlPathElement"/>.
         /// <seealso cref="HtmlPath.Parse"/>
         /// </summary>
-        public static HtmlPathElement Parse( string str )
+        public static HtmlPathElement TryParse( string str )
         {
+            Contract.RequiresNotNull( str, "str" );
+
             string[] tokens = str.Split( OccuranceSeparator );
-            int childPos = Convert.ToInt32( tokens[ 1 ], CultureInfo.InvariantCulture );
+            if( tokens.Length != 2 )
+            {
+                return null;
+            }
+
+            int childPos;
+            if( !int.TryParse( tokens[ 1 ], NumberStyles.Integer, CultureInfo.InvariantCulture, out childPos ) )
+            {
+                return null;
+            }
 
             return new HtmlPathElement( tokens[ 0 ], childPos );
+        }
+
+        public static HtmlPathElement Parse( string str )
+        {
+            var element = TryParse( str );
+
+            Contract.Requires( element != null, "Failed to parse '{0}'", str );
+
+            return element;
         }
     }
 

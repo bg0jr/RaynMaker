@@ -105,7 +105,7 @@ namespace RaynMaker.Import.Web.ViewModels
             var adapter = myDocument.Create( element );
             SelectedElement = adapter;
         }
-        
+
         public string Anchor
         {
             get { return myAnchor; }
@@ -115,7 +115,13 @@ namespace RaynMaker.Import.Web.ViewModels
 
                 if( myDocument != null && myAnchor != null )
                 {
-                    SelectedElement = ( HtmlElementAdapter )myDocument.GetElementByPath( HtmlPath.Parse( value ) );
+                    var path = HtmlPath.TryParse( value );
+                    if( path == null )
+                    {
+                        // TODO: signal error to UI
+                        return;
+                    }
+                    SelectedElement = ( HtmlElementAdapter )myDocument.GetElementByPath( path );
                 }
                 else
                 {

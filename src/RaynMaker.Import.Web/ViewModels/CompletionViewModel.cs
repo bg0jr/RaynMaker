@@ -26,8 +26,6 @@ namespace RaynMaker.Import.Web.ViewModels
             Stocks = new ObservableCollection<Stock>();
 
             ValidateCommand = new DelegateCommand( OnValidate, CanValidate );
-            ClearCommand = new DelegateCommand( OnClear );
-            SaveCommand = new DelegateCommand( OnSave );
 
             OnProjectChanged();
         }
@@ -81,20 +79,6 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 Session.ApplyCurrentFormat();
             }
-        }
-
-        public ICommand ClearCommand { get; private set; }
-
-        private void OnClear()
-        {
-            Session.Reset();
-        }
-
-        public ICommand SaveCommand { get; private set; }
-
-        private void OnSave()
-        {
-            myStorageService.Store( Session.Sources );
         }
     }
 }
