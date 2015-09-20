@@ -49,7 +49,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 mySession.Sources.Add( source );
             }
 
-            mySession.CurrentSource = mySession.Sources.FirstOrDefault();
+            //mySession.CurrentSource = mySession.Sources.FirstOrDefault();
         }
 
         public SafeWebBrowser Browser

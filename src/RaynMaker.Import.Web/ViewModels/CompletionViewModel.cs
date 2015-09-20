@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Mvvm;
 using Plainion.Collections;
 using RaynMaker.Entities;
 using RaynMaker.Import.Web.Model;
@@ -11,16 +10,15 @@ using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
-    class CompletionViewModel : BindableBase
+    class CompletionViewModel : SpecDefinitionViewModelBase
     {
-        private Session mySession;
         private IProjectHost myProjectHost;
         private StorageService myStorageService;
         private Stock mySelectedStock;
 
         public CompletionViewModel( Session session, IProjectHost projectHost, StorageService storageService )
+            : base( session )
         {
-            mySession = session;
             myProjectHost = projectHost;
             myProjectHost.Changed += OnProjectChanged;
             myStorageService = storageService;
@@ -68,20 +66,20 @@ namespace RaynMaker.Import.Web.ViewModels
 
         private void OnValidate()
         {
-            if( mySession.CurrentSource == null )
+            if( Session.CurrentSource == null )
             {
                 return;
             }
 
             var provider = new BasicDatumProvider( Browser );
-            provider.Navigate( mySession.CurrentSource.LocationSpec, SelectedStock );
-            
-            // do not use Mark() API ... it creates markup which will not be removed again
-            //provider.Mark( mySession.CurrentFormat );
+            provider.Navigate( Session.CurrentSource.LocationSpec, SelectedStock );
 
-            if( mySession.ApplyCurrentFormat != null )
+            // do not use Mark() API ... it creates markup which will not be removed again
+            //provider.Mark( Session.CurrentFormat );
+
+            if( Session.ApplyCurrentFormat != null )
             {
-                mySession.ApplyCurrentFormat();
+                Session.ApplyCurrentFormat();
             }
         }
 
@@ -89,14 +87,14 @@ namespace RaynMaker.Import.Web.ViewModels
 
         private void OnClear()
         {
-            mySession.Reset();
+            Session.Reset();
         }
 
         public ICommand SaveCommand { get; private set; }
 
         private void OnSave()
         {
-            myStorageService.Store( mySession.Sources );
+            myStorageService.Store( Session.Sources );
         }
     }
 }

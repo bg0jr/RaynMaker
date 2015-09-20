@@ -2,11 +2,23 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:pn="http://github.com/ronin4net/plainion"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:l="clr-namespace:RaynMaker.Import.Web.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="150" d:DesignWidth="700">
+             d:DesignWidth="700">
     <DockPanel LastChildFill="True">
+        <DockPanel.Visibility>
+            <Binding Path="Session.CurrentSource">
+                <Binding.Converter>
+                    <pn:ConverterChain>
+                        <pn:IsEmptyConverter/>
+                        <pn:NotConverter/>
+                        <pn:BoolToVisibilityConverter/>
+                    </pn:ConverterChain>
+                </Binding.Converter>
+            </Binding>
+        </DockPanel.Visibility>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <StackPanel.Resources>
                 <l:OffsetConverter x:Key="Plus1" Offset="1"/>
@@ -33,7 +45,7 @@
             </Button>
         </StackPanel>
         
-        <TabControl ItemsSource="{Binding Formats}" SelectedIndex="{Binding SelectedFormatIndex}">
+        <TabControl ItemsSource="{Binding Formats}" SelectedIndex="{Binding SelectedFormatIndex}" MinHeight="160">
             <TabControl.ItemContainerStyle>
                 <Style TargetType="{x:Type TabItem}">
                     <Setter Property="Visibility" Value="Collapsed"/>

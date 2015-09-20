@@ -1,30 +1,25 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows.Forms;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
-using Plainion;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Model;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
-    class DataFormatsViewModel : BindableBase
+    class DataFormatsViewModel : SpecDefinitionViewModelBase
     {
-        private Session mySession;
         private int mySelectedFormatIndex;
         private IDocument myDocument;
         private IDocumentBrowser myBrowser;
 
         public DataFormatsViewModel( Session session )
+            : base( session )
         {
-            Contract.RequiresNotNull( session, "session" );
+            Session.ApplyCurrentFormat = ApplyCurrentFormat;
 
-            mySession = session;
-            mySession.ApplyCurrentFormat = ApplyCurrentFormat;
-
-            PropertyChangedEventManager.AddHandler( mySession, OnCurrentSiteChanged, PropertySupport.ExtractPropertyName( () => mySession.CurrentSource ) );
+            PropertyChangedEventManager.AddHandler( Session, OnCurrentSiteChanged, PropertySupport.ExtractPropertyName( () => Session.CurrentSource ) );
 
             mySelectedFormatIndex = -1;
 
@@ -56,9 +51,9 @@ namespace RaynMaker.Import.Web.ViewModels
             }
             Formats.Clear();
 
-            if( mySession.CurrentSource != null )
+            if( Session.CurrentSource != null )
             {
-                foreach( var format in mySession.CurrentSource.FormatSpecs )
+                foreach( var format in Session.CurrentSource.FormatSpecs )
                 {
                     Formats.Add( new SingleFormatViewModel( ( PathSeriesFormat )format ) );
                 }
@@ -122,7 +117,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
                     if( mySelectedFormatIndex != -1 )
                     {
-                        mySession.CurrentFormat = Formats[ mySelectedFormatIndex ].Format;
+                        Session.CurrentFormat = Formats[ mySelectedFormatIndex ].Format;
                         Formats[ mySelectedFormatIndex ].Document = myDocument;
                         Formats[ mySelectedFormatIndex ].Apply();
                     }
@@ -178,7 +173,7 @@ namespace RaynMaker.Import.Web.ViewModels
             format.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000.0000" );
             format.TimeAxisFormat = new FormatColumn( "time", typeof( int ), "0000" );
 
-            mySession.CurrentSource.FormatSpecs.Add( format );
+            Session.CurrentSource.FormatSpecs.Add( format );
 
             Formats.Add( new SingleFormatViewModel( format ) );
 
@@ -199,7 +194,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             var formatVM = Formats[ mySelectedFormatIndex ];
 
-            mySession.CurrentSource.FormatSpecs.Remove( formatVM.Format );
+            Session.CurrentSource.FormatSpecs.Remove( formatVM.Format );
             Formats.Remove( formatVM );
 
             SelectedFormatIndex = Formats.Count - 1;

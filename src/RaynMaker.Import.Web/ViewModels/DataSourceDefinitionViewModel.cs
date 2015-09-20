@@ -1,40 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Linq;
-using System.Windows;
+﻿using System.Linq;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
-using Microsoft.Practices.Prism.Mvvm;
-using Plainion;
-using Plainion.Collections;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Model;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
-    class DataSourceDefinitionViewModel : BindableBase
+    class DataSourceDefinitionViewModel : SpecDefinitionViewModelBase
     {
         public DataSourceDefinitionViewModel( Session session )
+            : base( session )
         {
-            Contract.RequiresNotNull( session, "session" );
-
-            Session = session;
-
             AddCommand = new DelegateCommand( OnAdd );
             RemoveCommand = new DelegateCommand( OnRemove );
         }
-
-        public Session Session { get; private set; }
 
         public ICommand AddCommand { get; private set; }
 
         private void OnAdd()
         {
-            var source = new DataSource( );
+            var source = new DataSource();
             source.LocationSpec = new Navigation( DocumentType.Html );
 
             Session.Sources.Add( source );

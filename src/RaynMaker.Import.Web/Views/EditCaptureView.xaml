@@ -75,7 +75,7 @@
 
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Url" VerticalAlignment="Center"/>
         <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,5,0,0"
-                 Text="{Binding SelectedUrl.UrlString}" v:TextBoxBinding.SelectedText="{Binding SelectedText}"/>
+                 Text="{Binding SelectedUrl.UrlString}"/>
 
         <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" TextWrapping="Wrap">
             <Run FontWeight="SemiBold">Macros: </Run>

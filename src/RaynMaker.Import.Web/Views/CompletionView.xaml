@@ -10,6 +10,17 @@
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="500">
     <Grid>
+        <Grid.Visibility>
+            <Binding Path="Session.CurrentSource">
+                <Binding.Converter>
+                    <pn:ConverterChain>
+                        <pn:IsEmptyConverter/>
+                        <pn:NotConverter/>
+                        <pn:BoolToVisibilityConverter/>
+                    </pn:ConverterChain>
+                </Binding.Converter>
+            </Binding>
+        </Grid.Visibility>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>

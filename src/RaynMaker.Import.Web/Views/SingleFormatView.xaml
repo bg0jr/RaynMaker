@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:spec="clr-namespace:RaynMaker.Import.Spec;assembly=RaynMaker.Import"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="600">
-    <Grid>
+             d:DesignWidth="600">
+    <Grid MinHeight="160">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="100"/>

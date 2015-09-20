@@ -14,7 +14,7 @@ namespace RaynMaker.Entities.Persistancy
         {
             Database.SetInitializer<AssetsContext>( null );
 
-            this.Database.Log = stmt => Debug.WriteLine( "SQL: " + stmt );
+            //this.Database.Log = stmt => Debug.WriteLine( "SQL: " + stmt );
         }
 
         private static DbConnection GetConnection( string path )

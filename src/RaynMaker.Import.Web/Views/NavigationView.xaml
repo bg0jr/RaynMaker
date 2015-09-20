@@ -10,13 +10,24 @@
              xmlns:v="clr-namespace:RaynMaker.Import.Web.Views"
              xmlns:spec="clr-namespace:RaynMaker.Import.Spec;assembly=RaynMaker.Import"
              mc:Ignorable="d" 
-             d:DesignHeight="150" d:DesignWidth="500">
+             d:DesignWidth="500">
     <i:Interaction.Triggers>
         <prism:InteractionRequestTrigger SourceObject="{Binding EditCaptureRequest, Mode=OneWay}">
             <pn:PopupViewAction WindowWidth="700" WindowHeight="500" prism:RegionManager.RegionName="{x:Static l:RegionNames.EditCaptureView}"/>
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
-    <Grid>
+    <Grid MinHeight="150">
+        <Grid.Visibility>
+            <Binding Path="Session.CurrentSource">
+                <Binding.Converter>
+                    <pn:ConverterChain>
+                        <pn:IsEmptyConverter/>
+                        <pn:NotConverter/>
+                        <pn:BoolToVisibilityConverter/>
+                    </pn:ConverterChain>
+                </Binding.Converter>
+            </Binding>
+        </Grid.Visibility>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>

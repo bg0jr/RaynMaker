@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
@@ -22,36 +23,42 @@ namespace RaynMaker.Import.Web.Services
 
         public IEnumerable<DataSource> Load()
         {
-            var file = Path.Combine( myProjectHost.Project.StorageRoot, "DatumLocators.xdb" );
+            var file = Path.Combine( myProjectHost.Project.StorageRoot, "DataSources.xdb" );
+            if( File.Exists( file ) )
+            {
+                using( var stream = new FileStream( file, FileMode.Open, FileAccess.Read ) )
+                {
+                    var serializer = CreateSerializer( typeof( DataSourcesSheet ) );
+                    var sheet = ( DataSourcesSheet )serializer.ReadObject( stream );
+                    return sheet.Sources;
+                }
+            }
+
+            file = Path.Combine( myProjectHost.Project.StorageRoot, "DatumLocators.xdb" );
 
             if( !File.Exists( file ) )
             {
                 return Enumerable.Empty<DataSource>();
             }
 
-            var sheet = Load( file );
-
-            Migrate( sheet );
-
-            RecursiveValidator.Validate( sheet );
-
-            return sheet.Sources;
-        }
-
-        private static DatumLocatorSheet Load( string file )
-        {
+            IEnumerable<DatumLocator> locators;
             using( var stream = new FileStream( file, FileMode.Open, FileAccess.Read ) )
             {
-                var serializer = CreateSerializer();
-                return ( DatumLocatorSheet )serializer.ReadObject( stream );
+                var serializer = CreateSerializer( typeof( DatumLocator ) );
+                var sheet = ( DatumLocatorSheet )serializer.ReadObject( stream );
+                locators = sheet.Locators;
             }
+
+            File.Delete( file );
+
+            return Migrate( locators );
         }
 
-        private void Migrate( DatumLocatorSheet sheet )
+        private IEnumerable<DataSource> Migrate( IEnumerable<DatumLocator> locators )
         {
             var sources = new List<DataSource>();
 
-            foreach( var locator in sheet.Locators )
+            foreach( var locator in locators )
             {
                 foreach( var site in locator.Sites )
                 {
@@ -71,32 +78,36 @@ namespace RaynMaker.Import.Web.Services
                 }
             }
 
-            RecursiveValidator.Validate( sheet );
-
             Store( sources );
+
+            return sources;
         }
 
         public void Store( IEnumerable<DataSource> sources )
         {
-            var file = Path.Combine( myProjectHost.Project.StorageRoot, "DatumLocators.xdb" );
+            var sheet = new DataSourcesSheet();
+            sheet.Sources = sources;
+
+            RecursiveValidator.Validate( sheet );
+
+            var file = Path.Combine( myProjectHost.Project.StorageRoot, "DataSources.xdb" );
             using( var stream = new FileStream( file, FileMode.Create, FileAccess.Write ) )
             {
-                var serializer = CreateSerializer();
-                serializer.WriteObject( stream, new DatumLocatorSheet { Sources = sources } );
+                var serializer = CreateSerializer( typeof( DataSourcesSheet ) );
+                serializer.WriteObject( stream, sheet );
             }
         }
 
-        private static DataContractSerializer CreateSerializer()
+        private static DataContractSerializer CreateSerializer( Type root )
         {
             var settings = new DataContractSerializerSettings();
-            settings.KnownTypes = new[] { typeof( DatumLocatorSheet ) }
-                .Concat( typeof( DatumLocator ).Assembly.GetTypes()
+            settings.KnownTypes = new[] { typeof( DatumLocatorSheet ), typeof( DatumLocator ), typeof( Site ) }
+                .Concat( typeof( DataSource ).Assembly.GetTypes()
                     .Where( t => !t.IsAbstract )
                     .Where( t => t.GetCustomAttributes( false ).OfType<DataContractAttribute>().Any() ) )
                 .ToList();
 
-            var serializer = new DataContractSerializer( typeof( DatumLocator ), settings );
-            return serializer;
+            return new DataContractSerializer( root, settings );
         }
     }
 }

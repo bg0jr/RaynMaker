@@ -9,27 +9,22 @@ using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
-using Plainion;
 using Plainion.Collections;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Model;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
-    class NavigationViewModel : BindableBase
+    class NavigationViewModel : SpecDefinitionViewModelBase
     {
-        private Session mySession;
         private IDocumentBrowser myBrowser;
         private DocumentType mySelectedDocumentType;
         private bool myIsCapturing;
 
         public NavigationViewModel( Session session )
+            : base( session )
         {
-            Contract.RequiresNotNull( session, "session" );
-
-            mySession = session;
-
-            PropertyChangedEventManager.AddHandler( mySession, OnCurrentDataSourceChanged, PropertySupport.ExtractPropertyName( () => mySession.CurrentSource ) );
+            PropertyChangedEventManager.AddHandler( Session, OnCurrentDataSourceChanged, PropertySupport.ExtractPropertyName( () => Session.CurrentSource ) );
 
             CaptureCommand = new DelegateCommand( OnCapture );
             EditCommand = new DelegateCommand( OnEdit );
@@ -47,15 +42,15 @@ namespace RaynMaker.Import.Web.ViewModels
 
         private void OnCurrentDataSourceChanged( object sender, PropertyChangedEventArgs e )
         {
-            if( mySession.CurrentSource != null )
+            if( Session.CurrentSource != null )
             {
                 // changing Urls property will automatically be reflected in mySelectedSite.Navigation.Uris.
                 // -> make a copy!
-                var modelUrls = mySession.CurrentSource.LocationSpec.Uris.ToList();
+                var modelUrls = Session.CurrentSource.LocationSpec.Uris.ToList();
                 Urls.Clear();
                 Urls.AddRange( modelUrls );
 
-                SelectedDocumentType = mySession.CurrentSource.LocationSpec.DocumentType;
+                SelectedDocumentType = Session.CurrentSource.LocationSpec.DocumentType;
             }
             else
             {
@@ -113,9 +108,9 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 if( SetProperty( ref mySelectedDocumentType, value ) )
                 {
-                    if( mySession.CurrentSource != null )
+                    if( Session.CurrentSource != null )
                     {
-                        mySession.CurrentSource.LocationSpec.DocumentType = mySelectedDocumentType;
+                        Session.CurrentSource.LocationSpec.DocumentType = mySelectedDocumentType;
                     }
                 }
             }
@@ -125,10 +120,10 @@ namespace RaynMaker.Import.Web.ViewModels
 
         private void OnUrlChanged( object sender, NotifyCollectionChangedEventArgs e )
         {
-            if( mySession.CurrentSource != null )
+            if( Session.CurrentSource != null )
             {
-                mySession.CurrentSource.LocationSpec.Uris.Clear();
-                mySession.CurrentSource.LocationSpec.Uris.AddRange( Urls );
+                Session.CurrentSource.LocationSpec.Uris.Clear();
+                Session.CurrentSource.LocationSpec.Uris.AddRange( Urls );
             }
         }
 
