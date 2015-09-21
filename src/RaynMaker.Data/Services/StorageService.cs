@@ -2,9 +2,10 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Documents;
+using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
 
-namespace RaynMaker.Notes
+namespace RaynMaker.Data.Services
 {
     [Export]
     class StorageService
@@ -17,9 +18,9 @@ namespace RaynMaker.Notes
             myProjectHost = projectHost;
         }
 
-        public void Load( FlowDocument target )
+        public void Load( Stock stock, FlowDocument target )
         {
-            var file = Path.Combine( myProjectHost.Project.StorageRoot, "Notes.rtf" );
+            var file = Path.Combine( myProjectHost.Project.StorageRoot, "Notes." + stock.Isin + ".rtf" );
             if( !File.Exists( file ) )
             {
                 return;
@@ -32,9 +33,9 @@ namespace RaynMaker.Notes
             }
         }
 
-        public void Store( FlowDocument content )
+        public void Store( Stock stock, FlowDocument content )
         {
-            var file = Path.Combine( myProjectHost.Project.StorageRoot, "Notes.rtf" );
+            var file = Path.Combine( myProjectHost.Project.StorageRoot, "Notes." + stock.Isin + ".rtf" );
             using( var stream = new FileStream( file, FileMode.Create, FileAccess.Write ) )
             {
                 var range = new TextRange( content.ContentStart, content.ContentEnd );

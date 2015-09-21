@@ -7,6 +7,7 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:l="clr-namespace:RaynMaker.Entities;assembly=RaynMaker.Entities"
              xmlns:v="clr-namespace:RaynMaker.Data.Views"
+             xmlns:rym="https://github.com/bg0jr/RaynMaker"
              mc:Ignorable="d" d:DesignHeight="500" d:DesignWidth="500"
              x:Name="_this">
     <UserControl.Resources>
@@ -15,6 +16,7 @@
     <ScrollViewer>
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -83,6 +85,10 @@
                     <Image Source="/RaynMaker.Infrastructure;Component/Resources/Add.png" Width="17" Height="17"/>
                 </Button>
             </Grid>
+
+            <TextBlock Grid.Row="6" Grid.Column="0" Text="Notes" VerticalAlignment="Top" Margin="0,2,0,0"/>
+            <rym:NotesEditor Grid.Row="6" Grid.Column="1" Margin="5,2,0,2"  Name="myEditor" Background="White" Height="300"
+                             Document="{Binding Notes, Mode=OneWayToSource}"/>
         </Grid>
     </ScrollViewer>
 </UserControl>

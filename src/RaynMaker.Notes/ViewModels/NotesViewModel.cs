@@ -31,7 +31,7 @@ namespace RaynMaker.Notes.ViewModels
 
         private void OnOk()
         {
-            myStorageService.Store( new TextRange( myDocument.ContentStart, myDocument.ContentEnd ) );
+            myStorageService.Store( Document);
 
             FinishInteraction();
         }
@@ -52,7 +52,7 @@ namespace RaynMaker.Notes.ViewModels
                 {
                     if( myDocument != null )
                     {
-                        myStorageService.Load( new TextRange( myDocument.ContentStart, myDocument.ContentEnd ) );
+                        myStorageService.Load( myDocument);
                     }
                 }
             }

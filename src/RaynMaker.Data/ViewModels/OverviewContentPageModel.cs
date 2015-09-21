@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.Composition;
+using System.Windows.Documents;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Plainion.Windows.Controls;
+using RaynMaker.Data.Services;
 using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
 using RaynMaker.Infrastructure.Services;
@@ -13,18 +15,19 @@ namespace RaynMaker.Data.ViewModels
     class OverviewContentPageModel : BindableBase, IContentPage
     {
         private IProjectHost myProjectHost;
+        private StorageService myStorageService;
         private Stock myStock;
+        private FlowDocument myNotes;
 
         [ImportingConstructor]
-        public OverviewContentPageModel( IProjectHost projectHost, ILutService lutService )
+        public OverviewContentPageModel( IProjectHost projectHost, StorageService storageService )
         {
             myProjectHost = projectHost;
+            myStorageService = storageService;
 
             AddReferenceCommand = new DelegateCommand( OnAddReference );
             RemoveReferenceCommand = new DelegateCommand<Reference>( OnRemoveReference );
         }
-
-        public ICurrenciesLut CurrenciesLut { get; private set; }
 
         public string Header { get { return "Overview"; } }
 
@@ -37,6 +40,11 @@ namespace RaynMaker.Data.ViewModels
         public void Initialize( Stock stock )
         {
             Stock = stock;
+
+            if( Notes != null )
+            {
+                myStorageService.Load( Stock, Notes );
+            }
         }
 
         public void Complete()
@@ -45,6 +53,8 @@ namespace RaynMaker.Data.ViewModels
 
             var ctx = myProjectHost.Project.GetAssetsContext();
             ctx.SaveChanges();
+
+            myStorageService.Store( myStock, Notes );
         }
 
         public void Cancel()
@@ -63,6 +73,21 @@ namespace RaynMaker.Data.ViewModels
         private void OnRemoveReference( Reference reference )
         {
             Stock.Company.References.Remove( reference );
+        }
+
+        public FlowDocument Notes
+        {
+            get { return myNotes; }
+            set
+            {
+                if( SetProperty( ref myNotes, value ) )
+                {
+                    if( Stock != null )
+                    {
+                        myStorageService.Load( Stock, Notes );
+                    }
+                }
+            }
         }
     }
 }
