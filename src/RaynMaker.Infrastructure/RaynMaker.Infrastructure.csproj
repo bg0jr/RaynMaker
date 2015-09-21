@@ -86,17 +86,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompositionNames.cs" />
+    <Compile Include="Controls\AutoCompleteRichTextBox.cs" />
     <Compile Include="Controls\DefaultConfirmationView.xaml.cs">
       <DependentUpon>DefaultConfirmationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\DefaultNotificationView.xaml.cs">
       <DependentUpon>DefaultNotificationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\HyperlinkHelper.cs" />
     <Compile Include="Controls\NotesEditor.xaml.cs">
       <DependentUpon>NotesEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\OverlayViewAction.cs" />
     <Compile Include="Controls\OverlayViewActionRegionAdapter.cs" />
+    <Compile Include="Controls\WordBreaker.cs" />
     <Compile Include="Events\AssetSelectedEvent.cs" />
     <Compile Include="IProject.cs" />
     <Compile Include="IProjectHost.cs" />

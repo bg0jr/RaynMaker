@@ -8,6 +8,8 @@ using System.Windows.Media;
 
 namespace RaynMaker.Infrastructure.Controls
 {
+    // http://blogs.msdn.com/b/prajakta/archive/2006/10/17/autp-detecting-hyperlinks-in-richtextbox-part-i.aspx
+    // http://blogs.msdn.com/b/prajakta/archive/2006/11/28/auto-detecting-hyperlinks-in-richtextbox-part-ii.aspx
     public partial class NotesEditor : UserControl
     {
         public NotesEditor()
@@ -24,6 +26,8 @@ namespace RaynMaker.Infrastructure.Controls
         private void OnLoaded( object sender, RoutedEventArgs e )
         {
             Document = myEditor.Document;
+            Document.FontFamily = new FontFamily( "Arial" );
+            Document.FontSize = 13;
         }
 
         public static readonly DependencyProperty DocumentProperty = DependencyProperty.Register( "Document",
