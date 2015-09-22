@@ -17,6 +17,10 @@
             <ToggleButton Command="EditingCommands.ToggleUnderline" Name="myUnderline" ToolTip="Underline">
                 <Image Source="/RaynMaker.Infrastructure;Component/Resources/Underline.png" Width="17" Height="17"/>
             </ToggleButton>
+
+            <Separator/>
+
+            <ToggleButton Click="OnHeadlineClick" Name="myHeadline" Content="Headline" ToolTip="Headline"/>
             
             <Separator/>
 
