@@ -25,6 +25,7 @@ namespace RaynMaker.Entities
             Name = name;
 
             myValues = new List<IDatum>();
+            EnableCurrencyCheck = true;
         }
 
         public DatumSeries( Type datumType )
@@ -52,10 +53,31 @@ namespace RaynMaker.Entities
 
         public Currency Currency { get; private set; }
 
+        public bool EnableCurrencyCheck { get; set; }
+
         public void Add( IDatum datum )
         {
             Contract.RequiresNotNull( datum, "datum" );
             Contract.Requires( datum.GetType() == DatumType, "[{0}] DatumType mismatch: expected={1}, actual={2}", Name, DatumType, datum.GetType() );
+
+            CheckCurrency( datum );
+
+            if( myComparer == null )
+            {
+                myComparer = new DatumByPeriodComparer();
+            }
+
+            var index = myValues.BinarySearch( datum, myComparer );
+            if( index < 0 ) index = ~index;
+            myValues.Insert( index, datum );
+        }
+
+        private void CheckCurrency( IDatum datum )
+        {
+            if( !EnableCurrencyCheck )
+            {
+                return;
+            }
 
             var currencyDatum = datum as ICurrencyDatum;
 
@@ -79,21 +101,12 @@ namespace RaynMaker.Entities
             {
                 Contract.Requires( Currency == null, "[{0}] Currency inconsistencies found: expected={1}, actual={2}", Name, Currency, null );
             }
-
-            if( myComparer == null )
-            {
-                myComparer = new DatumByPeriodComparer();
-            }
-
-            var index = myValues.BinarySearch( datum, myComparer );
-            if( index < 0 ) index = ~index;
-            myValues.Insert( index, datum );
         }
 
         public bool Remove( IDatum datum )
         {
             Contract.RequiresNotNull( datum, "datum" );
-            
+
             return myValues.Remove( datum );
         }
 
@@ -130,6 +143,29 @@ namespace RaynMaker.Entities
         public bool IsReadOnly
         {
             get { return false; }
+        }
+
+        public void VerifyCurrencyConsistency()
+        {
+            // do not check for EnableCurrencyCheck - verification is explicitly called
+            var currencies = myValues
+                .Select( GetCurrency )
+                .Distinct()
+                .ToList();
+
+            Contract.Invariant( currencies.Count == 1, "[{0}] Currency inconsistencies found: More than one currency used '{1}'",
+                Name, string.Join( ",", currencies ) );
+        }
+
+        private string GetCurrency( IDatum datum )
+        {
+            var currencyDatum = datum as ICurrencyDatum;
+            if( currencyDatum == null )
+            {
+                return "None";
+            }
+
+            return currencyDatum.Currency.Name;
         }
     }
 }

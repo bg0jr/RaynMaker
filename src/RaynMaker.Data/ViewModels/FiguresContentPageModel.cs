@@ -3,10 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
-using Plainion;
 using Plainion.Validation;
 using Plainion.Windows.Controls;
 using RaynMaker.Entities;
@@ -52,7 +50,9 @@ namespace RaynMaker.Data.ViewModels
             myDatums = new List<IDatumSeries>();
             foreach( var datumType in Dynamics.AllDatums )
             {
-                myDatums.Add( Dynamics.GetDatumSeries( stock, datumType ) );
+                var series = Dynamics.GetDatumSeries( stock, datumType );
+                ( ( DatumSeries )series ).EnableCurrencyCheck = false;
+                myDatums.Add( series );
             }
 
             // data sanity - TODO: later move to creation of new DataSheet
@@ -107,6 +107,13 @@ namespace RaynMaker.Data.ViewModels
 
             RecursiveValidator.Validate( datumsToValidate );
 
+            // validate currency consistancy
+            foreach( DatumSeries series in myDatums.ToList() )
+            {
+                series.EnableCurrencyCheck=true;
+                series.VerifyCurrencyConsistency();
+            }
+
             foreach( DatumSeries series in myDatums.ToList() )
             {
                 var datums = ( IList )Dynamics.GetRelationship( Stock, series.DatumType );
@@ -152,11 +159,11 @@ namespace RaynMaker.Data.ViewModels
         private void OnImport( DatumSeries series )
         {
             var currentYear = DateTime.Now.Year;
-            
-            DataProvider.Fetch( Stock, 
-                series.DatumType, 
+
+            DataProvider.Fetch( Stock,
+                series.DatumType,
                 series,
-                new YearPeriod( currentYear - 10 ), 
+                new YearPeriod( currentYear - 10 ),
                 new YearPeriod( currentYear ) );
         }
     }
