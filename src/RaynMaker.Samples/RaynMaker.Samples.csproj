@@ -33,9 +33,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Samples\.rym-Sample\DatumLocators.xdb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Samples\.rym-Sample\DataSources.xdb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
