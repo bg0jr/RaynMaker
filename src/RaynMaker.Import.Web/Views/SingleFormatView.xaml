@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:spec="clr-namespace:RaynMaker.Import.Spec;assembly=RaynMaker.Import"
+             xmlns:v="clr-namespace:RaynMaker.Import.Web.Views"
              mc:Ignorable="d" 
              d:DesignWidth="600">
     <Grid MinHeight="160">
@@ -16,6 +17,8 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -80,13 +83,14 @@
 
         <TextBlock Grid.Row="4" Grid.Column="2" Text="Skip columns" VerticalAlignment="Center" Margin="5,0,0,0"/>
         <TextBox Grid.Row="4" Grid.Column="3" Width="50" HorizontalAlignment="Left" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding SkipColumns, UpdateSourceTrigger=PropertyChanged}"/>
-       
+
         <TextBlock Grid.Row="5" Grid.Column="0" Text="Time format" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="5" Grid.Column="1" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding TimeFormat}"/>
-      
-        <TextBlock Grid.Row="5" Grid.Column="2" Text="Value format" VerticalAlignment="Center" Margin="5,0,0,0"/>
-        <TextBox Grid.Row="5" Grid.Column="3" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding ValueFormat}"/>
-        <CheckBox Grid.Row="5" Grid.Column="4" Margin="5,2,0,0" VerticalAlignment="Center" Grid.ColumnSpan="2"
-                  Content="In Mio" IsChecked="{Binding InMillions}"/>
+        <v:FormatColumnView Grid.Row="5" Grid.Column="1"  Grid.ColumnSpan="6" Margin="5,2,0,0" DataContext="{Binding TimeFormat}"/>
+
+        <TextBlock Grid.Row="6" Grid.Column="0" Text="Value format" VerticalAlignment="Center"/>
+        <v:FormatColumnView Grid.Row="6" Grid.Column="1"  Grid.ColumnSpan="6" Margin="5,2,0,0" DataContext="{Binding ValueFormat}"/>
+        
+        <CheckBox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,2,0,0" VerticalAlignment="Center"
+                  Content="Values in millions" IsChecked="{Binding InMillions}"/>
     </Grid>
 </UserControl>

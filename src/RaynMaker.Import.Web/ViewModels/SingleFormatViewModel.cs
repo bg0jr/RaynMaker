@@ -24,8 +24,6 @@ namespace RaynMaker.Import.Web.ViewModels
         private string myColumnHeaderRow;
         private string mySkipRows;
         private string mySkipColumns;
-        private string myTimeFormat;
-        private string myValueFormat;
         private bool myInMillions;
         private MarkupDocument myMarkupDocument;
 
@@ -53,8 +51,8 @@ namespace RaynMaker.Import.Web.ViewModels
             SkipColumns = string.Join( ",", format.SkipColumns );
             SkipRows = string.Join( ",", format.SkipRows );
             SeriesName = format.SeriesName;
-            TimeFormat = Format.TimeAxisFormat.Format;
-            ValueFormat = Format.ValueFormat.Format;
+            TimeFormat = Format.TimeAxisFormat ?? new FormatColumn( "time" );
+            ValueFormat = Format.ValueFormat ?? new FormatColumn( "value" );
 
             ColumnHeaderRow = ( format.Expand == CellDimension.Row ? Format.TimeAxisPosition : Format.SeriesNamePosition ).ToString();
             RowHeaderColumn = ( format.Expand == CellDimension.Row ? Format.SeriesNamePosition : Format.TimeAxisPosition ).ToString();
@@ -123,7 +121,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 }
             }
         }
-        
+
         public string Path
         {
             get { return myPath; }
@@ -308,29 +306,9 @@ namespace RaynMaker.Import.Web.ViewModels
             }
         }
 
-        public string TimeFormat
-        {
-            get { return myTimeFormat; }
-            set
-            {
-                if( SetProperty( ref myTimeFormat, value ) )
-                {
-                    Format.TimeAxisFormat = new FormatColumn( "time", typeof( int ), myTimeFormat );
-                }
-            }
-        }
+        public FormatColumn TimeFormat { get; private set; }
 
-        public string ValueFormat
-        {
-            get { return myValueFormat; }
-            set
-            {
-                if( SetProperty( ref myValueFormat, value ) )
-                {
-                    Format.ValueFormat = new FormatColumn( "value", typeof( double ), myValueFormat );
-                }
-            }
-        }
+        public FormatColumn ValueFormat { get; private set; }
 
         public bool InMillions
         {

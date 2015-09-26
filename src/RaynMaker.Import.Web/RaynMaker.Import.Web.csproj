@@ -51,9 +51,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\CommonServiceLocator.1.2\lib\portable-windows8+net40+sl5+windowsphone8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
-    <Reference Include="Plainion.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
+    <Reference Include="Plainion.Core, Version=2.6.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Plainion.Core.2.4.0.0\lib\NET45\Plainion.Core.dll</HintPath>
+      <HintPath>..\..\packages\Plainion.Core.2.6.0.0\lib\NET45\Plainion.Core.dll</HintPath>
     </Reference>
     <Reference Include="Plainion.Prism, Version=1.6.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -128,6 +128,9 @@
     <AppDesigner Include="Properties\" />
     <Compile Include="RegionNames.cs" />
     <Compile Include="ViewModels\WebSpyMenuItemModel.cs" />
+    <Compile Include="Views\FormatColumnView.xaml.cs">
+      <DependentUpon>FormatColumnView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ImportPreview.xaml.cs">
       <DependentUpon>ImportPreview.xaml</DependentUpon>
     </Compile>
@@ -165,6 +168,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\EditCaptureView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FormatColumnView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

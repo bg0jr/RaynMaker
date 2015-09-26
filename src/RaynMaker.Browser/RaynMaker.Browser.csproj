@@ -60,9 +60,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Plainion.AppFw.Wpf.2.7.0.0\lib\NET45\Plainion.AppFw.Wpf.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Plainion.Core, Version=2.4.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
+    <Reference Include="Plainion.Core, Version=2.6.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Plainion.Core.2.4.0.0\lib\NET45\Plainion.Core.dll</HintPath>
+      <HintPath>..\..\packages\Plainion.Core.2.6.0.0\lib\NET45\Plainion.Core.dll</HintPath>
     </Reference>
     <Reference Include="Plainion.Prism, Version=1.6.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

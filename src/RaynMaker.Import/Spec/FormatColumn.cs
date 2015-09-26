@@ -37,9 +37,6 @@ namespace RaynMaker.Import.Spec
             Name = name;
         }
 
-        /// <summary>
-        /// Create a clone.
-        /// </summary>
         public FormatColumn( FormatColumn other )
             : base( other )
         {

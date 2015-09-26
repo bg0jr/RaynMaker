@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using Plainion;
+using Plainion.Serialization;
 
 namespace RaynMaker.Import.Spec
 {
@@ -13,45 +14,32 @@ namespace RaynMaker.Import.Spec
     /// </summary>
     [Serializable]
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "ValueFormat" )]
-    public class ValueFormat : IEquatable<ValueFormat>
+    public class ValueFormat : SerializableBindableBase, IEquatable<ValueFormat>
     {
-        private string myFormat = null;
+        private Regex myExtractionPattern;
+        private string myFormat;
+        private Type myType;
 
-        /// <summary>
-        /// Describes a string with no special format.
-        /// </summary>
         public ValueFormat()
             : this( typeof( string ), null )
         {
         }
 
-        /// <summary>
-        /// Describes a string with no special format.
-        /// </summary>
         public ValueFormat( Regex extractionPattern )
             : this( typeof( string ), null, extractionPattern )
         {
         }
 
-        /// <summary>
-        /// Describes a value of the given type with no special format.
-        /// </summary>
         public ValueFormat( Type type )
             : this( type, null )
         {
         }
 
-        /// <summary>
-        /// Describes a value of the given type and format.
-        /// </summary>
         public ValueFormat( Type type, string format )
             : this( type, format, null )
         {
         }
 
-        /// <summary>
-        /// Describes a value of the given type and format with extraction pattern.
-        /// </summary>
         public ValueFormat( Type type, string format, Regex extractionPattern )
         {
             ExtractionPattern = extractionPattern;
@@ -59,7 +47,6 @@ namespace RaynMaker.Import.Spec
             Type = ( type != null ? type : typeof( string ) );
         }
 
-        /// <summary/>
         public ValueFormat( ValueFormat other )
         {
             Contract.RequiresNotNull( other, "other" );
@@ -77,7 +64,11 @@ namespace RaynMaker.Import.Spec
         /// </remarks>
         /// </summary>
         [DataMember]
-        public Regex ExtractionPattern { get; private set; }
+        public Regex ExtractionPattern
+        {
+            get { return myExtractionPattern; }
+            set { SetProperty( ref myExtractionPattern, value ); }
+        }
 
         /// <summary>
         /// Will always be trimmed.
@@ -87,11 +78,14 @@ namespace RaynMaker.Import.Spec
         public string Format
         {
             get { return myFormat; }
-            set { myFormat = value != null ? value.Trim() : null; }
+            set { SetProperty( ref myFormat, value != null ? value.Trim() : null ); }
         }
 
-        /// <summary/>
-        public Type Type { get; private set; }
+        public Type Type
+        {
+            get { return myType; }
+            set { SetProperty( ref myType, value ); }
+        }
 
         [DataMember( Name = "Type" )]
         private string SerializedType
@@ -100,7 +94,6 @@ namespace RaynMaker.Import.Spec
             set { Type = Type.GetType( value ); }
         }
 
-        /// <summary/>
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
