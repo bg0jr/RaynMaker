@@ -19,7 +19,7 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             Session.ApplyCurrentFormat = ApplyCurrentFormat;
 
-            PropertyChangedEventManager.AddHandler( Session, OnCurrentSiteChanged, PropertySupport.ExtractPropertyName( () => Session.CurrentSource ) );
+            PropertyChangedEventManager.AddHandler( Session, OnCurrentSourceChanged, PropertySupport.ExtractPropertyName( () => Session.CurrentSource ) );
 
             mySelectedFormatIndex = -1;
 
@@ -30,7 +30,7 @@ namespace RaynMaker.Import.Web.ViewModels
             AddCommand = new DelegateCommand( OnAdd );
             RemoveCommand = new DelegateCommand( OnRemove );
 
-            OnCurrentSiteChanged( null, null );
+            OnCurrentSourceChanged( null, null );
         }
 
         private void ApplyCurrentFormat()
@@ -41,7 +41,7 @@ namespace RaynMaker.Import.Web.ViewModels
             }
         }
 
-        private void OnCurrentSiteChanged( object sender, PropertyChangedEventArgs e )
+        private void OnCurrentSourceChanged( object sender, PropertyChangedEventArgs e )
         {
             SelectedFormatIndex = -1;
 
@@ -67,6 +67,9 @@ namespace RaynMaker.Import.Web.ViewModels
                     SelectedFormatIndex = 0;
                 }
             }
+
+            PreviousCommand.RaiseCanExecuteChanged();
+            NextCommand.RaiseCanExecuteChanged();
         }
 
         public IDocumentBrowser Browser

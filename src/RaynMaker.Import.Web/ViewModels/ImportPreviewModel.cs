@@ -167,7 +167,9 @@ namespace RaynMaker.Import.Web.ViewModels
 
             var provider = new BasicDatumProvider( myDocumentBrowser );
 
-            var formats = mySelectedSource.FormatSpecs.Cast<PathSeriesFormat>();
+            var formats = mySelectedSource.FormatSpecs
+                .Cast<PathSeriesFormat>()
+                .Where( f => f.Datum == myDatumType.Name );
 
             foreach( var format in formats )
             {
