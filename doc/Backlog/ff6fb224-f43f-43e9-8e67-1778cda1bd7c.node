@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="ff6fb224-f43f-43e9-8e67-1778cda1bd7c" Created="635783550997965292" LastModified="635783551145203714">
+<Node Id="ff6fb224-f43f-43e9-8e67-1778cda1bd7c" Created="635783550997965292" LastModified="635788735685826666" Origin="dbf5bb03-f0e5-46aa-9a8a-714b030f46bf">
   <Caption><![CDATA[Paging for navigation]]></Caption>
-  <Content><![CDATA[we need it for "boerse frankfurt"]]></Content>
+  <Content><![CDATA[we need it for "boerse frankfurt"
+
+in case of "boerse frankfurt" paging is realized with javascript and CSS
+==> all data is available in the document without further navigation]]></Content>
 </Node>

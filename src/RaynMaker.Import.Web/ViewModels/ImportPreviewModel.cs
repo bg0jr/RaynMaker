@@ -46,7 +46,7 @@ namespace RaynMaker.Import.Web.ViewModels
         }
 
         public ICurrenciesLut CurrenciesLut { get; private set; }
-        
+
         public Stock Stock { get; set; }
 
         public IPeriod From { get; set; }
@@ -82,8 +82,13 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             foreach( var datum in myData )
             {
+                if( datum.Period.CompareTo( From ) == -1 || datum.Period.CompareTo( To ) == 1 )
+                {
+                    continue;
+                }
+
                 var currencyDatum = datum as ICurrencyDatum;
-                if( Currency != null && currencyDatum!=null)
+                if( Currency != null && currencyDatum != null )
                 {
                     ( ( AbstractCurrencyDatum )currencyDatum ).Currency = Currency;
                 }

@@ -38,5 +38,8 @@
     <Node Id="f570d534-0aff-4d7c-b83a-b9f6c8217fef">
       <Caption><![CDATA[Startup Performance]]></Caption>
     </Node>
+    <Node Id="ff6fb224-f43f-43e9-8e67-1778cda1bd7c">
+      <Caption><![CDATA[Paging for navigation]]></Caption>
+    </Node>
   </Node>
 </Tree>
