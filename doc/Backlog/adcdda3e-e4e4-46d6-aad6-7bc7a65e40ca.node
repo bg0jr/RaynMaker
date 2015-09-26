@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="adcdda3e-e4e4-46d6-aad6-7bc7a65e40ca" Created="635788440998768267" LastModified="635788441496226720">
-  <Caption><![CDATA[TimeFormat 12/2014]]></Caption>
-  <Content><![CDATA[- boerse-frankfurt
-- looks like monthly datum but is acutally one once per year
-- we would have to know that we can ignore the month and ignore it
-- needs to be reflected in UI and parsers]]></Content>
-</Node>
