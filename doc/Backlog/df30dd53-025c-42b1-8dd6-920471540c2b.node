@@ -1,7 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="df30dd53-025c-42b1-8dd6-920471540c2b" Created="635788439464360504" LastModified="635788439780398580">
+<Node Id="df30dd53-025c-42b1-8dd6-920471540c2b" Created="635788439464360504" LastModified="635788464896525140" Origin="dbf5bb03-f0e5-46aa-9a8a-714b030f46bf">
   <Caption><![CDATA[Disclaimers & Cookies]]></Caption>
-  <Content><![CDATA[www.boerse-online.de
+  <Content><![CDATA[www.boerse-frankfurt.de
+
+http://stackoverflow.com/questions/4185171/use-cookies-from-cookiecontainer-in-webbrowser
+
+function readCookie(name) {
+ var nameEQ = name + "=";
+ var ca = document.cookie.split(';');
+ for(var i=0;i < ca.length;i++) {
+  var c = ca[i];
+  while (c.charAt(0)==' ') c = c.substring(1,c.length);
+  if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+ }
+ return null;
+}
+
+
+function eraseCookie(name) {
+ createCookie(name,"",-1);
+}
+
 
    <div><script type="text/javascript">
 /* <![CDATA[ */

@@ -4,9 +4,6 @@
     <Caption><![CDATA[Planning]]></Caption>
     <Node Id="dbf5bb03-f0e5-46aa-9a8a-714b030f46bf">
       <Caption><![CDATA[Refactoring]]></Caption>
-      <Node Id="df30dd53-025c-42b1-8dd6-920471540c2b">
-        <Caption><![CDATA[Disclaimers & Cookies]]></Caption>
-      </Node>
       <Node Id="ff6fb224-f43f-43e9-8e67-1778cda1bd7c">
         <Caption><![CDATA[Paging for navigation]]></Caption>
       </Node>

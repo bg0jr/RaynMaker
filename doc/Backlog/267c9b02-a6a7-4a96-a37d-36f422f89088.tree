@@ -2,6 +2,9 @@
 <Tree>
   <Node Id="267c9b02-a6a7-4a96-a37d-36f422f89088">
     <Caption><![CDATA[Backlog]]></Caption>
+    <Node Id="df30dd53-025c-42b1-8dd6-920471540c2b">
+      <Caption><![CDATA[Disclaimers & Cookies]]></Caption>
+    </Node>
     <Node Id="fc017b99-a734-4ad0-9142-e936f5fa50d8">
       <Caption><![CDATA[Alter all foreign keys to add cascading delete]]></Caption>
     </Node>

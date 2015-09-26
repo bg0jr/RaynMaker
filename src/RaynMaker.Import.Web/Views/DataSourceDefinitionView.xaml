@@ -25,11 +25,18 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Data sources" VerticalAlignment="Center"/>
-            <ComboBox Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" Width="150" ItemsSource="{Binding Session.Sources}" 
+            <ComboBox Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" Width="250" ItemsSource="{Binding Session.Sources}" 
                       SelectedItem="{Binding Session.CurrentSource}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Name}"/>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} - {1}">
+                                    <Binding Path="Vendor" Mode="OneWay"/>
+                                    <Binding Path="Name" Mode="OneWay"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
