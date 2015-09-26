@@ -31,6 +31,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Documents\ICache.cs" />
     <Compile Include="Spec\DataSource.cs" />
     <Compile Include="Spec\SpecBase.cs" />
     <Compile Include="WinForms\IOleControl.cs" />

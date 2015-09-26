@@ -275,5 +275,15 @@ namespace RaynMaker.Import.Documents
                 }
             }
         }
+
+        internal void Clear()
+        {
+            foreach( var file in Directory.GetFiles( myCacheFolder ) )
+            {
+                File.Delete( file );
+            }
+
+            myIndex = CacheIndex.LoadOrCreate( myIndexFile );
+        }
     }
 }

@@ -12,6 +12,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
         <TextBlock Grid.Column="0" Text="URL" VerticalAlignment="Center"/>
@@ -20,6 +21,7 @@
                 <pn:TextBoxRaiseCommandOnEnterBehavior Command="{Binding GoCommand}"/>
             </i:Interaction.Behaviors>
         </TextBox>
-        <Button Grid.Column="2" Content="Go" Command="{Binding GoCommand}" Margin="5,0,0,0"/>
+        <Button Grid.Column="2" Content="Go" Command="{Binding GoCommand}" Margin="5,0,0,0" Width="50"/>
+        <Button Grid.Column="3" Content="Clear Cache" Command="{Binding ClearCacheCommand}" Margin="5,0,0,0"/>
     </Grid>
 </UserControl>

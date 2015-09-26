@@ -76,5 +76,14 @@ namespace RaynMaker.Import.Documents
         public event Action<Uri> Navigating;
 
         public event Action<IDocument> DocumentCompleted;
+
+        public void ClearCache()
+        {
+            var cache = myNavigator as ICache;
+            if( cache != null )
+            {
+                cache.Clear();
+            }
+        }
     }
 }

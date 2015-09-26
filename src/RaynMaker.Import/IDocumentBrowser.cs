@@ -14,5 +14,7 @@ namespace RaynMaker.Import
         event Action<Uri> Navigating;
 
         event Action<IDocument> DocumentCompleted;
+
+        void ClearCache();
     }
 }

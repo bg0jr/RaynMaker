@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="df30dd53-025c-42b1-8dd6-920471540c2b" Created="635788439464360504" LastModified="635788439780398580">
+  <Caption><![CDATA[Disclaimers & Cookies]]></Caption>
+  <Content><![CDATA[www.boerse-online.de
+
+   <div><script type="text/javascript">
+/* <![CDATA[ */
+ function createCookie(name,value,days) {
+  var expires = "";
+  if (days) {
+   var date = new Date();
+   date.setTime(date.getTime()+(days*24*60*60*1000));
+   expires = "; expires="+date.toGMTString();
+  }
+  document.cookie = name+"="+value+expires+"; path=/";
+ }
+/* ]]]]><![CDATA[> */
+</script>
+
+<div class="formbox" id="WeiterCancelBtns">
+ <div class="bttns">
+  <button class="submit" onclick="javascript:createCookie('disc_accept_223795',1,7); $('#Disclaimer').remove(); $('#Disclaimer').remove();" value="proceed">
+   Ich stimme zu
+  </button>
+  <button class="cancel" onclick="javascript:history.go(-1)" value="goBack">
+   Zur&uuml;ck
+  </button>
+ </div>
+</div>
+
+]]></Content>
+</Node>

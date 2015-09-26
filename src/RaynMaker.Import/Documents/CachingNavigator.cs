@@ -3,7 +3,7 @@ using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Documents
 {
-    class CachingNavigator : INavigator, IDisposable
+    class CachingNavigator : INavigator, ICache, IDisposable
     {
         private INavigator myNavigator;
         private DocumentCache myCache;
@@ -46,5 +46,10 @@ namespace RaynMaker.Import.Documents
         }
 
         public event Action<Uri> Navigating;
+
+        public void Clear()
+        {
+            myCache.Clear();
+        }
     }
 }

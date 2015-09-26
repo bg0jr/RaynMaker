@@ -13,6 +13,7 @@ namespace RaynMaker.Import.Web.ViewModels
         public AddressBarViewModel()
         {
             GoCommand = new DelegateCommand( OnGo );
+            ClearCacheCommand = new DelegateCommand( OnClearCache );
         }
 
         public string Url
@@ -42,6 +43,13 @@ namespace RaynMaker.Import.Web.ViewModels
             }
 
             Browser.Navigate( DocumentType.Html, new Uri( myUrl ) );
+        }
+
+        public ICommand ClearCacheCommand { get; private set; }
+
+        private void OnClearCache()
+        {
+            Browser.ClearCache();
         }
     }
 }
