@@ -36,6 +36,17 @@ namespace RaynMaker.Data.Services
         public void Store( Stock stock, FlowDocument content )
         {
             var file = Path.Combine( myProjectHost.Project.StorageRoot, "Notes." + stock.Isin + ".rtf" );
+
+            if( !File.Exists( file ) )
+            {
+                var range = new TextRange( content.ContentStart, content.ContentEnd );
+                if( string.IsNullOrWhiteSpace( range.Text ) )
+                {
+                    // do not create empty files
+                    return;
+                }
+            }
+
             using( var stream = new FileStream( file, FileMode.Create, FileAccess.Write ) )
             {
                 var range = new TextRange( content.ContentStart, content.ContentEnd );

@@ -13,6 +13,7 @@ using RaynMaker.Entities;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Services;
 using RaynMaker.Import.WinForms;
+using RaynMaker.Infrastructure.Services;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
@@ -26,12 +27,15 @@ namespace RaynMaker.Import.Web.ViewModels
         private Type myDatumType;
         private List<IDatum> myData;
         private bool myOverwriteExistingValues;
+        private Currency myCurrency;
 
-        public ImportPreviewModel( StorageService storageService )
+        public ImportPreviewModel( StorageService storageService, ICurrenciesLut currenciesLut )
         {
             Contract.RequiresNotNull( storageService, "storageService" );
+            Contract.RequiresNotNull( currenciesLut, "currenciesLut" );
 
             myStorageService = storageService;
+            CurrenciesLut = currenciesLut;
 
             OkCommand = new DelegateCommand( OnOk );
             CancelCommand = new DelegateCommand( OnCancel );
@@ -41,6 +45,8 @@ namespace RaynMaker.Import.Web.ViewModels
             myData = new List<IDatum>();
         }
 
+        public ICurrenciesLut CurrenciesLut { get; private set; }
+        
         public Stock Stock { get; set; }
 
         public IPeriod From { get; set; }
@@ -59,6 +65,12 @@ namespace RaynMaker.Import.Web.ViewModels
             set { SetProperty( ref myOverwriteExistingValues, value ); }
         }
 
+        public Currency Currency
+        {
+            get { return myCurrency; }
+            set { SetProperty( ref myCurrency, value ); }
+        }
+
         private void OnOk()
         {
             PublishData();
@@ -70,6 +82,12 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             foreach( var datum in myData )
             {
+                var currencyDatum = datum as ICurrencyDatum;
+                if( Currency != null && currencyDatum!=null)
+                {
+                    ( ( AbstractCurrencyDatum )currencyDatum ).Currency = Currency;
+                }
+
                 var existingDatum = Series.SingleOrDefault( d => d.Period.Equals( datum.Period ) );
                 if( existingDatum == null )
                 {
@@ -82,7 +100,6 @@ namespace RaynMaker.Import.Web.ViewModels
                     ( ( AbstractDatum )existingDatum ).Value = datum.Value;
                     ( ( AbstractDatum )existingDatum ).Source = datum.Source;
 
-                    var currencyDatum = datum as ICurrencyDatum;
                     if( currencyDatum != null )
                     {
                         ( ( AbstractCurrencyDatum )existingDatum ).Currency = currencyDatum.Currency;

@@ -14,16 +14,18 @@ namespace RaynMaker.Import.Web
     class WebDatumProvider : IDataProvider
     {
         private StorageService myStorageService;
+        private ILutService myLutService;
 
         [ImportingConstructor]
-        public WebDatumProvider( StorageService storageService )
+        public WebDatumProvider( StorageService storageService, ILutService lutService )
         {
             myStorageService = storageService;
+            myLutService = lutService;
         }
 
         public void Fetch( Stock stock, Type datum, ICollection<IDatum> series, IPeriod from, IPeriod to )
         {
-            var previewViewModel = new ImportPreviewModel(myStorageService)
+            var previewViewModel = new ImportPreviewModel( myStorageService, myLutService.CurrenciesLut )
             {
                 Stock = stock,
                 From = from,

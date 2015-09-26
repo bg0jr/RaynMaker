@@ -63,11 +63,17 @@ namespace RaynMaker.Import.Spec
         /// Group "1" will be used for further processing
         /// </remarks>
         /// </summary>
-        [DataMember]
         public Regex ExtractionPattern
         {
             get { return myExtractionPattern; }
             set { SetProperty( ref myExtractionPattern, value ); }
+        }
+
+        [DataMember( Name = "ExtractionPattern" )]
+        private string SerializedExtractionPattern
+        {
+            get { return ExtractionPattern == null ? null : ExtractionPattern.ToString(); }
+            set { ExtractionPattern = value == null ? null : new Regex( value ); }
         }
 
         /// <summary>

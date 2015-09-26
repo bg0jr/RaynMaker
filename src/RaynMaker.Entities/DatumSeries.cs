@@ -160,7 +160,7 @@ namespace RaynMaker.Entities
         private string GetCurrency( IDatum datum )
         {
             var currencyDatum = datum as ICurrencyDatum;
-            if( currencyDatum == null )
+            if( currencyDatum == null || currencyDatum.Currency == null )
             {
                 return "None";
             }

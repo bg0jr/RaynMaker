@@ -141,6 +141,7 @@
     <Compile Include="Views\SingleFormatView.xaml.cs">
       <DependentUpon>SingleFormatView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\StringRegexConverter.cs" />
     <Compile Include="Views\TextBoxBinding.cs" />
     <Compile Include="Views\WebSpyMenuItem.xaml.cs">
       <DependentUpon>WebSpyMenuItem.xaml</DependentUpon>
