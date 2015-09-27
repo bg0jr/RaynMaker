@@ -28,6 +28,7 @@ namespace RaynMaker.Data.ViewModels
             CurrenciesLut = lutService.CurrenciesLut;
 
             ImportCommand = new DelegateCommand<DatumSeries>( OnImport, CanImport );
+            ImportPriceCommand = new DelegateCommand( OnImportPrice, CanImportPrice );
         }
 
         [Import( AllowDefault = true )]
@@ -110,7 +111,7 @@ namespace RaynMaker.Data.ViewModels
             // validate currency consistancy
             foreach( DatumSeries series in myDatums.ToList() )
             {
-                series.EnableCurrencyCheck=true;
+                series.EnableCurrencyCheck = true;
                 series.VerifyCurrencyConsistency();
             }
 
@@ -165,6 +166,45 @@ namespace RaynMaker.Data.ViewModels
                 series,
                 new YearPeriod( currentYear - 10 ),
                 new YearPeriod( currentYear ) );
+        }
+
+        public DelegateCommand ImportPriceCommand { get; private set; }
+
+        private bool CanImportPrice()
+        {
+            // TODO: we need a different format!
+            // - we need to handle time in a row
+            // - we need to support DateTime in TimeAxisFormat
+            return false;
+            //return DataProvider != null;
+        }
+
+        private void OnImportPrice()
+        {
+            var today = DateTime.Today;
+
+            var series = new List<IDatum>();
+
+            // fetch some more data because of weekends and public holidays
+            // we will then take last one
+
+            DataProvider.Fetch( Stock,
+                typeof( Price ),
+                series,
+                new DayPeriod( today.Subtract( TimeSpan.FromDays( 7 ) ) ),
+                new DayPeriod( today ) );
+
+            // there might be no privider - check for null
+            var price = ( Price )series
+                .OrderByDescending( d => d.Period )
+                .FirstOrDefault();
+
+            if( price != null )
+            {
+                Price.Value = price.Value;
+                Price.Currency = price.Currency;
+                price.Period = price.Period;
+            }
         }
     }
 }
