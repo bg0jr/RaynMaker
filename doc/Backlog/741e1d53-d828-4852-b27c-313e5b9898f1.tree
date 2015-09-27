@@ -17,6 +17,9 @@
     <Node Id="28f445d5-be29-4194-af13-1e303507d47f">
       <Caption><![CDATA[Remove backward-compatibility]]></Caption>
     </Node>
+    <Node Id="24868082-e3c6-4f24-b42c-696a953ab32c">
+      <Caption><![CDATA[webspy: Format selection]]></Caption>
+    </Node>
     <Node Id="fc0ac8c3-8c48-40a6-886c-e8805243d1bf">
       <Caption><![CDATA[Attachments]]></Caption>
     </Node>
