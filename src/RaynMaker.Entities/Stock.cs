@@ -8,6 +8,8 @@ namespace RaynMaker.Entities
     public class Stock : EntityBase
     {
         private string myIsin;
+        private string myWpkn;
+        private string mySymbol;
 
         public Stock()
         {
@@ -22,6 +24,18 @@ namespace RaynMaker.Entities
         {
             get { return myIsin; }
             set { SetProperty( ref myIsin, value ); }
+        }
+
+        public string Wpkn
+        {
+            get { return myWpkn; }
+            set { SetProperty( ref myWpkn, value ); }
+        }
+
+        public string Symbol
+        {
+            get { return mySymbol; }
+            set { SetProperty( ref mySymbol, value ); }
         }
 
         [Required]

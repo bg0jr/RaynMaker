@@ -18,6 +18,8 @@ namespace RaynMaker.Browser.ViewModels
         private IProjectHost myProjectHost;
         private string myName;
         private string myIsin;
+        private string myWpkn;
+        private string mySymbol;
 
         [ImportingConstructor]
         public NewAssetViewModel( IProjectHost host )
@@ -42,6 +44,18 @@ namespace RaynMaker.Browser.ViewModels
             set { SetProperty( ref myIsin, value ); }
         }
 
+        public string Wpkn
+        {
+            get { return myWpkn; }
+            set { SetProperty( ref myWpkn, value ); }
+        }
+
+        public string Symbol
+        {
+            get { return mySymbol; }
+            set { SetProperty( ref mySymbol, value ); }
+        }
+
         public Action FinishInteraction { get; set; }
 
         public INotification Notification { get; set; }
@@ -57,6 +71,8 @@ namespace RaynMaker.Browser.ViewModels
 
             var stock = new Stock();
             stock.Isin = Isin;
+            stock.Wpkn = Wpkn;
+            stock.Symbol= Symbol;
 
             company.Stocks.Add( stock );
 

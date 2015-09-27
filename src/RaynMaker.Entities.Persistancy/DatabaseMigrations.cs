@@ -8,7 +8,7 @@ namespace RaynMaker.Entities.Persistancy
 {
     class DatabaseMigrations
     {
-        public const int RequiredDatabaseVersion = 10;
+        public const int RequiredDatabaseVersion = 11;
 
         public DatabaseMigrations()
         {
@@ -24,6 +24,7 @@ namespace RaynMaker.Entities.Persistancy
             MigrationVersion8();
             MigrationVersion9();
             MigrationVersion10();
+            MigrationVersion11();
         }
 
         public Dictionary<int, IList<string>> Migrations { get; set; }
@@ -348,6 +349,16 @@ BEGIN TRANSACTION;
 " );
 
             Migrations.Add( 10, steps );
+        }
+
+        private void MigrationVersion11()
+        {
+            var steps = new List<string>();
+
+            steps.Add( @"ALTER TABLE Stocks ADD COLUMN Wpkn TEXT;" );
+            steps.Add( @"ALTER TABLE Stocks ADD COLUMN Symbol TEXT;" );
+
+            Migrations.Add( 11, steps );
         }
     }
 }
