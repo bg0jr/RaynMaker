@@ -194,13 +194,17 @@ namespace RaynMaker.Import.Web.ViewModels
                     // already extract data here to check for format issues etc
 
                     var table = provider.GetResult( format );
-                    Currency currency = null; // TODO - how do we handle that!!
                     foreach( DataRow row in table.Rows )
                     {
+                        if( row[ format.ValueFormat.Name ] == DBNull.Value )
+                        {
+                            continue;
+                        }
+
                         var year = ( int )row[ format.TimeAxisFormat.Name ];
                         var value = ( double )row[ format.ValueFormat.Name ];
 
-                        var datum = Dynamics.CreateDatum( Stock, myDatumType, new YearPeriod( year ), currency );
+                        var datum = Dynamics.CreateDatum( Stock, myDatumType, new YearPeriod( year ), null );
                         datum.Source = mySelectedSource.Vendor + " - " + mySelectedSource.Name;
 
                         datum.Value = format.InMillions ? value * 1000000 : value;

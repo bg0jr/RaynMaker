@@ -38,6 +38,9 @@ namespace RaynMaker.Import.Spec
             {
                 other.Anchor = Anchor.ForCell( Anchor.Row, Anchor.Column );
             }
+            other.ExtractLinkUrl = ExtractLinkUrl;
+            other.SeriesName = SeriesName;
+            other.InMillions = InMillions;
 
             return other;
         }

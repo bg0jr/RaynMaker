@@ -145,6 +145,11 @@ namespace RaynMaker.Import.Spec
                     return null;
                 }
 
+                if( value == "-" )
+                {
+                    return null;
+                }
+
                 if( string.IsNullOrEmpty( Format ) )
                 {
                     return value;

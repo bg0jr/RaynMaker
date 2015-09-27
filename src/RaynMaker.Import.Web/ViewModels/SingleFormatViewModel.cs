@@ -53,6 +53,7 @@ namespace RaynMaker.Import.Web.ViewModels
             SeriesName = format.SeriesName;
             TimeFormat = Format.TimeAxisFormat ?? new FormatColumn( "time" );
             ValueFormat = Format.ValueFormat ?? new FormatColumn( "value" );
+            InMillions = Format.InMillions;
 
             ColumnHeaderRow = ( format.Expand == CellDimension.Row ? Format.TimeAxisPosition : Format.SeriesNamePosition ).ToString();
             RowHeaderColumn = ( format.Expand == CellDimension.Row ? Format.SeriesNamePosition : Format.TimeAxisPosition ).ToString();

@@ -29,7 +29,7 @@ namespace RaynMaker.Import.Web.ViewModels
             NextCommand = new DelegateCommand( OnNext, CanNext );
             AddCommand = new DelegateCommand( OnAdd );
             RemoveCommand = new DelegateCommand( OnRemove );
-            CopyCommand = new DelegateCommand( OnCopy);
+            CopyCommand = new DelegateCommand( OnCopy );
 
             OnCurrentSourceChanged( null, null );
         }
@@ -221,6 +221,8 @@ namespace RaynMaker.Import.Web.ViewModels
 
             // reset the Datum to enforce user interaction after clone (Datum is mandatory) 
             format.Datum = null;
+
+            format.SeriesName = null;
 
             Session.CurrentSource.FormatSpecs.Add( format );
 
