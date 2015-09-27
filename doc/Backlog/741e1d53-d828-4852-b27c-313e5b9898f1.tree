@@ -4,24 +4,30 @@
     <Caption><![CDATA[Planning]]></Caption>
     <Node Id="dbf5bb03-f0e5-46aa-9a8a-714b030f46bf">
       <Caption><![CDATA[Refactoring]]></Caption>
-      <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">
-        <Caption><![CDATA[Cleanup Import design]]></Caption>
-        <Node Id="77a3da08-70e8-4ae1-b90d-40a5b428e21d">
-          <Caption><![CDATA[TryNavigateWithWildcards]]></Caption>
-        </Node>
-        <Node Id="b0b261be-5045-42e4-8299-10b8a7aecc67">
-          <Caption><![CDATA[Why do we need DocumentType in Navigation?]]></Caption>
+      <Node Id="1ae41788-cac4-4387-80e3-b412d0367dbd">
+        <Caption><![CDATA[1.4]]></Caption>
+        <Node Id="86468b2b-beef-4c23-a3ec-48e92a6fd684">
+          <Caption><![CDATA[Add support for Wpkn and Symbol in Navigation]]></Caption>
         </Node>
       </Node>
-    </Node>
-    <Node Id="28f445d5-be29-4194-af13-1e303507d47f">
-      <Caption><![CDATA[Remove backward-compatibility]]></Caption>
-    </Node>
-    <Node Id="24868082-e3c6-4f24-b42c-696a953ab32c">
-      <Caption><![CDATA[webspy: Format selection]]></Caption>
-    </Node>
-    <Node Id="fc0ac8c3-8c48-40a6-886c-e8805243d1bf">
-      <Caption><![CDATA[Attachments]]></Caption>
+      <Node Id="9e52c479-8da2-4767-8e98-c5670c3a1b89">
+        <Caption><![CDATA[1.5]]></Caption>
+        <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">
+          <Caption><![CDATA[Cleanup Import design]]></Caption>
+          <Node Id="77a3da08-70e8-4ae1-b90d-40a5b428e21d">
+            <Caption><![CDATA[TryNavigateWithWildcards]]></Caption>
+          </Node>
+          <Node Id="b0b261be-5045-42e4-8299-10b8a7aecc67">
+            <Caption><![CDATA[Why do we need DocumentType in Navigation?]]></Caption>
+          </Node>
+        </Node>
+        <Node Id="24868082-e3c6-4f24-b42c-696a953ab32c">
+          <Caption><![CDATA[webspy: Format selection]]></Caption>
+        </Node>
+        <Node Id="28f445d5-be29-4194-af13-1e303507d47f">
+          <Caption><![CDATA[Remove backward-compatibility]]></Caption>
+        </Node>
+      </Node>
     </Node>
   </Node>
 </Tree>

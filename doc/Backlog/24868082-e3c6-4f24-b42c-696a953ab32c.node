@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="24868082-e3c6-4f24-b42c-696a953ab32c" Created="635789364528563534" LastModified="635789364883893858">
+<Node Id="24868082-e3c6-4f24-b42c-696a953ab32c" Created="635789364528563534" LastModified="635789643292375187">
   <Caption><![CDATA[webspy: Format selection]]></Caption>
   <Content><![CDATA[we should have a combobox where we can see which formats we already have
 and can directly jump to it]]></Content>
