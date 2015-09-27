@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="1f90b23e-0da5-4e08-ac33-68cf6b7c229d" Created="635789295004066961" LastModified="635789295700476793">
+  <Caption><![CDATA[Stock notes back to stock module]]></Caption>
+  <Content><![CDATA[- let notes module import it into region
+- currently we have code duplication in StorageService between data module 
+  notes module
+- i would not import separate CP from notes module]]></Content>
+</Node>
