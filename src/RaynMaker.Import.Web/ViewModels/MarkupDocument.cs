@@ -404,5 +404,10 @@ namespace RaynMaker.Import.Web.ViewModels
                 myMarker.Unmark( ( ( HtmlElementAdapter )GetCellAt( pos ) ).Element );
             }
         }
+
+        internal void UnmarkAll()
+        {
+            myMarker.UnmarkAll();
+        }
     }
 }

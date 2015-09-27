@@ -326,5 +326,10 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             myMarkupDocument.Apply();
         }
+
+        internal void UnMark()
+        {
+            myMarkupDocument.UnmarkAll();
+        }
     }
 }

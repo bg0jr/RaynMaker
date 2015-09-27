@@ -115,6 +115,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 {
                     if( oldFormat != -1 )
                     {
+                        Formats[ oldFormat ].UnMark();
                         Formats[ oldFormat ].Document = null;
                     }
 
