@@ -201,7 +201,7 @@ namespace RaynMaker.Import.Web.ViewModels
                         var value = ( double )row[ format.ValueFormat.Name ];
 
                         var datum = Dynamics.CreateDatum( Stock, myDatumType, new YearPeriod( year ), currency );
-                        datum.Source = mySelectedSource.Name;
+                        datum.Source = mySelectedSource.Vendor + " - " + mySelectedSource.Name;
 
                         datum.Value = format.InMillions ? value * 1000000 : value;
 
