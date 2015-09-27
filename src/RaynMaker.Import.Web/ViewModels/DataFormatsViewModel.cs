@@ -29,6 +29,7 @@ namespace RaynMaker.Import.Web.ViewModels
             NextCommand = new DelegateCommand( OnNext, CanNext );
             AddCommand = new DelegateCommand( OnAdd );
             RemoveCommand = new DelegateCommand( OnRemove );
+            CopyCommand = new DelegateCommand( OnCopy);
 
             OnCurrentSourceChanged( null, null );
         }
@@ -206,5 +207,30 @@ namespace RaynMaker.Import.Web.ViewModels
             PreviousCommand.RaiseCanExecuteChanged();
             NextCommand.RaiseCanExecuteChanged();
         }
+
+        public ICommand CopyCommand { get; private set; }
+
+        private void OnCopy()
+        {
+            if( mySelectedFormatIndex == -1 )
+            {
+                return;
+            }
+
+            var format = ( PathSeriesFormat )Formats[ SelectedFormatIndex ].Format.Clone();
+
+            // reset the Datum to enforce user interaction after clone (Datum is mandatory) 
+            format.Datum = null;
+
+            Session.CurrentSource.FormatSpecs.Add( format );
+
+            Formats.Add( new SingleFormatViewModel( format ) );
+
+            SelectedFormatIndex = Formats.Count - 1;
+
+            PreviousCommand.RaiseCanExecuteChanged();
+            NextCommand.RaiseCanExecuteChanged();
+        }
+
     }
 }

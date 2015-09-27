@@ -36,9 +36,12 @@
                 </TextBlock>
             </Border>
             <Button Content="&gt;" Command="{Binding NextCommand}" Margin="5,0,0,0" Width="25"/>
-            
+
             <Button Command="{Binding AddCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="5,0,0,0">
                 <Image Source="/RaynMaker.Infrastructure;Component/Resources/Add.png" Width="17" Height="17"/>
+            </Button>
+            <Button Command="{Binding CopyCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="5,0,0,0">
+                <Image Source="/RaynMaker.Infrastructure;Component/Resources/Copy.png" Width="17" Height="17"/>
             </Button>
             <Button Command="{Binding RemoveCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="5,0,0,0">
                 <Image Source="/RaynMaker.Infrastructure;Component/Resources/Remove.png" Width="17" Height="17"/>
