@@ -46,7 +46,11 @@ namespace RaynMaker.Import.Parsers.Html
             builder.Path = FormElement.GetAttribute( "action" );
             builder.Query = string.Join( "&", BuildParameters( formular ) );
 
-            return builder.Uri;
+            var urlString = builder.ToString();
+
+            // we have to use obsolete API here to force Uri class to NOT encode our string - it is already encoded.
+            // if we let Uri class do the default for a strange reason the Url gets reencoded - sometimes.
+            return new Uri( urlString, true );
         }
 
         //<form action="/quote/historic/historic.csv" method="get" name="histcsv" style="margin:0px"> 
