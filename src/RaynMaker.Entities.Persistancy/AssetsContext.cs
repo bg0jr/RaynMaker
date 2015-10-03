@@ -1,5 +1,7 @@
 ﻿using System.Data.Common;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.Reflection;
@@ -14,7 +16,19 @@ namespace RaynMaker.Entities.Persistancy
         {
             Database.SetInitializer<AssetsContext>( null );
 
+            ( ( IObjectContextAdapter )this ).ObjectContext
+                             .ObjectMaterialized += ObjectContext_OnObjectMaterialized;
+
             //this.Database.Log = stmt => Debug.WriteLine( "SQL: " + stmt );
+        }
+
+        private void ObjectContext_OnObjectMaterialized( object sender, ObjectMaterializedEventArgs e )
+        {
+            var entityTimestampBase = e.Entity as EntityTimestampBase;
+            if( entityTimestampBase != null )
+            {
+                entityTimestampBase.IsMaterialized = true;
+            }
         }
 
         private static DbConnection GetConnection( string path )

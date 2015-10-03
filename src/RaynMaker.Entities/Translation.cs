@@ -6,15 +6,11 @@ using System.Runtime.Serialization;
 
 namespace RaynMaker.Entities
 {
-    public class Translation : EntityBase
+    public class Translation : EntityTimestampBase
     {
-        private DateTime myTimestamp;
         private Currency mySource;
         private Currency myTarget;
         private double myRate;
-
-        [Required]
-        public long Id { get; set; }
 
         public long SourceId { get; set; }
 
@@ -26,7 +22,7 @@ namespace RaynMaker.Entities
             {
                 if( SetProperty( ref mySource, value ) )
                 {
-                    Timestamp = DateTime.Now;
+                    UpdateTimestamp();
                 }
             }
         }
@@ -41,7 +37,7 @@ namespace RaynMaker.Entities
             {
                 if( SetProperty( ref myTarget, value ) )
                 {
-                    Timestamp = DateTime.Now;
+                    UpdateTimestamp();
                 }
             }
         }
@@ -54,16 +50,9 @@ namespace RaynMaker.Entities
             {
                 if( SetProperty( ref myRate, value ) )
                 {
-                    Timestamp = DateTime.Now;
+                    UpdateTimestamp();
                 }
             }
-        }
-
-        [Required]
-        public DateTime Timestamp
-        {
-            get { return myTimestamp; }
-            private set { SetProperty( ref myTimestamp, value ); }
         }
     }
 }

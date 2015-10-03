@@ -6,9 +6,6 @@ namespace RaynMaker.Entities
     {
         private string myUri;
 
-        [Required]
-        public long Id { get; set; }
-
         [Required, Url]
         public string Url
         {

@@ -4,9 +4,6 @@
     <Caption><![CDATA[Planning]]></Caption>
     <Node Id="bde3373e-2bec-4a2b-835e-92935da36614">
       <Caption><![CDATA[HotFix]]></Caption>
-      <Node Id="6d3e4698-18b6-4715-98cc-bc9a346dfa0b">
-        <Caption><![CDATA[Timestamp overwritten by materialization]]></Caption>
-      </Node>
     </Node>
     <Node Id="74ab07b4-4304-4ed8-b6a2-633ef89ed929">
       <Caption><![CDATA[1.5]]></Caption>

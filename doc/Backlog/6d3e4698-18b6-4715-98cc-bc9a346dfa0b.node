@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="6d3e4698-18b6-4715-98cc-bc9a346dfa0b" Created="635794802909478044" LastModified="635794803288853622">
-  <Caption><![CDATA[Timestamp overwritten by materialization]]></Caption>
-  <Content><![CDATA[- all entities 
-- AND currencies + translations
-  - expired check does not work anylonger!]]></Content>
-</Node>

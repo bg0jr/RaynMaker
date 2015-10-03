@@ -17,9 +17,6 @@ namespace RaynMaker.Entities
         }
 
         [Required]
-        public long Id { get; set; }
-
-        [Required]
         public string Isin
         {
             get { return myIsin; }

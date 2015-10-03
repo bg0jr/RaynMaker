@@ -31,9 +31,6 @@ namespace RaynMaker.Entities
         }
 
         [Required]
-        public long Id { get; set; }
-
-        [Required]
         public string Name
         {
             get { return myName; }

@@ -4,15 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RaynMaker.Entities
 {
-    public abstract class AbstractDatum : EntityBase, IDatum
+    public abstract class AbstractDatum : EntityTimestampBase, IDatum
     {
-        private DateTime myTimestamp;
         private double? myValue;
         private string mySource;
         private IPeriod myPeriod;
-
-        [Required]
-        public long Id { get; set; }
 
         [Required]
         public double? Value
@@ -47,18 +43,6 @@ namespace RaynMaker.Entities
         {
             get { return myPeriod; }
             set { SetProperty( ref myPeriod, value ); }
-        }
-
-        [Required]
-        public DateTime Timestamp
-        {
-            get { return myTimestamp; }
-            private set { SetProperty( ref myTimestamp, value ); }
-        }
-
-        protected void UpdateTimestamp()
-        {
-            Timestamp = DateTime.Now;
         }
     }
 }
