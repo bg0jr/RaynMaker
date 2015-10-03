@@ -4,12 +4,6 @@
     <Caption><![CDATA[Planning]]></Caption>
     <Node Id="dbf5bb03-f0e5-46aa-9a8a-714b030f46bf">
       <Caption><![CDATA[Refactoring]]></Caption>
-      <Node Id="1ae41788-cac4-4387-80e3-b412d0367dbd">
-        <Caption><![CDATA[1.4]]></Caption>
-        <Node Id="86468b2b-beef-4c23-a3ec-48e92a6fd684">
-          <Caption><![CDATA[Add support for Wpkn and Symbol in Navigation]]></Caption>
-        </Node>
-      </Node>
       <Node Id="9e52c479-8da2-4767-8e98-c5670c3a1b89">
         <Caption><![CDATA[1.5]]></Caption>
         <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">

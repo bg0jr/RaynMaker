@@ -79,7 +79,7 @@
 
         <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" TextWrapping="Wrap">
             <Run FontWeight="SemiBold">Macros: </Run>
-            <Run>Enter the following macros to create placeholders for asset identification: ${Isin}</Run>
+            <Run>Enter the following macros to create placeholders for asset identification: ${Isin}, ${Wpkn}, ${Symbol}</Run>
             <LineBreak/>
             <Run FontWeight="SemiBold">RegExp: </Run>
             <Run>Replace site specific identifiers in response URLs with regular expressions embedded in {}, e.g.: {(.*)}</Run>

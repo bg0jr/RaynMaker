@@ -25,6 +25,7 @@ namespace RaynMaker.Import.Web.ViewModels
         public void Navigate( Navigation navigation, Stock stock )
         {
             Contract.RequiresNotNull( navigation, "navigation" );
+            Contract.Requires( navigation.DocumentType == DocumentType.Html, "Only DocumentType.Html supported" );
             Contract.RequiresNotNull( stock, "stock" );
 
             var macroPattern = new Regex( @"(\$\{.*\})" );
@@ -51,7 +52,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 }
             }
 
-            myBrowser.Navigate( new Navigation( DocumentType.Html, filtered ) );
+            myBrowser.Navigate( new Navigation( navigation.DocumentType, filtered ) );
             Document = ( ( HtmlDocumentHandle )myBrowser.Document ).Content;
         }
 
@@ -60,6 +61,16 @@ namespace RaynMaker.Import.Web.ViewModels
             if( macroId.Equals( "isin", StringComparison.OrdinalIgnoreCase ) )
             {
                 return stock.Isin;
+            }
+
+            if( macroId.Equals( "Wpkn", StringComparison.OrdinalIgnoreCase ) )
+            {
+                return stock.Wpkn;
+            }
+
+            if( macroId.Equals( "Symbol", StringComparison.OrdinalIgnoreCase ) )
+            {
+                return stock.Symbol;
             }
 
             throw new NotSupportedException( "Unknown macro: " + macroId );

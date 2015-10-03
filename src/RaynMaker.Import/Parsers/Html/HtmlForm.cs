@@ -22,11 +22,7 @@ namespace RaynMaker.Import.Parsers.Html
             FormElement = element;
         }
 
-        public IHtmlElement FormElement
-        {
-            get;
-            private set;
-        }
+        public IHtmlElement FormElement { get; private set; }
 
         public string Name
         {
