@@ -2,6 +2,12 @@
 <Tree>
   <Node Id="741e1d53-d828-4852-b27c-313e5b9898f1">
     <Caption><![CDATA[Planning]]></Caption>
+    <Node Id="bde3373e-2bec-4a2b-835e-92935da36614">
+      <Caption><![CDATA[HotFix]]></Caption>
+      <Node Id="6d3e4698-18b6-4715-98cc-bc9a346dfa0b">
+        <Caption><![CDATA[Timestamp overwritten by materialization]]></Caption>
+      </Node>
+    </Node>
     <Node Id="74ab07b4-4304-4ed8-b6a2-633ef89ed929">
       <Caption><![CDATA[1.5]]></Caption>
       <Node Id="24868082-e3c6-4f24-b42c-696a953ab32c">

@@ -35,7 +35,13 @@ namespace RaynMaker.Notes
 
         private string GetFullPath( string fileName )
         {
-            return Path.Combine( myProjectHost.Project.StorageRoot, "Notes", fileName );
+            var root = Path.Combine( myProjectHost.Project.StorageRoot, "Notes" );
+            if( !Directory.Exists( root ) )
+            {
+                Directory.CreateDirectory( root );
+            }
+
+            return Path.Combine( root, fileName );
         }
 
         public void Load( Stock stock, FlowDocument target )
