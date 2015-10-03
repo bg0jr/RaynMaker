@@ -17,6 +17,17 @@ namespace RaynMaker.Entities
         {
             Stocks = new List<Stock>();
             References = new ObservableCollection<Reference>();
+
+            Assets = new List<Assets>();
+            Debts = new List<Debt>();
+            Dividends = new List<Dividend>();
+            EBITs = new List<EBIT>();
+            Equities = new List<Equity>();
+            InterestExpenses = new List<InterestExpense>();
+            Liabilities = new List<Liabilities>();
+            NetIncomes = new List<NetIncome>();
+            Revenues = new List<Revenue>();
+            SharesOutstandings = new List<SharesOutstanding>();
         }
 
         [Required]

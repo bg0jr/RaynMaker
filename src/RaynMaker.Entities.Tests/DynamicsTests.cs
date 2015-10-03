@@ -1,12 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NUnit.Framework;
+using RaynMaker.Entities.Datums;
 
 namespace RaynMaker.Entities.Tests
 {
+    [TestFixture]
     class DynamicsTests
     {
+        static object[] AllDatums = Dynamics.AllDatums.ToArray();
+
+        [Test, TestCaseSource( "AllDatums" )]
+        public void GetRelationship_ForDatum_NotNull( Type datumType )
+        {
+            var stock = new Stock { Company = new Company() };
+
+            var refs = Dynamics.GetRelationship( stock, datumType );
+
+            Assert.That( refs, Is.Not.Null );
+        }
+
+        [Test]
+        public void GetRelationship_Price_NotNull()
+        {
+            var stock = new Stock { Company = new Company() };
+
+            var refs = Dynamics.GetRelationship( stock, typeof( Price ) );
+
+            Assert.That( refs, Is.Not.Null );
+        }
     }
 }
