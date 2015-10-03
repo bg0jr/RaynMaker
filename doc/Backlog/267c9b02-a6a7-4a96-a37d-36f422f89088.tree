@@ -2,12 +2,6 @@
 <Tree>
   <Node Id="267c9b02-a6a7-4a96-a37d-36f422f89088">
     <Caption><![CDATA[Backlog]]></Caption>
-    <Node Id="1f90b23e-0da5-4e08-ac33-68cf6b7c229d">
-      <Caption><![CDATA[Stock notes back to stock module]]></Caption>
-    </Node>
-    <Node Id="fc0ac8c3-8c48-40a6-886c-e8805243d1bf">
-      <Caption><![CDATA[Attachments]]></Caption>
-    </Node>
     <Node Id="df30dd53-025c-42b1-8dd6-920471540c2b">
       <Caption><![CDATA[Disclaimers & Cookies]]></Caption>
     </Node>
@@ -32,14 +26,8 @@
     <Node Id="04f5a012-70f8-4d90-9b37-85e6b9fea0a5">
       <Caption><![CDATA[Chart layouting: fixed chart size vs fixed bar size]]></Caption>
     </Node>
-    <Node Id="25d92fe4-3ee9-4c53-997b-1e0f9c01f114">
-      <Caption><![CDATA[Refactor datasheet editor]]></Caption>
-    </Node>
     <Node Id="592b7c4d-d54f-456e-a668-911cd49bbcc0">
       <Caption><![CDATA[Fetch from internet: currency translation]]></Caption>
-    </Node>
-    <Node Id="ef9e0841-29e9-4b85-89c1-b1434d96d924">
-      <Caption><![CDATA[Fetch from internet: data]]></Caption>
     </Node>
     <Node Id="f570d534-0aff-4d7c-b83a-b9f6c8217fef">
       <Caption><![CDATA[Startup Performance]]></Caption>
