@@ -17,10 +17,18 @@ namespace RaynMaker.Entities
         [Required, ValidateObject]
         private List<IDatum> myValues;
 
-        public static IDatumSeries Empty = new DatumSeries( null, "Empty" );
+        public static IDatumSeries Empty = new DatumSeries();
+
+        private DatumSeries()
+        {
+            Name = "Empty";
+            myValues = new List<IDatum>();
+        }
 
         private DatumSeries( Type datumType, string name )
         {
+            Contract.RequiresNotNull( datumType, "datumType" );
+
             DatumType = datumType;
             Name = name;
 
@@ -41,6 +49,8 @@ namespace RaynMaker.Entities
         public DatumSeries( Type datumType, IEnumerable<IDatum> items )
             : this( datumType )
         {
+            Contract.RequiresNotNull( items, "items" );
+
             foreach( var item in items )
             {
                 Add( item );
@@ -57,6 +67,8 @@ namespace RaynMaker.Entities
 
         public void Add( IDatum datum )
         {
+            Contract.Invariant( datum != null, "Empty series must not be modified" );
+
             Contract.RequiresNotNull( datum, "datum" );
             Contract.Requires( datum.GetType() == DatumType, "[{0}] DatumType mismatch: expected={1}, actual={2}", Name, DatumType, datum.GetType() );
 

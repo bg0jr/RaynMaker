@@ -36,6 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatumSeriesTests.cs" />
+    <Compile Include="DynamicsTests.cs" />
     <Compile Include="Fakes\DatumFactory.cs" />
     <Compile Include="Fakes\FakeCurrencyDatum.cs" />
     <Compile Include="Fakes\FakeDatum.cs" />

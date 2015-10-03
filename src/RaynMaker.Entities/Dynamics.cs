@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure.Pluralization;
+using System.Linq;
 using Plainion;
 using RaynMaker.Entities.Datums;
 
@@ -35,13 +36,13 @@ namespace RaynMaker.Entities
             var property = typeof( Company ).GetProperty( collectionName );
             if( property != null )
             {
-                return ( IEnumerable<IDatum> )property.GetValue( stock.Company );
+                return ( IEnumerable<IDatum> )property.GetValue( stock.Company ) ?? Enumerable.Empty<IDatum>();
             }
 
             property = typeof( Stock ).GetProperty( collectionName );
             if( property != null )
             {
-                return ( IEnumerable<IDatum> )property.GetValue( stock );
+                return ( IEnumerable<IDatum> )property.GetValue( stock ) ?? Enumerable.Empty<IDatum>();
             }
 
             throw new ArgumentException( string.Format( "No relationship (navigation property) found with name {0} on Company or Stock", collectionName ) );
