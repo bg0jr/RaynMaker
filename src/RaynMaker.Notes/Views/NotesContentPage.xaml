@@ -1,0 +1,9 @@
+﻿<UserControl x:Class="RaynMaker.Notes.Views.NotesContentPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:l="clr-namespace:RaynMaker.Notes.Views"
+             mc:Ignorable="d" d:DesignHeight="500" d:DesignWidth="500">
+    <l:NotesEditor Document="{Binding Document, Mode=OneWayToSource}" Background="White"/>
+</UserControl>

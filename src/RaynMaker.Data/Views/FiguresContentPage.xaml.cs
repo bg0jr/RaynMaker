@@ -6,7 +6,7 @@ using RaynMaker.Data.ViewModels;
 namespace RaynMaker.Data.Views
 {
     [Export]
-    [ViewSortHint( "110" )]
+    [ViewSortHint( "200" )]
     public partial class FiguresContentPage : UserControl
     {
         [ImportingConstructor]

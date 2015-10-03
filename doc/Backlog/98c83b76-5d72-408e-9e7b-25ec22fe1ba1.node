@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="98c83b76-5d72-408e-9e7b-25ec22fe1ba1" Created="635794592120833075" LastModified="635794592319328308">
-  <Caption><![CDATA[Notes module must write into separate folder]]></Caption>
-  <Content><![CDATA[by convention module name is subfolder under storage root]]></Content>
-</Node>

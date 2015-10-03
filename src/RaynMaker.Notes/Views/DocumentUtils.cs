@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Documents;
 
-namespace RaynMaker.Infrastructure.Controls
+namespace RaynMaker.Notes.Views
 {
     public static class DocumentUtils
     {

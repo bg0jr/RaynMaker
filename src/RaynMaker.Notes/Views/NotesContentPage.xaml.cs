@@ -1,16 +1,16 @@
 ﻿using System.ComponentModel.Composition;
 using System.Windows.Controls;
 using Microsoft.Practices.Prism.Regions;
-using RaynMaker.Analysis.ViewModels;
+using RaynMaker.Notes.ViewModels;
 
-namespace RaynMaker.Analysis.Views
+namespace RaynMaker.Notes.Views
 {
     [Export]
-    [ViewSortHint( "300" )]
-    public partial class AnalysisContentPage : UserControl
+    [ViewSortHint( "150" )]
+    public partial class NotesContentPage : UserControl
     {
         [ImportingConstructor]
-        internal AnalysisContentPage( AnalysisContentPageModel viewModel )
+        internal NotesContentPage( NotesContentPageModel viewModel )
         {
             InitializeComponent();
 

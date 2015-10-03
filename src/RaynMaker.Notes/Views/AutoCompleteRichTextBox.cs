@@ -6,7 +6,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Navigation;
 
-namespace RaynMaker.Infrastructure.Controls
+namespace RaynMaker.Notes.Views
 {
     public class AutoCompleteRichTextBox : RichTextBox
     {

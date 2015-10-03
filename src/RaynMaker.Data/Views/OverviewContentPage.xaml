@@ -24,7 +24,6 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -93,10 +92,6 @@
                     <Image Source="/RaynMaker.Infrastructure;Component/Resources/Add.png" Width="17" Height="17"/>
                 </Button>
             </Grid>
-
-            <TextBlock Grid.Row="8" Grid.Column="0" Text="Notes" VerticalAlignment="Top" Margin="0,2,0,0"/>
-            <rym:NotesEditor Grid.Row="8" Grid.Column="1" Margin="5,2,0,2"  Name="myEditor" Background="White" Height="300"
-                             Document="{Binding Notes, Mode=OneWayToSource}"/>
         </Grid>
     </ScrollViewer>
 </UserControl>

@@ -17,6 +17,8 @@ namespace RaynMaker.Import.Web
         {
             RegionManager.RegisterViewWithRegion( RaynMaker.Infrastructure.RegionNames.Tools, typeof( NotesMenuItem ) );
 
+            RegionManager.RegisterViewWithRegion( RaynMaker.Infrastructure.RegionNames.AssetContentPages, typeof( NotesContentPage ) );
+            
             RegionManager.RegisterViewWithRegion( RegionNames.NotesView, typeof( NotesView ) );
         }
     }

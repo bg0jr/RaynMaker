@@ -82,6 +82,12 @@
     <Compile Include="RegionNames.cs" />
     <Compile Include="Services\StorageService.cs" />
     <Compile Include="ViewModels\NotesMenuItemModel.cs" />
+    <Compile Include="ViewModels\NotesContentPageModel.cs" />
+    <Compile Include="Views\AutoCompleteRichTextBox.cs" />
+    <Compile Include="Views\DocumentUtils.cs" />
+    <Compile Include="Views\NotesEditor.xaml.cs">
+      <DependentUpon>NotesEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\NotesMenuItem.xaml.cs">
       <DependentUpon>NotesMenuItem.xaml</DependentUpon>
     </Compile>
@@ -89,18 +95,29 @@
       <DependentUpon>NotesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\NotesViewModel.cs" />
+    <Compile Include="Views\NotesContentPage.xaml.cs">
+      <DependentUpon>NotesContentPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RaynMaker.Entities\RaynMaker.Entities.csproj">
+      <Project>{0b9b8ac3-da99-4264-9d59-382adee06fd9}</Project>
+      <Name>RaynMaker.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RaynMaker.Infrastructure\RaynMaker.Infrastructure.csproj">
       <Project>{837addbe-901b-4ed9-9df4-0e259e262167}</Project>
       <Name>RaynMaker.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\NotesEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\NotesMenuItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -108,6 +125,10 @@
     <Page Include="Views\NotesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NotesContentPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup />

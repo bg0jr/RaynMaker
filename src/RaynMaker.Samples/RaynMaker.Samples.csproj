@@ -34,6 +34,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\.rym-Sample\DataSources.xdb" />
+    <None Include="Samples\.rym-Sample\Notes\DE0007664005.rtf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Samples\.rym-Sample\Notes\General.rtf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

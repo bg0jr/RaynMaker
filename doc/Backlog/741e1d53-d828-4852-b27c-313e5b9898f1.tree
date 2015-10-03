@@ -7,12 +7,6 @@
       <Node Id="24868082-e3c6-4f24-b42c-696a953ab32c">
         <Caption><![CDATA[webspy: Format selection]]></Caption>
       </Node>
-      <Node Id="1f90b23e-0da5-4e08-ac33-68cf6b7c229d">
-        <Caption><![CDATA[Stock notes back to stock module]]></Caption>
-        <Node Id="98c83b76-5d72-408e-9e7b-25ec22fe1ba1">
-          <Caption><![CDATA[Notes module must write into separate folder]]></Caption>
-        </Node>
-      </Node>
       <Node Id="fc0ac8c3-8c48-40a6-886c-e8805243d1bf">
         <Caption><![CDATA[Attachments]]></Caption>
       </Node>
