@@ -35,5 +35,8 @@
     <Node Id="ff6fb224-f43f-43e9-8e67-1778cda1bd7c">
       <Caption><![CDATA[Paging for navigation]]></Caption>
     </Node>
+    <Node Id="fc0ac8c3-8c48-40a6-886c-e8805243d1bf">
+      <Caption><![CDATA[Attachments]]></Caption>
+    </Node>
   </Node>
 </Tree>

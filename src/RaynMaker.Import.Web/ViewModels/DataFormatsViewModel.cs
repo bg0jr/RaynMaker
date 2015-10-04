@@ -25,8 +25,6 @@ namespace RaynMaker.Import.Web.ViewModels
 
             Formats = new ObservableCollection<SingleFormatViewModel>();
 
-            PreviousCommand = new DelegateCommand( OnPrevious, CanPrevious );
-            NextCommand = new DelegateCommand( OnNext, CanNext );
             AddCommand = new DelegateCommand( OnAdd );
             RemoveCommand = new DelegateCommand( OnRemove );
             CopyCommand = new DelegateCommand( OnCopy );
@@ -68,9 +66,6 @@ namespace RaynMaker.Import.Web.ViewModels
                     SelectedFormatIndex = 0;
                 }
             }
-
-            PreviousCommand.RaiseCanExecuteChanged();
-            NextCommand.RaiseCanExecuteChanged();
         }
 
         public IDocumentBrowser Browser
@@ -146,30 +141,6 @@ namespace RaynMaker.Import.Web.ViewModels
             }
         }
 
-        public DelegateCommand PreviousCommand { get; private set; }
-
-        private bool CanPrevious() { return 0 < mySelectedFormatIndex; }
-
-        private void OnPrevious()
-        {
-            SelectedFormatIndex--;
-
-            PreviousCommand.RaiseCanExecuteChanged();
-            NextCommand.RaiseCanExecuteChanged();
-        }
-
-        public DelegateCommand NextCommand { get; private set; }
-
-        private bool CanNext() { return mySelectedFormatIndex < Formats.Count - 1; }
-
-        private void OnNext()
-        {
-            SelectedFormatIndex++;
-
-            PreviousCommand.RaiseCanExecuteChanged();
-            NextCommand.RaiseCanExecuteChanged();
-        }
-
         public ICommand AddCommand { get; private set; }
 
         private void OnAdd()
@@ -183,9 +154,6 @@ namespace RaynMaker.Import.Web.ViewModels
             Formats.Add( new SingleFormatViewModel( format ) );
 
             SelectedFormatIndex = Formats.Count - 1;
-
-            PreviousCommand.RaiseCanExecuteChanged();
-            NextCommand.RaiseCanExecuteChanged();
         }
 
         public ICommand RemoveCommand { get; private set; }
@@ -203,9 +171,6 @@ namespace RaynMaker.Import.Web.ViewModels
             Formats.Remove( formatVM );
 
             SelectedFormatIndex = Formats.Count - 1;
-
-            PreviousCommand.RaiseCanExecuteChanged();
-            NextCommand.RaiseCanExecuteChanged();
         }
 
         public ICommand CopyCommand { get; private set; }
@@ -229,10 +194,6 @@ namespace RaynMaker.Import.Web.ViewModels
             Formats.Add( new SingleFormatViewModel( format ) );
 
             SelectedFormatIndex = Formats.Count - 1;
-
-            PreviousCommand.RaiseCanExecuteChanged();
-            NextCommand.RaiseCanExecuteChanged();
         }
-
     }
 }
