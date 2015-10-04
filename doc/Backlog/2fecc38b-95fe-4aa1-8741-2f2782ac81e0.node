@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="2fecc38b-95fe-4aa1-8741-2f2782ac81e0" Created="635795722051118841" LastModified="635795723109004382">
+  <Caption><![CDATA[Associated Data]]></Caption>
+  <Content><![CDATA[- we support associated data (e.g. notes) for Stocks and Company by
+  providing an additional GUID
+- Notes are connected to the company until we support assets for which
+  this setup is no longer feasible]]></Content>
+</Node>
