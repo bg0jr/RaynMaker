@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="fc017b99-a734-4ad0-9142-e936f5fa50d8" Created="635761081805150505" LastModified="635761081923427270">
-  <Caption><![CDATA[Alter all foreign keys to add cascading delete]]></Caption>
-  <Content><![CDATA[]]></Content>
-</Node>

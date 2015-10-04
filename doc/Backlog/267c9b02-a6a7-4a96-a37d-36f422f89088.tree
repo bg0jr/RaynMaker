@@ -5,9 +5,6 @@
     <Node Id="df30dd53-025c-42b1-8dd6-920471540c2b">
       <Caption><![CDATA[Disclaimers & Cookies]]></Caption>
     </Node>
-    <Node Id="fc017b99-a734-4ad0-9142-e936f5fa50d8">
-      <Caption><![CDATA[Alter all foreign keys to add cascading delete]]></Caption>
-    </Node>
     <Node Id="8b0794ea-a994-4cbc-85a2-d42ff0d87919">
       <Caption><![CDATA[Add LUTs]]></Caption>
     </Node>
