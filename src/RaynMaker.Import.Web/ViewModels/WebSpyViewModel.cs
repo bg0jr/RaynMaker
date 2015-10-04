@@ -66,7 +66,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 Formats.Browser = myDocumentBrowser;
                 Completion.Browser = myDocumentBrowser;
 
-                myDocumentBrowser.Navigate( DocumentType.Html, new Uri( "http://www.google.com" ) );
+                myDocumentBrowser.Navigate( DocumentType.Html, new Uri( "about:blank" ) );
             }
         }
 
