@@ -25,6 +25,7 @@ namespace RaynMaker.Entities.Persistancy
             MigrationVersion9();
             MigrationVersion10();
             MigrationVersion11();
+            MigrationVersion12();
         }
 
         public Dictionary<int, IList<string>> Migrations { get; set; }
@@ -323,7 +324,6 @@ CREATE TABLE SharesOutstandings (
         {
             var steps = new List<string>();
 
-
             steps.Add( @"
 COMMIT;
 
@@ -359,6 +359,38 @@ BEGIN TRANSACTION;
             steps.Add( @"ALTER TABLE Stocks ADD COLUMN Symbol TEXT;" );
 
             Migrations.Add( 11, steps );
+        }
+
+        private void MigrationVersion12()
+        {
+            var steps = new List<string>();
+
+            steps.Add( @"
+COMMIT;
+
+PRAGMA foreign_keys = false;
+
+BEGIN TRANSACTION;
+CREATE TABLE Stocks_new (
+    Id GUID PRIMARY KEY NOT NULL, 
+    Isin TEXT NOT NULL,
+    Wpkn TEXT,
+    Symbol TEXT,
+    Company_id INTEGER NOT NULL,
+    FOREIGN KEY(Company_id) REFERENCES Companies(Id) ON DELETE CASCADE
+);
+
+INSERT INTO Stocks_new SELECT Isin, Wpkn, Symbol, Company_Id FROM Stocks;
+DROP TABLE Stocks;
+ALTER TABLE Stocks_new RENAME TO Stocks;
+COMMIT;
+
+PRAGMA foreign_keys = true;
+
+BEGIN TRANSACTION;
+" );
+
+            Migrations.Add( 12, steps );
         }
     }
 }

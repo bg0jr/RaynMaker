@@ -93,7 +93,9 @@ namespace RaynMaker.Browser.ViewModels
         {
             var notification = new Confirmation();
             notification.Title = "Confirmation";
-            notification.Content = "Deletion cannot be undone. " + Environment.NewLine
+            notification.Content = "Deletion cannot be undone. "
+                + Environment.NewLine
+                + Environment.NewLine
                 + "Do you really want to delete this asset?";
 
             DeletionConfirmationRequest.Raise( notification, n =>
@@ -101,10 +103,6 @@ namespace RaynMaker.Browser.ViewModels
                 if( n.Confirmed )
                 {
                     var ctx = myProjectHost.Project.GetAssetsContext();
-
-                    // force references loaded into RAM
-                    // workaround for cascading delete issue :(
-                    var ignore = stock.Company.References.Count;
 
                     if( stock.Company.Stocks.Count == 1 )
                     {
