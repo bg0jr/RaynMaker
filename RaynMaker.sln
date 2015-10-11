@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Notes", "src\Rayn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Import.Web.Tests", "src\RaynMaker.Import.Web.Tests\RaynMaker.Import.Web.Tests.csproj", "{EB8FAAF2-3BFC-4C79-B9F2-4BE1C76E682E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Entities.Persistancy.Tests", "src\RaynMaker.Entities.Persistancy.Tests\RaynMaker.Entities.Persistancy.Tests.csproj", "{94EE79F4-D2B7-4477-A0C5-D95DB14FE79D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,10 @@ Global
 		{EB8FAAF2-3BFC-4C79-B9F2-4BE1C76E682E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB8FAAF2-3BFC-4C79-B9F2-4BE1C76E682E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB8FAAF2-3BFC-4C79-B9F2-4BE1C76E682E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94EE79F4-D2B7-4477-A0C5-D95DB14FE79D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94EE79F4-D2B7-4477-A0C5-D95DB14FE79D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94EE79F4-D2B7-4477-A0C5-D95DB14FE79D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94EE79F4-D2B7-4477-A0C5-D95DB14FE79D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,6 +4,7 @@
   <Import Project="..\..\build\Globals.msbuild" />
   <PropertyGroup>
     <ProjectGuid>{EB8FAAF2-3BFC-4C79-B9F2-4BE1C76E682E}</ProjectGuid>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <RootNamespace>RaynMaker.Import.Web.Tests</RootNamespace>
     <AssemblyName>RaynMaker.Import.Web.Tests</AssemblyName>
     <OutputType>Library</OutputType>
