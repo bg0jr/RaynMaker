@@ -8,7 +8,7 @@
     <Node Id="74ab07b4-4304-4ed8-b6a2-633ef89ed929">
       <Caption><![CDATA[1.5]]></Caption>
       <Node Id="e4bca2c3-d2e0-4b54-aff8-016c50683418">
-        <Caption><![CDATA[GUID for stock for external data?]]></Caption>
+        <Caption><![CDATA[associated data]]></Caption>
       </Node>
       <Node Id="0d76116a-0831-459b-a935-289c644b91de">
         <Caption><![CDATA[Deletion of stocks]]></Caption>
