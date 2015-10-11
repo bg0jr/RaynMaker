@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using Plainion.Validation;
@@ -15,6 +16,8 @@ namespace RaynMaker.Entities
 
         public Company()
         {
+            Guid = System.Guid.NewGuid().ToString();
+            
             Stocks = new List<Stock>();
             References = new ObservableCollection<Reference>();
 
@@ -30,6 +33,9 @@ namespace RaynMaker.Entities
             SharesOutstandings = new List<SharesOutstanding>();
         }
 
+        [Required]
+        public string Guid { get; internal set; }
+        
         [Required]
         public string Name
         {

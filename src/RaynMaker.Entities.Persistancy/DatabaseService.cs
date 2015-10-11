@@ -45,10 +45,9 @@ namespace RaynMaker.Entities.Persistancy
                 while( schemaInfo.Version < DatabaseMigrations.RequiredDatabaseVersion )
                 {
                     schemaInfo.Version++;
-                    foreach( string migration in migrationScript.Migrations[ schemaInfo.Version ] )
-                    {
-                        context.Database.ExecuteSqlCommand( migration );
-                    }
+
+                    migrationScript.Migrations[ schemaInfo.Version ]( context );
+
                     context.SaveChanges();
                 }
 
@@ -58,7 +57,7 @@ namespace RaynMaker.Entities.Persistancy
                     context.SaveChanges();
                 }
             }
-            
+
             myIsInitialized = true;
         }
 

@@ -37,6 +37,8 @@ namespace RaynMaker.Entities.Persistancy
                 {
                     DataSource = path,
                     ForeignKeys = true,
+                    // http://stackoverflow.com/questions/27279177/how-does-the-sqlite-entity-framework-6-provider-handle-guids
+                    BinaryGUID = true
                 };
 
             return new SQLiteConnection( builder.ConnectionString );

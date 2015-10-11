@@ -8,80 +8,70 @@ namespace RaynMaker.Entities.Persistancy
 {
     class DatabaseMigrations
     {
-        public const int RequiredDatabaseVersion = 11;
+        public const int RequiredDatabaseVersion = 12;
 
         public DatabaseMigrations()
         {
-            Migrations = new Dictionary<int, IList<string>>();
+            Migrations = new Dictionary<int, Action<AssetsContext>>();
 
-            MigrationVersion1();
-            MigrationVersion2();
-            MigrationVersion3();
-            MigrationVersion4();
-            MigrationVersion5();
-            MigrationVersion6();
-            MigrationVersion7();
-            MigrationVersion8();
-            MigrationVersion9();
-            MigrationVersion10();
-            MigrationVersion11();
-            MigrationVersion12();
+            Migrations.Add( 1, ToVersion1 );
+            Migrations.Add( 2, ToVersion2 );
+            Migrations.Add( 3, ToVersion3 );
+            Migrations.Add( 4, ToVersion4 );
+            Migrations.Add( 5, ToVersion5 );
+            Migrations.Add( 6, ToVersion6 );
+            Migrations.Add( 7, ToVersion7 );
+            Migrations.Add( 8, ToVersion8 );
+            Migrations.Add( 9, ToVersion9 );
+            Migrations.Add( 10, ToVersion10 );
+            Migrations.Add( 11, ToVersion11 );
+            Migrations.Add( 12, ToVersion12 );
         }
 
-        public Dictionary<int, IList<string>> Migrations { get; set; }
+        public Dictionary<int, Action<AssetsContext>> Migrations { get; set; }
 
-        private void MigrationVersion1()
+        private void ToVersion1( AssetsContext ctx )
         {
-            var steps = new List<string>();
-
-            steps.Add( @"
+            ctx.Database.ExecuteSqlCommand( @"
 CREATE TABLE SchemaInfoes (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     Version INTEGER NOT NULL
 )" );
 
-            steps.Add( @"
+            ctx.Database.ExecuteSqlCommand( @"
 CREATE TABLE Companies (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     Name TEXT NOT NULL
 )" );
 
-            steps.Add( @"
+            ctx.Database.ExecuteSqlCommand( @"
 CREATE TABLE Stocks (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
     Isin TEXT NOT NULL,
     Company_id INTEGER NOT NULL,
     FOREIGN KEY(Company_id) REFERENCES Companies(Id)
 )" );
-
-            Migrations.Add( 1, steps );
         }
 
-        private void MigrationVersion2()
+        private void ToVersion2( AssetsContext ctx )
         {
-            var steps = new List<string>();
-
-            steps.Add( @"
+            ctx.Database.ExecuteSqlCommand( @"
 CREATE TABLE AnalysisTemplates (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     Name TEXT NOT NULL,
     Template TEXT NOT NULL
 )" );
-
-            Migrations.Add( 2, steps );
         }
 
-        private void MigrationVersion3()
+        private void ToVersion3( AssetsContext ctx )
         {
-            var steps = new List<string>();
-
-            steps.Add( @"
+            ctx.Database.ExecuteSqlCommand( @"
 CREATE TABLE Currencies (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     Name TEXT NOT NULL
 )" );
 
-            steps.Add( @"
+            ctx.Database.ExecuteSqlCommand( @"
 CREATE TABLE Translations (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
     Rate DOUBLE NOT NULL,
@@ -89,17 +79,13 @@ CREATE TABLE Translations (
     Currency_id INTEGER NOT NULL,
     FOREIGN KEY(Currency_id) REFERENCES Currencies(Id)
 )" );
-
-            Migrations.Add( 3, steps );
         }
 
-        private void MigrationVersion4()
+        private void ToVersion4( AssetsContext ctx )
         {
-            var steps = new List<string>();
+            ctx.Database.ExecuteSqlCommand( @"DROP TABLE Translations" );
 
-            steps.Add( @"DROP TABLE Translations" );
-
-            steps.Add( @"
+            ctx.Database.ExecuteSqlCommand( @"
 CREATE TABLE Translations (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
     Rate DOUBLE NOT NULL,
@@ -109,17 +95,13 @@ CREATE TABLE Translations (
     FOREIGN KEY(SourceId) REFERENCES Currencies(Id),
     FOREIGN KEY(TargetId) REFERENCES Currencies(Id)
 )" );
-
-            Migrations.Add( 4, steps );
         }
 
-        private void MigrationVersion5()
+        private void ToVersion5( AssetsContext ctx )
         {
-            var steps = new List<string>();
+            ctx.Database.ExecuteSqlCommand( @"DROP TABLE Companies" );
 
-            steps.Add( @"DROP TABLE Companies" );
-
-            steps.Add( @"
+            ctx.Database.ExecuteSqlCommand( @"
 CREATE TABLE Companies (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     Name TEXT NOT NULL,
@@ -128,24 +110,20 @@ CREATE TABLE Companies (
     Country TEXT NULL
 )" );
 
-            steps.Add( @"
+            ctx.Database.ExecuteSqlCommand( @"
 CREATE TABLE 'References' (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
     Url TEXT NOT NULL,
     Company_id INTEGER NOT NULL,
     FOREIGN KEY(Company_id) REFERENCES Companies(Id)
 )" );
-
-            Migrations.Add( 5, steps );
         }
 
-        private void MigrationVersion6()
+        private void ToVersion6( AssetsContext ctx )
         {
-            var steps = new List<string>();
+            ctx.Database.ExecuteSqlCommand( @"DROP TABLE Companies" );
 
-            steps.Add( @"DROP TABLE Companies" );
-
-            steps.Add( @"
+            ctx.Database.ExecuteSqlCommand( @"
 CREATE TABLE Companies (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     Name TEXT NOT NULL,
@@ -154,15 +132,11 @@ CREATE TABLE Companies (
     Country TEXT NULL,
     XdbPath TEXT NULL
 )" );
-
-            Migrations.Add( 6, steps );
         }
 
-        private void MigrationVersion7()
+        private void ToVersion7( AssetsContext ctx )
         {
-            var steps = new List<string>();
-
-            steps.Add( @"
+            ctx.Database.ExecuteSqlCommand( @"
 CREATE TABLE Prices (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     Value DOUBLE NOT NULL,
@@ -174,15 +148,11 @@ CREATE TABLE Prices (
     FOREIGN KEY(Currency_Id) REFERENCES Currencies(Id)
     FOREIGN KEY(Stock_Id) REFERENCES Stocks(Id)
 )" );
-
-            Migrations.Add( 7, steps );
         }
 
-        private void MigrationVersion8()
+        private void ToVersion8( AssetsContext ctx )
         {
-            var steps = new List<string>();
-
-            steps.Add( @"
+            ctx.Database.ExecuteSqlCommand( @"
 CREATE TABLE Assets (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     Value DOUBLE NOT NULL,
@@ -194,15 +164,11 @@ CREATE TABLE Assets (
     FOREIGN KEY(Currency_Id) REFERENCES Currencies(Id)
     FOREIGN KEY(Company_Id) REFERENCES Companies(Id)
 )" );
-
-            Migrations.Add( 8, steps );
         }
 
-        private void MigrationVersion9()
+        private void ToVersion9( AssetsContext ctx )
         {
-            var steps = new List<string>();
-
-            steps.Add( @"
+            ctx.Database.ExecuteSqlCommand( @"
 CREATE TABLE Debts (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     Value DOUBLE NOT NULL,
@@ -215,7 +181,7 @@ CREATE TABLE Debts (
     FOREIGN KEY(Company_Id) REFERENCES Companies(Id)
 )" );
 
-            steps.Add( @"
+            ctx.Database.ExecuteSqlCommand( @"
 CREATE TABLE Dividends (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     Value DOUBLE NOT NULL,
@@ -228,7 +194,7 @@ CREATE TABLE Dividends (
     FOREIGN KEY(Company_Id) REFERENCES Companies(Id)
 )" );
 
-            steps.Add( @"
+            ctx.Database.ExecuteSqlCommand( @"
 CREATE TABLE EBITs (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     Value DOUBLE NOT NULL,
@@ -241,7 +207,7 @@ CREATE TABLE EBITs (
     FOREIGN KEY(Company_Id) REFERENCES Companies(Id)
 )" );
 
-            steps.Add( @"
+            ctx.Database.ExecuteSqlCommand( @"
 CREATE TABLE Equities (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     Value DOUBLE NOT NULL,
@@ -254,7 +220,7 @@ CREATE TABLE Equities (
     FOREIGN KEY(Company_Id) REFERENCES Companies(Id)
 )" );
 
-            steps.Add( @"
+            ctx.Database.ExecuteSqlCommand( @"
 CREATE TABLE InterestExpenses (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     Value DOUBLE NOT NULL,
@@ -267,7 +233,7 @@ CREATE TABLE InterestExpenses (
     FOREIGN KEY(Company_Id) REFERENCES Companies(Id)
 )" );
 
-            steps.Add( @"
+            ctx.Database.ExecuteSqlCommand( @"
 CREATE TABLE Liabilities (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     Value DOUBLE NOT NULL,
@@ -280,7 +246,7 @@ CREATE TABLE Liabilities (
     FOREIGN KEY(Company_Id) REFERENCES Companies(Id)
 )" );
 
-            steps.Add( @"
+            ctx.Database.ExecuteSqlCommand( @"
 CREATE TABLE NetIncomes (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     Value DOUBLE NOT NULL,
@@ -293,7 +259,7 @@ CREATE TABLE NetIncomes (
     FOREIGN KEY(Company_Id) REFERENCES Companies(Id)
 )" );
 
-            steps.Add( @"
+            ctx.Database.ExecuteSqlCommand( @"
 CREATE TABLE Revenues (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     Value DOUBLE NOT NULL,
@@ -306,7 +272,7 @@ CREATE TABLE Revenues (
     FOREIGN KEY(Company_Id) REFERENCES Companies(Id)
 )" );
 
-            steps.Add( @"
+            ctx.Database.ExecuteSqlCommand( @"
 CREATE TABLE SharesOutstandings (
     Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     Value DOUBLE NOT NULL,
@@ -316,15 +282,11 @@ CREATE TABLE SharesOutstandings (
     Company_Id INTEGER NOT NULL,
     FOREIGN KEY(Company_Id) REFERENCES Companies(Id)
 )" );
-
-            Migrations.Add( 9, steps );
         }
 
-        private void MigrationVersion10()
+        private void ToVersion10( AssetsContext ctx )
         {
-            var steps = new List<string>();
-
-            steps.Add( @"
+            ctx.Database.ExecuteSqlCommand( @"
 COMMIT;
 
 PRAGMA foreign_keys = false;
@@ -347,40 +309,73 @@ PRAGMA foreign_keys = true;
 
 BEGIN TRANSACTION;
 " );
-
-            Migrations.Add( 10, steps );
         }
 
-        private void MigrationVersion11()
+        private void ToVersion11( AssetsContext ctx )
         {
-            var steps = new List<string>();
-
-            steps.Add( @"ALTER TABLE Stocks ADD COLUMN Wpkn TEXT;" );
-            steps.Add( @"ALTER TABLE Stocks ADD COLUMN Symbol TEXT;" );
-
-            Migrations.Add( 11, steps );
+            ctx.Database.ExecuteSqlCommand( @"ALTER TABLE Stocks ADD COLUMN Wpkn TEXT;" );
+            ctx.Database.ExecuteSqlCommand( @"ALTER TABLE Stocks ADD COLUMN Symbol TEXT;" );
         }
 
-        private void MigrationVersion12()
+        private void ToVersion12( AssetsContext ctx )
         {
-            var steps = new List<string>();
+            ctx.Database.ExecuteSqlCommand( @"ALTER TABLE Companies ADD COLUMN Guid TEXT;" );
+            ctx.Database.ExecuteSqlCommand( @"ALTER TABLE Stocks ADD COLUMN Guid TEXT;" );
 
-            steps.Add( @"
+            foreach( var company in ctx.Companies )
+            {
+                company.Guid = Guid.NewGuid().ToString();
+            }
+
+            foreach( var stock in ctx.Stocks )
+            {
+                stock.Guid = Guid.NewGuid().ToString();
+            }
+
+            ctx.SaveChanges();
+
+            ctx.Database.ExecuteSqlCommand( @"
+COMMIT;
+
+PRAGMA foreign_keys = false;
+
+BEGIN TRANSACTION;
+CREATE TABLE Companies_new (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    Guid TEXT NOT NULL,
+    Name TEXT NOT NULL,
+    Homepage TEXT NULL,
+    Sector TEXT NULL,
+    Country TEXT NULL
+);
+
+INSERT INTO Companies_new SELECT Id, Guid, Name, Homepage, Sector, Country FROM Companies;
+DROP TABLE Companies;
+ALTER TABLE Companies_new RENAME TO Companies;
+COMMIT;
+
+PRAGMA foreign_keys = true;
+
+BEGIN TRANSACTION;
+" );
+
+            ctx.Database.ExecuteSqlCommand( @"
 COMMIT;
 
 PRAGMA foreign_keys = false;
 
 BEGIN TRANSACTION;
 CREATE TABLE Stocks_new (
-    Id GUID PRIMARY KEY NOT NULL, 
+    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+    Guid TEXT NOT NULL,
     Isin TEXT NOT NULL,
     Wpkn TEXT,
     Symbol TEXT,
     Company_id INTEGER NOT NULL,
-    FOREIGN KEY(Company_id) REFERENCES Companies(Id) ON DELETE CASCADE
+    FOREIGN KEY(Company_id) REFERENCES Companies(Id)
 );
 
-INSERT INTO Stocks_new SELECT Isin, Wpkn, Symbol, Company_Id FROM Stocks;
+INSERT INTO Stocks_new SELECT Id, Guid, Isin, Wpkn, Symbol, Company_Id FROM Stocks;
 DROP TABLE Stocks;
 ALTER TABLE Stocks_new RENAME TO Stocks;
 COMMIT;
@@ -389,8 +384,6 @@ PRAGMA foreign_keys = true;
 
 BEGIN TRANSACTION;
 " );
-
-            Migrations.Add( 12, steps );
         }
     }
 }
