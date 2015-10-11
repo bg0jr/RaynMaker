@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="0d76116a-0831-459b-a935-289c644b91de" Created="635794748555554735" LastModified="635795655204741841">
-  <Caption><![CDATA[Deletion of stocks]]></Caption>
-  <Content><![CDATA[- we need to delete notes
-- does cascading delete work properly?]]></Content>
+<Node Id="0d76116a-0831-459b-a935-289c644b91de" Created="635794748555554735" LastModified="635801441958335112">
+  <Caption><![CDATA[deletion of associated data]]></Caption>
+  <Content><![CDATA[
+
+- EventAggregator event?]]></Content>
 </Node>

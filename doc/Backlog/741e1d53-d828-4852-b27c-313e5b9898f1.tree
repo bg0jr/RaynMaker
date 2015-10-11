@@ -7,11 +7,11 @@
     </Node>
     <Node Id="74ab07b4-4304-4ed8-b6a2-633ef89ed929">
       <Caption><![CDATA[1.5]]></Caption>
-      <Node Id="e4bca2c3-d2e0-4b54-aff8-016c50683418">
-        <Caption><![CDATA[associated data]]></Caption>
+      <Node Id="a1209d67-48a2-4bda-bf38-21992e0c50fe">
+        <Caption><![CDATA[Cascading delete]]></Caption>
       </Node>
       <Node Id="0d76116a-0831-459b-a935-289c644b91de">
-        <Caption><![CDATA[Deletion of stocks]]></Caption>
+        <Caption><![CDATA[deletion of associated data]]></Caption>
       </Node>
     </Node>
     <Node Id="9e52c479-8da2-4767-8e98-c5670c3a1b89">

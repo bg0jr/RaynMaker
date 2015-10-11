@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="e4bca2c3-d2e0-4b54-aff8-016c50683418" Created="635794748815968549" LastModified="635798935869647923">
-  <Caption><![CDATA[associated data]]></Caption>
-  <Content><![CDATA[- GUID as additional column for company and stock
-- Notes are connected to company
-]]></Content>
-</Node>
