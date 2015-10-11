@@ -34,7 +34,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Samples\.rym-Sample\DataSources.xdb" />
-    <None Include="Samples\.rym-Sample\Notes\DE0007664005.rtf">
+    <None Include="Samples\.rym-Sample\Notes\f9d44c42-e02b-443f-bc52-daef212e24b8.rtf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Samples\.rym-Sample\Notes\General.rtf">

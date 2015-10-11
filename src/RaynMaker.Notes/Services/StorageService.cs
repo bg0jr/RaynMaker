@@ -46,7 +46,7 @@ namespace RaynMaker.Notes
 
         public void Load( Stock stock, FlowDocument target )
         {
-            var file = GetFullPath( stock.Isin + ".rtf" );
+            var file = GetFullPath( stock.Company.Guid + ".rtf" );
             if( !File.Exists( file ) )
             {
                 return;
@@ -71,7 +71,7 @@ namespace RaynMaker.Notes
 
         public void Store( Stock stock, FlowDocument content )
         {
-            var file = GetFullPath( stock.Isin + ".rtf" );
+            var file = GetFullPath( stock.Company.Guid + ".rtf" );
 
             if( !File.Exists( file ) )
             {
