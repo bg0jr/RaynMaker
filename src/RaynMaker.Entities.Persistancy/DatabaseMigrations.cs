@@ -358,6 +358,136 @@ CREATE TABLE SharesOutstandings (
                 Company_id INTEGER NOT NULL,
                 FOREIGN KEY(Company_id) REFERENCES Companies(Id) ON DELETE CASCADE",
                 "Id, Guid, Isin, Wpkn, Symbol, Company_Id" );
+
+            UpdateTable( ctx.Database, "Prices", @"
+                Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                Value DOUBLE NOT NULL,
+                Source TEXT NOT NULL,
+                RawPeriod TEXT NOT NULL,
+                Timestamp DATETIME NOT NULL,
+                Currency_Id INTEGER NOT NULL,
+                Stock_Id INTEGER NOT NULL,
+                FOREIGN KEY(Currency_Id) REFERENCES Currencies(Id)
+                FOREIGN KEY(Stock_Id) REFERENCES Stocks(Id) ON DELETE CASCADE",
+                "Id, Value, Source, RawPeriod, Timestamp, Currency_Id, Stock_Id" );
+
+            UpdateTable( ctx.Database, "Assets", @"
+                Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                Value DOUBLE NOT NULL,
+                Source TEXT NOT NULL,
+                RawPeriod TEXT NOT NULL,
+                Timestamp DATETIME NOT NULL,
+                Currency_Id INTEGER NOT NULL,
+                Company_Id INTEGER NOT NULL,
+                FOREIGN KEY(Currency_Id) REFERENCES Currencies(Id)
+                FOREIGN KEY(Company_Id) REFERENCES Companies(Id) ON DELETE CASCADE",
+                "Id, Value, Source, RawPeriod, Timestamp, Currency_Id, Company_Id" );
+
+            UpdateTable( ctx.Database, "Debts", @"
+                Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                Value DOUBLE NOT NULL,
+                Source TEXT NOT NULL,
+                RawPeriod TEXT NOT NULL,
+                Timestamp DATETIME NOT NULL,
+                Currency_Id INTEGER NOT NULL,
+                Company_Id INTEGER NOT NULL,
+                FOREIGN KEY(Currency_Id) REFERENCES Currencies(Id)
+                FOREIGN KEY(Company_Id) REFERENCES Companies(Id) ON DELETE CASCADE",
+                "Id, Value, Source, RawPeriod, Timestamp, Currency_Id, Company_Id" );
+
+            UpdateTable( ctx.Database, "Dividends", @"
+                Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                Value DOUBLE NOT NULL,
+                Source TEXT NOT NULL,
+                RawPeriod TEXT NOT NULL,
+                Timestamp DATETIME NOT NULL,
+                Currency_Id INTEGER NOT NULL,
+                Company_Id INTEGER NOT NULL,
+                FOREIGN KEY(Currency_Id) REFERENCES Currencies(Id)
+                FOREIGN KEY(Company_Id) REFERENCES Companies(Id) ON DELETE CASCADE",
+                "Id, Value, Source, RawPeriod, Timestamp, Currency_Id, Company_Id" );
+
+            UpdateTable( ctx.Database, "EBITs", @"
+                Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                Value DOUBLE NOT NULL,
+                Source TEXT NOT NULL,
+                RawPeriod TEXT NOT NULL,
+                Timestamp DATETIME NOT NULL,
+                Currency_Id INTEGER NOT NULL,
+                Company_Id INTEGER NOT NULL,
+                FOREIGN KEY(Currency_Id) REFERENCES Currencies(Id)
+                FOREIGN KEY(Company_Id) REFERENCES Companies(Id) ON DELETE CASCADE",
+                "Id, Value, Source, RawPeriod, Timestamp, Currency_Id, Company_Id" );
+
+            UpdateTable( ctx.Database, "Equities", @"
+                Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                Value DOUBLE NOT NULL,
+                Source TEXT NOT NULL,
+                RawPeriod TEXT NOT NULL,
+                Timestamp DATETIME NOT NULL,
+                Currency_Id INTEGER NOT NULL,
+                Company_Id INTEGER NOT NULL,
+                FOREIGN KEY(Currency_Id) REFERENCES Currencies(Id)
+                FOREIGN KEY(Company_Id) REFERENCES Companies(Id) ON DELETE CASCADE",
+                "Id, Value, Source, RawPeriod, Timestamp, Currency_Id, Company_Id" );
+
+            UpdateTable( ctx.Database, "InterestExpenses", @"
+                Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                Value DOUBLE NOT NULL,
+                Source TEXT NOT NULL,
+                RawPeriod TEXT NOT NULL,
+                Timestamp DATETIME NOT NULL,
+                Currency_Id INTEGER NOT NULL,
+                Company_Id INTEGER NOT NULL,
+                FOREIGN KEY(Currency_Id) REFERENCES Currencies(Id)
+                FOREIGN KEY(Company_Id) REFERENCES Companies(Id) ON DELETE CASCADE",
+                "Id, Value, Source, RawPeriod, Timestamp, Currency_Id, Company_Id" );
+
+            UpdateTable( ctx.Database, "Liabilities", @"
+                Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                Value DOUBLE NOT NULL,
+                Source TEXT NOT NULL,
+                RawPeriod TEXT NOT NULL,
+                Timestamp DATETIME NOT NULL,
+                Currency_Id INTEGER NOT NULL,
+                Company_Id INTEGER NOT NULL,
+                FOREIGN KEY(Currency_Id) REFERENCES Currencies(Id)
+                FOREIGN KEY(Company_Id) REFERENCES Companies(Id) ON DELETE CASCADE",
+                "Id, Value, Source, RawPeriod, Timestamp, Currency_Id, Company_Id" );
+
+            UpdateTable( ctx.Database, "NetIncomes", @"
+                Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                Value DOUBLE NOT NULL,
+                Source TEXT NOT NULL,
+                RawPeriod TEXT NOT NULL,
+                Timestamp DATETIME NOT NULL,
+                Currency_Id INTEGER NOT NULL,
+                Company_Id INTEGER NOT NULL,
+                FOREIGN KEY(Currency_Id) REFERENCES Currencies(Id)
+                FOREIGN KEY(Company_Id) REFERENCES Companies(Id) ON DELETE CASCADE",
+                "Id, Value, Source, RawPeriod, Timestamp, Currency_Id, Company_Id" );
+
+            UpdateTable( ctx.Database, "Revenues", @"
+                Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                Value DOUBLE NOT NULL,
+                Source TEXT NOT NULL,
+                RawPeriod TEXT NOT NULL,
+                Timestamp DATETIME NOT NULL,
+                Currency_Id INTEGER NOT NULL,
+                Company_Id INTEGER NOT NULL,
+                FOREIGN KEY(Currency_Id) REFERENCES Currencies(Id)
+                FOREIGN KEY(Company_Id) REFERENCES Companies(Id) ON DELETE CASCADE",
+                "Id, Value, Source, RawPeriod, Timestamp, Currency_Id, Company_Id" );
+
+            UpdateTable( ctx.Database, "SharesOutstandings", @"
+                Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                Value DOUBLE NOT NULL,
+                Source TEXT NOT NULL,
+                RawPeriod TEXT NOT NULL,
+                Timestamp DATETIME NOT NULL,
+                Company_Id INTEGER NOT NULL,
+                FOREIGN KEY(Company_Id) REFERENCES Companies(Id) ON DELETE CASCADE",
+                "Id, Value, Source, RawPeriod, Timestamp, Company_Id" );
         }
 
         private static void UpdateTable( Database db, string tableName, string columnDefinitions, string columnsToCopy )
