@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ namespace RaynMaker.Entities.Persistancy
 {
     class DatabaseMigrations
     {
-        public const int RequiredDatabaseVersion = 12;
+        public const int RequiredDatabaseVersion = 13;
 
         public DatabaseMigrations()
         {
@@ -26,6 +27,7 @@ namespace RaynMaker.Entities.Persistancy
             Migrations.Add( 10, ToVersion10 );
             Migrations.Add( 11, ToVersion11 );
             Migrations.Add( 12, ToVersion12 );
+            Migrations.Add( 13, ToVersion13 );
         }
 
         public Dictionary<int, Action<AssetsContext>> Migrations { get; set; }
@@ -286,29 +288,13 @@ CREATE TABLE SharesOutstandings (
 
         private void ToVersion10( AssetsContext ctx )
         {
-            ctx.Database.ExecuteSqlCommand( @"
-COMMIT;
-
-PRAGMA foreign_keys = false;
-
-BEGIN TRANSACTION;
-CREATE TABLE Companies_new (
-    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    Name TEXT NOT NULL,
-    Homepage TEXT NULL,
-    Sector TEXT NULL,
-    Country TEXT NULL
-);
-
-INSERT INTO Companies_new SELECT Id, Name, Homepage, Sector, Country FROM Companies;
-DROP TABLE Companies;
-ALTER TABLE Companies_new RENAME TO Companies;
-COMMIT;
-
-PRAGMA foreign_keys = true;
-
-BEGIN TRANSACTION;
-" );
+            UpdateTable( ctx.Database, "Companies", @"
+                Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                Name TEXT NOT NULL,
+                Homepage TEXT NULL,
+                Sector TEXT NULL,
+                Country TEXT NULL",
+                "Id, Name, Homepage, Sector, Country" );
         }
 
         private void ToVersion11( AssetsContext ctx )
@@ -334,56 +320,69 @@ BEGIN TRANSACTION;
 
             ctx.SaveChanges();
 
-            ctx.Database.ExecuteSqlCommand( @"
+            UpdateTable( ctx.Database, "Companies", @"
+                Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                Guid TEXT NOT NULL,
+                Name TEXT NOT NULL,
+                Homepage TEXT NULL,
+                Sector TEXT NULL,
+                Country TEXT NULL",
+                "Id, Guid, Name, Homepage, Sector, Country" );
+
+            UpdateTable( ctx.Database, "Stocks", @"
+                Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+                Guid TEXT NOT NULL,
+                Isin TEXT NOT NULL,
+                Wpkn TEXT,
+                Symbol TEXT,
+                Company_id INTEGER NOT NULL,
+                FOREIGN KEY(Company_id) REFERENCES Companies(Id)",
+                "Id, Guid, Isin, Wpkn, Symbol, Company_Id" );
+        }
+
+        private void ToVersion13( AssetsContext ctx )
+        {
+            UpdateTable( ctx.Database, "'References'", @"
+                Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+                Url TEXT NOT NULL,
+                Company_id INTEGER NOT NULL,
+                FOREIGN KEY(Company_id) REFERENCES Companies(Id) ON DELETE CASCADE",
+                "Id, Url, Company_Id" );
+
+            UpdateTable( ctx.Database, "Stocks", @"
+                Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+                Guid TEXT NOT NULL,
+                Isin TEXT NOT NULL,
+                Wpkn TEXT,
+                Symbol TEXT,
+                Company_id INTEGER NOT NULL,
+                FOREIGN KEY(Company_id) REFERENCES Companies(Id) ON DELETE CASCADE",
+                "Id, Guid, Isin, Wpkn, Symbol, Company_Id" );
+        }
+
+        private static void UpdateTable( Database db, string tableName, string columnDefinitions, string columnsToCopy )
+        {
+            db.ExecuteSqlCommand( string.Format( @"
 COMMIT;
 
 PRAGMA foreign_keys = false;
 
 BEGIN TRANSACTION;
-CREATE TABLE Companies_new (
-    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    Guid TEXT NOT NULL,
-    Name TEXT NOT NULL,
-    Homepage TEXT NULL,
-    Sector TEXT NULL,
-    Country TEXT NULL
+
+CREATE TABLE __tmp__ (
+{1}
 );
 
-INSERT INTO Companies_new SELECT Id, Guid, Name, Homepage, Sector, Country FROM Companies;
-DROP TABLE Companies;
-ALTER TABLE Companies_new RENAME TO Companies;
+INSERT INTO __tmp__ SELECT {2} FROM {0};
+DROP TABLE {0};
+ALTER TABLE __tmp__ RENAME TO {0};
+
 COMMIT;
 
 PRAGMA foreign_keys = true;
 
 BEGIN TRANSACTION;
-" );
-
-            ctx.Database.ExecuteSqlCommand( @"
-COMMIT;
-
-PRAGMA foreign_keys = false;
-
-BEGIN TRANSACTION;
-CREATE TABLE Stocks_new (
-    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
-    Guid TEXT NOT NULL,
-    Isin TEXT NOT NULL,
-    Wpkn TEXT,
-    Symbol TEXT,
-    Company_id INTEGER NOT NULL,
-    FOREIGN KEY(Company_id) REFERENCES Companies(Id)
-);
-
-INSERT INTO Stocks_new SELECT Id, Guid, Isin, Wpkn, Symbol, Company_Id FROM Stocks;
-DROP TABLE Stocks;
-ALTER TABLE Stocks_new RENAME TO Stocks;
-COMMIT;
-
-PRAGMA foreign_keys = true;
-
-BEGIN TRANSACTION;
-" );
+", tableName, columnDefinitions, columnsToCopy ) );
         }
     }
 }
