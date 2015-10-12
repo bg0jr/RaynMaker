@@ -488,6 +488,16 @@ CREATE TABLE SharesOutstandings (
                 Company_Id INTEGER NOT NULL,
                 FOREIGN KEY(Company_Id) REFERENCES Companies(Id) ON DELETE CASCADE",
                 "Id, Value, Source, RawPeriod, Timestamp, Company_Id" );
+
+            UpdateTable( ctx.Database, "Translations", @"
+                Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+                Rate DOUBLE NOT NULL,
+                Timestamp DATETIME  NOT NULL,
+                SourceId INTEGER NOT NULL,
+                TargetId INTEGER NOT NULL,
+                FOREIGN KEY(SourceId) REFERENCES Currencies(Id) ON DELETE CASCADE,
+                FOREIGN KEY(TargetId) REFERENCES Currencies(Id) ON DELETE CASCADE",
+                "Id, Rate, Timestamp, SourceId, TargetId" );
         }
 
         private static void UpdateTable( Database db, string tableName, string columnDefinitions, string columnsToCopy )

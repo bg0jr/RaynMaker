@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
-using System.IO;
 using System.Linq;
-using System.Threading;
 using NUnit.Framework;
-using Plainion;
 
 namespace RaynMaker.Entities.Persistancy.Tests
 {
@@ -13,44 +10,16 @@ namespace RaynMaker.Entities.Persistancy.Tests
     /// Combines all tests together which are relatest to low level Database setup - e.g. cascading delete constraints
     /// </summary>
     [TestFixture]
-    class DatabaseTests
+    class DatabaseTests : DatabaseTestsBase
     {
         static object[] AllDatums = Dynamics.AllDatums.ToArray();
 
-        private DatabaseService myDb;
         private Currency myCurrency;
 
         [SetUp]
         public void SetUp()
         {
-            var dbFile = Path.GetTempFileName() + ".rymdb";
-
-            Contract.Requires( !File.Exists( dbFile ), "DB file already/still exists" );
-
-            myDb = new DatabaseService( dbFile );
-            myDb.Initialize();
-
             myCurrency = new Currency { Name = "Dollar" };
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            myDb.Shutdown();
-
-            // TODO: no way found until now to get rid of the file locks from SQlite :(
-            // -> delete all files matching our file name pattern to at least do some partial cleanup
-
-            foreach( var file in Directory.GetFiles( Path.GetTempPath(), "*.rymdb", SearchOption.TopDirectoryOnly ) )
-            {
-                try
-                {
-                    File.Delete( file );
-                }
-                catch( IOException ) { }
-            }
-
-            Thread.Sleep( 100 );
         }
 
         [Test]
@@ -122,8 +91,6 @@ namespace RaynMaker.Entities.Persistancy.Tests
             DeleteAndVerify( company, tableName, ownerIdColumn, c => c.Id );
         }
 
-        // TODO: add for currencies and 
-
         private Company CreateFakeCompanyWithStock()
         {
             var company = new Company { Name = "Dummy" };
@@ -137,20 +104,19 @@ namespace RaynMaker.Entities.Persistancy.Tests
 
         private void SaveAndVerify( Company company, string tableToVerify, string idColumn, Func<Company, long> GetId )
         {
-            using( var ctx = ( AssetsContext )myDb.CreateAssetsContext() )
+            using( var ctx = ( AssetsContext )Db.CreateAssetsContext() )
             {
                 ctx.Companies.Add( company );
 
                 ctx.SaveChangesSafe();
 
-                Assert.That( ctx.Database.SqlQuery<object>( string.Format( "SELECT Id FROM {0} WHERE {1} = {2}", tableToVerify, idColumn, GetId( company ) ) ), Is.Not.Empty,
-                    "Failed to store data to table: '{0}'", tableToVerify );
+                DBAssert.RowExists( ctx.Database, tableToVerify, idColumn, GetId( company ) );
             }
         }
 
         private void DeleteAndVerify( Company company, string tableToVerify, string idColumn, Func<Company, long> GetId )
         {
-            using( var ctx = ( AssetsContext )myDb.CreateAssetsContext() )
+            using( var ctx = ( AssetsContext )Db.CreateAssetsContext() )
             {
                 company = ctx.Companies.Single();
                 var id = GetId( company );
@@ -159,8 +125,7 @@ namespace RaynMaker.Entities.Persistancy.Tests
 
                 ctx.SaveChangesSafe();
 
-                Assert.That( ctx.Database.SqlQuery<object>( string.Format( "SELECT Id FROM {0} WHERE {1} = {2}", tableToVerify, idColumn, id ) ), Is.Empty,
-                    "Failed to delete data from table: '{0}'", tableToVerify );
+                DBAssert.RowNotExists( ctx.Database, tableToVerify, idColumn, id );
             }
         }
 
