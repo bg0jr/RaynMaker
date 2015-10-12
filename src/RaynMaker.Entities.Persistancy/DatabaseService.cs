@@ -61,6 +61,11 @@ namespace RaynMaker.Entities.Persistancy
             myIsInitialized = true;
         }
 
+        public void Shutdown()
+        {
+            SQLiteConnection.Shutdown( directories: false, noThrow: false );
+        }
+
         public IAssetsContext CreateAssetsContext()
         {
             Contract.Invariant( myIsInitialized, "Initialized() not yet called" );

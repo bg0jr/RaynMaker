@@ -16,10 +16,22 @@ namespace RaynMaker.Entities.Persistancy
         {
             Database.SetInitializer<AssetsContext>( null );
 
-            ( ( IObjectContextAdapter )this ).ObjectContext
-                             .ObjectMaterialized += ObjectContext_OnObjectMaterialized;
+            ( ( IObjectContextAdapter )this ).ObjectContext.ObjectMaterialized += ObjectContext_OnObjectMaterialized;
 
             //this.Database.Log = stmt => Debug.WriteLine( "SQL: " + stmt );
+        }
+
+        private static DbConnection GetConnection( string path )
+        {
+            var builder = new SQLiteConnectionStringBuilder
+            {
+                DataSource = path,
+                ForeignKeys = true,
+                // http://stackoverflow.com/questions/27279177/how-does-the-sqlite-entity-framework-6-provider-handle-guids
+                BinaryGUID = true
+            };
+
+            return new SQLiteConnection( builder.ConnectionString );
         }
 
         private void ObjectContext_OnObjectMaterialized( object sender, ObjectMaterializedEventArgs e )
@@ -31,17 +43,16 @@ namespace RaynMaker.Entities.Persistancy
             }
         }
 
-        private static DbConnection GetConnection( string path )
+        protected override void Dispose( bool disposing )
         {
-            var builder = new SQLiteConnectionStringBuilder
-                {
-                    DataSource = path,
-                    ForeignKeys = true,
-                    // http://stackoverflow.com/questions/27279177/how-does-the-sqlite-entity-framework-6-provider-handle-guids
-                    BinaryGUID = true
-                };
-
-            return new SQLiteConnection( builder.ConnectionString );
+            try
+            {
+                ( ( IObjectContextAdapter )this ).ObjectContext.ObjectMaterialized -= ObjectContext_OnObjectMaterialized;
+            }
+            finally
+            {
+                base.Dispose( disposing );
+            }
         }
 
         // http://stackoverflow.com/questions/5082991/influencing-foreign-key-column-naming-in-ef-code-first-ctp5
