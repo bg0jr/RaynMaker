@@ -29,7 +29,8 @@ namespace RaynMaker.Entities
 
         public static IEnumerable<IDatum> GetRelationship( Stock stock, Type datumType )
         {
-            var collectionName = GetTableName( datumType );
+            var service = new EnglishPluralizationService();
+            var collectionName = service.Pluralize( datumType.Name );
 
             var property = typeof( Company ).GetProperty( collectionName );
             if( property != null )
@@ -44,12 +45,6 @@ namespace RaynMaker.Entities
             }
 
             throw new ArgumentException( string.Format( "No relationship (navigation property) found with name {0} on Company or Stock", collectionName ) );
-        }
-
-        public static string GetTableName( Type datumType )
-        {
-            var service = new EnglishPluralizationService();
-            return service.Pluralize( datumType.Name );
         }
 
         public static IDatumSeries GetDatumSeries( Stock stock, Type datumType )

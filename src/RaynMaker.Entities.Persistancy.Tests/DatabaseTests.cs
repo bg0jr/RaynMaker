@@ -15,7 +15,10 @@ namespace RaynMaker.Entities.Persistancy.Tests
     [TestFixture]
     class DatabaseTests
     {
+        static object[] AllDatums = Dynamics.AllDatums.ToArray();
+
         private DatabaseService myDb;
+        private Currency myCurrency;
 
         [SetUp]
         public void SetUp()
@@ -26,6 +29,8 @@ namespace RaynMaker.Entities.Persistancy.Tests
 
             myDb = new DatabaseService( dbFile );
             myDb.Initialize();
+
+            myCurrency = new Currency { Name = "Dollar" };
         }
 
         [TearDown]
@@ -49,65 +54,115 @@ namespace RaynMaker.Entities.Persistancy.Tests
         }
 
         [Test]
-        public void DeleteCompany_WithAllPossibleAssociatedEntities_DeleteCascades()
+        public void DeleteCompany_WithoutAnyAssociatedData_GetsDeleted()
         {
-            // setup entities object model
             var company = new Company { Name = "Dummy" };
+
+            SaveAndVerify( company, "Companies", "Id", c => c.Id );
+
+            DeleteAndVerify( company, "Companies", "Id", c => c.Id );
+        }
+
+        [Test]
+        public void DeleteCompany_WithStock_DeleteCascades()
+        {
+            var company = CreateFakeCompanyWithStock();
+
+            SaveAndVerify( company, "Stocks", "Company_Id", c => c.Id );
+
+            DeleteAndVerify( company, "Stocks", "Company_Id", c => c.Id );
+        }
+
+        [Test]
+        public void DeleteCompany_WithReferences_DeleteCascades()
+        {
+            var company = CreateFakeCompanyWithStock();
+
+            company.References.Add( new Reference { Url = "http://www.not-existent.org/" } );
+
+            SaveAndVerify( company, "'References'", "Company_Id", c => c.Id );
+
+            DeleteAndVerify( company, "'References'", "Company_Id", c => c.Id );
+        }
+
+        [Test, TestCaseSource( "AllDatums" )]
+        public void DeleteCompany_WithDatum_DeleteCascades( Type datumType )
+        {
+            var company = CreateFakeCompanyWithStock();
+
+            AddFakeDatum( company.Stocks.Single(), datumType, myCurrency );
+
+            var tableName = DatabaseConventions.GetTableName( datumType );
+
+            string ownerIdColumn;
+            Func<Company, long> GetId;
+
+            var property = typeof( Company ).GetProperty( tableName );
+            if( property != null )
             {
-                company.References.Add( new Reference { Url = "http://www.not-existent.org/" } );
-
-                var stock = new Stock { Isin = "US123456789" };
-                stock.Company = company;
-                company.Stocks.Add( stock );
-
-                var currency = new Currency { Name = "Dollar" };
-
-                // add fake datums for all known types
-                foreach( var datumType in Dynamics.AllDatums )
+                ownerIdColumn = "Company_Id";
+                GetId = c => c.Id;
+            }
+            else
+            {
+                property = typeof( Stock ).GetProperty( tableName );
+                if( property != null )
                 {
-                    AddFakeDatum( stock, datumType, currency );
+                    ownerIdColumn = "Stock_Id";
+                    GetId = c => c.Stocks.Single().Id;
+                }
+                else
+                {
+                    throw new NotSupportedException("Don't know how to detect owner");
                 }
             }
 
-            // save entity object model to DB and validate that DB is updated correctly
+            SaveAndVerify( company, tableName, ownerIdColumn, c => c.Id );
+
+            DeleteAndVerify( company, tableName, ownerIdColumn, c => c.Id );
+        }
+
+        // TODO: add for currencies and 
+
+        private Company CreateFakeCompanyWithStock()
+        {
+            var company = new Company { Name = "Dummy" };
+
+            var stock = new Stock { Isin = "US123456789" };
+            stock.Company = company;
+            company.Stocks.Add( stock );
+
+            return company;
+        }
+
+        private void SaveAndVerify( Company company, string tableToVerify, string idColumn, Func<Company, long> GetId )
+        {
             using( var ctx = ( AssetsContext )myDb.CreateAssetsContext() )
             {
                 ctx.Companies.Add( company );
 
                 ctx.SaveChangesSafe();
 
-                Assert.That( ctx.Database.SqlQuery<object>( "SELECT Id FROM Companies" ), Is.Not.Empty );
-                Assert.That( ctx.Database.SqlQuery<object>( "SELECT Id FROM 'References'" ), Is.Not.Empty );
-
-                foreach( var datumType in Dynamics.AllDatums )
-                {
-                    Assert.That( ctx.Database.SqlQuery<object>( "SELECT Id FROM " + Dynamics.GetTableName( datumType ) ), Is.Not.Empty,
-                        "Table '{0}' expected to be NOT empty", Dynamics.GetTableName( datumType ) );
-                }
+                Assert.That( ctx.Database.SqlQuery<object>( string.Format( "SELECT Id FROM {0} WHERE {1} = {2}", tableToVerify, idColumn, GetId( company ) ) ), Is.Not.Empty,
+                    "Failed to store data to table: '{0}'", tableToVerify );
             }
+        }
 
-            // delete entity object model from DB and validate that DB is updated correctly
+        private void DeleteAndVerify( Company company, string tableToVerify, string idColumn, Func<Company, long> GetId )
+        {
             using( var ctx = ( AssetsContext )myDb.CreateAssetsContext() )
             {
                 company = ctx.Companies.Single();
+                var id = GetId( company );
 
                 ctx.Companies.Remove( company );
 
                 ctx.SaveChangesSafe();
 
-                // validate that deletion applied correctly to DB
-                Assert.That( ctx.Database.SqlQuery<object>( "SELECT Id FROM Companies" ), Is.Empty );
-                Assert.That( ctx.Database.SqlQuery<object>( "SELECT Id FROM 'References'" ), Is.Empty );
-
-                foreach( var datumType in Dynamics.AllDatums )
-                {
-                    Assert.That( ctx.Database.SqlQuery<object>( "SELECT Id FROM " + Dynamics.GetTableName( datumType ) ), Is.Empty,
-                        "Table '{0}' expected to be empty", Dynamics.GetTableName( datumType ) );
-                }
+                Assert.That( ctx.Database.SqlQuery<object>( string.Format( "SELECT Id FROM {0} WHERE {1} = {2}", tableToVerify, idColumn, id ) ), Is.Empty,
+                    "Failed to delete data from table: '{0}'", tableToVerify );
             }
         }
-
-        // TODO: add for currencies and 
 
         private void AddFakeDatum( Stock stock, Type datumType, Currency currency )
         {

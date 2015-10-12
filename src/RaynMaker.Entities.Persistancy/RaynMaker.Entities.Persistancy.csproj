@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalysisContext.cs" />
+    <Compile Include="DatabaseConventions.cs" />
     <Compile Include="DatabaseMigrations.cs" />
     <Compile Include="AssetsContext.cs" />
     <Compile Include="DatabaseService.cs" />
