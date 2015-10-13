@@ -100,20 +100,6 @@ namespace RaynMaker.Import.Spec
             set { Type = Type.GetType( value ); }
         }
 
-        public override string ToString()
-        {
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append( "Type = " );
-            sb.Append( Type.FullName );
-            sb.Append( ", Format = " );
-            sb.Append( Format );
-            sb.Append( ", ExtractionPattern = " );
-            sb.Append( ExtractionPattern );
-
-            return sb.ToString();
-        }
-
         /// <summary>
         /// The value will always be trimmed first.
         /// </summary>
@@ -226,7 +212,7 @@ namespace RaynMaker.Import.Spec
 
         public override int GetHashCode()
         {
-            return ToString().GetHashCode();
+            return ( Type.FullName + Format + ( ExtractionPattern != null ? ExtractionPattern.ToString() : string.Empty ) ).GetHashCode();
         }
     }
 }

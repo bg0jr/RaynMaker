@@ -47,17 +47,5 @@ namespace RaynMaker.Import.Spec
 
         [DataMember]
         public string Name { get; private set; }
-
-        public override string ToString()
-        {
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append( "Name = " );
-            sb.Append( Name );
-            sb.Append( ", " );
-            sb.Append( base.ToString() );
-
-            return sb.ToString();
-        }
     }
 }

@@ -14,9 +14,6 @@ namespace RaynMaker.Import.Spec
         {
         }
 
-        /// <summary>
-        /// Creates a deep copy of the given object.
-        /// </summary>
         public override IFormat Clone()
         {
             var other = new PathSingleValueFormat( Datum );
@@ -27,12 +24,8 @@ namespace RaynMaker.Import.Spec
             return other;
         }
 
-        /// <summary>
-        /// Path to the value.
-        /// </summary>
         public string Path { get; set; }
 
-        /// <summary/>
         public ValueFormat ValueFormat { get; set; }
     }
 }

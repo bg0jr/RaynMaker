@@ -14,7 +14,6 @@ namespace RaynMaker.Import.Spec
         private int[] mySkipRows = null;
         private int[] mySkipColumns = null;
 
-        /// <summary/>
         protected AbstractDimensionalFormat( string name )
             : base( name )
         {
@@ -22,9 +21,6 @@ namespace RaynMaker.Import.Spec
             SkipRows = null;
         }
 
-        /// <summary>
-        /// Rows to skip while parsing input.
-        /// </summary>
         [DataMember]
         public int[] SkipRows
         {
@@ -32,9 +28,6 @@ namespace RaynMaker.Import.Spec
             set { mySkipRows = GetCopyOrEmptySetIfNull( value ); }
         }
 
-        /// <summary>
-        /// Columns to skip while parsing input.
-        /// </summary>
         [DataMember]
         public int[] SkipColumns
         {

@@ -63,13 +63,6 @@ namespace RaynMaker.Import.Spec
         [DataMember]
         public Formular Formular { get; private set; }
 
-        public override string ToString()
-        {
-            // dont return the Url property here because it may still be a
-            // template and so not a valid url
-            return string.Format( "{0}: {1}", UrlType, UrlString );
-        }
-
         public static NavigatorUrl Parse( string str )
         {
             int pos = str.IndexOf( ':' );

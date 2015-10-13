@@ -54,24 +54,5 @@ namespace RaynMaker.Import.Spec
 
         [DataMember]
         public int UrisHashCode { get; private set; }
-
-        public override string ToString()
-        {
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append( GetType().FullName );
-            sb.Append( " (DocType: " );
-            sb.Append( DocumentType );
-
-            sb.Append( ", Uris: [" );
-            foreach( var uri in Uris )
-            {
-                sb.Append( uri.ToString() );
-                sb.Append( "," );
-            }
-            sb.Append( "])" );
-
-            return sb.ToString();
-        }
     }
 }

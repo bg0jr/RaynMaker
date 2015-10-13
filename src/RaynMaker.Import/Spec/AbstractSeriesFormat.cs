@@ -25,9 +25,6 @@ namespace RaynMaker.Import.Spec
             TimeAxisPosition = -1;
         }
 
-        /// <summary>
-        /// Creates a deep copy of the given object.
-        /// </summary>
         protected void CloneTo( AbstractSeriesFormat other )
         {
             other.Expand = Expand;
