@@ -24,7 +24,7 @@ namespace RaynMaker.Import.Parsers.Text
             if( csvFormat != null )
             {
                 DataTable result = CsvReader.Read( myDocument.Location.LocalPath, csvFormat.Separator );
-                return csvFormat.ToFormattedTable( result );
+                return TableFormatter.ToFormattedTable( csvFormat,result );
             }
             else if( separatorSeriesFormat != null )
             {

@@ -43,7 +43,7 @@ namespace RaynMaker.Import.Parsers.Html
                     throw new Exception( "Failed to extract table from document: " + result.FailureReason );
                 }
 
-                return pathTableFormat.ToFormattedTable( result.Value );
+                return TableFormatter.ToFormattedTable( pathTableFormat, result.Value );
             }
             else if( myFormat is PathSingleValueFormat )
             {

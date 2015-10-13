@@ -17,13 +17,6 @@ namespace RaynMaker.Import.Spec
             ExtractLinkUrl = false;
         }
 
-        //public PathSeriesFormat( PathSeriesFormat format, params TransformAction[] rules )
-        //    : base( format, rules )
-        //{
-        //    Path = rules.ApplyTo<string>( () => format.Path );
-        //    Anchor = rules.ApplyTo<Anchor>( () => format.Anchor );
-        //}
-
         /// <summary>
         /// Creates a deep copy of the given object.
         /// </summary>
