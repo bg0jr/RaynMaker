@@ -42,8 +42,7 @@ namespace RaynMaker.Import.Spec
             set { mySkipColumns = GetCopyOrEmptySetIfNull( value ); }
         }
 
-        /// <summary/>
-        protected int[] GetCopyOrEmptySetIfNull( int[] values )
+        private int[] GetCopyOrEmptySetIfNull( int[] values )
         {
             if ( values == null )
             {

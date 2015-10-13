@@ -27,13 +27,14 @@ namespace RaynMaker.Import.Parsers.Html
                 var htmlSettings = new HtmlExtractionSettings();
                 htmlSettings.ExtractLinkUrl = pathSeriesFormat.ExtractLinkUrl;
 
-                var result = myDocument.Content.ExtractTable( HtmlPath.Parse( pathSeriesFormat.Path ), pathSeriesFormat.ToExtractionSettings(), htmlSettings );
+                var result = myDocument.Content.ExtractTable( HtmlPath.Parse( pathSeriesFormat.Path ),
+                    TableFormatter.ToExtractionSettings( pathSeriesFormat ), htmlSettings );
                 if( !result.Success )
                 {
                     throw new Exception( "Failed to extract table from document: " + result.FailureReason );
                 }
 
-                return pathSeriesFormat.ToFormattedTable( result.Value );
+                return TableFormatter.ToFormattedTable( pathSeriesFormat, result.Value );
             }
             else if( pathTableFormat != null )
             {

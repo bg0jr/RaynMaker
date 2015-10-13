@@ -24,12 +24,12 @@ namespace RaynMaker.Import.Parsers.Text
             if( csvFormat != null )
             {
                 DataTable result = CsvReader.Read( myDocument.Location.LocalPath, csvFormat.Separator );
-                return TableFormatter.ToFormattedTable( csvFormat,result );
+                return TableFormatter.ToFormattedTable( csvFormat, result );
             }
             else if( separatorSeriesFormat != null )
             {
                 DataTable result = CsvReader.Read( myDocument.Location.LocalPath, separatorSeriesFormat.Separator );
-                return separatorSeriesFormat.ToFormattedTable( result );
+                return TableFormatter.ToFormattedTable( separatorSeriesFormat, result );
             }
             else
             {

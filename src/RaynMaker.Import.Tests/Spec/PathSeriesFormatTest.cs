@@ -3,6 +3,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
 using RaynMaker.Import.Documents;
+using RaynMaker.Import.Parsers;
 using RaynMaker.Import.Parsers.Text;
 using RaynMaker.Import.Spec;
 
@@ -40,7 +41,7 @@ namespace RaynMaker.Import.Tests.Spec
         {
             var rawTable = CsvReader.Read( file, ";" );
 
-            return format.ToFormattedTable( rawTable );
+            return TableFormatter.ToFormattedTable( format, rawTable );
         }
     }
 }
