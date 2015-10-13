@@ -7,11 +7,13 @@ using System.Windows;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
+using Microsoft.Practices.Prism.PubSubEvents;
 using Microsoft.Practices.Prism.Regions;
 using Plainion;
 using RaynMaker.Analyzer.Services;
 using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
+using RaynMaker.Infrastructure.Events;
 using RaynMaker.Infrastructure.Services;
 
 namespace RaynMaker.Analyzer.ViewModels
@@ -24,13 +26,23 @@ namespace RaynMaker.Analyzer.ViewModels
         private IRegionManager myRegionManager;
 
         [ImportingConstructor]
-        public AssetMasterPageModel( IAssetNavigation navigation, IRegionManager regionManager )
+        public AssetMasterPageModel( IAssetNavigation navigation, IRegionManager regionManager, IEventAggregator eventAggregator )
         {
             myNavigation = navigation;
             myRegionManager = regionManager;
 
             OkCommand = new DelegateCommand( OnOk );
             CancelCommand = new DelegateCommand( OnCancel );
+
+            eventAggregator.GetEvent<AssetDeletedEvent>().Subscribe( OnStockDeleted );
+        }
+
+        private void OnStockDeleted( string guid )
+        {
+            if( myStock.Guid == guid )
+            {
+                myNavigation.ClosePage( this );
+            }
         }
 
         public string Header

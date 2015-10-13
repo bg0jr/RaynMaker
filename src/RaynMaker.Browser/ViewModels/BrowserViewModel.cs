@@ -104,6 +104,8 @@ namespace RaynMaker.Browser.ViewModels
                 {
                     var ctx = myProjectHost.Project.GetAssetsContext();
 
+                    var companyGuid = stock.Company.Guid;
+
                     if( stock.Company.Stocks.Count == 1 )
                     {
                         ctx.Companies.Remove( stock.Company );
@@ -116,6 +118,13 @@ namespace RaynMaker.Browser.ViewModels
                     ctx.SaveChanges();
 
                     OnPropertyChanged( () => Assets );
+
+                    myEventAggregator.GetEvent<AssetDeletedEvent>().Publish( stock.Guid );
+
+                    if( stock.Company == null )
+                    {
+                        myEventAggregator.GetEvent<CompanyDeletedEvent>().Publish( companyGuid );
+                    }
                 }
             } );
         }

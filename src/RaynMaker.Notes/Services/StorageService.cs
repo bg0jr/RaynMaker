@@ -2,8 +2,10 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Documents;
+using Microsoft.Practices.Prism.PubSubEvents;
 using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
+using RaynMaker.Infrastructure.Events;
 
 namespace RaynMaker.Notes
 {
@@ -13,9 +15,20 @@ namespace RaynMaker.Notes
         private IProjectHost myProjectHost;
 
         [ImportingConstructor]
-        public StorageService( IProjectHost projectHost )
+        public StorageService( IProjectHost projectHost, IEventAggregator eventAggregator )
         {
             myProjectHost = projectHost;
+
+            eventAggregator.GetEvent<CompanyDeletedEvent>().Subscribe( OnCompanyDeleted );
+        }
+
+        private void OnCompanyDeleted( string guid )
+        {
+            var file = GetFullPath( guid + ".rtf" );
+            if( File.Exists( file ) )
+            {
+                File.Delete( file );
+            }
         }
 
         public void Load( FlowDocument target )

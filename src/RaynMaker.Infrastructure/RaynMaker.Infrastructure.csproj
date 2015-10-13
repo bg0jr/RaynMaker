@@ -94,6 +94,8 @@
     </Compile>
     <Compile Include="Controls\OverlayViewAction.cs" />
     <Compile Include="Controls\OverlayViewActionRegionAdapter.cs" />
+    <Compile Include="Events\CompanyDeletedEvent.cs" />
+    <Compile Include="Events\AssetDeletedEvent.cs" />
     <Compile Include="Events\AssetSelectedEvent.cs" />
     <Compile Include="IProject.cs" />
     <Compile Include="IProjectHost.cs" />
