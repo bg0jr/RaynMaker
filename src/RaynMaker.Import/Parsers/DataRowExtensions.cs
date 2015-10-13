@@ -4,7 +4,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 
-namespace RaynMaker.Import.Spec
+namespace RaynMaker.Import.Parsers
 {
     /// <summary>
     /// Extension to the System.Data.DataRow class.

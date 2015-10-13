@@ -1,6 +1,7 @@
 ﻿using System;
+using RaynMaker.Import.Spec;
 
-namespace RaynMaker.Import.Spec
+namespace RaynMaker.Import.Parsers
 {
     /// <summary>
     /// Defines the settings used to extract parts a table.

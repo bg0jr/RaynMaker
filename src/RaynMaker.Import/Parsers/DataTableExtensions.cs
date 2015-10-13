@@ -3,8 +3,9 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using Plainion;
+using RaynMaker.Import.Spec;
 
-namespace RaynMaker.Import.Spec
+namespace RaynMaker.Import.Parsers
 {
     /// <summary>
     /// Extensions to System.Data.Table.
