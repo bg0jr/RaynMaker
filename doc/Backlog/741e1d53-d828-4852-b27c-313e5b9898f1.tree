@@ -9,6 +9,9 @@
       <Caption><![CDATA[1.6]]></Caption>
       <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">
         <Caption><![CDATA[Cleanup Import design]]></Caption>
+        <Node Id="2b6539a7-0690-42fb-bf29-c14f203d6a56">
+          <Caption><![CDATA[Replace Clone with Objects.Clone()]]></Caption>
+        </Node>
         <Node Id="77a3da08-70e8-4ae1-b90d-40a5b428e21d">
           <Caption><![CDATA[TryNavigateWithWildcards]]></Caption>
         </Node>
