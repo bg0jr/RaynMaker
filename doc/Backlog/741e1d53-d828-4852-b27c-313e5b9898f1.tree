@@ -5,9 +5,6 @@
     <Node Id="bde3373e-2bec-4a2b-835e-92935da36614">
       <Caption><![CDATA[HotFix]]></Caption>
     </Node>
-    <Node Id="74ab07b4-4304-4ed8-b6a2-633ef89ed929">
-      <Caption><![CDATA[1.5]]></Caption>
-    </Node>
     <Node Id="9e52c479-8da2-4767-8e98-c5670c3a1b89">
       <Caption><![CDATA[1.6]]></Caption>
       <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">
