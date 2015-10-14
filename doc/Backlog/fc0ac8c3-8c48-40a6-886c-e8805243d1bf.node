@@ -1,16 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="fc0ac8c3-8c48-40a6-886c-e8805243d1bf" Created="635765409895664532" LastModified="635795642085191445" Origin="74ab07b4-4304-4ed8-b6a2-633ef89ed929">
+<Node Id="fc0ac8c3-8c48-40a6-886c-e8805243d1bf" Created="635765409895664532" LastModified="635804573493220608" Origin="267c9b02-a6a7-4a96-a37d-36f422f89088">
   <Caption><![CDATA[Attachments]]></Caption>
   <Content><![CDATA[- similar to references linked to company
 - upload via UI
 - guid in db folder
 - title
+- all to subfolder "Attachments"
+- maybe we split "Facts" tab then into two?
+  ("Overview", Key Figures")
 
-==> maybe we split "Facts" tab then into two?
-    ("Overview", Key Figures")
 
-
-- can we download webpages and make it offline persistent?
-
-- all to subfolder "Attachments"]]></Content>
+==> can we download webpages and make it offline persistent?
+    (if we want to keep some reports about a company then only as attachment
+    not just URL)
+]]></Content>
 </Node>
