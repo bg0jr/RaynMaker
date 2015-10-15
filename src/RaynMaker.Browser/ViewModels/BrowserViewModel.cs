@@ -35,7 +35,7 @@ namespace RaynMaker.Browser.ViewModels
             OnProjectChanged();
 
             NewCommand = new DelegateCommand( OnNew );
-            NewAssetRequest = new InteractionRequest<IConfirmation>();
+            NewAssetRequest = new InteractionRequest<NewAssetNotification>();
             OpenAssetCommand = new DelegateCommand( OnOpenAsset );
             DeleteCommand = new DelegateCommand<Stock>( OnDelete );
             DeletionConfirmationRequest = new InteractionRequest<IConfirmation>();
@@ -66,7 +66,7 @@ namespace RaynMaker.Browser.ViewModels
 
         private void OnNew()
         {
-            var notification = new Confirmation();
+            var notification = new NewAssetNotification();
             notification.Title = "New Asset";
 
             NewAssetRequest.Raise( notification, n =>
@@ -75,11 +75,14 @@ namespace RaynMaker.Browser.ViewModels
                 {
                     myAssetsView = null;
                     Assets.Refresh();
+
+                    SelectedAsset = n.Result;
+                    OnOpenAsset();
                 }
             } );
         }
 
-        public InteractionRequest<IConfirmation> NewAssetRequest { get; private set; }
+        public InteractionRequest<NewAssetNotification> NewAssetRequest { get; private set; }
 
         public ICollectionView Assets
         {

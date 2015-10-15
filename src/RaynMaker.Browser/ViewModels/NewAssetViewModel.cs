@@ -80,6 +80,8 @@ namespace RaynMaker.Browser.ViewModels
 
             ctx.SaveChanges();
 
+            ( ( NewAssetNotification )Notification ).Result = stock;
+
             Close( confirmed: true );
         }
 
