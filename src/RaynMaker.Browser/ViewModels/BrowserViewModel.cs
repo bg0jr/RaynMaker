@@ -1,15 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Linq;
+using System.Windows.Data;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
-using Plainion.AppFw.Wpf.Infrastructure;
+using Microsoft.Practices.Prism.PubSubEvents;
+using Plainion;
 using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
-using System.Linq;
-using System;
-using Microsoft.Practices.Prism.PubSubEvents;
 using RaynMaker.Infrastructure.Events;
 
 namespace RaynMaker.Browser.ViewModels
@@ -21,6 +22,8 @@ namespace RaynMaker.Browser.ViewModels
         private IAssetsContext myContext;
         private IEventAggregator myEventAggregator;
         private Stock mySelectedAsset;
+        private ICollectionView myAssetsView;
+        private string myAssetsFilter;
 
         [ImportingConstructor]
         public BrowserViewModel( IProjectHost host, IEventAggregator eventAggregator )
@@ -47,7 +50,8 @@ namespace RaynMaker.Browser.ViewModels
 
             myContext = myProjectHost.Project.GetAssetsContext();
 
-            OnPropertyChanged( () => Assets );
+            myAssetsView = null;
+            Assets.Refresh();
             OnPropertyChanged( () => HasProject );
         }
 
@@ -55,7 +59,7 @@ namespace RaynMaker.Browser.ViewModels
         {
             get { return "Browser"; }
         }
-        
+
         public bool HasProject { get { return myProjectHost.Project != null; } }
 
         public ICommand NewCommand { get; private set; }
@@ -69,16 +73,51 @@ namespace RaynMaker.Browser.ViewModels
             {
                 if( n.Confirmed )
                 {
-                    OnPropertyChanged( () => Assets );
+                    myAssetsView = null;
+                    Assets.Refresh();
                 }
             } );
         }
 
         public InteractionRequest<IConfirmation> NewAssetRequest { get; private set; }
 
-        public IEnumerable<Stock> Assets
+        public ICollectionView Assets
         {
-            get { return myContext != null ? myContext.Stocks.ToList() : Enumerable.Empty<Stock>(); }
+            get
+            {
+                if( myAssetsView == null && myContext != null )
+                {
+                    myAssetsView = CollectionViewSource.GetDefaultView( myContext.Stocks.ToList() );
+                    myAssetsView.Filter = x => FilterAssets( ( Stock )x );
+                    myAssetsView.SortDescriptions.Add( new SortDescription( "Company.Name", ListSortDirection.Ascending ) );
+
+                    OnPropertyChanged( "Assets" );
+                }
+                return myAssetsView;
+            }
+        }
+
+        private bool FilterAssets( Stock stock )
+        {
+            if( string.IsNullOrWhiteSpace( myAssetsFilter ) )
+            {
+                return true;
+            }
+
+            return stock.Company.Name.Contains( myAssetsFilter, StringComparison.OrdinalIgnoreCase )
+                || stock.Isin.Contains( myAssetsFilter, StringComparison.OrdinalIgnoreCase );
+        }
+
+        public string AssetsFilter
+        {
+            get { return myAssetsFilter; }
+            set
+            {
+                if( SetProperty( ref myAssetsFilter, value ) )
+                {
+                    Assets.Refresh();
+                }
+            }
         }
 
         public Stock SelectedAsset
@@ -117,7 +156,8 @@ namespace RaynMaker.Browser.ViewModels
 
                     ctx.SaveChanges();
 
-                    OnPropertyChanged( () => Assets );
+                    myAssetsView = null;
+                    Assets.Refresh();
 
                     myEventAggregator.GetEvent<AssetDeletedEvent>().Publish( stock.Guid );
 

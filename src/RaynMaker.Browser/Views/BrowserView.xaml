@@ -9,6 +9,7 @@
              xmlns:l="clr-namespace:RaynMaker.Browser"
              xmlns:v="clr-namespace:RaynMaker.Browser.Views"
              xmlns:vm="clr-namespace:RaynMaker.Browser.ViewModels"
+             xmlns:pn="http://github.com/ronin4net/plainion"
              xmlns:prism="http://www.codeplex.com/prism"
              mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -22,6 +23,9 @@
     <Grid x:Name="myRoot">
         <DockPanel IsEnabled="{Binding HasProject}" LastChildFill="True">
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                <pn:SearchTextBox SearchMode="Instant" Text="{Binding AssetsFilter, Mode=TwoWay}" SearchEventTimeDelay="0" Width="200"
+                                  LabelText="Name or Isin" Margin="0,3,3,3"/>
+                
                 <Button Content="New" Command="{Binding NewCommand}" Margin="3"/>
             </StackPanel>
 
