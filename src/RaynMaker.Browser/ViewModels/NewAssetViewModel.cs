@@ -26,7 +26,7 @@ namespace RaynMaker.Browser.ViewModels
         {
             myProjectHost = host;
 
-            OkCommand = new DelegateCommand( OnOk, ()=> !HasErrors );
+            OkCommand = new DelegateCommand( OnOk, () => !HasErrors );
             CancelCommand = new DelegateCommand( OnCancel );
         }
 
@@ -34,26 +34,26 @@ namespace RaynMaker.Browser.ViewModels
         public string Name
         {
             get { return myName; }
-            set { SetProperty( ref myName, value ); }
+            set { SetProperty( ref myName, value != null ? value.Trim() : null ); }
         }
 
         [Required( ErrorMessage = "Isin is mandatory" )]
         public string Isin
         {
             get { return myIsin; }
-            set { SetProperty( ref myIsin, value ); }
+            set { SetProperty( ref myIsin, value != null ? value.Trim() : null ); }
         }
 
         public string Wpkn
         {
             get { return myWpkn; }
-            set { SetProperty( ref myWpkn, value ); }
+            set { SetProperty( ref myWpkn, value != null ? value.Trim() : null ); }
         }
 
         public string Symbol
         {
             get { return mySymbol; }
-            set { SetProperty( ref mySymbol, value ); }
+            set { SetProperty( ref mySymbol, value != null ? value.Trim() : null ); }
         }
 
         public Action FinishInteraction { get; set; }
@@ -72,7 +72,7 @@ namespace RaynMaker.Browser.ViewModels
             var stock = new Stock();
             stock.Isin = Isin;
             stock.Wpkn = Wpkn;
-            stock.Symbol= Symbol;
+            stock.Symbol = Symbol;
 
             company.Stocks.Add( stock );
 
