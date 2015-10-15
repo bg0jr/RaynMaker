@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="8f41082d-1146-4331-afc1-4362fab1b82a" Created="635805415042433769" LastModified="635805415558663296">
+  <Caption><![CDATA[Tagging stocks and companies]]></Caption>
+  <Content><![CDATA[- which allows us to give different lists
+- which should can be used in browser to filter all the stocks
+
+
+e.g. "portfolio", "watchlist", "prio 2" ....]]></Content>
+</Node>

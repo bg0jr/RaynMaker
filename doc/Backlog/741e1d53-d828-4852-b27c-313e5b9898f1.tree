@@ -18,15 +18,15 @@
         <Node Id="b0b261be-5045-42e4-8299-10b8a7aecc67">
           <Caption><![CDATA[Why do we need DocumentType in Navigation?]]></Caption>
         </Node>
-      </Node>
-      <Node Id="28f445d5-be29-4194-af13-1e303507d47f">
-        <Caption><![CDATA[Remove backward-compatibility]]></Caption>
+        <Node Id="28f445d5-be29-4194-af13-1e303507d47f">
+          <Caption><![CDATA[Remove backward-compatibility]]></Caption>
+        </Node>
       </Node>
       <Node Id="7212c07d-b111-47f9-ad72-4d3805abf561">
         <Caption><![CDATA[how can we make it easier to update all current prices?]]></Caption>
       </Node>
-      <Node Id="fc0ac8c3-8c48-40a6-886c-e8805243d1bf">
-        <Caption><![CDATA[Attachments]]></Caption>
+      <Node Id="8f41082d-1146-4331-afc1-4362fab1b82a">
+        <Caption><![CDATA[Tagging stocks and companies]]></Caption>
       </Node>
     </Node>
   </Node>
