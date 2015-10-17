@@ -11,7 +11,7 @@
              xmlns:vm="clr-namespace:RaynMaker.Browser.ViewModels"
              xmlns:pn="http://github.com/ronin4net/plainion"
              xmlns:prism="http://www.codeplex.com/prism"
-             mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="1000">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -31,16 +31,20 @@
 
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="0" x:Name="Col1Resizer" Width="{Binding ElementName=Col1, Path=ActualWidth}"/>
-                <Grid Grid.Column="1" x:Name="Col2Resizer" Width="{Binding ElementName=Col2, Path=ActualWidth}"/>
-                <Grid Grid.Column="2" x:Name="Col3Resizer" Margin="5"/>
+                <Grid Grid.Column="0" x:Name="Col1Resizer"/>
+                <Grid Grid.Column="1" x:Name="Col2Resizer"/>
+                <Grid Grid.Column="2" x:Name="Col3Resizer"/>
+                <Grid Grid.Column="3" x:Name="Col4Resizer"/>
+                <Grid Grid.Column="4" x:Name="Col5Resizer" Margin="5"/>
 
-                <ListView Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Assets}"
+                <ListView Grid.Column="0" Grid.ColumnSpan="5" ItemsSource="{Binding Assets}"
                           SelectedItem="{Binding SelectedAsset}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
@@ -54,23 +58,39 @@
                     </i:Interaction.Triggers>
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn x:Name="Col1" Header="Name">
+                            <GridViewColumn Header="Name" Width="{Binding ElementName=Col1Resizer, Path=ActualWidth}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Company.Name}" MinWidth="200"/>
+                                        <TextBlock Text="{Binding Company.Name}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
 
-                            <GridViewColumn x:Name="Col2" Header="Isin">
+                            <GridViewColumn Header="Isin" Width="{Binding ElementName=Col2Resizer, Path=ActualWidth}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Isin}" MinWidth="200"/>
+                                        <TextBlock Text="{Binding Isin}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
 
-                            <GridViewColumn Width="{Binding ElementName=Col3Resizer, Path=ActualWidth}">
+                            <GridViewColumn Header="Sector" Width="{Binding ElementName=Col3Resizer, Path=ActualWidth}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Company.Sector}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Header="Country" Width="{Binding ElementName=Col4Resizer, Path=ActualWidth}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Company.Country}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Width="{Binding ElementName=Col5Resizer, Path=ActualWidth}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Button Command="{Binding DataContext.DeleteCommand, ElementName=myRoot}" 

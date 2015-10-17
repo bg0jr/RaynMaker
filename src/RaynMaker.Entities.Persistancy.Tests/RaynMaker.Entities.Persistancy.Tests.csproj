@@ -44,8 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseTestsBase.cs" />
-    <Compile Include="DatabaseTests_Currency.cs" />
-    <Compile Include="DatabaseTests.cs" />
+    <Compile Include="CascadingDeleteTests_Currency.cs" />
+    <Compile Include="CascadingDeleteTests.cs" />
     <Compile Include="DBAssert.cs" />
     <Compile Include="DbContextExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
