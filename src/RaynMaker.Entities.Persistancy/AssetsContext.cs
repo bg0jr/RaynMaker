@@ -70,6 +70,16 @@ namespace RaynMaker.Entities.Persistancy
                 .WithMany()
                 .HasForeignKey( u => u.TargetId )
                 .WillCascadeOnDelete( true );
+
+            builder.Entity<Company>()
+                .HasMany( c => c.Tags )
+                .WithMany()
+                .Map( m =>
+                  {
+                      m.MapLeftKey( "Company_Id" );
+                      m.MapRightKey( "Tag_Id" );
+                      m.ToTable( "CompanyTags" );
+                  } );
         }
 
         public IDbSet<Currency> Currencies { get; set; }
@@ -79,5 +89,7 @@ namespace RaynMaker.Entities.Persistancy
         public IDbSet<Stock> Stocks { get; set; }
 
         public DbSet<SchemaInfo> SchemaInfos { get; set; }
+       
+        public IDbSet<Tag> Tags { get; set; }
     }
 }

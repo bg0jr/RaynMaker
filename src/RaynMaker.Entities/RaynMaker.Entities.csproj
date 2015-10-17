@@ -87,6 +87,7 @@
     <Compile Include="Reference.cs" />
     <Compile Include="EntityBase.cs" />
     <Compile Include="Stock.cs" />
+    <Compile Include="Tag.cs" />
     <Compile Include="Translation.cs" />
     <Compile Include="YearPeriod.cs" />
   </ItemGroup>

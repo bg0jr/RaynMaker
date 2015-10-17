@@ -35,6 +35,7 @@
                     <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="200"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
@@ -42,9 +43,10 @@
                 <Grid Grid.Column="1" x:Name="Col2Resizer"/>
                 <Grid Grid.Column="2" x:Name="Col3Resizer"/>
                 <Grid Grid.Column="3" x:Name="Col4Resizer"/>
-                <Grid Grid.Column="4" x:Name="Col5Resizer" Margin="5"/>
+                <Grid Grid.Column="4" x:Name="Col5Resizer"/>
+                <Grid Grid.Column="5" x:Name="Col6Resizer" Margin="5"/>
 
-                <ListView Grid.Column="0" Grid.ColumnSpan="5" ItemsSource="{Binding Assets}"
+                <ListView Grid.Column="0" Grid.ColumnSpan="6" ItemsSource="{Binding Assets}"
                           SelectedItem="{Binding SelectedAsset}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
@@ -74,7 +76,18 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
 
-                            <GridViewColumn Header="Sector" Width="{Binding ElementName=Col3Resizer, Path=ActualWidth}">
+                            <GridViewColumn Header="Tags" Width="{Binding ElementName=Col3Resizer, Path=ActualWidth}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <DataTemplate.Resources>
+                                            <v:CollectionToCommaSeparatedStringConverter x:Key="CollectionToCommaSeparatedStringConverter"/>
+                                        </DataTemplate.Resources>
+                                        <TextBlock Text="{Binding Company.Tags, Converter={StaticResource CollectionToCommaSeparatedStringConverter}}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Header="Sector" Width="{Binding ElementName=Col4Resizer, Path=ActualWidth}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Company.Sector}"/>
@@ -82,7 +95,7 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
 
-                            <GridViewColumn Header="Country" Width="{Binding ElementName=Col4Resizer, Path=ActualWidth}">
+                            <GridViewColumn Header="Country" Width="{Binding ElementName=Col5Resizer, Path=ActualWidth}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Company.Country}"/>
@@ -90,7 +103,7 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
 
-                            <GridViewColumn Width="{Binding ElementName=Col5Resizer, Path=ActualWidth}">
+                            <GridViewColumn Width="{Binding ElementName=Col6Resizer, Path=ActualWidth}">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Button Command="{Binding DataContext.DeleteCommand, ElementName=myRoot}" 

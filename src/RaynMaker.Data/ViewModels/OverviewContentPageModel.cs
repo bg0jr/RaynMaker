@@ -1,5 +1,6 @@
-﻿using System.ComponentModel.Composition;
-using System.Windows.Documents;
+﻿using System;
+using System.ComponentModel.Composition;
+using System.Linq;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
@@ -29,7 +30,13 @@ namespace RaynMaker.Data.ViewModels
         public Stock Stock
         {
             get { return myStock; }
-            set { SetProperty( ref myStock, value ); }
+            set
+            {
+                if( SetProperty( ref myStock, value ) )
+                {
+                    OnPropertyChanged( () => Tags );
+                }
+            }
         }
 
         public void Initialize( Stock stock )
@@ -62,5 +69,34 @@ namespace RaynMaker.Data.ViewModels
         {
             Stock.Company.References.Remove( reference );
         }
+
+        public string Tags
+        {
+            get { return Stock != null ? string.Join( ",", Stock.Company.Tags ) : null; }
+            set
+            {
+                if( Stock == null || string.Join( ",", Stock.Company.Tags ) == value )
+                {
+                    return;
+                }
+
+                Stock.Company.Tags.Clear();
+
+                var ctx = myProjectHost.Project.GetAssetsContext();
+
+                foreach( var tagName in value.Split( ',' ).Where( x => !string.IsNullOrWhiteSpace( x ) ).Select( x => x.Trim() ) )
+                {
+                    var tag = ctx.Tags.FirstOrDefault( t => t.Name.Equals( tagName, StringComparison.OrdinalIgnoreCase ) );
+                    if( tag == null )
+                    {
+                        tag = new Tag { Name = tagName };
+                        ctx.Tags.Add( tag );
+                    }
+
+                    Stock.Company.Tags.Add( tag );
+                }
+            }
+        }
+
     }
 }

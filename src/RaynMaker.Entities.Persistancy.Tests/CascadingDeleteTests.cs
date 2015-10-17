@@ -6,9 +6,6 @@ using NUnit.Framework;
 
 namespace RaynMaker.Entities.Persistancy.Tests
 {
-    /// <summary>
-    /// Combines all tests together which are relatest to low level Database setup - e.g. cascading delete constraints
-    /// </summary>
     [TestFixture]
     class CascadingDeleteTests : DatabaseTestsBase
     {

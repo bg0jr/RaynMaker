@@ -100,5 +100,13 @@ namespace RaynMaker.Entities.Tests
 
             Assert.That( company.SharesOutstandings, Is.Not.Null );
         }
+
+        [Test]
+        public void Tags_AfterCtor_NotNull()
+        {
+            var company = new Company();
+
+            Assert.That( company.Tags, Is.Not.Null );
+        }
     }
 }

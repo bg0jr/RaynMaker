@@ -95,6 +95,7 @@
     <Compile Include="RegionNames.cs" />
     <Compile Include="ViewModels\NewAssetNotification.cs" />
     <Compile Include="ViewModels\NewAssetViewModel.cs" />
+    <Compile Include="Views\CollectionToCommaSeparatedStringConverter.cs" />
     <Compile Include="Views\NewAssetView.xaml.cs">
       <DependentUpon>NewAssetView.xaml</DependentUpon>
     </Compile>

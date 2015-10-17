@@ -9,7 +9,7 @@ namespace RaynMaker.Entities.Persistancy
 {
     class DatabaseMigrations
     {
-        public const int RequiredDatabaseVersion = 13;
+        public const int RequiredDatabaseVersion = 14;
 
         public DatabaseMigrations()
         {
@@ -28,6 +28,7 @@ namespace RaynMaker.Entities.Persistancy
             Migrations.Add( 11, ToVersion11 );
             Migrations.Add( 12, ToVersion12 );
             Migrations.Add( 13, ToVersion13 );
+            Migrations.Add( 14, ToVersion14 );
         }
 
         public Dictionary<int, Action<AssetsContext>> Migrations { get; set; }
@@ -498,6 +499,23 @@ CREATE TABLE SharesOutstandings (
                 FOREIGN KEY(SourceId) REFERENCES Currencies(Id) ON DELETE CASCADE,
                 FOREIGN KEY(TargetId) REFERENCES Currencies(Id) ON DELETE CASCADE",
                 "Id, Rate, Timestamp, SourceId, TargetId" );
+        }
+
+        private void ToVersion14( AssetsContext ctx )
+        {
+            ctx.Database.ExecuteSqlCommand( @"
+CREATE TABLE Tags (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+    Name TEXT NOT NULL
+)" );
+
+            ctx.Database.ExecuteSqlCommand( @"
+CREATE TABLE CompanyTags (
+    Tag_Id INTEGER NOT NULL, 
+    Company_Id INTEGER NOT NULL,
+    FOREIGN KEY(Tag_id) REFERENCES Tags(Id) ON DELETE CASCADE
+    FOREIGN KEY(Company_Id) REFERENCES Companies(Id) ON DELETE CASCADE
+)" );
         }
 
         private static void UpdateTable( Database db, string tableName, string columnDefinitions, string columnsToCopy )

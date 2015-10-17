@@ -31,6 +31,7 @@ namespace RaynMaker.Entities
             NetIncomes = new List<NetIncome>();
             Revenues = new List<Revenue>();
             SharesOutstandings = new List<SharesOutstanding>();
+            Tags = new List<Tag>();
         }
 
         [Required]
@@ -97,5 +98,8 @@ namespace RaynMaker.Entities
 
         [ValidateObject]
         public virtual IList<SharesOutstanding> SharesOutstandings { get; private set; }
+
+        [ValidateObject]
+        public virtual IList<Tag> Tags { get; private set; }
     }
 }
