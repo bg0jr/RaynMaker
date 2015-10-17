@@ -26,6 +26,8 @@ namespace RaynMaker.Browser.ViewModels
         private ICollectionView myAssetsView;
         private string myAssetsFilter;
         private bool myIsTagFilterOpen;
+        private IEnumerable<TagFilter> myTagFilters;
+        private IEnumerable<TagFilter> myCommittedTagFilters;
 
         [ImportingConstructor]
         public BrowserViewModel( IProjectHost host, IEventAggregator eventAggregator )
@@ -56,8 +58,15 @@ namespace RaynMaker.Browser.ViewModels
 
             myContext = myProjectHost.Project.GetAssetsContext();
 
+            myTagFilters = new[] { new TagFilter( TagFilter.Blank ) }
+                .Concat( myContext.Tags
+                    .ToList()
+                    .Select( t => new TagFilter( t ) ) )
+                .ToList();
+
             myAssetsView = null;
             Assets.Refresh();
+
             OnPropertyChanged( () => HasProject );
         }
 
@@ -108,6 +117,11 @@ namespace RaynMaker.Browser.ViewModels
 
         private bool FilterAssets( Stock stock )
         {
+            return MatchesNameIsinFilter( stock ) && MatchesTagFilter( stock );
+        }
+
+        private bool MatchesNameIsinFilter( Stock stock )
+        {
             if( string.IsNullOrWhiteSpace( myAssetsFilter ) )
             {
                 return true;
@@ -115,6 +129,16 @@ namespace RaynMaker.Browser.ViewModels
 
             return stock.Company.Name.Contains( myAssetsFilter, StringComparison.OrdinalIgnoreCase )
                 || stock.Isin.Contains( myAssetsFilter, StringComparison.OrdinalIgnoreCase );
+        }
+
+        private bool MatchesTagFilter( Stock stock )
+        {
+            if( !stock.Company.Tags.Any() && Tags.Single( f => f.Name == TagFilter.Blank ).IsChecked )
+            {
+                return true;
+            }
+
+            return stock.Company.Tags.Any( t => myTagFilters.Any( f => f.Name == t.Name && f.IsChecked ) );
         }
 
         public string AssetsFilter
@@ -190,9 +214,9 @@ namespace RaynMaker.Browser.ViewModels
             }
         }
 
-        public IEnumerable<Tag> Tags
+        public IEnumerable<TagFilter> Tags
         {
-            get { return myProjectHost.Project != null ? myProjectHost.Project.GetAssetsContext().Tags.ToList() : null; }
+            get { return myTagFilters; }
         }
 
         public bool IsTagFilterOpen
@@ -205,21 +229,38 @@ namespace RaynMaker.Browser.ViewModels
 
         private void OnOpenTagFilter()
         {
+            myCommittedTagFilters = myTagFilters
+                .Select( f => new TagFilter( f ) )
+                .ToList();
+
             OnPropertyChanged( () => Tags );
         }
 
         public ICommand ApplyTagFilterCommand { get; private set; }
-        
+
         private void OnApplyTagFilter()
         {
+            Assets.Refresh();
+
             IsTagFilterOpen = false;
+
+            OnPropertyChanged( () => IsFilteredByTags );
         }
 
         public ICommand CancelTagFilterCommand { get; private set; }
 
         private void OnCancelTagFilter()
         {
+            myTagFilters = myCommittedTagFilters
+                .Select( f => new TagFilter( f ) )
+                .ToList();
+
             IsTagFilterOpen = false;
+        }
+
+        public bool IsFilteredByTags
+        {
+            get { return myTagFilters.Any( f => !f.IsChecked ); }
         }
     }
 }
