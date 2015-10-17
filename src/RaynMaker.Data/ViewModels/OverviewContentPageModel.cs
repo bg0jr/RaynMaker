@@ -95,6 +95,9 @@ namespace RaynMaker.Data.ViewModels
 
                     Stock.Company.Tags.Add( tag );
                 }
+
+                // workaround to notify updates on tags to bindings in browser which bind collection to string using converter
+                Stock.Company.RaisePropertyChanged( () => Stock.Company.Tags );
             }
         }
 

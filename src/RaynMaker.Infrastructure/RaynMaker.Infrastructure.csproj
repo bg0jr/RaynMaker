@@ -147,5 +147,8 @@
     <Resource Include="Resources\Underline.png" />
     <Resource Include="Resources\Copy.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Filter.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

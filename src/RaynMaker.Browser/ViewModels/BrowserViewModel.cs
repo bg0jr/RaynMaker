@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -39,6 +40,8 @@ namespace RaynMaker.Browser.ViewModels
             OpenAssetCommand = new DelegateCommand( OnOpenAsset );
             DeleteCommand = new DelegateCommand<Stock>( OnDelete );
             DeletionConfirmationRequest = new InteractionRequest<IConfirmation>();
+
+            FilterByTagsCommand = new DelegateCommand(OnFilterByTags);
         }
 
         private void OnProjectChanged()
@@ -182,6 +185,18 @@ namespace RaynMaker.Browser.ViewModels
             {
                 myEventAggregator.GetEvent<AssetSelectedEvent>().Publish( SelectedAsset );
             }
+        }
+
+        public ICommand FilterByTagsCommand { get; private set; }
+
+        private void OnFilterByTags()
+        {
+            OnPropertyChanged( () => Tags );
+        }
+        
+        public IEnumerable<Tag> Tags
+        {
+            get { return myProjectHost.Project != null ? myProjectHost.Project.GetAssetsContext().Tags.ToList() : null; }
         }
     }
 }

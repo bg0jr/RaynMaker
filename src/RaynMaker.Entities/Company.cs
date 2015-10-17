@@ -31,7 +31,7 @@ namespace RaynMaker.Entities
             NetIncomes = new List<NetIncome>();
             Revenues = new List<Revenue>();
             SharesOutstandings = new List<SharesOutstanding>();
-            Tags = new List<Tag>();
+            Tags = new ObservableCollection<Tag>();
         }
 
         [Required]
@@ -100,6 +100,6 @@ namespace RaynMaker.Entities
         public virtual IList<SharesOutstanding> SharesOutstandings { get; private set; }
 
         [ValidateObject]
-        public virtual IList<Tag> Tags { get; private set; }
+        public virtual ObservableCollection<Tag> Tags { get; private set; }
     }
 }

@@ -25,7 +25,7 @@
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                 <pn:SearchTextBox SearchMode="Instant" Text="{Binding AssetsFilter, Mode=TwoWay}" SearchEventTimeDelay="0" Width="200"
                                   LabelText="Name or Isin" Margin="0,3,3,3"/>
-                
+
                 <Button Content="New" Command="{Binding NewCommand}" Margin="3"/>
             </StackPanel>
 
@@ -76,7 +76,27 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
 
-                            <GridViewColumn Header="Tags" Width="{Binding ElementName=Col3Resizer, Path=ActualWidth}">
+                            <GridViewColumn Width="{Binding ElementName=Col3Resizer, Path=ActualWidth}">
+                                <GridViewColumn.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Tags" VerticalAlignment="Center"/>
+
+                                        <ToggleButton Name="btnFilter" Style="{StaticResource {x:Static ToolBar.ToggleButtonStyleKey}}" Margin="20,0,0,0" Command="{Binding FilterByTagsCommand}">
+                                            <ToggleButton.Content>
+                                                <Image Source="/RaynMaker.Infrastructure;Component/Resources/Filter.png" Width="16" Height="16"/>
+                                            </ToggleButton.Content>
+                                        </ToggleButton>
+                                        <Popup IsOpen="{Binding IsChecked, ElementName=btnFilter}" StaysOpen="False">
+                                            <ListBox ItemsSource="{Binding Tags}" Margin="0" Width="200" Height="200" BorderBrush="Black" BorderThickness="1">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox Content="{Binding Name}" IsChecked="True" Margin="2"/>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                        </Popup>
+                                    </StackPanel>
+                                </GridViewColumn.Header>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <DataTemplate.Resources>
