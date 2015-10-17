@@ -25,6 +25,7 @@ namespace RaynMaker.Browser.ViewModels
         private Stock mySelectedAsset;
         private ICollectionView myAssetsView;
         private string myAssetsFilter;
+        private bool myIsTagFilterOpen;
 
         [ImportingConstructor]
         public BrowserViewModel( IProjectHost host, IEventAggregator eventAggregator )
@@ -41,7 +42,9 @@ namespace RaynMaker.Browser.ViewModels
             DeleteCommand = new DelegateCommand<Stock>( OnDelete );
             DeletionConfirmationRequest = new InteractionRequest<IConfirmation>();
 
-            FilterByTagsCommand = new DelegateCommand(OnFilterByTags);
+            OpenTagFilterCommand = new DelegateCommand( OnOpenTagFilter );
+            ApplyTagFilterCommand = new DelegateCommand( OnApplyTagFilter );
+            CancelTagFilterCommand = new DelegateCommand( OnCancelTagFilter );
         }
 
         private void OnProjectChanged()
@@ -187,16 +190,36 @@ namespace RaynMaker.Browser.ViewModels
             }
         }
 
-        public ICommand FilterByTagsCommand { get; private set; }
-
-        private void OnFilterByTags()
-        {
-            OnPropertyChanged( () => Tags );
-        }
-        
         public IEnumerable<Tag> Tags
         {
             get { return myProjectHost.Project != null ? myProjectHost.Project.GetAssetsContext().Tags.ToList() : null; }
+        }
+
+        public bool IsTagFilterOpen
+        {
+            get { return myIsTagFilterOpen; }
+            set { SetProperty( ref myIsTagFilterOpen, value ); }
+        }
+
+        public ICommand OpenTagFilterCommand { get; private set; }
+
+        private void OnOpenTagFilter()
+        {
+            OnPropertyChanged( () => Tags );
+        }
+
+        public ICommand ApplyTagFilterCommand { get; private set; }
+        
+        private void OnApplyTagFilter()
+        {
+            IsTagFilterOpen = false;
+        }
+
+        public ICommand CancelTagFilterCommand { get; private set; }
+
+        private void OnCancelTagFilter()
+        {
+            IsTagFilterOpen = false;
         }
     }
 }
