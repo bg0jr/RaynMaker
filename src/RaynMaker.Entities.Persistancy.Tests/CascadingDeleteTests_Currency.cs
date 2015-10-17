@@ -7,7 +7,7 @@ namespace RaynMaker.Entities.Persistancy.Tests
     /// Combines all tests together which are relatest to low level Database setup - e.g. cascading delete constraints
     /// </summary>
     [TestFixture]
-    class DatabaseTests_Currency : DatabaseTestsBase
+    class CascadingDeleteTests_Currency : DatabaseTestsBase
     {
         [Test]
         public void DeleteCurrency_WithTranslations_DeleteCascades()
