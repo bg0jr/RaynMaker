@@ -7,6 +7,9 @@
     </Node>
     <Node Id="9e52c479-8da2-4767-8e98-c5670c3a1b89">
       <Caption><![CDATA[1.6]]></Caption>
+      <Node Id="8f41082d-1146-4331-afc1-4362fab1b82a">
+        <Caption><![CDATA[Tagging stocks and companies]]></Caption>
+      </Node>
       <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">
         <Caption><![CDATA[Cleanup Import design]]></Caption>
         <Node Id="2b6539a7-0690-42fb-bf29-c14f203d6a56">
@@ -25,8 +28,14 @@
       <Node Id="7212c07d-b111-47f9-ad72-4d3805abf561">
         <Caption><![CDATA[how can we make it easier to update all current prices?]]></Caption>
       </Node>
-      <Node Id="8f41082d-1146-4331-afc1-4362fab1b82a">
-        <Caption><![CDATA[Tagging stocks and companies]]></Caption>
+    </Node>
+    <Node Id="b6cbd93c-bdbd-49b4-bbb8-33de0a595e04">
+      <Caption><![CDATA[1.7]]></Caption>
+      <Node Id="8b0794ea-a994-4cbc-85a2-d42ff0d87919">
+        <Caption><![CDATA[Add LUTs]]></Caption>
+      </Node>
+      <Node Id="fc0ac8c3-8c48-40a6-886c-e8805243d1bf">
+        <Caption><![CDATA[Attachments]]></Caption>
       </Node>
     </Node>
   </Node>

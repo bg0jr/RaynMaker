@@ -5,12 +5,6 @@
     <Node Id="df30dd53-025c-42b1-8dd6-920471540c2b">
       <Caption><![CDATA[Disclaimers & Cookies]]></Caption>
     </Node>
-    <Node Id="fc0ac8c3-8c48-40a6-886c-e8805243d1bf">
-      <Caption><![CDATA[Attachments]]></Caption>
-    </Node>
-    <Node Id="8b0794ea-a994-4cbc-85a2-d42ff0d87919">
-      <Caption><![CDATA[Add LUTs]]></Caption>
-    </Node>
     <Node Id="61915f34-0050-413a-b3b5-955035258f9b">
       <Caption><![CDATA[Validation.ErrorTemplate fails witout AdornerDecorator]]></Caption>
     </Node>
