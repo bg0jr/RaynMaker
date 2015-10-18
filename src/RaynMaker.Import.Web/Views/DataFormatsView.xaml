@@ -51,7 +51,7 @@
             </TabControl.ItemContainerStyle>
             <TabControl.ContentTemplate>
                 <DataTemplate>
-                    <l:SingleFormatView/>
+                    <l:PathSeriesFormatView/>
                 </DataTemplate>
             </TabControl.ContentTemplate>
         </TabControl>

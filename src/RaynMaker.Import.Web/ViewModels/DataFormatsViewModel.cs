@@ -23,7 +23,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             mySelectedFormatIndex = -1;
 
-            Formats = new ObservableCollection<SingleFormatViewModel>();
+            Formats = new ObservableCollection<FormatViewModelBase>();
 
             AddCommand = new DelegateCommand( OnAdd );
             RemoveCommand = new DelegateCommand( OnRemove );
@@ -54,7 +54,7 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 foreach( var format in Session.CurrentSource.FormatSpecs )
                 {
-                    Formats.Add( new SingleFormatViewModel( ( PathSeriesFormat )format ) );
+                    Formats.Add( FormatViewModelFactory.Create( format ) );
                 }
 
                 if( Formats.Count == 0 )
@@ -93,7 +93,7 @@ namespace RaynMaker.Import.Web.ViewModels
             Document = doc;
         }
 
-        public ObservableCollection<SingleFormatViewModel> Formats { get; private set; }
+        public ObservableCollection<FormatViewModelBase> Formats { get; private set; }
 
         public int SelectedFormatIndex
         {
@@ -151,7 +151,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             Session.CurrentSource.FormatSpecs.Add( format );
 
-            Formats.Add( new SingleFormatViewModel( format ) );
+            Formats.Add( FormatViewModelFactory.Create( format ) );
 
             SelectedFormatIndex = Formats.Count - 1;
         }
@@ -191,7 +191,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             Session.CurrentSource.FormatSpecs.Add( format );
 
-            Formats.Add( new SingleFormatViewModel( format ) );
+            Formats.Add( FormatViewModelFactory.Create( format ) );
 
             SelectedFormatIndex = Formats.Count - 1;
         }

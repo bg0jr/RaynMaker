@@ -10,7 +10,7 @@ namespace RaynMaker.Import.Web.Model
     class Session : BindableBase
     {
         private DataSource myCurrentSource;
-        private PathSeriesFormat myCurrentFormat;
+        private IFormat myCurrentFormat;
 
         public Session()
         {
@@ -34,7 +34,7 @@ namespace RaynMaker.Import.Web.Model
             }
         }
 
-        public PathSeriesFormat CurrentFormat
+        public IFormat CurrentFormat
         {
             get { return myCurrentFormat; }
             set { SetProperty( ref myCurrentFormat, value ); }

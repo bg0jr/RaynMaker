@@ -2,9 +2,9 @@
 
 namespace RaynMaker.Import.Web.Views
 {
-    public partial class SingleFormatView : UserControl
+    public partial class PathSeriesFormatView : UserControl
     {
-        public SingleFormatView()
+        public PathSeriesFormatView()
         {
             InitializeComponent();
         }

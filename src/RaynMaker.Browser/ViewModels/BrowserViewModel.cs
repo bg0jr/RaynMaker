@@ -260,7 +260,7 @@ namespace RaynMaker.Browser.ViewModels
 
         public bool IsFilteredByTags
         {
-            get { return myTagFilters.Any( f => !f.IsChecked ); }
+            get { return myTagFilters != null ? myTagFilters.Any( f => !f.IsChecked ) : false; }
         }
     }
 }

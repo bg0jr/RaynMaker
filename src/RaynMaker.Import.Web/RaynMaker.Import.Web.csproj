@@ -99,9 +99,11 @@
     <Compile Include="ViewModels\DataFormatsViewModel.cs" />
     <Compile Include="ViewModels\DataSourceDefinitionViewModel.cs" />
     <Compile Include="ViewModels\EditCaptureViewModel.cs" />
+    <Compile Include="ViewModels\FormatViewModelBase.cs" />
+    <Compile Include="ViewModels\FormatViewModelFactory.cs" />
     <Compile Include="ViewModels\ImportPreviewModel.cs" />
     <Compile Include="ViewModels\NavigationViewModel.cs" />
-    <Compile Include="ViewModels\SingleFormatViewModel.cs" />
+    <Compile Include="ViewModels\PathSeriesFormatViewModel.cs" />
     <Compile Include="ViewModels\BasicDatumProvider.cs" />
     <Compile Include="ViewModels\SpecDefinitionViewModelBase.cs" />
     <Compile Include="ViewModels\WebSpyViewModel.cs" />
@@ -138,8 +140,8 @@
       <DependentUpon>NavigationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OffsetConverter.cs" />
-    <Compile Include="Views\SingleFormatView.xaml.cs">
-      <DependentUpon>SingleFormatView.xaml</DependentUpon>
+    <Compile Include="Views\PathSeriesFormatView.xaml.cs">
+      <DependentUpon>PathSeriesFormatView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StringRegexConverter.cs" />
     <Compile Include="Views\TextBoxBinding.cs" />
@@ -184,7 +186,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SingleFormatView.xaml">
+    <Page Include="Views\PathSeriesFormatView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

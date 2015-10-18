@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
-using Microsoft.Practices.Prism.Mvvm;
-using Plainion;
 using RaynMaker.Entities;
-using RaynMaker.Import.Documents;
 using RaynMaker.Import.Parsers.Html;
-using RaynMaker.Import.Parsers.Html.WinForms;
 using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
-    class SingleFormatViewModel : BindableBase
+    class PathSeriesFormatViewModel : FormatViewModelBase
     {
         private Type mySelectedDatum;
         private string myPath;
@@ -25,19 +20,15 @@ namespace RaynMaker.Import.Web.ViewModels
         private string mySkipRows;
         private string mySkipColumns;
         private bool myInMillions;
-        private MarkupDocument myMarkupDocument;
 
-        public SingleFormatViewModel( PathSeriesFormat format )
+        public PathSeriesFormatViewModel( PathSeriesFormat format )
+            :base(format)
         {
-            Contract.RequiresNotNull( format, "format" );
-
             Format = format;
-
+            
+            MarkupDocument.ValidationChanged += SeriesName_ValidationChanged;
+            
             IsValid = true;
-
-            myMarkupDocument = new MarkupDocument();
-            myMarkupDocument.ValidationChanged += SeriesName_ValidationChanged;
-            myMarkupDocument.SelectionChanged += OnSelectionChanged;
 
             Value = "";
 
@@ -62,48 +53,19 @@ namespace RaynMaker.Import.Web.ViewModels
             SelectedDimension = Format.Expand;
         }
 
-        public PathSeriesFormat Format { get; private set; }
-
+        public new PathSeriesFormat Format { get; private set; }
+        
         private void SeriesName_ValidationChanged( bool isValid )
         {
             IsValid = isValid;
         }
 
-        public IDocument Document
+        protected override void OnSelectionChanged()
         {
-            set
+            if( MarkupDocument.SelectedElement != null )
             {
-                // always force update because the document reference does NOT change!
-                //if( myMarkupDocument.Document == value )
-                //{
-                //    return;
-                //}
-
-                HtmlDocument doc = null;
-                if( value != null )
-                {
-                    var htmlDocument = ( ( HtmlDocumentHandle )value ).Content;
-                    var adapter = ( HtmlDocumentAdapter )htmlDocument;
-                    doc = adapter.Document;
-                }
-
-                myMarkupDocument.Document = doc;
-
-                if( myMarkupDocument.Document == null )
-                {
-                    return;
-                }
-
-                OnSelectionChanged();
-            }
-        }
-
-        private void OnSelectionChanged()
-        {
-            if( myMarkupDocument.SelectedElement != null )
-            {
-                Path = myMarkupDocument.SelectedElement.GetPath().ToString();
-                Value = myMarkupDocument.SelectedElement.InnerText;
+                Path = MarkupDocument.SelectedElement.GetPath().ToString();
+                Value = MarkupDocument.SelectedElement.InnerText;
             }
         }
 
@@ -134,11 +96,11 @@ namespace RaynMaker.Import.Web.ViewModels
 
                     if( !string.IsNullOrWhiteSpace( myPath ) )
                     {
-                        myMarkupDocument.Anchor = myPath;
+                        MarkupDocument.Anchor = myPath;
 
-                        if( myMarkupDocument.SelectedElement != null )
+                        if( MarkupDocument.SelectedElement != null )
                         {
-                            Value = myMarkupDocument.SelectedElement.InnerText;
+                            Value = MarkupDocument.SelectedElement.InnerText;
                         }
                     }
                 }
@@ -171,7 +133,7 @@ namespace RaynMaker.Import.Web.ViewModels
                         Format.SeriesNamePosition = ColumnHeaderRow != null ? int.Parse( ColumnHeaderRow ) : -1;
                     }
 
-                    myMarkupDocument.Dimension = mySelectedDimension;
+                    MarkupDocument.Dimension = mySelectedDimension;
                 }
             }
         }
@@ -185,7 +147,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 {
                     Format.SeriesName = mySeriesName;
 
-                    myMarkupDocument.SeriesName = mySeriesName;
+                    MarkupDocument.SeriesName = mySeriesName;
                 }
             }
         }
@@ -213,7 +175,7 @@ namespace RaynMaker.Import.Web.ViewModels
                         Format.TimeAxisPosition = RowHeaderColumn != null ? int.Parse( RowHeaderColumn ) : -1;
                     }
 
-                    MarkHeader( myRowHeaderColumn, x => myMarkupDocument.RowHeaderColumn = x );
+                    MarkHeader( myRowHeaderColumn, x => MarkupDocument.RowHeaderColumn = x );
                 }
             }
         }
@@ -254,7 +216,7 @@ namespace RaynMaker.Import.Web.ViewModels
                         Format.SeriesNamePosition = ColumnHeaderRow != null ? int.Parse( ColumnHeaderRow ) : -1;
                     }
 
-                    MarkHeader( myColumnHeaderRow, x => myMarkupDocument.ColumnHeaderRow = x );
+                    MarkHeader( myColumnHeaderRow, x => MarkupDocument.ColumnHeaderRow = x );
                 }
             }
         }
@@ -267,7 +229,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 if( SetProperty( ref mySkipRows, value ) )
                 {
                     Format.SkipRows = GetIntArray( mySkipRows );
-                    myMarkupDocument.SkipRows = Format.SkipRows;
+                    MarkupDocument.SkipRows = Format.SkipRows;
                 }
             }
         }
@@ -302,7 +264,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 if( SetProperty( ref mySkipColumns, value ) )
                 {
                     Format.SkipColumns = GetIntArray( mySkipColumns );
-                    myMarkupDocument.SkipColumns = Format.SkipColumns;
+                    MarkupDocument.SkipColumns = Format.SkipColumns;
                 }
             }
         }
@@ -321,16 +283,6 @@ namespace RaynMaker.Import.Web.ViewModels
                     Format.InMillions = myInMillions;
                 }
             }
-        }
-
-        public void Apply()
-        {
-            myMarkupDocument.Apply();
-        }
-
-        internal void UnMark()
-        {
-            myMarkupDocument.UnmarkAll();
         }
     }
 }
