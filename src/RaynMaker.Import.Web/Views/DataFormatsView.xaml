@@ -5,9 +5,20 @@
              xmlns:pn="http://github.com/ronin4net/plainion"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:l="clr-namespace:RaynMaker.Import.Web.Views"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:rym="https://github.com/bg0jr/RaynMaker"
+             xmlns:prism="http://www.codeplex.com/prism"
              mc:Ignorable="d" 
              d:DesignWidth="700">
-    <DockPanel LastChildFill="True">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/RaynMaker.Infrastructure;Component/Controls/DefaultOverlayView.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <DockPanel LastChildFill="True" x:Name="myRoot">
         <DockPanel.Visibility>
             <Binding Path="Session.CurrentSource">
                 <Binding.Converter>
@@ -42,7 +53,7 @@
                 <Image Source="/RaynMaker.Infrastructure;Component/Resources/Remove.png" Width="17" Height="17"/>
             </Button>
         </StackPanel>
-        
+
         <TabControl ItemsSource="{Binding Formats}" SelectedIndex="{Binding SelectedFormatIndex}" MinHeight="160">
             <TabControl.ItemContainerStyle>
                 <Style TargetType="{x:Type TabItem}">
@@ -56,4 +67,26 @@
             </TabControl.ContentTemplate>
         </TabControl>
     </DockPanel>
+
+    <i:Interaction.Triggers>
+        <prism:InteractionRequestTrigger SourceObject="{Binding FormatSelectionRequest, Mode=OneWay}">
+            <rym:OverlayViewAction Container="{Binding ElementName=myRoot}" Style="{StaticResource DefaultOverlayView}">
+                <rym:OverlayViewAction.ViewContent>
+                    <rym:DefaultConfirmationView>
+                        <rym:DefaultConfirmationView.ViewContent>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <RadioButton Grid.Row="0" Content="Series"/>
+                                <RadioButton Grid.Row="1" Content="Single value"/>
+                            </Grid>
+                        </rym:DefaultConfirmationView.ViewContent>
+                    </rym:DefaultConfirmationView>
+                </rym:OverlayViewAction.ViewContent>
+            </rym:OverlayViewAction>
+        </prism:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
 </UserControl>

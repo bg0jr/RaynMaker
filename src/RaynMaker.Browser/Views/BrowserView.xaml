@@ -15,7 +15,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="OverlayView.xaml"/>
+                <ResourceDictionary Source="/RaynMaker.Infrastructure;Component/Controls/DefaultOverlayView.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -168,12 +168,12 @@
     <i:Interaction.Triggers>
         <prism:InteractionRequestTrigger SourceObject="{Binding NewAssetRequest, Mode=OneWay}">
             <rym:OverlayViewAction Container="{Binding ElementName=myRoot}"
-                                   Style="{StaticResource OverlayView}" 
+                                   Style="{StaticResource DefaultOverlayView}" 
                                    prism:RegionManager.RegionName="{x:Static l:RegionNames.NewAssetView}"/>
         </prism:InteractionRequestTrigger>
         <prism:InteractionRequestTrigger SourceObject="{Binding DeletionConfirmationRequest, Mode=OneWay}">
             <rym:OverlayViewAction Container="{Binding ElementName=myRoot}"
-                                   Style="{StaticResource OverlayView}"/>
+                                   Style="{StaticResource DefaultOverlayView}"/>
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
 </UserControl>

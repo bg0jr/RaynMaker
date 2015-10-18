@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Model;
@@ -26,6 +27,8 @@ namespace RaynMaker.Import.Web.ViewModels
             Formats = new ObservableCollection<FormatViewModelBase>();
 
             AddCommand = new DelegateCommand( OnAdd );
+            FormatSelectionRequest = new InteractionRequest<FormatSelectionNotification>();
+
             RemoveCommand = new DelegateCommand( OnRemove );
             CopyCommand = new DelegateCommand( OnCopy );
 
@@ -138,15 +141,26 @@ namespace RaynMaker.Import.Web.ViewModels
 
         private void OnAdd()
         {
-            var format = FormatFactory.CreatePathSeriesFormat();
+            var notification = new FormatSelectionNotification();
+            notification.Title = "Format selection";
 
-            Session.CurrentSource.FormatSpecs.Add( format );
+            FormatSelectionRequest.Raise( notification, n =>
+            {
+                if( n.Confirmed )
+                {
+                    var format = FormatFactory.CreatePathSeriesFormat();
 
-            Formats.Add( FormatViewModelFactory.Create( format ) );
+                    Session.CurrentSource.FormatSpecs.Add( format );
 
-            SelectedFormatIndex = Formats.Count - 1;
+                    Formats.Add( FormatViewModelFactory.Create( format ) );
+
+                    SelectedFormatIndex = Formats.Count - 1;
+                }
+            } );
         }
 
+        public InteractionRequest<FormatSelectionNotification> FormatSelectionRequest { get; private set; }
+        
         public ICommand RemoveCommand { get; private set; }
 
         private void OnRemove()

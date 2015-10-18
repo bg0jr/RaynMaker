@@ -13,12 +13,29 @@ namespace RaynMaker.Infrastructure.Controls
             InitializeComponent();
         }
 
+        public static readonly DependencyProperty ViewContentProperty = DependencyProperty.Register( "ViewContent",
+            typeof( object ), typeof( DefaultNotificationView ), new PropertyMetadata( null ) );
+
+        public object ViewContent
+        {
+            get { return ( object )GetValue( DefaultNotificationView.ViewContentProperty ); }
+            set { SetValue( DefaultNotificationView.ViewContentProperty, value ); }
+        }
+
         public Action FinishInteraction { get; set; }
 
         public INotification Notification
         {
             get { return DataContext as INotification; }
-            set { DataContext = value; }
+            set
+            {
+                DataContext = value;
+
+                if( value != null && value.Content != null )
+                {
+                    ViewContent = value.Content;
+                }
+            }
         }
 
         private void OnOk( object sender, RoutedEventArgs e )
