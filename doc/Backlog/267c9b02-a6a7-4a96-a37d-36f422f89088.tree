@@ -29,6 +29,12 @@
     <Node Id="ff6fb224-f43f-43e9-8e67-1778cda1bd7c">
       <Caption><![CDATA[Paging for navigation]]></Caption>
     </Node>
+    <Node Id="5d951478-0783-4332-9a75-26c599e305a1">
+      <Caption><![CDATA[Browser]]></Caption>
+      <Node Id="99f5235d-a622-4bd6-803c-5b65b6d8a4a3">
+        <Caption><![CDATA[Factor tag filter handling out of browser view/model]]></Caption>
+      </Node>
+    </Node>
     <Node Id="a4330e1e-9926-466e-8492-dd815f79443a">
       <Caption><![CDATA[Design Decissions]]></Caption>
       <Node Id="2fecc38b-95fe-4aa1-8741-2f2782ac81e0">

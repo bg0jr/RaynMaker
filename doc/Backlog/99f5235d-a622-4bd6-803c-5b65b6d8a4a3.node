@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="99f5235d-a622-4bd6-803c-5b65b6d8a4a3" Created="635807451582781263" LastModified="635807452040317432">
+  <Caption><![CDATA[Factor tag filter handling out of browser view/model]]></Caption>
+  <Content><![CDATA[- FilterPopup derived from Popup
+- put all logic into code behind as this acts as custom control
+- TagFilter class completely handled internaly]]></Content>
+</Node>
