@@ -88,7 +88,7 @@
                                 <RadioButton Grid.Row="0" Content="Series"
                                              IsChecked="{Binding FormatType, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter={x:Type spec:PathSeriesFormat}}"/>
                                 <RadioButton Grid.Row="1" Content="Single value"
-                                             IsChecked="{Binding FormatType, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter={x:Type spec:PathSingleValueFormat}}"/>
+                                             IsChecked="{Binding FormatType, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter={x:Type spec:PathCellFormat}}"/>
                             </Grid>
                         </rym:DefaultConfirmationView.ViewContent>
                     </rym:DefaultConfirmationView>

@@ -34,6 +34,7 @@
     <Compile Include="Documents\ICache.cs" />
     <Compile Include="Parsers\TableFormatter.cs" />
     <Compile Include="Spec\DataSource.cs" />
+    <Compile Include="Spec\PathCellFormat.cs" />
     <Compile Include="Spec\SpecBase.cs" />
     <Compile Include="WinForms\IOleControl.cs" />
     <Compile Include="WinForms\WebBrowserDownloadControlFlags.cs" />

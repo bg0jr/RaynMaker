@@ -10,6 +10,14 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             Contract.RequiresNotNull( format, "format" );
 
+            // needs to be before PathSeriesFormat for the moment because it is derived class of it
+            if( format is PathCellFormat )
+            {
+                // todo: copy and paste PathSeriesFormatView/Model 
+                throw new NotImplementedException();
+                //return new PathSeriesFormatViewModel( format as PathSeriesFormat );
+            }
+
             if( format is PathSeriesFormat )
             {
                 return new PathSeriesFormatViewModel( format as PathSeriesFormat );
