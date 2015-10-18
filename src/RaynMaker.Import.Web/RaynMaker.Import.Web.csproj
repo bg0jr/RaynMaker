@@ -145,6 +145,7 @@
     <Compile Include="Views\PathSeriesFormatView.xaml.cs">
       <DependentUpon>PathSeriesFormatView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\RadioButtonCheckedConverter.cs" />
     <Compile Include="Views\StringRegexConverter.cs" />
     <Compile Include="Views\TextBoxBinding.cs" />
     <Compile Include="Views\WebSpyMenuItem.xaml.cs">

@@ -148,7 +148,7 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 if( n.Confirmed )
                 {
-                    var format = FormatFactory.CreatePathSeriesFormat();
+                    var format = FormatFactory.Create(n.FormatType);
 
                     Session.CurrentSource.FormatSpecs.Add( format );
 

@@ -7,6 +7,7 @@
              xmlns:l="clr-namespace:RaynMaker.Import.Web.Views"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:rym="https://github.com/bg0jr/RaynMaker"
+             xmlns:spec="clr-namespace:RaynMaker.Import.Spec;assembly=RaynMaker.Import"
              xmlns:prism="http://www.codeplex.com/prism"
              mc:Ignorable="d" 
              d:DesignWidth="700">
@@ -79,9 +80,15 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
+                                
+                                <Grid.Resources>
+                                    <l:RadioButtonCheckedConverter x:Key="RadioButtonCheckedConverter"/>
+                                </Grid.Resources>
 
-                                <RadioButton Grid.Row="0" Content="Series"/>
-                                <RadioButton Grid.Row="1" Content="Single value"/>
+                                <RadioButton Grid.Row="0" Content="Series"
+                                             IsChecked="{Binding FormatType, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter={x:Type spec:PathSeriesFormat}}"/>
+                                <RadioButton Grid.Row="1" Content="Single value"
+                                             IsChecked="{Binding FormatType, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter={x:Type spec:PathSingleValueFormat}}"/>
                             </Grid>
                         </rym:DefaultConfirmationView.ViewContent>
                     </rym:DefaultConfirmationView>
