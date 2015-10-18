@@ -37,6 +37,9 @@
           <Caption><![CDATA[Remove backward-compatibility]]></Caption>
         </Node>
       </Node>
+      <Node Id="6141acee-878a-472c-a8e5-1b2097114d88">
+        <Caption><![CDATA[make translations (currency) work for prices]]></Caption>
+      </Node>
     </Node>
   </Node>
 </Tree>
