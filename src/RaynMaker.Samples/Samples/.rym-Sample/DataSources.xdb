@@ -137,12 +137,7 @@
           </Anchor>
           <Expand>None</Expand>
           <SeriesNamePosition>-1</SeriesNamePosition>
-          <TimeAxisFormat>
-            <ExtractionPattern i:nil="true"/>
-            <Format>0000</Format>
-            <Type>System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</Type>
-            <Name>time</Name>
-          </TimeAxisFormat>
+          <TimeAxisFormat i:nil="true"/>
           <TimeAxisPosition>-1</TimeAxisPosition>
           <ValueFormat>
             <ExtractionPattern>([0-9,\.]+)</ExtractionPattern>
@@ -151,7 +146,7 @@
             <Name>value</Name>
           </ValueFormat>
           <ExtractLinkUrl>false</ExtractLinkUrl>
-          <Path>/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]/TR[5]/TD[1]</Path>
+          <Path>/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]</Path>
           <SeriesName i:nil="true"/>
         </a:anyType>
       </FormatSpecs>

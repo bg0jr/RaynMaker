@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Windows;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Plainion.Validation;
@@ -172,18 +175,15 @@ namespace RaynMaker.Data.ViewModels
 
         private bool CanImportPrice()
         {
-            // TODO: we need a different format!
-            // - we need to handle time in a row
-            // - we need to support DateTime in TimeAxisFormat
-            return false;
-            //return DataProvider != null;
+            return DataProvider != null;
         }
 
         private void OnImportPrice()
         {
             var today = DateTime.Today;
 
-            var series = new List<IDatum>();
+            var series = new ObservableCollection<IDatum>();
+            WeakEventManager<ObservableCollection<IDatum>, NotifyCollectionChangedEventArgs>.AddHandler( series, "CollectionChanged", OnSeriesChanged );
 
             // fetch some more data because of weekends and public holidays
             // we will then take last one
@@ -192,10 +192,13 @@ namespace RaynMaker.Data.ViewModels
                 typeof( Price ),
                 series,
                 new DayPeriod( today.Subtract( TimeSpan.FromDays( 7 ) ) ),
-                new DayPeriod( today ) );
+                new DayPeriod( today.AddDays( 1 ) ) );
+        }
 
+        private void OnSeriesChanged( object sender, NotifyCollectionChangedEventArgs e )
+        {
             // there might be no privider - check for null
-            var price = ( Price )series
+            var price = ( Price )( ( IEnumerable<IDatum> )sender )
                 .OrderByDescending( d => d.Period )
                 .FirstOrDefault();
 
@@ -203,7 +206,7 @@ namespace RaynMaker.Data.ViewModels
             {
                 Price.Value = price.Value;
                 Price.Currency = price.Currency;
-                price.Period = price.Period;
+                Price.Period = price.Period;
             }
         }
     }

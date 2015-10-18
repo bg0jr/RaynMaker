@@ -28,7 +28,7 @@ namespace RaynMaker.Import.Web.Model
                 {
                     if( myCurrentSource != null )
                     {
-                        CurrentFormat = (PathSeriesFormat)myCurrentSource.FormatSpecs.FirstOrDefault();
+                        CurrentFormat = myCurrentSource.FormatSpecs.FirstOrDefault();
                     }
                 }
             }

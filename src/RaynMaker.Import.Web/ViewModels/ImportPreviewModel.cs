@@ -168,6 +168,7 @@ namespace RaynMaker.Import.Web.ViewModels
             var provider = new BasicDatumProvider( myDocumentBrowser );
 
             var formats = mySelectedSource.FormatSpecs
+                // TODO: only works as long as PathCellFormat is derived from PathSeriesFormat
                 .Cast<PathSeriesFormat>()
                 .Where( f => f.Datum == myDatumType.Name );
 
@@ -201,10 +202,21 @@ namespace RaynMaker.Import.Web.ViewModels
                             continue;
                         }
 
-                        var year = ( int )row[ format.TimeAxisFormat.Name ];
                         var value = ( double )row[ format.ValueFormat.Name ];
 
-                        var datum = Dynamics.CreateDatum( Stock, myDatumType, new YearPeriod( year ), null );
+                        IPeriod period;
+                        if( format.TimeAxisFormat != null )
+                        {
+                            var year = ( int )row[ format.TimeAxisFormat.Name ];
+                            period = new YearPeriod( year );
+                        }
+                        else
+                        {
+                            // TODO: is this a proper default?
+                            period = new DayPeriod( DateTime.Now );
+                        }
+
+                        var datum = Dynamics.CreateDatum( Stock, myDatumType, period, null );
                         datum.Source = mySelectedSource.Vendor + " - " + mySelectedSource.Name;
 
                         datum.Value = format.InMillions ? value * 1000000 : value;

@@ -8,7 +8,7 @@ namespace RaynMaker.Entities
     {
         public DayPeriod( DateTime day )
         {
-            Day = day;
+            Day = day.Date;
         }
 
         public DateTime Day { get; set; }

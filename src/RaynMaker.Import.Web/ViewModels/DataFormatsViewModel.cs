@@ -187,12 +187,10 @@ namespace RaynMaker.Import.Web.ViewModels
                 return;
             }
 
-            var format = ( PathSeriesFormat )Formats[ SelectedFormatIndex ].Format.Clone();
+            var format = Formats[ SelectedFormatIndex ].Format.Clone();
 
             // reset the Datum to enforce user interaction after clone (Datum is mandatory) 
             format.Datum = null;
-
-            format.SeriesName = null;
 
             Session.CurrentSource.FormatSpecs.Add( format );
 

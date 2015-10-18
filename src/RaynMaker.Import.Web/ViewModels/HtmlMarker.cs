@@ -33,6 +33,12 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             Contract.RequiresNotNull( e != null, "e" );
 
+            if( e.TagName == "TABLE" || e.TagName == "TBODY" )
+            {
+                // not supported
+                return;
+            }
+
             if( IsMarked( e ) )
             {
                 // unmark first - maybe it was marked with another color before

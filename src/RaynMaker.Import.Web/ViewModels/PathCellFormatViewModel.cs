@@ -50,7 +50,7 @@ namespace RaynMaker.Import.Web.ViewModels
             InMillions = Format.InMillions;
         }
 
-        public new PathSeriesFormat Format { get; private set; }
+        public new PathCellFormat Format { get; private set; }
 
         protected override void OnSelectionChanged()
         {
@@ -69,6 +69,20 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 if( SetProperty( ref myPath, value ) )
                 {
+                    // Path must point to table NOT to cell in table
+                    var path = HtmlPath.Parse( myPath );
+
+                    while( path.Elements.Count > 0 )
+                    {
+                        if( path.PointsToTable )
+                        {
+                            myPath = path.ToString();
+                            break;
+                        }
+
+                        path = new HtmlPath( path.Elements.Take( path.Elements.Count - 1 ) );
+                    }
+
                     Format.Path = myPath;
 
                     if( !string.IsNullOrWhiteSpace( myPath ) )
