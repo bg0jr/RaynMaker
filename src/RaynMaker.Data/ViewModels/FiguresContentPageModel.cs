@@ -207,6 +207,7 @@ namespace RaynMaker.Data.ViewModels
                 Price.Value = price.Value;
                 Price.Currency = price.Currency;
                 Price.Period = price.Period;
+                Price.Source = price.Source;
             }
         }
     }
