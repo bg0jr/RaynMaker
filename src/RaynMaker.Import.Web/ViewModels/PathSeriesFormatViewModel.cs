@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using RaynMaker.Entities;
 using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Spec;
 
@@ -9,7 +7,6 @@ namespace RaynMaker.Import.Web.ViewModels
 {
     class PathSeriesFormatViewModel : FormatViewModelBase
     {
-        private Type mySelectedDatum;
         private string myPath;
         private string myValue;
         private CellDimension mySelectedDimension;
@@ -19,7 +16,6 @@ namespace RaynMaker.Import.Web.ViewModels
         private string myColumnHeaderRow;
         private string mySkipRows;
         private string mySkipColumns;
-        private bool myInMillions;
 
         public PathSeriesFormatViewModel( PathSeriesFormat format )
             :base(format)
@@ -31,10 +27,6 @@ namespace RaynMaker.Import.Web.ViewModels
             IsValid = true;
 
             Value = "";
-
-            Datums = Dynamics.AllDatums
-                .OrderBy( d => d.Name )
-                .ToList();
 
             // first set properties without side-effects to others
             SelectedDatum = Datums.FirstOrDefault( d => d.Name == Format.Datum );
@@ -66,22 +58,6 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 Path = MarkupDocument.SelectedElement.GetPath().ToString();
                 Value = MarkupDocument.SelectedElement.InnerText;
-            }
-        }
-
-        // TODO: we do not support add, remove and edit of datums as they are currently fixed by entities model.
-        // TODO: "Standing" datums also exists
-        public IEnumerable<Type> Datums { get; private set; }
-
-        public Type SelectedDatum
-        {
-            get { return mySelectedDatum; }
-            set
-            {
-                if( SetProperty( ref mySelectedDatum, value ) )
-                {
-                    Format.Datum = mySelectedDatum.Name;
-                }
             }
         }
 
@@ -272,17 +248,5 @@ namespace RaynMaker.Import.Web.ViewModels
         public FormatColumn TimeFormat { get; private set; }
 
         public FormatColumn ValueFormat { get; private set; }
-
-        public bool InMillions
-        {
-            get { return myInMillions; }
-            set
-            {
-                if( SetProperty( ref myInMillions, value ) )
-                {
-                    Format.InMillions = myInMillions;
-                }
-            }
-        }
     }
 }

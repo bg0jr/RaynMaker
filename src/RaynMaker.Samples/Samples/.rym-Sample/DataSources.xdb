@@ -4,6 +4,7 @@
       <FormatSpecs xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
         <a:anyType i:type="PathSeriesFormat">
           <Datum>Dividend</Datum>
+          <InMillions>false</InMillions>
           <SkipColumns>
             <a:int>6</a:int>
           </SkipColumns>
@@ -12,20 +13,19 @@
           <Expand>Row</Expand>
           <SeriesNamePosition>0</SeriesNamePosition>
           <TimeAxisFormat>
-            <ExtractionPattern i:nil="true" xmlns:b="http://schemas.datacontract.org/2004/07/System.Text.RegularExpressions"/>
+            <ExtractionPattern i:nil="true"/>
             <Format>0000</Format>
             <Type>System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</Type>
             <Name>time</Name>
           </TimeAxisFormat>
           <TimeAxisPosition>0</TimeAxisPosition>
           <ValueFormat>
-            <ExtractionPattern i:nil="true" xmlns:b="http://schemas.datacontract.org/2004/07/System.Text.RegularExpressions"/>
+            <ExtractionPattern i:nil="true"/>
             <Format>000.000,0000</Format>
             <Type>System.Double, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</Type>
             <Name>value</Name>
           </ValueFormat>
           <ExtractLinkUrl>false</ExtractLinkUrl>
-          <InMillions>true</InMillions>
           <Path>/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/TABLE[3]/TBODY[0]/TR[9]/TD[1]</Path>
           <SeriesName>Dividendenaussch</SeriesName>
         </a:anyType>
@@ -51,7 +51,7 @@
         </Uris>
         <UrisHashCode>757602046</UrisHashCode>
       </LocationSpec>
-      <Name>Ariva</Name>
+      <Name>Fundamentals</Name>
       <Quality>1</Quality>
       <Vendor>Ariva</Vendor>
     </DataSource>
@@ -59,26 +59,26 @@
       <FormatSpecs xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
         <a:anyType i:type="PathSeriesFormat">
           <Datum>Equity</Datum>
+          <InMillions>false</InMillions>
           <SkipColumns/>
           <SkipRows/>
           <Anchor i:nil="true"/>
           <Expand>Row</Expand>
           <SeriesNamePosition>0</SeriesNamePosition>
           <TimeAxisFormat>
-            <ExtractionPattern i:nil="true" xmlns:b="http://schemas.datacontract.org/2004/07/System.Text.RegularExpressions"/>
+            <ExtractionPattern i:nil="true"/>
             <Format>0000</Format>
             <Type>System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</Type>
             <Name>time</Name>
           </TimeAxisFormat>
           <TimeAxisPosition>0</TimeAxisPosition>
           <ValueFormat>
-            <ExtractionPattern i:nil="true" xmlns:b="http://schemas.datacontract.org/2004/07/System.Text.RegularExpressions"/>
+            <ExtractionPattern i:nil="true"/>
             <Format>000,000.0000</Format>
             <Type>System.Double, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</Type>
             <Name>value</Name>
           </ValueFormat>
           <ExtractLinkUrl>false</ExtractLinkUrl>
-          <InMillions>true</InMillions>
           <Path>/BODY[0]/DIV[2]/DIV[0]/DIV[0]/DIV[1]/DIV[2]/DIV[0]/DIV[1]/DIV[3]/DIV[0]/DIV[2]/DIV[0]/TABLE[0]/TBODY[0]/TR[20]/TD[2]</Path>
           <SeriesName i:nil="true"/>
         </a:anyType>
@@ -117,6 +117,68 @@
       <Name>Boerse-Frankfurt Page1</Name>
       <Quality>1</Quality>
       <Vendor>Boerse-Frankfurt Page1</Vendor>
+    </DataSource>
+    <DataSource>
+      <FormatSpecs xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+        <a:anyType i:type="PathCellFormat">
+          <Datum>Price</Datum>
+          <InMillions>false</InMillions>
+          <SkipColumns/>
+          <SkipRows/>
+          <Anchor>
+            <Column i:type="StringContainsLocator">
+              <Pattern>Letzter</Pattern>
+              <SeriesToScan>0</SeriesToScan>
+            </Column>
+            <Row i:type="StringContainsLocator">
+              <Pattern>Frankfurt</Pattern>
+              <SeriesToScan>0</SeriesToScan>
+            </Row>
+          </Anchor>
+          <Expand>None</Expand>
+          <SeriesNamePosition>-1</SeriesNamePosition>
+          <TimeAxisFormat>
+            <ExtractionPattern i:nil="true"/>
+            <Format>0000</Format>
+            <Type>System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</Type>
+            <Name>time</Name>
+          </TimeAxisFormat>
+          <TimeAxisPosition>-1</TimeAxisPosition>
+          <ValueFormat>
+            <ExtractionPattern>([0-9,\.]+)</ExtractionPattern>
+            <Format>000.000,0000</Format>
+            <Type>System.Double, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</Type>
+            <Name>value</Name>
+          </ValueFormat>
+          <ExtractLinkUrl>false</ExtractLinkUrl>
+          <Path>/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]/TR[5]/TD[1]</Path>
+          <SeriesName i:nil="true"/>
+        </a:anyType>
+      </FormatSpecs>
+      <LocationSpec>
+        <DocumentType>Html</DocumentType>
+        <Uris>
+          <NavigatorUrl>
+            <Formular i:nil="true"/>
+            <Url>http://www.ariva.de/search/search.m?searchname=${Isin}</Url>
+            <UrlType>Request</UrlType>
+          </NavigatorUrl>
+          <NavigatorUrl>
+            <Formular i:nil="true"/>
+            <Url>http://www.ariva.de/{(.*)}?</Url>
+            <UrlType>Response</UrlType>
+          </NavigatorUrl>
+          <NavigatorUrl>
+            <Formular i:nil="true"/>
+            <Url>http://www.ariva.de/{0}/kurs</Url>
+            <UrlType>Request</UrlType>
+          </NavigatorUrl>
+        </Uris>
+        <UrisHashCode>757602046</UrisHashCode>
+      </LocationSpec>
+      <Name>Prices</Name>
+      <Quality>0</Quality>
+      <Vendor>Ariva</Vendor>
     </DataSource>
   </Sources>
 </DataSources>

@@ -1,9 +1,11 @@
 ﻿namespace RaynMaker.Import.Spec
 {
-    public interface IFormat 
+    public interface IFormat
     {
-        string Datum { get;  set; }
-        
+        string Datum { get; set; }
+
+        bool InMillions { get; set; }
+
         IFormat Clone();
     }
 }

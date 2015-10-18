@@ -1,64 +1,56 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using RaynMaker.Entities;
 using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Spec;
+using Plainion;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
     class PathCellFormatViewModel : FormatViewModelBase
     {
-        private Type mySelectedDatum;
         private string myPath;
         private string myValue;
-        private CellDimension mySelectedDimension;
-        private string mySeriesName;
-        private bool myIsValid;
-        private string myRowHeaderColumn;
-        private string myColumnHeaderRow;
-        private string mySkipRows;
-        private string mySkipColumns;
-        private bool myInMillions;
+        private int myRowPosition;
+        private string myRowPattern;
+        private bool myIsRowValid;
+        private int myColumnPosition;
+        private string myColumnPattern;
+        private bool myIsColumnValid;
 
-        public PathCellFormatViewModel( PathSeriesFormat format )
-            :base(format)
+        public PathCellFormatViewModel( PathCellFormat format )
+            : base( format )
         {
             Format = format;
-            
-            MarkupDocument.ValidationChanged += SeriesName_ValidationChanged;
-            
-            IsValid = true;
+
+            IsRowValid = true;
+            IsColumnValid = true;
 
             Value = "";
-
-            Datums = Dynamics.AllDatums
-                .OrderBy( d => d.Name )
-                .ToList();
 
             // first set properties without side-effects to others
             SelectedDatum = Datums.FirstOrDefault( d => d.Name == Format.Datum );
             Path = Format.Path;
-            SkipColumns = string.Join( ",", format.SkipColumns );
-            SkipRows = string.Join( ",", format.SkipRows );
-            SeriesName = format.SeriesName;
-            TimeFormat = Format.TimeAxisFormat ?? new FormatColumn( "time" );
             ValueFormat = Format.ValueFormat ?? new FormatColumn( "value" );
+
+            if( format.Anchor != null )
+            {
+                RowPosition = Format.Anchor.Row.SeriesToScan;
+                RowPattern = ( ( StringContainsLocator )Format.Anchor.Row ).Pattern;
+                ColumnPosition = Format.Anchor.Column.SeriesToScan;
+                ColumnPattern = ( ( StringContainsLocator )Format.Anchor.Column ).Pattern;
+            }
+            else
+            {
+                RowPosition = -1;
+                RowPattern = null;
+                ColumnPosition = -1;
+                ColumnPattern = null;
+            }
+
             InMillions = Format.InMillions;
-
-            ColumnHeaderRow = ( format.Expand == CellDimension.Row ? Format.TimeAxisPosition : Format.SeriesNamePosition ).ToString();
-            RowHeaderColumn = ( format.Expand == CellDimension.Row ? Format.SeriesNamePosition : Format.TimeAxisPosition ).ToString();
-
-            // needs to be AFTER RowHeaderColumn and ColumnHeaderRow
-            SelectedDimension = Format.Expand;
         }
 
         public new PathSeriesFormat Format { get; private set; }
-        
-        private void SeriesName_ValidationChanged( bool isValid )
-        {
-            IsValid = isValid;
-        }
 
         protected override void OnSelectionChanged()
         {
@@ -66,22 +58,7 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 Path = MarkupDocument.SelectedElement.GetPath().ToString();
                 Value = MarkupDocument.SelectedElement.InnerText;
-            }
-        }
-
-        // TODO: we do not support add, remove and edit of datums as they are currently fixed by entities model.
-        // TODO: "Standing" datums also exists
-        public IEnumerable<Type> Datums { get; private set; }
-
-        public Type SelectedDatum
-        {
-            get { return mySelectedDatum; }
-            set
-            {
-                if( SetProperty( ref mySelectedDatum, value ) )
-                {
-                    Format.Datum = mySelectedDatum.Name;
-                }
+                UpdateAnchor();
             }
         }
 
@@ -113,176 +90,88 @@ namespace RaynMaker.Import.Web.ViewModels
             set { SetProperty( ref myValue, value ); }
         }
 
-        public CellDimension SelectedDimension
+        public int RowPosition
         {
-            get { return mySelectedDimension; }
+            get { return myRowPosition; }
             set
             {
-                if( SetProperty( ref mySelectedDimension, value ) )
+                if( SetProperty( ref myRowPosition, value ) )
                 {
-                    Format.Expand = mySelectedDimension;
-
-                    if( Format.Expand == CellDimension.Row )
-                    {
-                        Format.TimeAxisPosition = ColumnHeaderRow != null ? int.Parse( ColumnHeaderRow ) : -1;
-                        Format.SeriesNamePosition = RowHeaderColumn != null ? int.Parse( RowHeaderColumn ) : -1;
-                    }
-                    else if( Format.Expand == CellDimension.Column )
-                    {
-                        Format.TimeAxisPosition = RowHeaderColumn != null ? int.Parse( RowHeaderColumn ) : -1;
-                        Format.SeriesNamePosition = ColumnHeaderRow != null ? int.Parse( ColumnHeaderRow ) : -1;
-                    }
-
-                    MarkupDocument.Dimension = mySelectedDimension;
+                    UpdateAnchor();
+                    MarkupDocument.RowHeaderColumn = value;
                 }
             }
         }
 
-        public string SeriesName
+        private void UpdateAnchor()
         {
-            get { return mySeriesName; }
-            set
-            {
-                if( SetProperty( ref mySeriesName, value ) )
-                {
-                    Format.SeriesName = mySeriesName;
+            Format.Anchor = Anchor.ForCell( new StringContainsLocator( RowPosition, RowPattern ), new StringContainsLocator( ColumnPosition, ColumnPattern ) );
 
-                    MarkupDocument.SeriesName = mySeriesName;
+            if( Format.Anchor.Row.SeriesToScan != -1 && Format.Anchor.Column.SeriesToScan != -1 && MarkupDocument.SelectedElement != null )
+            {
+                if( RowPattern != null )
+                {
+                    var rowHeader = MarkupDocument.FindRowHeader( Format.Anchor.Row.SeriesToScan )( MarkupDocument.SelectedElement ).InnerText;
+                    IsRowValid = rowHeader.Contains( RowPattern, StringComparison.OrdinalIgnoreCase );
+                }
+
+                if( ColumnPattern != null )
+                {
+                    var colHeader = MarkupDocument.FindColumnHeader( Format.Anchor.Column.SeriesToScan )( MarkupDocument.SelectedElement ).InnerText;
+                    IsColumnValid = colHeader.Contains( ColumnPattern, StringComparison.OrdinalIgnoreCase );
                 }
             }
         }
 
-        public bool IsValid
+        public string RowPattern
         {
-            get { return myIsValid; }
-            set { SetProperty( ref myIsValid, value ); }
-        }
-
-        public string RowHeaderColumn
-        {
-            get { return myRowHeaderColumn; }
+            get { return myRowPattern; }
             set
             {
-                if( SetProperty( ref myRowHeaderColumn, value ) )
+                if( SetProperty( ref myRowPattern, value ) )
                 {
-                    // only update EXACTLY the corresponding model
-                    if( Format.Expand == CellDimension.Row )
-                    {
-                        Format.SeriesNamePosition = RowHeaderColumn != null ? int.Parse( RowHeaderColumn ) : -1;
-                    }
-                    else if( Format.Expand == CellDimension.Column )
-                    {
-                        Format.TimeAxisPosition = RowHeaderColumn != null ? int.Parse( RowHeaderColumn ) : -1;
-                    }
-
-                    MarkHeader( myRowHeaderColumn, x => MarkupDocument.RowHeaderColumn = x );
+                    UpdateAnchor();
                 }
             }
         }
 
-        private void MarkHeader( string text, Action<int> UpdateTemplate )
+        public bool IsRowValid
         {
-            string str = text != null ? text.Trim() : null;
-            if( string.IsNullOrEmpty( str ) )
-            {
-                UpdateTemplate( -1 );
-                return;
-            }
-
-            try
-            {
-                UpdateTemplate( Convert.ToInt32( str ) );
-            }
-            catch
-            {
-                //errorProvider1.SetError( config, "Must be: <number> [, <number> ]*" );
-            }
+            get { return myIsRowValid; }
+            set { SetProperty( ref myIsRowValid, value ); }
         }
 
-        public string ColumnHeaderRow
+        public int ColumnPosition
         {
-            get { return myColumnHeaderRow; }
+            get { return myColumnPosition; }
             set
             {
-                if( SetProperty( ref myColumnHeaderRow, value ) )
+                if( SetProperty( ref myColumnPosition, value ) )
                 {
-                    // only update EXACTLY the corresponding model
-                    if( Format.Expand == CellDimension.Row )
-                    {
-                        Format.TimeAxisPosition = ColumnHeaderRow != null ? int.Parse( ColumnHeaderRow ) : -1;
-                    }
-                    else if( Format.Expand == CellDimension.Column )
-                    {
-                        Format.SeriesNamePosition = ColumnHeaderRow != null ? int.Parse( ColumnHeaderRow ) : -1;
-                    }
-
-                    MarkHeader( myColumnHeaderRow, x => MarkupDocument.ColumnHeaderRow = x );
+                    UpdateAnchor();
+                    MarkupDocument.ColumnHeaderRow = value;
                 }
             }
         }
 
-        public string SkipRows
+        public string ColumnPattern
         {
-            get { return mySkipRows; }
+            get { return myColumnPattern; }
             set
             {
-                if( SetProperty( ref mySkipRows, value ) )
+                if( SetProperty( ref myColumnPattern, value ) )
                 {
-                    Format.SkipRows = GetIntArray( mySkipRows );
-                    MarkupDocument.SkipRows = Format.SkipRows;
+                    UpdateAnchor();
                 }
             }
         }
 
-        private int[] GetIntArray( string value )
+        public bool IsColumnValid
         {
-            if( string.IsNullOrWhiteSpace( value ) )
-            {
-                return null;
-            }
-
-            try
-            {
-                return value.Split( ',' )
-                    .Where( t => !string.IsNullOrWhiteSpace( t ) )
-                    .Select( t => Convert.ToInt32( t ) )
-                    .ToArray();
-            }
-            catch
-            {
-                //errorProvider1.SetError( config, "Must be: <number> [, <number> ]*" );
-            }
-
-            return null;
+            get { return myIsColumnValid; }
+            set { SetProperty( ref myIsColumnValid, value ); }
         }
-
-        public string SkipColumns
-        {
-            get { return mySkipColumns; }
-            set
-            {
-                if( SetProperty( ref mySkipColumns, value ) )
-                {
-                    Format.SkipColumns = GetIntArray( mySkipColumns );
-                    MarkupDocument.SkipColumns = Format.SkipColumns;
-                }
-            }
-        }
-
-        public FormatColumn TimeFormat { get; private set; }
 
         public FormatColumn ValueFormat { get; private set; }
-
-        public bool InMillions
-        {
-            get { return myInMillions; }
-            set
-            {
-                if( SetProperty( ref myInMillions, value ) )
-                {
-                    Format.InMillions = myInMillions;
-                }
-            }
-        }
     }
 }

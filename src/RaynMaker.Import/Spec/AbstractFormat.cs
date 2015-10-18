@@ -18,5 +18,8 @@ namespace RaynMaker.Import.Spec
         [Required]
         [DataMember]
         public string Datum { get; set; }
+    
+        [DataMember]
+        public bool InMillions { get; set; }
     }
 }

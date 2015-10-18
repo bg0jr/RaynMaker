@@ -10,14 +10,13 @@
     <Grid MinHeight="160">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -42,16 +41,20 @@
         <TextBlock Grid.Row="1" Grid.Column="4" Text="=>" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,2,0,0"/>
         <TextBox Grid.Row="1" Grid.Column="5" Text="{Binding Value}" Margin="5,2,0,0" Width="100"/>
 
-        <TextBlock Grid.Row="2" Grid.Column="2" Text="Series name contains" VerticalAlignment="Center" Margin="5,0,0,0"/>
-        <TextBox Grid.Row="2" Grid.Column="3" Margin="5,2,0,0" Text="{Binding SeriesName, UpdateSourceTrigger=PropertyChanged}">
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="Position" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="2" Grid.Column="2" Text="Contains" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Row" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="5,2,0,0" Text="{Binding RowPosition, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="3" Grid.Column="2" Margin="5,2,0,0" Text="{Binding RowPattern, UpdateSourceTrigger=PropertyChanged}">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Background" Value="White"/>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsValid}" Value="True">
+                        <DataTrigger Binding="{Binding IsRowValid}" Value="True">
                             <Setter Property="Background" Value="White"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding IsValid}" Value="False">
+                        <DataTrigger Binding="{Binding IsRowValid}" Value="False">
                             <Setter Property="Background" Value="Red"/>
                         </DataTrigger>
                     </Style.Triggers>
@@ -59,25 +62,28 @@
             </TextBox.Style>
         </TextBox>
 
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="Row header column" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="3" Grid.Column="1" Margin="5,2,0,0" Text="{Binding RowHeaderColumn, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Column" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding ColumnPosition, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="4" Grid.Column="2" Margin="5,2,0,0" Text="{Binding ColumnPattern, UpdateSourceTrigger=PropertyChanged}">
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="Background" Value="White"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsColumnValid}" Value="True">
+                            <Setter Property="Background" Value="White"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsColumnValid}" Value="False">
+                            <Setter Property="Background" Value="Red"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
 
-        <TextBlock Grid.Row="3" Grid.Column="2" Text="Skip rows" VerticalAlignment="Center" Margin="5,0,0,0"/>
-        <TextBox Grid.Row="3" Grid.Column="3" Width="50" HorizontalAlignment="Left" Margin="5,2,0,0" Text="{Binding SkipRows, UpdateSourceTrigger=PropertyChanged}"/>
-
-        <TextBlock Grid.Row="4" Grid.Column="0" Text="Column header row" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding ColumnHeaderRow, UpdateSourceTrigger=PropertyChanged}"/>
-
-        <TextBlock Grid.Row="4" Grid.Column="2" Text="Skip columns" VerticalAlignment="Center" Margin="5,0,0,0"/>
-        <TextBox Grid.Row="4" Grid.Column="3" Width="50" HorizontalAlignment="Left" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding SkipColumns, UpdateSourceTrigger=PropertyChanged}"/>
-
-        <TextBlock Grid.Row="5" Grid.Column="0" Text="Time format" VerticalAlignment="Center"/>
-        <v:FormatColumnView Grid.Row="5" Grid.Column="1"  Grid.ColumnSpan="6" Margin="5,2,0,0" DataContext="{Binding TimeFormat}"/>
-
-        <TextBlock Grid.Row="6" Grid.Column="0" Text="Value format" VerticalAlignment="Center"/>
-        <v:FormatColumnView Grid.Row="6" Grid.Column="1"  Grid.ColumnSpan="6" Margin="5,2,0,0" DataContext="{Binding ValueFormat}"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="Value format" VerticalAlignment="Center"/>
+        <v:FormatColumnView Grid.Row="5" Grid.Column="1"  Grid.ColumnSpan="6" Margin="5,2,0,0" DataContext="{Binding ValueFormat}"/>
         
-        <CheckBox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,2,0,0" VerticalAlignment="Center"
+        <CheckBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,2,0,0" VerticalAlignment="Center"
                   Content="Values in millions" IsChecked="{Binding InMillions}"/>
     </Grid>
 </UserControl>

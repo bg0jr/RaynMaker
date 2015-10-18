@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace RaynMaker.Import.Spec
 {
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "AbsolutePositionLocator" )]
     public class AbsolutePositionLocator : ICellLocator
     {
         public AbsolutePositionLocator( int position )
@@ -12,6 +14,7 @@ namespace RaynMaker.Import.Spec
         /// <summary>
         /// Describes the absolute row/column position depending on the dimension.
         /// </summary>
+        [DataMember]
         public int Position { get; private set; }
 
         /// <summary>

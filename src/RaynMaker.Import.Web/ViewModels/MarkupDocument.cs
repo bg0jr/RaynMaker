@@ -340,12 +340,12 @@ namespace RaynMaker.Import.Web.ViewModels
             SkipElements( mySkipColumns, GetCellAt );
         }
 
-        private Func<IHtmlElement, IHtmlElement> FindRowHeader( int pos )
+        public Func<IHtmlElement, IHtmlElement> FindRowHeader( int pos )
         {
             return e => myTable.GetCellAt( HtmlTable.GetRowIndex( e ), pos );
         }
 
-        private Func<IHtmlElement, IHtmlElement> FindColumnHeader( int pos )
+        public Func<IHtmlElement, IHtmlElement> FindColumnHeader( int pos )
         {
             return e => myTable.GetCellAt( pos, HtmlTable.GetColumnIndex( e ) );
         }

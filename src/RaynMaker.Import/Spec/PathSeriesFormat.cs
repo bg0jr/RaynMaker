@@ -53,8 +53,5 @@ namespace RaynMaker.Import.Spec
 
         [DataMember]
         public string SeriesName { get; set; }
-
-        [DataMember]
-        public bool InMillions { get; set; }
     }
 }

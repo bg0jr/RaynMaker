@@ -12,6 +12,8 @@ namespace RaynMaker.Import.Spec
         public PathCellFormat( string name )
             : base( name )
         {
+            Expand = CellDimension.None;
+            Anchor = null;
         }
  }
 }

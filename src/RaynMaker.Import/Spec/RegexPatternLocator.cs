@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using Plainion.Collections;
 
 namespace RaynMaker.Import.Spec
 {
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "RegexPatternLocator" )]
     public class RegexPatternLocator : ICellLocator
     {
         public RegexPatternLocator( int seriesToScan, string value )
@@ -17,9 +19,17 @@ namespace RaynMaker.Import.Spec
             Pattern = value;
         }
 
+        [DataMember]
         public int SeriesToScan { get; private set; }
 
         public Regex Pattern { get; private set; }
+
+        [DataMember( Name = "Pattern" )]
+        private string SerializedPattern
+        {
+            get { return Pattern == null ? null : Pattern.ToString(); }
+            set { Pattern = value == null ? null : new Regex( value ); }
+        }
 
         public int GetLocation( IEnumerable<string> list )
         {
