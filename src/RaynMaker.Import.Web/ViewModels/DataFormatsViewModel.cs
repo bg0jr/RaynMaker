@@ -57,14 +57,7 @@ namespace RaynMaker.Import.Web.ViewModels
                     Formats.Add( FormatViewModelFactory.Create( format ) );
                 }
 
-                if( Formats.Count == 0 )
-                {
-                    OnAdd();
-                }
-                else
-                {
-                    SelectedFormatIndex = 0;
-                }
+                SelectedFormatIndex = Formats.Count == 0 ? -1 : 0;
             }
         }
 
@@ -145,9 +138,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
         private void OnAdd()
         {
-            var format = new PathSeriesFormat( string.Empty );
-            format.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000.0000" );
-            format.TimeAxisFormat = new FormatColumn( "time", typeof( int ), "0000" );
+            var format = FormatFactory.CreatePathSeriesFormat();
 
             Session.CurrentSource.FormatSpecs.Add( format );
 
@@ -165,12 +156,12 @@ namespace RaynMaker.Import.Web.ViewModels
                 return;
             }
 
-            var formatVM = Formats[ mySelectedFormatIndex ];
+            var formatVM = Formats[ SelectedFormatIndex ];
+
+            SelectedFormatIndex = Formats.Count - 2;
 
             Session.CurrentSource.FormatSpecs.Remove( formatVM.Format );
             Formats.Remove( formatVM );
-
-            SelectedFormatIndex = Formats.Count - 1;
         }
 
         public ICommand CopyCommand { get; private set; }
