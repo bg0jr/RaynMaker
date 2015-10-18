@@ -5,6 +5,7 @@
              xmlns:pn="http://github.com/ronin4net/plainion"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:l="clr-namespace:RaynMaker.Import.Web.Views"
+             xmlns:vm="clr-namespace:RaynMaker.Import.Web.ViewModels"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:rym="https://github.com/bg0jr/RaynMaker"
              xmlns:spec="clr-namespace:RaynMaker.Import.Spec;assembly=RaynMaker.Import"
@@ -13,6 +14,14 @@
              d:DesignWidth="700">
     <UserControl.Resources>
         <ResourceDictionary>
+            <DataTemplate DataType="{x:Type vm:PathSeriesFormatViewModel}">
+                <l:PathSeriesFormatView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:PathCellFormatViewModel}">
+                <l:PathCellFormatView/>
+            </DataTemplate>
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/RaynMaker.Infrastructure;Component/Controls/DefaultOverlayView.xaml"/>
             </ResourceDictionary.MergedDictionaries>
@@ -61,11 +70,6 @@
                     <Setter Property="Visibility" Value="Collapsed"/>
                 </Style>
             </TabControl.ItemContainerStyle>
-            <TabControl.ContentTemplate>
-                <DataTemplate>
-                    <l:PathSeriesFormatView/>
-                </DataTemplate>
-            </TabControl.ContentTemplate>
         </TabControl>
     </DockPanel>
 
@@ -80,14 +84,14 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                
+
                                 <Grid.Resources>
                                     <l:RadioButtonCheckedConverter x:Key="RadioButtonCheckedConverter"/>
                                 </Grid.Resources>
 
-                                <RadioButton Grid.Row="0" Content="Series"
+                                <RadioButton Grid.Row="0" Content="Html series"
                                              IsChecked="{Binding FormatType, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter={x:Type spec:PathSeriesFormat}}"/>
-                                <RadioButton Grid.Row="1" Content="Single value"
+                                <RadioButton Grid.Row="1" Content="Html table cell value"
                                              IsChecked="{Binding FormatType, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter={x:Type spec:PathCellFormat}}"/>
                             </Grid>
                         </rym:DefaultConfirmationView.ViewContent>

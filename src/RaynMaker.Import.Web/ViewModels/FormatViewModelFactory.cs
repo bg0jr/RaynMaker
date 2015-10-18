@@ -13,9 +13,7 @@ namespace RaynMaker.Import.Web.ViewModels
             // needs to be before PathSeriesFormat for the moment because it is derived class of it
             if( format is PathCellFormat )
             {
-                // todo: copy and paste PathSeriesFormatView/Model 
-                throw new NotImplementedException();
-                //return new PathSeriesFormatViewModel( format as PathSeriesFormat );
+                return new PathCellFormatViewModel( format as PathCellFormat );
             }
 
             if( format is PathSeriesFormat )

@@ -105,6 +105,7 @@
     <Compile Include="ViewModels\FormatViewModelFactory.cs" />
     <Compile Include="ViewModels\ImportPreviewModel.cs" />
     <Compile Include="ViewModels\NavigationViewModel.cs" />
+    <Compile Include="ViewModels\PathCellFormatViewModel.cs" />
     <Compile Include="ViewModels\PathSeriesFormatViewModel.cs" />
     <Compile Include="ViewModels\BasicDatumProvider.cs" />
     <Compile Include="ViewModels\SpecDefinitionViewModelBase.cs" />
@@ -142,6 +143,9 @@
       <DependentUpon>NavigationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OffsetConverter.cs" />
+    <Compile Include="Views\PathCellFormatView.xaml.cs">
+      <DependentUpon>PathCellFormatView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PathSeriesFormatView.xaml.cs">
       <DependentUpon>PathSeriesFormatView.xaml</DependentUpon>
     </Compile>
@@ -188,6 +192,10 @@
     <Page Include="Views\NavigationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PathCellFormatView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\PathSeriesFormatView.xaml">
       <SubType>Designer</SubType>
