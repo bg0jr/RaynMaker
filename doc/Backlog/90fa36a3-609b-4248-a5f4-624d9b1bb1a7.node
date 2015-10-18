@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7" Created="635771470975688770" LastModified="635789643133916123">
-  <Caption><![CDATA[Cleanup Import design]]></Caption>
+<Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7" Created="635771470975688770" LastModified="635807769500156687">
+  <Caption><![CDATA[Import module refactoring]]></Caption>
   <Content><![CDATA[Import consists of the following aspects:
 - key entity is a "Document"
 - a Document contains data about a particular stock and datums which we want to extract

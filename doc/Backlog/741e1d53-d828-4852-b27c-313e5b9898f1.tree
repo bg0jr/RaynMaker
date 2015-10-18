@@ -7,19 +7,10 @@
     </Node>
     <Node Id="9e52c479-8da2-4767-8e98-c5670c3a1b89">
       <Caption><![CDATA[1.6]]></Caption>
-      <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">
-        <Caption><![CDATA[Cleanup Import design]]></Caption>
+      <Node Id="e3235631-8613-4c60-b8ca-6133257ea386">
+        <Caption><![CDATA[Import module refactoring]]></Caption>
         <Node Id="2b6539a7-0690-42fb-bf29-c14f203d6a56">
           <Caption><![CDATA[Replace Clone with Objects.Clone()]]></Caption>
-        </Node>
-        <Node Id="77a3da08-70e8-4ae1-b90d-40a5b428e21d">
-          <Caption><![CDATA[TryNavigateWithWildcards]]></Caption>
-        </Node>
-        <Node Id="b0b261be-5045-42e4-8299-10b8a7aecc67">
-          <Caption><![CDATA[Why do we need DocumentType in Navigation?]]></Caption>
-        </Node>
-        <Node Id="28f445d5-be29-4194-af13-1e303507d47f">
-          <Caption><![CDATA[Remove backward-compatibility]]></Caption>
         </Node>
       </Node>
       <Node Id="7212c07d-b111-47f9-ad72-4d3805abf561">
@@ -33,6 +24,18 @@
       </Node>
       <Node Id="fc0ac8c3-8c48-40a6-886c-e8805243d1bf">
         <Caption><![CDATA[Attachments]]></Caption>
+      </Node>
+      <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">
+        <Caption><![CDATA[Import module refactoring]]></Caption>
+        <Node Id="77a3da08-70e8-4ae1-b90d-40a5b428e21d">
+          <Caption><![CDATA[TryNavigateWithWildcards]]></Caption>
+        </Node>
+        <Node Id="b0b261be-5045-42e4-8299-10b8a7aecc67">
+          <Caption><![CDATA[Why do we need DocumentType in Navigation?]]></Caption>
+        </Node>
+        <Node Id="28f445d5-be29-4194-af13-1e303507d47f">
+          <Caption><![CDATA[Remove backward-compatibility]]></Caption>
+        </Node>
       </Node>
     </Node>
   </Node>
