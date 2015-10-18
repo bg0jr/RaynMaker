@@ -22,6 +22,11 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             Format = format;
 
+            // essential to make check in UpdateAnchor() work to avoid unintended reset of model 
+            // due to half-initialized viewmodel
+            myRowPosition = -1;
+            myColumnPosition = -1;
+
             IsRowValid = true;
             IsColumnValid = true;
 
@@ -34,10 +39,12 @@ namespace RaynMaker.Import.Web.ViewModels
 
             if( format.Anchor != null )
             {
-                RowPosition = Format.Anchor.Row.SeriesToScan;
+                // always first copy patterns - then set position (positions are guard against unintended model overwrite due to half-initialized viewmodel)
                 RowPattern = ( ( StringContainsLocator )Format.Anchor.Row ).Pattern;
-                ColumnPosition = Format.Anchor.Column.SeriesToScan;
                 ColumnPattern = ( ( StringContainsLocator )Format.Anchor.Column ).Pattern;
+
+                RowPosition = Format.Anchor.Row.SeriesToScan;
+                ColumnPosition = Format.Anchor.Column.SeriesToScan;
             }
             else
             {
@@ -119,9 +126,16 @@ namespace RaynMaker.Import.Web.ViewModels
 
         private void UpdateAnchor()
         {
+            // check viewmodel properties here instead of model properties to avoid that half initialized viewmodel overrides model due to property updates
+            // (e.g. during initialization in ctor)
+            if( RowPosition == -1 || ColumnPosition == -1 )
+            {
+                return;
+            }
+
             Format.Anchor = Anchor.ForCell( new StringContainsLocator( RowPosition, RowPattern ), new StringContainsLocator( ColumnPosition, ColumnPattern ) );
 
-            if( Format.Anchor.Row.SeriesToScan != -1 && Format.Anchor.Column.SeriesToScan != -1 && MarkupDocument.SelectedElement != null )
+            if( MarkupDocument.SelectedElement != null )
             {
                 if( RowPattern != null )
                 {
