@@ -84,8 +84,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataModule.cs" />
+    <Compile Include="ViewModels\TickerMenuItemModel.cs" />
     <Compile Include="ViewModels\CurrencyViewModel.cs" />
     <Compile Include="ViewModels\OverviewContentPageModel.cs" />
+    <Compile Include="ViewModels\TickerViewModel.cs" />
+    <Compile Include="Views\TickerMenuItem.xaml.cs">
+      <DependentUpon>TickerMenuItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CurrenciesMenuItem.xaml.cs">
       <DependentUpon>CurrenciesMenuItem.xaml</DependentUpon>
     </Compile>
@@ -110,12 +115,19 @@
       <DependentUpon>FiguresContentPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\InMillionsConverter.cs" />
+    <Compile Include="Views\TickerView.xaml.cs">
+      <DependentUpon>TickerView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\TickerMenuItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\CurrenciesMenuItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -131,6 +143,10 @@
     <Page Include="Views\FiguresContentPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TickerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

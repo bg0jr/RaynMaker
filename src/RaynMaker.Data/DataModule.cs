@@ -15,11 +15,13 @@ namespace RaynMaker.Data
         public void Initialize()
         {
             RegionManager.RegisterViewWithRegion( RaynMaker.Infrastructure.RegionNames.Tools, typeof( CurrenciesMenuItem ) );
+            RegionManager.RegisterViewWithRegion( RaynMaker.Infrastructure.RegionNames.Tools, typeof( TickerMenuItem ) );
 
             RegionManager.RegisterViewWithRegion( RaynMaker.Infrastructure.RegionNames.AssetContentPages, typeof( OverviewContentPage ) );
             RegionManager.RegisterViewWithRegion( RaynMaker.Infrastructure.RegionNames.AssetContentPages, typeof( FiguresContentPage ) );
 
             RegionManager.RegisterViewWithRegion( RegionNames.CurrenciesView, typeof( CurrenciesView ) );
+            RegionManager.RegisterViewWithRegion( RegionNames.TickerView, typeof( TickerView ) );
             RegionManager.RegisterViewWithRegion( RegionNames.DataSheetEditView, typeof( OverviewContentPage ) );
         }
     }
