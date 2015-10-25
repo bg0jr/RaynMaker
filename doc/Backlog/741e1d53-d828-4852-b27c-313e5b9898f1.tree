@@ -16,9 +16,6 @@
           <Caption><![CDATA[Replace Clone with Objects.Clone()]]></Caption>
         </Node>
       </Node>
-      <Node Id="99e855ae-fd76-496e-a4a7-e6b3041e1174">
-        <Caption><![CDATA[Currencies: cancel does not work]]></Caption>
-      </Node>
     </Node>
     <Node Id="b6cbd93c-bdbd-49b4-bbb8-33de0a595e04">
       <Caption><![CDATA[1.7]]></Caption>
@@ -42,6 +39,15 @@
       </Node>
       <Node Id="6141acee-878a-472c-a8e5-1b2097114d88">
         <Caption><![CDATA[make translations (currency) work for prices]]></Caption>
+      </Node>
+      <Node Id="b3281029-c701-44d4-89e8-b43624845610">
+        <Caption><![CDATA[Cancel & Undo of Entity changes]]></Caption>
+        <Node Id="99e855ae-fd76-496e-a4a7-e6b3041e1174">
+          <Caption><![CDATA[Currencies]]></Caption>
+        </Node>
+        <Node Id="dc5beb49-d860-4090-b255-75dd313c9102">
+          <Caption><![CDATA[FiguresContentPage]]></Caption>
+        </Node>
       </Node>
     </Node>
   </Node>

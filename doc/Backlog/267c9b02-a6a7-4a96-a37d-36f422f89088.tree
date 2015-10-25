@@ -20,9 +20,6 @@
     <Node Id="04f5a012-70f8-4d90-9b37-85e6b9fea0a5">
       <Caption><![CDATA[Chart layouting: fixed chart size vs fixed bar size]]></Caption>
     </Node>
-    <Node Id="592b7c4d-d54f-456e-a668-911cd49bbcc0">
-      <Caption><![CDATA[Fetch from internet: currency translation]]></Caption>
-    </Node>
     <Node Id="f570d534-0aff-4d7c-b83a-b9f6c8217fef">
       <Caption><![CDATA[Startup Performance]]></Caption>
     </Node>

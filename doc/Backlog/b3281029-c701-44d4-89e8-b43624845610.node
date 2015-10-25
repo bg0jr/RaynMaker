@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="b3281029-c701-44d4-89e8-b43624845610" Created="635813755189990342" LastModified="635813756207548543">
+  <Caption><![CDATA[Cancel & Undo of Entity changes]]></Caption>
+  <Content><![CDATA[
+what is the general pattern? own AssetsContext?
+How to handle this with shared CurrenciesLut?
+Private copy in ViewModel?]]></Content>
+</Node>
