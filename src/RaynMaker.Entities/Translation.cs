@@ -20,6 +20,7 @@ namespace RaynMaker.Entities
             get { return mySource; }
             set
             {
+                var old = mySource;
                 if( SetProperty( ref mySource, value ) )
                 {
                     UpdateTimestamp();
@@ -35,6 +36,7 @@ namespace RaynMaker.Entities
             get { return myTarget; }
             set
             {
+                var old = myTarget;
                 if( SetProperty( ref myTarget, value ) )
                 {
                     UpdateTimestamp();
@@ -48,6 +50,7 @@ namespace RaynMaker.Entities
             get { return myRate; }
             set
             {
+                var old = myRate;
                 if( SetProperty( ref myRate, value ) )
                 {
                     UpdateTimestamp();

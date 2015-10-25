@@ -68,12 +68,18 @@ namespace RaynMaker.Data.Services
                 ctx.SaveChanges();
             }
 
+            // first load all currencies so that when loading the translations all currencies are loaded and so a translation
+            // can be initialized completely before setting IsMaterialized = true.
+            // without that we face the problem that IsMaterialized = true is set BEFORE the Target is set. This causes
+            // unwanted Timestamp updates
+            ctx.Currencies.Load();
+
             foreach( var currency in ctx.Currencies.Include( c => c.Translations ) )
             {
                 Currencies.Add( currency );
             }
         }
-        
+
         public void Save()
         {
             var ctx = myProjectHost.Project.GetAssetsContext();

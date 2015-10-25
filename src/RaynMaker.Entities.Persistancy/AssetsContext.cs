@@ -66,9 +66,9 @@ namespace RaynMaker.Entities.Persistancy
                 .WillCascadeOnDelete( true );
 
             builder.Entity<Translation>()
-                .HasRequired( a => a.Target )
+                .HasRequired( t => t.Target )
                 .WithMany()
-                .HasForeignKey( u => u.TargetId )
+                .HasForeignKey( t => t.TargetId )
                 .WillCascadeOnDelete( true );
 
             builder.Entity<Company>()
