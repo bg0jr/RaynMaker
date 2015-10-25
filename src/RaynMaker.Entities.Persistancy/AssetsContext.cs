@@ -3,9 +3,6 @@ using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Data.SQLite;
-using System.Diagnostics;
-using System.Reflection;
-using RaynMaker.Entities.Datums;
 
 namespace RaynMaker.Entities.Persistancy
 {
