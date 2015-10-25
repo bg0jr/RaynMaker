@@ -140,14 +140,14 @@ namespace RaynMaker.Analysis.Tests.AnalysisSpec.Providers
         /// Consier Market capitalization which is price * shares outstanding ( no currency for shares outstanding)
         /// </summary>
         [Test]
-        public void ProvideValue_SeriesWithoutCurrency_PriceCurrencyTranslated()
+        public void ProvideValue_SeriesWithoutCurrency_CurrencyOfPriceTaken()
         {
             myCurrentPrice = DatumFactory.NewPrice( "2015-01-01", 17.21, Euro );
             myRhsSeries = new DatumSeries( typeof( FakeDatum ), DatumFactory.New( 2015, 23 ), DatumFactory.New( 2014, 37 ) );
 
             var result = ( DerivedDatum )myProvider.ProvideValue( myContext.Object );
 
-            Assert.That( result.Currency, Is.Null );
+            Assert.That( result.Currency, Is.EqualTo( myCurrentPrice.Currency ) );
             Assert.That( result.Value, Is.EqualTo( 17.21 + 23 ) );
         }
     }

@@ -16,7 +16,7 @@ namespace RaynMaker.Entities.Persistancy.Tests
         [SetUp]
         public void SetUp()
         {
-            myCurrency = new Currency { Name = "Dollar" };
+            myCurrency = new Currency { Name = "U.S. Dollar", Symbol = "USD" };
         }
 
         [Test]
@@ -79,7 +79,7 @@ namespace RaynMaker.Entities.Persistancy.Tests
                 }
                 else
                 {
-                    throw new NotSupportedException("Don't know how to detect owner");
+                    throw new NotSupportedException( "Don't know how to detect owner" );
                 }
             }
 

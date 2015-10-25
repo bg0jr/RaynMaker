@@ -40,12 +40,11 @@ namespace RaynMaker.Analysis.AnalysisSpec.Providers
             }
 
             Contract.Requires( price.Currency != null, "Currency missing at price" );
-            Contract.Requires( values.Currency != null, "Currency missing at " + values.Name );
 
             var priceValue = price.Value.Value;
-            if ( price.Currency != values.Currency )
+            if( values.Currency != null && price.Currency != values.Currency )
             {
-                 priceValue = context.TranslateCurrency( price.Value.Value, price.Currency, values.Currency );
+                priceValue = context.TranslateCurrency( price.Value.Value, price.Currency, values.Currency );
             }
 
             var priceYear = price.Period.Year();
@@ -56,7 +55,7 @@ namespace RaynMaker.Analysis.AnalysisSpec.Providers
                 value = values.SingleOrDefault( e => e.Period.Year() == priceYear - 1 );
                 if( value == null )
                 {
-                    return new MissingDataForPeriod( mySeriesName,null, new YearPeriod( priceYear ), new YearPeriod( priceYear - 1 ) );
+                    return new MissingDataForPeriod( mySeriesName, null, new YearPeriod( priceYear ), new YearPeriod( priceYear - 1 ) );
                 }
             }
 
@@ -68,7 +67,7 @@ namespace RaynMaker.Analysis.AnalysisSpec.Providers
 
             if( PreserveCurrency )
             {
-                result.Currency = values.Currency;
+                result.Currency = values.Currency != null ? values.Currency : price.Currency;
             }
 
             result.Inputs.Add( price );
