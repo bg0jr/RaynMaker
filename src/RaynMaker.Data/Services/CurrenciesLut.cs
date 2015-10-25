@@ -62,8 +62,8 @@ namespace RaynMaker.Data.Services
             var ctx = myProjectHost.Project.GetAssetsContext();
             if( !ctx.Currencies.Any() )
             {
-                ctx.Currencies.Add( new Currency { Name = "Euro" } );
-                ctx.Currencies.Add( new Currency { Name = "Dollar" } );
+                ctx.Currencies.Add( new Currency { Symbol = "EUR", Name = "Euro" } );
+                ctx.Currencies.Add( new Currency { Symbol = "USD", Name = "U.S. Dollar" } );
 
                 ctx.SaveChanges();
             }
