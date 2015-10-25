@@ -30,7 +30,7 @@ namespace RaynMaker.Data.ViewModels
             OkCommand = new DelegateCommand( OnOk );
             CancelCommand = new DelegateCommand( OnCancel );
 
-            TickerEntries = new ObservableCollection<TickerEntry>();
+            Entries = new ObservableCollection<TickerEntry>();
 
             myProjectHost.Changed += OnProjectChanged;
             OnProjectChanged();
@@ -43,19 +43,21 @@ namespace RaynMaker.Data.ViewModels
                 return;
             }
 
-            TickerEntries.Clear();
+            Entries.Clear();
 
             var ctx = myProjectHost.Project.GetAssetsContext();
             foreach( var stock in ctx.Stocks )
             {
-                TickerEntries.Add( new TickerEntry( stock ) );
+                Entries.Add( new TickerEntry( stock ) );
             }
+
+            UpdateAllCommand.RaiseCanExecuteChanged();
         }
 
         [Import( AllowDefault = true )]
         public IDataProvider DataProvider { get; set; }
 
-        public ObservableCollection<TickerEntry> TickerEntries { get; private set; }
+        public ObservableCollection<TickerEntry> Entries { get; private set; }
 
         public Action FinishInteraction { get; set; }
 
@@ -87,38 +89,24 @@ namespace RaynMaker.Data.ViewModels
 
         private void OnUpdateAll()
         {
-            // TODO: change DataProvider.Fetch() to pass request object which also contains arg for "preview = true|false"
+            var today = DateTime.Today;
 
+            foreach( var entry in Entries )
+            {
+                var request = DataProviderRequest.Create( entry.Stock, typeof( Price ), today.Subtract( TimeSpan.FromDays( 7 ) ), today.AddDays( 1 ) );
+                request.WithPreview = false;
 
-            //    var today = DateTime.Today;
+                var series = new List<IDatum>();
 
-            //    var series = new ObservableCollection<IDatum>();
-            //    WeakEventManager<ObservableCollection<IDatum>, NotifyCollectionChangedEventArgs>.AddHandler( series, "CollectionChanged", OnSeriesChanged );
+                // fetch some more data because of weekends and public holidays
+                // we will then take last one
 
-            //    // fetch some more data because of weekends and public holidays
-            //    // we will then take last one
+                DataProvider.Fetch( request, series );
 
-            //    DataProvider.Fetch( Stock,
-            //        typeof( Price ),
-            //        series,
-            //        new DayPeriod( today.Subtract( TimeSpan.FromDays( 7 ) ) ),
-            //        new DayPeriod( today.AddDays( 1 ) ) );
-            //}
-
-            //private void OnSeriesChanged( object sender, NotifyCollectionChangedEventArgs e )
-            //{
-            //    // there might be no privider - check for null
-            //    var price = ( Price )( ( IEnumerable<IDatum> )sender )
-            //        .OrderByDescending( d => d.Period )
-            //        .FirstOrDefault();
-
-            //    if( price != null )
-            //    {
-            //        Price.Value = price.Value;
-            //        Price.Currency = price.Currency;
-            //        Price.Period = price.Period;
-            //        Price.Source = price.Source;
-            //    }
+                entry.CurrentPrice = ( Price )series
+                    .OrderByDescending( d => d.Period )
+                    .First();
+            }
         }
     }
 }

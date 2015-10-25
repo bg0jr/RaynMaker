@@ -78,7 +78,7 @@ namespace RaynMaker.Import.Web.ViewModels
         }
 
         // only take over new datums and values for datums which have no value yet
-        private void PublishData()
+        internal void PublishData()
         {
             foreach( var datum in myData )
             {

@@ -2,57 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Entities;
 using RaynMaker.Entities.Datums;
 
 namespace RaynMaker.Data.ViewModels
 {
-    class TickerEntry
+    class TickerEntry : BindableBase
     {
-        private Stock myStock;
         private DateTime myToday;
+        private Price myPreviousPrice;
+        private Price myCurrentPrice;
 
         public TickerEntry( Stock stock )
         {
-            myStock = stock;
+            Stock = stock;
 
             InitToday();
 
             InitPrices();
         }
 
-        private void InitPrices()
-        {
-            PreviousPrice = myStock.Prices
-                .OrderByDescending( p => p.Period )
-                .FirstOrDefault();
-            if( PreviousPrice == null )
-            {
-                return;
-            }
-
-            if( ( ( DayPeriod )PreviousPrice.Period ).Day == myToday )
-            {
-                CurrentPrice = PreviousPrice;
-
-                PreviousPrice = myStock.Prices
-                    .OrderByDescending( p => p.Period )
-                    .Skip( 1 )
-                    .FirstOrDefault();
-            }
-
-            if( PreviousPrice != null )
-            {
-                PreviousPriceDate = ( ( DayPeriod )PreviousPrice.Period ).Day.ToShortDateString();
-                PreviousPriceValue = PreviousPrice.Value.Value + " " + PreviousPrice.Currency.Symbol;
-            }
-
-            if( CurrentPrice != null )
-            {
-                CurrentPriceDate = ( ( DayPeriod )CurrentPrice.Period ).Day.ToShortDateString();
-                CurrentPriceValue = CurrentPrice.Value.Value + " " + CurrentPrice.Currency.Symbol;
-            }
-        }
+        public Stock Stock { get; private set; }
 
         private void InitToday()
         {
@@ -68,21 +39,66 @@ namespace RaynMaker.Data.ViewModels
             }
         }
 
-        public string Company { get { return myStock.Company.Name; } }
+        private void InitPrices()
+        {
+            PreviousPrice = Stock.Prices
+                .OrderByDescending( p => p.Period )
+                .FirstOrDefault();
+            if( PreviousPrice == null )
+            {
+                return;
+            }
 
-        public string Isin { get { return myStock.Isin; } }
+            if( ( ( DayPeriod )PreviousPrice.Period ).Day == myToday )
+            {
+                CurrentPrice = PreviousPrice;
 
-        public Price PreviousPrice { get; private set; }
+                PreviousPrice = Stock.Prices
+                    .OrderByDescending( p => p.Period )
+                    .Skip( 1 )
+                    .FirstOrDefault();
+            }
+        }
 
-        public string PreviousPriceDate { get; private set; }
+        public string Company { get { return Stock.Company.Name; } }
 
-        public string PreviousPriceValue { get; private set; }
+        public string Isin { get { return Stock.Isin; } }
 
-        public Price CurrentPrice { get; private set; }
+        public Price PreviousPrice
+        {
+            get { return myPreviousPrice; }
+            set
+            {
+                if( SetProperty( ref myPreviousPrice, value ) )
+                {
+                    OnPropertyChanged( () => PreviousPriceDate );
+                    OnPropertyChanged( () => PreviousPriceValue );
+                    OnPropertyChanged( () => Change );
+                }
+            }
+        }
 
-        public string CurrentPriceDate { get; private set; }
+        public string PreviousPriceDate { get { return PreviousPrice != null ? ( ( DayPeriod )PreviousPrice.Period ).Day.ToShortDateString() : null; } }
 
-        public string CurrentPriceValue { get; private set; }
+        public string PreviousPriceValue { get { return PreviousPrice != null ? PreviousPrice.Value.Value + " " + PreviousPrice.Currency.Symbol : null; } }
+
+        public Price CurrentPrice
+        {
+            get { return myCurrentPrice; }
+            set
+            {
+                if( SetProperty( ref myCurrentPrice, value ) )
+                {
+                    OnPropertyChanged( () => CurrentPriceDate );
+                    OnPropertyChanged( () => CurrentPriceValue );
+                    OnPropertyChanged( () => Change );
+                }
+            }
+        }
+
+        public string CurrentPriceDate { get { return CurrentPrice != null ? ( ( DayPeriod )CurrentPrice.Period ).Day.ToShortDateString() : null; } }
+
+        public string CurrentPriceValue { get { return CurrentPrice != null ? CurrentPrice.Value.Value + " " + CurrentPrice.Currency.Symbol : null; } }
 
         public string Change
         {

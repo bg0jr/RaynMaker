@@ -39,16 +39,26 @@ namespace RaynMaker.Import.Web
                 Series = resultContainer
             };
 
-            var preview = new ImportPreview( previewViewModel );
+            if( request.WithPreview )
+            {
+                var preview = new ImportPreview( previewViewModel );
 
-            previewViewModel.FinishAction = () => preview.Close();
-            preview.DataContext = previewViewModel;
+                previewViewModel.FinishAction = () => preview.Close();
+                preview.DataContext = previewViewModel;
 
-            previewViewModel.Fetch( request.DatumType );
+                previewViewModel.Fetch( request.DatumType );
 
-            preview.Top = 0;
-            preview.Left = 0;
-            preview.Show();
+                preview.Top = 0;
+                preview.Left = 0;
+                preview.Show();
+            }
+            else
+            {
+                var preview = new ImportPreview( previewViewModel );
+                previewViewModel.Browser = new WinForms.SafeWebBrowser();
+                previewViewModel.Fetch( request.DatumType );
+                previewViewModel.PublishData();
+            }
         }
     }
 }
