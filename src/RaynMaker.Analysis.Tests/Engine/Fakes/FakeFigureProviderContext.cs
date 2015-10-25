@@ -23,5 +23,10 @@ namespace RaynMaker.Analysis.Tests.Engine.Fakes
         {
             return DatumSeries.Empty;
         }
+
+        public double TranslateCurrency( double value, Currency source, Currency target )
+        {
+            return value;
+        }
     }
 }

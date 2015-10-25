@@ -90,7 +90,7 @@ namespace RaynMaker.Analysis.Tests.AnalysisSpec.Providers
         public void ProvideValue_RhsHasNoDataForPeriod_MissingDataForPeriodReturned()
         {
             myCurrentPrice = DatumFactory.NewPrice( "2015-01-01", 17.21, Euro );
-            myRhsSeries = new DatumSeries( typeof( FakeDatum ), DatumFactory.New( 2001, 1 ) );
+            myRhsSeries = new DatumSeries( typeof( FakeCurrencyDatum ), DatumFactory.New( 2001, 1, Euro ) );
 
             var result = myProvider.ProvideValue( myContext.Object );
 
@@ -102,7 +102,7 @@ namespace RaynMaker.Analysis.Tests.AnalysisSpec.Providers
         public void ProvideValue_WithValidInputData_RatioReturned()
         {
             myCurrentPrice = DatumFactory.NewPrice( "2015-01-01", 17.21, Euro );
-            myRhsSeries = new DatumSeries( typeof( FakeDatum ), DatumFactory.New( 2015, 23 ), DatumFactory.New( 2014, 37 ) );
+            myRhsSeries = new DatumSeries( typeof( FakeCurrencyDatum ), DatumFactory.New( 2015, 23, Euro ), DatumFactory.New( 2014, 37, Euro ) );
 
             var result = ( ICurrencyDatum )myProvider.ProvideValue( myContext.Object );
 
@@ -122,15 +122,18 @@ namespace RaynMaker.Analysis.Tests.AnalysisSpec.Providers
             Assert.That( result.Inputs, Is.EquivalentTo( new[] { myCurrentPrice, myRhsSeries.ElementAt( 1 ) } ) );
         }
 
-
         [Test]
-        public void ProvideValue_InconsistentCurrencies_Throws()
+        public void ProvideValue_InconsistentCurrencies_PriceCurrencyTranslated()
         {
             myCurrentPrice = DatumFactory.NewPrice( "2015-01-01", 17.21, Euro );
             myRhsSeries = new DatumSeries( typeof( FakeCurrencyDatum ), DatumFactory.New( 2015, 23, Dollar ), DatumFactory.New( 2014, 37, Dollar ) );
+            myContext.Setup( x => x.TranslateCurrency( It.IsAny<double>(), It.IsAny<Currency>(), It.IsAny<Currency>() ) )
+                .Returns<double, Currency, Currency>( ( value, source, target ) => value * 2 );
 
-            var ex = Assert.Throws<ArgumentException>( () => myProvider.ProvideValue( myContext.Object ) );
-            Assert.That( ex.Message, Is.StringContaining( "Currency inconsistencies" ) );
+            var result = ( DerivedDatum )myProvider.ProvideValue( myContext.Object );
+
+            Assert.That( result.Currency, Is.EqualTo( myRhsSeries.Currency ) );
+            Assert.That( result.Value, Is.EqualTo( 17.21 * 2 + 23 ) );
         }
     }
 }

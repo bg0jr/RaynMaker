@@ -40,10 +40,13 @@ namespace RaynMaker.Analysis.AnalysisSpec.Providers
             }
 
             Contract.Requires( price.Currency != null, "Currency missing at price" );
+            Contract.Requires( values.Currency != null, "Currency missing at " + values.Name );
 
-            Contract.Requires( values.Currency == null || price.Currency == values.Currency,
-                "Currency inconsistencies detected: Price.Currency={0} vs {1}.Currency={2}",
-                price.Currency, values.Name, values.Currency );
+            var priceValue = price.Value.Value;
+            if ( price.Currency != values.Currency )
+            {
+                 priceValue = context.TranslateCurrency( price.Value.Value, price.Currency, values.Currency );
+            }
 
             var priceYear = price.Period.Year();
 
@@ -60,12 +63,12 @@ namespace RaynMaker.Analysis.AnalysisSpec.Providers
             var result = new DerivedDatum
             {
                 Period = price.Period,
-                Value = myRatioCalculationOperator( price.Value.Value, value.Value.Value )
+                Value = myRatioCalculationOperator( priceValue, value.Value.Value )
             };
 
             if( PreserveCurrency )
             {
-                result.Currency = price.Currency;
+                result.Currency = values.Currency;
             }
 
             result.Inputs.Add( price );

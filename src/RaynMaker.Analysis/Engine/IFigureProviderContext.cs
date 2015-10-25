@@ -10,5 +10,7 @@ namespace RaynMaker.Analysis.Engine
         IEnumerable<IDatumSeries> Data { get; }
 
         IDatumSeries GetSeries( string name );
-    }
+
+        double TranslateCurrency( double value, Currency source, Currency target );
+  }
 }
