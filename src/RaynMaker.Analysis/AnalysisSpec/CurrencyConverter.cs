@@ -33,14 +33,14 @@ namespace RaynMaker.Analysis.AnalysisSpec
             return base.ConvertFrom( context, culture, value );
         }
 
-        private static Currency Parse( string name )
+        private static Currency Parse( string symbol )
         {
             Contract.Invariant( CurrenciesLut != null, "Currencies sheet not yet initialized" );
 
             var currency = CurrenciesLut.Currencies
-                .FirstOrDefault( c => c.Name == name );
+                .FirstOrDefault( c => c.Symbol == symbol );
 
-            Contract.Requires( currency != null, "No currency found with name: " + name );
+            Contract.Requires( currency != null, "No currency found with symbol: " + symbol );
 
             return currency;
         }
