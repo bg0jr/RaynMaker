@@ -110,6 +110,7 @@
     <AppDesigner Include="Properties\" />
     <Compile Include="RegionNames.cs" />
     <Compile Include="Services\ICurrenciesLut.cs" />
+    <Compile Include="Services\ICurrencyTranslationRateProvider.cs" />
     <Compile Include="Services\IDataProvider.cs" />
     <Compile Include="Services\ILutService.cs" />
   </ItemGroup>

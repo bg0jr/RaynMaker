@@ -69,6 +69,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Expression.Blend.Sdk.1.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -89,6 +90,11 @@
   <ItemGroup>
     <Compile Include="ImportWebModule.cs" />
     <Compile Include="Model\Session.cs" />
+    <Compile Include="Service References\CurrencyConverter\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Services\DatumLocator.cs" />
     <Compile Include="Services\DataSourcesSheet.cs" />
     <Compile Include="Services\DatumLocatorSheet.cs" />
@@ -159,6 +165,7 @@
       <DependentUpon>WebSpyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="WebDatumProvider.cs" />
+    <Compile Include="WebServiceCurrencyTransalationRateProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\AddressBarView.xaml">
@@ -227,7 +234,25 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Service References\CurrencyConverter\CurrencyConvertor.wsdl" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\CurrencyConverter\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CurrencyConverter\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CurrencyConverter\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CurrencyConverter\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

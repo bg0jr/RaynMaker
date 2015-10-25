@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataModule.cs" />
+    <Compile Include="ViewModels\CurrencyViewModel.cs" />
     <Compile Include="ViewModels\OverviewContentPageModel.cs" />
     <Compile Include="Views\CurrenciesMenuItem.xaml.cs">
       <DependentUpon>CurrenciesMenuItem.xaml</DependentUpon>

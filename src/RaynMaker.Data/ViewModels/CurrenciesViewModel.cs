@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Linq;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
@@ -23,6 +25,7 @@ namespace RaynMaker.Data.ViewModels
             myProjectHost = projectHost;
             myLutService = lutService;
 
+            UpdateAllCommand = new DelegateCommand( OnUpdateAll, CanUpdateAll );
             OkCommand = new DelegateCommand( OnOk );
             CancelCommand = new DelegateCommand( OnCancel );
 
@@ -31,7 +34,7 @@ namespace RaynMaker.Data.ViewModels
 
             AddTranslationCommand = new DelegateCommand<Currency>( OnAddTranslation );
             RemoveTranslationCommand = new DelegateCommand<Translation>( OnRemoveTranslation );
-            
+
             myProjectHost.Changed += OnProjectChanged;
             OnProjectChanged();
         }
@@ -44,10 +47,28 @@ namespace RaynMaker.Data.ViewModels
             }
 
             OnPropertyChanged( PropertySupport.ExtractPropertyName( () => CurrenciesLut ) );
+            OnPropertyChanged( PropertySupport.ExtractPropertyName( () => Currencies ) );
         }
 
+        [Import( AllowDefault = true )]
+        public ICurrencyTranslationRateProvider TranslationRateProvider { get; set; }
 
         public ICurrenciesLut CurrenciesLut { get { return myLutService.CurrenciesLut; } }
+
+        public IEnumerable<CurrencyViewModel> Currencies
+        {
+            get
+            {
+                if( myLutService.CurrenciesLut == null )
+                {
+                    return null;
+                }
+
+                return myLutService.CurrenciesLut.Currencies
+                    .Select( c => new CurrencyViewModel( c ) )
+                    .ToList();
+            }
+        }
 
         public Action FinishInteraction { get; set; }
 
@@ -57,14 +78,14 @@ namespace RaynMaker.Data.ViewModels
 
         private void OnAddCurrency()
         {
-            CurrenciesLut.Currencies.Add( new Currency() );
+            myLutService.CurrenciesLut.Currencies.Add( new Currency() );
         }
 
         public ICommand RemoveCurrencyCommand { get; private set; }
 
         private void OnRemoveCurrency( Currency currency )
         {
-            CurrenciesLut.Currencies.Remove( currency );
+            myLutService.CurrenciesLut.Currencies.Remove( currency );
         }
 
         public ICommand AddTranslationCommand { get; private set; }
@@ -80,7 +101,7 @@ namespace RaynMaker.Data.ViewModels
         {
             // just try to remove the translation from every currency - we will finally find the right owner.
             // not a nice approach but with current simplified design we cannot get owner currency directly so easy.
-            foreach( var currency in CurrenciesLut.Currencies )
+            foreach( var currency in myLutService.CurrenciesLut.Currencies )
             {
                 currency.Translations.Remove( translation );
             }
@@ -90,7 +111,7 @@ namespace RaynMaker.Data.ViewModels
 
         private void OnOk()
         {
-            CurrenciesLut.Save();
+            myLutService.CurrenciesLut.Save();
             FinishInteraction();
         }
 
@@ -99,6 +120,24 @@ namespace RaynMaker.Data.ViewModels
         private void OnCancel()
         {
             FinishInteraction();
+        }
+
+        public DelegateCommand UpdateAllCommand { get; private set; }
+
+        private bool CanUpdateAll()
+        {
+            return TranslationRateProvider != null;
+        }
+
+        private void OnUpdateAll()
+        {
+            foreach( var currency in myLutService.CurrenciesLut.Currencies )
+            {
+                foreach( var translation in currency.Translations )
+                {
+                    translation.Rate = TranslationRateProvider.GetRate( currency, translation.Target );
+                }
+            }
         }
     }
 }

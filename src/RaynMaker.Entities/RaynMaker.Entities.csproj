@@ -81,6 +81,7 @@
     <Compile Include="IDatum.cs" />
     <Compile Include="IDatumSeries.cs" />
     <Compile Include="IPeriod.cs" />
+    <Compile Include="KnownCurrencies.cs" />
     <Compile Include="PeriodConverter.cs" />
     <Compile Include="PeriodExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

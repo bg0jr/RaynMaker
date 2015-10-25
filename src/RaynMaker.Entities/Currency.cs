@@ -8,17 +8,25 @@ namespace RaynMaker.Entities
     public class Currency : EntityBase
     {
         private string myName;
+        private string mySymbol;
 
         public Currency()
         {
             Translations = new ObservableCollection<Translation>();
         }
-        
+
         [Required]
         public string Name
         {
             get { return myName; }
             set { SetProperty( ref myName, value ); }
+        }
+
+        [Required]
+        public string Symbol
+        {
+            get { return mySymbol; }
+            set { SetProperty( ref mySymbol, value ); }
         }
 
         public ObservableCollection<Translation> Translations { get; private set; }
