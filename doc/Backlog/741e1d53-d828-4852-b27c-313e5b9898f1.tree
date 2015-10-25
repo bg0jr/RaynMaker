@@ -49,6 +49,9 @@
           <Caption><![CDATA[FiguresContentPage]]></Caption>
         </Node>
       </Node>
+      <Node Id="1ca576e5-a2e7-4dea-9ec9-ae378f7cc8ac">
+        <Caption><![CDATA[Reload ViewModel on Reopen]]></Caption>
+      </Node>
     </Node>
   </Node>
 </Tree>

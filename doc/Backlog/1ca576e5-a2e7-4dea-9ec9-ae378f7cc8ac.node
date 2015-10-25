@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="1ca576e5-a2e7-4dea-9ec9-ae378f7cc8ac" Created="635813770552639035" LastModified="635813771192735646">
+  <Caption><![CDATA[Reload ViewModel on Reopen]]></Caption>
+  <Content><![CDATA[- ViewModels are created right after startup
+  - performance
+  - reason: we call UpdateRegions and have KeepAlive Regionadapter
+
+- viewModels are not recreated after close and reopen
+  - problem: updates done meanwhile on the DB are missing]]></Content>
+</Node>
