@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataModule.cs" />
+    <Compile Include="ViewModels\TickerEntry.cs" />
     <Compile Include="ViewModels\TickerMenuItemModel.cs" />
     <Compile Include="ViewModels\CurrencyViewModel.cs" />
     <Compile Include="ViewModels\OverviewContentPageModel.cs" />

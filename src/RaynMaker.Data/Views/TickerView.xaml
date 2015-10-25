@@ -5,7 +5,21 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
-    </Grid>
+    <DockPanel LastChildFill="True" Margin="3">
+        <Grid DockPanel.Dock="Bottom" Margin="0,5,0,0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="Update all" Command="{Binding UpdateAllCommand}" Width="75"/>
+            <Button Grid.Column="2" Content="OK" Command="{Binding OkCommand}" Width="50"/>
+            <Button Grid.Column="3" Content="Cancel" Command="{Binding CancelCommand}" Margin="5,0,0,0" Width="50"/>
+        </Grid>
+
+        <DataGrid ItemsSource="{Binding TickerEntries}" 
+            CanUserReorderColumns="False" CanUserResizeColumns="True" 
+            CanUserResizeRows="False" CanUserSortColumns="True"/>
+    </DockPanel>
 </UserControl>
