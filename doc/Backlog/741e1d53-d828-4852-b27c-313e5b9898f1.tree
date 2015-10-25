@@ -16,6 +16,9 @@
           <Caption><![CDATA[Replace Clone with Objects.Clone()]]></Caption>
         </Node>
       </Node>
+      <Node Id="99e855ae-fd76-496e-a4a7-e6b3041e1174">
+        <Caption><![CDATA[Currencies: cancel does not work]]></Caption>
+      </Node>
     </Node>
     <Node Id="b6cbd93c-bdbd-49b4-bbb8-33de0a595e04">
       <Caption><![CDATA[1.7]]></Caption>

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="99e855ae-fd76-496e-a4a7-e6b3041e1174" Created="635813526351547967" LastModified="635813526643584671">
+  <Caption><![CDATA[Currencies: cancel does not work]]></Caption>
+  <Content><![CDATA[we missed to reset the stuff in the context
+we have to reload LutService
+
+(first try: translation broken?)]]></Content>
+</Node>
