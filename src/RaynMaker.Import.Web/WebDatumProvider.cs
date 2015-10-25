@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Linq;
 using RaynMaker.Entities;
 using RaynMaker.Import.Web.Services;
 using RaynMaker.Import.Web.ViewModels;
 using RaynMaker.Import.Web.Views;
-using System.Linq;
 using RaynMaker.Infrastructure.Services;
 
 namespace RaynMaker.Import.Web
@@ -23,14 +23,20 @@ namespace RaynMaker.Import.Web
             myLutService = lutService;
         }
 
-        public void Fetch( Stock stock, Type datum, ICollection<IDatum> series, IPeriod from, IPeriod to )
+        public bool CanFetch( Type datum )
+        {
+            return myStorageService.Load()
+                .Any( source => source.FormatSpecs.Any( f => f.Datum == datum.Name ) );
+        }
+
+        public void Fetch( DataProviderRequest request, ICollection<IDatum> resultContainer )
         {
             var previewViewModel = new ImportPreviewModel( myStorageService, myLutService.CurrenciesLut )
             {
-                Stock = stock,
-                From = from,
-                To = to,
-                Series = series
+                Stock = request.Stock,
+                From = request.From,
+                To = request.To,
+                Series = resultContainer
             };
 
             var preview = new ImportPreview( previewViewModel );
@@ -38,7 +44,7 @@ namespace RaynMaker.Import.Web
             previewViewModel.FinishAction = () => preview.Close();
             preview.DataContext = previewViewModel;
 
-            previewViewModel.Fetch( datum );
+            previewViewModel.Fetch( request.DatumType );
 
             preview.Top = 0;
             preview.Left = 0;

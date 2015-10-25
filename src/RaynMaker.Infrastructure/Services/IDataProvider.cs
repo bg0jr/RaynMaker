@@ -6,9 +6,11 @@ namespace RaynMaker.Infrastructure.Services
 {
     public interface IDataProvider
     {
+        bool CanFetch( Type datum );
+
         /// <summary>
         /// From and To dates are included in the result series
         /// </summary>
-        void Fetch( Stock stock, Type datum, ICollection<IDatum> series, IPeriod from, IPeriod to );
+        void Fetch( DataProviderRequest request, ICollection<IDatum> resultContainer );
     }
 }

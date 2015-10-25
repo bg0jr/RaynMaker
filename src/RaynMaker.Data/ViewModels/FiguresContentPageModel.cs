@@ -164,11 +164,10 @@ namespace RaynMaker.Data.ViewModels
         {
             var currentYear = DateTime.Now.Year;
 
-            DataProvider.Fetch( Stock,
-                series.DatumType,
-                series,
-                new YearPeriod( currentYear - 10 ),
-                new YearPeriod( currentYear ) );
+            var request = DataProviderRequest.Create( Stock, series.DatumType, currentYear - 10, currentYear );
+            request.WithPreview = true;
+
+            DataProvider.Fetch( request, series );
         }
 
         public DelegateCommand ImportPriceCommand { get; private set; }
@@ -182,17 +181,16 @@ namespace RaynMaker.Data.ViewModels
         {
             var today = DateTime.Today;
 
+            var request = DataProviderRequest.Create( Stock, typeof( Price ), today.Subtract( TimeSpan.FromDays( 7 ) ), today.AddDays( 1 ) );
+            request.WithPreview = true;
+
             var series = new ObservableCollection<IDatum>();
             WeakEventManager<ObservableCollection<IDatum>, NotifyCollectionChangedEventArgs>.AddHandler( series, "CollectionChanged", OnSeriesChanged );
 
             // fetch some more data because of weekends and public holidays
             // we will then take last one
 
-            DataProvider.Fetch( Stock,
-                typeof( Price ),
-                series,
-                new DayPeriod( today.Subtract( TimeSpan.FromDays( 7 ) ) ),
-                new DayPeriod( today.AddDays( 1 ) ) );
+            DataProvider.Fetch( request, series );
         }
 
         private void OnSeriesChanged( object sender, NotifyCollectionChangedEventArgs e )
