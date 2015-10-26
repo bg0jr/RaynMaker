@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="1952722f-39c6-4564-9886-3645e00e97ee" Created="635814874636503707" LastModified="635814874941491151">
+  <Caption><![CDATA[WithPreview handling]]></Caption>
+  <Content><![CDATA[WebDataProvider has to support "WithPreview"
+- therefore extract logic from ImportPreviewViewModel]]></Content>
+</Node>
