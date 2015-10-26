@@ -1,8 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="b3281029-c701-44d4-89e8-b43624845610" Created="635813755189990342" LastModified="635813756207548543">
+<Node Id="b3281029-c701-44d4-89e8-b43624845610" Created="635813755189990342" LastModified="635814877401101833">
   <Caption><![CDATA[Cancel & Undo of Entity changes]]></Caption>
   <Content><![CDATA[
 what is the general pattern? own AssetsContext?
 How to handle this with shared CurrenciesLut?
-Private copy in ViewModel?]]></Content>
+Private copy in ViewModel?
+
+
+==> probably we just should switch to "create new context always"
+    then we dont have issue in updating the shared context one
+    performance: rely on DB caching (sqlite is in memory db)]]></Content>
 </Node>
