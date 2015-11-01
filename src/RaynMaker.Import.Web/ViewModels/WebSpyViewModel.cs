@@ -9,6 +9,7 @@ using RaynMaker.Import.Web.Model;
 using RaynMaker.Import.Web.Services;
 using RaynMaker.Import.WinForms;
 using RaynMaker.Infrastructure;
+using RaynMaker.Infrastructure.Services;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
@@ -21,7 +22,7 @@ namespace RaynMaker.Import.Web.ViewModels
         private Session mySession;
 
         [ImportingConstructor]
-        public WebSpyViewModel( IProjectHost projectHost, StorageService storageService )
+        public WebSpyViewModel( IProjectHost projectHost, StorageService storageService, ILutService lutService )
         {
             myProjectHost = projectHost;
             myStorageService = storageService;
@@ -30,7 +31,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             SourceDefinition = new DataSourceDefinitionViewModel( mySession );
             Navigation = new NavigationViewModel( mySession );
-            Formats = new DataFormatsViewModel( mySession );
+            Formats = new DataFormatsViewModel( mySession, lutService );
             Completion = new CompletionViewModel( mySession, myProjectHost, myStorageService );
 
             ResetCommand = new DelegateCommand( OnReset );

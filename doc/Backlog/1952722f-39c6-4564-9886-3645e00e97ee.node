@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="1952722f-39c6-4564-9886-3645e00e97ee" Created="635814874636503707" LastModified="635814874941491151">
-  <Caption><![CDATA[WithPreview handling]]></Caption>
-  <Content><![CDATA[WebDataProvider has to support "WithPreview"
-- therefore extract logic from ImportPreviewViewModel]]></Content>
+<Node Id="1952722f-39c6-4564-9886-3645e00e97ee" Created="635814874636503707" LastModified="635819800187534859" Origin="7212c07d-b111-47f9-ad72-4d3805abf561">
+  <Caption><![CDATA[WebDatumProvider Preview refactoring]]></Caption>
+  <Content><![CDATA[we should not use ImportPreviewModel if WithPreview = false.
+
+extract logic from ImportPreviewModel so that it can be used separately.
+
+Also think about a solution without having need to instatiate SafeBrowser.]]></Content>
 </Node>

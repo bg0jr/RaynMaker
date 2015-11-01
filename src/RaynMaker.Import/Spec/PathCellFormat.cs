@@ -15,5 +15,8 @@ namespace RaynMaker.Import.Spec
             Expand = CellDimension.None;
             Anchor = null;
         }
- }
+
+        [DataMember]
+        public string Currency { get; set; }
+    }
 }

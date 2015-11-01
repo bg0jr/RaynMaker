@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="848d0380-8cc0-44aa-85cc-42ea0ec14acd" Created="635814874194618432" LastModified="635814874626093111">
-  <Caption><![CDATA[Currency handling in DataSource]]></Caption>
-  <Content><![CDATA[- first shot: statically given (if frankfurt selected we know it is euro)]]></Content>
-</Node>

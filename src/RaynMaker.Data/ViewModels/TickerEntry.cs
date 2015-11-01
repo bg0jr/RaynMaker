@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Entities;
 using RaynMaker.Entities.Datums;
@@ -106,7 +104,7 @@ namespace RaynMaker.Data.ViewModels
             {
                 if( PreviousPrice != null && CurrentPrice != null )
                 {
-                    return string.Format( "{0:0.00} %", ( CurrentPrice.Value.Value - PreviousPrice.Value.Value ) * 100 );
+                    return string.Format( "{0:0.00} %", ( CurrentPrice.Value.Value - PreviousPrice.Value.Value ) / PreviousPrice.Value.Value * 100 );
                 }
 
                 return null;

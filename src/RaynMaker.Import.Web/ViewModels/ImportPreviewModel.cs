@@ -188,6 +188,13 @@ namespace RaynMaker.Import.Web.ViewModels
                     myLogger.Error( ex, "Failed to fetch '{0}' from site {1}", myDatumType.Name, mySelectedSource.Name );
                 }
 
+                // try take over currency
+                var pathCellFormat = format as PathCellFormat;
+                if( pathCellFormat != null )
+                {
+                    Currency = CurrenciesLut.Currencies.SingleOrDefault( c => c.Symbol == pathCellFormat.Currency );
+                }
+
                 try
                 {
                     provider.Mark( format );

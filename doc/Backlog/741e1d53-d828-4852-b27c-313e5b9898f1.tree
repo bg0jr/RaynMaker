@@ -7,15 +7,6 @@
     </Node>
     <Node Id="9e52c479-8da2-4767-8e98-c5670c3a1b89">
       <Caption><![CDATA[1.6]]></Caption>
-      <Node Id="7212c07d-b111-47f9-ad72-4d3805abf561">
-        <Caption><![CDATA[how can we make it easier to update all current prices?]]></Caption>
-        <Node Id="848d0380-8cc0-44aa-85cc-42ea0ec14acd">
-          <Caption><![CDATA[Currency handling in DataSource]]></Caption>
-        </Node>
-        <Node Id="1952722f-39c6-4564-9886-3645e00e97ee">
-          <Caption><![CDATA[WithPreview handling]]></Caption>
-        </Node>
-      </Node>
       <Node Id="e3235631-8613-4c60-b8ca-6133257ea386">
         <Caption><![CDATA[Import module refactoring]]></Caption>
         <Node Id="2b6539a7-0690-42fb-bf29-c14f203d6a56">

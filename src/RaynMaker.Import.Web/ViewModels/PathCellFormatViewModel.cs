@@ -3,11 +3,16 @@ using System.Linq;
 using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Spec;
 using Plainion;
+using RaynMaker.Entities;
+using System.Collections.Generic;
+using RaynMaker.Infrastructure.Services;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
     class PathCellFormatViewModel : FormatViewModelBase
     {
+        private ILutService myLutService;
+
         private string myPath;
         private string myValue;
         private int myRowPosition;
@@ -16,10 +21,13 @@ namespace RaynMaker.Import.Web.ViewModels
         private int myColumnPosition;
         private string myColumnPattern;
         private bool myIsColumnValid;
+        private Currency mySelectedCurreny;
 
-        public PathCellFormatViewModel( PathCellFormat format )
+        public PathCellFormatViewModel( ILutService lutService, PathCellFormat format )
             : base( format )
         {
+            myLutService = lutService;
+
             Format = format;
 
             // essential to make check in UpdateAnchor() work to avoid unintended reset of model 
@@ -36,6 +44,7 @@ namespace RaynMaker.Import.Web.ViewModels
             SelectedDatum = Datums.FirstOrDefault( d => d.Name == Format.Datum );
             Path = Format.Path;
             ValueFormat = Format.ValueFormat ?? new FormatColumn( "value" );
+            SelectedCurrency = myLutService.CurrenciesLut.Currencies.SingleOrDefault( c => c.Symbol == format.Currency );
 
             if( format.Anchor != null )
             {
@@ -201,5 +210,27 @@ namespace RaynMaker.Import.Web.ViewModels
         }
 
         public FormatColumn ValueFormat { get; private set; }
+
+        public IEnumerable<Currency> Currencies
+        {
+            get
+            {
+                // we want to allow to choose "nothing" as currency - simple solution: add "empty currency" ("null")
+                return new Currency[] { null }.Concat( myLutService.CurrenciesLut.Currencies );
+            }
+        }
+
+        public Currency SelectedCurrency
+        {
+            get { return mySelectedCurreny; }
+            set
+            {
+                if( SetProperty( ref mySelectedCurreny, value ) )
+                {
+                    Format.Currency = value != null ? value.Symbol : null;
+                }
+            }
+        }
+
     }
 }

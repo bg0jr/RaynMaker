@@ -6,6 +6,7 @@ using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Web.Model;
+using RaynMaker.Infrastructure.Services;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
@@ -14,10 +15,13 @@ namespace RaynMaker.Import.Web.ViewModels
         private int mySelectedFormatIndex;
         private IDocument myDocument;
         private IDocumentBrowser myBrowser;
+        private FormatViewModelFactory myFormatViewModelFactory;
 
-        public DataFormatsViewModel( Session session )
+        public DataFormatsViewModel( Session session, ILutService lutService )
             : base( session )
         {
+            myFormatViewModelFactory = new FormatViewModelFactory( lutService );
+
             Session.ApplyCurrentFormat = ApplyCurrentFormat;
 
             PropertyChangedEventManager.AddHandler( Session, OnCurrentSourceChanged, PropertySupport.ExtractPropertyName( () => Session.CurrentSource ) );
@@ -57,7 +61,7 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 foreach( var format in Session.CurrentSource.FormatSpecs )
                 {
-                    Formats.Add( FormatViewModelFactory.Create( format ) );
+                    Formats.Add( myFormatViewModelFactory.Create( format ) );
                 }
 
                 SelectedFormatIndex = Formats.Count == 0 ? -1 : 0;
@@ -148,11 +152,11 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 if( n.Confirmed )
                 {
-                    var format = FormatFactory.Create(n.FormatType);
+                    var format = FormatFactory.Create( n.FormatType );
 
                     Session.CurrentSource.FormatSpecs.Add( format );
 
-                    Formats.Add( FormatViewModelFactory.Create( format ) );
+                    Formats.Add( myFormatViewModelFactory.Create( format ) );
 
                     SelectedFormatIndex = Formats.Count - 1;
                 }
@@ -160,7 +164,7 @@ namespace RaynMaker.Import.Web.ViewModels
         }
 
         public InteractionRequest<FormatSelectionNotification> FormatSelectionRequest { get; private set; }
-        
+
         public ICommand RemoveCommand { get; private set; }
 
         private void OnRemove()
@@ -194,7 +198,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             Session.CurrentSource.FormatSpecs.Add( format );
 
-            Formats.Add( FormatViewModelFactory.Create( format ) );
+            Formats.Add( myFormatViewModelFactory.Create( format ) );
 
             SelectedFormatIndex = Formats.Count - 1;
         }
