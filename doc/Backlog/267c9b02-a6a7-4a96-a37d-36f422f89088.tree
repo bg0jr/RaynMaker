@@ -41,5 +41,8 @@
         <Caption><![CDATA[Associated Data]]></Caption>
       </Node>
     </Node>
+    <Node Id="71af65af-326c-4854-bf78-5360559660a1">
+      <Caption><![CDATA[Ticker: Currency Translation support]]></Caption>
+    </Node>
   </Node>
 </Tree>

@@ -47,7 +47,8 @@ namespace RaynMaker.Data.ViewModels
                 return;
             }
 
-            if( ( ( DayPeriod )PreviousPrice.Period ).Day == myToday )
+            // take ">=" because we "move" today to friday in case today is actally weekend
+            if( ( ( DayPeriod )PreviousPrice.Period ).Day >= myToday )
             {
                 CurrentPrice = PreviousPrice;
 
@@ -98,13 +99,13 @@ namespace RaynMaker.Data.ViewModels
 
         public string CurrentPriceValue { get { return CurrentPrice != null ? CurrentPrice.Value.Value + " " + CurrentPrice.Currency.Symbol : null; } }
 
-        public string Change
+        public double? Change
         {
             get
             {
-                if( PreviousPrice != null && CurrentPrice != null )
+                if( PreviousPrice != null && CurrentPrice != null && PreviousPrice.Currency == CurrentPrice.Currency )
                 {
-                    return string.Format( "{0:0.00} %", ( CurrentPrice.Value.Value - PreviousPrice.Value.Value ) / PreviousPrice.Value.Value * 100 );
+                    return ( CurrentPrice.Value.Value - PreviousPrice.Value.Value ) / PreviousPrice.Value.Value * 100;
                 }
 
                 return null;

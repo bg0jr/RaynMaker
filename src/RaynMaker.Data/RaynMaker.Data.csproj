@@ -89,6 +89,7 @@
     <Compile Include="ViewModels\CurrencyViewModel.cs" />
     <Compile Include="ViewModels\OverviewContentPageModel.cs" />
     <Compile Include="ViewModels\TickerViewModel.cs" />
+    <Compile Include="Views\ChangeToForegroundConverter.cs" />
     <Compile Include="Views\TickerMenuItem.xaml.cs">
       <DependentUpon>TickerMenuItem.xaml</DependentUpon>
     </Compile>

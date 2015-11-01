@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="71af65af-326c-4854-bf78-5360559660a1" Created="635819815178512294" LastModified="635819815409795523">
+  <Caption><![CDATA[Ticker: Currency Translation support]]></Caption>
+  <Content><![CDATA[support different currencies when calculating the change]]></Content>
+</Node>

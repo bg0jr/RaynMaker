@@ -106,6 +106,19 @@ namespace RaynMaker.Data.ViewModels
                 entry.CurrentPrice = ( Price )series
                     .OrderByDescending( d => d.Period )
                     .First();
+
+                // connect to stock so that we can save it later
+                var existingPrice = entry.Stock.Prices.SingleOrDefault( p => p.Period.Equals( entry.CurrentPrice.Period ) );
+                if( existingPrice != null )
+                {
+                    existingPrice.Value = entry.CurrentPrice.Value;
+                    existingPrice.Currency = entry.CurrentPrice.Currency;
+                    existingPrice.Source = entry.CurrentPrice.Source;
+                }
+                else
+                {
+                    entry.Stock.Prices.Add( entry.CurrentPrice );
+                }
             }
         }
     }
