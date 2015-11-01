@@ -52,25 +52,36 @@ namespace RaynMaker.Data.ViewModels
             Stock = stock;
 
             myDatums = new List<IDatumSeries>();
-            foreach( var datumType in Dynamics.AllDatums )
+            foreach( var datumType in Dynamics.AllDatums.Where( t => t != typeof( Price ) ) )
             {
                 myDatums.Add( Dynamics.GetDatumSeries( stock, datumType, false ) );
             }
 
+            // we might have prices of different currencies - do only add latest
+            {
+                var series = new DatumSeries( typeof( Price ) );
+                series.EnableCurrencyCheck = false;
+
+                var currentPrice = stock.Prices.OrderByDescending( p => p.Period ).FirstOrDefault();
+                if( currentPrice != null )
+                {
+                    series.Add( currentPrice );
+                }
+
+                myDatums.Add( series );
+            }
+
             // data sanity - TODO: later move to creation of new DataSheet
-            Currency defaultCurrency = null;
             {
                 var series = ( DatumSeries )myDatums.SeriesOf( typeof( Price ) );
                 if( series.Current<Price>() == null )
                 {
                     series.Add( new Price() );
                 }
-                else
-                {
-                    defaultCurrency = series.Current<Price>().Currency;
-                }
             }
 
+            // defaultCurrency could be taken from any datum but Price
+            Currency defaultCurrency = null;
             foreach( var type in Dynamics.AllDatums.Where( t => t != typeof( Price ) ) )
             {
                 var series = ( DatumSeries )myDatums.SeriesOf( type );
@@ -80,6 +91,12 @@ namespace RaynMaker.Data.ViewModels
                 var existingYears = series
                     .Select( v => ( ( YearPeriod )v.Period ).Year )
                     .ToList();
+
+                if( defaultCurrency == null )
+                {
+                    defaultCurrency = series.Currency;
+                }
+
                 // select hard coded 11 years here as minimum to allow growth calc based on recent 10 years
                 for( int i = currentYear - 10; i <= currentYear; ++i )
                 {
@@ -102,16 +119,24 @@ namespace RaynMaker.Data.ViewModels
 
             var ctx = myProjectHost.Project.GetAssetsContext();
 
-            var datumsToValidate = myDatums
-                .SelectMany( series => series )
-                .OfType<AbstractDatum>()
-                .Where( datum => datum.Id != 0 || datum.Value.HasValue );
-
-            RecursiveValidator.Validate( datumsToValidate );
-
             // validate currency consistancy
             foreach( DatumSeries series in myDatums.ToList() )
             {
+                // we need to remove those items which have no value because those might 
+                // have "wrong" default currency
+                foreach( var datum in series.OfType<AbstractDatum>().Where( d => !d.Value.HasValue ).ToList() )
+                {
+                    series.Remove( datum );
+
+                    if( datum.Id != 0 )
+                    {
+                        // TODO: remove from stock/company relationship to remove it finally from DB
+                        //Dynamics.Remove(
+                    }
+                }
+
+                RecursiveValidator.Validate( series );
+
                 series.EnableCurrencyCheck = true;
                 series.VerifyCurrencyConsistency();
             }
