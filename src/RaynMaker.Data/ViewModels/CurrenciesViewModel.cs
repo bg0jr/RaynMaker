@@ -30,9 +30,9 @@ namespace RaynMaker.Data.ViewModels
             CancelCommand = new DelegateCommand( OnCancel );
 
             AddCurrencyCommand = new DelegateCommand( OnAddCurrency );
-            RemoveCurrencyCommand = new DelegateCommand<Currency>( OnRemoveCurrency );
+            RemoveCurrencyCommand = new DelegateCommand<CurrencyViewModel>( OnRemoveCurrency );
 
-            AddTranslationCommand = new DelegateCommand<Currency>( OnAddTranslation );
+            AddTranslationCommand = new DelegateCommand<CurrencyViewModel>( OnAddTranslation );
             RemoveTranslationCommand = new DelegateCommand<Translation>( OnRemoveTranslation );
 
             myProjectHost.Changed += OnProjectChanged;
@@ -83,16 +83,16 @@ namespace RaynMaker.Data.ViewModels
 
         public ICommand RemoveCurrencyCommand { get; private set; }
 
-        private void OnRemoveCurrency( Currency currency )
+        private void OnRemoveCurrency( CurrencyViewModel currency )
         {
-            myLutService.CurrenciesLut.Currencies.Remove( currency );
+            myLutService.CurrenciesLut.Currencies.Remove( currency.Model );
         }
 
         public ICommand AddTranslationCommand { get; private set; }
 
-        private void OnAddTranslation( Currency owner )
+        private void OnAddTranslation( CurrencyViewModel owner )
         {
-            owner.Translations.Add( new Translation { Source = owner } );
+            owner.Model.Translations.Add( new Translation { Source = owner.Model } );
         }
 
         public ICommand RemoveTranslationCommand { get; private set; }

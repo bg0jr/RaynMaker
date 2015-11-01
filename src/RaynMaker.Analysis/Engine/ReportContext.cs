@@ -26,7 +26,10 @@ namespace RaynMaker.Analysis.Engine
             var data = new List<IDatumSeries>();
             foreach( var datumType in Dynamics.AllDatums )
             {
-                data.Add( Dynamics.GetDatumSeries( stock, datumType ) );
+                // EnableCurrencyCheck has to be true - otherwise we will not have series.Currency property set
+                // except for Price - there we might have different currencies in one collection and currently we anyway
+                // just need one price
+                data.Add( Dynamics.GetDatumSeries( stock, datumType, datumType != typeof( Price ) ) );
             }
             Data = data;
 

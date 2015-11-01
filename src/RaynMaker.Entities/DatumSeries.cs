@@ -63,6 +63,9 @@ namespace RaynMaker.Entities
 
         public Currency Currency { get; private set; }
 
+        /// <summary>
+        /// If set to false "Currency" property will return null
+        /// </summary>
         public bool EnableCurrencyCheck { get; set; }
 
         public void Add( IDatum datum )

@@ -54,9 +54,7 @@ namespace RaynMaker.Data.ViewModels
             myDatums = new List<IDatumSeries>();
             foreach( var datumType in Dynamics.AllDatums )
             {
-                var series = Dynamics.GetDatumSeries( stock, datumType );
-                ( ( DatumSeries )series ).EnableCurrencyCheck = false;
-                myDatums.Add( series );
+                myDatums.Add( Dynamics.GetDatumSeries( stock, datumType, false ) );
             }
 
             // data sanity - TODO: later move to creation of new DataSheet

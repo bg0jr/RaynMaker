@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="a015f1a0-6e2e-482c-8e54-9963b4debd5a" Created="635819857914536655" LastModified="635819861917085588">
+  <Caption><![CDATA[Currency handling in Analysis.Providers]]></Caption>
+  <Content><![CDATA[we should somehow ensure that all series which should have currencies also 
+HAVE currency (set on series itself).
+
+all calculations do currency check BUT ONLY if currency is set!
+
+if currency is NOT SET by accident then WRONG values will be calculated]]></Content>
+</Node>

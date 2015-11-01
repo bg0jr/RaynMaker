@@ -47,9 +47,17 @@ namespace RaynMaker.Entities
             throw new ArgumentException( string.Format( "No relationship (navigation property) found with name {0} on Company or Stock", collectionName ) );
         }
 
-        public static IDatumSeries GetDatumSeries( Stock stock, Type datumType )
+        public static IDatumSeries GetDatumSeries( Stock stock, Type datumType, bool enableCurrencyCheck )
         {
-            return new DatumSeries( datumType, GetRelationship( stock, datumType ) );
+            var series= new DatumSeries( datumType );
+            series.EnableCurrencyCheck = enableCurrencyCheck;
+
+            foreach( var item in GetRelationship( stock, datumType ) )
+            {
+                series.Add(item);
+            }
+
+            return series;
         }
 
         public static AbstractDatum CreateDatum( Stock stock, Type datumType, IPeriod period, Currency currency )

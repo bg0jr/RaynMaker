@@ -2,6 +2,9 @@
 <Tree>
   <Node Id="267c9b02-a6a7-4a96-a37d-36f422f89088">
     <Caption><![CDATA[Backlog]]></Caption>
+    <Node Id="a015f1a0-6e2e-482c-8e54-9963b4debd5a">
+      <Caption><![CDATA[Currency handling in Analysis.Providers]]></Caption>
+    </Node>
     <Node Id="1952722f-39c6-4564-9886-3645e00e97ee">
       <Caption><![CDATA[WebDatumProvider Preview refactoring]]></Caption>
     </Node>
