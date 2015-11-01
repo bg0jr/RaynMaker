@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace RaynMaker.Import.Spec
 {
-    [Serializable]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "CsvFormat" )]
     public class CsvFormat : AbstractTableFormat
     {
         public CsvFormat( string name, string sep, params FormatColumn[] cols )
@@ -12,15 +13,7 @@ namespace RaynMaker.Import.Spec
             Separator = sep;
         }
 
-        public override IFormat Clone()
-        {
-            CsvFormat other = new CsvFormat( Datum, Separator, Columns.ToArray() );
-            other.SkipRows = SkipRows.ToArray();
-            other.SkipColumns = SkipColumns.ToArray();
-
-            return other;
-        }
-
+        [DataMember]
         public string Separator { get; private set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace RaynMaker.Import.Spec
 {
@@ -6,7 +7,7 @@ namespace RaynMaker.Import.Spec
     /// Describes a single value based on a document which
     /// has a hierarchical structure like XML or HTML documents.
     /// </summary>
-    [Serializable]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "PathSingleValueFormat" )]
     public class PathSingleValueFormat : AbstractFormat
     {
         public PathSingleValueFormat( string name )
@@ -14,18 +15,10 @@ namespace RaynMaker.Import.Spec
         {
         }
 
-        public override IFormat Clone()
-        {
-            var other = new PathSingleValueFormat( Datum );
-
-            other.Path = Path;
-            other.ValueFormat = new ValueFormat( ValueFormat );
-
-            return other;
-        }
-
+        [DataMember]
         public string Path { get; set; }
 
+        [DataMember]
         public ValueFormat ValueFormat { get; set; }
     }
 }

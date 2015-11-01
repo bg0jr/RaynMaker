@@ -105,7 +105,6 @@
     <Compile Include="ViewModels\DataFormatsViewModel.cs" />
     <Compile Include="ViewModels\DataSourceDefinitionViewModel.cs" />
     <Compile Include="ViewModels\EditCaptureViewModel.cs" />
-    <Compile Include="ViewModels\FormatFactory.cs" />
     <Compile Include="ViewModels\FormatSelectionNotification.cs" />
     <Compile Include="ViewModels\FormatViewModelBase.cs" />
     <Compile Include="ViewModels\FormatViewModelFactory.cs" />

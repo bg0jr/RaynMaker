@@ -9,7 +9,6 @@ namespace RaynMaker.Import.Spec
     /// <summary>
     /// Descripes the steps for automated site navigation.
     /// </summary>
-    [Serializable]
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "Navigation" )]
     public class Navigation
     {

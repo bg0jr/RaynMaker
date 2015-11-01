@@ -8,7 +8,6 @@ namespace RaynMaker.Import.Spec
     /// Keep Immutable!!
     /// Because of transformation from Navigation object
     /// </summary>
-    [Serializable]
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "NavigatorUrl" )]
     public class NavigatorUrl
     {

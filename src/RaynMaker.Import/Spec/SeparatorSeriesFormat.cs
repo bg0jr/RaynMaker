@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace RaynMaker.Import.Spec
 {
@@ -6,7 +7,7 @@ namespace RaynMaker.Import.Spec
     /// Describes a series format based on a document which
     /// has a table similar structure (e.g. CSV file).
     /// </summary>
-    [Serializable]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "SeparatorSeriesFormat" )]
     public class SeparatorSeriesFormat : AbstractSeriesFormat
     {
         public SeparatorSeriesFormat( string name )
@@ -16,26 +17,9 @@ namespace RaynMaker.Import.Spec
         }
 
         /// <summary>
-        /// Creates a deep copy of the given object.
-        /// </summary>
-        public override IFormat Clone()
-        {
-            SeparatorSeriesFormat other = new SeparatorSeriesFormat( Datum );
-            CloneTo( other );
-
-            other.Separator = Separator;
-            other.Anchor = null;
-            if ( Anchor != null )
-            {
-                other.Anchor = Anchor.ForCell( Anchor.Row, Anchor.Column );
-            }
-
-            return other;
-        }
-
-        /// <summary>
         /// Cell separator used in the file.
         /// </summary>
+        [DataMember]
         public string Separator { get; set; }
     }
 }

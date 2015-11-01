@@ -191,7 +191,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 return;
             }
 
-            var format = Formats[ SelectedFormatIndex ].Format.Clone();
+            var format = FormatFactory.Clone( Formats[ SelectedFormatIndex ].Format );
 
             // reset the Datum to enforce user interaction after clone (Datum is mandatory) 
             format.Datum = null;

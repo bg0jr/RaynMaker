@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="2b6539a7-0690-42fb-bf29-c14f203d6a56" Created="635803709633503145" LastModified="635807769148406568">
-  <Caption><![CDATA[Replace Clone with Objects.Clone()]]></Caption>
-  <Content><![CDATA[- binaryformatter
-- add UTs for the cloning]]></Content>
-</Node>

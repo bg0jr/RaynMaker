@@ -10,7 +10,6 @@ namespace RaynMaker.Import.Spec
     /// Keep immutable!
     /// TODO: maybe we should have a generic FormatColumn passing the type info via generic type param
     /// </summary>
-    [Serializable]
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "FormatColumn" )]
     public class FormatColumn : ValueFormat
     {

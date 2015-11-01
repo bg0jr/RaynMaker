@@ -13,11 +13,6 @@ namespace  RaynMaker.Import.Spec
                 : base( "dummy" )
             {
             }
-
-            public override IFormat Clone()
-            {
-                throw new NotImplementedException();
-            }
         }
 
         [Test]

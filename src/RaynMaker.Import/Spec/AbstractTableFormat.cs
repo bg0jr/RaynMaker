@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Data;
-using System.Linq;
-using System.Text;
+using System.Runtime.Serialization;
 
 namespace RaynMaker.Import.Spec
 {
@@ -9,7 +7,7 @@ namespace RaynMaker.Import.Spec
     /// Base class of all formats that describe the whole table 
     /// instead of a series.
     /// </summary>
-    [Serializable]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "AbstractTableFormat" )]
     public abstract class AbstractTableFormat : AbstractDimensionalFormat
     {
         protected AbstractTableFormat( string name, params FormatColumn[] cols )
@@ -22,6 +20,7 @@ namespace RaynMaker.Import.Spec
             Columns = cols;
         }
 
+        [DataMember]
         public FormatColumn[] Columns { get; private set; }
     }
 }

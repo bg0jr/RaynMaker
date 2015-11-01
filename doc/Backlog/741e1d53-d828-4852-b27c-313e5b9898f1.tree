@@ -9,8 +9,8 @@
       <Caption><![CDATA[1.6]]></Caption>
       <Node Id="e3235631-8613-4c60-b8ca-6133257ea386">
         <Caption><![CDATA[Import module refactoring]]></Caption>
-        <Node Id="2b6539a7-0690-42fb-bf29-c14f203d6a56">
-          <Caption><![CDATA[Replace Clone with Objects.Clone()]]></Caption>
+        <Node Id="03a663ba-ae00-44c2-b918-8a2a7aa4a561">
+          <Caption><![CDATA[Add individual UTs per format for cloning]]></Caption>
         </Node>
       </Node>
     </Node>

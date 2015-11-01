@@ -12,7 +12,6 @@ namespace RaynMaker.Import.Spec
     /// <summary>
     /// Describes how to get a value from a string
     /// </summary>
-    [Serializable]
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "ValueFormat" )]
     public class ValueFormat : SerializableBindableBase, IEquatable<ValueFormat>
     {

@@ -7,7 +7,6 @@ namespace RaynMaker.Import.Spec
     /// Describes a series format based on a document which
     /// has a hierarchical structure like XML or HTML documents.
     /// </summary>
-    [Serializable]
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "PathSeriesFormat" )]
     public class PathSeriesFormat : AbstractSeriesFormat
     {
@@ -15,27 +14,6 @@ namespace RaynMaker.Import.Spec
             : base( name )
         {
             ExtractLinkUrl = false;
-        }
-
-        /// <summary>
-        /// Creates a deep copy of the given object.
-        /// </summary>
-        public override IFormat Clone()
-        {
-            PathSeriesFormat other = new PathSeriesFormat( Datum );
-            CloneTo( other );
-
-            other.Path = Path;
-            other.Anchor = null;
-            if ( Anchor != null )
-            {
-                other.Anchor = Anchor.ForCell( Anchor.Row, Anchor.Column );
-            }
-            other.ExtractLinkUrl = ExtractLinkUrl;
-            other.SeriesName = SeriesName;
-            other.InMillions = InMillions;
-
-            return other;
         }
 
         /// <summary>

@@ -4,7 +4,6 @@ using System.Runtime.Serialization;
 
 namespace RaynMaker.Import.Spec
 {
-    [Serializable]
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "AbstractFormat" )]
     public abstract class AbstractFormat : IFormat
     {
@@ -12,8 +11,6 @@ namespace RaynMaker.Import.Spec
         {
             Datum = datum;
         }
-
-        public abstract IFormat Clone();
 
         [Required]
         [DataMember]

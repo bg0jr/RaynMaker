@@ -7,7 +7,6 @@ namespace RaynMaker.Import.Spec
     /// <summary>
     /// Base class of all single or multi dimensional formats.
     /// </summary>
-    [Serializable]
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "AbstractDimensionalFormat" )]
     public abstract class AbstractDimensionalFormat : AbstractFormat
     {

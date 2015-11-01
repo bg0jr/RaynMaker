@@ -32,6 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Documents\ICache.cs" />
+    <Compile Include="FormatFactory.cs" />
     <Compile Include="Parsers\TableFormatter.cs" />
     <Compile Include="Spec\DataSource.cs" />
     <Compile Include="Spec\PathCellFormat.cs" />

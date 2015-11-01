@@ -14,7 +14,6 @@ namespace RaynMaker.Import.Spec
     /// A series consists of a set of time-value pairs.
     /// </summary>
     // TODO: actually we no longer need "expand" if we have an anchor
-    [Serializable]
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "AbstractSeriesFormat" )]
     public abstract class AbstractSeriesFormat : AbstractDimensionalFormat
     {
@@ -23,30 +22,6 @@ namespace RaynMaker.Import.Spec
         {
             SeriesNamePosition = -1;
             TimeAxisPosition = -1;
-        }
-
-        protected void CloneTo( AbstractSeriesFormat other )
-        {
-            other.Expand = Expand;
-            other.SeriesNamePosition = SeriesNamePosition;
-            other.TimeAxisPosition = TimeAxisPosition;
-
-            if ( SkipRows != null )
-            {
-                other.SkipRows = SkipRows.ToArray();
-            }
-            if ( SkipColumns != null )
-            {
-                other.SkipColumns = SkipColumns.ToArray();
-            }
-            if ( ValueFormat != null )
-            {
-                other.ValueFormat = new FormatColumn( ValueFormat );
-            }
-            if ( TimeAxisFormat != null )
-            {
-                other.TimeAxisFormat = new FormatColumn( TimeAxisFormat );
-            }
         }
 
         /// <summary>

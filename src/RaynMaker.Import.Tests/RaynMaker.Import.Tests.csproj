@@ -29,6 +29,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\PatternMatchingTests.cs" />
+    <Compile Include="FormatFactoryTests.cs" />
     <Compile Include="Html\HtmlDocumentExtensionsTests.cs" />
     <Compile Include="Html\HtmlElementExtensionsTests.cs" />
     <Compile Include="Html\HtmlFormTests.cs" />
@@ -41,7 +42,6 @@
     <Compile Include="Spec\AbstractDimensionalFormatTest.cs" />
     <Compile Include="Spec\FormatColumnTest.cs" />
     <Compile Include="Spec\PathSeriesFormatTest.cs" />
-    <Compile Include="Spec\PathSingleValueFormatTest.cs" />
     <Compile Include="Spec\SeparatorSeriesFormatTest.cs" />
     <Compile Include="Spec\ValueFormatTest.cs" />
     <Compile Include="TestBase.cs" />

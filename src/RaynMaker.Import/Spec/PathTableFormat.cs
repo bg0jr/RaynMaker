@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace RaynMaker.Import.Spec
 {
-    [Serializable]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "PathTableFormat" )]
     public class PathTableFormat : AbstractTableFormat
     {
         public PathTableFormat( string name, string path, params FormatColumn[] cols )
@@ -12,15 +13,7 @@ namespace RaynMaker.Import.Spec
             Path = path;
         }
 
-        public override IFormat Clone()
-        {
-            PathTableFormat other = new PathTableFormat( Datum, Path, Columns.ToArray() );
-            other.SkipRows = SkipRows.ToArray();
-            other.SkipColumns = SkipColumns.ToArray();
-
-            return other;
-        }
-
+        [DataMember]
         public string Path { get; private set; }
     }
 }
