@@ -168,7 +168,7 @@ namespace RaynMaker.Entities
                 .Distinct()
                 .ToList();
 
-            Contract.Invariant( currencies.Count == 1, "[{0}] Currency inconsistencies found: More than one currency used '{1}'",
+            Contract.Invariant( currencies.Count <= 1, "[{0}] Currency inconsistencies found: More than one currency used '{1}'",
                 Name, string.Join( ",", currencies ) );
         }
 
