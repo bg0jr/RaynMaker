@@ -182,7 +182,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 {
                     ex.Data[ "Datum" ] = myDatumType.Name;
                     ex.Data[ "SiteName" ] = mySelectedSource.Name;
-                    ex.Data[ "OriginalLocationSpec" ] = mySelectedSource.LocationSpec;
+                    ex.Data[ "OriginalLocationSpec" ] = mySelectedSource.LocationSpec.ToString();
                     //ex.Data[ "ModifiedLocationSpec" ] = modifiedNavigation;
 
                     myLogger.Error( ex, "Failed to fetch '{0}' from site {1}", myDatumType.Name, mySelectedSource.Name );
@@ -239,8 +239,8 @@ namespace RaynMaker.Import.Web.ViewModels
                 {
                     ex.Data[ "Datum" ] = myDatumType.Name;
                     ex.Data[ "SiteName" ] = mySelectedSource.Name;
-                    ex.Data[ "OriginalLocationSpec" ] = mySelectedSource.LocationSpec;
-                    ex.Data[ "OriginalFormat" ] = format;
+                    ex.Data[ "OriginalLocationSpec" ] = mySelectedSource.LocationSpec.ToString();
+                    ex.Data[ "OriginalFormat" ] = format.Datum;
 
                     myLogger.Error( ex, "Failed to fetch '{0}' from site {1}", myDatumType.Name, mySelectedSource.Name );
                 }

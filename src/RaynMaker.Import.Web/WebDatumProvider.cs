@@ -16,11 +16,21 @@ namespace RaynMaker.Import.Web
         private StorageService myStorageService;
         private ILutService myLutService;
 
+        // for usability reasons we remember the currency settings for the stock
+        private CurrencyCache myCurrencyCache;
+
+        private class CurrencyCache
+        {
+            public string Isin;
+            public Currency Currency;
+
+        }
         [ImportingConstructor]
         public WebDatumProvider( StorageService storageService, ILutService lutService )
         {
             myStorageService = storageService;
             myLutService = lutService;
+            myCurrencyCache = new CurrencyCache();
         }
 
         public bool CanFetch( Type datum )
@@ -41,9 +51,25 @@ namespace RaynMaker.Import.Web
 
             if( request.WithPreview )
             {
+                if( myCurrencyCache.Isin == request.Stock.Isin )
+                {
+                    // take over last setting from user
+                    previewViewModel.Currency = myCurrencyCache.Currency;
+                }
+
                 var preview = new ImportPreview( previewViewModel );
 
-                previewViewModel.FinishAction = () => preview.Close();
+                previewViewModel.FinishAction = () =>
+                {
+                    preview.Close();
+
+                    // remember last setting from user
+                    if( previewViewModel.Currency != null )
+                    {
+                        myCurrencyCache.Isin = previewViewModel.Stock.Isin;
+                        myCurrencyCache.Currency = previewViewModel.Currency;
+                    }
+                };
                 preview.DataContext = previewViewModel;
 
                 previewViewModel.Fetch( request.DatumType );

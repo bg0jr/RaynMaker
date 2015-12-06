@@ -88,5 +88,11 @@ namespace RaynMaker.Import.Spec
         {
             return new NavigatorUrl( form );
         }
+
+        // required also for be addable to Exception.Data
+        public override string ToString()
+        {
+            return UrlType + ": " + UrlString;
+        }
     }
 }
