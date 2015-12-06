@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using System.ServiceModel;
-using System.ServiceModel.Channels;
 using RaynMaker.Import.Web.CurrencyConverter;
 using RaynMaker.Infrastructure.Services;
 
