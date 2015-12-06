@@ -20,7 +20,7 @@ namespace RaynMaker.Import.Parsers.Html
         public HtmlTable( IHtmlElement root )
         {
             Contract.RequiresNotNull( root, "root" );
-            Contract.Requires( root.TagName=="TABLE", "root must be TABLE element" );
+            Contract.Requires( root.TagName == "TABLE", "root must be TABLE element" );
 
             TableElement = root;
         }
@@ -40,10 +40,10 @@ namespace RaynMaker.Import.Parsers.Html
         {
             get
             {
-                if ( myBody == null )
+                if( myBody == null )
                 {
                     var body = TableElement.Children.FirstOrDefault( e => e.TagName == "TBODY" );
-                    myBody = (body == null ? TableElement : body);
+                    myBody = ( body == null ? TableElement : body );
                 }
 
                 return myBody;
@@ -73,14 +73,14 @@ namespace RaynMaker.Import.Parsers.Html
         {
             Contract.RequiresNotNull( e, "e" );
 
-            if ( e.TagName == "TD" )
+            if( e.TagName == "TD" || e.TagName == "TH" )
             {
                 return e;
             }
             else
             {
-                var parent = e.FindParent( p => p.TagName == "TD", p => e.IsTableOrTBody() );
-                return (parent == null ? null : parent);
+                var parent = e.FindParent( p => p.TagName == "TD" || p.TagName == "TH", p => e.IsTableOrTBody() );
+                return ( parent == null ? null : parent );
             }
         }
 
@@ -95,7 +95,7 @@ namespace RaynMaker.Import.Parsers.Html
             if( tr == null )
             {
                 return -1;
-            } 
+            }
             return tr.GetChildPos();
         }
 
@@ -107,14 +107,14 @@ namespace RaynMaker.Import.Parsers.Html
         {
             Contract.RequiresNotNull( e, "e" );
 
-            if ( e.TagName == "TR" )
+            if( e.TagName == "TR" )
             {
                 return e;
             }
             else
             {
                 var parent = e.FindParent( p => p.TagName == "TR", p => e.IsTableOrTBody() );
-                return (parent == null ? null : parent);
+                return ( parent == null ? null : parent );
             }
         }
 
@@ -125,12 +125,12 @@ namespace RaynMaker.Import.Parsers.Html
         public IHtmlElement GetCellAt( int row, int column )
         {
             var r = TableBody.GetChildAt( "TR", row );
-            if ( r == null )
+            if( r == null )
             {
                 return null;
             }
 
-            return r.GetChildAt( "TD", column );
+            return r.GetChildAt(new[]{ "TD","TH"}, column );
         }
 
         /// <summary>
@@ -141,17 +141,17 @@ namespace RaynMaker.Import.Parsers.Html
         {
             get
             {
-                foreach ( var row in TableElement.Children )
+                foreach( var row in TableElement.Children )
                 {
-                    if ( row.TagName == "TR" )
+                    if( row.TagName == "TR" )
                     {
                         yield return row;
                     }
-                    if ( row.TagName == "THEAD" || row.TagName == "TBODY" )
+                    if( row.TagName == "THEAD" || row.TagName == "TBODY" )
                     {
-                        foreach ( var innerRow in row.Children )
+                        foreach( var innerRow in row.Children )
                         {
-                            if ( innerRow.TagName == "TR" )
+                            if( innerRow.TagName == "TR" )
                             {
                                 yield return innerRow;
                             }
@@ -169,7 +169,7 @@ namespace RaynMaker.Import.Parsers.Html
             Contract.RequiresNotNull( cell, "cell" );
 
             var row = GetEmbeddingTR( cell );
-            if ( row == null )
+            if( row == null )
             {
                 throw new ArgumentException( "Element does not point to cell inside table row" );
             }
@@ -187,17 +187,17 @@ namespace RaynMaker.Import.Parsers.Html
             Contract.RequiresNotNull( cell, "cell" );
 
             HtmlTable table = cell.FindEmbeddingTable();
-            if ( table == null )
+            if( table == null )
             {
                 throw new ArgumentException( "Element does not point to into table" );
             }
 
             int colIdx = cell.GetChildPos();
 
-            foreach ( object row in table.TableBody.Children )
+            foreach( object row in table.TableBody.Children )
             {
-                IHtmlElement e = ((IHtmlElement)row).GetChildAt( "TD", colIdx );
-                if ( e == null )
+                IHtmlElement e = ( ( IHtmlElement )row ).GetChildAt( new[] { "TD", "TH" }, colIdx );
+                if( e == null )
                 {
                     continue;
                 }

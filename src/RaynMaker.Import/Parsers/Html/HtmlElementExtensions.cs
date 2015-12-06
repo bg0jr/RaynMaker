@@ -33,7 +33,7 @@ namespace RaynMaker.Import.Parsers.Html
             HtmlPath path = new HtmlPath();
 
             var cur = element;
-            while ( cur.Parent != null )
+            while( cur.Parent != null )
             {
                 path.Elements.Insert( 0, new HtmlPathElement( cur.TagName, cur.GetChildPos() ) );
 
@@ -50,18 +50,18 @@ namespace RaynMaker.Import.Parsers.Html
         {
             Contract.RequiresNotNull( element, "element" );
 
-            if ( element.Parent == null )
+            if( element.Parent == null )
             {
                 // assume its valid HTML with <html/> as root element
                 return 0;
             }
 
             int childPos = 0;
-            foreach ( var child in element.Parent.Children )
+            foreach( var child in element.Parent.Children )
             {
-                if ( child.TagName.Equals( element.TagName, StringComparison.OrdinalIgnoreCase ) )
+                if( child.TagName.Equals( element.TagName, StringComparison.OrdinalIgnoreCase ) )
                 {
-                    if ( child == element )
+                    if( child == element )
                     {
                         return childPos;
                     }
@@ -78,15 +78,23 @@ namespace RaynMaker.Import.Parsers.Html
         /// </summary>
         public static IHtmlElement GetChildAt( this IHtmlElement parent, string tagName, int pos )
         {
+            return parent.GetChildAt( new[] { tagName }, pos );
+        }
+
+        /// <summary>
+        /// Returns the pos'th child with the given tagName.
+        /// </summary>
+        public static IHtmlElement GetChildAt( this IHtmlElement parent, string[] tagNames, int pos )
+        {
             Contract.RequiresNotNull( parent, "parent" );
-            Contract.RequiresNotNullNotEmpty( tagName, "tagName" );
+            Contract.RequiresNotNullNotEmpty( tagNames, "tagNames" );
 
             int childPos = 0;
-            foreach ( var child in parent.Children )
+            foreach( var child in parent.Children )
             {
-                if ( child.TagName.Equals( tagName, StringComparison.OrdinalIgnoreCase ) )
+                if( tagNames.Any( t => child.TagName.Equals( t, StringComparison.OrdinalIgnoreCase ) ) )
                 {
-                    if ( childPos == pos )
+                    if( childPos == pos )
                     {
                         return child;
                     }
@@ -125,9 +133,9 @@ namespace RaynMaker.Import.Parsers.Html
             Contract.Requires( !abortIf( start ), "start must not be already the target" );
 
             var parent = start.Parent;
-            while ( parent != null && !abortIf( parent ) )
+            while( parent != null && !abortIf( parent ) )
             {
-                if ( cond( parent ) )
+                if( cond( parent ) )
                 {
                     return parent;
                 }
@@ -146,14 +154,14 @@ namespace RaynMaker.Import.Parsers.Html
         {
             Contract.RequiresNotNull( start, "start" );
 
-            if ( start.TagName == "TABLE" )
+            if( start.TagName == "TABLE" )
             {
                 return new HtmlTable( start );
             }
 
             var table = start.FindParent( p => p.TagName == "TABLE" );
 
-            return (table == null ? null : new HtmlTable( table ));
+            return ( table == null ? null : new HtmlTable( table ) );
         }
 
         /// <summary>
@@ -164,13 +172,13 @@ namespace RaynMaker.Import.Parsers.Html
         /// </summary>
         public static string FirstLinkOrInnerText( this IHtmlElement element )
         {
-            if ( element.TagName == "A" )
+            if( element.TagName == "A" )
             {
                 return element.GetAttribute( "HREF" );
             }
 
             IHtmlElement link = element.Children.FirstOrDefault( child => child.TagName == "A" );
-            return (link != null ? link.GetAttribute( "HREF" ) : element.InnerText);
+            return ( link != null ? link.GetAttribute( "HREF" ) : element.InnerText );
         }
 
         /// <summary>
@@ -178,7 +186,7 @@ namespace RaynMaker.Import.Parsers.Html
         /// </summary>
         public static bool IsTableOrTBody( this IHtmlElement e )
         {
-            return (e.TagName == "TBODY" || e.TagName == "TABLE");
+            return ( e.TagName == "TBODY" || e.TagName == "TABLE" );
         }
 
         /// <summary>
@@ -188,7 +196,7 @@ namespace RaynMaker.Import.Parsers.Html
         {
             var children = new List<IHtmlElement>();
 
-            foreach ( var child in element.Children )
+            foreach( var child in element.Children )
             {
                 children.Add( child );
                 children.AddRange( child.GetInnerElements() );
