@@ -52,6 +52,9 @@
       <Node Id="1ca576e5-a2e7-4dea-9ec9-ae378f7cc8ac">
         <Caption><![CDATA[Reload ViewModel on Reopen]]></Caption>
       </Node>
+      <Node Id="fd909a67-2ea7-40a1-9ecb-7c305a3fc51f">
+        <Caption><![CDATA[Set correct default encoding in SafeWebBrowser]]></Caption>
+      </Node>
     </Node>
   </Node>
 </Tree>
