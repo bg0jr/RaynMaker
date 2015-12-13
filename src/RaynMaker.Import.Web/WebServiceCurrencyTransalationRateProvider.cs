@@ -19,9 +19,12 @@ namespace RaynMaker.Import.Web
                 myClient = new CurrencyConvertorSoapClient( new BasicHttpBinding(), new EndpointAddress( "http://www.webservicex.net/CurrencyConvertor.asmx" ) );
             }
 
-            return myClient.ConversionRate(
-                ( CurrencyConverter.Currency )Enum.Parse( typeof( CurrencyConverter.Currency ), source.Symbol ),
-                ( CurrencyConverter.Currency )Enum.Parse( typeof( CurrencyConverter.Currency ), target.Symbol ) );
+            var sourceCurrency = ( CurrencyConverter.Currency )Enum.Parse( typeof( CurrencyConverter.Currency ), source.Symbol );
+            var targetCurrency = ( CurrencyConverter.Currency )Enum.Parse( typeof( CurrencyConverter.Currency ), target.Symbol );
+
+            var rate = myClient.ConversionRate( sourceCurrency, targetCurrency );
+
+            return rate;
         }
     }
 }
