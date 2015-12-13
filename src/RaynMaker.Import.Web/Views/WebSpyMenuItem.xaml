@@ -13,7 +13,7 @@
           IsEnabled="{Binding IsEnabled}">
     <i:Interaction.Triggers>
         <prism:InteractionRequestTrigger SourceObject="{Binding InvokeRequest, Mode=OneWay}">
-            <pn:PopupViewAction WindowWidth="1200" WindowHeight="700" prism:RegionManager.RegionName="{x:Static l:RegionNames.WebSpyView}"/>
+            <pn:PopupViewAction WindowWidth="1200" WindowHeight="800" prism:RegionManager.RegionName="{x:Static l:RegionNames.WebSpyView}"/>
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
 </MenuItem>
