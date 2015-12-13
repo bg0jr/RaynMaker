@@ -47,5 +47,8 @@
     <Node Id="71af65af-326c-4854-bf78-5360559660a1">
       <Caption><![CDATA[Ticker: Currency Translation support]]></Caption>
     </Node>
+    <Node Id="75cd97e3-8953-4c53-9507-302693359c25">
+      <Caption><![CDATA["Assets" entity]]></Caption>
+    </Node>
   </Node>
 </Tree>
