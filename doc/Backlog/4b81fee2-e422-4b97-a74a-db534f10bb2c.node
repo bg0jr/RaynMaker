@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="4b81fee2-e422-4b97-a74a-db534f10bb2c" Created="635856364351471319" LastModified="635856364991217911">
+  <Caption><![CDATA[Entity name fixes]]></Caption>
+  <Content><![CDATA[- assets actually means "current assets" different to "total assets"
+- same for liabilities
+]]></Content>
+</Node>

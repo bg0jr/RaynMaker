@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="1ca576e5-a2e7-4dea-9ec9-ae378f7cc8ac" Created="635813770552639035" LastModified="635814876917764187">
+<Node Id="1ca576e5-a2e7-4dea-9ec9-ae378f7cc8ac" Created="635813770552639035" LastModified="635856361900571136" Origin="b6cbd93c-bdbd-49b4-bbb8-33de0a595e04">
   <Caption><![CDATA[Reload ViewModel on Reopen]]></Caption>
   <Content><![CDATA[- ViewModels are created right after startup
   - performance

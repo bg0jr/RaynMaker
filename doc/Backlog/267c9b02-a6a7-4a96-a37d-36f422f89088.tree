@@ -50,5 +50,14 @@
     <Node Id="75cd97e3-8953-4c53-9507-302693359c25">
       <Caption><![CDATA["Assets" entity]]></Caption>
     </Node>
+    <Node Id="8b0794ea-a994-4cbc-85a2-d42ff0d87919">
+      <Caption><![CDATA[Add LUTs]]></Caption>
+    </Node>
+    <Node Id="fc0ac8c3-8c48-40a6-886c-e8805243d1bf">
+      <Caption><![CDATA[Attachments]]></Caption>
+    </Node>
+    <Node Id="1ca576e5-a2e7-4dea-9ec9-ae378f7cc8ac">
+      <Caption><![CDATA[Reload ViewModel on Reopen]]></Caption>
+    </Node>
   </Node>
 </Tree>

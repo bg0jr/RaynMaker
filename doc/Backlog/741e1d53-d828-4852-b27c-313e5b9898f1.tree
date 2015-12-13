@@ -7,11 +7,8 @@
     </Node>
     <Node Id="b6cbd93c-bdbd-49b4-bbb8-33de0a595e04">
       <Caption><![CDATA[1.7]]></Caption>
-      <Node Id="8b0794ea-a994-4cbc-85a2-d42ff0d87919">
-        <Caption><![CDATA[Add LUTs]]></Caption>
-      </Node>
-      <Node Id="fc0ac8c3-8c48-40a6-886c-e8805243d1bf">
-        <Caption><![CDATA[Attachments]]></Caption>
+      <Node Id="b8907cdc-8dd8-4768-afed-7f7b77f096b6">
+        <Caption><![CDATA[Help - finish dictionary]]></Caption>
       </Node>
       <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">
         <Caption><![CDATA[Import module refactoring]]></Caption>
@@ -28,9 +25,6 @@
           <Caption><![CDATA[Add individual UTs per format for cloning]]></Caption>
         </Node>
       </Node>
-      <Node Id="6141acee-878a-472c-a8e5-1b2097114d88">
-        <Caption><![CDATA[make translations (currency) work for prices]]></Caption>
-      </Node>
       <Node Id="b3281029-c701-44d4-89e8-b43624845610">
         <Caption><![CDATA[Cancel & Undo of Entity changes]]></Caption>
         <Node Id="99e855ae-fd76-496e-a4a7-e6b3041e1174">
@@ -40,11 +34,11 @@
           <Caption><![CDATA[FiguresContentPage]]></Caption>
         </Node>
       </Node>
-      <Node Id="1ca576e5-a2e7-4dea-9ec9-ae378f7cc8ac">
-        <Caption><![CDATA[Reload ViewModel on Reopen]]></Caption>
-      </Node>
       <Node Id="fd909a67-2ea7-40a1-9ecb-7c305a3fc51f">
         <Caption><![CDATA[Set correct default encoding in SafeWebBrowser]]></Caption>
+      </Node>
+      <Node Id="4b81fee2-e422-4b97-a74a-db534f10bb2c">
+        <Caption><![CDATA[Entity name fixes]]></Caption>
       </Node>
     </Node>
   </Node>
