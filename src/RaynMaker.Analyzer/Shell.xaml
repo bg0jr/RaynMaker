@@ -45,6 +45,8 @@
                 <MenuItem Header="_Tools" prism:RegionManager.RegionName="{x:Static rym:RegionNames.Tools}">
                 </MenuItem>
                 <MenuItem Header="_Help">
+                    <MenuItem Header="Help" Command="{Binding HelpCommand}"/>
+                    <Separator/>
                     <MenuItem Header="About RaynMaker" Command="{Binding AboutCommand}"/>
                 </MenuItem>
             </Menu>

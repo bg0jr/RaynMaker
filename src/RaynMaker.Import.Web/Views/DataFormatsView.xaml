@@ -48,7 +48,7 @@
             <ComboBox ItemsSource="{Binding Formats}" SelectedIndex="{Binding SelectedFormatIndex}" Width="150" >
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding SelectedDatum.Name}" rym:Help.Topic="KnowledgeBase" rym:Help.Keyword="{Binding SelectedDatum.Name}"/>
+                        <TextBlock Text="{Binding SelectedDatum.Name}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>

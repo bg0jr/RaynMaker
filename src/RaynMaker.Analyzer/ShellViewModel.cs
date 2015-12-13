@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
+using System.IO;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
@@ -32,7 +33,8 @@ namespace RaynMaker.Analyzer
             eventAggregator.GetEvent<ApplicationReadyEvent>().Subscribe( x => OnApplicationReady() );
             eventAggregator.GetEvent<AssetSelectedEvent>().Subscribe( OnAssetSelected );
 
-            AboutCommand = new DelegateCommand( OnAboutCommand );
+            AboutCommand = new DelegateCommand( OnAbout );
+            HelpCommand = new DelegateCommand( OnHelp );
 
             ShowLogRequest = new InteractionRequest<INotification>();
             ShowLogCommand = new DelegateCommand( OnShowLog );
@@ -65,9 +67,18 @@ namespace RaynMaker.Analyzer
 
         public ICommand AboutCommand { get; private set; }
 
-        private void OnAboutCommand()
+        private void OnAbout()
         {
             Process.Start( "https://github.com/bg0jr/RaynMaker" );
+        }
+
+        public ICommand HelpCommand { get; private set; }
+
+        private void OnHelp()
+        {
+            var home = Path.GetDirectoryName( GetType().Assembly.Location );
+            var helpPage = Path.Combine( home, "Help", "Index.html" );
+            Process.Start( helpPage );
         }
 
         private void OnAssetSelected( Stock stock )
