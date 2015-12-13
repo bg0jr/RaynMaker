@@ -92,6 +92,7 @@
     <Compile Include="Controls\DefaultNotificationView.xaml.cs">
       <DependentUpon>DefaultNotificationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Help.cs" />
     <Compile Include="Controls\OverlayViewAction.cs" />
     <Compile Include="Controls\OverlayViewActionRegionAdapter.cs" />
     <Compile Include="Events\CompanyDeletedEvent.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Services\ICurrenciesLut.cs" />
     <Compile Include="Services\ICurrencyTranslationRateProvider.cs" />
     <Compile Include="Services\IDataProvider.cs" />
+    <Compile Include="Services\HelpService.cs" />
     <Compile Include="Services\ILutService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +157,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Help\KnowledgeBase.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

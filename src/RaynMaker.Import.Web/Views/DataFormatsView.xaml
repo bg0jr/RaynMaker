@@ -45,10 +45,10 @@
                 <l:OffsetConverter x:Key="Plus1" Offset="1"/>
             </StackPanel.Resources>
 
-            <ComboBox ItemsSource="{Binding Formats}" SelectedIndex="{Binding SelectedFormatIndex}" Width="150">
+            <ComboBox ItemsSource="{Binding Formats}" SelectedIndex="{Binding SelectedFormatIndex}" Width="150" >
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding SelectedDatum.Name}"/>
+                        <TextBlock Text="{Binding SelectedDatum.Name}" rym:Help.Topic="KnowledgeBase" rym:Help.Keyword="{Binding SelectedDatum.Name}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>

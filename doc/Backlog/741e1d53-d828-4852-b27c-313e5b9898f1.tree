@@ -7,9 +7,6 @@
     </Node>
     <Node Id="9e52c479-8da2-4767-8e98-c5670c3a1b89">
       <Caption><![CDATA[1.6]]></Caption>
-      <Node Id="cc340c97-c816-4877-b0ba-4d251d8ab807">
-        <Caption><![CDATA[button to view log]]></Caption>
-      </Node>
       <Node Id="e3235631-8613-4c60-b8ca-6133257ea386">
         <Caption><![CDATA[Import module refactoring]]></Caption>
         <Node Id="03a663ba-ae00-44c2-b918-8a2a7aa4a561">
