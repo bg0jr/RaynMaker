@@ -102,15 +102,21 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="CoreModule.cs" />
     <Compile Include="InternalCompositionNames.cs" />
     <Compile Include="Services\AssetNavigationParameters.cs" />
     <Compile Include="Services\AssetNavigationService.cs" />
+    <Compile Include="Services\LoggingSink.cs" />
     <Compile Include="Services\Project.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="ViewModels\AssetMasterPageModel.cs" />
     <Compile Include="Views\AssetMasterPage.xaml.cs">
       <DependentUpon>AssetMasterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LogLevelToBrushConverter.cs" />
+    <Compile Include="Views\LogView.xaml.cs">
+      <DependentUpon>LogView.xaml</DependentUpon>
     </Compile>
     <Page Include="Shell.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -127,6 +133,10 @@
     <Page Include="Views\AssetMasterPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LogView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

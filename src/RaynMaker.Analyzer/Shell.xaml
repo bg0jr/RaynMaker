@@ -22,6 +22,12 @@
         <KeyBinding Key="O" Modifiers="Control" Command="{Binding ProjectLifecycleViewModel.OpenAsyncCommand}"/>
         <KeyBinding Key="F4" Modifiers="Alt" Command="{Binding ProjectLifecycleViewModel.CloseCommand}"/>
     </Window.InputBindings>
+    <i:Interaction.Triggers>
+        <prism:InteractionRequestTrigger SourceObject="{Binding ShowLogRequest, Mode=OneWay}">
+            <pn:PopupViewAction WindowWidth="800" WindowHeight="600" prism:RegionManager.RegionName="Views.Log"/>
+        </prism:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
+
     <DockPanel LastChildFill="True">
         <Grid DockPanel.Dock="Top" >
             <Menu>
@@ -42,6 +48,9 @@
                     <MenuItem Header="About RaynMaker" Command="{Binding AboutCommand}"/>
                 </MenuItem>
             </Menu>
+            <TextBlock HorizontalAlignment="Right" Margin="3">
+                <Hyperlink Command="{Binding ShowLogCommand}">Log</Hyperlink>
+            </TextBlock>
         </Grid>
         <StatusBar DockPanel.Dock="Bottom" Margin="3">
             <StatusBarItem BorderBrush="Gray" BorderThickness="1">

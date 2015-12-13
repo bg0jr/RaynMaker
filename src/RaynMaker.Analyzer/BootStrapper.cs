@@ -6,6 +6,7 @@ using Microsoft.Practices.Prism.Interactivity;
 using Microsoft.Practices.Prism.Regions;
 using Plainion.AppFw.Wpf;
 using Plainion.AppFw.Wpf.ViewModels;
+using Plainion.Logging;
 using Plainion.Prism.Interactivity;
 using RaynMaker.Analyzer.Services;
 using RaynMaker.Infrastructure;
@@ -44,7 +45,12 @@ namespace RaynMaker.Analyzer
 
         public override void Run( bool runWithDefaultConfiguration )
         {
+            LoggerFactory.Implementation = new LoggingSinkLoggerFactory();
+            LoggerFactory.LogLevel = LogLevel.Info;
+
             base.Run( runWithDefaultConfiguration );
+
+            LoggerFactory.AddGuiAppender( Container.GetExportedValue<LoggingSink>() );
 
             // we have to call this here in order to support regions which are provided by modules
             RegionManager.UpdateRegions();

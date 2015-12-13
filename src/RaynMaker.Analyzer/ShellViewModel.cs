@@ -1,10 +1,9 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Windows.Threading;
 using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Prism.PubSubEvents;
 using Plainion.AppFw.Wpf.Infrastructure;
@@ -12,7 +11,6 @@ using Plainion.AppFw.Wpf.ViewModels;
 using Plainion.Prism.Events;
 using RaynMaker.Analyzer.Services;
 using RaynMaker.Entities;
-using RaynMaker.Infrastructure;
 using RaynMaker.Infrastructure.Events;
 
 namespace RaynMaker.Analyzer
@@ -35,6 +33,9 @@ namespace RaynMaker.Analyzer
             eventAggregator.GetEvent<AssetSelectedEvent>().Subscribe( OnAssetSelected );
 
             AboutCommand = new DelegateCommand( OnAboutCommand );
+
+            ShowLogRequest = new InteractionRequest<INotification>();
+            ShowLogCommand = new DelegateCommand( OnShowLog );
         }
 
         [Import]
@@ -72,6 +73,18 @@ namespace RaynMaker.Analyzer
         private void OnAssetSelected( Stock stock )
         {
             myNavigationService.NavigateToAsset( stock );
+        }
+
+        public InteractionRequest<INotification> ShowLogRequest { get; private set; }
+
+        public ICommand ShowLogCommand { get; private set; }
+
+        private void OnShowLog()
+        {
+            var notification = new Notification();
+            notification.Title = "Log";
+
+            ShowLogRequest.Raise( notification, n => { } );
         }
     }
 }
