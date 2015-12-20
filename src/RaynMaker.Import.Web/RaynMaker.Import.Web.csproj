@@ -95,10 +95,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Services\DatumLocator.cs" />
     <Compile Include="Services\DataSourcesSheet.cs" />
-    <Compile Include="Services\DatumLocatorSheet.cs" />
-    <Compile Include="Services\Site.cs" />
     <Compile Include="Services\StorageService.cs" />
     <Compile Include="ViewModels\AddressBarViewModel.cs" />
     <Compile Include="ViewModels\CompletionViewModel.cs" />

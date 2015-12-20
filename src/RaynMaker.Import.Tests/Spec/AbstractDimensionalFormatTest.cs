@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using NUnit.Framework;
 using RaynMaker.Import.Tests;
 
-namespace  RaynMaker.Import.Spec
+namespace RaynMaker.Import.Spec
 {
     [TestFixture]
     public class AbstractDimensionalFormatTest : TestBase
     {
+        [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "DummyFormat" )]
         private class DummyFormat : AbstractDimensionalFormat
         {
             public DummyFormat()
@@ -43,6 +45,19 @@ namespace  RaynMaker.Import.Spec
             Assert.AreEqual( 1, format.SkipColumns[ 0 ] );
             Assert.AreEqual( 2, format.SkipColumns[ 1 ] );
             Assert.AreEqual( 3, format.SkipColumns[ 2 ] );
+        }
+
+        [Test]
+        public void Clone_WhenCalled_AllMembersAreCloned()
+        {
+            var format = new DummyFormat();
+            format.SkipRows = new[] { 5, 9 };
+            format.SkipColumns = new[] { 11, 88 };
+
+            var clone = FormatFactory.Clone( format );
+
+            Assert.That( clone.SkipRows, Is.EquivalentTo( format.SkipRows ) );
+            Assert.That( clone.SkipColumns, Is.EquivalentTo( format.SkipColumns ) );
         }
     }
 }

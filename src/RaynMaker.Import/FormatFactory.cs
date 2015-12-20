@@ -48,7 +48,7 @@ namespace RaynMaker.Import
             return format;
         }
 
-        public static T Clone<T>( T format ) where T : IFormat
+        public static T Clone<T>( T format )
         {
             Contract.RequiresNotNull( format, "format" );
 

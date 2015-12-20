@@ -18,8 +18,7 @@ namespace RaynMaker.Import.Spec
         public int Position { get; private set; }
 
         /// <summary>
-        /// Returns always zero because this locator is independent of
-        /// the series to scan.
+        /// Returns always zero because this locator is independent of the series to scan.
         /// </summary>
         public int SeriesToScan
         {
