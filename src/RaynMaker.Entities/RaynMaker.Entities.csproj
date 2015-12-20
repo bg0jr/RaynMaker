@@ -59,14 +59,14 @@
     <Compile Include="DatumByPeriodComparer.cs" />
     <Compile Include="DatumSeries.cs" />
     <Compile Include="DatumSeriesExtensions.cs" />
-    <Compile Include="Datums\Assets.cs" />
+    <Compile Include="Datums\CurrentAssets.cs" />
     <Compile Include="Datums\Debt.cs" />
     <Compile Include="Datums\Dividend.cs" />
     <Compile Include="Datums\EBIT.cs" />
     <Compile Include="Datums\Equity.cs" />
     <Compile Include="Datums\InterestExpense.cs" />
     <Compile Include="Dynamics.cs" />
-    <Compile Include="Datums\Liabilities.cs" />
+    <Compile Include="Datums\CurrentLiabilities.cs" />
     <Compile Include="Datums\NetIncome.cs" />
     <Compile Include="Datums\Price.cs" />
     <Compile Include="Datums\Revenue.cs" />

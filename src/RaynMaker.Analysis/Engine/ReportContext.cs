@@ -56,7 +56,7 @@ namespace RaynMaker.Analysis.Engine
                 ( lhs, rhs ) => lhs / rhs ) { PreserveCurrency = false } );
             myProviders.Add( new GenericJoinProvider( ProviderNames.InterestCoverage, typeof( EBIT ).Name, typeof( InterestExpense ).Name,
                 ( lhs, rhs ) => lhs / rhs ) { PreserveCurrency = false } );
-            myProviders.Add( new GenericJoinProvider( ProviderNames.CurrentRatio, typeof( Assets ).Name, typeof( Liabilities ).Name,
+            myProviders.Add( new GenericJoinProvider( ProviderNames.CurrentRatio, typeof( CurrentAssets ).Name, typeof( CurrentLiabilities ).Name,
                 ( lhs, rhs ) => lhs / rhs ) { PreserveCurrency = false } );
 
             myProviders.Add( new GenericPriceRatioProvider( ProviderNames.MarketCap, typeof( SharesOutstanding ).Name,

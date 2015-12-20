@@ -21,13 +21,13 @@ namespace RaynMaker.Entities
             Stocks = new List<Stock>();
             References = new ObservableCollection<Reference>();
 
-            Assets = new List<Assets>();
+            CurrentAssets = new List<CurrentAssets>();
             Debts = new List<Debt>();
             Dividends = new List<Dividend>();
             EBITs = new List<EBIT>();
             Equities = new List<Equity>();
             InterestExpenses = new List<InterestExpense>();
-            Liabilities = new List<Liabilities>();
+            CurrentLiabilities = new List<CurrentLiabilities>();
             NetIncomes = new List<NetIncome>();
             Revenues = new List<Revenue>();
             SharesOutstandings = new List<SharesOutstanding>();
@@ -70,7 +70,7 @@ namespace RaynMaker.Entities
         public virtual IList<Stock> Stocks { get; private set; }
 
         [ValidateObject]
-        public virtual IList<Assets> Assets { get; private set; }
+        public virtual IList<CurrentAssets> CurrentAssets { get; private set; }
 
         [ValidateObject]
         public virtual IList<Debt> Debts { get; private set; }
@@ -88,7 +88,7 @@ namespace RaynMaker.Entities
         public virtual IList<InterestExpense> InterestExpenses { get; private set; }
 
         [ValidateObject]
-        public virtual IList<Liabilities> Liabilities { get; private set; }
+        public virtual IList<CurrentLiabilities> CurrentLiabilities { get; private set; }
 
         [ValidateObject]
         public virtual IList<NetIncome> NetIncomes { get; private set; }

@@ -9,7 +9,7 @@ namespace RaynMaker.Entities.Persistancy
 {
     class DatabaseMigrations
     {
-        public const int RequiredDatabaseVersion = 15;
+        public const int RequiredDatabaseVersion = 16;
 
         public DatabaseMigrations()
         {
@@ -30,6 +30,7 @@ namespace RaynMaker.Entities.Persistancy
             Migrations.Add( 13, ToVersion13 );
             Migrations.Add( 14, ToVersion14 );
             Migrations.Add( 15, ToVersion15 );
+            Migrations.Add( 16, ToVersion16 );
         }
 
         public Dictionary<int, Action<AssetsContext>> Migrations { get; set; }
@@ -535,6 +536,12 @@ CREATE TABLE CompanyTags (
                 Name TEXT NOT NULL,
                 Symbol TEXT NOT NULL",
                 "Id, Name, Symbol" );
+        }
+
+        private void ToVersion16( AssetsContext ctx )
+        {
+            ctx.Database.ExecuteSqlCommand( @"ALTER TABLE Assets RENAME TO CurrentAssets;" );
+            ctx.Database.ExecuteSqlCommand( @"ALTER TABLE Liabilities RENAME TO CurrentLiabilities;" );
         }
 
         private static void UpdateTable( Database db, string tableName, string columnDefinitions, string columnsToCopy )

@@ -1,16 +1,54 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+
     <title>RaynMaker - Help</title>
+
+    <!-- Flatdoc -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src='https://cdn.rawgit.com/rstacruz/flatdoc/v0.9.0/legacy.js'></script>
+    <script src='https://cdn.rawgit.com/rstacruz/flatdoc/v0.9.0/flatdoc.js'></script>
+
+    <!-- Flatdoc theme -->
+    <link href='https://cdn.rawgit.com/rstacruz/flatdoc/v0.9.0/theme-white/style.css' rel='stylesheet'>
+    <script src='https://cdn.rawgit.com/rstacruz/flatdoc/v0.9.0/theme-white/script.js'></script>
+
+    <!-- Meta -->
+    <meta content="RaynMaker - Help" property="og:title">
+
+    <!-- Initializer -->
+    <script>
+        Flatdoc.run({
+            fetcher: Flatdoc.file('Dictionary.md')
+        });
+    </script>
 </head>
-<body>
-    <h1>Dictionary</h1>
-    <ul>
-        <li><a href="Dictionary/CurrentAssets.html">Current Assets</a></li>
-        <li><a href="Dictionary/CurrentLiabilities.html">Current Liabilities</a></li>
-        <li><a href="Dictionary/CurrentRation.html">Current Ratio</a></li>
-    </ul>
+<body role='flatdoc'>
+
+    <div class='header'>
+        <div class='left'>
+            <h1>RaynMaker</h1>
+            <ul>
+                <li><a href='https://github.com/bg0jr/RaynMaker'>View on GitHub</a></li>
+            </ul>
+        </div>
+        <div class='right'>
+            <!-- GitHub buttons: see http://ghbtns.com -->
+            <iframe src="http://ghbtns.com/github-btn.html?user=USER&amp;repo=REPO&amp;type=watch&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+        </div>
+    </div>
+
+    <div class='content-root'>
+        <div class='menubar'>
+            <div class='menu section' role='flatdoc-menu'></div>
+        </div>
+        <div role='flatdoc-content' class='content'></div>
+    </div>
+
 </body>
 </html>
+

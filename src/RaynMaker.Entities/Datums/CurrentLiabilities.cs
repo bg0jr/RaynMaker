@@ -2,7 +2,7 @@
 
 namespace RaynMaker.Entities.Datums
 {
-    public class Assets : AbstractCurrencyDatum
+    public class CurrentLiabilities : AbstractCurrencyDatum
     {
         [Required]
         public Company Company { get; set; }

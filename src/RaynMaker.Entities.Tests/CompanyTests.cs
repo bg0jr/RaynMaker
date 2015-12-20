@@ -26,7 +26,7 @@ namespace RaynMaker.Entities.Tests
         {
             var company = new Company();
 
-            Assert.That( company.Assets, Is.Not.Null );
+            Assert.That( company.CurrentAssets, Is.Not.Null );
         }
 
         [Test]
@@ -74,7 +74,7 @@ namespace RaynMaker.Entities.Tests
         {
             var company = new Company();
 
-            Assert.That( company.Liabilities, Is.Not.Null );
+            Assert.That( company.CurrentLiabilities, Is.Not.Null );
         }
 
         [Test]
