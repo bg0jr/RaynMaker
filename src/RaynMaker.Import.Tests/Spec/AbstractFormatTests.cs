@@ -1,9 +1,8 @@
-﻿using System;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using NUnit.Framework;
 using RaynMaker.Import.Tests;
 
-namespace  RaynMaker.Import.Spec
+namespace RaynMaker.Import.Spec
 {
     [TestFixture]
     public class AbstractFormatTests : TestBase
@@ -20,7 +19,7 @@ namespace  RaynMaker.Import.Spec
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var format = new DummyFormat(  );
+            var format = new DummyFormat();
             format.Datum = "blue";
             format.InMillions = true;
 

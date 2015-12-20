@@ -18,12 +18,18 @@
         <Node Id="b0b261be-5045-42e4-8299-10b8a7aecc67">
           <Caption><![CDATA[Why do we need DocumentType in Navigation?]]></Caption>
         </Node>
-        <Node Id="28f445d5-be29-4194-af13-1e303507d47f">
-          <Caption><![CDATA[Remove backward-compatibility]]></Caption>
-        </Node>
         <Node Id="03a663ba-ae00-44c2-b918-8a2a7aa4a561">
           <Caption><![CDATA[Add individual UTs per format for cloning]]></Caption>
         </Node>
+        <Node Id="b0b783b8-f54a-446f-9a1f-d5a3375ae21a">
+          <Caption><![CDATA[Improve tests for Html parsing]]></Caption>
+        </Node>
+        <Node Id="3e6b44b5-fea4-4a55-9901-2cc90851ee8d">
+          <Caption><![CDATA[Cleanup Html parsing]]></Caption>
+        </Node>
+      </Node>
+      <Node Id="abb9f7c2-8cac-4750-a6d5-c1ea36d41609">
+        <Caption><![CDATA[Add more verification in data collection]]></Caption>
       </Node>
       <Node Id="b3281029-c701-44d4-89e8-b43624845610">
         <Caption><![CDATA[Cancel & Undo of Entity changes]]></Caption>
@@ -33,6 +39,9 @@
         <Node Id="dc5beb49-d860-4090-b255-75dd313c9102">
           <Caption><![CDATA[FiguresContentPage]]></Caption>
         </Node>
+      </Node>
+      <Node Id="b987b345-bd25-4d9d-aaed-80fe06141e16">
+        <Caption><![CDATA[Update currencies from Web]]></Caption>
       </Node>
     </Node>
   </Node>

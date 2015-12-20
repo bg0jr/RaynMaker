@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="28f445d5-be29-4194-af13-1e303507d47f" Created="635788429374913420" LastModified="635805414897345470">
-  <Caption><![CDATA[Remove backward-compatibility]]></Caption>
-  <Content><![CDATA[for site and datumlocator
-increase version before that!]]></Content>
-</Node>

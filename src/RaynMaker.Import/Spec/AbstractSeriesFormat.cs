@@ -7,8 +7,6 @@ using RaynMaker.Import.Parsers;
 
 namespace RaynMaker.Import.Spec
 {
-    // TODO: rename celldimension to TableOrientation
-
     /// <summary>
     /// Base class for all formats that describe a series of data.
     /// A series consists of a set of time-value pairs.

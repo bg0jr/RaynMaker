@@ -4,8 +4,7 @@ using System.Runtime.Serialization;
 namespace RaynMaker.Import.Spec
 {
     /// <summary>
-    /// Base class of all formats that describe the whole table 
-    /// instead of a series.
+    /// Base class of all formats that describe the whole table instead of a series.
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "AbstractTableFormat" )]
     public abstract class AbstractTableFormat : AbstractDimensionalFormat

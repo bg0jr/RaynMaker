@@ -43,6 +43,8 @@
     <Compile Include="Spec\AbsolutePositionLocatorTests.cs" />
     <Compile Include="Spec\AbstractFormatTests.cs" />
     <Compile Include="Spec\AbstractDimensionalFormatTest.cs" />
+    <Compile Include="Spec\AbstractTableFormatTests.cs" />
+    <Compile Include="Spec\AbstractSeriesFormatTests.cs" />
     <Compile Include="Spec\FormatColumnTest.cs" />
     <Compile Include="Spec\PathSeriesFormatTest.cs" />
     <Compile Include="Spec\SeparatorSeriesFormatTest.cs" />
