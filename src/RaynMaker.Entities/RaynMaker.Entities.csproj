@@ -60,7 +60,7 @@
     <Compile Include="DatumSeries.cs" />
     <Compile Include="DatumSeriesExtensions.cs" />
     <Compile Include="Datums\CurrentAssets.cs" />
-    <Compile Include="Datums\Debt.cs" />
+    <Compile Include="Datums\TotalLiabilities.cs" />
     <Compile Include="Datums\Dividend.cs" />
     <Compile Include="Datums\EBIT.cs" />
     <Compile Include="Datums\Equity.cs" />

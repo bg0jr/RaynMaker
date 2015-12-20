@@ -22,7 +22,7 @@ namespace RaynMaker.Entities
             References = new ObservableCollection<Reference>();
 
             CurrentAssets = new List<CurrentAssets>();
-            Debts = new List<Debt>();
+            TotalLiabilities = new List<TotalLiabilities>();
             Dividends = new List<Dividend>();
             EBITs = new List<EBIT>();
             Equities = new List<Equity>();
@@ -73,7 +73,7 @@ namespace RaynMaker.Entities
         public virtual IList<CurrentAssets> CurrentAssets { get; private set; }
 
         [ValidateObject]
-        public virtual IList<Debt> Debts { get; private set; }
+        public virtual IList<TotalLiabilities> TotalLiabilities { get; private set; }
 
         [ValidateObject]
         public virtual IList<Dividend> Dividends { get; private set; }

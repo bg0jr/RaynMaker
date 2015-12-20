@@ -34,7 +34,7 @@ namespace RaynMaker.Entities.Tests
         {
             var company = new Company();
 
-            Assert.That( company.Debts, Is.Not.Null );
+            Assert.That( company.TotalLiabilities, Is.Not.Null );
         }
 
         [Test]

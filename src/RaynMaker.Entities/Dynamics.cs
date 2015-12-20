@@ -15,7 +15,7 @@ namespace RaynMaker.Entities
             typeof( Dividend ),                 
             typeof( CurrentAssets ),                
             typeof( CurrentLiabilities ),                
-            typeof( Debt ),
+            typeof( TotalLiabilities ),
             typeof( Revenue ),                
             typeof( EBIT ),                
             typeof( InterestExpense ),
