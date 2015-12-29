@@ -47,8 +47,9 @@ namespace RaynMaker.Import.Spec
         [DataMember]
         public DocumentType DocumentType { get; set; }
 
+        // keep immutable because of stored UrisHashCode
         [DataMember]
-        public IReadOnlyList<NavigationUrl> Uris { get; private set; }
+        public List<NavigationUrl> Uris { get; private set; }
 
         [DataMember]
         public int UrisHashCode { get; private set; }

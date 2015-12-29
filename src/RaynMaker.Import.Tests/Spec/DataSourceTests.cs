@@ -25,30 +25,19 @@ namespace RaynMaker.Import.Spec
             Assert.That( clone.Name, Is.EqualTo( "name" ) );
             Assert.That( clone.Quality, Is.EqualTo( 17 ) );
 
-            Assert.That( clone.LocationSpec.DocumentType, Is.EqualTo( DocumentType.Html) );
+            Assert.That( clone.LocationSpec.DocumentType, Is.EqualTo( DocumentType.Html ) );
             Assert.That( clone.LocationSpec.Uris[ 0 ].UrlString, Is.EqualTo( "http://test1.org" ) );
 
-            Assert.That( clone.FormatSpecs[0].Datum, Is.EqualTo( "dummy.csv" ) );
+            Assert.That( clone.FormatSpecs[ 0 ].Datum, Is.EqualTo( "dummy.csv" ) );
         }
 
         [Test]
         public void Clone_WhenCalled_FormatsCollectionOfCloneIsMutable()
         {
             var dataSource = new DataSource();
-            dataSource.FormatSpecs.Add( new CsvFormat( "dummy.csv", ";" ) );
-
-            var clone = FormatFactory.Clone( dataSource );
-
-            clone.FormatSpecs.Add( new PathSeriesFormat( "dummy.series" ) );
-
-            Assert.That( clone.FormatSpecs[ 0 ].Datum, Is.EqualTo( "dummy.csv" ) );
-            Assert.That( clone.FormatSpecs[ 1 ].Datum, Is.EqualTo( "dummy.series" ) );
-        }
-
-        [Test]
-        public void Deserialize_WhenCalled_()
-        {
-            var dataSource = new DataSource();
+            dataSource.Vendor = "vendor";
+            dataSource.Name = "name";
+            dataSource.LocationSpec = new Navigation( DocumentType.Html );
             dataSource.FormatSpecs.Add( new CsvFormat( "dummy.csv", ";" ) );
 
             var clone = FormatFactory.Clone( dataSource );

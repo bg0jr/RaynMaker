@@ -37,14 +37,9 @@ namespace RaynMaker.Import
         {
             public override Type ResolveName( string typeName, string typeNamespace, Type declaredType, DataContractResolver knownTypeResolver )
             {
-                Debug.WriteLine( typeName );
                 if( typeNamespace == "https://github.com/bg0jr/RaynMaker/Import/Spec" && typeName == "ArrayOfNavigatorUrl" )
                 {
                     return typeof( List<NavigationUrl> );
-                }
-                else if( typeNamespace == "https://github.com/bg0jr/RaynMaker/Import/Spec" && typeName == "NavigatorUrl" )
-                {
-                    return typeof( NavigationUrl );
                 }
 
                 return knownTypeResolver.ResolveName( typeName, typeNamespace, declaredType, null );
