@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 
 namespace RaynMaker.Import.Spec
 {
-    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "SpecBase" )]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "SpecBase" )]
     public class SpecBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

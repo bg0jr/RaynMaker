@@ -7,12 +7,12 @@ using System.Text.RegularExpressions;
 using Plainion;
 using Plainion.Serialization;
 
-namespace RaynMaker.Import.Spec
+namespace RaynMaker.Import.Spec.v1
 {
     /// <summary>
     /// Describes how to get a value from a string
     /// </summary>
-    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "ValueFormat" )]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "ValueFormat" )]
     public class ValueFormat : SerializableBindableBase, IEquatable<ValueFormat>
     {
         private Regex myExtractionPattern;

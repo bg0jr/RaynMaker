@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace RaynMaker.Import.Spec
+namespace RaynMaker.Import.Spec.v1
 {
     /// <summary>
     /// Base class of all formats that describe the whole table instead of a series.
     /// </summary>
-    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "AbstractTableFormat" )]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "AbstractTableFormat" )]
     public abstract class AbstractTableFormat : AbstractDimensionalFormat
     {
         protected AbstractTableFormat( string datum, params FormatColumn[] cols )

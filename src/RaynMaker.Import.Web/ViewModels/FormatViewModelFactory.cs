@@ -15,7 +15,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             myLutService = lutService;
         }
-        public FormatViewModelBase Create( IFormat format )
+        public FormatViewModelBase Create( IFigureExtractionDescriptor format )
         {
             Contract.RequiresNotNull( format, "format" );
 

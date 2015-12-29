@@ -3,12 +3,12 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace RaynMaker.Import.Spec
+namespace RaynMaker.Import.Spec.v1
 {
     /// <summary>
     /// Descripes the steps for automated site navigation.
     /// </summary>
-    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "Navigation" )]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "Navigation" )]
     public class Navigation
     {
         public static Navigation Empty = new Navigation();

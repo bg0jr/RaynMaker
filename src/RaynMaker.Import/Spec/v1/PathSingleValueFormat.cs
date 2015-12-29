@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace RaynMaker.Import.Spec
+namespace RaynMaker.Import.Spec.v1
 {
     /// <summary>
     /// Describes a single value based on a document which
     /// has a hierarchical structure like XML or HTML documents.
     /// </summary>
-    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "PathSingleValueFormat" )]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "PathSingleValueFormat" )]
     public class PathSingleValueFormat : AbstractFormat
     {
         public PathSingleValueFormat( string datum )

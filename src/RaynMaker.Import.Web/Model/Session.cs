@@ -10,7 +10,7 @@ namespace RaynMaker.Import.Web.Model
     class Session : BindableBase
     {
         private DataSource myCurrentSource;
-        private IFormat myCurrentFormat;
+        private IFigureExtractionDescriptor myCurrentFormat;
 
         public Session()
         {
@@ -34,7 +34,7 @@ namespace RaynMaker.Import.Web.Model
             }
         }
 
-        public IFormat CurrentFormat
+        public IFigureExtractionDescriptor CurrentFormat
         {
             get { return myCurrentFormat; }
             set { SetProperty( ref myCurrentFormat, value ); }

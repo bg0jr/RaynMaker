@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace RaynMaker.Import.Spec
+namespace RaynMaker.Import.Spec.v1
 {
     /// <summary>
     /// Describes a series format based on a document which
     /// has a hierarchical structure like XML or HTML documents.
     /// </summary>
-    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "PathSeriesFormat" )]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "PathSeriesFormat" )]
     public class PathSeriesFormat : AbstractSeriesFormat
     {
         public PathSeriesFormat( string datum )

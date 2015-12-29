@@ -3,9 +3,9 @@ using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using Plainion.Collections;
 
-namespace RaynMaker.Import.Spec
+namespace RaynMaker.Import.Spec.v1
 {
-    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "RegexPatternLocator" )]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "RegexPatternLocator" )]
     public class RegexPatternLocator : ICellLocator
     {
         public RegexPatternLocator( int seriesToScan, string value )

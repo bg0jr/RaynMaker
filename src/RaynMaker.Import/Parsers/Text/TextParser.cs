@@ -8,9 +8,9 @@ namespace RaynMaker.Import.Parsers.Text
     class TextParser : IDocumentParser
     {
         private TextDocument myDocument;
-        private IFormat myFormat;
+        private IFigureExtractionDescriptor myFormat;
 
-        public TextParser( TextDocument textDocument, IFormat format )
+        public TextParser( TextDocument textDocument, IFigureExtractionDescriptor format )
         {
             myDocument = textDocument;
             myFormat = format;

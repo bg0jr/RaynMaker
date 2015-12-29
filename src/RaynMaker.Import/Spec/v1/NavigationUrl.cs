@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Plainion;
 
-namespace RaynMaker.Import.Spec
+namespace RaynMaker.Import.Spec.v1
 {
     /// <summary>
     /// Keep Immutable!!
     /// Because of transformation from Navigation object
     /// </summary>
-    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "NavigatorUrl" )]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "NavigatorUrl" )]
     [KnownType( typeof( NavigationUrl[] ) )]
     public class NavigationUrl
     {

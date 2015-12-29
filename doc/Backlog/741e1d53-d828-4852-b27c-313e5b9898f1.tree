@@ -9,6 +9,9 @@
       <Caption><![CDATA[1.7]]></Caption>
       <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">
         <Caption><![CDATA[Import module refactoring]]></Caption>
+        <Node Id="c39feaa1-daa3-4048-95ef-4a44b1008900">
+          <Caption><![CDATA[Renaming]]></Caption>
+        </Node>
         <Node Id="77a3da08-70e8-4ae1-b90d-40a5b428e21d">
           <Caption><![CDATA[TryNavigateWithWildcards]]></Caption>
         </Node>

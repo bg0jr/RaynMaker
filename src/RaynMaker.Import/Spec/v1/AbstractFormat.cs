@@ -2,10 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
-namespace RaynMaker.Import.Spec
+namespace RaynMaker.Import.Spec.v1
 {
-    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "AbstractFormat" )]
-    public abstract class AbstractFormat : IFigureExtractionDescriptor
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "AbstractFormat" )]
+    public abstract class AbstractFormat : IFormat
     {
         protected AbstractFormat( string datum )
         {

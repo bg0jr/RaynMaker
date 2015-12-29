@@ -9,9 +9,9 @@ namespace RaynMaker.Import.Parsers.Html
     class HtmlParser : IDocumentParser
     {
         private HtmlDocumentHandle myDocument;
-        private IFormat myFormat;
+        private IFigureExtractionDescriptor myFormat;
 
-        public HtmlParser( HtmlDocumentHandle htmlDocument, IFormat format )
+        public HtmlParser( HtmlDocumentHandle htmlDocument, IFigureExtractionDescriptor format )
         {
             myDocument = htmlDocument;
             myFormat = format;

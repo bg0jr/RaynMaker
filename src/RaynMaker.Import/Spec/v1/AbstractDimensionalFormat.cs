@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Runtime.Serialization;
 
-namespace RaynMaker.Import.Spec
+namespace RaynMaker.Import.Spec.v1
 {
     /// <summary>
     /// Base class of all single or multi dimensional formats.
     /// </summary>
-    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "AbstractDimensionalFormat" )]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "AbstractDimensionalFormat" )]
     public abstract class AbstractDimensionalFormat : AbstractFormat
     {
         private int[] mySkipRows = null;

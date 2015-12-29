@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace RaynMaker.Import.Spec
+namespace RaynMaker.Import.Spec.v1
 {
     /// <summary>
     /// Identifies a formular in a document by name.
     /// Specified parameters will be set when submitting the form.
     /// </summary>
-    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "Formular" )]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "Formular" )]
     public class Formular
     {
         public static Formular Empty = new Formular( string.Empty );

@@ -4,12 +4,12 @@ using System.Runtime.Serialization;
 using Plainion;
 using Plainion.Collections;
 
-namespace RaynMaker.Import.Spec
+namespace RaynMaker.Import.Spec.v1
 {
     /// <summary>
     /// Searches with contains. and ignore case
     /// </summary>
-    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "StringContainsLocator" )]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "StringContainsLocator" )]
     public class StringContainsLocator : ICellLocator
     {
         public StringContainsLocator( int seriesToScan, string value )

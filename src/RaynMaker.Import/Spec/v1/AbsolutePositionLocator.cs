@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace RaynMaker.Import.Spec
+namespace RaynMaker.Import.Spec.v1
 {
-    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "AbsolutePositionLocator" )]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "AbsolutePositionLocator" )]
     public class AbsolutePositionLocator : ICellLocator
     {
         public AbsolutePositionLocator( int position )

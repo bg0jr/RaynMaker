@@ -27,7 +27,7 @@ namespace RaynMaker.Import
             return new WinFormsDocumentBrowser( CreateNavigator(), webBrowser );
         }
 
-        public static IDocumentParser CreateParser( IDocument document, IFormat format )
+        public static IDocumentParser CreateParser( IDocument document, IFigureExtractionDescriptor format )
         {
             var htmlDocument = document as HtmlDocumentHandle;
             if( htmlDocument != null )

@@ -104,7 +104,7 @@ namespace RaynMaker.Import.Web.ViewModels
             markupDoc.Document = null;
         }
 
-        public DataTable GetResult( IFormat format )
+        public DataTable GetResult( IFigureExtractionDescriptor format )
         {
             Contract.RequiresNotNull( format, "format" );
             Contract.Invariant( Document != null, "Document not yet loaded" );

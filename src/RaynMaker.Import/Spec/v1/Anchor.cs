@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace RaynMaker.Import.Spec
+namespace RaynMaker.Import.Spec.v1
 {
     /// <summary>
     /// Describes range or cell of values of a table.
@@ -8,7 +8,7 @@ namespace RaynMaker.Import.Spec
     /// if both are set we get a cell
     /// </remarks>
     /// </summary>
-    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "Anchor" )]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "Anchor" )]
     public sealed class Anchor
     {
         private Anchor( ICellLocator row, ICellLocator col )

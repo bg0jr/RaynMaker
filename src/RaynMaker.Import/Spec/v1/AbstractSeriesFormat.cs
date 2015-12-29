@@ -5,14 +5,14 @@ using System.Linq;
 using System.Runtime.Serialization;
 using RaynMaker.Import.Parsers;
 
-namespace RaynMaker.Import.Spec
+namespace RaynMaker.Import.Spec.v1
 {
     /// <summary>
     /// Base class for all formats that describe a series of data.
     /// A series consists of a set of time-value pairs.
     /// </summary>
     // TODO: actually we no longer need "expand" if we have an anchor
-    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "AbstractSeriesFormat" )]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "AbstractSeriesFormat" )]
     public abstract class AbstractSeriesFormat : AbstractDimensionalFormat
     {
         protected AbstractSeriesFormat( string name )

@@ -3,13 +3,13 @@ using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using Plainion;
 
-namespace RaynMaker.Import.Spec
+namespace RaynMaker.Import.Spec.v1
 {
     /// <summary>
     /// Keep immutable!
     /// TODO: maybe we should have a generic FormatColumn passing the type info via generic type param
     /// </summary>
-    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "FormatColumn" )]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "FormatColumn" )]
     public class FormatColumn : ValueFormat
     {
         public FormatColumn( string name )

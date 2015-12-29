@@ -4,9 +4,9 @@ using System.Linq;
 using System.Runtime.Serialization;
 using Plainion.Validation;
 
-namespace RaynMaker.Import.Spec
+namespace RaynMaker.Import.Spec.v1
 {
-    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "DataSource" )]
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "DataSource" )]
     public class DataSource : SpecBase
     {
         private string myVendor;
@@ -15,7 +15,7 @@ namespace RaynMaker.Import.Spec
 
         public DataSource()
         {
-            FormatSpecs = new List<IFigureExtractionDescriptor>();
+            FormatSpecs = new List<IFormat>();
         }
 
         // e.g. Ariva
@@ -50,7 +50,7 @@ namespace RaynMaker.Import.Spec
 
         [Required, ValidateObject]
         [DataMember]
-        public IList<IFigureExtractionDescriptor> FormatSpecs { get; private set; }
+        public IList<IFormat> FormatSpecs { get; private set; }
 
         [OnDeserialized]
         private void OnDeserialized( StreamingContext context )

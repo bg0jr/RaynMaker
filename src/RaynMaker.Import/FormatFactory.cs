@@ -11,7 +11,7 @@ namespace RaynMaker.Import
 {
     public class FormatFactory
     {
-        public static IFormat Create( Type type )
+        public static IFigureExtractionDescriptor Create( Type type )
         {
             if( type == typeof( PathSeriesFormat ) )
             {
@@ -26,7 +26,7 @@ namespace RaynMaker.Import
             throw new NotSupportedException( "Unknown format type: " + type.Name );
         }
 
-        private static IFormat CreatePathSeriesFormat()
+        private static IFigureExtractionDescriptor CreatePathSeriesFormat()
         {
             var format = new PathSeriesFormat( string.Empty );
 
@@ -36,7 +36,7 @@ namespace RaynMaker.Import
             return format;
         }
 
-        private static IFormat CreatePathCellFormat()
+        private static IFigureExtractionDescriptor CreatePathCellFormat()
         {
             var format = new PathCellFormat( string.Empty );
             format.Expand = CellDimension.None;

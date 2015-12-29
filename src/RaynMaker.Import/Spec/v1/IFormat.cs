@@ -1,4 +1,4 @@
-﻿namespace RaynMaker.Import.Spec
+﻿namespace RaynMaker.Import.Spec.v1
 {
     public interface IFormat
     {
