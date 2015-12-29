@@ -10,8 +10,8 @@ namespace RaynMaker.Import.Spec
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "PathSingleValueFormat" )]
     public class PathSingleValueFormat : AbstractFormat
     {
-        public PathSingleValueFormat( string name )
-            : base( name )
+        public PathSingleValueFormat( string datum )
+            : base( datum )
         {
         }
 

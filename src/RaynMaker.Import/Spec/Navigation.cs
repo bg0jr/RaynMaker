@@ -19,16 +19,16 @@ namespace RaynMaker.Import.Spec
         }
 
         public Navigation( DocumentType docType, string url )
-            : this( docType, new NavigatorUrl( UriType.Request, url ) )
+            : this( docType, new NavigationUrl( UriType.Request, url ) )
         {
         }
 
-        public Navigation( DocumentType docType, params NavigatorUrl[] urls )
+        public Navigation( DocumentType docType, params NavigationUrl[] urls )
             : this( docType, urls.ToList() )
         {
         }
 
-        public Navigation( DocumentType docType, IEnumerable<NavigatorUrl> urls )
+        public Navigation( DocumentType docType, IEnumerable<NavigationUrl> urls )
         {
             DocumentType = docType;
             Uris = urls.ToList();
@@ -48,7 +48,7 @@ namespace RaynMaker.Import.Spec
         public DocumentType DocumentType { get; set; }
 
         [DataMember]
-        public IReadOnlyList<NavigatorUrl> Uris { get; private set; }
+        public IReadOnlyList<NavigationUrl> Uris { get; private set; }
 
         [DataMember]
         public int UrisHashCode { get; private set; }

@@ -113,6 +113,17 @@ namespace RaynMaker.Import.Tests.Spec
             Assert.AreEqual( 3.5d, ( double )table.Rows[ 9 ][ "value" ], 0.000001d );
         }
 
+        [Test]
+        public void Clone_WhenCalled_AllMembersAreCloned()
+        {
+            var format = new SeparatorSeriesFormat( "dummy" );
+            format.Separator = "#";
+
+            var clone = FormatFactory.Clone( format );
+
+            Assert.That( clone.Separator, Is.EqualTo( "#" ) );
+        }
+
         private DataTable Parse( SeparatorSeriesFormat format, string file )
         {
             var rawTable = CsvReader.Read( file, format.Separator );

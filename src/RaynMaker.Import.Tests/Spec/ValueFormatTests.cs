@@ -9,42 +9,13 @@ namespace RaynMaker.Import.Tests.Spec
     public class ValueFormatTests : TestBase
     {
         [Test]
-        [ExpectedException( typeof( ArgumentNullException ) )]
-        public void CopyNull()
-        {
-            new ValueFormat( (ValueFormat)null );
-        }
-
-        [Test]
-        public void Copy()
-        {
-            var format = new ValueFormat( typeof( int ), "000.000" );
-            var copy = new ValueFormat( format );
-
-            Assert.AreEqual( typeof( int ), copy.Type );
-            Assert.AreEqual( "000.000", copy.Format );
-        }
-
-        [Test]
-        public void CopyWithExtractionPattern()
-        {
-            var extractionPattern = new Regex( "stuff" );
-            var format = new ValueFormat( extractionPattern );
-            var copy = new ValueFormat( format );
-
-            Assert.AreEqual( typeof( string ), copy.Type );
-            Assert.AreEqual( null, copy.Format );
-            Assert.AreEqual( extractionPattern, copy.ExtractionPattern );
-        }
-
-        [Test]
         public void EqualsAndHashCode()
         {
             var format = new ValueFormat( typeof( int ), "000000", new Regex( @"WKN: ([\d]+)" ) );
             var same = new ValueFormat( typeof( int ), "000000", new Regex( @"WKN: ([\d]+)" ) );
 
             Assert.IsTrue( format.Equals( same ) );
-            Assert.IsTrue( format.Equals( (object)same ) );
+            Assert.IsTrue( format.Equals( ( object )same ) );
             Assert.AreEqual( format.GetHashCode(), same.GetHashCode() );
         }
 
@@ -55,7 +26,7 @@ namespace RaynMaker.Import.Tests.Spec
             var other = new ValueFormat( typeof( int ), "000000" );
 
             Assert.IsFalse( format.Equals( other ) );
-            Assert.IsFalse( format.Equals( (object)other ) );
+            Assert.IsFalse( format.Equals( ( object )other ) );
             Assert.AreNotEqual( format.GetHashCode(), other.GetHashCode() );
         }
 
@@ -74,7 +45,7 @@ namespace RaynMaker.Import.Tests.Spec
             var format = new ValueFormat( typeof( int ), "000000", new Regex( @"WKN: ([\d]+)" ) );
             object value = format.Convert( "WKN: 850206" );
 
-            Assert.AreEqual( 850206, (int)value );
+            Assert.AreEqual( 850206, ( int )value );
         }
 
         [Test]
@@ -82,10 +53,10 @@ namespace RaynMaker.Import.Tests.Spec
         {
             var format = new ValueFormat( typeof( double ), "000000.00", new Regex( @"([\d.]+)\s*€" ) );
 
-            double value = (double)format.Convert( "2.5€" );
+            double value = ( double )format.Convert( "2.5€" );
             Assert.AreEqual( 2.5, value, 0.000001d );
 
-            value = (double)format.Convert( "0.25 €" );
+            value = ( double )format.Convert( "0.25 €" );
             Assert.AreEqual( 0.25, value, 0.000001d );
         }
 
@@ -93,7 +64,7 @@ namespace RaynMaker.Import.Tests.Spec
         public void ConvertDouble()
         {
             var format = new ValueFormat( typeof( double ), "00.00" );
-            double value = (double)format.Convert( "2.5" );
+            double value = ( double )format.Convert( "2.5" );
 
             Assert.AreEqual( 2.5, value );
         }
@@ -111,11 +82,23 @@ namespace RaynMaker.Import.Tests.Spec
         public void ConvertDateTime()
         {
             var format = new ValueFormat( typeof( DateTime ), "dd.MM.yyyy" );
-            DateTime value = (DateTime)format.Convert( "12.12.2000" );
+            DateTime value = ( DateTime )format.Convert( "12.12.2000" );
 
             Assert.AreEqual( 2000, value.Year );
             Assert.AreEqual( 12, value.Month );
             Assert.AreEqual( 12, value.Day );
+        }
+
+        [Test]
+        public void Clone_WhenCalled_AllMembersAreCloned()
+        {
+            var col = new ValueFormat( typeof( double ), "##0.00", new Regex( @"(\d+)$" ) );
+
+            var clone = FormatFactory.Clone( col );
+
+            Assert.That( clone.Type, Is.EqualTo( typeof( double ) ) );
+            Assert.That( clone.Format, Is.EqualTo( "##0.00" ) );
+            Assert.That( clone.ExtractionPattern.ToString(), Is.EqualTo( @"(\d+)$" ) );
         }
     }
 }

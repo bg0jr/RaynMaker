@@ -12,8 +12,8 @@ namespace RaynMaker.Entities.Persistancy.Tests
         [Test]
         public void DeleteCurrency_WithTranslations_DeleteCascades()
         {
-            var euro = new Currency { Name = "Euro" };
-            var dollar = new Currency { Name = "Dollar" };
+            var euro = new Currency { Name = "Euro", Symbol = "EUR" };
+            var dollar = new Currency { Name = "Dollar", Symbol = "USD" };
             var translation = new Translation
             {
                 Source = euro,

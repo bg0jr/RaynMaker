@@ -95,7 +95,7 @@
     <Compile Include="Spec\ICellLocator.cs" />
     <Compile Include="Spec\IFormat.cs" />
     <Compile Include="Spec\Navigation.cs" />
-    <Compile Include="Spec\NavigatorUrl.cs" />
+    <Compile Include="Spec\NavigationUrl.cs" />
     <Compile Include="Spec\PathSeriesFormat.cs" />
     <Compile Include="Spec\PathSingleValueFormat.cs" />
     <Compile Include="Spec\PathTableFormat.cs" />

@@ -10,8 +10,8 @@ namespace RaynMaker.Import.Spec
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "SeparatorSeriesFormat" )]
     public class SeparatorSeriesFormat : AbstractSeriesFormat
     {
-        public SeparatorSeriesFormat( string name )
-            : base( name )
+        public SeparatorSeriesFormat( string datum )
+            : base( datum )
         {
             Separator = ";";
         }

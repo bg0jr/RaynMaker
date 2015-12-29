@@ -74,7 +74,7 @@ namespace RaynMaker.Import.Web.Tests.ViewModels
             Func<UriType> GetUriType = () => ( isRequest = !isRequest ) ? UriType.Request : UriType.Response;
 
             return new Navigation( docType, urlTemplates
-                .Select( url => new NavigatorUrl( GetUriType(), url ) ) );
+                .Select( url => new NavigationUrl( GetUriType(), url ) ) );
         }
     }
 }

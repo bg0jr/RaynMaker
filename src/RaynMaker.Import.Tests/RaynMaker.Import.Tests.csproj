@@ -48,6 +48,12 @@
     <Compile Include="Spec\AbstractDimensionalFormatTest.cs" />
     <Compile Include="Spec\AbstractTableFormatTests.cs" />
     <Compile Include="Spec\AbstractSeriesFormatTests.cs" />
+    <Compile Include="Spec\StringContainsLocatorTests.cs" />
+    <Compile Include="Spec\RegexPatternLocatorTests.cs" />
+    <Compile Include="Spec\PathTableFormatTests.cs" />
+    <Compile Include="Spec\PathSingleValueFormatTests.cs" />
+    <Compile Include="Spec\PathCellFormatTests.cs" />
+    <Compile Include="Spec\NavigationUrlTests.cs" />
     <Compile Include="Spec\NavigationTests.cs" />
     <Compile Include="Spec\FormularTests.cs" />
     <Compile Include="Spec\FormatColumnTests.cs" />

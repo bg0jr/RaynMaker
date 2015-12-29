@@ -8,8 +8,8 @@ namespace RaynMaker.Import.Spec
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "PathCellFormat" )]
     public class PathCellFormat : PathSeriesFormat
     {
-        public PathCellFormat( string name )
-            : base( name )
+        public PathCellFormat( string datum )
+            : base( datum )
         {
             Expand = CellDimension.None;
             Anchor = null;

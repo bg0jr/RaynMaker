@@ -46,15 +46,6 @@ namespace RaynMaker.Import.Spec
             Type = ( type != null ? type : typeof( string ) );
         }
 
-        public ValueFormat( ValueFormat other )
-        {
-            Contract.RequiresNotNull( other, "other" );
-
-            Format = other.Format;
-            Type = other.Type;
-            ExtractionPattern = other.ExtractionPattern;
-        }
-
         /// <summary>
         /// The extraction patttern defines the part of the input string
         /// that shall be formated. 

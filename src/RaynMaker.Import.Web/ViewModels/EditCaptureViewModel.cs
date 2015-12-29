@@ -17,22 +17,22 @@ namespace RaynMaker.Import.Web.ViewModels
     [Export]
     class EditCaptureViewModel : BindableBase, IInteractionRequestAware
     {
-        private NavigatorUrl mySelectedUrl;
+        private NavigationUrl mySelectedUrl;
         private INotification myNotification;
 
         public EditCaptureViewModel()
         {
-            Urls = new ObservableCollection<NavigatorUrl>();
+            Urls = new ObservableCollection<NavigationUrl>();
 
-            DeleteUrlCommand = new DelegateCommand<NavigatorUrl>( OnDeleteUrl );
+            DeleteUrlCommand = new DelegateCommand<NavigationUrl>( OnDeleteUrl );
 
             OkCommand = new DelegateCommand( OnOk );
             CancelCommand = new DelegateCommand( OnCancel );
         }
 
-        public ObservableCollection<NavigatorUrl> Urls { get; private set; }
+        public ObservableCollection<NavigationUrl> Urls { get; private set; }
 
-        public NavigatorUrl SelectedUrl
+        public NavigationUrl SelectedUrl
         {
             get { return mySelectedUrl; }
             set { SetProperty( ref mySelectedUrl, value ); }
@@ -40,7 +40,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
         public ICommand DeleteUrlCommand { get; private set; }
 
-        private void OnDeleteUrl( NavigatorUrl url )
+        private void OnDeleteUrl( NavigationUrl url )
         {
             Urls.Remove( url );
         }
@@ -76,7 +76,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 myNotification = value;
 
                 Urls.Clear();
-                Urls.AddRange( ( IEnumerable<NavigatorUrl> )myNotification.Content );
+                Urls.AddRange( ( IEnumerable<NavigationUrl> )myNotification.Content );
                 SelectedUrl = Urls.FirstOrDefault();
             }
         }

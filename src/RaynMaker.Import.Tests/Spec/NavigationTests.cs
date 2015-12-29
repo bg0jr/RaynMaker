@@ -11,8 +11,8 @@ namespace RaynMaker.Import.Tests.Spec
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
             var navi = new Navigation( DocumentType.Html,
-                new NavigatorUrl( UriType.Request, "http://test1.org" ),
-                new NavigatorUrl( UriType.Response, "http://test2.org" ) );
+                new NavigationUrl( UriType.Request, "http://test1.org" ),
+                new NavigationUrl( UriType.Response, "http://test2.org" ) );
 
             var clone = FormatFactory.Clone( navi );
 

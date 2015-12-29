@@ -10,8 +10,8 @@ namespace RaynMaker.Import.Spec
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "PathSeriesFormat" )]
     public class PathSeriesFormat : AbstractSeriesFormat
     {
-        public PathSeriesFormat( string name )
-            : base( name )
+        public PathSeriesFormat( string datum )
+            : base( datum )
         {
             ExtractLinkUrl = false;
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Plainion;
 
@@ -9,27 +10,28 @@ namespace RaynMaker.Import.Spec
     /// Because of transformation from Navigation object
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "NavigatorUrl" )]
-    public class NavigatorUrl
+    [KnownType( typeof( NavigationUrl[] ) )]
+    public class NavigationUrl
     {
         private Uri myUrl = null;
 
-        public NavigatorUrl( UriType type, Uri url )
+        public NavigationUrl( UriType type, Uri url )
             : this( type, url.ToString() )
         {
             myUrl = url;
         }
 
-        public NavigatorUrl( UriType type, string url )
+        public NavigationUrl( UriType type, string url )
             : this( type, url, null )
         {
         }
 
-        public NavigatorUrl( Formular form )
+        public NavigationUrl( Formular form )
             : this( UriType.SubmitFormular, string.Empty, form )
         {
         }
 
-        public NavigatorUrl( UriType uriType, string url, Formular form )
+        public NavigationUrl( UriType uriType, string url, Formular form )
         {
             Contract.Requires( uriType != UriType.None, "uriType must NOT be None" );
 
@@ -62,7 +64,7 @@ namespace RaynMaker.Import.Spec
         [DataMember]
         public Formular Formular { get; private set; }
 
-        public static NavigatorUrl Parse( string str )
+        public static NavigationUrl Parse( string str )
         {
             int pos = str.IndexOf( ':' );
             if( pos < 0 )
@@ -71,22 +73,22 @@ namespace RaynMaker.Import.Spec
             }
 
             var type = ( UriType )Enum.Parse( typeof( UriType ), str.Substring( 0, pos ).Trim(), true );
-            return new NavigatorUrl( type, str.Substring( pos + 1 ).Trim() );
+            return new NavigationUrl( type, str.Substring( pos + 1 ).Trim() );
         }
 
-        public static NavigatorUrl Request( string url )
+        public static NavigationUrl Request( string url )
         {
-            return new NavigatorUrl( UriType.Request, url );
+            return new NavigationUrl( UriType.Request, url );
         }
 
-        public static NavigatorUrl Response( string url )
+        public static NavigationUrl Response( string url )
         {
-            return new NavigatorUrl( UriType.Response, url );
+            return new NavigationUrl( UriType.Response, url );
         }
 
-        public static NavigatorUrl SubmitFormular( Formular form )
+        public static NavigationUrl SubmitFormular( Formular form )
         {
-            return new NavigatorUrl( form );
+            return new NavigationUrl( form );
         }
 
         // required also for be addable to Exception.Data

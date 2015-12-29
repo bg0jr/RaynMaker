@@ -7,9 +7,6 @@
     </Node>
     <Node Id="b6cbd93c-bdbd-49b4-bbb8-33de0a595e04">
       <Caption><![CDATA[1.7]]></Caption>
-      <Node Id="b8907cdc-8dd8-4768-afed-7f7b77f096b6">
-        <Caption><![CDATA[Help - finish dictionary]]></Caption>
-      </Node>
       <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">
         <Caption><![CDATA[Import module refactoring]]></Caption>
         <Node Id="77a3da08-70e8-4ae1-b90d-40a5b428e21d">
@@ -17,9 +14,6 @@
         </Node>
         <Node Id="b0b261be-5045-42e4-8299-10b8a7aecc67">
           <Caption><![CDATA[Why do we need DocumentType in Navigation?]]></Caption>
-        </Node>
-        <Node Id="03a663ba-ae00-44c2-b918-8a2a7aa4a561">
-          <Caption><![CDATA[Add individual UTs per format for cloning]]></Caption>
         </Node>
         <Node Id="b0b783b8-f54a-446f-9a1f-d5a3375ae21a">
           <Caption><![CDATA[Improve tests for Html parsing]]></Caption>
@@ -39,6 +33,12 @@
       </Node>
       <Node Id="abb9f7c2-8cac-4750-a6d5-c1ea36d41609">
         <Caption><![CDATA[Add more verification in data collection]]></Caption>
+      </Node>
+    </Node>
+    <Node Id="63da965d-c664-48a9-8250-578d54290207">
+      <Caption><![CDATA[1.8]]></Caption>
+      <Node Id="b8907cdc-8dd8-4768-afed-7f7b77f096b6">
+        <Caption><![CDATA[Help - finish dictionary]]></Caption>
       </Node>
       <Node Id="b3281029-c701-44d4-89e8-b43624845610">
         <Caption><![CDATA[Cancel & Undo of Entity changes]]></Caption>

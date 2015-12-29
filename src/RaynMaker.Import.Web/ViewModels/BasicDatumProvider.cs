@@ -29,7 +29,7 @@ namespace RaynMaker.Import.Web.ViewModels
             Contract.RequiresNotNull( stock, "stock" );
 
             var macroPattern = new Regex( @"(\$\{.*\})" );
-            var filtered = new List<NavigatorUrl>();
+            var filtered = new List<NavigationUrl>();
             foreach( var navUrl in navigation.Uris )
             {
                 var md = macroPattern.Match( navUrl.UrlString );
@@ -39,7 +39,7 @@ namespace RaynMaker.Import.Web.ViewModels
                     var value = GetMacroValue( macro.Substring( 2, macro.Length - 3 ), stock );
                     if( value != null )
                     {
-                        filtered.Add( new NavigatorUrl( navUrl.UrlType, navUrl.UrlString.Replace( macro, value ) ) );
+                        filtered.Add( new NavigationUrl( navUrl.UrlType, navUrl.UrlString.Replace( macro, value ) ) );
                     }
                     else
                     {

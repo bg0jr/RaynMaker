@@ -31,7 +31,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             EditCaptureRequest = new InteractionRequest<IConfirmation>();
 
-            Urls = new ObservableCollection<NavigatorUrl>();
+            Urls = new ObservableCollection<NavigationUrl>();
 
             WeakEventManager<INotifyCollectionChanged, NotifyCollectionChangedEventArgs>.AddHandler( Urls, "CollectionChanged", OnUrlChanged );
 
@@ -87,7 +87,7 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             if( IsCapturing )
             {
-                Urls.Add( new NavigatorUrl( UriType.Request, url ) );
+                Urls.Add( new NavigationUrl( UriType.Request, url ) );
             }
         }
 
@@ -97,7 +97,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             if( IsCapturing )
             {
-                Urls.Add( new NavigatorUrl( UriType.Response, doc.Location ) );
+                Urls.Add( new NavigationUrl( UriType.Response, doc.Location ) );
             }
         }
 
@@ -116,7 +116,7 @@ namespace RaynMaker.Import.Web.ViewModels
             }
         }
 
-        public ObservableCollection<NavigatorUrl> Urls { get; private set; }
+        public ObservableCollection<NavigationUrl> Urls { get; private set; }
 
         private void OnUrlChanged( object sender, NotifyCollectionChangedEventArgs e )
         {
@@ -153,7 +153,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 if( c.Confirmed )
                 {
                     Urls.Clear();
-                    Urls.AddRange( ( IEnumerable<NavigatorUrl> )c.Content );
+                    Urls.AddRange( ( IEnumerable<NavigationUrl> )c.Content );
                 }
             } );
         }

@@ -2,7 +2,6 @@
 using System.IO;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
-using RaynMaker.Import.Documents;
 using RaynMaker.Import.Parsers;
 using RaynMaker.Import.Parsers.Text;
 using RaynMaker.Import.Spec;
@@ -12,29 +11,35 @@ namespace RaynMaker.Import.Tests.Spec
     [TestFixture]
     public class PathSeriesFormatTests : TestBase
     {
-        private PathSeriesFormat myFormat = null;
-        private string myPricesFile = null;
-
-        [SetUp]
-        public void SetUp()
-        {
-            myFormat = new PathSeriesFormat( "test" );
-            myFormat.Path = @"/BODY[0]/DIV[5]/DIV[0]/DIV[5]/DIV[0]/TABLE[0]/TBODY[0]";
-            myFormat.Anchor = Anchor.ForCell( new StringContainsLocator( 1, @"xetra" ), new AbsolutePositionLocator( 2 ) );
-            myFormat.TimeAxisPosition = 0;
-            myFormat.SeriesNamePosition = 0;
-
-            myPricesFile = Path.Combine( TestDataRoot, "ariva-prices.csv" );
-        }
-
         [Test]
         public void FetchCurrentPrice()
         {
-            myFormat.ValueFormat = new FormatColumn( "close", typeof( double ), "000,000", new Regex( @"([\d.,]+)\s*€" ) );
-            var table = Parse( myFormat, myPricesFile );
+            var format = new PathSeriesFormat( "test" );
+            format.Path = @"/BODY[0]/DIV[5]/DIV[0]/DIV[5]/DIV[0]/TABLE[0]/TBODY[0]";
+            format.Anchor = Anchor.ForCell( new StringContainsLocator( 1, @"xetra" ), new AbsolutePositionLocator( 2 ) );
+            format.TimeAxisPosition = 0;
+            format.SeriesNamePosition = 0;
+            format.ValueFormat = new FormatColumn( "close", typeof( double ), "000,000", new Regex( @"([\d.,]+)\s*€" ) );
+
+            var table = Parse( format, Path.Combine( TestDataRoot, "ariva-prices.csv" ) );
 
             Assert.AreEqual( 1, table.Rows.Count );
             Assert.AreEqual( 0.18d, ( double )table.Rows[ 0 ][ 0 ], 0.000001d );
+        }
+
+        [Test]
+        public void Clone_WhenCalled_AllMembersAreCloned()
+        {
+            var format = new PathSeriesFormat( "dummy" );
+            format.Path = "123";
+            format.ExtractLinkUrl = true;
+            format.SeriesName = "x";
+
+            var clone = FormatFactory.Clone( format );
+
+            Assert.That( clone.Path, Is.EqualTo( "123" ) );
+            Assert.That( clone.ExtractLinkUrl, Is.EqualTo( true ) );
+            Assert.That( clone.SeriesName, Is.EqualTo( "x" ) );
         }
 
         private DataTable Parse( PathSeriesFormat format, string file )
