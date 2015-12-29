@@ -47,9 +47,8 @@ namespace RaynMaker.Import.Spec
         [DataMember]
         public DocumentType DocumentType { get; set; }
 
-        // TODO: that needs to be imutable!! (see hashcode impl)
         [DataMember]
-        public IList<NavigatorUrl> Uris { get; private set; }
+        public IReadOnlyList<NavigatorUrl> Uris { get; private set; }
 
         [DataMember]
         public int UrisHashCode { get; private set; }

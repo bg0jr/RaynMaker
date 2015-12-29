@@ -122,8 +122,8 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             if( Session.CurrentSource != null )
             {
-                Session.CurrentSource.LocationSpec.Uris.Clear();
-                Session.CurrentSource.LocationSpec.Uris.AddRange( Urls );
+                var old = Session.CurrentSource.LocationSpec;
+                Session.CurrentSource.LocationSpec = new Navigation( old.DocumentType, old.Uris.Concat( Urls ) );
             }
         }
 
