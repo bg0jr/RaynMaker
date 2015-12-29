@@ -15,18 +15,21 @@
         <Node Id="b0b261be-5045-42e4-8299-10b8a7aecc67">
           <Caption><![CDATA[Why do we need DocumentType in Navigation?]]></Caption>
         </Node>
-        <Node Id="b0b783b8-f54a-446f-9a1f-d5a3375ae21a">
-          <Caption><![CDATA[Improve tests for Html parsing]]></Caption>
-        </Node>
         <Node Id="3e6b44b5-fea4-4a55-9901-2cc90851ee8d">
           <Caption><![CDATA[Cleanup Html parsing]]></Caption>
         </Node>
+      </Node>
+      <Node Id="bbeba285-71ef-47ff-815e-71c6963e8d73">
+        <Caption><![CDATA[Testing]]></Caption>
         <Node Id="8029db40-5c61-4247-9674-2e92f20986d1">
           <Caption><![CDATA[Tests for required parameters]]></Caption>
         </Node>
-        <Node Id="c38d3ac0-c979-4d09-9a4c-5a8a774f91c0">
-          <Caption><![CDATA[find better naming ]]></Caption>
+        <Node Id="b0b783b8-f54a-446f-9a1f-d5a3375ae21a">
+          <Caption><![CDATA[Improve tests for Html parsing]]></Caption>
         </Node>
+      </Node>
+      <Node Id="6a2c9026-0515-4f42-92e3-7fe6190a28b4">
+        <Caption><![CDATA[Rename "Datum" to "Figure"]]></Caption>
       </Node>
       <Node Id="d0da3880-c6d3-477b-bee2-8553b930be55">
         <Caption><![CDATA[Rework WebSpy]]></Caption>
