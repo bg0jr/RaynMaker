@@ -68,7 +68,7 @@
     &lt;/ItemPropertyCollection&gt;
   &lt;/ItemContent.Properties&gt;
   &lt;av:Border BorderThickness="2,2,2,2" CornerRadius="10,10,10,10" BorderBrush="#FF000000" Background="#FFFFFFFF" Name="Body" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"&gt;
-    &lt;av:TextBlock Text="DataExtractionDescriptor" Name="ObjectName" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" /&gt;
+    &lt;av:TextBlock Text="Format" Name="ObjectName" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" /&gt;
   &lt;/av:Border&gt;
 &lt;/ItemContent&gt;</Content>
     </DesignerItem>
@@ -116,7 +116,7 @@
         &lt;av:RowDefinition Height="1" /&gt;
         &lt;av:RowDefinition Height="*" /&gt;
       &lt;/av:Grid.RowDefinitions&gt;
-      &lt;av:TextBlock Text="DataLocatorTemplate" Name="ClassName" Margin="5,5,5,5" HorizontalAlignment="Center" IsHitTestVisible="False" av:Grid.Row="0" /&gt;
+      &lt;av:TextBlock Text="Navigation" Name="ClassName" Margin="5,5,5,5" HorizontalAlignment="Center" IsHitTestVisible="False" av:Grid.Row="0" /&gt;
       &lt;av:Line X1="0" Y1="0" X2="1" Y2="1" Stretch="Fill" Stroke="#FF000000" StrokeThickness="1" av:Grid.Row="1" /&gt;
     &lt;/av:Grid&gt;
   &lt;/av:Border&gt;
@@ -189,7 +189,7 @@
     &lt;/ItemPropertyCollection&gt;
   &lt;/ItemContent.Properties&gt;
   &lt;av:Border BorderThickness="2,2,2,2" CornerRadius="10,10,10,10" BorderBrush="#FF000000" Name="Body" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"&gt;
-    &lt;av:TextBlock Text="DocumentLocator (URI)" Name="ObjectName" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" /&gt;
+    &lt;av:TextBlock Text="Uri" Name="ObjectName" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" /&gt;
   &lt;/av:Border&gt;
 &lt;/ItemContent&gt;</Content>
     </DesignerItem>
@@ -331,7 +331,7 @@
     &lt;/ItemPropertyCollection&gt;
   &lt;/ItemContent.Properties&gt;
   &lt;av:Border BorderThickness="2,2,2,2" CornerRadius="10,10,10,10" BorderBrush="#FF000000" Background="#FFFFFFFF" Name="Body" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"&gt;
-    &lt;av:TextBlock Text="DataExtractionDescriptor" Name="ObjectName" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" /&gt;
+    &lt;av:TextBlock Text="Format" Name="ObjectName" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" /&gt;
   &lt;/av:Border&gt;
 &lt;/ItemContent&gt;</Content>
     </DesignerItem>
@@ -352,7 +352,7 @@
     &lt;/ItemPropertyCollection&gt;
   &lt;/ItemContent.Properties&gt;
   &lt;av:Border BorderThickness="2,2,2,2" CornerRadius="10,10,10,10" BorderBrush="#FF000000" Background="#FFFFFFFF" Name="Body" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"&gt;
-    &lt;av:TextBlock Text="DataExtractionDescriptor" Name="ObjectName" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" /&gt;
+    &lt;av:TextBlock Text="Format" Name="ObjectName" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" /&gt;
   &lt;/av:Border&gt;
 &lt;/ItemContent&gt;</Content>
     </DesignerItem>
@@ -475,7 +475,7 @@
     </DesignerItem>
     <DesignerItem>
       <Left>313.6</Left>
-      <Top>19.500000000000014</Top>
+      <Top>18.500000000000014</Top>
       <Width>136.40000000000021</Width>
       <Height>37</Height>
       <ID>220f3209-dff5-4804-a6c7-cdb4b748f63e</ID>
@@ -492,7 +492,31 @@
   &lt;av:Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch"&gt;
     &lt;av:Rectangle Fill="#FFF8F8FF" Stroke="#FF000000" StrokeThickness="1" StrokeDashArray="4 2" Name="Body" IsHitTestVisible="False" /&gt;
     &lt;av:Grid Margin="2,2,2,2"&gt;
-      &lt;av:TextBlock Text="Should support paging" TextWrapping="Wrap" Name="Text" Margin="3,3,3,3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsHitTestVisible="False" /&gt;
+      &lt;av:TextBlock Text="Describes location of a &amp;#xD;&amp;#xA;Should support paging" TextWrapping="Wrap" Name="Text" Margin="3,3,3,3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsHitTestVisible="False" /&gt;
+    &lt;/av:Grid&gt;
+  &lt;/av:Grid&gt;
+&lt;/ItemContent&gt;</Content>
+    </DesignerItem>
+    <DesignerItem>
+      <Left>995</Left>
+      <Top>40.5</Top>
+      <Width>215.00000000000003</Width>
+      <Height>66.000000000000014</Height>
+      <ID>fb854e4b-f617-45dc-b6a3-c688d1d118ad</ID>
+      <zIndex>37</zIndex>
+      <IsGroup>false</IsGroup>
+      <ParentID>00000000-0000-0000-0000-000000000000</ParentID>
+      <Content Version="1">&lt;ItemContent xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation"&gt;
+  &lt;ItemContent.Properties&gt;
+    &lt;ItemPropertyCollection Capacity="4"&gt;
+      &lt;ItemProperty ElementName="Text" ElementProperty="Text" DisplayName="Text" IsComponentName="False" /&gt;
+      &lt;ItemProperty ElementName="Body" ElementProperty="Fill" DisplayName="Fill" IsComponentName="False" /&gt;
+    &lt;/ItemPropertyCollection&gt;
+  &lt;/ItemContent.Properties&gt;
+  &lt;av:Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch"&gt;
+    &lt;av:Rectangle Fill="#FFF8F8FF" Stroke="#FF000000" StrokeThickness="1" StrokeDashArray="4 2" Name="Body" IsHitTestVisible="False" /&gt;
+    &lt;av:Grid Margin="2,2,2,2"&gt;
+      &lt;av:TextBlock Text="describes a source of data in an abstract way &amp;#xD;&amp;#xA;(need to be parameterized by stock)" TextWrapping="Wrap" Name="Text" Margin="3,3,3,3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsHitTestVisible="False" /&gt;
     &lt;/av:Grid&gt;
   &lt;/av:Grid&gt;
 &lt;/ItemContent&gt;</Content>
@@ -688,6 +712,18 @@
       <SinkArrowSymbol>None</SinkArrowSymbol>
       <IsDotted>true</IsDotted>
       <zIndex>36</zIndex>
+      <Properties>&lt;ItemPropertyCollection Capacity="8" xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="Caption" DisplayName="Caption" IsComponentName="True" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="IsDotted" DisplayName="IsDotted" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SourceArrowSymbol" DisplayName="SourceArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SinkArrowSymbol" DisplayName="SinkArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="PART_ConnectionPath" ElementProperty="Stroke" DisplayName="Stroke" IsComponentName="False" /&gt;&lt;/ItemPropertyCollection&gt;</Properties>
+      <Caption></Caption>
+    </Connection>
+    <Connection>
+      <SourceID>fb854e4b-f617-45dc-b6a3-c688d1d118ad</SourceID>
+      <SinkID>e670e3b1-2147-4eb1-b4e0-5f31be8a78f2</SinkID>
+      <SourceConnectorName>Left</SourceConnectorName>
+      <SinkConnectorName>RightTop</SinkConnectorName>
+      <SourceArrowSymbol>None</SourceArrowSymbol>
+      <SinkArrowSymbol>None</SinkArrowSymbol>
+      <IsDotted>true</IsDotted>
+      <zIndex>38</zIndex>
       <Properties>&lt;ItemPropertyCollection Capacity="8" xmlns="clr-namespace:Plainion.WhiteBoard.Designer;assembly=Plainion.WhiteBoard" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="Caption" DisplayName="Caption" IsComponentName="True" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="IsDotted" DisplayName="IsDotted" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SourceArrowSymbol" DisplayName="SourceArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="{x:Null}" ElementProperty="SinkArrowSymbol" DisplayName="SinkArrowSymbol" IsComponentName="False" /&gt;&lt;ItemProperty ElementName="PART_ConnectionPath" ElementProperty="Stroke" DisplayName="Stroke" IsComponentName="False" /&gt;&lt;/ItemPropertyCollection&gt;</Properties>
       <Caption />
     </Connection>

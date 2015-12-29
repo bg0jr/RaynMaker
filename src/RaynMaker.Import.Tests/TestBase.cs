@@ -30,5 +30,14 @@ namespace RaynMaker.Import.Tests
             }
             return DateTime.Parse( s, CultureInfo.InvariantCulture );
         }
+
+        protected string DumpSpec<T>( T obj )
+        {
+            using( var writer = new StringWriter() )
+            {
+                FormatFactory.Dump( writer, obj );
+                return writer.ToString();
+            }
+        }
     }
 }

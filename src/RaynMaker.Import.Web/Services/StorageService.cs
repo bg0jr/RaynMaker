@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
-using Plainion.Validation;
 using RaynMaker.Import.Spec;
 using RaynMaker.Infrastructure;
 
@@ -29,8 +26,8 @@ namespace RaynMaker.Import.Web.Services
             {
                 using( var stream = new FileStream( file, FileMode.Open, FileAccess.Read ) )
                 {
-                    var serializer = CreateSerializer( typeof( DataSourcesSheet ) );
-                    var sheet = ( DataSourcesSheet )serializer.ReadObject( stream );
+                    var serializer = new ImportSpecSerializer();
+                    var sheet = serializer.Read<DataSourcesSheet>( stream );
                     return sheet.Sources;
                 }
             }
@@ -43,25 +40,12 @@ namespace RaynMaker.Import.Web.Services
             var sheet = new DataSourcesSheet();
             sheet.Sources = sources;
 
-            RecursiveValidator.Validate( sheet );
-
             var file = Path.Combine( myProjectHost.Project.StorageRoot, "DataSources.xdb" );
             using( var stream = new FileStream( file, FileMode.Create, FileAccess.Write ) )
             {
-                var serializer = CreateSerializer( typeof( DataSourcesSheet ) );
-                serializer.WriteObject( stream, sheet );
+                var serializer = new ImportSpecSerializer();
+                serializer.Write( stream, sheet );
             }
-        }
-
-        private static DataContractSerializer CreateSerializer( Type root )
-        {
-            var settings = new DataContractSerializerSettings();
-            settings.KnownTypes = typeof( DataSource ).Assembly.GetTypes()
-                .Where( t => !t.IsAbstract )
-                .Where( t => t.GetCustomAttributes( false ).OfType<DataContractAttribute>().Any() )
-                .ToList();
-
-            return new DataContractSerializer( root, settings );
         }
     }
 }

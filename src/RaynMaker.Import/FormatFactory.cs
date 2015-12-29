@@ -50,41 +50,33 @@ namespace RaynMaker.Import
             return format;
         }
 
-        public static T Clone<T>( T format )
+        public static T Clone<T>( T obj )
         {
-            Contract.RequiresNotNull( format, "format" );
+            Contract.RequiresNotNull( obj, "obj" );
 
-            var settings = new DataContractSerializerSettings();
-            settings.KnownTypes = typeof( IFormat ).Assembly.GetTypes()
-                .Where( t => !t.IsAbstract )
-                .Where( t => t.GetCustomAttributes( false ).OfType<DataContractAttribute>().Any() )
-                .ToList();
-            settings.DataContractResolver = new CloneDataContractResolver();
-
-            var serializer = new DataContractSerializer( format.GetType(), settings );
             using( var stream = new MemoryStream() )
             {
-                serializer.WriteObject( stream, format );
+                var serializer = new ImportSpecSerializer();
+                serializer.Write( stream, obj );
+
                 stream.Seek( 0, SeekOrigin.Begin );
-                return ( T )serializer.ReadObject( stream );
+                return serializer.Read<T>( stream );
             }
         }
 
-        private class CloneDataContractResolver : DataContractResolver
+        public static void Dump<T>( TextWriter writer, T obj )
         {
-            public override Type ResolveName( string typeName, string typeNamespace, Type declaredType, DataContractResolver knownTypeResolver )
-            {
-                if( typeNamespace == "https://github.com/bg0jr/RaynMaker/Import/Spec" && typeName == "ArrayOfNavigatorUrl" )
-                {
-                    return typeof( List<NavigationUrl> );
-                }
+            Contract.RequiresNotNull( obj, "obj" );
 
-                return knownTypeResolver.ResolveName( typeName, typeNamespace, declaredType, null );
-            }
-
-            public override bool TryResolveType( Type type, Type declaredType, DataContractResolver knownTypeResolver, out XmlDictionaryString typeName, out XmlDictionaryString typeNamespace )
+            var settings = new XmlWriterSettings
             {
-                return knownTypeResolver.TryResolveType( type, declaredType, null, out typeName, out typeNamespace );
+                Indent = true
+            };
+
+            using( var xmlWriter = XmlWriter.Create( writer, settings ) )
+            {
+                var serializer = new ImportSpecSerializer();
+                serializer.Write( xmlWriter, obj );
             }
         }
     }

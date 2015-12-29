@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using RaynMaker.Import.Documents;
 
-namespace RaynMaker.Import.Tests.Core
+namespace RaynMaker.Import.Tests.Documents
 {
     [TestFixture]
     public class PatternMatchingTests

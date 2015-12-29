@@ -3,7 +3,7 @@ using NUnit.Framework;
 using RaynMaker.Import;
 using RaynMaker.Import.Documents;
 
-namespace RaynMaker.Import.Tests
+namespace RaynMaker.Import.Tests.Documents
 {
     [TestFixture]
     public class ProxyPoolTest

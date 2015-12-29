@@ -29,17 +29,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\PatternMatchingTests.cs" />
+    <Compile Include="Documents\PatternMatchingTests.cs" />
     <Compile Include="FormatFactoryTests.cs" />
-    <Compile Include="Html\HtmlDocumentExtensionsTests.cs" />
-    <Compile Include="Html\HtmlElementExtensionsTests.cs" />
-    <Compile Include="Html\HtmlFormTests.cs" />
-    <Compile Include="Html\HtmlPathTests.cs" />
-    <Compile Include="Html\HtmlTableTests.cs" />
-    <Compile Include="Html\TestBase.cs" />
+    <Compile Include="ImportSpecSerializerTests.cs" />
+    <Compile Include="Parsers\Html\HtmlDocumentExtensionsTests.cs" />
+    <Compile Include="Parsers\Html\HtmlElementExtensionsTests.cs" />
+    <Compile Include="Parsers\Html\HtmlFormTests.cs" />
+    <Compile Include="Parsers\Html\HtmlPathTests.cs" />
+    <Compile Include="Parsers\Html\HtmlTableTests.cs" />
+    <Compile Include="Parsers\Html\TestBase.cs" />
     <Compile Include="Parsers\HtmlParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProxyPoolTest.cs" />
+    <Compile Include="Documents\ProxyPoolTest.cs" />
     <Compile Include="Spec\AbsolutePositionLocatorTests.cs" />
     <Compile Include="Spec\DataSourceTests.cs" />
     <Compile Include="Spec\CsvFormatTests.cs" />
@@ -67,6 +68,9 @@
     <None Include="TestData\ariva-prices.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="TestData\DataSources.xdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="TestData\eps.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

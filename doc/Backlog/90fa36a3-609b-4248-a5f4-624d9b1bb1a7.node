@@ -1,8 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7" Created="635771470975688770" LastModified="635869941925402097">
+<Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7" Created="635771470975688770" LastModified="635869949167956348">
   <Caption><![CDATA[Import module refactoring]]></Caption>
-  <Content><![CDATA[Import consists of the following aspects:
-- key entity is a "Document"
+  <Content><![CDATA[DataSource
+- describes a source of data in an abstract way (need to be parameterized by stock)
+- a source has a vendor, a name, a quality
+- navigation to find and access the source
+- formats which describe figures
+
+Navigation
+- describes location of a specific datasource 
+
+Format
+- "DataExtractionDescriptor"
+
+Document
+- concreate instance of a data source
+
+Uri
+- 
+
+
+
+
 - a Document contains data about a particular stock and datums which we want to extract
 - a Document may contain information about multiple Datums
 - the location of a Document is described with a DocumentLocation
@@ -24,9 +43,5 @@
   and everytime we need a new instance (for a new stock) we just let
   DataContractSerializer create a new instance
 
-Naming for  "format"
-
-datasource is fine
-navigation could be better
-but "format" is really bad]]></Content>
+]]></Content>
 </Node>

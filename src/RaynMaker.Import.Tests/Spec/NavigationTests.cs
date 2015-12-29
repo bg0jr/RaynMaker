@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using NUnit.Framework;
 using RaynMaker.Import.Spec;
 
@@ -13,6 +14,8 @@ namespace RaynMaker.Import.Tests.Spec
             var navi = new Navigation( DocumentType.Html,
                 new NavigationUrl( UriType.Request, "http://test1.org" ),
                 new NavigationUrl( UriType.Response, "http://test2.org" ) );
+
+            var output = DumpSpec( navi );
 
             var clone = FormatFactory.Clone( navi );
 
