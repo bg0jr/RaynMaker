@@ -18,6 +18,9 @@
         <Node Id="3e6b44b5-fea4-4a55-9901-2cc90851ee8d">
           <Caption><![CDATA[Cleanup Html parsing]]></Caption>
         </Node>
+        <Node Id="97bac886-5126-46cb-91cd-cb81ddcd72bf">
+          <Caption><![CDATA[ReadOnly collections where possible]]></Caption>
+        </Node>
       </Node>
       <Node Id="bbeba285-71ef-47ff-815e-71c6963e8d73">
         <Caption><![CDATA[Testing]]></Caption>

@@ -1,12 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7" Created="635771470975688770" LastModified="635869949167956348">
+<Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7" Created="635771470975688770" LastModified="635870137376760346">
   <Caption><![CDATA[Import module refactoring]]></Caption>
-  <Content><![CDATA[DataSource
-- describes a source of data in an abstract way (need to be parameterized by stock)
-- a source has a vendor, a name, a quality
-- navigation to find and access the source
-- formats which describe figures
-
+  <Content><![CDATA[
 Navigation
 - describes location of a specific datasource 
 
@@ -14,29 +9,16 @@ Format
 - "DataExtractionDescriptor"
 
 Document
-- concreate instance of a data source
+- concreate instance of a DataSource (usually for one concreate stock)
+- container
+- "Parser" used to extract figures"
 
-Uri
-- 
+DocumentLocation (Uri)
+- instance of a "Navigation"
+- produced by "Browser" by using "Navigation" and "stock"
 
-
-
-
-- a Document contains data about a particular stock and datums which we want to extract
-- a Document may contain information about multiple Datums
-- the location of a Document is described with a DocumentLocation
-- a DocumentLocation may be a template which needs to be instantiated for a given Stock
-- a DocumentLocation may consist of several navigation steps
-- a Document needs to be parsed in order to extract the requested information
-- a "Format" describes how a particular datum can be extracted from a document
-- a "Browser" can navigate to a given DocumentLocation
-
-
-- a Document is a "data container"
-- a Parser has logic to convert one data format (document) into another one (currently DataTable)
-
-- we should separate (with types) between a "Document Locator Template" (which also contains
-  the "response" and a "Document Location" (which is finally just an URI)
+Parser
+- parses document and extracts one figure specified by "format" in a more typed way (DataTable)
 
 
 - we could use the serialized form as template - remember it in RAM -
