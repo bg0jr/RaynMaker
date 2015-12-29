@@ -1,29 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7" Created="635771470975688770" LastModified="635870137376760346">
+<Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7" Created="635771470975688770" LastModified="635870174171796562">
   <Caption><![CDATA[Import module refactoring]]></Caption>
-  <Content><![CDATA[
-Navigation
-- describes location of a specific datasource 
-
-Format
-- "DataExtractionDescriptor"
-
-Document
-- concreate instance of a DataSource (usually for one concreate stock)
-- container
-- "Parser" used to extract figures"
-
-DocumentLocation (Uri)
-- instance of a "Navigation"
-- produced by "Browser" by using "Navigation" and "stock"
-
-Parser
-- parses document and extracts one figure specified by "format" in a more typed way (DataTable)
-
-
-- we could use the serialized form as template - remember it in RAM -
-  and everytime we need a new instance (for a new stock) we just let
-  DataContractSerializer create a new instance
-
-]]></Content>
+  <Content><![CDATA[]]></Content>
 </Node>

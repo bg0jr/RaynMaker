@@ -21,6 +21,12 @@
         <Node Id="97bac886-5126-46cb-91cd-cb81ddcd72bf">
           <Caption><![CDATA[ReadOnly collections where possible]]></Caption>
         </Node>
+        <Node Id="0f5864c5-a862-4580-a6ca-33f43b077fb6">
+          <Caption><![CDATA[Navigator]]></Caption>
+        </Node>
+        <Node Id="6a2c9026-0515-4f42-92e3-7fe6190a28b4">
+          <Caption><![CDATA[Rename "Datum" to "Figure"]]></Caption>
+        </Node>
       </Node>
       <Node Id="bbeba285-71ef-47ff-815e-71c6963e8d73">
         <Caption><![CDATA[Testing]]></Caption>
@@ -30,9 +36,6 @@
         <Node Id="b0b783b8-f54a-446f-9a1f-d5a3375ae21a">
           <Caption><![CDATA[Improve tests for Html parsing]]></Caption>
         </Node>
-      </Node>
-      <Node Id="6a2c9026-0515-4f42-92e3-7fe6190a28b4">
-        <Caption><![CDATA[Rename "Datum" to "Figure"]]></Caption>
       </Node>
       <Node Id="d0da3880-c6d3-477b-bee2-8553b930be55">
         <Caption><![CDATA[Rework WebSpy]]></Caption>

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="0f5864c5-a862-4580-a6ca-33f43b077fb6" Created="635870174040729065" LastModified="635870174307854344">
+  <Caption><![CDATA[Navigator]]></Caption>
+  <Content><![CDATA[
+- we could use the serialized form as template - remember it in RAM -
+  and everytime we need a new instance (for a new stock) we just let
+  DataContractSerializer create a new instance
+]]></Content>
+</Node>
