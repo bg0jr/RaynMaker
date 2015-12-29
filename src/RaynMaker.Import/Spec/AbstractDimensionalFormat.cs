@@ -13,8 +13,8 @@ namespace RaynMaker.Import.Spec
         private int[] mySkipRows = null;
         private int[] mySkipColumns = null;
 
-        protected AbstractDimensionalFormat( string name )
-            : base( name )
+        protected AbstractDimensionalFormat( string datum )
+            : base( datum )
         {
             SkipColumns = null;
             SkipRows = null;

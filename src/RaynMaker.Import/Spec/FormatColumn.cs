@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using System.Text;
 using System.Text.RegularExpressions;
 using Plainion;
 
@@ -34,14 +33,6 @@ namespace RaynMaker.Import.Spec
             Contract.RequiresNotNullNotEmpty( name, "name" );
 
             Name = name;
-        }
-
-        public FormatColumn( FormatColumn other )
-            : base( other )
-        {
-            Contract.RequiresNotNull( other, "other" );
-
-            Name = other.Name;
         }
 
         [DataMember]

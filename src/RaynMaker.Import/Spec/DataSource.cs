@@ -50,7 +50,7 @@ namespace RaynMaker.Import.Spec
 
         [Required, ValidateObject]
         [DataMember]
-        public IList<IFormat> FormatSpecs { get; set; }
+        public IList<IFormat> FormatSpecs { get; private set; }
 
         [OnDeserialized]
         private void OnDeserialized( StreamingContext context )

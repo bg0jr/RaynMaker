@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -48,8 +47,9 @@ namespace RaynMaker.Import.Spec
         [DataMember]
         public DocumentType DocumentType { get; set; }
 
+        // TODO: that needs to be imutable!! (see hashcode impl)
         [DataMember]
-        public List<NavigatorUrl> Uris { get; private set; }
+        public IList<NavigatorUrl> Uris { get; private set; }
 
         [DataMember]
         public int UrisHashCode { get; private set; }

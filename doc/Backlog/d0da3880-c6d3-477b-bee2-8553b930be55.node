@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="d0da3880-c6d3-477b-bee2-8553b930be55" Created="635869694964640531" LastModified="635869695478729935">
+  <Caption><![CDATA[Rework WebSpy]]></Caption>
+  <Content><![CDATA[- overview of available data sources is missing
+- overview of available formats is missing
+
+- lets have a tree on the left hand site
+- lets have validation for all formats with one click]]></Content>
+</Node>

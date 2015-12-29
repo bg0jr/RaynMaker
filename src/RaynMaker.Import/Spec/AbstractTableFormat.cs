@@ -9,8 +9,8 @@ namespace RaynMaker.Import.Spec
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "AbstractTableFormat" )]
     public abstract class AbstractTableFormat : AbstractDimensionalFormat
     {
-        protected AbstractTableFormat( string name, params FormatColumn[] cols )
-            : base( name )
+        protected AbstractTableFormat( string datum, params FormatColumn[] cols )
+            : base( datum )
         {
             if( cols == null )
             {

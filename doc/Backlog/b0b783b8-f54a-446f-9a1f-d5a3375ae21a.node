@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="b0b783b8-f54a-446f-9a1f-d5a3375ae21a" Created="635862182372669904" LastModified="635862182503907410">
+<Node Id="b0b783b8-f54a-446f-9a1f-d5a3375ae21a" Created="635862182372669904" LastModified="635869694947549553">
   <Caption><![CDATA[Improve tests for Html parsing]]></Caption>
-  <Content><![CDATA[]]></Content>
+  <Content><![CDATA[- write component tests which navigate to some place and fetch data
+- maybe we even simulate http server?
+- include refacotring of "fetch" logic - see ImportPreview]]></Content>
 </Node>

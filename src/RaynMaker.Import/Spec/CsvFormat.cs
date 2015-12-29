@@ -7,8 +7,8 @@ namespace RaynMaker.Import.Spec
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "CsvFormat" )]
     public class CsvFormat : AbstractTableFormat
     {
-        public CsvFormat( string name, string sep, params FormatColumn[] cols )
-            : base( name, cols )
+        public CsvFormat( string datum, string sep, params FormatColumn[] cols )
+            : base( datum, cols )
         {
             Separator = sep;
         }

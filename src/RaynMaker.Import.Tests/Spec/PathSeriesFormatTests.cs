@@ -10,7 +10,7 @@ using RaynMaker.Import.Spec;
 namespace RaynMaker.Import.Tests.Spec
 {
     [TestFixture]
-    public class PathSeriesFormatTest : TestBase
+    public class PathSeriesFormatTests : TestBase
     {
         private PathSeriesFormat myFormat = null;
         private string myPricesFile = null;

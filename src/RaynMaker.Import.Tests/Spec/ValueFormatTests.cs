@@ -6,7 +6,7 @@ using RaynMaker.Import.Spec;
 namespace RaynMaker.Import.Tests.Spec
 {
     [TestFixture]
-    public class ValueFormatTest : TestBase
+    public class ValueFormatTests : TestBase
     {
         [Test]
         [ExpectedException( typeof( ArgumentNullException ) )]

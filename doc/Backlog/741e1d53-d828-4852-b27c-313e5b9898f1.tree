@@ -27,6 +27,15 @@
         <Node Id="3e6b44b5-fea4-4a55-9901-2cc90851ee8d">
           <Caption><![CDATA[Cleanup Html parsing]]></Caption>
         </Node>
+        <Node Id="8029db40-5c61-4247-9674-2e92f20986d1">
+          <Caption><![CDATA[Tests for required parameters]]></Caption>
+        </Node>
+        <Node Id="c38d3ac0-c979-4d09-9a4c-5a8a774f91c0">
+          <Caption><![CDATA[find better naming ]]></Caption>
+        </Node>
+      </Node>
+      <Node Id="d0da3880-c6d3-477b-bee2-8553b930be55">
+        <Caption><![CDATA[Rework WebSpy]]></Caption>
       </Node>
       <Node Id="abb9f7c2-8cac-4750-a6d5-c1ea36d41609">
         <Caption><![CDATA[Add more verification in data collection]]></Caption>

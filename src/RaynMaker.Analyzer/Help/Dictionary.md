@@ -30,7 +30,7 @@
 
 ## Debt/Equity Ratio<a id="DebtEquityRatio"/>
 
-**Definition:** measure a company's financial leverage, indicating how much debt a company is using to finance its assets relative to the amount of value represented in shareholders’ equity.
+**Definition:** measure a company's financial leverage, indicating how much debt a company is using to finance its assets relative to the amount of value represented in shareholdersâ€™ equity.
 
 **Investiopia:** <http://www.investopedia.com/terms/d/debtequityratio.asp>
 

@@ -9,7 +9,7 @@ using RaynMaker.Import.Spec;
 namespace RaynMaker.Import.Tests.Spec
 {
     [TestFixture]
-    public class SeparatorSeriesFormatTest : TestBase
+    public class SeparatorSeriesFormatTests : TestBase
     {
         private SeparatorSeriesFormat myFormat = null;
         private string myEpsFile = null;

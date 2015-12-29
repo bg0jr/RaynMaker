@@ -41,15 +41,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProxyPoolTest.cs" />
     <Compile Include="Spec\AbsolutePositionLocatorTests.cs" />
+    <Compile Include="Spec\DataSourceTests.cs" />
+    <Compile Include="Spec\CsvFormatTests.cs" />
     <Compile Include="Spec\AnchorTests.cs" />
     <Compile Include="Spec\AbstractFormatTests.cs" />
     <Compile Include="Spec\AbstractDimensionalFormatTest.cs" />
     <Compile Include="Spec\AbstractTableFormatTests.cs" />
     <Compile Include="Spec\AbstractSeriesFormatTests.cs" />
-    <Compile Include="Spec\FormatColumnTest.cs" />
-    <Compile Include="Spec\PathSeriesFormatTest.cs" />
-    <Compile Include="Spec\SeparatorSeriesFormatTest.cs" />
-    <Compile Include="Spec\ValueFormatTest.cs" />
+    <Compile Include="Spec\NavigationTests.cs" />
+    <Compile Include="Spec\FormularTests.cs" />
+    <Compile Include="Spec\FormatColumnTests.cs" />
+    <Compile Include="Spec\PathSeriesFormatTests.cs" />
+    <Compile Include="Spec\SeparatorSeriesFormatTests.cs" />
+    <Compile Include="Spec\ValueFormatTests.cs" />
     <Compile Include="TestBase.cs" />
   </ItemGroup>
   <ItemGroup>
