@@ -14,7 +14,7 @@ namespace RaynMaker.Import.ScenarioTests
 {
     [TestFixture]
     [RequiresSTA]
-    public class FigureFromHtmlTests : TestBase
+    public class HtmlDocumentExtractionTests : TestBase
     {
         private IDocumentBrowser myBrowser = null;
 

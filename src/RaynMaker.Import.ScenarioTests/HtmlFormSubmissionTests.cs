@@ -8,7 +8,7 @@ namespace RaynMaker.Import.ScenarioTests
 {
     [TestFixture]
     [RequiresSTA]
-    public class HtmlFormTests : TestBase
+    public class HtmlFormSubmissionTests : TestBase
     {
         private IHtmlDocument myDocument = null;
 

@@ -8,7 +8,7 @@ namespace RaynMaker.Import.ScenarioTests
 {
     [TestFixture]
     [RequiresSTA]
-    public class HtmlParsingTests : TestBase
+    public class HtmlDocumentBasicReadingTests : TestBase
     {
         private IHtmlDocument myDocument = null;
 

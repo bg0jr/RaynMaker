@@ -8,7 +8,7 @@ using RaynMaker.Import.Spec.v2.Extraction;
 namespace RaynMaker.Import.ScenarioTests
 {
     [TestFixture]
-    public class SeparatorSeriesDescriptorTests : TestBase
+    public class CsvDocumentExtractionTests : TestBase
     {
         private SeparatorSeriesDescriptor myFormat = null;
         private string myEpsFile = null;

@@ -29,11 +29,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataSourceLoadingTests.cs" />
-    <Compile Include="HtmlFormTests.cs" />
-    <Compile Include="FigureFromHtmlTests.cs" />
-    <Compile Include="HtmlParsingTests.cs" />
+    <Compile Include="HtmlFormSubmissionTests.cs" />
+    <Compile Include="HtmlDocumentExtractionTests.cs" />
+    <Compile Include="HtmlDocumentBasicReadingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SeparatorSeriesDescriptorTests.cs" />
+    <Compile Include="CsvDocumentExtractionTests.cs" />
     <Compile Include="TestBase.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -43,27 +43,29 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestData\HtmlFormTests\ariva.historicalprices.DE0008404005.html">
+    <Content Include="TestData\HtmlFormSubmissionTests\ariva.historicalprices.DE0008404005.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\HtmlParsingTests\ariva.html">
+    <Content Include="TestData\HtmlDocumentBasicReadingTests\ariva.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\FigureFromHtmlTests\yahoo-bmw-all.html">
+    <Content Include="TestData\HtmlDocumentExtractionTests\yahoo-bmw-all.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\DataSourceLoadingTests\DataSources.xdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\SeparatorSeriesDescriptorTests\eps.csv">
+    <Content Include="TestData\CsvDocumentExtractionTests\eps.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestData\FigureFromHtmlTests\ariva.overview.US0138171014.html">
+    <Content Include="TestData\HtmlDocumentExtractionTests\ariva.overview.US0138171014.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
