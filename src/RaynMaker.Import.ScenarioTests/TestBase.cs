@@ -33,8 +33,7 @@ namespace RaynMaker.Import.ScenarioTests
 
         protected IHtmlDocument LoadDocument( string name )
         {
-            string file = Path.Combine( TestDataRoot, "Html" );
-            file = Path.Combine( file, name );
+            var file = Path.Combine( TestDataRoot, name );
 
             var navi = new DocumentLocator( new DocumentLocationFragment( UriType.Request, file ) );
             myBrowser.Value.Navigate( DocumentType.Html, navi );

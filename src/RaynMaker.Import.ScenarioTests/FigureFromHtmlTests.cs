@@ -14,7 +14,7 @@ namespace RaynMaker.Import.ScenarioTests
 {
     [TestFixture]
     [RequiresSTA]
-    public class HtmlParserTests : TestBase
+    public class FigureFromHtmlTests : TestBase
     {
         private IDocumentBrowser myBrowser = null;
 
@@ -40,7 +40,7 @@ namespace RaynMaker.Import.ScenarioTests
             descriptor.Path = @"/BODY[0]/DIV[4]/DIV[0]/DIV[3]/DIV[0]";
             descriptor.ValueFormat = new ValueFormat( typeof( int ), "00000000", new Regex( @"WKN: (\d+)" ) );
 
-            var parser = DocumentProcessorsFactory.CreateParser( ( HtmlDocumentHandle )myBrowser.Document, descriptor );
+            var parser = DocumentProcessorsFactory.CreateParser( myBrowser.Document, descriptor );
             var table = parser.ExtractTable();
 
             Assert.AreEqual( 1, table.Rows.Count );

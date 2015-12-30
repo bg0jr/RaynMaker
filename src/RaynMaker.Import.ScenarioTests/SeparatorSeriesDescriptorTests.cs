@@ -1,6 +1,8 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.IO;
 using NUnit.Framework;
+using RaynMaker.Import.Spec.v2;
 using RaynMaker.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Import.ScenarioTests
@@ -110,11 +112,13 @@ namespace RaynMaker.Import.ScenarioTests
             Assert.AreEqual( 3.5d, ( double )table.Rows[ 9 ][ "value" ], 0.000001d );
         }
 
-        private DataTable Parse( SeparatorSeriesDescriptor format, string file )
+        private DataTable Parse( SeparatorSeriesDescriptor descriptor, string file )
         {
-            //var rawTable = CsvReader.Read( file, format.Separator );
-            //return TableFormatter.ToFormattedTable( format, rawTable );
-            return null;
+            var browser = DocumentProcessorsFactory.CreateBrowser();
+            browser.Navigate( DocumentType.Text, new Uri( file ) );
+
+            var parser = DocumentProcessorsFactory.CreateParser( browser.Document, descriptor );
+            return parser.ExtractTable();
         }
     }
 }
