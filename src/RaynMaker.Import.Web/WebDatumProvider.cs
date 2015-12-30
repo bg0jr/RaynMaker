@@ -36,7 +36,7 @@ namespace RaynMaker.Import.Web
         public bool CanFetch( Type datum )
         {
             return myStorageService.Load()
-                .Any( source => source.FormatSpecs.Any( f => f.Datum == datum.Name ) );
+                .Any( source => source.ExtractionSpec.Any( f => f.Datum == datum.Name ) );
         }
 
         public void Fetch( DataProviderRequest request, ICollection<IDatum> resultContainer )

@@ -11,7 +11,7 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var anchor = Anchor.ForCell( new AbsolutePositionLocator( 4 ), new AbsolutePositionLocator( 8 ) );
+            var anchor = TableCellAnchor.ForCell( new AbsolutePositionLocator( 4 ), new AbsolutePositionLocator( 8 ) );
 
             var clone = FormatFactory.Clone( anchor );
 

@@ -9,7 +9,7 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
     public class AbstractFormatTests : TestBase
     {
         [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "DummyFormat" )]
-        private class DummyFormat : AbstractFormat
+        private class DummyFormat : AbstractFigureExtractionDescriptor
         {
             public DummyFormat()
                 : base( "dummy" )

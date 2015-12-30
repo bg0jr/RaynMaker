@@ -18,8 +18,8 @@ namespace RaynMaker.Import.Tests
                 var dataSource = serializer.Read<DataSource>( stream );
 
                 Assert.That( dataSource.Vendor, Is.EqualTo( "Ariva" ) );
-                Assert.That( dataSource.LocationSpec.DocumentType, Is.EqualTo( DocumentType.Html ) );
-                Assert.That( dataSource.FormatSpecs[ 0 ].Datum, Is.EqualTo( "Dividend" ) );
+                Assert.That( dataSource.LocatingSpec.DocumentType, Is.EqualTo( DocumentType.Html ) );
+                Assert.That( dataSource.ExtractionSpec[ 0 ].Datum, Is.EqualTo( "Dividend" ) );
             }
         }
     }

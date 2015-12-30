@@ -11,7 +11,7 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var format = new PathCellFormat( "dummy");
+            var format = new PathCellExtractionDescriptor( "dummy");
             format.Currency = "Euro";
 
             var clone = FormatFactory.Clone( format );

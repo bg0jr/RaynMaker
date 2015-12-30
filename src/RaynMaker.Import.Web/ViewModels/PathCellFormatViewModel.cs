@@ -24,7 +24,7 @@ namespace RaynMaker.Import.Web.ViewModels
         private bool myIsColumnValid;
         private Currency mySelectedCurreny;
 
-        public PathCellFormatViewModel( ILutService lutService, PathCellFormat format )
+        public PathCellFormatViewModel( ILutService lutService, PathCellExtractionDescriptor format )
             : base( format )
         {
             myLutService = lutService;
@@ -67,7 +67,7 @@ namespace RaynMaker.Import.Web.ViewModels
             InMillions = Format.InMillions;
         }
 
-        public new PathCellFormat Format { get; private set; }
+        public new PathCellExtractionDescriptor Format { get; private set; }
 
         protected override void OnSelectionChanged()
         {
@@ -143,7 +143,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 return;
             }
 
-            Format.Anchor = Anchor.ForCell( new StringContainsLocator( RowPosition, RowPattern ), new StringContainsLocator( ColumnPosition, ColumnPattern ) );
+            Format.Anchor = TableCellAnchor.ForCell( new StringContainsLocator( RowPosition, RowPattern ), new StringContainsLocator( ColumnPosition, ColumnPattern ) );
 
             if( MarkupDocument.SelectedElement != null )
             {

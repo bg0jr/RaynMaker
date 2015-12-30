@@ -13,9 +13,9 @@ namespace RaynMaker.Import.Spec.v2.Extraction
     /// </summary>
     // TODO: actually we no longer need "expand" if we have an anchor
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "AbstractSeriesFormat" )]
-    public abstract class AbstractSeriesFormat : AbstractDimensionalFormat
+    public abstract class AbstractSeriesExtractionDescriptor : AbstractDimensionalExtractionDescriptor
     {
-        protected AbstractSeriesFormat( string name )
+        protected AbstractSeriesExtractionDescriptor( string name )
             : base( name )
         {
             SeriesNamePosition = -1;
@@ -58,6 +58,6 @@ namespace RaynMaker.Import.Spec.v2.Extraction
         /// Defines how to find the position of the series in the table.
         /// </summary>
         [DataMember]
-        public Anchor Anchor { get; set; }
+        public TableCellAnchor Anchor { get; set; }
     }
 }

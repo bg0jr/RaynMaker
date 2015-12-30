@@ -17,10 +17,10 @@ namespace RaynMaker.Import.Spec
             dataSource.Vendor = "vendor";
             dataSource.Name = "name";
             dataSource.Quality = 17;
-            dataSource.LocationSpec = new DocumentLocator( DocumentType.Html,
+            dataSource.LocatingSpec = new DocumentLocator( DocumentType.Html,
                 new LocatingFragment( UriType.Request, "http://test1.org" ),
                 new LocatingFragment( UriType.Response, "http://test2.org" ) );
-            dataSource.FormatSpecs.Add( new CsvFormat( "dummy.csv", ";" ) );
+            dataSource.ExtractionSpec.Add( new CsvExtractionDescriptor( "dummy.csv", ";" ) );
 
             var clone = FormatFactory.Clone( dataSource );
 
@@ -28,10 +28,10 @@ namespace RaynMaker.Import.Spec
             Assert.That( clone.Name, Is.EqualTo( "name" ) );
             Assert.That( clone.Quality, Is.EqualTo( 17 ) );
 
-            Assert.That( clone.LocationSpec.DocumentType, Is.EqualTo( DocumentType.Html ) );
-            Assert.That( clone.LocationSpec.Uris[ 0 ].UrlString, Is.EqualTo( "http://test1.org" ) );
+            Assert.That( clone.LocatingSpec.DocumentType, Is.EqualTo( DocumentType.Html ) );
+            Assert.That( clone.LocatingSpec.Uris[ 0 ].UrlString, Is.EqualTo( "http://test1.org" ) );
 
-            Assert.That( clone.FormatSpecs[ 0 ].Datum, Is.EqualTo( "dummy.csv" ) );
+            Assert.That( clone.ExtractionSpec[ 0 ].Datum, Is.EqualTo( "dummy.csv" ) );
         }
 
         [Test]
@@ -40,15 +40,15 @@ namespace RaynMaker.Import.Spec
             var dataSource = new DataSource();
             dataSource.Vendor = "vendor";
             dataSource.Name = "name";
-            dataSource.LocationSpec = new DocumentLocator( DocumentType.Html );
-            dataSource.FormatSpecs.Add( new CsvFormat( "dummy.csv", ";" ) );
+            dataSource.LocatingSpec = new DocumentLocator( DocumentType.Html );
+            dataSource.ExtractionSpec.Add( new CsvExtractionDescriptor( "dummy.csv", ";" ) );
 
             var clone = FormatFactory.Clone( dataSource );
 
-            clone.FormatSpecs.Add( new PathSeriesFormat( "dummy.series" ) );
+            clone.ExtractionSpec.Add( new PathSeriesExtractionDescriptor( "dummy.series" ) );
 
-            Assert.That( clone.FormatSpecs[ 0 ].Datum, Is.EqualTo( "dummy.csv" ) );
-            Assert.That( clone.FormatSpecs[ 1 ].Datum, Is.EqualTo( "dummy.series" ) );
+            Assert.That( clone.ExtractionSpec[ 0 ].Datum, Is.EqualTo( "dummy.csv" ) );
+            Assert.That( clone.ExtractionSpec[ 1 ].Datum, Is.EqualTo( "dummy.series" ) );
         }
     }
 }

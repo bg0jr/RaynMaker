@@ -169,29 +169,29 @@ namespace RaynMaker.Import.Web.ViewModels
 
             var provider = new BasicDatumProvider( myDocumentBrowser );
 
-            var formats = mySelectedSource.FormatSpecs
+            var formats = mySelectedSource.ExtractionSpec
                 // TODO: only works as long as PathCellFormat is derived from PathSeriesFormat
-                .Cast<PathSeriesFormat>()
+                .Cast<PathSeriesExtractionDescriptor>()
                 .Where( f => f.Datum == myDatumType.Name );
 
             foreach( var format in formats )
             {
                 try
                 {
-                    provider.Navigate( mySelectedSource.LocationSpec, Stock );
+                    provider.Navigate( mySelectedSource.LocatingSpec, Stock );
                 }
                 catch( Exception ex )
                 {
                     ex.Data[ "Datum" ] = myDatumType.Name;
                     ex.Data[ "SiteName" ] = mySelectedSource.Name;
-                    ex.Data[ "OriginalLocationSpec" ] = mySelectedSource.LocationSpec.ToString();
+                    ex.Data[ "OriginalLocationSpec" ] = mySelectedSource.LocatingSpec.ToString();
                     //ex.Data[ "ModifiedLocationSpec" ] = modifiedNavigation;
 
                     myLogger.Error( ex, "Failed to fetch '{0}' from site {1}", myDatumType.Name, mySelectedSource.Name );
                 }
 
                 // try take over currency
-                var pathCellFormat = format as PathCellFormat;
+                var pathCellFormat = format as PathCellExtractionDescriptor;
                 if( pathCellFormat != null )
                 {
                     Currency = CurrenciesLut.Currencies.SingleOrDefault( c => c.Symbol == pathCellFormat.Currency );
@@ -241,7 +241,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 {
                     ex.Data[ "Datum" ] = myDatumType.Name;
                     ex.Data[ "SiteName" ] = mySelectedSource.Name;
-                    ex.Data[ "OriginalLocationSpec" ] = mySelectedSource.LocationSpec.ToString();
+                    ex.Data[ "OriginalLocationSpec" ] = mySelectedSource.LocatingSpec.ToString();
                     ex.Data[ "OriginalFormat" ] = format.Datum;
 
                     myLogger.Error( ex, "Failed to fetch '{0}' from site {1}", myDatumType.Name, mySelectedSource.Name );
@@ -254,7 +254,7 @@ namespace RaynMaker.Import.Web.ViewModels
             myDatumType = datum;
 
             var sources = myStorageService.Load()
-                .Where( source => source.FormatSpecs.Any( f => f.Datum == myDatumType.Name ) );
+                .Where( source => source.ExtractionSpec.Any( f => f.Datum == myDatumType.Name ) );
 
             Sources.AddRange( sources.OrderBy( s => s.Quality ) );
             SelectedSource = Sources.FirstOrDefault();

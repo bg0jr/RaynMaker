@@ -20,8 +20,8 @@ namespace RaynMaker.Import.Parsers.Html
 
         public DataTable ExtractTable()
         {
-            PathSeriesFormat pathSeriesFormat = myFormat as PathSeriesFormat;
-            PathTableFormat pathTableFormat = myFormat as PathTableFormat;
+            PathSeriesExtractionDescriptor pathSeriesFormat = myFormat as PathSeriesExtractionDescriptor;
+            PathTableExtractionDescriptor pathTableFormat = myFormat as PathTableExtractionDescriptor;
 
             if( pathSeriesFormat != null )
             {
@@ -47,9 +47,9 @@ namespace RaynMaker.Import.Parsers.Html
 
                 return TableFormatter.ToFormattedTable( pathTableFormat, result.Value );
             }
-            else if( myFormat is PathSingleValueFormat )
+            else if( myFormat is PathSingleValueExtractionDescriptor )
             {
-                var f = ( PathSingleValueFormat )myFormat;
+                var f = ( PathSingleValueExtractionDescriptor )myFormat;
                 var str = myDocument.Content.GetTextByPath( HtmlPath.Parse( f.Path ) );
                 var value = f.ValueFormat.Convert( str );
 

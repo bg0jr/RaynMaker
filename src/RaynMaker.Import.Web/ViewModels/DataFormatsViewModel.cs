@@ -59,7 +59,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             if( Session.CurrentSource != null )
             {
-                foreach( var format in Session.CurrentSource.FormatSpecs )
+                foreach( var format in Session.CurrentSource.ExtractionSpec )
                 {
                     Formats.Add( myFormatViewModelFactory.Create( format ) );
                 }
@@ -154,7 +154,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 {
                     var format = FormatFactory.Create( n.FormatType );
 
-                    Session.CurrentSource.FormatSpecs.Add( format );
+                    Session.CurrentSource.ExtractionSpec.Add( format );
 
                     Formats.Add( myFormatViewModelFactory.Create( format ) );
 
@@ -178,7 +178,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             SelectedFormatIndex = Formats.Count - 2;
 
-            Session.CurrentSource.FormatSpecs.Remove( formatVM.Format );
+            Session.CurrentSource.ExtractionSpec.Remove( formatVM.Format );
             Formats.Remove( formatVM );
         }
 
@@ -196,7 +196,7 @@ namespace RaynMaker.Import.Web.ViewModels
             // reset the Datum to enforce user interaction after clone (Datum is mandatory) 
             format.Datum = null;
 
-            Session.CurrentSource.FormatSpecs.Add( format );
+            Session.CurrentSource.ExtractionSpec.Add( format );
 
             Formats.Add( myFormatViewModelFactory.Create( format ) );
 

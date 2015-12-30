@@ -5,9 +5,9 @@ using System.Runtime.Serialization;
 namespace RaynMaker.Import.Spec.v2.Extraction
 {
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "AbstractFormat" )]
-    public abstract class AbstractFormat : IFigureExtractionDescriptor
+    public abstract class AbstractFigureExtractionDescriptor : IFigureExtractionDescriptor
     {
-        protected AbstractFormat( string datum )
+        protected AbstractFigureExtractionDescriptor( string datum )
         {
             Datum = datum;
         }

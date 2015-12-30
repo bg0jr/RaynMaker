@@ -7,9 +7,9 @@ namespace RaynMaker.Import.Spec.v2.Extraction
     /// Base class of all formats that describe the whole table instead of a series.
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "AbstractTableFormat" )]
-    public abstract class AbstractTableFormat : AbstractDimensionalFormat
+    public abstract class AbstractTableExtractionDescriptor : AbstractDimensionalExtractionDescriptor
     {
-        protected AbstractTableFormat( string datum, params FormatColumn[] cols )
+        protected AbstractTableExtractionDescriptor( string datum, params FormatColumn[] cols )
             : base( datum )
         {
             if( cols == null )

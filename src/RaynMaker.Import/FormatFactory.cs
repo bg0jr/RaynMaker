@@ -14,12 +14,12 @@ namespace RaynMaker.Import
     {
         public static IFigureExtractionDescriptor Create( Type type )
         {
-            if( type == typeof( PathSeriesFormat ) )
+            if( type == typeof( PathSeriesExtractionDescriptor ) )
             {
                 return CreatePathSeriesFormat();
             }
 
-            if( type == typeof( PathCellFormat ) )
+            if( type == typeof( PathCellExtractionDescriptor ) )
             {
                 return CreatePathCellFormat();
             }
@@ -29,7 +29,7 @@ namespace RaynMaker.Import
 
         private static IFigureExtractionDescriptor CreatePathSeriesFormat()
         {
-            var format = new PathSeriesFormat( string.Empty );
+            var format = new PathSeriesExtractionDescriptor( string.Empty );
 
             format.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000.0000" );
             format.TimeAxisFormat = new FormatColumn( "time", typeof( int ), "0000" );
@@ -39,7 +39,7 @@ namespace RaynMaker.Import
 
         private static IFigureExtractionDescriptor CreatePathCellFormat()
         {
-            var format = new PathCellFormat( string.Empty );
+            var format = new PathCellExtractionDescriptor( string.Empty );
             format.Expand = CellDimension.None;
 
             format.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000.0000" );

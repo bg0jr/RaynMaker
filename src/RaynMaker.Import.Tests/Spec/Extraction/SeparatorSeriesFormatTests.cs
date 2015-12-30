@@ -12,15 +12,15 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
     [TestFixture]
     public class SeparatorSeriesFormatTests : TestBase
     {
-        private SeparatorSeriesFormat myFormat = null;
+        private SeparatorSeriesExtractionDescriptor myFormat = null;
         private string myEpsFile = null;
 
         [SetUp]
         public void SetUp()
         {
-            myFormat = new SeparatorSeriesFormat( "test" );
+            myFormat = new SeparatorSeriesExtractionDescriptor( "test" );
             myFormat.Separator = ";";
-            myFormat.Anchor = Anchor.ForRow( new StringContainsLocator( 1, "DE0005151005" ) );
+            myFormat.Anchor = TableCellAnchor.ForRow( new StringContainsLocator( 1, "DE0005151005" ) );
             myFormat.Expand = CellDimension.Row;
             myFormat.TimeAxisPosition = 0;
             myFormat.SeriesNamePosition = 1;
@@ -117,7 +117,7 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var format = new SeparatorSeriesFormat( "dummy" );
+            var format = new SeparatorSeriesExtractionDescriptor( "dummy" );
             format.Separator = "#";
 
             var clone = FormatFactory.Clone( format );
@@ -125,7 +125,7 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
             Assert.That( clone.Separator, Is.EqualTo( "#" ) );
         }
 
-        private DataTable Parse( SeparatorSeriesFormat format, string file )
+        private DataTable Parse( SeparatorSeriesExtractionDescriptor format, string file )
         {
             var rawTable = CsvReader.Read( file, format.Separator );
             return TableFormatter.ToFormattedTable( format, rawTable );

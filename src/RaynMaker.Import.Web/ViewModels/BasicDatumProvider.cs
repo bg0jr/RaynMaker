@@ -78,7 +78,7 @@ namespace RaynMaker.Import.Web.ViewModels
             throw new NotSupportedException( "Unknown macro: " + macroId );
         }
 
-        public void Mark( PathSeriesFormat format )
+        public void Mark( PathSeriesExtractionDescriptor format )
         {
             Contract.RequiresNotNull( format, "format" );
             Contract.Invariant( Document != null, "Document not yet loaded" );

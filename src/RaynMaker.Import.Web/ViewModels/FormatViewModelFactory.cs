@@ -21,14 +21,14 @@ namespace RaynMaker.Import.Web.ViewModels
             Contract.RequiresNotNull( format, "format" );
 
             // needs to be before PathSeriesFormat for the moment because it is derived class of it
-            if( format is PathCellFormat )
+            if( format is PathCellExtractionDescriptor )
             {
-                return new PathCellFormatViewModel( myLutService, format as PathCellFormat );
+                return new PathCellFormatViewModel( myLutService, format as PathCellExtractionDescriptor );
             }
 
-            if( format is PathSeriesFormat )
+            if( format is PathSeriesExtractionDescriptor )
             {
-                return new PathSeriesFormatViewModel( format as PathSeriesFormat );
+                return new PathSeriesFormatViewModel( format as PathSeriesExtractionDescriptor );
             }
 
             throw new NotSupportedException( "Unknown format: " + format.GetType().Name );

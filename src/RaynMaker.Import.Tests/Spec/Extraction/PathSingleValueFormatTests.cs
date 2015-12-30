@@ -11,7 +11,7 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var format = new PathSingleValueFormat( "dummy" );
+            var format = new PathSingleValueExtractionDescriptor( "dummy" );
             format.Path = "111";
             format.ValueFormat = new ValueFormat( typeof( int ), "0.xx" );
 

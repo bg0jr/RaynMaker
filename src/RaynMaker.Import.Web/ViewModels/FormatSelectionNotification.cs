@@ -9,7 +9,7 @@ namespace RaynMaker.Import.Web.ViewModels
     {
         public FormatSelectionNotification()
         {
-            FormatType = typeof( PathSeriesFormat );
+            FormatType = typeof( PathSeriesExtractionDescriptor );
         }
 
         public Type FormatType { get; set; }

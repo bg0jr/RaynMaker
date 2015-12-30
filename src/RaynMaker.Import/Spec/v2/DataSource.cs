@@ -17,7 +17,7 @@ namespace RaynMaker.Import.Spec.v2
 
         public DataSource()
         {
-            FormatSpecs = new List<IFigureExtractionDescriptor>();
+            ExtractionSpec = new List<IFigureExtractionDescriptor>();
         }
 
         // e.g. Ariva
@@ -48,17 +48,17 @@ namespace RaynMaker.Import.Spec.v2
 
         [Required]
         [DataMember]
-        public DocumentLocator LocationSpec { get; set; }
+        public DocumentLocator LocatingSpec { get; set; }
 
         [Required, ValidateObject]
         [DataMember]
-        public IList<IFigureExtractionDescriptor> FormatSpecs { get; private set; }
+        public IList<IFigureExtractionDescriptor> ExtractionSpec { get; private set; }
 
         [OnDeserialized]
         private void OnDeserialized( StreamingContext context )
         {
             // make writeable again
-            FormatSpecs = FormatSpecs.ToList();
+            ExtractionSpec = ExtractionSpec.ToList();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var format = new CsvFormat( "dummy", ";", 
+            var format = new CsvExtractionDescriptor( "dummy", ";", 
                 new FormatColumn( "c1", typeof( double ), "0.00" ),
                 new FormatColumn( "c2", typeof( string ), "" ) );
 

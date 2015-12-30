@@ -10,7 +10,7 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
     public class AbstractSeriesFormatTests : TestBase
     {
         [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "DummyFormat" )]
-        private class DummyFormat : AbstractSeriesFormat
+        private class DummyFormat : AbstractSeriesExtractionDescriptor
         {
             public DummyFormat()
                 : base( "dummy" )
@@ -27,7 +27,7 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
             format.TimeAxisPosition = 23;
             format.ValueFormat = new FormatColumn( "value", typeof( double ), "0.00" );
             format.TimeAxisFormat = new FormatColumn( "time", typeof( DateTime ), "G" );
-            format.Anchor = Anchor.ForCell( new AbsolutePositionLocator( 4 ), new AbsolutePositionLocator( 8 ) );
+            format.Anchor = TableCellAnchor.ForCell( new AbsolutePositionLocator( 4 ), new AbsolutePositionLocator( 8 ) );
 
             var clone = FormatFactory.Clone( format );
 

@@ -11,7 +11,7 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var format = new PathTableFormat( "dummy", "111" );
+            var format = new PathTableExtractionDescriptor( "dummy", "111" );
 
             var clone = FormatFactory.Clone( format );
 
