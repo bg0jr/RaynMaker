@@ -7,6 +7,9 @@
     </Node>
     <Node Id="b6cbd93c-bdbd-49b4-bbb8-33de0a595e04">
       <Caption><![CDATA[1.7 - Polish Import module]]></Caption>
+      <Node Id="c25bd228-54d3-4799-b93b-9debb4279799">
+        <Caption><![CDATA[ScenarioTests]]></Caption>
+      </Node>
       <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">
         <Caption><![CDATA[Spec]]></Caption>
         <Node Id="c39feaa1-daa3-4048-95ef-4a44b1008900">
@@ -44,6 +47,9 @@
         </Node>
         <Node Id="b0b783b8-f54a-446f-9a1f-d5a3375ae21a">
           <Caption><![CDATA[Improve tests for Html parsing]]></Caption>
+        </Node>
+        <Node Id="1d0bde2c-9285-4444-ba92-23f2a207c791">
+          <Caption><![CDATA[From ScenarioTests back to UnitTests?]]></Caption>
         </Node>
       </Node>
       <Node Id="d0da3880-c6d3-477b-bee2-8553b930be55">

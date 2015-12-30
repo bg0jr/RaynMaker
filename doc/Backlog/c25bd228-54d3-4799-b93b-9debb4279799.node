@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="c25bd228-54d3-4799-b93b-9debb4279799" Created="635870853040281295" LastModified="635870854014477016">
+  <Caption><![CDATA[ScenarioTests]]></Caption>
+  <Content><![CDATA[- think about grouping of tests
+- cleanup existing scenario tests
+- write more tests for parsing]]></Content>
+</Node>

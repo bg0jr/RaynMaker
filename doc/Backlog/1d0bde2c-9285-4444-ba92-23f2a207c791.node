@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="1d0bde2c-9285-4444-ba92-23f2a207c791" Created="635870853437544017" LastModified="635870853842247165">
+  <Caption><![CDATA[From ScenarioTests back to UnitTests?]]></Caption>
+  <Content><![CDATA[most html tests are moved to ScenarioTests 
+
+does it make sense to move some back to UT with mocked 
+Html document?]]></Content>
+</Node>
