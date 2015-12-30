@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Parsers.Html.WinForms;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Import.Web.ViewModels
 {

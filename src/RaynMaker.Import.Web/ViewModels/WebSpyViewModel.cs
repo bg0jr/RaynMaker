@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2.Locating;
 using RaynMaker.Import.Web.Model;
 using RaynMaker.Import.Web.Services;
 using RaynMaker.Import.WinForms;

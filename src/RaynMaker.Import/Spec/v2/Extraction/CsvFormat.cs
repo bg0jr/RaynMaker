@@ -1,0 +1,19 @@
+﻿using System;
+using System.Linq;
+using System.Runtime.Serialization;
+
+namespace RaynMaker.Import.Spec.v2.Extraction
+{
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "CsvFormat" )]
+    public class CsvFormat : AbstractTableFormat
+    {
+        public CsvFormat( string datum, string sep, params FormatColumn[] cols )
+            : base( datum, cols )
+        {
+            Separator = sep;
+        }
+
+        [DataMember]
+        public string Separator { get; private set; }
+    }
+}

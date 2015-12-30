@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2.Locating;
 
 namespace RaynMaker.Import.Parsers.Html
 {

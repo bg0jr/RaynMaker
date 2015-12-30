@@ -1,6 +1,7 @@
 ﻿using System;
 using Plainion.Logging;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2.Locating;
 
 namespace RaynMaker.Import.Documents
 {

@@ -1,5 +1,8 @@
 ﻿using System.Runtime.Serialization;
 using NUnit.Framework;
+using RaynMaker.Import.Spec.v2;
+using RaynMaker.Import.Spec.v2.Extraction;
+using RaynMaker.Import.Spec.v2.Locating;
 using RaynMaker.Import.Tests;
 
 namespace RaynMaker.Import.Spec

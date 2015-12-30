@@ -6,6 +6,7 @@ using Plainion;
 using RaynMaker.Entities;
 using System.Collections.Generic;
 using RaynMaker.Infrastructure.Services;
+using RaynMaker.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Import.Web.ViewModels
 {

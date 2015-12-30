@@ -8,7 +8,7 @@
              xmlns:vm="clr-namespace:RaynMaker.Import.Web.ViewModels"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:rym="https://github.com/bg0jr/RaynMaker"
-             xmlns:spec="clr-namespace:RaynMaker.Import.Spec;assembly=RaynMaker.Import"
+             xmlns:spec="https://github.com/bg0jr/RaynMaker/Import/Spec"
              xmlns:prism="http://www.codeplex.com/prism"
              mc:Ignorable="d" 
              d:DesignWidth="700">

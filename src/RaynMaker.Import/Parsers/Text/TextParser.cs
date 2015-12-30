@@ -2,6 +2,7 @@
 using System.Data;
 using RaynMaker.Import.Documents;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Import.Parsers.Text
 {

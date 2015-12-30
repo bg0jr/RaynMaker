@@ -8,7 +8,7 @@
              xmlns:pn="http://github.com/ronin4net/plainion"
              xmlns:l="clr-namespace:RaynMaker.Import.Web"
              xmlns:v="clr-namespace:RaynMaker.Import.Web.Views"
-             xmlns:spec="clr-namespace:RaynMaker.Import.Spec;assembly=RaynMaker.Import"
+             xmlns:spec="https://github.com/bg0jr/RaynMaker/Import/Spec"
              mc:Ignorable="d" 
              d:DesignWidth="500">
     <i:Interaction.Triggers>

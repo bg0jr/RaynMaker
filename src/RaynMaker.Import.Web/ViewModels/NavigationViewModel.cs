@@ -11,6 +11,7 @@ using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
 using Plainion.Collections;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2.Locating;
 using RaynMaker.Import.Web.Model;
 
 namespace RaynMaker.Import.Web.ViewModels

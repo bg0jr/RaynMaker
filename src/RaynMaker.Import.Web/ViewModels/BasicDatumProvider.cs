@@ -8,6 +8,8 @@ using RaynMaker.Import.Documents;
 using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Parsers.Html.WinForms;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2.Extraction;
+using RaynMaker.Import.Spec.v2.Locating;
 
 namespace RaynMaker.Import.Web.ViewModels
 {

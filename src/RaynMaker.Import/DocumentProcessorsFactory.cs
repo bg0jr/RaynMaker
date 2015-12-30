@@ -3,6 +3,7 @@ using RaynMaker.Import.Documents;
 using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Parsers.Text;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2.Extraction;
 using RaynMaker.Import.WinForms;
 
 namespace RaynMaker.Import

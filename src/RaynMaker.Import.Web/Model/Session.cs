@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2;
+using RaynMaker.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Import.Web.Model
 {

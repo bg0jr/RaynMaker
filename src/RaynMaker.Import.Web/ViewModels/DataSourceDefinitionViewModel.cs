@@ -2,6 +2,8 @@
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2;
+using RaynMaker.Import.Spec.v2.Locating;
 using RaynMaker.Import.Web.Model;
 
 namespace RaynMaker.Import.Web.ViewModels

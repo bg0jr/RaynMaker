@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Import.Parsers
 {

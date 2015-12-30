@@ -7,6 +7,8 @@ using System.Runtime.Serialization;
 using System.Xml;
 using Plainion.Validation;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2;
+using RaynMaker.Import.Spec.v2.Locating;
 
 namespace RaynMaker.Import
 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using Plainion;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2.Extraction;
 using RaynMaker.Infrastructure.Services;
 
 namespace RaynMaker.Import.Web.ViewModels

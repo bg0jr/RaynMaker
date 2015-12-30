@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:spec="clr-namespace:RaynMaker.Import.Spec;assembly=RaynMaker.Import"
+             xmlns:spec="https://github.com/bg0jr/RaynMaker/Import/Spec"
              xmlns:v="clr-namespace:RaynMaker.Import.Web.Views"
              mc:Ignorable="d" 
              d:DesignWidth="600">

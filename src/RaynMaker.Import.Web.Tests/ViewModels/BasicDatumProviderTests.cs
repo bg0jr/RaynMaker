@@ -7,6 +7,7 @@ using RaynMaker.Import.Web.ViewModels;
 using RaynMaker.Import.Documents;
 using RaynMaker.Import.Parsers.Html;
 using System;
+using RaynMaker.Import.Spec.v2.Locating;
 
 namespace RaynMaker.Import.Web.Tests.ViewModels
 {

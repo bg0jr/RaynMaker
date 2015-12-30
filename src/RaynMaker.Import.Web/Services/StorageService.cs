@@ -3,6 +3,7 @@ using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2;
 using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Import.Web.Services

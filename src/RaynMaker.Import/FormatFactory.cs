@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 using System.Xml;
 using Plainion;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Import
 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using RaynMaker.Import.Documents;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2.Locating;
 using RaynMaker.Import.WinForms;
 
 namespace RaynMaker.Import.Documents

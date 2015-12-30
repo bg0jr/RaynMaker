@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Plainion.Validation;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2;
 
 namespace RaynMaker.Import.Web.Services
 {

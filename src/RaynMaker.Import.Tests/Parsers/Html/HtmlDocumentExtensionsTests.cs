@@ -5,6 +5,7 @@ using NUnit.Framework;
 using RaynMaker.Import.Parsers;
 using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Import.Tests.Html
 {

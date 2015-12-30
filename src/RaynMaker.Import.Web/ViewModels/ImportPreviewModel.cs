@@ -11,6 +11,8 @@ using Plainion.Collections;
 using Plainion.Logging;
 using RaynMaker.Entities;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2;
+using RaynMaker.Import.Spec.v2.Extraction;
 using RaynMaker.Import.Web.Services;
 using RaynMaker.Import.WinForms;
 using RaynMaker.Infrastructure.Services;
