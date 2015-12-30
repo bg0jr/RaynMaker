@@ -5,6 +5,7 @@ using RaynMaker.Import.Documents;
 using RaynMaker.Import.Parsers;
 using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2;
 using RaynMaker.Import.Spec.v2.Extraction;
 using RaynMaker.Import.Spec.v2.Locating;
 
@@ -32,7 +33,7 @@ namespace RaynMaker.Import.Tests.Parsers
         public void WpknFromAriva()
         {
             var inputFile = Path.Combine( TestDataRoot, "Core", "ariva.overview.US0138171014.html" );
-            myBrowser.Navigate( new DocumentLocator( DocumentType.Html, inputFile ) );
+            myBrowser.Navigate( DocumentType.Html, new DocumentLocator( inputFile ) );
 
             var format = new PathSingleValueDescriptor( "Ariva.Wpkn" );
             format.Path = @"/BODY[0]/DIV[4]/DIV[0]/DIV[3]/DIV[0]";

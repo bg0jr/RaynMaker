@@ -3,6 +3,7 @@ using NUnit.Framework;
 using RaynMaker.Import.Documents;
 using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2;
 using RaynMaker.Import.Spec.v2.Locating;
 
 namespace RaynMaker.Import.Tests.Html
@@ -28,8 +29,8 @@ namespace RaynMaker.Import.Tests.Html
             string file = Path.Combine( TestDataRoot,  "Html" );
             file = Path.Combine( file, name );
 
-            var navi = new DocumentLocator( DocumentType.Html, new LocatingFragment( UriType.Request, file ) );
-            myBrowser.Navigate( navi );
+            var navi = new DocumentLocator(  new LocatingFragment( UriType.Request, file ) );
+            myBrowser.Navigate( DocumentType.Html, navi );
             var doc = ( HtmlDocumentHandle )myBrowser.Document;
 
             return doc.Content;

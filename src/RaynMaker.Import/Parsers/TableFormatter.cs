@@ -170,7 +170,7 @@ namespace RaynMaker.Import.Parsers
             return settings;
         }
 
-        private static DataTable ExtractSeries( AbstractSeriesDescriptor format, DataTable rawTable, TableCellAnchor anchor_in )
+        private static DataTable ExtractSeries( AbstractSeriesDescriptor format, DataTable rawTable, TableFragmentAnchor anchor_in )
         {
             if( anchor_in == null )
             {

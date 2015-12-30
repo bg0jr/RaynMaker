@@ -178,7 +178,7 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 try
                 {
-                    provider.Navigate( mySelectedSource.LocatingSpec, Stock );
+                    provider.Navigate( DocumentType.Html, mySelectedSource.LocatingSpec, Stock );
                 }
                 catch( Exception ex )
                 {

@@ -8,6 +8,7 @@ using RaynMaker.Import.Documents;
 using RaynMaker.Import.Parsers.Html;
 using System;
 using RaynMaker.Import.Spec.v2.Locating;
+using RaynMaker.Import.Spec.v2;
 
 namespace RaynMaker.Import.Web.Tests.ViewModels
 {
@@ -23,7 +24,7 @@ namespace RaynMaker.Import.Web.Tests.ViewModels
             {
                 var browser = new Mock<IDocumentBrowser>();
                 browser.SetupGet( x => x.Document ).Returns( new HtmlDocumentHandle( new Mock<IHtmlDocument>().Object ) );
-                browser.Setup( x => x.Navigate( It.IsAny<DocumentLocator>() ) )
+                browser.Setup( x => x.Navigate( It.IsAny<DocumentType>(), It.IsAny<DocumentLocator>() ) )
                     .Callback<DocumentLocator>( navi => Args_Navigation = navi );
 
                 Browser = browser.Object;
@@ -36,9 +37,9 @@ namespace RaynMaker.Import.Web.Tests.ViewModels
             var browser = new DocumentBrowserMock();
             var provider = new BasicDatumProvider( browser.Browser );
 
-            var navigation = CreateNavigation( DocumentType.Html, "http://www.server.com/search?id=${isin}&paging=off" );
+            var navigation = CreateNavigation( "http://www.server.com/search?id=${isin}&paging=off" );
 
-            provider.Navigate( navigation, new Stock { Isin = "AB01010101" } );
+            provider.Navigate( DocumentType.Html, navigation, new Stock { Isin = "AB01010101" } );
 
             Assert.That( browser.Args_Navigation.Uris.Single().UrlString, Is.EqualTo( "http://www.server.com/search?id=AB01010101&paging=off" ) );
         }
@@ -49,9 +50,9 @@ namespace RaynMaker.Import.Web.Tests.ViewModels
             var browser = new DocumentBrowserMock();
             var provider = new BasicDatumProvider( browser.Browser );
 
-            var navigation = CreateNavigation( DocumentType.Html, "http://www.server.com/search?id=${wpkn}&paging=off" );
+            var navigation = CreateNavigation(  "http://www.server.com/search?id=${wpkn}&paging=off" );
 
-            provider.Navigate( navigation, new Stock { Wpkn = "AB0976D" } );
+            provider.Navigate( DocumentType.Html, navigation, new Stock { Wpkn = "AB0976D" } );
 
             Assert.That( browser.Args_Navigation.Uris.Single().UrlString, Is.EqualTo( "http://www.server.com/search?id=AB0976D&paging=off" ) );
         }
@@ -62,19 +63,19 @@ namespace RaynMaker.Import.Web.Tests.ViewModels
             var browser = new DocumentBrowserMock();
             var provider = new BasicDatumProvider( browser.Browser );
 
-            var navigation = CreateNavigation( DocumentType.Html, "http://www.server.com/search?id=${symbol}&paging=off" );
+            var navigation = CreateNavigation( "http://www.server.com/search?id=${symbol}&paging=off" );
 
-            provider.Navigate( navigation, new Stock { Symbol = "JNJ" } );
+            provider.Navigate( DocumentType.Html, navigation, new Stock { Symbol = "JNJ" } );
 
             Assert.That( browser.Args_Navigation.Uris.Single().UrlString, Is.EqualTo( "http://www.server.com/search?id=JNJ&paging=off" ) );
         }
 
-        private static DocumentLocator CreateNavigation( DocumentType docType, params string[] urlTemplates )
+        private static DocumentLocator CreateNavigation( params string[] urlTemplates )
         {
             bool isRequest = false;
             Func<UriType> GetUriType = () => ( isRequest = !isRequest ) ? UriType.Request : UriType.Response;
 
-            return new DocumentLocator( docType, urlTemplates
+            return new DocumentLocator( urlTemplates
                 .Select( url => new LocatingFragment( GetUriType(), url ) ) );
         }
     }

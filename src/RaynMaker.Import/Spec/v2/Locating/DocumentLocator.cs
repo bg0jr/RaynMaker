@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
+using Plainion;
 
 namespace RaynMaker.Import.Spec.v2.Locating
 {
@@ -13,24 +14,20 @@ namespace RaynMaker.Import.Spec.v2.Locating
     {
         public static DocumentLocator Empty = new DocumentLocator();
 
-        private DocumentLocator()
-            : this( DocumentType.None )
+        public DocumentLocator( string url )
+            : this( new LocatingFragment( UriType.Request, url ) )
         {
         }
 
-        public DocumentLocator( DocumentType docType, string url )
-            : this( docType, new LocatingFragment( UriType.Request, url ) )
+        public DocumentLocator( params LocatingFragment[] urls )
+            : this( urls.ToList() )
         {
         }
 
-        public DocumentLocator( DocumentType docType, params LocatingFragment[] urls )
-            : this( docType, urls.ToList() )
+        public DocumentLocator( IEnumerable<LocatingFragment> urls )
         {
-        }
+            Contract.RequiresNotNullNotEmpty( urls, "urls" );
 
-        public DocumentLocator( DocumentType docType, IEnumerable<LocatingFragment> urls )
-        {
-            DocumentType = docType;
             Uris = urls.ToList();
 
             UrisHashCode = CreateUrisHashCode();
@@ -44,12 +41,9 @@ namespace RaynMaker.Import.Spec.v2.Locating
             return hashCodeString.GetHashCode();
         }
 
-        [DataMember]
-        public DocumentType DocumentType { get; set; }
-
         // keep immutable because of stored UrisHashCode
         [DataMember]
-        public List<LocatingFragment> Uris { get; private set; }
+        public IReadOnlyList<LocatingFragment> Uris { get; private set; }
 
         [DataMember]
         public int UrisHashCode { get; private set; }
@@ -58,8 +52,6 @@ namespace RaynMaker.Import.Spec.v2.Locating
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append( "DocType: " );
-            sb.AppendLine( DocumentType.ToString() );
 
             foreach( var uri in Uris )
             {

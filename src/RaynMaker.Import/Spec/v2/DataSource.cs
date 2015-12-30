@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -14,10 +15,12 @@ namespace RaynMaker.Import.Spec.v2
         private string myVendor;
         private string myName;
         private int myQuality;
+        private DocumentType myDocumentType;
+        private DocumentLocator myLocatingSpec;
 
         public DataSource()
         {
-            ExtractionSpec = new List<IFigureDescriptor>();
+            ExtractionSpec = new ObservableCollection<IFigureDescriptor>();
         }
 
         // e.g. Ariva
@@ -32,33 +35,37 @@ namespace RaynMaker.Import.Spec.v2
         // e.g. Fundamentals
         [Required]
         [DataMember]
-        public string Name 
-                {
+        public string Name
+        {
             get { return myName; }
             set { SetProperty( ref myName, value ); }
         }
 
         [Required]
         [DataMember]
-        public int Quality 
+        public int Quality
         {
             get { return myQuality; }
             set { SetProperty( ref myQuality, value ); }
         }
 
+        [DataMember]
+        public DocumentType DocumentType
+        {
+            get { return myDocumentType; }
+            set { SetProperty( ref myDocumentType, value ); }
+        }
+
         [Required]
         [DataMember]
-        public DocumentLocator LocatingSpec { get; set; }
+        public DocumentLocator LocatingSpec
+        {
+            get { return myLocatingSpec; }
+            set { SetProperty( ref myLocatingSpec, value ); }
+        }
 
         [Required, ValidateObject]
         [DataMember]
-        public IList<IFigureDescriptor> ExtractionSpec { get; private set; }
-
-        [OnDeserialized]
-        private void OnDeserialized( StreamingContext context )
-        {
-            // make writeable again
-            ExtractionSpec = ExtractionSpec.ToList();
-        }
+        public ObservableCollection<IFigureDescriptor> ExtractionSpec { get; private set; }
     }
 }

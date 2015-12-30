@@ -8,6 +8,7 @@ using RaynMaker.Import.Documents;
 using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Parsers.Html.WinForms;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2;
 using RaynMaker.Import.Spec.v2.Extraction;
 using RaynMaker.Import.Spec.v2.Locating;
 
@@ -24,10 +25,10 @@ namespace RaynMaker.Import.Web.ViewModels
 
         public IHtmlDocument Document { get; private set; }
 
-        public void Navigate( DocumentLocator navigation, Stock stock )
+        public void Navigate( DocumentType docType, DocumentLocator navigation, Stock stock )
         {
             Contract.RequiresNotNull( navigation, "navigation" );
-            Contract.Requires( navigation.DocumentType == DocumentType.Html, "Only DocumentType.Html supported" );
+            Contract.Requires( docType == DocumentType.Html, "Only DocumentType.Html supported" );
             Contract.RequiresNotNull( stock, "stock" );
 
             var macroPattern = new Regex( @"(\$\{.*\})" );
@@ -54,7 +55,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 }
             }
 
-            myBrowser.Navigate( new DocumentLocator( navigation.DocumentType, filtered ) );
+            myBrowser.Navigate( docType, new DocumentLocator( filtered ) );
             Document = ( ( HtmlDocumentHandle )myBrowser.Document ).Content;
         }
 

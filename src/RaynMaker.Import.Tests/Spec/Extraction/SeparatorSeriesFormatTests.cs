@@ -20,7 +20,7 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
         {
             myFormat = new SeparatorSeriesDescriptor( "test" );
             myFormat.Separator = ";";
-            myFormat.Anchor = TableCellAnchor.ForRow( new StringContainsLocator( 1, "DE0005151005" ) );
+            myFormat.Anchor = TableFragmentAnchor.ForRow( new StringContainsLocator( 1, "DE0005151005" ) );
             myFormat.Expand = CellDimension.Row;
             myFormat.TimeAxisPosition = 0;
             myFormat.SeriesNamePosition = 1;

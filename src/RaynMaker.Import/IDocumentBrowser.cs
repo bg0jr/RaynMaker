@@ -1,5 +1,6 @@
 ﻿using System;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2;
 using RaynMaker.Import.Spec.v2.Locating;
 
 namespace RaynMaker.Import
@@ -10,7 +11,7 @@ namespace RaynMaker.Import
 
         void Navigate( DocumentType docType, Uri url );
 
-        void Navigate( DocumentLocator navi );
+        void Navigate( DocumentType docType, DocumentLocator navi );
 
         event Action<Uri> Navigating;
 

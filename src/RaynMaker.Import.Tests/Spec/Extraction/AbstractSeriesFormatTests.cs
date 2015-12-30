@@ -27,7 +27,7 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
             format.TimeAxisPosition = 23;
             format.ValueFormat = new FormatColumn( "value", typeof( double ), "0.00" );
             format.TimeAxisFormat = new FormatColumn( "time", typeof( DateTime ), "G" );
-            format.Anchor = TableCellAnchor.ForCell( new AbsolutePositionLocator( 4 ), new AbsolutePositionLocator( 8 ) );
+            format.Anchor = TableFragmentAnchor.ForCell( new AbsolutePositionLocator( 4 ), new AbsolutePositionLocator( 8 ) );
 
             var clone = FormatFactory.Clone( format );
 

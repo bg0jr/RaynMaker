@@ -143,7 +143,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 return;
             }
 
-            Format.Anchor = TableCellAnchor.ForCell( new StringContainsLocator( RowPosition, RowPattern ), new StringContainsLocator( ColumnPosition, ColumnPattern ) );
+            Format.Anchor = TableFragmentAnchor.ForCell( new StringContainsLocator( RowPosition, RowPattern ), new StringContainsLocator( ColumnPosition, ColumnPattern ) );
 
             if( MarkupDocument.SelectedElement != null )
             {

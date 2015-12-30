@@ -11,6 +11,7 @@ using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
 using Plainion.Collections;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2;
 using RaynMaker.Import.Spec.v2.Locating;
 using RaynMaker.Import.Web.Model;
 
@@ -51,7 +52,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 Urls.Clear();
                 Urls.AddRange( modelUrls );
 
-                SelectedDocumentType = Session.CurrentSource.LocatingSpec.DocumentType;
+                SelectedDocumentType = Session.CurrentSource.DocumentType;
             }
             else
             {
@@ -111,7 +112,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 {
                     if( Session.CurrentSource != null )
                     {
-                        Session.CurrentSource.LocatingSpec.DocumentType = mySelectedDocumentType;
+                        Session.CurrentSource.DocumentType = mySelectedDocumentType;
                     }
                 }
             }
@@ -124,7 +125,7 @@ namespace RaynMaker.Import.Web.ViewModels
             if( Session.CurrentSource != null )
             {
                 var old = Session.CurrentSource.LocatingSpec;
-                Session.CurrentSource.LocatingSpec = new DocumentLocator( old.DocumentType, old.Uris.Concat( Urls ) );
+                Session.CurrentSource.LocatingSpec = new DocumentLocator( old.Uris.Concat( Urls ) );
             }
         }
 

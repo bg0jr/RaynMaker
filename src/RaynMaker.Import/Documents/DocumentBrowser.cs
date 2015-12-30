@@ -1,6 +1,7 @@
 ﻿using System;
 using Plainion.Logging;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2;
 using RaynMaker.Import.Spec.v2.Locating;
 
 namespace RaynMaker.Import.Documents
@@ -59,13 +60,13 @@ namespace RaynMaker.Import.Documents
             }
         }
 
-        public void Navigate( DocumentLocator navi )
+        public void Navigate( DocumentType docType, DocumentLocator navi )
         {
             var uri = myNavigator.Navigate( navi );
 
             myLogger.Info( "Url from navigator: {0}", uri );
 
-            var documentLoader = DocumentLoaderFactory.CreateLoader( navi.DocumentType );
+            var documentLoader = DocumentLoaderFactory.CreateLoader( docType );
             Document = documentLoader.Load( uri );
 
             if( DocumentCompleted != null )

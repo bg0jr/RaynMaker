@@ -1,5 +1,5 @@
 ﻿
-namespace RaynMaker.Import.Spec.v2.Locating
+namespace RaynMaker.Import.Spec.v2
 {
     public enum DocumentType
     {

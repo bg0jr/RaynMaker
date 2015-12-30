@@ -58,6 +58,6 @@ namespace RaynMaker.Import.Spec.v2.Extraction
         /// Defines how to find the position of the series in the table.
         /// </summary>
         [DataMember]
-        public TableCellAnchor Anchor { get; set; }
+        public TableFragmentAnchor Anchor { get; set; }
     }
 }

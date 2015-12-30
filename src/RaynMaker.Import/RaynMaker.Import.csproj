@@ -37,6 +37,7 @@
     <Compile Include="ImportSpecSerializer.cs" />
     <Compile Include="Parsers\TableFormatter.cs" />
     <Compile Include="Spec\v2\DataSource.cs" />
+    <Compile Include="Spec\v2\Extraction\CsvDescriptor.cs" />
     <Compile Include="Spec\v2\Extraction\PathCellDescriptor.cs" />
     <Compile Include="Spec\SpecBase.cs" />
     <Compile Include="Spec\v1\AbsolutePositionLocator.cs" />
@@ -114,9 +115,8 @@
     <Compile Include="Spec\v2\Extraction\AbstractFigureDescriptor.cs" />
     <Compile Include="Spec\v2\Extraction\AbstractSeriesDescriptor.cs" />
     <Compile Include="Spec\v2\Extraction\AbstractTableDescriptor.cs" />
-    <Compile Include="Spec\v2\Extraction\Table\TableCellAnchor.cs" />
-    <Compile Include="Spec\v2\Extraction\CsvExtractionDescriptor.cs" />
-    <Compile Include="Spec\v2\Locating\DocumentType.cs" />
+    <Compile Include="Spec\v2\Extraction\Table\TableFragmentAnchor.cs" />
+    <Compile Include="Spec\v2\DocumentType.cs" />
     <Compile Include="Spec\v2\Extraction\FormatColumn.cs" />
     <Compile Include="Spec\v2\Locating\Formular.cs" />
     <Compile Include="Spec\v2\Extraction\Table\ICellLocator.cs" />

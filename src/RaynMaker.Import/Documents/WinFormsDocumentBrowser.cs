@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using Plainion;
 using RaynMaker.Import.Parsers.Html.WinForms;
 using RaynMaker.Import.Spec;
+using RaynMaker.Import.Spec.v2;
 using RaynMaker.Import.Spec.v2.Locating;
 using RaynMaker.Import.WinForms;
 
@@ -59,7 +60,7 @@ namespace RaynMaker.Import.Documents
             Document = loader.Load( url );
         }
 
-        public void Navigate( DocumentLocator navi )
+        public void Navigate( DocumentType docType, DocumentLocator navi )
         {
             Contract.RequiresNotNull( navi, "navi" );
 
@@ -69,7 +70,7 @@ namespace RaynMaker.Import.Documents
                 return;
             }
 
-            var loader = DocumentLoaderFactory.CreateLoader( navi.DocumentType, Browser );
+            var loader = DocumentLoaderFactory.CreateLoader( docType, Browser );
             Document = loader.Load( url );
         }
 

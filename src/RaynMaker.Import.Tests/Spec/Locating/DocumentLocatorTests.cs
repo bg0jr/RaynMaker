@@ -12,7 +12,7 @@ namespace RaynMaker.Import.Tests.Spec.Locating
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var navi = new DocumentLocator( DocumentType.Html,
+            var navi = new DocumentLocator( 
                 new LocatingFragment( UriType.Request, "http://test1.org" ),
                 new LocatingFragment( UriType.Response, "http://test2.org" ) );
 
@@ -20,7 +20,6 @@ namespace RaynMaker.Import.Tests.Spec.Locating
 
             var clone = FormatFactory.Clone( navi );
 
-            Assert.That( clone.DocumentType, Is.EqualTo( DocumentType.Html ) );
             Assert.That( clone.UrisHashCode, Is.EqualTo( navi.UrisHashCode ) );
 
             Assert.That( clone.Uris[ 0 ].UrlString, Is.EqualTo( "http://test1.org" ) );

@@ -17,7 +17,7 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
         {
             var format = new PathSeriesDescriptor( "test" );
             format.Path = @"/BODY[0]/DIV[5]/DIV[0]/DIV[5]/DIV[0]/TABLE[0]/TBODY[0]";
-            format.Anchor = TableCellAnchor.ForCell( new StringContainsLocator( 1, @"xetra" ), new AbsolutePositionLocator( 2 ) );
+            format.Anchor = TableFragmentAnchor.ForCell( new StringContainsLocator( 1, @"xetra" ), new AbsolutePositionLocator( 2 ) );
             format.TimeAxisPosition = 0;
             format.SeriesNamePosition = 0;
             format.ValueFormat = new FormatColumn( "close", typeof( double ), "000,000", new Regex( @"([\d.,]+)\s*€" ) );

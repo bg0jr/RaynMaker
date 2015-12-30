@@ -4,6 +4,7 @@ using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Plainion.Collections;
 using RaynMaker.Entities;
+using RaynMaker.Import.Spec.v2;
 using RaynMaker.Import.Web.Model;
 using RaynMaker.Import.Web.Services;
 using RaynMaker.Infrastructure;
@@ -70,7 +71,7 @@ namespace RaynMaker.Import.Web.ViewModels
             }
 
             var provider = new BasicDatumProvider( Browser );
-            provider.Navigate( Session.CurrentSource.LocatingSpec, SelectedStock );
+            provider.Navigate( DocumentType.Html, Session.CurrentSource.LocatingSpec, SelectedStock );
 
             // do not use Mark() API ... it creates markup which will not be removed again
             //provider.Mark( Session.CurrentFormat );
