@@ -4,17 +4,24 @@ using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Spec.v2.Locating;
 
-namespace RaynMaker.Import.Tests.Html
+namespace RaynMaker.Import.ScenarioTests
 {
     [TestFixture]
     [RequiresSTA]
     public class HtmlFormTests : TestBase
     {
+        private IHtmlDocument myDocument = null;
+
+        [TestFixtureSetUp]
+        public void FixtureSetUp()
+        {
+            myDocument = LoadDocument( "ariva.historicalprices.DE0008404005.html" );
+        }
+        
         [Test]
         public void CreateSubmitUrl_EmptyFormular()
         {
-            var doc = LoadDocument( "ariva.historicalprices.DE0008404005.html" );
-            var form = doc.GetFormByName( "histcsv" );
+            var form = myDocument.GetFormByName( "histcsv" );
 
             var submitUrl = form.CreateSubmitUrl();
 
@@ -24,8 +31,7 @@ namespace RaynMaker.Import.Tests.Html
         [Test]
         public void CreateSubmitUrl_FilledFormular()
         {
-            var doc = LoadDocument( "ariva.historicalprices.DE0008404005.html" );
-            var form = doc.GetFormByName( "histcsv" );
+            var form = myDocument.GetFormByName( "histcsv" );
 
             var formular = new Formular( "histcsv",
                 Tuple.Create( "boerse_id", "1" ),
@@ -36,6 +42,15 @@ namespace RaynMaker.Import.Tests.Html
             var submitUrl = form.CreateSubmitUrl( formular );
 
             Assert.That( submitUrl.AbsoluteUri, Is.EqualTo( "file:///quote/historic/historic.csv?secu=292&boerse_id=1&clean_split=1&clean_payout=0&clean_bezug=0&min_time=1.1.1980&max_time=3.3.2012&trenner=%3b" ) );
+        }
+
+        [Test]
+        public void GetFormByName()
+        {
+            var form = myDocument.GetFormByName( "histcsv" );
+
+            Assert.That( form, Is.Not.Null );
+            Assert.That( form.Name, Is.EqualTo( "histcsv" ).IgnoreCase );
         }
     }
 }

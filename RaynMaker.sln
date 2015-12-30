@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Analyzer", "src\RaynMaker.Analyzer\RaynMaker.Analyzer.csproj", "{4164C457-C990-4D92-8175-C8BF4AD6A1DB}"
 EndProject
@@ -31,6 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		build\create-package.cmd = build\create-package.cmd
 		build\GlobalAssemblyInfo.cs = build\GlobalAssemblyInfo.cs
+		build\packager.msbuild = build\packager.msbuild
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Import.Tests", "src\RaynMaker.Import.Tests\RaynMaker.Import.Tests.csproj", "{60A81643-28BD-42C6-B1E9-51C77275A335}"
@@ -40,6 +41,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Import.Web.Tests", "src\RaynMaker.Import.Web.Tests\RaynMaker.Import.Web.Tests.csproj", "{EB8FAAF2-3BFC-4C79-B9F2-4BE1C76E682E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Entities.Persistancy.Tests", "src\RaynMaker.Entities.Persistancy.Tests\RaynMaker.Entities.Persistancy.Tests.csproj", "{94EE79F4-D2B7-4477-A0C5-D95DB14FE79D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Import.ScenarioTests", "src\RaynMaker.Import.ScenarioTests\RaynMaker.Import.ScenarioTests.csproj", "{5D702A14-EEB2-40B3-9CA7-27B9F2A70936}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +114,10 @@ Global
 		{94EE79F4-D2B7-4477-A0C5-D95DB14FE79D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94EE79F4-D2B7-4477-A0C5-D95DB14FE79D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94EE79F4-D2B7-4477-A0C5-D95DB14FE79D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D702A14-EEB2-40B3-9CA7-27B9F2A70936}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D702A14-EEB2-40B3-9CA7-27B9F2A70936}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D702A14-EEB2-40B3-9CA7-27B9F2A70936}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D702A14-EEB2-40B3-9CA7-27B9F2A70936}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

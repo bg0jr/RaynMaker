@@ -6,7 +6,7 @@ using RaynMaker.Import.Tests;
 namespace RaynMaker.Import.Tests.Spec.Extraction
 {
     [TestFixture]
-    public class AnchroTests : TestBase
+    public class AnchroTests
     {
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()

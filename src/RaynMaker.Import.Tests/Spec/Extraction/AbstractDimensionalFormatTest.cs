@@ -7,7 +7,7 @@ using RaynMaker.Import.Tests;
 namespace RaynMaker.Import.Tests.Spec.Extraction
 {
     [TestFixture]
-    public class AbstractDimensionalFormatTest : TestBase
+    public class AbstractDimensionalFormatTest
     {
         [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "DummyFormat" )]
         private class DummyFormat : AbstractDimensionalDescriptor

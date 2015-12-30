@@ -7,7 +7,7 @@ using RaynMaker.Import.Spec.v2.Locating;
 namespace RaynMaker.Import.Tests.Spec.Locating
 {
     [TestFixture]
-    public class DocumentLocatorTests : TestBase
+    public class DocumentLocatorTests
     {
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
@@ -15,8 +15,6 @@ namespace RaynMaker.Import.Tests.Spec.Locating
             var navi = new DocumentLocator( 
                 new DocumentLocationFragment( UriType.Request, "http://test1.org" ),
                 new DocumentLocationFragment( UriType.Response, "http://test2.org" ) );
-
-            var output = DumpSpec( navi );
 
             var clone = FormatFactory.Clone( navi );
 

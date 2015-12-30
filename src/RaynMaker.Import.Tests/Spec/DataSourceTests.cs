@@ -8,7 +8,7 @@ using RaynMaker.Import.Tests;
 namespace RaynMaker.Import.Spec
 {
     [TestFixture]
-    public class DataSourceTests : TestBase
+    public class DataSourceTests 
     {
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()

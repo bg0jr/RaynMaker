@@ -3,10 +3,10 @@
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Import Project="..\..\build\Globals.msbuild" />
   <PropertyGroup>
-    <ProjectGuid>{60A81643-28BD-42C6-B1E9-51C77275A335}</ProjectGuid>
+    <ProjectGuid>{5D702A14-EEB2-40B3-9CA7-27B9F2A70936}</ProjectGuid>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <RootNamespace>RaynMaker.Import.Tests</RootNamespace>
-    <AssemblyName>RaynMaker.Import.Tests</AssemblyName>
+    <RootNamespace>RaynMaker.Import.ScenarioTests</RootNamespace>
+    <AssemblyName>RaynMaker.Import.ScenarioTests</AssemblyName>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
   </PropertyGroup>
@@ -21,7 +21,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -29,34 +28,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Documents\PatternMatchingTests.cs" />
-    <Compile Include="FormatFactoryTests.cs" />
-    <Compile Include="Parsers\Html\HtmlPathTests.cs" />
+    <Compile Include="DataSourceLoadingTests.cs" />
+    <Compile Include="HtmlFormTests.cs" />
+    <Compile Include="FigureFromHtmlTests.cs" />
+    <Compile Include="HtmlParsingTests.cs" />
+    <Compile Include="PathSeriesDescriptorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Documents\ProxyPoolTest.cs" />
-    <Compile Include="Spec\Extraction\AbsolutePositionLocatorTests.cs" />
-    <Compile Include="Spec\DataSourceTests.cs" />
-    <Compile Include="Spec\Extraction\CsvFormatTests.cs" />
-    <Compile Include="Spec\Extraction\AnchorTests.cs" />
-    <Compile Include="Spec\Extraction\AbstractFormatTests.cs" />
-    <Compile Include="Spec\Extraction\AbstractDimensionalFormatTest.cs" />
-    <Compile Include="Spec\Extraction\AbstractTableFormatTests.cs" />
-    <Compile Include="Spec\Extraction\AbstractSeriesFormatTests.cs" />
-    <Compile Include="Spec\Extraction\StringContainsLocatorTests.cs" />
-    <Compile Include="Spec\Extraction\RegexPatternLocatorTests.cs" />
-    <Compile Include="Spec\Extraction\PathTableFormatTests.cs" />
-    <Compile Include="Spec\Extraction\PathSingleValueFormatTests.cs" />
-    <Compile Include="Spec\Extraction\PathCellFormatTests.cs" />
-    <Compile Include="Spec\Locating\LocatingFragmentTests.cs" />
-    <Compile Include="Spec\Locating\DocumentLocatorTests.cs" />
-    <Compile Include="Spec\Locating\FormularTests.cs" />
-    <Compile Include="Spec\Extraction\FormatColumnTests.cs" />
-    <Compile Include="Spec\Extraction\PathSeriesFormatTests.cs" />
-    <Compile Include="Spec\Extraction\SeparatorSeriesFormatTests.cs" />
-    <Compile Include="Spec\Extraction\ValueFormatTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <Compile Include="SeparatorSeriesDescriptorTests.cs" />
+    <Compile Include="TestBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RaynMaker.Import\RaynMaker.Import.csproj">
@@ -65,7 +44,29 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+    <Content Include="TestData\HtmlFormTests\ariva.historicalprices.DE0008404005.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\HtmlParsingTests\ariva.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\FigureFromHtmlTests\yahoo-bmw-all.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="TestData\PathSeriesDescriptorTests\ariva-prices.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="TestData\DataSourceLoadingTests\DataSources.xdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="TestData\SeparatorSeriesDescriptorTests\eps.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestData\FigureFromHtmlTests\ariva.overview.US0138171014.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -6,7 +6,7 @@ using RaynMaker.Import.Spec.v2.Locating;
 namespace RaynMaker.Import.Tests.Spec.Locating
 {
     [TestFixture]
-    public class FormularTests : TestBase
+    public class FormularTests 
     {
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
