@@ -12,9 +12,6 @@
         <Node Id="c39feaa1-daa3-4048-95ef-4a44b1008900">
           <Caption><![CDATA[Renaming]]></Caption>
         </Node>
-        <Node Id="b0b261be-5045-42e4-8299-10b8a7aecc67">
-          <Caption><![CDATA[Why do we need DocumentType in Navigation?]]></Caption>
-        </Node>
         <Node Id="97bac886-5126-46cb-91cd-cb81ddcd72bf">
           <Caption><![CDATA[ReadOnly collections where possible]]></Caption>
         </Node>
