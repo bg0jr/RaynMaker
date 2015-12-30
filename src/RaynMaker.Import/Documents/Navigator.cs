@@ -75,7 +75,7 @@ namespace RaynMaker.Import.Documents
         /// resulting parameter is set to the next request URL using 
         /// string.Format() at placeholder {0}.
         /// </summary>
-        private Uri NavigateToFinalSite( IEnumerable<LocatingFragment> navigationSteps )
+        private Uri NavigateToFinalSite( IEnumerable<DocumentLocationFragment> navigationSteps )
         {
             string param = null;
 
@@ -87,7 +87,7 @@ namespace RaynMaker.Import.Documents
             }
 
             Uri currentUrl = null;
-            foreach ( LocatingFragment navUrl in navigationSteps )
+            foreach ( DocumentLocationFragment navUrl in navigationSteps )
             {
                 Contract.Invariant( navUrl.UrlType != UriType.None, "UrlType must NOT be None" );
 

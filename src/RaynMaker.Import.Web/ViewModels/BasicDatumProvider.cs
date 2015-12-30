@@ -32,7 +32,7 @@ namespace RaynMaker.Import.Web.ViewModels
             Contract.RequiresNotNull( stock, "stock" );
 
             var macroPattern = new Regex( @"(\$\{.*\})" );
-            var filtered = new List<LocatingFragment>();
+            var filtered = new List<DocumentLocationFragment>();
             foreach( var navUrl in navigation.Uris )
             {
                 var md = macroPattern.Match( navUrl.UrlString );
@@ -42,7 +42,7 @@ namespace RaynMaker.Import.Web.ViewModels
                     var value = GetMacroValue( macro.Substring( 2, macro.Length - 3 ), stock );
                     if( value != null )
                     {
-                        filtered.Add( new LocatingFragment( navUrl.UrlType, navUrl.UrlString.Replace( macro, value ) ) );
+                        filtered.Add( new DocumentLocationFragment( navUrl.UrlType, navUrl.UrlString.Replace( macro, value ) ) );
                     }
                     else
                     {

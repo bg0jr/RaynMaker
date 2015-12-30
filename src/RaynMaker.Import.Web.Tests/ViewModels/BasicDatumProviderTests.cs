@@ -76,7 +76,7 @@ namespace RaynMaker.Import.Web.Tests.ViewModels
             Func<UriType> GetUriType = () => ( isRequest = !isRequest ) ? UriType.Request : UriType.Response;
 
             return new DocumentLocator( urlTemplates
-                .Select( url => new LocatingFragment( GetUriType(), url ) ) );
+                .Select( url => new DocumentLocationFragment( GetUriType(), url ) ) );
         }
     }
 }

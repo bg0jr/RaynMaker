@@ -13,8 +13,8 @@ namespace RaynMaker.Import.Tests.Spec.Locating
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
             var navi = new DocumentLocator( 
-                new LocatingFragment( UriType.Request, "http://test1.org" ),
-                new LocatingFragment( UriType.Response, "http://test2.org" ) );
+                new DocumentLocationFragment( UriType.Request, "http://test1.org" ),
+                new DocumentLocationFragment( UriType.Response, "http://test2.org" ) );
 
             var output = DumpSpec( navi );
 

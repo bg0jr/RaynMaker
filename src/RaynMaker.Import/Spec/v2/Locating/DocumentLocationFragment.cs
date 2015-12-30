@@ -9,29 +9,29 @@ namespace RaynMaker.Import.Spec.v2.Locating
     /// One fragment required to locate a document (e.g. a request or response URL). 
     /// Might be a template which needs to be evaluated with a specific stock.
     /// </summary>
-    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "LocatingFragment" )]
-    [KnownType( typeof( LocatingFragment[] ) )]
-    public class LocatingFragment
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "DocumentLocationFragment" )]
+    [KnownType( typeof( DocumentLocationFragment[] ) )]
+    public class DocumentLocationFragment
     {
         private Uri myUrl = null;
 
-        public LocatingFragment( UriType type, Uri url )
+        public DocumentLocationFragment( UriType type, Uri url )
             : this( type, url.ToString() )
         {
             myUrl = url;
         }
 
-        public LocatingFragment( UriType type, string url )
+        public DocumentLocationFragment( UriType type, string url )
             : this( type, url, null )
         {
         }
 
-        public LocatingFragment( Formular form )
+        public DocumentLocationFragment( Formular form )
             : this( UriType.SubmitFormular, string.Empty, form )
         {
         }
 
-        public LocatingFragment( UriType uriType, string url, Formular form )
+        public DocumentLocationFragment( UriType uriType, string url, Formular form )
         {
             Contract.Requires( uriType != UriType.None, "uriType must NOT be None" );
 
@@ -64,7 +64,7 @@ namespace RaynMaker.Import.Spec.v2.Locating
         [DataMember]
         public Formular Formular { get; private set; }
 
-        public static LocatingFragment Parse( string str )
+        public static DocumentLocationFragment Parse( string str )
         {
             int pos = str.IndexOf( ':' );
             if( pos < 0 )
@@ -73,22 +73,22 @@ namespace RaynMaker.Import.Spec.v2.Locating
             }
 
             var type = ( UriType )Enum.Parse( typeof( UriType ), str.Substring( 0, pos ).Trim(), true );
-            return new LocatingFragment( type, str.Substring( pos + 1 ).Trim() );
+            return new DocumentLocationFragment( type, str.Substring( pos + 1 ).Trim() );
         }
 
-        public static LocatingFragment Request( string url )
+        public static DocumentLocationFragment Request( string url )
         {
-            return new LocatingFragment( UriType.Request, url );
+            return new DocumentLocationFragment( UriType.Request, url );
         }
 
-        public static LocatingFragment Response( string url )
+        public static DocumentLocationFragment Response( string url )
         {
-            return new LocatingFragment( UriType.Response, url );
+            return new DocumentLocationFragment( UriType.Response, url );
         }
 
-        public static LocatingFragment SubmitFormular( Formular form )
+        public static DocumentLocationFragment SubmitFormular( Formular form )
         {
-            return new LocatingFragment( form );
+            return new DocumentLocationFragment( form );
         }
 
         // required also for be addable to Exception.Data

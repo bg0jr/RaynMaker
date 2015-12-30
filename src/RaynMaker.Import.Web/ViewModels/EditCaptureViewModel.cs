@@ -18,22 +18,22 @@ namespace RaynMaker.Import.Web.ViewModels
     [Export]
     class EditCaptureViewModel : BindableBase, IInteractionRequestAware
     {
-        private LocatingFragment mySelectedUrl;
+        private DocumentLocationFragment mySelectedUrl;
         private INotification myNotification;
 
         public EditCaptureViewModel()
         {
-            Urls = new ObservableCollection<LocatingFragment>();
+            Urls = new ObservableCollection<DocumentLocationFragment>();
 
-            DeleteUrlCommand = new DelegateCommand<LocatingFragment>( OnDeleteUrl );
+            DeleteUrlCommand = new DelegateCommand<DocumentLocationFragment>( OnDeleteUrl );
 
             OkCommand = new DelegateCommand( OnOk );
             CancelCommand = new DelegateCommand( OnCancel );
         }
 
-        public ObservableCollection<LocatingFragment> Urls { get; private set; }
+        public ObservableCollection<DocumentLocationFragment> Urls { get; private set; }
 
-        public LocatingFragment SelectedUrl
+        public DocumentLocationFragment SelectedUrl
         {
             get { return mySelectedUrl; }
             set { SetProperty( ref mySelectedUrl, value ); }
@@ -41,7 +41,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
         public ICommand DeleteUrlCommand { get; private set; }
 
-        private void OnDeleteUrl( LocatingFragment url )
+        private void OnDeleteUrl( DocumentLocationFragment url )
         {
             Urls.Remove( url );
         }
@@ -77,7 +77,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 myNotification = value;
 
                 Urls.Clear();
-                Urls.AddRange( ( IEnumerable<LocatingFragment> )myNotification.Content );
+                Urls.AddRange( ( IEnumerable<DocumentLocationFragment> )myNotification.Content );
                 SelectedUrl = Urls.FirstOrDefault();
             }
         }

@@ -122,7 +122,7 @@
     <Compile Include="Spec\v2\Extraction\Table\ICellLocator.cs" />
     <Compile Include="Spec\v2\Extraction\IFigureDescriptor.cs" />
     <Compile Include="Spec\v2\Locating\DocumentLocator.cs" />
-    <Compile Include="Spec\v2\Locating\LocatingFragment.cs" />
+    <Compile Include="Spec\v2\Locating\DocumentLocationFragment.cs" />
     <Compile Include="Spec\v2\Extraction\PathSeriesDescriptor.cs" />
     <Compile Include="Spec\v2\Extraction\PathSingleValueDescriptor.cs" />
     <Compile Include="Spec\v2\Extraction\PathTableDescriptor.cs" />

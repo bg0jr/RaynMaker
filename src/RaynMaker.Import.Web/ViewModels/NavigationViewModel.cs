@@ -33,7 +33,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             EditCaptureRequest = new InteractionRequest<IConfirmation>();
 
-            Urls = new ObservableCollection<LocatingFragment>();
+            Urls = new ObservableCollection<DocumentLocationFragment>();
 
             WeakEventManager<INotifyCollectionChanged, NotifyCollectionChangedEventArgs>.AddHandler( Urls, "CollectionChanged", OnUrlChanged );
 
@@ -89,7 +89,7 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             if( IsCapturing )
             {
-                Urls.Add( new LocatingFragment( UriType.Request, url ) );
+                Urls.Add( new DocumentLocationFragment( UriType.Request, url ) );
             }
         }
 
@@ -99,7 +99,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             if( IsCapturing )
             {
-                Urls.Add( new LocatingFragment( UriType.Response, doc.Location ) );
+                Urls.Add( new DocumentLocationFragment( UriType.Response, doc.Location ) );
             }
         }
 
@@ -118,7 +118,7 @@ namespace RaynMaker.Import.Web.ViewModels
             }
         }
 
-        public ObservableCollection<LocatingFragment> Urls { get; private set; }
+        public ObservableCollection<DocumentLocationFragment> Urls { get; private set; }
 
         private void OnUrlChanged( object sender, NotifyCollectionChangedEventArgs e )
         {
@@ -155,7 +155,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 if( c.Confirmed )
                 {
                     Urls.Clear();
-                    Urls.AddRange( ( IEnumerable<LocatingFragment> )c.Content );
+                    Urls.AddRange( ( IEnumerable<DocumentLocationFragment> )c.Content );
                 }
             } );
         }

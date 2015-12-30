@@ -15,16 +15,16 @@ namespace RaynMaker.Import.Spec.v2.Locating
         public static DocumentLocator Empty = new DocumentLocator();
 
         public DocumentLocator( string url )
-            : this( new LocatingFragment( UriType.Request, url ) )
+            : this( new DocumentLocationFragment( UriType.Request, url ) )
         {
         }
 
-        public DocumentLocator( params LocatingFragment[] urls )
+        public DocumentLocator( params DocumentLocationFragment[] urls )
             : this( urls.ToList() )
         {
         }
 
-        public DocumentLocator( IEnumerable<LocatingFragment> urls )
+        public DocumentLocator( IEnumerable<DocumentLocationFragment> urls )
         {
             Contract.RequiresNotNullNotEmpty( urls, "urls" );
 
@@ -43,7 +43,7 @@ namespace RaynMaker.Import.Spec.v2.Locating
 
         // keep immutable because of stored UrisHashCode
         [DataMember]
-        public IReadOnlyList<LocatingFragment> Uris { get; private set; }
+        public IReadOnlyList<DocumentLocationFragment> Uris { get; private set; }
 
         [DataMember]
         public int UrisHashCode { get; private set; }
