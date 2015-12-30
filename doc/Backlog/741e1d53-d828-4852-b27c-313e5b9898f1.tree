@@ -6,26 +6,17 @@
       <Caption><![CDATA[HotFix]]></Caption>
     </Node>
     <Node Id="b6cbd93c-bdbd-49b4-bbb8-33de0a595e04">
-      <Caption><![CDATA[1.7]]></Caption>
+      <Caption><![CDATA[1.7 - Polish Import module]]></Caption>
       <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">
-        <Caption><![CDATA[Import module refactoring]]></Caption>
+        <Caption><![CDATA[Spec]]></Caption>
         <Node Id="c39feaa1-daa3-4048-95ef-4a44b1008900">
           <Caption><![CDATA[Renaming]]></Caption>
-        </Node>
-        <Node Id="77a3da08-70e8-4ae1-b90d-40a5b428e21d">
-          <Caption><![CDATA[TryNavigateWithWildcards]]></Caption>
         </Node>
         <Node Id="b0b261be-5045-42e4-8299-10b8a7aecc67">
           <Caption><![CDATA[Why do we need DocumentType in Navigation?]]></Caption>
         </Node>
-        <Node Id="3e6b44b5-fea4-4a55-9901-2cc90851ee8d">
-          <Caption><![CDATA[Cleanup Html parsing]]></Caption>
-        </Node>
         <Node Id="97bac886-5126-46cb-91cd-cb81ddcd72bf">
           <Caption><![CDATA[ReadOnly collections where possible]]></Caption>
-        </Node>
-        <Node Id="0f5864c5-a862-4580-a6ca-33f43b077fb6">
-          <Caption><![CDATA[Navigator]]></Caption>
         </Node>
         <Node Id="6a2c9026-0515-4f42-92e3-7fe6190a28b4">
           <Caption><![CDATA[Rename "Datum" to "Figure"]]></Caption>
@@ -33,11 +24,26 @@
         <Node Id="ff13a41d-9019-4bf7-89c3-542a0ecbd6e3">
           <Caption><![CDATA[Replace UrlType with inheritance?]]></Caption>
         </Node>
-      </Node>
-      <Node Id="bbeba285-71ef-47ff-815e-71c6963e8d73">
-        <Caption><![CDATA[Testing]]></Caption>
         <Node Id="8029db40-5c61-4247-9674-2e92f20986d1">
           <Caption><![CDATA[Tests for required parameters]]></Caption>
+        </Node>
+      </Node>
+      <Node Id="e4cba108-1415-42e0-ac8f-4e9d7596dfab">
+        <Caption><![CDATA[Browser]]></Caption>
+        <Node Id="77a3da08-70e8-4ae1-b90d-40a5b428e21d">
+          <Caption><![CDATA[TryNavigateWithWildcards]]></Caption>
+        </Node>
+        <Node Id="3494b210-9cef-4613-abf0-fb368c2075f8">
+          <Caption><![CDATA[SubmitFormular not implemented]]></Caption>
+        </Node>
+        <Node Id="0f5864c5-a862-4580-a6ca-33f43b077fb6">
+          <Caption><![CDATA[Navigator]]></Caption>
+        </Node>
+      </Node>
+      <Node Id="2fa0c595-c62b-40a5-9076-33e615fcad82">
+        <Caption><![CDATA[Parsers]]></Caption>
+        <Node Id="3e6b44b5-fea4-4a55-9901-2cc90851ee8d">
+          <Caption><![CDATA[Cleanup Html parsing]]></Caption>
         </Node>
         <Node Id="b0b783b8-f54a-446f-9a1f-d5a3375ae21a">
           <Caption><![CDATA[Improve tests for Html parsing]]></Caption>
