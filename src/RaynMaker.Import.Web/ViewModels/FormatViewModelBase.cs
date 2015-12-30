@@ -17,7 +17,7 @@ namespace RaynMaker.Import.Web.ViewModels
         private Type mySelectedDatum;
         private bool myInMillions;
   
-        protected FormatViewModelBase( IFigureExtractionDescriptor format )
+        protected FormatViewModelBase( IFigureDescriptor format )
         {
             Contract.RequiresNotNull( format, "format" );
 
@@ -31,7 +31,7 @@ namespace RaynMaker.Import.Web.ViewModels
             MarkupDocument.SelectionChanged += OnSelectionChanged;
         }
 
-        public IFigureExtractionDescriptor Format { get; private set; }
+        public IFigureDescriptor Format { get; private set; }
 
         // TODO: we do not support add, remove and edit of datums as they are currently fixed by entities model.
         // TODO: "Standing" datums also exists

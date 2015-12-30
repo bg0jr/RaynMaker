@@ -17,7 +17,7 @@ namespace RaynMaker.Import.Spec.v2
 
         public DataSource()
         {
-            ExtractionSpec = new List<IFigureExtractionDescriptor>();
+            ExtractionSpec = new List<IFigureDescriptor>();
         }
 
         // e.g. Ariva
@@ -52,7 +52,7 @@ namespace RaynMaker.Import.Spec.v2
 
         [Required, ValidateObject]
         [DataMember]
-        public IList<IFigureExtractionDescriptor> ExtractionSpec { get; private set; }
+        public IList<IFigureDescriptor> ExtractionSpec { get; private set; }
 
         [OnDeserialized]
         private void OnDeserialized( StreamingContext context )

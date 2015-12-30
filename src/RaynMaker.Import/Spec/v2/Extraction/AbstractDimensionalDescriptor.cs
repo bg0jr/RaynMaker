@@ -8,12 +8,12 @@ namespace RaynMaker.Import.Spec.v2.Extraction
     /// Base class of all single or multi dimensional formats.
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "AbstractDimensionalFormat" )]
-    public abstract class AbstractDimensionalExtractionDescriptor : AbstractFigureExtractionDescriptor
+    public abstract class AbstractDimensionalDescriptor : AbstractFigureDescriptor
     {
         private int[] mySkipRows = null;
         private int[] mySkipColumns = null;
 
-        protected AbstractDimensionalExtractionDescriptor( string datum )
+        protected AbstractDimensionalDescriptor( string datum )
             : base( datum )
         {
             SkipColumns = null;

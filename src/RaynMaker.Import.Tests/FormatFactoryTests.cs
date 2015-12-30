@@ -10,9 +10,9 @@ namespace RaynMaker.Import.Tests
     [TestFixture]
     class FormatFactoryTests
     {
-        static object[] AllFormats = typeof( IFigureExtractionDescriptor ).Assembly.GetTypes()
+        static object[] AllFormats = typeof( IFigureDescriptor ).Assembly.GetTypes()
             .Where( t => t.IsClass && !t.IsAbstract )
-            .Where( t => t.GetInterfaces().Contains( typeof( IFigureExtractionDescriptor ) ) )
+            .Where( t => t.GetInterfaces().Contains( typeof( IFigureDescriptor ) ) )
             .ToArray();
 
         [Test, TestCaseSource( "AllFormats" )]
@@ -25,7 +25,7 @@ namespace RaynMaker.Import.Tests
             Assert.That( obj, Is.Not.Null );
         }
 
-        private IFigureExtractionDescriptor CreateFormat( Type formatType )
+        private IFigureDescriptor CreateFormat( Type formatType )
         {
             var ctor = formatType.GetConstructors()
                 .OrderBy( c => c.GetParameters().Length )
@@ -34,7 +34,7 @@ namespace RaynMaker.Import.Tests
             var args = ctor.GetParameters()
                 .Select( paramInfo => CreateDefaultValue( paramInfo ) )
                 .ToArray();
-            return ( IFigureExtractionDescriptor )Activator.CreateInstance( formatType, args );
+            return ( IFigureDescriptor )Activator.CreateInstance( formatType, args );
         }
 
         private object CreateDefaultValue( ParameterInfo paramInfo )

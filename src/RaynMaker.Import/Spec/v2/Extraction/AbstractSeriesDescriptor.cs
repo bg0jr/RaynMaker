@@ -13,9 +13,9 @@ namespace RaynMaker.Import.Spec.v2.Extraction
     /// </summary>
     // TODO: actually we no longer need "expand" if we have an anchor
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "AbstractSeriesFormat" )]
-    public abstract class AbstractSeriesExtractionDescriptor : AbstractDimensionalExtractionDescriptor
+    public abstract class AbstractSeriesDescriptor : AbstractDimensionalDescriptor
     {
-        protected AbstractSeriesExtractionDescriptor( string name )
+        protected AbstractSeriesDescriptor( string name )
             : base( name )
         {
             SeriesNamePosition = -1;

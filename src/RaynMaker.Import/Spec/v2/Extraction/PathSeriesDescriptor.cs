@@ -8,9 +8,9 @@ namespace RaynMaker.Import.Spec.v2.Extraction
     /// has a hierarchical structure like XML or HTML documents.
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "PathSeriesFormat" )]
-    public class PathSeriesExtractionDescriptor : AbstractSeriesExtractionDescriptor
+    public class PathSeriesDescriptor : AbstractSeriesDescriptor
     {
-        public PathSeriesExtractionDescriptor( string datum )
+        public PathSeriesDescriptor( string datum )
             : base( datum )
         {
             ExtractLinkUrl = false;

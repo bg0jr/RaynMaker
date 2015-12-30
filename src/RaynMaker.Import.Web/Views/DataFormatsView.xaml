@@ -90,9 +90,9 @@
                                 </Grid.Resources>
 
                                 <RadioButton Grid.Row="0" Content="Html series"
-                                             IsChecked="{Binding FormatType, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter={x:Type spec:PathSeriesExtractionDescriptor}}"/>
+                                             IsChecked="{Binding FormatType, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter={x:Type spec:PathSeriesDescriptor}}"/>
                                 <RadioButton Grid.Row="1" Content="Html table cell value"
-                                             IsChecked="{Binding FormatType, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter={x:Type spec:PathCellExtractionDescriptor}}"/>
+                                             IsChecked="{Binding FormatType, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter={x:Type spec:PathCellDescriptor}}"/>
                             </Grid>
                         </rym:DefaultConfirmationView.ViewContent>
                     </rym:DefaultConfirmationView>

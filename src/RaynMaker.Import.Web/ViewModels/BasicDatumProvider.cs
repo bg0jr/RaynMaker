@@ -78,7 +78,7 @@ namespace RaynMaker.Import.Web.ViewModels
             throw new NotSupportedException( "Unknown macro: " + macroId );
         }
 
-        public void Mark( PathSeriesExtractionDescriptor format )
+        public void Mark( PathSeriesDescriptor format )
         {
             Contract.RequiresNotNull( format, "format" );
             Contract.Invariant( Document != null, "Document not yet loaded" );
@@ -106,7 +106,7 @@ namespace RaynMaker.Import.Web.ViewModels
             markupDoc.Document = null;
         }
 
-        public DataTable GetResult( IFigureExtractionDescriptor format )
+        public DataTable GetResult( IFigureDescriptor format )
         {
             Contract.RequiresNotNull( format, "format" );
             Contract.Invariant( Document != null, "Document not yet loaded" );

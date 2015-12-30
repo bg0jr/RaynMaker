@@ -34,7 +34,7 @@ namespace RaynMaker.Import.Tests.Parsers
             var inputFile = Path.Combine( TestDataRoot, "Core", "ariva.overview.US0138171014.html" );
             myBrowser.Navigate( new DocumentLocator( DocumentType.Html, inputFile ) );
 
-            var format = new PathSingleValueExtractionDescriptor( "Ariva.Wpkn" );
+            var format = new PathSingleValueDescriptor( "Ariva.Wpkn" );
             format.Path = @"/BODY[0]/DIV[4]/DIV[0]/DIV[3]/DIV[0]";
             format.ValueFormat = new ValueFormat( typeof( int ), "00000000", new Regex( @"WKN: (\d+)" ) );
 

@@ -9,9 +9,9 @@ namespace RaynMaker.Import.Parsers.Text
     class TextParser : IDocumentParser
     {
         private TextDocument myDocument;
-        private IFigureExtractionDescriptor myFormat;
+        private IFigureDescriptor myFormat;
 
-        public TextParser( TextDocument textDocument, IFigureExtractionDescriptor format )
+        public TextParser( TextDocument textDocument, IFigureDescriptor format )
         {
             myDocument = textDocument;
             myFormat = format;
@@ -19,7 +19,7 @@ namespace RaynMaker.Import.Parsers.Text
 
         public DataTable ExtractTable()
         {
-            SeparatorSeriesExtractionDescriptor separatorSeriesFormat = myFormat as SeparatorSeriesExtractionDescriptor;
+            SeparatorSeriesDescriptor separatorSeriesFormat = myFormat as SeparatorSeriesDescriptor;
             CsvExtractionDescriptor csvFormat = myFormat as CsvExtractionDescriptor;
 
             if( csvFormat != null )

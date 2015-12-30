@@ -8,9 +8,9 @@ namespace RaynMaker.Import.Spec.v2.Extraction
     /// has a hierarchical structure like XML or HTML documents.
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "PathSingleValueFormat" )]
-    public class PathSingleValueExtractionDescriptor : AbstractFigureExtractionDescriptor
+    public class PathSingleValueDescriptor : AbstractFigureDescriptor
     {
-        public PathSingleValueExtractionDescriptor( string datum )
+        public PathSingleValueDescriptor( string datum )
             : base( datum )
         {
         }

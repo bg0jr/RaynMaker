@@ -10,9 +10,9 @@ namespace RaynMaker.Import.Parsers.Html
     class HtmlParser : IDocumentParser
     {
         private HtmlDocumentHandle myDocument;
-        private IFigureExtractionDescriptor myFormat;
+        private IFigureDescriptor myFormat;
 
-        public HtmlParser( HtmlDocumentHandle htmlDocument, IFigureExtractionDescriptor format )
+        public HtmlParser( HtmlDocumentHandle htmlDocument, IFigureDescriptor format )
         {
             myDocument = htmlDocument;
             myFormat = format;
@@ -20,8 +20,8 @@ namespace RaynMaker.Import.Parsers.Html
 
         public DataTable ExtractTable()
         {
-            PathSeriesExtractionDescriptor pathSeriesFormat = myFormat as PathSeriesExtractionDescriptor;
-            PathTableExtractionDescriptor pathTableFormat = myFormat as PathTableExtractionDescriptor;
+            PathSeriesDescriptor pathSeriesFormat = myFormat as PathSeriesDescriptor;
+            PathTableDescriptor pathTableFormat = myFormat as PathTableDescriptor;
 
             if( pathSeriesFormat != null )
             {
@@ -47,9 +47,9 @@ namespace RaynMaker.Import.Parsers.Html
 
                 return TableFormatter.ToFormattedTable( pathTableFormat, result.Value );
             }
-            else if( myFormat is PathSingleValueExtractionDescriptor )
+            else if( myFormat is PathSingleValueDescriptor )
             {
-                var f = ( PathSingleValueExtractionDescriptor )myFormat;
+                var f = ( PathSingleValueDescriptor )myFormat;
                 var str = myDocument.Content.GetTextByPath( HtmlPath.Parse( f.Path ) );
                 var value = f.ValueFormat.Convert( str );
 

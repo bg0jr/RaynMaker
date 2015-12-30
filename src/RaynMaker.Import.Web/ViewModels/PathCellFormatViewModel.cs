@@ -24,7 +24,7 @@ namespace RaynMaker.Import.Web.ViewModels
         private bool myIsColumnValid;
         private Currency mySelectedCurreny;
 
-        public PathCellFormatViewModel( ILutService lutService, PathCellExtractionDescriptor format )
+        public PathCellFormatViewModel( ILutService lutService, PathCellDescriptor format )
             : base( format )
         {
             myLutService = lutService;
@@ -67,7 +67,7 @@ namespace RaynMaker.Import.Web.ViewModels
             InMillions = Format.InMillions;
         }
 
-        public new PathCellExtractionDescriptor Format { get; private set; }
+        public new PathCellDescriptor Format { get; private set; }
 
         protected override void OnSelectionChanged()
         {

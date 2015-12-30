@@ -45,7 +45,7 @@ namespace RaynMaker.Import.Spec
 
             var clone = FormatFactory.Clone( dataSource );
 
-            clone.ExtractionSpec.Add( new PathSeriesExtractionDescriptor( "dummy.series" ) );
+            clone.ExtractionSpec.Add( new PathSeriesDescriptor( "dummy.series" ) );
 
             Assert.That( clone.ExtractionSpec[ 0 ].Datum, Is.EqualTo( "dummy.csv" ) );
             Assert.That( clone.ExtractionSpec[ 1 ].Datum, Is.EqualTo( "dummy.series" ) );

@@ -12,14 +12,14 @@ namespace RaynMaker.Import
 {
     public class FormatFactory
     {
-        public static IFigureExtractionDescriptor Create( Type type )
+        public static IFigureDescriptor Create( Type type )
         {
-            if( type == typeof( PathSeriesExtractionDescriptor ) )
+            if( type == typeof( PathSeriesDescriptor ) )
             {
                 return CreatePathSeriesFormat();
             }
 
-            if( type == typeof( PathCellExtractionDescriptor ) )
+            if( type == typeof( PathCellDescriptor ) )
             {
                 return CreatePathCellFormat();
             }
@@ -27,9 +27,9 @@ namespace RaynMaker.Import
             throw new NotSupportedException( "Unknown format type: " + type.Name );
         }
 
-        private static IFigureExtractionDescriptor CreatePathSeriesFormat()
+        private static IFigureDescriptor CreatePathSeriesFormat()
         {
-            var format = new PathSeriesExtractionDescriptor( string.Empty );
+            var format = new PathSeriesDescriptor( string.Empty );
 
             format.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000.0000" );
             format.TimeAxisFormat = new FormatColumn( "time", typeof( int ), "0000" );
@@ -37,9 +37,9 @@ namespace RaynMaker.Import
             return format;
         }
 
-        private static IFigureExtractionDescriptor CreatePathCellFormat()
+        private static IFigureDescriptor CreatePathCellFormat()
         {
-            var format = new PathCellExtractionDescriptor( string.Empty );
+            var format = new PathCellDescriptor( string.Empty );
             format.Expand = CellDimension.None;
 
             format.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000.0000" );

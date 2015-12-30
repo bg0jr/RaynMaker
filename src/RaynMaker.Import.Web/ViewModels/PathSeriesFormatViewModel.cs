@@ -18,7 +18,7 @@ namespace RaynMaker.Import.Web.ViewModels
         private string mySkipRows;
         private string mySkipColumns;
 
-        public PathSeriesFormatViewModel( PathSeriesExtractionDescriptor format )
+        public PathSeriesFormatViewModel( PathSeriesDescriptor format )
             :base(format)
         {
             Format = format;
@@ -46,7 +46,7 @@ namespace RaynMaker.Import.Web.ViewModels
             SelectedDimension = Format.Expand;
         }
 
-        public new PathSeriesExtractionDescriptor Format { get; private set; }
+        public new PathSeriesDescriptor Format { get; private set; }
         
         private void SeriesName_ValidationChanged( bool isValid )
         {

@@ -171,7 +171,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             var formats = mySelectedSource.ExtractionSpec
                 // TODO: only works as long as PathCellFormat is derived from PathSeriesFormat
-                .Cast<PathSeriesExtractionDescriptor>()
+                .Cast<PathSeriesDescriptor>()
                 .Where( f => f.Datum == myDatumType.Name );
 
             foreach( var format in formats )
@@ -191,7 +191,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 }
 
                 // try take over currency
-                var pathCellFormat = format as PathCellExtractionDescriptor;
+                var pathCellFormat = format as PathCellDescriptor;
                 if( pathCellFormat != null )
                 {
                     Currency = CurrenciesLut.Currencies.SingleOrDefault( c => c.Symbol == pathCellFormat.Currency );

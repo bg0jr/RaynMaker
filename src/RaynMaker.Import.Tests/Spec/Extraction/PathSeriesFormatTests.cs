@@ -15,7 +15,7 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
         [Test]
         public void FetchCurrentPrice()
         {
-            var format = new PathSeriesExtractionDescriptor( "test" );
+            var format = new PathSeriesDescriptor( "test" );
             format.Path = @"/BODY[0]/DIV[5]/DIV[0]/DIV[5]/DIV[0]/TABLE[0]/TBODY[0]";
             format.Anchor = TableCellAnchor.ForCell( new StringContainsLocator( 1, @"xetra" ), new AbsolutePositionLocator( 2 ) );
             format.TimeAxisPosition = 0;
@@ -31,7 +31,7 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var format = new PathSeriesExtractionDescriptor( "dummy" );
+            var format = new PathSeriesDescriptor( "dummy" );
             format.Path = "123";
             format.ExtractLinkUrl = true;
             format.SeriesName = "x";
@@ -43,7 +43,7 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
             Assert.That( clone.SeriesName, Is.EqualTo( "x" ) );
         }
 
-        private DataTable Parse( PathSeriesExtractionDescriptor format, string file )
+        private DataTable Parse( PathSeriesDescriptor format, string file )
         {
             var rawTable = CsvReader.Read( file, ";" );
 

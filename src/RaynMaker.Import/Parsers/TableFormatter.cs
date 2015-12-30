@@ -19,7 +19,7 @@ namespace RaynMaker.Import.Parsers
         /// is extracted.
         /// Empty rows will be removed.
         /// </summary>
-        public static DataTable ToFormattedTable(AbstractTableExtractionDescriptor format,  DataTable rawTable )
+        public static DataTable ToFormattedTable(AbstractTableDescriptor format,  DataTable rawTable )
         {
             DataTable table = new DataTable();
             foreach( var col in format.Columns )
@@ -31,7 +31,7 @@ namespace RaynMaker.Import.Parsers
             return table;
         }
 
-        public static void ToFormattedTable( AbstractTableExtractionDescriptor format, DataTable rawTable, DataTable targetTable )
+        public static void ToFormattedTable( AbstractTableDescriptor format, DataTable rawTable, DataTable targetTable )
         {
             for( int r = 0; r < rawTable.Rows.Count; ++r )
             {
@@ -83,7 +83,7 @@ namespace RaynMaker.Import.Parsers
         /// which has been tailored using DataTable.ExtractSeries()
         /// </remarks>
         /// </summary>
-        public static DataTable ToFormattedTable(AbstractSeriesExtractionDescriptor format, DataTable table_in )
+        public static DataTable ToFormattedTable(AbstractSeriesDescriptor format, DataTable table_in )
         {
             if( table_in == null )
             {
@@ -147,7 +147,7 @@ namespace RaynMaker.Import.Parsers
         /// <summary>
         /// SeriesName validation not enabled here.
         /// </summary>
-        public static TableExtractionSettings ToExtractionSettings(AbstractSeriesExtractionDescriptor format)
+        public static TableExtractionSettings ToExtractionSettings(AbstractSeriesDescriptor format)
         {
             TableExtractionSettings settings = new TableExtractionSettings();
             settings.Dimension = format.Expand;
@@ -170,7 +170,7 @@ namespace RaynMaker.Import.Parsers
             return settings;
         }
 
-        private static DataTable ExtractSeries( AbstractSeriesExtractionDescriptor format, DataTable rawTable, TableCellAnchor anchor_in )
+        private static DataTable ExtractSeries( AbstractSeriesDescriptor format, DataTable rawTable, TableCellAnchor anchor_in )
         {
             if( anchor_in == null )
             {
