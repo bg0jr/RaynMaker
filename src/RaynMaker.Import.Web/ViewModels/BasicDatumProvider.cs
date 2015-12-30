@@ -5,13 +5,10 @@ using System.Text.RegularExpressions;
 using Plainion;
 using RaynMaker.Entities;
 using RaynMaker.Import.Documents;
-using RaynMaker.Import.Parsers.Html;
-using RaynMaker.Import.Spec;
 using RaynMaker.Import.Spec.v2;
 using RaynMaker.Import.Spec.v2.Extraction;
 using RaynMaker.Import.Spec.v2.Locating;
 using HtmlDocumentAdapter = RaynMaker.Import.Documents.WinForms.HtmlDocument;
-using HtmlElementAdapter = RaynMaker.Import.Documents.WinForms.HtmlElement;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
