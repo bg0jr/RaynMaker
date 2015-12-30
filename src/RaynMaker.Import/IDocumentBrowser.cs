@@ -9,7 +9,7 @@ namespace RaynMaker.Import
 
         void Navigate( DocumentType docType, Uri url );
 
-        void Navigate( Navigation navi );
+        void Navigate( DocumentLocator navi );
 
         event Action<Uri> Navigating;
 

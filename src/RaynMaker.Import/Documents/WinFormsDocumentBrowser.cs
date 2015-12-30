@@ -58,7 +58,7 @@ namespace RaynMaker.Import.Documents
             Document = loader.Load( url );
         }
 
-        public void Navigate( Navigation navi )
+        public void Navigate( DocumentLocator navi )
         {
             Contract.RequiresNotNull( navi, "navi" );
 

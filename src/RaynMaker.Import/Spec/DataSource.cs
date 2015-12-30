@@ -46,7 +46,7 @@ namespace RaynMaker.Import.Spec
 
         [Required]
         [DataMember]
-        public Navigation LocationSpec { get; set; }
+        public DocumentLocator LocationSpec { get; set; }
 
         [Required, ValidateObject]
         [DataMember]

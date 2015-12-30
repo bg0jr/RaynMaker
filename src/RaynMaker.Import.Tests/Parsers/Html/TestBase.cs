@@ -27,7 +27,7 @@ namespace RaynMaker.Import.Tests.Html
             string file = Path.Combine( TestDataRoot,  "Html" );
             file = Path.Combine( file, name );
 
-            var navi = new Navigation( DocumentType.Html, new NavigationUrl( UriType.Request, file ) );
+            var navi = new DocumentLocator( DocumentType.Html, new LocatingFragment( UriType.Request, file ) );
             myBrowser.Navigate( navi );
             var doc = ( HtmlDocumentHandle )myBrowser.Document;
 

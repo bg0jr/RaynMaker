@@ -14,9 +14,9 @@ namespace RaynMaker.Import.Spec
             dataSource.Vendor = "vendor";
             dataSource.Name = "name";
             dataSource.Quality = 17;
-            dataSource.LocationSpec = new Navigation( DocumentType.Html,
-                new NavigationUrl( UriType.Request, "http://test1.org" ),
-                new NavigationUrl( UriType.Response, "http://test2.org" ) );
+            dataSource.LocationSpec = new DocumentLocator( DocumentType.Html,
+                new LocatingFragment( UriType.Request, "http://test1.org" ),
+                new LocatingFragment( UriType.Response, "http://test2.org" ) );
             dataSource.FormatSpecs.Add( new CsvFormat( "dummy.csv", ";" ) );
 
             var clone = FormatFactory.Clone( dataSource );
@@ -37,7 +37,7 @@ namespace RaynMaker.Import.Spec
             var dataSource = new DataSource();
             dataSource.Vendor = "vendor";
             dataSource.Name = "name";
-            dataSource.LocationSpec = new Navigation( DocumentType.Html );
+            dataSource.LocationSpec = new DocumentLocator( DocumentType.Html );
             dataSource.FormatSpecs.Add( new CsvFormat( "dummy.csv", ";" ) );
 
             var clone = FormatFactory.Clone( dataSource );

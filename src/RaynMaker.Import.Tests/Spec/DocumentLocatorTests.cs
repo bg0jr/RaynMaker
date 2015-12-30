@@ -6,14 +6,14 @@ using RaynMaker.Import.Spec;
 namespace RaynMaker.Import.Tests.Spec
 {
     [TestFixture]
-    public class NavigationTests : TestBase
+    public class DocumentLocatorTests : TestBase
     {
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var navi = new Navigation( DocumentType.Html,
-                new NavigationUrl( UriType.Request, "http://test1.org" ),
-                new NavigationUrl( UriType.Response, "http://test2.org" ) );
+            var navi = new DocumentLocator( DocumentType.Html,
+                new LocatingFragment( UriType.Request, "http://test1.org" ),
+                new LocatingFragment( UriType.Response, "http://test2.org" ) );
 
             var output = DumpSpec( navi );
 

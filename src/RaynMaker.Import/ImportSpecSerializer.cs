@@ -39,7 +39,7 @@ namespace RaynMaker.Import
             {
                 if( typeNamespace == "https://github.com/bg0jr/RaynMaker/Import/Spec" && typeName == "ArrayOfNavigatorUrl" )
                 {
-                    return typeof( List<NavigationUrl> );
+                    return typeof( List<LocatingFragment> );
                 }
 
                 return knownTypeResolver.ResolveName( typeName, typeNamespace, declaredType, null );

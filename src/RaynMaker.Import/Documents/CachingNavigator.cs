@@ -33,7 +33,7 @@ namespace RaynMaker.Import.Documents
             }
         }
 
-        public Uri Navigate( Navigation navigation )
+        public Uri Navigate( DocumentLocator navigation )
         {
             var uri = myCache.TryGet( navigation );
             if( uri == null )

@@ -120,8 +120,8 @@
     <Compile Include="Spec\Formular.cs" />
     <Compile Include="Spec\ICellLocator.cs" />
     <Compile Include="Spec\IFigureExtractionDescriptor.cs" />
-    <Compile Include="Spec\Navigation.cs" />
-    <Compile Include="Spec\NavigationUrl.cs" />
+    <Compile Include="Spec\DocumentLocator.cs" />
+    <Compile Include="Spec\LocatingFragment.cs" />
     <Compile Include="Spec\PathSeriesFormat.cs" />
     <Compile Include="Spec\PathSingleValueFormat.cs" />
     <Compile Include="Spec\PathTableFormat.cs" />

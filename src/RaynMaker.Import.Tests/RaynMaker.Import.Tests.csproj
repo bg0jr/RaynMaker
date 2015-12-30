@@ -54,8 +54,8 @@
     <Compile Include="Spec\PathTableFormatTests.cs" />
     <Compile Include="Spec\PathSingleValueFormatTests.cs" />
     <Compile Include="Spec\PathCellFormatTests.cs" />
-    <Compile Include="Spec\NavigationUrlTests.cs" />
-    <Compile Include="Spec\NavigationTests.cs" />
+    <Compile Include="Spec\LocatingFragmentTests.cs" />
+    <Compile Include="Spec\DocumentLocatorTests.cs" />
     <Compile Include="Spec\FormularTests.cs" />
     <Compile Include="Spec\FormatColumnTests.cs" />
     <Compile Include="Spec\PathSeriesFormatTests.cs" />

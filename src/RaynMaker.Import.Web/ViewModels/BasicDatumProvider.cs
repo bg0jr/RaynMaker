@@ -22,14 +22,14 @@ namespace RaynMaker.Import.Web.ViewModels
 
         public IHtmlDocument Document { get; private set; }
 
-        public void Navigate( Navigation navigation, Stock stock )
+        public void Navigate( DocumentLocator navigation, Stock stock )
         {
             Contract.RequiresNotNull( navigation, "navigation" );
             Contract.Requires( navigation.DocumentType == DocumentType.Html, "Only DocumentType.Html supported" );
             Contract.RequiresNotNull( stock, "stock" );
 
             var macroPattern = new Regex( @"(\$\{.*\})" );
-            var filtered = new List<NavigationUrl>();
+            var filtered = new List<LocatingFragment>();
             foreach( var navUrl in navigation.Uris )
             {
                 var md = macroPattern.Match( navUrl.UrlString );
@@ -39,7 +39,7 @@ namespace RaynMaker.Import.Web.ViewModels
                     var value = GetMacroValue( macro.Substring( 2, macro.Length - 3 ), stock );
                     if( value != null )
                     {
-                        filtered.Add( new NavigationUrl( navUrl.UrlType, navUrl.UrlString.Replace( macro, value ) ) );
+                        filtered.Add( new LocatingFragment( navUrl.UrlType, navUrl.UrlString.Replace( macro, value ) ) );
                     }
                     else
                     {
@@ -52,7 +52,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 }
             }
 
-            myBrowser.Navigate( new Navigation( navigation.DocumentType, filtered ) );
+            myBrowser.Navigate( new DocumentLocator( navigation.DocumentType, filtered ) );
             Document = ( ( HtmlDocumentHandle )myBrowser.Document ).Content;
         }
 

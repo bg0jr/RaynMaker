@@ -30,7 +30,7 @@ namespace RaynMaker.Import.Tests.Parsers
         public void WpknFromAriva()
         {
             var inputFile = Path.Combine( TestDataRoot, "Core", "ariva.overview.US0138171014.html" );
-            myBrowser.Navigate( new Navigation( DocumentType.Html, inputFile ) );
+            myBrowser.Navigate( new DocumentLocator( DocumentType.Html, inputFile ) );
 
             var format = new PathSingleValueFormat( "Ariva.Wpkn" );
             format.Path = @"/BODY[0]/DIV[4]/DIV[0]/DIV[3]/DIV[0]";

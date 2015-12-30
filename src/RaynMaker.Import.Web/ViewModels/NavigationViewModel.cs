@@ -31,7 +31,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             EditCaptureRequest = new InteractionRequest<IConfirmation>();
 
-            Urls = new ObservableCollection<NavigationUrl>();
+            Urls = new ObservableCollection<LocatingFragment>();
 
             WeakEventManager<INotifyCollectionChanged, NotifyCollectionChangedEventArgs>.AddHandler( Urls, "CollectionChanged", OnUrlChanged );
 
@@ -87,7 +87,7 @@ namespace RaynMaker.Import.Web.ViewModels
         {
             if( IsCapturing )
             {
-                Urls.Add( new NavigationUrl( UriType.Request, url ) );
+                Urls.Add( new LocatingFragment( UriType.Request, url ) );
             }
         }
 
@@ -97,7 +97,7 @@ namespace RaynMaker.Import.Web.ViewModels
 
             if( IsCapturing )
             {
-                Urls.Add( new NavigationUrl( UriType.Response, doc.Location ) );
+                Urls.Add( new LocatingFragment( UriType.Response, doc.Location ) );
             }
         }
 
@@ -116,14 +116,14 @@ namespace RaynMaker.Import.Web.ViewModels
             }
         }
 
-        public ObservableCollection<NavigationUrl> Urls { get; private set; }
+        public ObservableCollection<LocatingFragment> Urls { get; private set; }
 
         private void OnUrlChanged( object sender, NotifyCollectionChangedEventArgs e )
         {
             if( Session.CurrentSource != null )
             {
                 var old = Session.CurrentSource.LocationSpec;
-                Session.CurrentSource.LocationSpec = new Navigation( old.DocumentType, old.Uris.Concat( Urls ) );
+                Session.CurrentSource.LocationSpec = new DocumentLocator( old.DocumentType, old.Uris.Concat( Urls ) );
             }
         }
 
@@ -153,7 +153,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 if( c.Confirmed )
                 {
                     Urls.Clear();
-                    Urls.AddRange( ( IEnumerable<NavigationUrl> )c.Content );
+                    Urls.AddRange( ( IEnumerable<LocatingFragment> )c.Content );
                 }
             } );
         }

@@ -16,14 +16,14 @@ namespace RaynMaker.Import.Web.Tests.ViewModels
         private class DocumentBrowserMock
         {
             public IDocumentBrowser Browser { get; private set; }
-            public Navigation Args_Navigation { get; private set; }
+            public DocumentLocator Args_Navigation { get; private set; }
 
             public DocumentBrowserMock()
             {
                 var browser = new Mock<IDocumentBrowser>();
                 browser.SetupGet( x => x.Document ).Returns( new HtmlDocumentHandle( new Mock<IHtmlDocument>().Object ) );
-                browser.Setup( x => x.Navigate( It.IsAny<Navigation>() ) )
-                    .Callback<Navigation>( navi => Args_Navigation = navi );
+                browser.Setup( x => x.Navigate( It.IsAny<DocumentLocator>() ) )
+                    .Callback<DocumentLocator>( navi => Args_Navigation = navi );
 
                 Browser = browser.Object;
             }
@@ -68,13 +68,13 @@ namespace RaynMaker.Import.Web.Tests.ViewModels
             Assert.That( browser.Args_Navigation.Uris.Single().UrlString, Is.EqualTo( "http://www.server.com/search?id=JNJ&paging=off" ) );
         }
 
-        private static Navigation CreateNavigation( DocumentType docType, params string[] urlTemplates )
+        private static DocumentLocator CreateNavigation( DocumentType docType, params string[] urlTemplates )
         {
             bool isRequest = false;
             Func<UriType> GetUriType = () => ( isRequest = !isRequest ) ? UriType.Request : UriType.Response;
 
-            return new Navigation( docType, urlTemplates
-                .Select( url => new NavigationUrl( GetUriType(), url ) ) );
+            return new DocumentLocator( docType, urlTemplates
+                .Select( url => new LocatingFragment( GetUriType(), url ) ) );
         }
     }
 }

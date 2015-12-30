@@ -58,7 +58,7 @@ namespace RaynMaker.Import.Documents
             }
         }
 
-        public void Navigate( Navigation navi )
+        public void Navigate( DocumentLocator navi )
         {
             var uri = myNavigator.Navigate( navi );
 

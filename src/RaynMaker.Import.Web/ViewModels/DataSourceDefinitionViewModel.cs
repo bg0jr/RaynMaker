@@ -20,7 +20,7 @@ namespace RaynMaker.Import.Web.ViewModels
         private void OnAdd()
         {
             var source = new DataSource();
-            source.LocationSpec = new Navigation( DocumentType.Html );
+            source.LocationSpec = new DocumentLocator( DocumentType.Html );
 
             Session.Sources.Add( source );
 

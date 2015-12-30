@@ -10,7 +10,7 @@ namespace RaynMaker.Import.Documents
 {
     class Navigator : INavigator
     {
-        public Uri Navigate( Navigation navigation )
+        public Uri Navigate( DocumentLocator navigation )
         {
             var uri = TryNavigateWithWildcards( navigation );
             if ( uri != null )
@@ -21,7 +21,7 @@ namespace RaynMaker.Import.Documents
             return NavigateToFinalSite( navigation.Uris );
         }
 
-        private Uri TryNavigateWithWildcards( Navigation navi )
+        private Uri TryNavigateWithWildcards( DocumentLocator navi )
         {
             if ( navi.Uris.Count != 1 )
             {
@@ -74,7 +74,7 @@ namespace RaynMaker.Import.Documents
         /// resulting parameter is set to the next request URL using 
         /// string.Format() at placeholder {0}.
         /// </summary>
-        private Uri NavigateToFinalSite( IEnumerable<NavigationUrl> navigationSteps )
+        private Uri NavigateToFinalSite( IEnumerable<LocatingFragment> navigationSteps )
         {
             string param = null;
 
@@ -86,7 +86,7 @@ namespace RaynMaker.Import.Documents
             }
 
             Uri currentUrl = null;
-            foreach ( NavigationUrl navUrl in navigationSteps )
+            foreach ( LocatingFragment navUrl in navigationSteps )
             {
                 Contract.Invariant( navUrl.UrlType != UriType.None, "UrlType must NOT be None" );
 

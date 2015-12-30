@@ -7,6 +7,6 @@ namespace RaynMaker.Import
     {
         event Action<Uri> Navigating;
 
-        Uri Navigate( Navigation navigation );
+        Uri Navigate( DocumentLocator navigation );
     }
 }

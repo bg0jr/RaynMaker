@@ -5,12 +5,12 @@ using RaynMaker.Import.Spec;
 namespace RaynMaker.Import.Tests.Spec
 {
     [TestFixture]
-    public class NavigationUrlTests : TestBase
+    public class LocatingFragmentTests : TestBase
     {
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var navi = new NavigationUrl( UriType.Request, "http://test1.org" );
+            var navi = new LocatingFragment( UriType.Request, "http://test1.org" );
 
             var clone = FormatFactory.Clone( navi );
 
@@ -21,7 +21,7 @@ namespace RaynMaker.Import.Tests.Spec
         [Test]
         public void Clone_WithFormular_AllMembersAreCloned()
         {
-            var navi = new NavigationUrl( new Formular( "dummy.form" ) );
+            var navi = new LocatingFragment( new Formular( "dummy.form" ) );
 
             var clone = FormatFactory.Clone( navi );
 

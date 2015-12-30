@@ -6,29 +6,29 @@ using System.Text;
 namespace RaynMaker.Import.Spec
 {
     /// <summary>
-    /// Descripes the steps for automated site navigation.
+    /// Describes location of a document. 
     /// </summary>
-    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "Navigation" )]
-    public class Navigation
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "DocumentLocator" )]
+    public class DocumentLocator
     {
-        public static Navigation Empty = new Navigation();
+        public static DocumentLocator Empty = new DocumentLocator();
 
-        private Navigation()
+        private DocumentLocator()
             : this( DocumentType.None )
         {
         }
 
-        public Navigation( DocumentType docType, string url )
-            : this( docType, new NavigationUrl( UriType.Request, url ) )
+        public DocumentLocator( DocumentType docType, string url )
+            : this( docType, new LocatingFragment( UriType.Request, url ) )
         {
         }
 
-        public Navigation( DocumentType docType, params NavigationUrl[] urls )
+        public DocumentLocator( DocumentType docType, params LocatingFragment[] urls )
             : this( docType, urls.ToList() )
         {
         }
 
-        public Navigation( DocumentType docType, IEnumerable<NavigationUrl> urls )
+        public DocumentLocator( DocumentType docType, IEnumerable<LocatingFragment> urls )
         {
             DocumentType = docType;
             Uris = urls.ToList();
@@ -49,7 +49,7 @@ namespace RaynMaker.Import.Spec
 
         // keep immutable because of stored UrisHashCode
         [DataMember]
-        public List<NavigationUrl> Uris { get; private set; }
+        public List<LocatingFragment> Uris { get; private set; }
 
         [DataMember]
         public int UrisHashCode { get; private set; }

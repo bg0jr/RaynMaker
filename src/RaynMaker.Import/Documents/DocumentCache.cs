@@ -37,7 +37,7 @@ namespace RaynMaker.Import.Documents
 
         public CacheSettings Settings { get; private set; }
 
-        internal Uri TryGet( Navigation key )
+        internal Uri TryGet( DocumentLocator key )
         {
             var entry = myIndex.TryGet( key.UrisHashCode );
             if( entry == null )
@@ -61,7 +61,7 @@ namespace RaynMaker.Import.Documents
         /// <summary>
         /// Adds the document specified by the given URL and the given navigation as key to the cache
         /// </summary>
-        internal Uri Add( Navigation key, Uri document )
+        internal Uri Add( DocumentLocator key, Uri document )
         {
             var entry = CreateCacheEntry( key, document );
 
@@ -74,7 +74,7 @@ namespace RaynMaker.Import.Documents
             return entry.Uri;
         }
 
-        private CacheEntryBase CreateCacheEntry( Navigation key, Uri document )
+        private CacheEntryBase CreateCacheEntry( DocumentLocator key, Uri document )
         {
             var expirationTime = DateTime.Now.Add( Settings.MaxEntryLiveTime );
 
