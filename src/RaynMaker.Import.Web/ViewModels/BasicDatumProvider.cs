@@ -6,11 +6,12 @@ using Plainion;
 using RaynMaker.Entities;
 using RaynMaker.Import.Documents;
 using RaynMaker.Import.Parsers.Html;
-using RaynMaker.Import.Parsers.Html.WinForms;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Spec.v2;
 using RaynMaker.Import.Spec.v2.Extraction;
 using RaynMaker.Import.Spec.v2.Locating;
+using HtmlDocumentAdapter = RaynMaker.Import.Documents.WinForms.HtmlDocument;
+using HtmlElementAdapter = RaynMaker.Import.Documents.WinForms.HtmlElement;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
@@ -56,7 +57,7 @@ namespace RaynMaker.Import.Web.ViewModels
             }
 
             myBrowser.Navigate( docType, new DocumentLocator( filtered ) );
-            Document = ( ( HtmlDocumentHandle )myBrowser.Document ).Content;
+            Document = (IHtmlDocument)myBrowser.Document;
         }
 
         private string GetMacroValue( string macroId, Stock stock )
@@ -112,8 +113,7 @@ namespace RaynMaker.Import.Web.ViewModels
             Contract.RequiresNotNull( format, "format" );
             Contract.Invariant( Document != null, "Document not yet loaded" );
 
-            var handle = new HtmlDocumentHandle( Document );
-            var parser = DocumentProcessorsFactory.CreateParser( handle, format );
+            var parser = DocumentProcessorsFactory.CreateParser( Document, format );
             return parser.ExtractTable();
         }
     }

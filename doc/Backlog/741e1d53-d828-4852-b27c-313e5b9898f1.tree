@@ -12,8 +12,11 @@
       </Node>
       <Node Id="f13f182c-dc46-4c06-b63a-788a719cab60">
         <Caption><![CDATA[Documents]]></Caption>
-        <Node Id="7d753ce3-5ab9-4209-bef7-0e19d04edd27">
-          <Caption><![CDATA[cleanup cascading]]></Caption>
+        <Node Id="e3528339-9ce3-4924-9db1-ae654150c7d8">
+          <Caption><![CDATA[Get Rid of]]></Caption>
+        </Node>
+        <Node Id="6825a325-2891-4992-8882-6b66431ea87b">
+          <Caption><![CDATA[Generics support for documents]]></Caption>
         </Node>
       </Node>
       <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">

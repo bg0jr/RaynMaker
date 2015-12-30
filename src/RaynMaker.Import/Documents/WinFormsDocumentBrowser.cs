@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Forms;
 using Plainion;
-using RaynMaker.Import.Parsers.Html.WinForms;
+using RaynMaker.Import.Documents.WinForms;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Spec.v2;
 using RaynMaker.Import.Spec.v2.Locating;
@@ -90,7 +90,7 @@ namespace RaynMaker.Import.Documents
         
         private void WebBrowser_DocumentCompleted( object sender, WebBrowserDocumentCompletedEventArgs e )
         {
-            Document = new HtmlDocumentHandle( new HtmlDocumentAdapter( Browser.Document ) );
+            Document = new RaynMaker.Import.Documents.WinForms.HtmlDocument( Browser.Document );
 
             if( DocumentCompleted != null )
             {

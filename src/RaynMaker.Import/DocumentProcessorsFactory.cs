@@ -30,7 +30,7 @@ namespace RaynMaker.Import
 
         public static IDocumentParser CreateParser( IDocument document, IFigureDescriptor format )
         {
-            var htmlDocument = document as HtmlDocumentHandle;
+            var htmlDocument = document as IHtmlDocument;
             if( htmlDocument != null )
             {
                 return new HtmlParser( htmlDocument, format );

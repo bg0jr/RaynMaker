@@ -1,24 +1,24 @@
 ﻿using System;
 using System.Threading;
 using System.Windows.Forms;
-using RaynMaker.Import.Parsers.Html.WinForms;
+using RaynMaker.Import.Documents.WinForms;
 using RaynMaker.Import.WinForms;
 
-namespace RaynMaker.Import.Documents
+namespace RaynMaker.Import.Documents.WinForms
 {
     // TODO: at the moment we dont do any cleanup!
-    class WinFormHtmlDocumentLoader : IDocumentLoader, IDisposable
+    class HtmlDocumentLoader : IDocumentLoader, IDisposable
     {
         private SafeWebBrowser myBrowser;
         private bool myOwnWebBrowser = false;
 
-        public WinFormHtmlDocumentLoader()
+        public HtmlDocumentLoader()
             : this( new SafeWebBrowser() )
         {
             myOwnWebBrowser = true;
         }
 
-        public WinFormHtmlDocumentLoader( SafeWebBrowser webBrowser )
+        public HtmlDocumentLoader( SafeWebBrowser webBrowser )
         {
             myBrowser = webBrowser;
 
@@ -38,7 +38,7 @@ namespace RaynMaker.Import.Documents
                 Application.DoEvents();
             }
 
-            return new HtmlDocumentHandle( new HtmlDocumentAdapter( myBrowser.Document ) );
+            return new RaynMaker.Import.Documents.WinForms.HtmlDocument( myBrowser.Document );
         }
 
         public void Dispose()

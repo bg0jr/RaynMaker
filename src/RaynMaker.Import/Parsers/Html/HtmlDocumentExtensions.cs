@@ -4,6 +4,7 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using Plainion;
+using RaynMaker.Import.Documents;
 using RaynMaker.Import.Spec;
 
 namespace RaynMaker.Import.Parsers.Html

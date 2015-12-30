@@ -37,13 +37,13 @@ namespace RaynMaker.Import.ScenarioTests
 
             var navi = new DocumentLocator( new DocumentLocationFragment( UriType.Request, file ) );
             myBrowser.Value.Navigate( docType, navi );
-            
+
             return myBrowser.Value.Document;
         }
 
         protected IHtmlDocument LoadHtmlDocument( string name )
         {
-            return ( ( HtmlDocumentHandle )LoadDocument( DocumentType.Html, name ) ).Content;
+            return ( IHtmlDocument )LoadDocument( DocumentType.Html, name );
         }
     }
 }

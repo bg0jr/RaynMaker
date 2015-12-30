@@ -23,7 +23,7 @@ namespace RaynMaker.Import.Web.Tests.ViewModels
             public DocumentBrowserMock()
             {
                 var browser = new Mock<IDocumentBrowser>();
-                browser.SetupGet( x => x.Document ).Returns( new HtmlDocumentHandle( new Mock<IHtmlDocument>().Object ) );
+                browser.SetupGet( x => x.Document ).Returns( new Mock<IHtmlDocument>().Object );
                 browser.Setup( x => x.Navigate( It.IsAny<DocumentType>(), It.IsAny<DocumentLocator>() ) )
                     .Callback<DocumentType, DocumentLocator>( ( docType, navi ) => Args_Navigation = navi );
 

@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
+using HtmlAgilityPack;
 
-namespace RaynMaker.Import.Parsers.Html.WinForms
+namespace RaynMaker.Import.Documents.AgilityPack
 {
-    public class HtmlElementAdapter : IHtmlElement
+    //[CLSCompliant( false )]
+    public class HtmlElement : IHtmlElement
     {
-        internal HtmlElementAdapter( HtmlDocumentAdapter document, HtmlElement element )
+        internal HtmlElement( HtmlDocument document, HtmlNode element )
         {
             if ( document == null )
             {
@@ -23,13 +24,13 @@ namespace RaynMaker.Import.Parsers.Html.WinForms
             Element = element;
         }
 
-        public HtmlDocumentAdapter DocumentAdapter
+        public HtmlDocument DocumentAdapter
         {
             get;
             private set;
         }
 
-        public HtmlElement Element
+        public HtmlNode Element
         {
             get;
             private set;
@@ -42,15 +43,14 @@ namespace RaynMaker.Import.Parsers.Html.WinForms
 
         public IHtmlElement Parent
         {
-            get { return Element.Parent == null ? null : DocumentAdapter.Create( Element.Parent ); }
+            get { return Element.ParentNode == null ? null : DocumentAdapter.Create( Element.ParentNode ); }
         }
 
         public IEnumerable<IHtmlElement> Children
         {
             get
             {
-                return Element.Children
-                    .OfType<HtmlElement>()
+                return Element.ChildNodes
                     .Select( e => DocumentAdapter.Create( e ) )
                     .ToList();
             }
@@ -58,12 +58,12 @@ namespace RaynMaker.Import.Parsers.Html.WinForms
 
         public string TagName
         {
-            get { return Element.TagName; }
+            get { return Element.Name; }
         }
 
         public string GetAttribute( string attr )
         {
-            return Element.GetAttribute( attr );
+            return Element.Attributes[ attr ].Value;
         }
 
         public string InnerText
@@ -80,6 +80,15 @@ namespace RaynMaker.Import.Parsers.Html.WinForms
             {
                 return Element.InnerHtml;
             }
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append( TagName );
+
+            return sb.ToString();
         }
     }
 }

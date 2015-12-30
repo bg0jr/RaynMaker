@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="e3528339-9ce3-4924-9db1-ae654150c7d8" Created="635871104400782920" LastModified="635871104452335869">
+  <Caption><![CDATA[Get Rid of]]></Caption>
+  <Content><![CDATA[using HtmlDocumentAdapter = RaynMaker.Import.Documents.WinForms.HtmlDocument;
+using HtmlElementAdapter = RaynMaker.Import.Documents.WinForms.HtmlElement;
+]]></Content>
+</Node>

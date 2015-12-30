@@ -1,10 +1,7 @@
 ﻿using System;
 using HtmlAgilityPack;
-using RaynMaker.Import.Documents;
-using RaynMaker.Import.Parsers.Html;
-using RaynMaker.Import.Parsers.Html.AgilityPack;
 
-namespace RaynMaker.Import.Documents
+namespace RaynMaker.Import.Documents.AgilityPack
 {
     /// <summary>
     /// Attention: Currently it still has a lot of trouble parsing HTML !! HtmlPath from WindowsExplorer does not match!
@@ -15,7 +12,7 @@ namespace RaynMaker.Import.Documents
         {
             TuneHtmlParser();
 
-            return new HtmlDocumentHandle( LoadDocument( uri ) );
+            return LoadDocument( uri );
         }
 
         private static void TuneHtmlParser()
@@ -28,12 +25,12 @@ namespace RaynMaker.Import.Documents
         {
             var client = WebUtil.CreateWebClient();
 
-            var doc = new HtmlDocument();
+            var doc = new HtmlAgilityPack.HtmlDocument();
             using ( var stream = client.OpenRead( url ) )
             {
                 doc.Load( stream );
             }
-            return new HtmlDocumentAdapter( url, doc );
+            return new RaynMaker.Import.Documents.AgilityPack.HtmlDocument( url, doc );
         }
     }
 }

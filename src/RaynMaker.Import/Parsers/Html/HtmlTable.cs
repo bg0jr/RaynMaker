@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Plainion;
+using RaynMaker.Import.Documents;
 
 namespace RaynMaker.Import.Parsers.Html
 {

@@ -9,12 +9,12 @@ namespace RaynMaker.Import.Parsers.Html
 {
     class HtmlParser : IDocumentParser
     {
-        private HtmlDocumentHandle myDocument;
+        private IHtmlDocument myDocument;
         private IFigureDescriptor myFormat;
 
-        public HtmlParser( HtmlDocumentHandle htmlDocument, IFigureDescriptor format )
+        public HtmlParser( IHtmlDocument document, IFigureDescriptor format )
         {
-            myDocument = htmlDocument;
+            myDocument = document;
             myFormat = format;
         }
 
@@ -28,7 +28,7 @@ namespace RaynMaker.Import.Parsers.Html
                 var htmlSettings = new HtmlExtractionSettings();
                 htmlSettings.ExtractLinkUrl = pathSeriesFormat.ExtractLinkUrl;
 
-                var result = myDocument.Content.ExtractTable( HtmlPath.Parse( pathSeriesFormat.Path ),
+                var result = myDocument.ExtractTable( HtmlPath.Parse( pathSeriesFormat.Path ),
                     TableFormatter.ToExtractionSettings( pathSeriesFormat ), htmlSettings );
                 if( !result.Success )
                 {
@@ -39,7 +39,7 @@ namespace RaynMaker.Import.Parsers.Html
             }
             else if( pathTableFormat != null )
             {
-                var result = myDocument.Content.ExtractTable( HtmlPath.Parse( pathTableFormat.Path ), true );
+                var result = myDocument.ExtractTable( HtmlPath.Parse( pathTableFormat.Path ), true );
                 if( !result.Success )
                 {
                     throw new Exception( "Failed to extract table from document: " + result.FailureReason );
@@ -50,7 +50,7 @@ namespace RaynMaker.Import.Parsers.Html
             else if( myFormat is PathSingleValueDescriptor )
             {
                 var f = ( PathSingleValueDescriptor )myFormat;
-                var str = myDocument.Content.GetTextByPath( HtmlPath.Parse( f.Path ) );
+                var str = myDocument.GetTextByPath( HtmlPath.Parse( f.Path ) );
                 var value = f.ValueFormat.Convert( str );
 
                 // XXX: this is really ugly - i have to create a table just to satisfy the interface :(

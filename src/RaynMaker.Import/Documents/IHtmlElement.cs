@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RaynMaker.Import.Parsers.Html
+namespace RaynMaker.Import.Documents
 {
     public interface IHtmlElement
     {

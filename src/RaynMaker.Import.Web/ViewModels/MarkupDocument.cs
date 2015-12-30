@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using RaynMaker.Import.Documents;
 using RaynMaker.Import.Parsers.Html;
-using RaynMaker.Import.Parsers.Html.WinForms;
-using RaynMaker.Import.Spec;
 using RaynMaker.Import.Spec.v2.Extraction;
+using HtmlDocumentAdapter = RaynMaker.Import.Documents.WinForms.HtmlDocument;
+using HtmlElementAdapter = RaynMaker.Import.Documents.WinForms.HtmlElement;
 
 namespace RaynMaker.Import.Web.ViewModels
 {

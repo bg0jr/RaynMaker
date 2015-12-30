@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
+using RaynMaker.Import.Documents;
 using RaynMaker.Import.Parsers;
 using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Spec.v2.Extraction;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Plainion;
+using RaynMaker.Import.Documents;
 
 namespace RaynMaker.Import.Parsers.Html
 {

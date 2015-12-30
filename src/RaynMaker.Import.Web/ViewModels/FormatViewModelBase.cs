@@ -6,9 +6,10 @@ using Microsoft.Practices.Prism.Mvvm;
 using Plainion;
 using RaynMaker.Entities;
 using RaynMaker.Import.Documents;
-using RaynMaker.Import.Parsers.Html.WinForms;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Spec.v2.Extraction;
+using HtmlDocumentAdapter = RaynMaker.Import.Documents.WinForms.HtmlDocument;
+using HtmlElementAdapter = RaynMaker.Import.Documents.WinForms.HtmlElement;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
@@ -16,7 +17,7 @@ namespace RaynMaker.Import.Web.ViewModels
     {
         private Type mySelectedDatum;
         private bool myInMillions;
-  
+
         protected FormatViewModelBase( IFigureDescriptor format )
         {
             Contract.RequiresNotNull( format, "format" );
@@ -68,7 +69,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 HtmlDocument doc = null;
                 if( value != null )
                 {
-                    var htmlDocument = ( ( HtmlDocumentHandle )value ).Content;
+                    var htmlDocument = ( IHtmlDocument )value;
                     var adapter = ( HtmlDocumentAdapter )htmlDocument;
                     doc = adapter.Document;
                 }

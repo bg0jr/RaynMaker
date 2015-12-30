@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using RaynMaker.Import.Documents;
 using RaynMaker.Import.Spec;
 using RaynMaker.Import.Spec.v2.Locating;
 
@@ -41,9 +42,9 @@ namespace RaynMaker.Import.Parsers.Html
         public Uri CreateSubmitUrl( Formular formular )
         {
             var builder = new UriBuilder();
-            builder.Scheme = FormElement.Document.Url.Scheme;
-            builder.Host = FormElement.Document.Url.Host;
-            builder.Port = FormElement.Document.Url.Port;
+            builder.Scheme = FormElement.Document.Location.Scheme;
+            builder.Host = FormElement.Document.Location.Host;
+            builder.Port = FormElement.Document.Location.Port;
             builder.Path = FormElement.GetAttribute( "action" );
             builder.Query = string.Join( "&", BuildParameters( formular ) );
 
