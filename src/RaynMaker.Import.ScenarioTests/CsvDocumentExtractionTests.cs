@@ -11,7 +11,7 @@ namespace RaynMaker.Import.ScenarioTests
     public class CsvDocumentExtractionTests : TestBase
     {
         private SeparatorSeriesDescriptor myFormat = null;
-        private string myEpsFile = null;
+        private IDocument myDocument = null;
 
         [SetUp]
         public void SetUp()
@@ -25,13 +25,14 @@ namespace RaynMaker.Import.ScenarioTests
             myFormat.SkipColumns = new int[] { 0, 2, 3 };
             myFormat.SkipRows = new int[] { 1 };
 
-            myEpsFile = Path.Combine( TestDataRoot, "eps.csv" );
+            myDocument = LoadDocument( DocumentType.Text, "eps.csv" );
         }
 
         [Test]
         public void FetchSeries()
         {
-            var table = Parse( myFormat, myEpsFile );
+            var parser = DocumentProcessorsFactory.CreateParser( myDocument, myFormat );
+            var table = parser.ExtractTable();
 
             Assert.AreEqual( 10, table.Rows.Count );
             Assert.AreEqual( "3,2", table.Rows[ 0 ][ 0 ] );
@@ -63,7 +64,8 @@ namespace RaynMaker.Import.ScenarioTests
             myFormat.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000" );
             myFormat.TimeAxisFormat = new FormatColumn( "year", typeof( int ), "000" );
 
-            var table = Parse( myFormat, myEpsFile );
+            var parser = DocumentProcessorsFactory.CreateParser( myDocument, myFormat );
+            var table = parser.ExtractTable();
 
             Assert.AreEqual( 10, table.Rows.Count );
             Assert.AreEqual( 3.2d, ( double )table.Rows[ 0 ][ "value" ], 0.000001d );
@@ -94,7 +96,8 @@ namespace RaynMaker.Import.ScenarioTests
         {
             myFormat.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000" );
 
-            var table = Parse( myFormat, myEpsFile );
+            var parser = DocumentProcessorsFactory.CreateParser( myDocument, myFormat );
+            var table = parser.ExtractTable();
 
             // no time axis
             Assert.AreEqual( 1, table.Columns.Count );
@@ -110,15 +113,6 @@ namespace RaynMaker.Import.ScenarioTests
             Assert.AreEqual( 3.0d, ( double )table.Rows[ 7 ][ "value" ], 0.000001d );
             Assert.AreEqual( 3.1d, ( double )table.Rows[ 8 ][ "value" ], 0.000001d );
             Assert.AreEqual( 3.5d, ( double )table.Rows[ 9 ][ "value" ], 0.000001d );
-        }
-
-        private DataTable Parse( SeparatorSeriesDescriptor descriptor, string file )
-        {
-            var browser = DocumentProcessorsFactory.CreateBrowser();
-            browser.Navigate( DocumentType.Text, new Uri( file ) );
-
-            var parser = DocumentProcessorsFactory.CreateParser( browser.Document, descriptor );
-            return parser.ExtractTable();
         }
     }
 }

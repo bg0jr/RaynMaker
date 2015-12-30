@@ -10,6 +10,12 @@
       <Node Id="c25bd228-54d3-4799-b93b-9debb4279799">
         <Caption><![CDATA[ScenarioTests]]></Caption>
       </Node>
+      <Node Id="f13f182c-dc46-4c06-b63a-788a719cab60">
+        <Caption><![CDATA[Documents]]></Caption>
+        <Node Id="7d753ce3-5ab9-4209-bef7-0e19d04edd27">
+          <Caption><![CDATA[cleanup cascading]]></Caption>
+        </Node>
+      </Node>
       <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">
         <Caption><![CDATA[Spec]]></Caption>
         <Node Id="c39feaa1-daa3-4048-95ef-4a44b1008900">

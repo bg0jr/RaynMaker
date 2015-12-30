@@ -11,7 +11,7 @@ namespace RaynMaker.Import.ScenarioTests
     public class TestBase
     {
         private Lazy<IDocumentBrowser> myBrowser = null;
-        
+
         public TestBase()
         {
             var assemblyPath = new Uri( Path.GetDirectoryName( GetType().Assembly.CodeBase ) ).LocalPath;
@@ -19,7 +19,7 @@ namespace RaynMaker.Import.ScenarioTests
 
             myBrowser = new Lazy<IDocumentBrowser>( () => DocumentProcessorsFactory.CreateBrowser() );
         }
-        
+
         protected string TestDataRoot { get; private set; }
 
         protected string DumpSpec<T>( T obj )
@@ -31,15 +31,19 @@ namespace RaynMaker.Import.ScenarioTests
             }
         }
 
-        protected IHtmlDocument LoadDocument( string name )
+        protected IDocument LoadDocument( DocumentType docType, string name )
         {
             var file = Path.Combine( TestDataRoot, name );
 
             var navi = new DocumentLocator( new DocumentLocationFragment( UriType.Request, file ) );
-            myBrowser.Value.Navigate( DocumentType.Html, navi );
-            var doc = ( HtmlDocumentHandle )myBrowser.Value.Document;
+            myBrowser.Value.Navigate( docType, navi );
+            
+            return myBrowser.Value.Document;
+        }
 
-            return doc.Content;
+        protected IHtmlDocument LoadHtmlDocument( string name )
+        {
+            return ( ( HtmlDocumentHandle )LoadDocument( DocumentType.Html, name ) ).Content;
         }
     }
 }

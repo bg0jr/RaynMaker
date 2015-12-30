@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="7d753ce3-5ab9-4209-bef7-0e19d04edd27" Created="635871066489814537" LastModified="635871066808162745">
+  <Caption><![CDATA[cleanup cascading]]></Caption>
+  <Content><![CDATA[cast idocument to htmldocumenthandle and then content is ihatmldocument
+
+==> simplify]]></Content>
+</Node>
