@@ -73,6 +73,9 @@
       <Node Id="b987b345-bd25-4d9d-aaed-80fe06141e16">
         <Caption><![CDATA[Update currencies from Web]]></Caption>
       </Node>
+      <Node Id="5751c90c-eac6-41da-844a-c8607af8a810">
+        <Caption><![CDATA[DB persistancy tests to ScenarioTests]]></Caption>
+      </Node>
     </Node>
   </Node>
 </Tree>

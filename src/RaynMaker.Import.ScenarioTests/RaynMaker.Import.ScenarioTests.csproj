@@ -53,15 +53,15 @@
     <Content Include="TestData\FigureFromHtmlTests\yahoo-bmw-all.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="TestData\PathSeriesDescriptorTests\ariva-prices.csv">
+    <Content Include="TestData\PathSeriesDescriptorTests\ariva-prices.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <Content Include="TestData\DataSourceLoadingTests\DataSources.xdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="TestData\SeparatorSeriesDescriptorTests\eps.csv">
+    <Content Include="TestData\SeparatorSeriesDescriptorTests\eps.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestData\FigureFromHtmlTests\ariva.overview.US0138171014.html">

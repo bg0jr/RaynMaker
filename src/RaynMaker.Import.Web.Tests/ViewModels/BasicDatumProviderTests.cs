@@ -25,7 +25,7 @@ namespace RaynMaker.Import.Web.Tests.ViewModels
                 var browser = new Mock<IDocumentBrowser>();
                 browser.SetupGet( x => x.Document ).Returns( new HtmlDocumentHandle( new Mock<IHtmlDocument>().Object ) );
                 browser.Setup( x => x.Navigate( It.IsAny<DocumentType>(), It.IsAny<DocumentLocator>() ) )
-                    .Callback<DocumentLocator>( navi => Args_Navigation = navi );
+                    .Callback<DocumentType, DocumentLocator>( ( docType, navi ) => Args_Navigation = navi );
 
                 Browser = browser.Object;
             }
@@ -50,7 +50,7 @@ namespace RaynMaker.Import.Web.Tests.ViewModels
             var browser = new DocumentBrowserMock();
             var provider = new BasicDatumProvider( browser.Browser );
 
-            var navigation = CreateNavigation(  "http://www.server.com/search?id=${wpkn}&paging=off" );
+            var navigation = CreateNavigation( "http://www.server.com/search?id=${wpkn}&paging=off" );
 
             provider.Navigate( DocumentType.Html, navigation, new Stock { Wpkn = "AB0976D" } );
 

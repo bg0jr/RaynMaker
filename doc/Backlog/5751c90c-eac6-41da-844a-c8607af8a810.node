@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="5751c90c-eac6-41da-844a-c8607af8a810" Created="635870841855721575" LastModified="635870842300757029">
+  <Caption><![CDATA[DB persistancy tests to ScenarioTests]]></Caption>
+  <Content><![CDATA[Tests which create true database should be converted to scenario based tests
+so that we can test more complex things and in more optimized way
+
+e.g. creating DB only in testfixture ]]></Content>
+</Node>

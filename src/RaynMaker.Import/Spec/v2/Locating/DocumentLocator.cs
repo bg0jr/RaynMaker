@@ -12,8 +12,6 @@ namespace RaynMaker.Import.Spec.v2.Locating
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "DocumentLocator" )]
     public class DocumentLocator
     {
-        public static DocumentLocator Empty = new DocumentLocator();
-
         public DocumentLocator( string url )
             : this( new DocumentLocationFragment( UriType.Request, url ) )
         {
@@ -43,7 +41,7 @@ namespace RaynMaker.Import.Spec.v2.Locating
 
         // keep immutable because of stored UrisHashCode
         [DataMember]
-        public IReadOnlyList<DocumentLocationFragment> Uris { get; private set; }
+        public List<DocumentLocationFragment> Uris { get; private set; }
 
         [DataMember]
         public int UrisHashCode { get; private set; }
