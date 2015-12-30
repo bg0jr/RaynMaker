@@ -20,7 +20,7 @@ namespace RaynMaker.Import.Parsers.Text
         public DataTable ExtractTable()
         {
             SeparatorSeriesDescriptor separatorSeriesFormat = myFormat as SeparatorSeriesDescriptor;
-            CsvExtractionDescriptor csvFormat = myFormat as CsvExtractionDescriptor;
+            CsvDescriptor csvFormat = myFormat as CsvDescriptor;
 
             if( csvFormat != null )
             {

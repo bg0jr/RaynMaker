@@ -20,7 +20,7 @@ namespace RaynMaker.Import.Spec
             dataSource.LocatingSpec = new DocumentLocator( DocumentType.Html,
                 new LocatingFragment( UriType.Request, "http://test1.org" ),
                 new LocatingFragment( UriType.Response, "http://test2.org" ) );
-            dataSource.ExtractionSpec.Add( new CsvExtractionDescriptor( "dummy.csv", ";" ) );
+            dataSource.ExtractionSpec.Add( new CsvDescriptor( "dummy.csv", ";" ) );
 
             var clone = FormatFactory.Clone( dataSource );
 
@@ -41,7 +41,7 @@ namespace RaynMaker.Import.Spec
             dataSource.Vendor = "vendor";
             dataSource.Name = "name";
             dataSource.LocatingSpec = new DocumentLocator( DocumentType.Html );
-            dataSource.ExtractionSpec.Add( new CsvExtractionDescriptor( "dummy.csv", ";" ) );
+            dataSource.ExtractionSpec.Add( new CsvDescriptor( "dummy.csv", ";" ) );
 
             var clone = FormatFactory.Clone( dataSource );
 
