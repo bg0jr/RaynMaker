@@ -7,10 +7,10 @@ using Plainion.Collections;
 namespace RaynMaker.Import.Spec.v2.Extraction
 {
     /// <summary>
-    /// Searches with contains. and ignore case
+    /// Locates a series using substring matching by ignoring the case.
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "StringContainsLocator" )]
-    public class StringContainsLocator : ITablePositionLocator
+    public class StringContainsLocator : ISeriesLocator
     {
         public StringContainsLocator( int seriesToScan, string value )
         {
@@ -24,7 +24,7 @@ namespace RaynMaker.Import.Spec.v2.Extraction
         [DataMember]
         public string Pattern { get; private set; }
 
-        public int GetLocation( IEnumerable<string> list )
+        public int FindIndex( IEnumerable<string> list )
         {
             return list.IndexOf( item => item.Contains( Pattern, StringComparison.OrdinalIgnoreCase ) );
         }

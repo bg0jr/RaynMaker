@@ -1,5 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="ff78be26-41b3-44a1-b1cc-8acdbe915731" Created="635871649660064413" LastModified="635871649843314894">
+<Node Id="ff78be26-41b3-44a1-b1cc-8acdbe915731" Created="635871649660064413" LastModified="635871675017434772">
   <Caption><![CDATA[ValueFormat of AbstractSeriesFormat]]></Caption>
-  <Content><![CDATA[why is it a formatcolumn and not just a valueformat?]]></Content>
+  <Content><![CDATA[why is it a formatcolumn and not just a valueformat?
+
+we need the name later on to find the column in the table which has
+the values and the one which has the time.
+
+we can only change this once we found a different approach for parsing
+series]]></Content>
 </Node>

@@ -1,14 +1,15 @@
-﻿using System;
-using System.Linq;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace RaynMaker.Import.Spec.v2.Extraction
 {
-    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "CsvFormat" )]
-    public class CsvDescriptor : AbstractTableDescriptor
+    /// <summary>
+    /// Describes extraction of an entire table from CSV formatted document.
+    /// </summary>
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "CsvDescriptor" )]
+    public class CsvDescriptor : TableDescriptorBase
     {
-        public CsvDescriptor( string datum, string sep, params FormatColumn[] cols )
-            : base( datum, cols )
+        public CsvDescriptor( string figure, string sep, params FormatColumn[] cols )
+            : base( figure, cols )
         {
             Separator = sep;
         }

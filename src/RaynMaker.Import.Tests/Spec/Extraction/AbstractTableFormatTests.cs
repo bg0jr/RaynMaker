@@ -9,7 +9,7 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
     public class AbstractTableFormatTests
     {
         [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "DummyFormat" )]
-        private class DummyFormat : AbstractTableDescriptor
+        private class DummyFormat : TableDescriptorBase
         {
             public DummyFormat( params FormatColumn[] columns )
                 : base( "dummy", columns )

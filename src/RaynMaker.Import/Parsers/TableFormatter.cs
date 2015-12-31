@@ -19,7 +19,7 @@ namespace RaynMaker.Import.Parsers
         /// is extracted.
         /// Empty rows will be removed.
         /// </summary>
-        public static DataTable ToFormattedTable( AbstractTableDescriptor format, DataTable rawTable )
+        public static DataTable ToFormattedTable( TableDescriptorBase format, DataTable rawTable )
         {
             DataTable table = new DataTable();
             foreach( var col in format.Columns )
@@ -31,7 +31,7 @@ namespace RaynMaker.Import.Parsers
             return table;
         }
 
-        public static void ToFormattedTable( AbstractTableDescriptor format, DataTable rawTable, DataTable targetTable )
+        public static void ToFormattedTable( TableDescriptorBase format, DataTable rawTable, DataTable targetTable )
         {
             for( int r = 0; r < rawTable.Rows.Count; ++r )
             {
@@ -83,7 +83,7 @@ namespace RaynMaker.Import.Parsers
         /// which has been tailored using DataTable.ExtractSeries()
         /// </remarks>
         /// </summary>
-        public static DataTable ToFormattedTable( AbstractSeriesDescriptor format, DataTable table_in )
+        public static DataTable ToFormattedTable( SeriesDescriptorBase format, DataTable table_in )
         {
             if( table_in == null )
             {
@@ -144,7 +144,7 @@ namespace RaynMaker.Import.Parsers
         /// <summary>
         /// SeriesName validation not enabled here.
         /// </summary>
-        public static TableExtractionSettings ToExtractionSettings( AbstractSeriesDescriptor format )
+        public static TableExtractionSettings ToExtractionSettings( SeriesDescriptorBase format )
         {
             TableExtractionSettings settings = new TableExtractionSettings();
             settings.Dimension = format.Orientation;
@@ -171,7 +171,7 @@ namespace RaynMaker.Import.Parsers
             return settings;
         }
 
-        private static DataTable ExtractSeries( AbstractSeriesDescriptor format, DataTable rawTable )
+        private static DataTable ExtractSeries( SeriesDescriptorBase format, DataTable rawTable )
         {
             // calculate the anchor
             Point anchor = new Point( 0, 0 );
@@ -184,7 +184,7 @@ namespace RaynMaker.Import.Parsers
                     throw new InvalidExpressionException( "Anchor points outside table" );
                 }
 
-                anchor.X = format.ValuesLocator.GetLocation( rawTable.Rows[ rowToScan ].ItemArray.Select( item => item.ToString() ) );
+                anchor.X = format.ValuesLocator.FindIndex( rawTable.Rows[ rowToScan ].ItemArray.Select( item => item.ToString() ) );
                 if( anchor.X == -1 )
                 {
                     throw new InvalidExpressionException( "Anchor condition failed: column not found" );
@@ -199,7 +199,7 @@ namespace RaynMaker.Import.Parsers
                     throw new InvalidExpressionException( "Anchor points outside table" );
                 }
 
-                anchor.Y = format.ValuesLocator.GetLocation( rawTable.Rows.ToSet().Select( row => row[ colToScan ].ToString() ) );
+                anchor.Y = format.ValuesLocator.FindIndex( rawTable.Rows.ToSet().Select( row => row[ colToScan ].ToString() ) );
                 if( anchor.Y == -1 )
                 {
                     throw new InvalidExpressionException( "Anchor condition failed: row not found" );

@@ -110,9 +110,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Documents\ProxyPool.cs" />
     <Compile Include="Spec\v2\Extraction\AbsolutePositionLocator.cs" />
-    <Compile Include="Spec\v2\Extraction\AbstractFigureDescriptor.cs" />
-    <Compile Include="Spec\v2\Extraction\AbstractSeriesDescriptor.cs" />
-    <Compile Include="Spec\v2\Extraction\AbstractTableDescriptor.cs" />
+    <Compile Include="Spec\v2\Extraction\FigureDescriptorBase.cs" />
+    <Compile Include="Spec\v2\Extraction\SeriesDescriptorBase.cs" />
+    <Compile Include="Spec\v2\Extraction\TableDescriptorBase.cs" />
     <Compile Include="Spec\v2\DocumentType.cs" />
     <Compile Include="Spec\v2\Extraction\FormatColumn.cs" />
     <Compile Include="Spec\v2\Locating\Formular.cs" />

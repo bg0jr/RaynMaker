@@ -1,33 +1,32 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Runtime.Serialization;
 using Plainion;
 
 namespace RaynMaker.Import.Spec.v2.Extraction
 {
     /// <summary>
-    /// Base class of all formats that describe the whole table instead of a series.
+    /// Defines the properties common to most table describing descriptors
     /// </summary>
-    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "AbstractTableFormat" )]
-    public abstract class AbstractTableDescriptor : AbstractFigureDescriptor
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "TableDescriptorBase" )]
+    public abstract class TableDescriptorBase : FigureDescriptorBase
     {
         private int[] mySkipRows = null;
         private int[] mySkipColumns = null;
-        
-        protected AbstractTableDescriptor( string datum, params FormatColumn[] cols )
-            : base( datum )
+
+        protected TableDescriptorBase( string figure, params FormatColumn[] cols )
+            : base( figure )
         {
             Contract.RequiresNotNull( cols, "cols" );
 
             SkipColumns = null;
             SkipRows = null;
-            
+
             Columns = cols;
         }
 
         [DataMember]
         public FormatColumn[] Columns { get; private set; }
-       
+
         [DataMember]
         public int[] SkipRows
         {

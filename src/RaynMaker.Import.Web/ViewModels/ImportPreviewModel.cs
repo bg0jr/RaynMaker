@@ -172,7 +172,7 @@ namespace RaynMaker.Import.Web.ViewModels
             var formats = mySelectedSource.ExtractionSpec
                 // TODO: only works as long as PathCellFormat is derived from PathSeriesFormat
                 .Cast<PathSeriesDescriptor>()
-                .Where( f => f.Datum == myDatumType.Name );
+                .Where( f => f.Figure == myDatumType.Name );
 
             foreach( var format in formats )
             {
@@ -242,7 +242,7 @@ namespace RaynMaker.Import.Web.ViewModels
                     ex.Data[ "Datum" ] = myDatumType.Name;
                     ex.Data[ "SiteName" ] = mySelectedSource.Name;
                     ex.Data[ "OriginalLocationSpec" ] = mySelectedSource.LocatingSpec.ToString();
-                    ex.Data[ "OriginalFormat" ] = format.Datum;
+                    ex.Data[ "OriginalFormat" ] = format.Figure;
 
                     myLogger.Error( ex, "Failed to fetch '{0}' from site {1}", myDatumType.Name, mySelectedSource.Name );
                 }
@@ -254,7 +254,7 @@ namespace RaynMaker.Import.Web.ViewModels
             myDatumType = datum;
 
             var sources = myStorageService.Load()
-                .Where( source => source.ExtractionSpec.Any( f => f.Datum == myDatumType.Name ) );
+                .Where( source => source.ExtractionSpec.Any( f => f.Figure == myDatumType.Name ) );
 
             Sources.AddRange( sources.OrderBy( s => s.Quality ) );
             SelectedSource = Sources.FirstOrDefault();

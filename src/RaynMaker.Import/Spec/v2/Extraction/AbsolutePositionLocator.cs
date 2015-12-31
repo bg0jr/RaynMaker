@@ -3,17 +3,17 @@ using System.Runtime.Serialization;
 
 namespace RaynMaker.Import.Spec.v2.Extraction
 {
+    /// <summary>
+    /// Locates a series by an absolute position explicitly given to constructor.
+    /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "AbsolutePositionLocator" )]
-    public class AbsolutePositionLocator : ITablePositionLocator
+    public class AbsolutePositionLocator : ISeriesLocator
     {
         public AbsolutePositionLocator( int position )
         {
             Position = position;
         }
 
-        /// <summary>
-        /// Describes the absolute row/column position depending on the dimension.
-        /// </summary>
         [DataMember]
         public int Position { get; private set; }
 
@@ -25,7 +25,7 @@ namespace RaynMaker.Import.Spec.v2.Extraction
             get { return -1; }
         }
 
-        public int GetLocation( IEnumerable<string> list )
+        public int FindIndex( IEnumerable<string> items )
         {
             return Position;
         }

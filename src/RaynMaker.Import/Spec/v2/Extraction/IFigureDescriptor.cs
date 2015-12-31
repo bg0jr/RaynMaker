@@ -5,7 +5,7 @@
     /// </summary>
     public interface IFigureDescriptor
     {
-        string Datum { get; set; }
+        string Figure { get; set; }
 
         bool InMillions { get; set; }
     }

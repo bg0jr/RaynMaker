@@ -42,9 +42,9 @@ namespace RaynMaker.Import.Web.ViewModels
             Value = "";
 
             // first set properties without side-effects to others
-            SelectedDatum = Datums.FirstOrDefault( d => d.Name == Format.Datum );
+            SelectedDatum = Datums.FirstOrDefault( d => d.Name == Format.Figure );
             Path = Format.Path;
-            ValueFormat = Format.ValueFormat ?? new FormatColumn( "value" );
+            ValueFormat = Format.ValueFormat ?? new ValueFormat();
             SelectedCurrency = myLutService.CurrenciesLut.Currencies.SingleOrDefault( c => c.Symbol == format.Currency );
 
             if( format.Column != null )
@@ -219,7 +219,7 @@ namespace RaynMaker.Import.Web.ViewModels
             set { SetProperty( ref myIsColumnValid, value ); }
         }
 
-        public FormatColumn ValueFormat { get; private set; }
+        public ValueFormat ValueFormat { get; private set; }
 
         public IEnumerable<Currency> Currencies
         {

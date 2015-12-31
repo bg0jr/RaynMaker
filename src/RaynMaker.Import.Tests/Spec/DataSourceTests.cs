@@ -32,7 +32,7 @@ namespace RaynMaker.Import.Spec
 
             Assert.That( clone.LocatingSpec.Uris[ 0 ].UrlString, Is.EqualTo( "http://test1.org" ) );
 
-            Assert.That( clone.ExtractionSpec[ 0 ].Datum, Is.EqualTo( "dummy.csv" ) );
+            Assert.That( clone.ExtractionSpec[ 0 ].Figure, Is.EqualTo( "dummy.csv" ) );
         }
 
         [Test]
@@ -48,8 +48,8 @@ namespace RaynMaker.Import.Spec
 
             clone.ExtractionSpec.Add( new PathSeriesDescriptor( "dummy.series" ) );
 
-            Assert.That( clone.ExtractionSpec[ 0 ].Datum, Is.EqualTo( "dummy.csv" ) );
-            Assert.That( clone.ExtractionSpec[ 1 ].Datum, Is.EqualTo( "dummy.series" ) );
+            Assert.That( clone.ExtractionSpec[ 0 ].Figure, Is.EqualTo( "dummy.csv" ) );
+            Assert.That( clone.ExtractionSpec[ 1 ].Figure, Is.EqualTo( "dummy.series" ) );
         }
     }
 }

@@ -9,7 +9,7 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
     public class AbstractFormatTests
     {
         [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "DummyFormat" )]
-        private class DummyFormat : AbstractFigureDescriptor
+        private class DummyFormat : FigureDescriptorBase
         {
             public DummyFormat()
                 : base( "dummy" )
@@ -21,12 +21,12 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
             var format = new DummyFormat();
-            format.Datum = "blue";
+            format.Figure = "blue";
             format.InMillions = true;
 
             var clone = FormatFactory.Clone( format );
 
-            Assert.That( clone.Datum, Is.EqualTo( format.Datum ) );
+            Assert.That( clone.Figure, Is.EqualTo( format.Figure ) );
             Assert.That( clone.InMillions, Is.EqualTo( format.InMillions ) );
         }
     }

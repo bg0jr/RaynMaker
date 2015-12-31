@@ -20,7 +20,7 @@ namespace RaynMaker.Import.ScenarioTests
 
                 Assert.That( dataSource.Vendor, Is.EqualTo( "Ariva" ) );
                 Assert.That( dataSource.LocatingSpec.Uris[ 0 ].UrlString, Is.EqualTo( "http://www.ariva.de/search/search.m?searchname=${Isin}" ) );
-                Assert.That( dataSource.ExtractionSpec[ 0 ].Datum, Is.EqualTo( "Dividend" ) );
+                Assert.That( dataSource.ExtractionSpec[ 0 ].Figure, Is.EqualTo( "Dividend" ) );
             }
         }
     }

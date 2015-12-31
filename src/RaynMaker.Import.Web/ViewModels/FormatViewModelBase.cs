@@ -43,7 +43,7 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 if( SetProperty( ref mySelectedDatum, value ) )
                 {
-                    Format.Datum = mySelectedDatum.Name;
+                    Format.Figure = mySelectedDatum.Name;
                 }
             }
         }

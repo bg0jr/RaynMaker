@@ -1,22 +1,17 @@
-﻿using System;
-using System.Data;
-using System.Drawing;
-using System.Linq;
+﻿using System.Linq;
 using System.Runtime.Serialization;
-using RaynMaker.Import.Parsers;
 
 namespace RaynMaker.Import.Spec.v2.Extraction
 {
     /// <summary>
-    /// Base class for all formats that describe a series of data.
-    /// A series consists of a set of time-value pairs.
+    /// Defines the properties common to most series describing descriptors
     /// </summary>
-    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "AbstractSeriesFormat" )]
-    public abstract class AbstractSeriesDescriptor : AbstractFigureDescriptor
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "SeriesDescriptorBase" )]
+    public abstract class SeriesDescriptorBase : FigureDescriptorBase
     {
         private int[] myExcludes = null;
 
-        protected AbstractSeriesDescriptor( string name )
+        protected SeriesDescriptorBase( string name )
             : base( name )
         {
             Excludes = null;
@@ -30,7 +25,7 @@ namespace RaynMaker.Import.Spec.v2.Extraction
         /// Orientation of the values series is described by the Orientation property.
         /// </summary>
         [DataMember]
-        public ITablePositionLocator ValuesLocator { get; set; }
+        public ISeriesLocator ValuesLocator { get; set; }
 
         [DataMember]
         public FormatColumn ValueFormat { get; set; }
@@ -40,7 +35,7 @@ namespace RaynMaker.Import.Spec.v2.Extraction
         /// Orientation of the times series is described by the Orientation property.
         /// </summary>
         [DataMember]
-        public ITablePositionLocator TimesLocator { get; set; }
+        public ISeriesLocator TimesLocator { get; set; }
 
         [DataMember]
         public FormatColumn TimeFormat { get; set; }

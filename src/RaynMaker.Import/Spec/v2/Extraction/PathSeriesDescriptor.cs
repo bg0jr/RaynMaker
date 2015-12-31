@@ -4,19 +4,18 @@ using System.Runtime.Serialization;
 namespace RaynMaker.Import.Spec.v2.Extraction
 {
     /// <summary>
-    /// Describes a series format based on a document which
-    /// has a hierarchical structure like XML or HTML documents.
+    /// Describes a series within a table.
     /// </summary>
-    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "PathSeriesFormat" )]
-    public class PathSeriesDescriptor : AbstractSeriesDescriptor
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "PathSeriesDescriptor" )]
+    public class PathSeriesDescriptor : SeriesDescriptorBase
     {
-        public PathSeriesDescriptor( string datum )
-            : base( datum )
+        public PathSeriesDescriptor( string figure )
+            : base( figure )
         {
         }
 
         /// <summary>
-        /// Path which describes the position of the series.
+        /// Gets or sets the path within the document to the table.
         /// </summary>
         [DataMember]
         public string Path { get; set; }

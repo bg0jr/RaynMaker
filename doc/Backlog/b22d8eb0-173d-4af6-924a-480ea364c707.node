@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="b22d8eb0-173d-4af6-924a-480ea364c707" Created="635871671511654253" LastModified="635871671865434488">
+  <Caption><![CDATA[Think about a "TimeFormat"]]></Caption>
+  <Content><![CDATA[ValueFormat is actually not sufficient.
+
+just checking the .net type would be ok for year and date but what
+if we have quaters?]]></Content>
+</Node>

@@ -3,28 +3,31 @@ using System.Runtime.Serialization;
 
 namespace RaynMaker.Import.Spec.v2.Extraction
 {
-    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "PathCellFormat" )]
-    public class PathCellDescriptor : AbstractFigureDescriptor
+    /// <summary>
+    /// Describes a figure within one cell of a table.
+    /// </summary>
+    [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "PathCellDescriptor" )]
+    public class PathCellDescriptor : FigureDescriptorBase
     {
-        public PathCellDescriptor( string datum )
-            : base( datum )
+        public PathCellDescriptor( string figure )
+            : base( figure )
         {
         }
 
         /// <summary>
-        /// Path which describes the position of the series.
+        /// Gets or sets the path within the document to the table.
         /// </summary>
         [DataMember]
         public string Path { get; set; }
 
         [DataMember]
-        public ITablePositionLocator Column { get; set; }
+        public ISeriesLocator Column { get; set; }
 
         [DataMember]
-        public ITablePositionLocator Row { get; set; }
+        public ISeriesLocator Row { get; set; }
 
         [DataMember]
-        public FormatColumn ValueFormat { get; set; }
+        public ValueFormat ValueFormat { get; set; }
 
         [DataMember]
         public string Currency { get; set; }

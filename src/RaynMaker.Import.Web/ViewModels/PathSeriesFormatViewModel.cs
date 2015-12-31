@@ -28,7 +28,7 @@ namespace RaynMaker.Import.Web.ViewModels
             Value = "";
 
             // first set properties without side-effects to others
-            SelectedDatum = Datums.FirstOrDefault( d => d.Name == Format.Datum );
+            SelectedDatum = Datums.FirstOrDefault( d => d.Name == Format.Figure );
             Path = Format.Path;
             SkipValues = string.Join( ",", format.Excludes );
             TimeFormat = Format.TimeFormat ?? new FormatColumn( "time" );

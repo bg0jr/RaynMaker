@@ -7,12 +7,6 @@
     </Node>
     <Node Id="b6cbd93c-bdbd-49b4-bbb8-33de0a595e04">
       <Caption><![CDATA[1.7 - Polish Import module]]></Caption>
-      <Node Id="ff78be26-41b3-44a1-b1cc-8acdbe915731">
-        <Caption><![CDATA[ValueFormat of AbstractSeriesFormat]]></Caption>
-      </Node>
-      <Node Id="7a1123b4-d78b-4b34-9e9f-2be087951033">
-        <Caption><![CDATA[PathSeriesDescriptor]]></Caption>
-      </Node>
       <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">
         <Caption><![CDATA[Spec]]></Caption>
         <Node Id="c39feaa1-daa3-4048-95ef-4a44b1008900">
@@ -78,6 +72,12 @@
       </Node>
       <Node Id="211a7a10-87e8-4363-b9ce-6f9835655d50">
         <Caption><![CDATA[Remove "format" name from everywhere]]></Caption>
+      </Node>
+      <Node Id="b22d8eb0-173d-4af6-924a-480ea364c707">
+        <Caption><![CDATA[Think about a "TimeFormat"]]></Caption>
+      </Node>
+      <Node Id="ff78be26-41b3-44a1-b1cc-8acdbe915731">
+        <Caption><![CDATA[ValueFormat of AbstractSeriesFormat]]></Caption>
       </Node>
     </Node>
     <Node Id="63da965d-c664-48a9-8250-578d54290207">

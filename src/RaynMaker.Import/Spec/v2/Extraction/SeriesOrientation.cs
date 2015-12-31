@@ -2,17 +2,11 @@
 namespace RaynMaker.Import.Spec.v2.Extraction
 {
     /// <summary>
-    /// Defines the part of a table under inspection.
+    /// Defines orientation of a series within a table.
     /// </summary>
     public enum SeriesOrientation
     {
-        /// <summary>
-        /// Complete row.
-        /// </summary>
         Row,
-        /// <summary>
-        /// Complete column.
-        /// </summary>
         Column
     }
 }
