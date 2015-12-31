@@ -30,7 +30,7 @@ namespace RaynMaker.Import.Documents.AgilityPack
             {
                 doc.Load( stream );
             }
-            return new RaynMaker.Import.Documents.AgilityPack.HtmlDocument( url, doc );
+            return new HtmlDocumentAdapter( url, doc );
         }
     }
 }

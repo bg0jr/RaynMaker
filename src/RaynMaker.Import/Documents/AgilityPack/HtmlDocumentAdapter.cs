@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using HtmlAgilityPack;
 
-using AgilityPackHtmlDocument = HtmlAgilityPack.HtmlDocument;
-
 namespace RaynMaker.Import.Documents.AgilityPack
 {
-    public class HtmlDocument : IHtmlDocument
+    public class HtmlDocumentAdapter : IHtmlDocument
     {
-        private IDictionary<HtmlNode, HtmlElement> myElementAdapters;
+        private IDictionary<HtmlNode, HtmlElementAdapter> myElementAdapters;
 
-        public HtmlDocument( Uri uri, AgilityPackHtmlDocument doc )
+        public HtmlDocumentAdapter( Uri uri, HtmlDocument doc )
         {
             if( doc == null )
             {
@@ -19,23 +17,23 @@ namespace RaynMaker.Import.Documents.AgilityPack
 
             Location = uri;
             Document = doc;
-            myElementAdapters = new Dictionary<HtmlNode, HtmlElement>();
+            myElementAdapters = new Dictionary<HtmlNode, HtmlElementAdapter>();
         }
 
         public Uri Location { get; private set; }
 
-        public AgilityPackHtmlDocument Document { get; private set; }
+        public HtmlDocument Document { get; private set; }
 
         public IHtmlElement Body
         {
             get { return Create( Document.DocumentNode.SelectSingleNode( "//body" ) ); }
         }
 
-        public HtmlElement Create( HtmlNode element )
+        public HtmlElementAdapter Create( HtmlNode element )
         {
             if( !myElementAdapters.ContainsKey( element ) )
             {
-                myElementAdapters[ element ] = new HtmlElement( this, element );
+                myElementAdapters[ element ] = new HtmlElementAdapter( this, element );
             }
 
             return myElementAdapters[ element ];

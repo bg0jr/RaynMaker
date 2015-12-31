@@ -38,7 +38,7 @@ namespace RaynMaker.Import.Documents.WinForms
                 Application.DoEvents();
             }
 
-            return new RaynMaker.Import.Documents.WinForms.HtmlDocument( myBrowser.Document );
+            return new HtmlDocumentAdapter( myBrowser.Document );
         }
 
         public void Dispose()

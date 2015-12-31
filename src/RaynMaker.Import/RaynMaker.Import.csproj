@@ -90,8 +90,8 @@
     <Compile Include="Documents\WebUtil.cs" />
     <Compile Include="Documents\WinForms\HtmlDocumentLoader.cs" />
     <Compile Include="DocumentProcessorsFactory.cs" />
-    <Compile Include="Documents\AgilityPack\HtmlDocument.cs" />
-    <Compile Include="Documents\AgilityPack\HtmlElement.cs" />
+    <Compile Include="Documents\AgilityPack\HtmlDocumentAdapter.cs" />
+    <Compile Include="Documents\AgilityPack\HtmlElementAdapter.cs" />
     <Compile Include="Parsers\Html\HtmlDocumentExtensions.cs" />
     <Compile Include="Parsers\Html\HtmlElementExtensions.cs" />
     <Compile Include="Parsers\Html\HtmlExtractionSettings.cs" />
@@ -101,8 +101,8 @@
     <Compile Include="Parsers\Html\HtmlTable.cs" />
     <Compile Include="Documents\IHtmlDocument.cs" />
     <Compile Include="Documents\IHtmlElement.cs" />
-    <Compile Include="Documents\WinForms\HtmlDocument.cs" />
-    <Compile Include="Documents\WinForms\HtmlElement.cs" />
+    <Compile Include="Documents\WinForms\HtmlDocumentAdapter.cs" />
+    <Compile Include="Documents\WinForms\HtmlElementAdapter.cs" />
     <Compile Include="IDocument.cs" />
     <Compile Include="IDocumentBrowser.cs" />
     <Compile Include="Documents\IDocumentLoader.cs" />

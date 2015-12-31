@@ -6,8 +6,8 @@ using Microsoft.Practices.Prism.Mvvm;
 using Plainion;
 using RaynMaker.Entities;
 using RaynMaker.Import.Documents;
+using RaynMaker.Import.Documents.WinForms;
 using RaynMaker.Import.Spec.v2.Extraction;
-using HtmlDocumentAdapter = RaynMaker.Import.Documents.WinForms.HtmlDocument;
 
 namespace RaynMaker.Import.Web.ViewModels
 {

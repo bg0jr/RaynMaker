@@ -3,13 +3,12 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Plainion;
+using RaynMaker.Import.Documents.WinForms;
 using RaynMaker.Import.Parsers.Html;
-using HtmlDocumentAdapter = RaynMaker.Import.Documents.WinForms.HtmlDocument;
-using HtmlElementAdapter = RaynMaker.Import.Documents.WinForms.HtmlElement;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
-    public class HtmlMarker
+    class HtmlMarker
     {
         private IList<HtmlElement> myMarkedElements;
 
@@ -22,6 +21,7 @@ namespace RaynMaker.Import.Web.ViewModels
         public HtmlDocumentAdapter Document { get; set; }
 
         public IEnumerable<HtmlElement> MarkedElements { get { return myMarkedElements; } }
+
         public Color DefaultColor { get; set; }
 
         public void Mark( HtmlElement e )

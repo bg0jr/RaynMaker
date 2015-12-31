@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using WinFormsHtmlDocument = System.Windows.Forms.HtmlDocument;
-using WinFormsHtmlElement = System.Windows.Forms.HtmlElement;
+using System.Windows.Forms;
 
 namespace RaynMaker.Import.Documents.WinForms
 {
-    public class HtmlDocument : IHtmlDocument
+    public class HtmlDocumentAdapter : IHtmlDocument
     {
-        private IDictionary<WinFormsHtmlElement, HtmlElement> myElementAdapters;
+        private IDictionary<HtmlElement, HtmlElementAdapter> myElementAdapters;
 
-        public HtmlDocument( WinFormsHtmlDocument doc )
+        public HtmlDocumentAdapter( HtmlDocument doc )
         {
             if( doc == null )
             {
@@ -18,7 +16,7 @@ namespace RaynMaker.Import.Documents.WinForms
             }
 
             Document = doc;
-            myElementAdapters = new Dictionary<WinFormsHtmlElement, HtmlElement>();
+            myElementAdapters = new Dictionary<HtmlElement, HtmlElementAdapter>();
         }
 
         public Uri Location
@@ -26,14 +24,14 @@ namespace RaynMaker.Import.Documents.WinForms
             get { return Document.Url; }
         }
 
-        public WinFormsHtmlDocument Document { get; private set; }
+        public HtmlDocument Document { get; private set; }
 
         public IHtmlElement Body
         {
             get { return Create( Document.Body ); }
         }
 
-        public HtmlElement Create( WinFormsHtmlElement element )
+        public HtmlElementAdapter Create( HtmlElement element )
         {
             // does not work :(
             //if ( Document != element.Document )
@@ -43,7 +41,7 @@ namespace RaynMaker.Import.Documents.WinForms
 
             if( !myElementAdapters.ContainsKey( element ) )
             {
-                myElementAdapters[ element ] = new HtmlElement( this, element );
+                myElementAdapters[ element ] = new HtmlElementAdapter( this, element );
             }
 
             return myElementAdapters[ element ];

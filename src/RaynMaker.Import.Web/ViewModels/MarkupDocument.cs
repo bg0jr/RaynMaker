@@ -4,14 +4,13 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using RaynMaker.Import.Documents;
+using RaynMaker.Import.Documents.WinForms;
 using RaynMaker.Import.Parsers.Html;
 using RaynMaker.Import.Spec.v2.Extraction;
-using HtmlDocumentAdapter = RaynMaker.Import.Documents.WinForms.HtmlDocument;
-using HtmlElementAdapter = RaynMaker.Import.Documents.WinForms.HtmlElement;
 
 namespace RaynMaker.Import.Web.ViewModels
 {
-    public class MarkupDocument : IDisposable
+    class MarkupDocument : IDisposable
     {
         private HtmlMarker myMarker = null;
         private HtmlDocumentAdapter myDocument = null;

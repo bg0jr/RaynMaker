@@ -7,9 +7,9 @@ using HtmlAgilityPack;
 namespace RaynMaker.Import.Documents.AgilityPack
 {
     //[CLSCompliant( false )]
-    public class HtmlElement : IHtmlElement
+    public class HtmlElementAdapter : IHtmlElement
     {
-        internal HtmlElement( HtmlDocument document, HtmlNode element )
+        internal HtmlElementAdapter( HtmlDocumentAdapter document, HtmlNode element )
         {
             if ( document == null )
             {
@@ -24,7 +24,7 @@ namespace RaynMaker.Import.Documents.AgilityPack
             Element = element;
         }
 
-        public HtmlDocument DocumentAdapter
+        public HtmlDocumentAdapter DocumentAdapter
         {
             get;
             private set;

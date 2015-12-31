@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
-using WinFormsHtmlElement = System.Windows.Forms.HtmlElement;
+using System.Windows.Forms;
 
 namespace RaynMaker.Import.Documents.WinForms
 {
-    public class HtmlElement : IHtmlElement
+    public class HtmlElementAdapter : IHtmlElement
     {
-        internal HtmlElement( HtmlDocument document, WinFormsHtmlElement element )
+        internal HtmlElementAdapter( HtmlDocumentAdapter document, HtmlElement element )
         {
             if( document == null )
             {
@@ -23,9 +22,9 @@ namespace RaynMaker.Import.Documents.WinForms
             Element = element;
         }
 
-        public HtmlDocument DocumentAdapter { get; private set; }
+        public HtmlDocumentAdapter DocumentAdapter { get; private set; }
 
-        public WinFormsHtmlElement Element { get; private set; }
+        public HtmlElement Element { get; private set; }
 
         public IHtmlDocument Document
         {
@@ -42,7 +41,7 @@ namespace RaynMaker.Import.Documents.WinForms
             get
             {
                 return Element.Children
-                    .OfType<WinFormsHtmlElement>()
+                    .OfType<HtmlElement>()
                     .Select( e => DocumentAdapter.Create( e ) )
                     .ToList();
             }

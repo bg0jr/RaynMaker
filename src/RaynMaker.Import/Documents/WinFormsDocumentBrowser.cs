@@ -90,7 +90,7 @@ namespace RaynMaker.Import.Documents
         
         private void WebBrowser_DocumentCompleted( object sender, WebBrowserDocumentCompletedEventArgs e )
         {
-            Document = new RaynMaker.Import.Documents.WinForms.HtmlDocument( Browser.Document );
+            Document = new HtmlDocumentAdapter( Browser.Document );
 
             if( DocumentCompleted != null )
             {
