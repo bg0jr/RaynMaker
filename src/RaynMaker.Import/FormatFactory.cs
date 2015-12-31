@@ -32,7 +32,7 @@ namespace RaynMaker.Import
             var format = new PathSeriesDescriptor( string.Empty );
 
             format.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000.0000" );
-            format.TimeAxisFormat = new FormatColumn( "time", typeof( int ), "0000" );
+            format.TimeFormat = new FormatColumn( "time", typeof( int ), "0000" );
 
             return format;
         }
@@ -45,7 +45,7 @@ namespace RaynMaker.Import
 
             // not supported
             //format.TimeAxisFormat = new FormatColumn( "time", typeof( int ), "0000" );
-            format.TimeAxisFormat = null;
+            format.TimeFormat = null;
 
             return format;
         }

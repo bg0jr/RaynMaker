@@ -90,12 +90,12 @@ namespace RaynMaker.Import.Web.ViewModels
             if( markupDoc.Dimension == CellDimension.Row )
             {
                 markupDoc.ColumnHeaderRow = format.TimeAxisPosition;
-                markupDoc.RowHeaderColumn = format.SeriesNamePosition;
+                markupDoc.RowHeaderColumn = format.Anchor.SeriesNamePosition;
             }
             else if( markupDoc.Dimension == CellDimension.Column )
             {
                 markupDoc.RowHeaderColumn = format.TimeAxisPosition;
-                markupDoc.ColumnHeaderRow = format.SeriesNamePosition;
+                markupDoc.ColumnHeaderRow = format.Anchor.SeriesNamePosition;
             }
             markupDoc.SkipColumns = format.SkipColumns;
             markupDoc.SkipRows = format.SkipRows;

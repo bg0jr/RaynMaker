@@ -214,9 +214,9 @@ namespace RaynMaker.Import.Web.ViewModels
                         var value = ( double )row[ format.ValueFormat.Name ];
 
                         IPeriod period;
-                        if( format.TimeAxisFormat != null )
+                        if( format.TimeFormat != null )
                         {
-                            var year = ( int )row[ format.TimeAxisFormat.Name ];
+                            var year = ( int )row[ format.TimeFormat.Name ];
                             period = new YearPeriod( year );
                         }
                         else

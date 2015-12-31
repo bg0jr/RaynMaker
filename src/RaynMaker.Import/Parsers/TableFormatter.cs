@@ -101,7 +101,7 @@ namespace RaynMaker.Import.Parsers
                 }
             }
 
-            if( format.ValueFormat == null && format.TimeAxisFormat == null )
+            if( format.ValueFormat == null && format.TimeFormat == null )
             {
                 return rawTable;
             }
@@ -117,9 +117,9 @@ namespace RaynMaker.Import.Parsers
                 throw new InvalidOperationException( "No value format specified" );
             }
 
-            if( format.TimeAxisFormat != null )
+            if( format.TimeFormat != null )
             {
-                table.Columns.Add( new DataColumn( format.TimeAxisFormat.Name, format.TimeAxisFormat.Type ) );
+                table.Columns.Add( new DataColumn( format.TimeFormat.Name, format.TimeFormat.Type ) );
             }
 
             foreach( DataRow rawRow in rawTable.Rows )
@@ -133,9 +133,9 @@ namespace RaynMaker.Import.Parsers
                 };
 
                 Convert( 0, format.ValueFormat );
-                if( format.TimeAxisFormat != null )
+                if( format.TimeFormat != null )
                 {
-                    Convert( 1, format.TimeAxisFormat );
+                    Convert( 1, format.TimeFormat );
                 }
 
                 table.Rows.Add( row );
@@ -153,13 +153,13 @@ namespace RaynMaker.Import.Parsers
             settings.Dimension = format.Anchor.Expand;
             if( settings.Dimension == CellDimension.Column )
             {
-                settings.ColumnHeaderRow = format.SeriesNamePosition;
+                settings.ColumnHeaderRow = format.Anchor.SeriesNamePosition;
                 settings.RowHeaderColumn = format.TimeAxisPosition;
             }
             else
             {
                 settings.ColumnHeaderRow = format.TimeAxisPosition;
-                settings.RowHeaderColumn = format.SeriesNamePosition;
+                settings.RowHeaderColumn = format.Anchor.SeriesNamePosition;
             }
             settings.SkipColumns = format.SkipColumns;
             settings.SkipRows = format.SkipRows;

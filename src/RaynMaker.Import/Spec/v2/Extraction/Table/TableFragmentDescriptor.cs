@@ -25,18 +25,28 @@ namespace RaynMaker.Import.Spec.v2.Extraction
         [DataMember]
         public CellDimension Expand { get; private set; }
 
+        public int SeriesNamePosition { get; private set; }
+
         public static TableFragmentDescriptor ForRow( ISeriesLocator row )
         {
             Contract.RequiresNotNull( row, "row" );
 
-            return new TableFragmentDescriptor( row, null ) { Expand = CellDimension.Row };
+            return new TableFragmentDescriptor( row, null )
+            {
+                SeriesNamePosition = row.SeriesToScan,
+                Expand = CellDimension.Row
+            };
         }
 
         public static TableFragmentDescriptor ForColumn( ISeriesLocator col )
         {
             Contract.RequiresNotNull( col, "col" );
 
-            return new TableFragmentDescriptor( null, col ) { Expand = CellDimension.Column };
+            return new TableFragmentDescriptor( null, col )
+            {
+                SeriesNamePosition = col.SeriesToScan,
+                Expand = CellDimension.Column
+            };
         }
 
         public static TableFragmentDescriptor ForCell( ISeriesLocator row, ISeriesLocator col )
@@ -44,7 +54,11 @@ namespace RaynMaker.Import.Spec.v2.Extraction
             Contract.RequiresNotNull( row, "row" );
             Contract.RequiresNotNull( col, "col" );
 
-            return new TableFragmentDescriptor( row, col ) { Expand = CellDimension.None };
+            return new TableFragmentDescriptor( row, col )
+            {
+                SeriesNamePosition = -1,
+                Expand = CellDimension.None
+            };
         }
     }
 }

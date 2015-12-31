@@ -23,7 +23,6 @@ namespace RaynMaker.Import.ScenarioTests
             descriptor.Anchor = TableFragmentDescriptor.ForRow( new StringContainsLocator( 0, "EPS" ) );
 
             descriptor.TimeAxisPosition = 0;
-            descriptor.SeriesNamePosition = 0;
 
             descriptor.SkipColumns = new int[] { 0, 1 };
 
@@ -67,7 +66,7 @@ namespace RaynMaker.Import.ScenarioTests
         {
             var descriptor = CreateSeparatorSeriesDescriptor();
             descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000" );
-            descriptor.TimeAxisFormat = new FormatColumn( "year", typeof( int ), "000" );
+            descriptor.TimeFormat = new FormatColumn( "year", typeof( int ), "000" );
 
             var parser = DocumentProcessorsFactory.CreateParser( myDocument, descriptor );
             var table = parser.ExtractTable();

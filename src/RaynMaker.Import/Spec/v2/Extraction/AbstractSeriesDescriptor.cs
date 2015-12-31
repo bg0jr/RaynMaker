@@ -17,7 +17,6 @@ namespace RaynMaker.Import.Spec.v2.Extraction
         protected AbstractSeriesDescriptor( string name )
             : base( name )
         {
-            SeriesNamePosition = -1;
             TimeAxisPosition = -1;
         }
 
@@ -28,15 +27,8 @@ namespace RaynMaker.Import.Spec.v2.Extraction
         public TableFragmentDescriptor Anchor { get; set; }
         
         /// <summary>
-        /// Position of the series name: the column
-        /// if Expand == Row, the row otherwise.
-        /// </summary>
-        [DataMember]
-        public int SeriesNamePosition { get; set; }
-
-        /// <summary>
-        /// Position of the time axis: the row
-        /// if Expand == Row, the column otherwise.
+        /// Position of the time axis series. 
+        /// Has to have same orientation as value series
         /// </summary>
         [DataMember]
         public int TimeAxisPosition { get; set; }
@@ -51,6 +43,6 @@ namespace RaynMaker.Import.Spec.v2.Extraction
         /// Format of the time axis column.
         /// </summary>
         [DataMember]
-        public FormatColumn TimeAxisFormat { get; set; }
+        public FormatColumn TimeFormat { get; set; }
     }
 }

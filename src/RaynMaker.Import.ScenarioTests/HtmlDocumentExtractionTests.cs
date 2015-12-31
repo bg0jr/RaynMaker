@@ -35,13 +35,12 @@ namespace RaynMaker.Import.ScenarioTests
             descriptor.Path = @"/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]";
             descriptor.Anchor = TableFragmentDescriptor.ForRow( new StringContainsLocator( 0, "verwässertes Ergebnis pro Aktie" ) );
 
-            descriptor.SeriesNamePosition = 0;
             descriptor.TimeAxisPosition = 1;
 
             descriptor.SkipColumns = new[] { 0 };
 
             descriptor.ValueFormat = new FormatColumn( "value", typeof( float ), "00,00" );
-            descriptor.TimeAxisFormat = new FormatColumn( "year", typeof( int ), "00000000" );
+            descriptor.TimeFormat = new FormatColumn( "year", typeof( int ), "00000000" );
 
             var parser = DocumentProcessorsFactory.CreateParser( doc, descriptor );
             var table = parser.ExtractTable();

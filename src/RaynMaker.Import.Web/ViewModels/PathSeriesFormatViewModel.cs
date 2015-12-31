@@ -35,14 +35,14 @@ namespace RaynMaker.Import.Web.ViewModels
             SkipColumns = string.Join( ",", format.SkipColumns );
             SkipRows = string.Join( ",", format.SkipRows );
             SeriesName = format.SeriesName;
-            TimeFormat = Format.TimeAxisFormat ?? new FormatColumn( "time" );
+            TimeFormat = Format.TimeFormat ?? new FormatColumn( "time" );
             ValueFormat = Format.ValueFormat ?? new FormatColumn( "value" );
             InMillions = Format.InMillions;
 
             if( format.Anchor != null )
             {
-                ColumnHeaderRow = ( format.Anchor.Expand == CellDimension.Row ? Format.TimeAxisPosition : Format.SeriesNamePosition ).ToString();
-                RowHeaderColumn = ( format.Anchor.Expand == CellDimension.Row ? Format.SeriesNamePosition : Format.TimeAxisPosition ).ToString();
+                ColumnHeaderRow = ( format.Anchor.Expand == CellDimension.Row ? Format.TimeAxisPosition : Format.Anchor.SeriesNamePosition ).ToString();
+                RowHeaderColumn = ( format.Anchor.Expand == CellDimension.Row ? Format.Anchor.SeriesNamePosition : Format.TimeAxisPosition ).ToString();
 
                 // needs to be AFTER RowHeaderColumn and ColumnHeaderRow
                 SelectedDimension = Format.Anchor.Expand;
@@ -107,12 +107,10 @@ namespace RaynMaker.Import.Web.ViewModels
                     if( mySelectedDimension == CellDimension.Row )
                     {
                         Format.TimeAxisPosition = ColumnHeaderRow != null ? int.Parse( ColumnHeaderRow ) : -1;
-                        Format.SeriesNamePosition = RowHeaderColumn != null ? int.Parse( RowHeaderColumn ) : -1;
                     }
                     else if( mySelectedDimension == CellDimension.Column )
                     {
                         Format.TimeAxisPosition = RowHeaderColumn != null ? int.Parse( RowHeaderColumn ) : -1;
-                        Format.SeriesNamePosition = ColumnHeaderRow != null ? int.Parse( ColumnHeaderRow ) : -1;
                     }
 
                     UpdateAnchor();
@@ -130,11 +128,11 @@ namespace RaynMaker.Import.Web.ViewModels
             }
             else if( mySelectedDimension == CellDimension.Row )
             {
-                Format.Anchor = TableFragmentDescriptor.ForRow( new StringContainsLocator( Format.SeriesNamePosition, SeriesName ) );
+                Format.Anchor = TableFragmentDescriptor.ForRow( new StringContainsLocator( int.Parse( myRowHeaderColumn ), SeriesName ) );
             }
             else if( mySelectedDimension == CellDimension.Column )
             {
-                Format.Anchor = TableFragmentDescriptor.ForColumn( new StringContainsLocator( Format.SeriesNamePosition, SeriesName ) );
+                Format.Anchor = TableFragmentDescriptor.ForColumn( new StringContainsLocator( int.Parse( myColumnHeaderRow ), SeriesName ) );
             }
         }
 
@@ -168,9 +166,9 @@ namespace RaynMaker.Import.Web.ViewModels
                 if( SetProperty( ref myRowHeaderColumn, value ) )
                 {
                     // only update EXACTLY the corresponding model
-                    if(Format.Anchor!=null&& Format.Anchor.Expand == CellDimension.Row )
+                    if( Format.Anchor != null && Format.Anchor.Expand == CellDimension.Row )
                     {
-                        Format.SeriesNamePosition = RowHeaderColumn != null ? int.Parse( RowHeaderColumn ) : -1;
+                        UpdateAnchor();
                     }
                     else if( Format.Anchor != null && Format.Anchor.Expand == CellDimension.Column )
                     {
@@ -215,7 +213,7 @@ namespace RaynMaker.Import.Web.ViewModels
                     }
                     else if( Format.Anchor != null && Format.Anchor.Expand == CellDimension.Column )
                     {
-                        Format.SeriesNamePosition = ColumnHeaderRow != null ? int.Parse( ColumnHeaderRow ) : -1;
+                        UpdateAnchor();
                     }
 
                     MarkHeader( myColumnHeaderRow, x => MarkupDocument.ColumnHeaderRow = x );

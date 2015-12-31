@@ -22,24 +22,22 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
             var format = new DummyFormat();
-            format.SeriesNamePosition = 17;
+            format.Anchor = TableFragmentDescriptor.ForCell( new AbsolutePositionLocator( 4 ), new AbsolutePositionLocator( 8 ) );
             format.TimeAxisPosition = 23;
             format.ValueFormat = new FormatColumn( "value", typeof( double ), "0.00" );
-            format.TimeAxisFormat = new FormatColumn( "time", typeof( DateTime ), "G" );
-            format.Anchor = TableFragmentDescriptor.ForCell( new AbsolutePositionLocator( 4 ), new AbsolutePositionLocator( 8 ) );
+            format.TimeFormat = new FormatColumn( "time", typeof( DateTime ), "G" );
 
             var clone = FormatFactory.Clone( format );
 
-            Assert.That( clone.SeriesNamePosition, Is.EqualTo( format.SeriesNamePosition ) );
             Assert.That( clone.TimeAxisPosition, Is.EqualTo( format.TimeAxisPosition ) );
 
             Assert.That( clone.ValueFormat.Name, Is.EqualTo( format.ValueFormat.Name ) );
             Assert.That( clone.ValueFormat.Type, Is.EqualTo( format.ValueFormat.Type ) );
             Assert.That( clone.ValueFormat.Format, Is.EqualTo( format.ValueFormat.Format ) );
 
-            Assert.That( clone.TimeAxisFormat.Name, Is.EqualTo( format.TimeAxisFormat.Name ) );
-            Assert.That( clone.TimeAxisFormat.Type, Is.EqualTo( format.TimeAxisFormat.Type ) );
-            Assert.That( clone.TimeAxisFormat.Format, Is.EqualTo( format.TimeAxisFormat.Format ) );
+            Assert.That( clone.TimeFormat.Name, Is.EqualTo( format.TimeFormat.Name ) );
+            Assert.That( clone.TimeFormat.Type, Is.EqualTo( format.TimeFormat.Type ) );
+            Assert.That( clone.TimeFormat.Format, Is.EqualTo( format.TimeFormat.Format ) );
 
             Assert.That( ( ( AbsolutePositionLocator )clone.Anchor.Row ).Position, Is.EqualTo( 4 ) );
             Assert.That( ( ( AbsolutePositionLocator )clone.Anchor.Column ).Position, Is.EqualTo( 8 ) );
