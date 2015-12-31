@@ -191,11 +191,11 @@ namespace RaynMaker.Import.Web.ViewModels
                 }
 
                 // try take over currency
-                var pathCellFormat = format as PathCellDescriptor;
-                if( pathCellFormat != null )
-                {
-                    Currency = CurrenciesLut.Currencies.SingleOrDefault( c => c.Symbol == pathCellFormat.Currency );
-                }
+                //var pathCellFormat = format as PathCellDescriptor;
+                //if( pathCellFormat != null )
+                //{
+                //    Currency = CurrenciesLut.Currencies.SingleOrDefault( c => c.Symbol == pathCellFormat.Currency );
+                //}
 
                 try
                 {

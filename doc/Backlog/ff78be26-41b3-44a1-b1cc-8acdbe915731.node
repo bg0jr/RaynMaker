@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="ff78be26-41b3-44a1-b1cc-8acdbe915731" Created="635871649660064413" LastModified="635871649843314894">
+  <Caption><![CDATA[ValueFormat of AbstractSeriesFormat]]></Caption>
+  <Content><![CDATA[why is it a formatcolumn and not just a valueformat?]]></Content>
+</Node>

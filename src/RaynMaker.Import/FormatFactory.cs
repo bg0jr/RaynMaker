@@ -43,10 +43,6 @@ namespace RaynMaker.Import
 
             format.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000.0000" );
 
-            // not supported
-            //format.TimeAxisFormat = new FormatColumn( "time", typeof( int ), "0000" );
-            format.TimeFormat = null;
-
             return format;
         }
 

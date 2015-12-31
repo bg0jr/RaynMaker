@@ -113,11 +113,10 @@
     <Compile Include="Spec\v2\Extraction\AbstractFigureDescriptor.cs" />
     <Compile Include="Spec\v2\Extraction\AbstractSeriesDescriptor.cs" />
     <Compile Include="Spec\v2\Extraction\AbstractTableDescriptor.cs" />
-    <Compile Include="Spec\v2\Extraction\Table\TableFragmentDescriptor.cs" />
     <Compile Include="Spec\v2\DocumentType.cs" />
     <Compile Include="Spec\v2\Extraction\FormatColumn.cs" />
     <Compile Include="Spec\v2\Locating\Formular.cs" />
-    <Compile Include="Spec\v2\Extraction\Table\ISeriesLocator.cs" />
+    <Compile Include="Spec\v2\Extraction\Table\ITablePositionLocator.cs" />
     <Compile Include="Spec\v2\Extraction\IFigureDescriptor.cs" />
     <Compile Include="Spec\v2\Locating\DocumentLocator.cs" />
     <Compile Include="Spec\v2\Locating\DocumentLocationFragment.cs" />

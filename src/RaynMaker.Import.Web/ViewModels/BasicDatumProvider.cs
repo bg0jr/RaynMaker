@@ -85,23 +85,23 @@ namespace RaynMaker.Import.Web.ViewModels
             var markupDoc = new MarkupDocument();
             markupDoc.Document = ( ( HtmlDocumentAdapter )Document ).Document;
             markupDoc.Anchor = format.Path;
-            markupDoc.Dimension = format.Anchor.Expand;
-            markupDoc.SeriesName = format.SeriesName;
+            markupDoc.Dimension = format.Orientation;
+            //markupDoc.SeriesName = format.SeriesName;
             
             if( markupDoc.Dimension == CellDimension.Row )
             {
-                markupDoc.ColumnHeaderRow = format.TimeAxisPosition;
-                markupDoc.RowHeaderColumn = format.Anchor.SeriesNamePosition;
+                markupDoc.ColumnHeaderRow = format.TimesLocator.SeriesToScan;
+                markupDoc.RowHeaderColumn = format.ValuesLocator.SeriesToScan;
 
                 markupDoc.SkipColumns = null;
-                markupDoc.SkipRows = format.SkipValues;
+                markupDoc.SkipRows = format.Excludes;
             }
             else if( markupDoc.Dimension == CellDimension.Column )
             {
-                markupDoc.RowHeaderColumn = format.TimeAxisPosition;
-                markupDoc.ColumnHeaderRow = format.Anchor.SeriesNamePosition;
+                markupDoc.RowHeaderColumn = format.TimesLocator.SeriesToScan;
+                markupDoc.ColumnHeaderRow = format.ValuesLocator.SeriesToScan;
 
-                markupDoc.SkipColumns = format.SkipValues;
+                markupDoc.SkipColumns = format.Excludes;
                 markupDoc.SkipRows = null;
             }
 

@@ -10,6 +10,15 @@
       <Node Id="66345ed8-c456-4550-9e3a-b9681095e956">
         <Caption><![CDATA[Cleanup TableFragmentDescriptor]]></Caption>
       </Node>
+      <Node Id="288f0876-45b5-4fe5-a4ea-88e6de352a33">
+        <Caption><![CDATA[rename CellDimension]]></Caption>
+      </Node>
+      <Node Id="b1a136d0-680b-4aa2-bd2c-ee1cb0d9cbbc">
+        <Caption><![CDATA[better naming for ISeriesLocator]]></Caption>
+      </Node>
+      <Node Id="ff78be26-41b3-44a1-b1cc-8acdbe915731">
+        <Caption><![CDATA[ValueFormat of AbstractSeriesFormat]]></Caption>
+      </Node>
       <Node Id="7a1123b4-d78b-4b34-9e9f-2be087951033">
         <Caption><![CDATA[PathSeriesDescriptor]]></Caption>
       </Node>
@@ -75,6 +84,9 @@
       </Node>
       <Node Id="f915dae9-ecf3-454f-897f-8ed8c8efa639">
         <Caption><![CDATA[Tests for PathCellFormatViewModel]]></Caption>
+      </Node>
+      <Node Id="211a7a10-87e8-4363-b9ce-6f9835655d50">
+        <Caption><![CDATA[Remove "format" name from everywhere]]></Caption>
       </Node>
     </Node>
     <Node Id="63da965d-c664-48a9-8250-578d54290207">

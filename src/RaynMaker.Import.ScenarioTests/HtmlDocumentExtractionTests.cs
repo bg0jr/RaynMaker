@@ -33,14 +33,12 @@ namespace RaynMaker.Import.ScenarioTests
 
             var descriptor = new PathSeriesDescriptor( "Eps" );
             descriptor.Path = @"/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]";
-            descriptor.Anchor = TableFragmentDescriptor.ForRow( new StringContainsLocator( 0, "verwässertes Ergebnis pro Aktie" ) );
-
-            descriptor.TimeAxisPosition = 1;
-
-            descriptor.SkipValues = new[] { 0 };
-
+            descriptor.Orientation = CellDimension.Row;
+            descriptor.ValuesLocator= new StringContainsLocator( 0, "verwässertes Ergebnis pro Aktie"  );
             descriptor.ValueFormat = new FormatColumn( "value", typeof( float ), "00,00" );
+            descriptor.TimesLocator = new AbsolutePositionLocator( 1 );
             descriptor.TimeFormat = new FormatColumn( "year", typeof( int ), "00000000" );
+            descriptor.Excludes = new[] { 0 };
 
             var parser = DocumentProcessorsFactory.CreateParser( doc, descriptor );
             var table = parser.ExtractTable();

@@ -23,57 +23,46 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
         {
             var format = new DummyFormat();
 
-            var skipValues = new int[] { 1, 2, 3 };
-            format.SkipValues = skipValues;
+            var excludes = new int[] { 1, 2, 3 };
+            format.Excludes = excludes;
 
-            skipValues[ 1 ] = 42;
+            excludes[ 1 ] = 42;
 
-            Assert.AreEqual( 1, format.SkipValues[ 0 ] );
-            Assert.AreEqual( 2, format.SkipValues[ 1 ] );
-            Assert.AreEqual( 3, format.SkipValues[ 2 ] );
+            Assert.AreEqual( 1, format.Excludes[ 0 ] );
+            Assert.AreEqual( 2, format.Excludes[ 1 ] );
+            Assert.AreEqual( 3, format.Excludes[ 2 ] );
         }
 
-        [Test]
-        public void SkipColumnsIsImmutable()
-        {
-            var format = new DummyFormat();
-
-            var skipColumns = new int[] { 1, 2, 3 };
-            format.SkipValues = skipColumns;
-
-            skipColumns[ 1 ] = 42;
-
-            Assert.AreEqual( 1, format.SkipValues[ 0 ] );
-            Assert.AreEqual( 2, format.SkipValues[ 1 ] );
-            Assert.AreEqual( 3, format.SkipValues[ 2 ] );
-        }
-        
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
             var format = new DummyFormat();
-            format.Anchor = TableFragmentDescriptor.ForCell( new AbsolutePositionLocator( 4 ), new AbsolutePositionLocator( 8 ) );
-            format.TimeAxisPosition = 23;
+
+            format.Orientation = CellDimension.Row;
+
+            format.ValuesLocator = new AbsolutePositionLocator( 4 );
             format.ValueFormat = new FormatColumn( "value", typeof( double ), "0.00" );
+
+            format.TimesLocator = new AbsolutePositionLocator( 23 );
             format.TimeFormat = new FormatColumn( "time", typeof( DateTime ), "G" );
-            format.SkipValues = new[] { 11, 88 };
+
+            format.Excludes = new[] { 11, 88 };
 
             var clone = FormatFactory.Clone( format );
 
-            Assert.That( clone.TimeAxisPosition, Is.EqualTo( format.TimeAxisPosition ) );
-
+            Assert.That( clone.Orientation, Is.EqualTo( format.Orientation ) );
+            
+            Assert.That( ((AbsolutePositionLocator)clone.ValuesLocator).Position, Is.EqualTo( 4 ) );
             Assert.That( clone.ValueFormat.Name, Is.EqualTo( format.ValueFormat.Name ) );
             Assert.That( clone.ValueFormat.Type, Is.EqualTo( format.ValueFormat.Type ) );
             Assert.That( clone.ValueFormat.Format, Is.EqualTo( format.ValueFormat.Format ) );
 
+            Assert.That( ( ( AbsolutePositionLocator )clone.TimesLocator ).Position, Is.EqualTo( 23 ) );
             Assert.That( clone.TimeFormat.Name, Is.EqualTo( format.TimeFormat.Name ) );
             Assert.That( clone.TimeFormat.Type, Is.EqualTo( format.TimeFormat.Type ) );
             Assert.That( clone.TimeFormat.Format, Is.EqualTo( format.TimeFormat.Format ) );
 
-            Assert.That( ( ( AbsolutePositionLocator )clone.Anchor.Row ).Position, Is.EqualTo( 4 ) );
-            Assert.That( ( ( AbsolutePositionLocator )clone.Anchor.Column ).Position, Is.EqualTo( 8 ) );
-        
-            Assert.That( clone.SkipValues, Is.EquivalentTo( format.SkipValues ) );
+            Assert.That( clone.Excludes, Is.EquivalentTo( format.Excludes ) );
         }
     }
 }

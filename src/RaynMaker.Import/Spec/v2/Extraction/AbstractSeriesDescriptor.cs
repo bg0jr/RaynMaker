@@ -14,45 +14,42 @@ namespace RaynMaker.Import.Spec.v2.Extraction
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "AbstractSeriesFormat" )]
     public abstract class AbstractSeriesDescriptor : AbstractFigureDescriptor
     {
-        private int[] mySkipValues = null;
+        private int[] myExcludes = null;
 
         protected AbstractSeriesDescriptor( string name )
             : base( name )
         {
-            SkipValues = null;
-            TimeAxisPosition = -1;
+            Excludes = null;
         }
 
-        /// <summary>
-        /// Defines how to find the position of the series in the table.
-        /// </summary>
         [DataMember]
-        public TableFragmentDescriptor Anchor { get; set; }
+        public CellDimension Orientation { get; set; }
 
         /// <summary>
-        /// Position of the time axis series. 
-        /// Has to have same orientation as value series
+        /// Describes the position of the values within a table.
+        /// Orientation of the values series is described by the Orientation property.
         /// </summary>
         [DataMember]
-        public int TimeAxisPosition { get; set; }
+        public ITablePositionLocator ValuesLocator { get; set; }
 
-        [DataMember]
-        public int[] SkipValues
-        {
-            get { return mySkipValues; }
-            set { mySkipValues = value == null ? new int[] { } : value.ToArray(); }
-        }
-
-        /// <summary>
-        /// Format of the value column.
-        /// </summary>
         [DataMember]
         public FormatColumn ValueFormat { get; set; }
 
         /// <summary>
-        /// Format of the time axis column.
+        /// Describes the position of the times within a table.
+        /// Orientation of the times series is described by the Orientation property.
         /// </summary>
         [DataMember]
+        public ITablePositionLocator TimesLocator { get; set; }
+
+        [DataMember]
         public FormatColumn TimeFormat { get; set; }
+
+        [DataMember]
+        public int[] Excludes
+        {
+            get { return myExcludes; }
+            set { myExcludes = value == null ? new int[] { } : value.ToArray(); }
+        }
     }
 }

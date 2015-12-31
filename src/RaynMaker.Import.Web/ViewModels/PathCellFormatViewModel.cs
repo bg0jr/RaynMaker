@@ -47,21 +47,28 @@ namespace RaynMaker.Import.Web.ViewModels
             ValueFormat = Format.ValueFormat ?? new FormatColumn( "value" );
             SelectedCurrency = myLutService.CurrenciesLut.Currencies.SingleOrDefault( c => c.Symbol == format.Currency );
 
-            if( format.Anchor != null )
+            if( format.Column != null )
             {
                 // always first copy patterns - then set position (positions are guard against unintended model overwrite due to half-initialized viewmodel)
-                RowPattern = ( ( StringContainsLocator )Format.Anchor.Row ).Pattern;
-                ColumnPattern = ( ( StringContainsLocator )Format.Anchor.Column ).Pattern;
+                ColumnPattern = ( ( StringContainsLocator )Format.Column ).Pattern;
+                ColumnPosition = Format.Column.SeriesToScan;
+            }
+            else
+            {
+                ColumnPosition = -1;
+                ColumnPattern = null;
+            }
 
-                RowPosition = Format.Anchor.Row.SeriesToScan;
-                ColumnPosition = Format.Anchor.Column.SeriesToScan;
+            if( format.Row != null )
+            {
+                // always first copy patterns - then set position (positions are guard against unintended model overwrite due to half-initialized viewmodel)
+                RowPattern = ( ( StringContainsLocator )Format.Row ).Pattern;
+                RowPosition = Format.Row.SeriesToScan;
             }
             else
             {
                 RowPosition = -1;
                 RowPattern = null;
-                ColumnPosition = -1;
-                ColumnPattern = null;
             }
 
             InMillions = Format.InMillions;
@@ -134,6 +141,7 @@ namespace RaynMaker.Import.Web.ViewModels
             }
         }
 
+        // TODO: should be enough to only update explicitly what has changed - row or column
         private void UpdateAnchor()
         {
             // check viewmodel properties here instead of model properties to avoid that half initialized viewmodel overrides model due to property updates
@@ -143,19 +151,20 @@ namespace RaynMaker.Import.Web.ViewModels
                 return;
             }
 
-            Format.Anchor = TableFragmentDescriptor.ForCell( new StringContainsLocator( RowPosition, RowPattern ), new StringContainsLocator( ColumnPosition, ColumnPattern ) );
+            Format.Row = new StringContainsLocator( RowPosition, RowPattern );
+            Format.Column = new StringContainsLocator( ColumnPosition, ColumnPattern );
 
             if( MarkupDocument.SelectedElement != null )
             {
                 if( RowPattern != null )
                 {
-                    var rowHeader = MarkupDocument.FindRowHeader( Format.Anchor.Row.SeriesToScan )( MarkupDocument.SelectedElement ).InnerText;
+                    var rowHeader = MarkupDocument.FindRowHeader( Format.Row.SeriesToScan )( MarkupDocument.SelectedElement ).InnerText;
                     IsRowValid = rowHeader.Contains( RowPattern, StringComparison.OrdinalIgnoreCase );
                 }
 
                 if( ColumnPattern != null )
                 {
-                    var colHeader = MarkupDocument.FindColumnHeader( Format.Anchor.Column.SeriesToScan )( MarkupDocument.SelectedElement ).InnerText;
+                    var colHeader = MarkupDocument.FindColumnHeader( Format.Column.SeriesToScan )( MarkupDocument.SelectedElement ).InnerText;
                     IsColumnValid = colHeader.Contains( ColumnPattern, StringComparison.OrdinalIgnoreCase );
                 }
             }

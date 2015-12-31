@@ -20,8 +20,5 @@ namespace RaynMaker.Import.Spec.v2.Extraction
         /// </summary>
         [DataMember]
         public string Path { get; set; }
-
-        [DataMember]
-        public string SeriesName { get; set; }
     }
 }

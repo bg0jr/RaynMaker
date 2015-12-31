@@ -11,7 +11,6 @@ namespace RaynMaker.Import.Web.ViewModels
         private string myPath;
         private string myValue;
         private CellDimension mySelectedDimension;
-        private string mySeriesName;
         private bool myIsValid;
         private string myRowHeaderColumn;
         private string myColumnHeaderRow;
@@ -31,24 +30,16 @@ namespace RaynMaker.Import.Web.ViewModels
             // first set properties without side-effects to others
             SelectedDatum = Datums.FirstOrDefault( d => d.Name == Format.Datum );
             Path = Format.Path;
-            SkipValues = string.Join( ",", format.SkipValues );
-            SeriesName = format.SeriesName;
+            SkipValues = string.Join( ",", format.Excludes );
             TimeFormat = Format.TimeFormat ?? new FormatColumn( "time" );
             ValueFormat = Format.ValueFormat ?? new FormatColumn( "value" );
             InMillions = Format.InMillions;
 
-            if( format.Anchor != null )
-            {
-                ColumnHeaderRow = ( format.Anchor.Expand == CellDimension.Row ? Format.TimeAxisPosition : Format.Anchor.SeriesNamePosition ).ToString();
-                RowHeaderColumn = ( format.Anchor.Expand == CellDimension.Row ? Format.Anchor.SeriesNamePosition : Format.TimeAxisPosition ).ToString();
+            ColumnHeaderRow = ( format.Orientation == CellDimension.Row ? Format.TimesLocator.SeriesToScan : Format.ValuesLocator.SeriesToScan ).ToString();
+            RowHeaderColumn = ( format.Orientation == CellDimension.Row ? Format.ValuesLocator.SeriesToScan : Format.TimesLocator.SeriesToScan ).ToString();
 
-                // needs to be AFTER RowHeaderColumn and ColumnHeaderRow
-                SelectedDimension = Format.Anchor.Expand;
-            }
-            else
-            {
-                SelectedDimension = CellDimension.None;
-            }
+            // needs to be AFTER RowHeaderColumn and ColumnHeaderRow
+            SelectedDimension = Format.Orientation;
         }
 
         public new PathSeriesDescriptor Format { get; private set; }
@@ -102,53 +93,26 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 if( SetProperty( ref mySelectedDimension, value ) )
                 {
-                    if( mySelectedDimension == CellDimension.Row )
-                    {
-                        Format.TimeAxisPosition = ColumnHeaderRow != null ? int.Parse( ColumnHeaderRow ) : -1;
-                    }
-                    else if( mySelectedDimension == CellDimension.Column )
-                    {
-                        Format.TimeAxisPosition = RowHeaderColumn != null ? int.Parse( RowHeaderColumn ) : -1;
-                    }
-
-                    UpdateAnchor();
-
                     MarkupDocument.Dimension = mySelectedDimension;
                 }
             }
         }
 
-        private void UpdateAnchor()
-        {
-            if( mySelectedDimension == CellDimension.None )
-            {
-                Format.Anchor = null;
-            }
-            else if( mySelectedDimension == CellDimension.Row )
-            {
-                Format.Anchor = TableFragmentDescriptor.ForRow( new StringContainsLocator( int.Parse( myRowHeaderColumn ), SeriesName ) );
-            }
-            else if( mySelectedDimension == CellDimension.Column )
-            {
-                Format.Anchor = TableFragmentDescriptor.ForColumn( new StringContainsLocator( int.Parse( myColumnHeaderRow ), SeriesName ) );
-            }
-        }
+        //public string SeriesName
+        //{
+        //    get { return mySeriesName; }
+        //    set
+        //    {
+        //        if( SetProperty( ref mySeriesName, value ) )
+        //        {
+        //            UpdateAnchor();
 
-        public string SeriesName
-        {
-            get { return mySeriesName; }
-            set
-            {
-                if( SetProperty( ref mySeriesName, value ) )
-                {
-                    UpdateAnchor();
+        //            Format.SeriesName = mySeriesName;
 
-                    Format.SeriesName = mySeriesName;
-
-                    MarkupDocument.SeriesName = mySeriesName;
-                }
-            }
-        }
+        //            MarkupDocument.SeriesName = mySeriesName;
+        //        }
+        //    }
+        //}
 
         public bool IsValid
         {
@@ -163,16 +127,6 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 if( SetProperty( ref myRowHeaderColumn, value ) )
                 {
-                    // only update EXACTLY the corresponding model
-                    if( Format.Anchor != null && Format.Anchor.Expand == CellDimension.Row )
-                    {
-                        UpdateAnchor();
-                    }
-                    else if( Format.Anchor != null && Format.Anchor.Expand == CellDimension.Column )
-                    {
-                        Format.TimeAxisPosition = RowHeaderColumn != null ? int.Parse( RowHeaderColumn ) : -1;
-                    }
-
                     MarkHeader( myRowHeaderColumn, x => MarkupDocument.RowHeaderColumn = x );
                 }
             }
@@ -204,16 +158,6 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 if( SetProperty( ref myColumnHeaderRow, value ) )
                 {
-                    // only update EXACTLY the corresponding model
-                    if( Format.Anchor != null && Format.Anchor.Expand == CellDimension.Row )
-                    {
-                        Format.TimeAxisPosition = ColumnHeaderRow != null ? int.Parse( ColumnHeaderRow ) : -1;
-                    }
-                    else if( Format.Anchor != null && Format.Anchor.Expand == CellDimension.Column )
-                    {
-                        UpdateAnchor();
-                    }
-
                     MarkHeader( myColumnHeaderRow, x => MarkupDocument.ColumnHeaderRow = x );
                 }
             }
@@ -226,8 +170,8 @@ namespace RaynMaker.Import.Web.ViewModels
             {
                 if( SetProperty( ref mySkipValues, value ) )
                 {
-                    Format.SkipValues = GetIntArray( mySkipValues );
-                    MarkupDocument.SkipRows = Format.SkipValues;
+                    Format.Excludes = GetIntArray( mySkipValues );
+                    MarkupDocument.SkipRows = Format.Excludes;
                 }
             }
         }

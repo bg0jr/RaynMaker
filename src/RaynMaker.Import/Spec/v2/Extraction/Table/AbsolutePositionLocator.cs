@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace RaynMaker.Import.Spec.v2.Extraction
 {
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "AbsolutePositionLocator" )]
-    public class AbsolutePositionLocator : ISeriesLocator
+    public class AbsolutePositionLocator : ITablePositionLocator
     {
         public AbsolutePositionLocator( int position )
         {
@@ -18,11 +18,11 @@ namespace RaynMaker.Import.Spec.v2.Extraction
         public int Position { get; private set; }
 
         /// <summary>
-        /// Returns always zero because this locator is independent of the series to scan.
+        /// Always returns -1 because this locator is independent of the series to scan.
         /// </summary>
         public int SeriesToScan
         {
-            get { return 0; }
+            get { return -1; }
         }
 
         public int GetLocation( IEnumerable<string> list )

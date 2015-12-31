@@ -5,7 +5,7 @@ namespace RaynMaker.Import.Spec.v2.Extraction
     /// <summary>
     /// Describes a position of a row or column of a data table.
     /// </summary>
-    public interface ISeriesLocator
+    public interface ITablePositionLocator
     {
         /// <summary>
         /// Returns the index of the series to scan for the requested
@@ -20,6 +20,6 @@ namespace RaynMaker.Import.Spec.v2.Extraction
         /// always cells - never a DataColumn.ColumnName.
         /// </remarks>
         /// </summary>
-        int GetLocation( IEnumerable<string> list );
+        int GetLocation( IEnumerable<string> items );
     }
 }

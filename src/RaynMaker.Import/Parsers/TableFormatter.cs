@@ -19,14 +19,14 @@ namespace RaynMaker.Import.Parsers
         /// is extracted.
         /// Empty rows will be removed.
         /// </summary>
-        public static DataTable ToFormattedTable(AbstractTableDescriptor format,  DataTable rawTable )
+        public static DataTable ToFormattedTable( AbstractTableDescriptor format, DataTable rawTable )
         {
             DataTable table = new DataTable();
             foreach( var col in format.Columns )
             {
                 table.Columns.Add( col.Name, col.Type );
             }
-            ToFormattedTable(format, rawTable, table );
+            ToFormattedTable( format, rawTable, table );
 
             return table;
         }
@@ -83,7 +83,7 @@ namespace RaynMaker.Import.Parsers
         /// which has been tailored using DataTable.ExtractSeries()
         /// </remarks>
         /// </summary>
-        public static DataTable ToFormattedTable(AbstractSeriesDescriptor format, DataTable table_in )
+        public static DataTable ToFormattedTable( AbstractSeriesDescriptor format, DataTable table_in )
         {
             if( table_in == null )
             {
@@ -92,13 +92,10 @@ namespace RaynMaker.Import.Parsers
 
             DataTable rawTable = table_in;
 
-            if( format.Anchor != null )
+            rawTable = ExtractSeries( format, table_in );
+            if( rawTable == null )
             {
-                rawTable = ExtractSeries(format, table_in, format.Anchor );
-                if( rawTable == null )
-                {
-                    return null;
-                }
+                return null;
             }
 
             if( format.ValueFormat == null && format.TimeFormat == null )
@@ -147,24 +144,24 @@ namespace RaynMaker.Import.Parsers
         /// <summary>
         /// SeriesName validation not enabled here.
         /// </summary>
-        public static TableExtractionSettings ToExtractionSettings(AbstractSeriesDescriptor format)
+        public static TableExtractionSettings ToExtractionSettings( AbstractSeriesDescriptor format )
         {
             TableExtractionSettings settings = new TableExtractionSettings();
-            settings.Dimension = format.Anchor.Expand;
+            settings.Dimension = format.Orientation;
             if( settings.Dimension == CellDimension.Column )
             {
-                settings.ColumnHeaderRow = format.Anchor.SeriesNamePosition;
-                settings.RowHeaderColumn = format.TimeAxisPosition;
+                settings.ColumnHeaderRow = format.ValuesLocator.SeriesToScan;
+                settings.RowHeaderColumn = format.TimesLocator.SeriesToScan;
 
                 settings.SkipColumns = null;
-                settings.SkipRows = format.SkipValues;
+                settings.SkipRows = format.Excludes;
             }
             else
             {
-                settings.ColumnHeaderRow = format.TimeAxisPosition;
-                settings.RowHeaderColumn = format.Anchor.SeriesNamePosition;
+                settings.ColumnHeaderRow = format.TimesLocator.SeriesToScan;
+                settings.RowHeaderColumn = format.ValuesLocator.SeriesToScan;
 
-                settings.SkipColumns = format.SkipValues;
+                settings.SkipColumns = format.Excludes;
                 settings.SkipRows = null;
             }
 
@@ -174,40 +171,35 @@ namespace RaynMaker.Import.Parsers
             return settings;
         }
 
-        private static DataTable ExtractSeries( AbstractSeriesDescriptor format, DataTable rawTable, TableFragmentDescriptor anchor_in )
+        private static DataTable ExtractSeries( AbstractSeriesDescriptor format, DataTable rawTable )
         {
-            if( anchor_in == null )
-            {
-                throw new ArgumentException( "anchor missing" );
-            }
-
             // calculate the anchor
             Point anchor = new Point( 0, 0 );
 
-            if( format.Anchor.Column != null )
+            if( format.Orientation == CellDimension.Column )
             {
-                int rowToScan = format.Anchor.Column.SeriesToScan;
+                int rowToScan = format.ValuesLocator.SeriesToScan;
                 if( rawTable.Rows.Count <= rowToScan )
                 {
                     throw new InvalidExpressionException( "Anchor points outside table" );
                 }
 
-                anchor.X = format.Anchor.Column.GetLocation( rawTable.Rows[ rowToScan ].ItemArray.Select( item => item.ToString() ) );
+                anchor.X = format.ValuesLocator.GetLocation( rawTable.Rows[ rowToScan ].ItemArray.Select( item => item.ToString() ) );
                 if( anchor.X == -1 )
                 {
                     throw new InvalidExpressionException( "Anchor condition failed: column not found" );
                 }
             }
 
-            if( format.Anchor.Row != null )
+            if( format.Orientation == CellDimension.Row )
             {
-                int colToScan = format.Anchor.Row.SeriesToScan;
+                int colToScan = format.ValuesLocator.SeriesToScan;
                 if( rawTable.Columns.Count <= colToScan )
                 {
                     throw new InvalidExpressionException( "Anchor points outside table" );
                 }
 
-                anchor.Y = format.Anchor.Row.GetLocation( rawTable.Rows.ToSet().Select( row => row[ colToScan ].ToString() ) );
+                anchor.Y = format.ValuesLocator.GetLocation( rawTable.Rows.ToSet().Select( row => row[ colToScan ].ToString() ) );
                 if( anchor.Y == -1 )
                 {
                     throw new InvalidExpressionException( "Anchor condition failed: row not found" );
@@ -217,7 +209,7 @@ namespace RaynMaker.Import.Parsers
             // How to get the value
             Func<object, object> GetValue = value => value;
 
-            return rawTable.ExtractSeries( anchor, GetValue, ToExtractionSettings(format) );
+            return rawTable.ExtractSeries( anchor, GetValue, ToExtractionSettings( format ) );
         }
     }
 }
