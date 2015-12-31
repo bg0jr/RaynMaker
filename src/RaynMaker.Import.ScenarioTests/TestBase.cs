@@ -14,7 +14,7 @@ namespace RaynMaker.Import.ScenarioTests
 
         public TestBase()
         {
-            var assemblyPath = new Uri( Path.GetDirectoryName( GetType().Assembly.CodeBase ) ).LocalPath;
+            var assemblyPath = new Uri( Path.GetDirectoryName( GetType().Assembly.Location ) ).LocalPath;
             TestDataRoot = Path.Combine( assemblyPath, "TestData", GetType().Name );
 
             myBrowser = new Lazy<IDocumentBrowser>( () => DocumentProcessorsFactory.CreateBrowser() );

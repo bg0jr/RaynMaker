@@ -1,14 +1,7 @@
-﻿using System.Data;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using NUnit.Framework;
 using RaynMaker.Import.Documents;
-using RaynMaker.Import.Parsers;
-using RaynMaker.Import.Parsers.Html;
-using RaynMaker.Import.Spec.v2;
 using RaynMaker.Import.Spec.v2.Extraction;
-using RaynMaker.Import.Spec.v2.Locating;
 
 namespace RaynMaker.Import.ScenarioTests
 {
@@ -17,7 +10,7 @@ namespace RaynMaker.Import.ScenarioTests
     public class HtmlDocumentExtractionTests : TestBase
     {
         [Test]
-        public void WpknFromAriva()
+        public void GetSingleValueByPath()
         {
             var doc = LoadDocument<IHtmlDocument>( "ariva.overview.US0138171014.html" );
 
@@ -34,27 +27,41 @@ namespace RaynMaker.Import.ScenarioTests
         }
 
         [Test]
-        public void ExtractStockOverviewFromYahoo()
+        public void GetSeriesByPath()
         {
-            HtmlPath path = HtmlPath.Parse( "/BODY[0]/CENTER[0]/P[1]/TABLE[0]/TBODY[0]/TR[0]/TD[0]/TABLE[3]/TBODY[0]/TR[0]/TD[0]/CENTER[0]/TABLE[3]/TBODY[0]/TR[0]/TD[0]/TABLE[0]" );
+            var doc = LoadDocument<IHtmlDocument>( "ariva.html" );
 
-            var doc = LoadDocument<IHtmlDocument>( "yahoo-bmw-all.html" );
-            var result = doc.ExtractTable( path, false );
+            var descriptor = new PathSeriesDescriptor( "Eps" );
+            descriptor.Path = @"/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]";
+            descriptor.Anchor = TableFragmentAnchor.ForRow( new StringContainsLocator( 0, "verwässertes Ergebnis pro Aktie" ) );
+            descriptor.Expand = CellDimension.Row;
 
-            Assert.IsTrue( result.Success );
+            descriptor.SeriesNamePosition = 0;
+            descriptor.TimeAxisPosition = 1;
 
-            var table = result.Value;
-            table.Dump();
+            descriptor.SkipColumns = new[] { 0 };
 
-            Assert.AreEqual( 9, table.Rows.Count );
+            descriptor.ValueFormat = new FormatColumn( "value", typeof( float ), "00,00" );
+            descriptor.TimeAxisFormat = new FormatColumn( "year", typeof( int ), "00000000" );
 
-            foreach( DataRow row in table.Rows.ToSet().Skip( 1 ) )
-            {
-                string symbolLink = ( ( IHtmlElement )row[ 0 ] ).FirstLinkOrInnerText();
-                // sample: "http://de.finance.yahoo.com/q?s=DTE.SG"
-                Match m = Regex.Match( symbolLink, @"s=([a-zA-Z0-9]+)\.([A-Za-z]+)$" );
-                Assert.IsTrue( m.Success );
-            }
+            var parser = DocumentProcessorsFactory.CreateParser( doc, descriptor );
+            var table = parser.ExtractTable();
+
+            Assert.AreEqual( 6, table.Rows.Count );
+
+            Assert.AreEqual( 2.78f, table.Rows[ 0 ][ 0 ] );
+            Assert.AreEqual( 3.00f, table.Rows[ 1 ][ 0 ] );
+            Assert.AreEqual( 2.89f, table.Rows[ 2 ][ 0 ] );
+            Assert.AreEqual( 3.30f, table.Rows[ 3 ][ 0 ] );
+            Assert.AreEqual( 3.33f, table.Rows[ 4 ][ 0 ] );
+            Assert.AreEqual( 4.38f, table.Rows[ 5 ][ 0 ] );
+
+            Assert.AreEqual( 2001, table.Rows[ 0 ][ 1 ] );
+            Assert.AreEqual( 2002, table.Rows[ 1 ][ 1 ] );
+            Assert.AreEqual( 2003, table.Rows[ 2 ][ 1 ] );
+            Assert.AreEqual( 2004, table.Rows[ 3 ][ 1 ] );
+            Assert.AreEqual( 2005, table.Rows[ 4 ][ 1 ] );
+            Assert.AreEqual( 2006, table.Rows[ 5 ][ 1 ] );
         }
     }
 }

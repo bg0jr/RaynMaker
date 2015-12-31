@@ -1,9 +1,5 @@
-﻿using System;
-using System.Data;
-using System.IO;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using RaynMaker.Import.Documents;
-using RaynMaker.Import.Spec.v2;
 using RaynMaker.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Import.ScenarioTests
@@ -11,28 +7,36 @@ namespace RaynMaker.Import.ScenarioTests
     [TestFixture]
     public class CsvDocumentExtractionTests : TestBase
     {
-        private SeparatorSeriesDescriptor myFormat = null;
         private IDocument myDocument = null;
 
-        [SetUp]
-        public void SetUp()
+        [TestFixtureSetUp]
+        public void TestFixtureSetUp()
         {
-            myFormat = new SeparatorSeriesDescriptor( "test" );
-            myFormat.Separator = ";";
-            myFormat.Anchor = TableFragmentAnchor.ForRow( new StringContainsLocator( 1, "DE0005151005" ) );
-            myFormat.Expand = CellDimension.Row;
-            myFormat.TimeAxisPosition = 0;
-            myFormat.SeriesNamePosition = 1;
-            myFormat.SkipColumns = new int[] { 0, 2, 3 };
-            myFormat.SkipRows = new int[] { 1 };
+            myDocument = LoadDocument<TextDocument>( "DE0005151005.csv" );
+        }
 
-            myDocument = LoadDocument<TextDocument>( "eps.csv" );
+        private SeparatorSeriesDescriptor CreateSeparatorSeriesDescriptor()
+        {
+            var descriptor = new SeparatorSeriesDescriptor( "EarningsPerShare" );
+            descriptor.Separator = ";";
+
+            descriptor.Anchor = TableFragmentAnchor.ForRow( new StringContainsLocator( 0, "EPS" ) );
+            descriptor.Expand = CellDimension.Row;
+
+            descriptor.TimeAxisPosition = 0;
+            descriptor.SeriesNamePosition = 0;
+
+            descriptor.SkipColumns = new int[] { 0, 1 };
+
+            return descriptor;
         }
 
         [Test]
         public void FetchSeries()
         {
-            var parser = DocumentProcessorsFactory.CreateParser( myDocument, myFormat );
+            var descriptor = CreateSeparatorSeriesDescriptor();
+
+            var parser = DocumentProcessorsFactory.CreateParser( myDocument, descriptor );
             var table = parser.ExtractTable();
 
             Assert.AreEqual( 10, table.Rows.Count );
@@ -62,10 +66,11 @@ namespace RaynMaker.Import.ScenarioTests
         [Test]
         public void FetchTypedSeries()
         {
-            myFormat.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000" );
-            myFormat.TimeAxisFormat = new FormatColumn( "year", typeof( int ), "000" );
+            var descriptor = CreateSeparatorSeriesDescriptor();
+            descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000" );
+            descriptor.TimeAxisFormat = new FormatColumn( "year", typeof( int ), "000" );
 
-            var parser = DocumentProcessorsFactory.CreateParser( myDocument, myFormat );
+            var parser = DocumentProcessorsFactory.CreateParser( myDocument, descriptor );
             var table = parser.ExtractTable();
 
             Assert.AreEqual( 10, table.Rows.Count );
@@ -95,9 +100,10 @@ namespace RaynMaker.Import.ScenarioTests
         [Test]
         public void FetchTypedSeriesWithoutTimeaxis()
         {
-            myFormat.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000" );
+            var descriptor = CreateSeparatorSeriesDescriptor();
+            descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000" );
 
-            var parser = DocumentProcessorsFactory.CreateParser( myDocument, myFormat );
+            var parser = DocumentProcessorsFactory.CreateParser( myDocument, descriptor );
             var table = parser.ExtractTable();
 
             // no time axis

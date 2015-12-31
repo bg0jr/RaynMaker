@@ -11,7 +11,7 @@ namespace RaynMaker.Import.Parsers
     /// <summary>
     /// Extensions to System.Data.Table.
     /// </summary>
-    public static class DataTableExtensions
+    static class DataTableExtensions
     {
         /// <summary>
         /// Dumps the table content to Console.Out.

@@ -30,7 +30,7 @@ namespace RaynMaker.Import.Parsers.Html
     /// </code>
     /// </example>
     /// </summary>
-    public class FallibleActionResult<T> where T : class
+    class FallibleActionResult<T> where T : class
     {
         /// <summary>
         /// The return value of the functions in the case of a successful

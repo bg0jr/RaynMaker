@@ -43,19 +43,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="TestData\HtmlDocumentExtractionTests\ariva.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestData\HtmlFormSubmissionTests\ariva.historicalprices.DE0008404005.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\HtmlDocumentBasicReadingTests\ariva.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\HtmlDocumentExtractionTests\yahoo-bmw-all.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="TestData\DataSourceLoadingTests\DataSources.xdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\CsvDocumentExtractionTests\eps.csv">
+    <Content Include="TestData\CsvDocumentExtractionTests\DE0005151005.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

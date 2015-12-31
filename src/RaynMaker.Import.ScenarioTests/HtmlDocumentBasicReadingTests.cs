@@ -20,7 +20,7 @@ namespace RaynMaker.Import.ScenarioTests
         }
 
         [Test]
-        public void Table_Creation()
+        public void Table_Create()
         {
             HtmlPath path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]/TR[6]/TD[1]" );
 
@@ -35,6 +35,7 @@ namespace RaynMaker.Import.ScenarioTests
         public void Table_GetIndices()
         {
             HtmlPath path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]/TR[6]/TD[1]" );
+            
             var e = myDocument.GetElementByPath( path );
 
             Assert.AreEqual( 1, HtmlTable.GetColumnIndex( e ) );
@@ -229,43 +230,6 @@ namespace RaynMaker.Import.ScenarioTests
             path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]/TR[6]/TD[1]" );
             element = myDocument.GetElementByPath( path );
             Assert.IsFalse( element.IsTableOrTBody() );
-        }
-
-        [Test]
-        public void ExtractEpsFromAriva()
-        {
-            HtmlPath path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]/TR[6]/TD[1]" );
-
-            TableExtractionSettings settings = new TableExtractionSettings();
-            settings.RowHeaderColumn = 0;
-            settings.ColumnHeaderRow = 1;
-            settings.Dimension = CellDimension.Row;
-            settings.SeriesName = "verwässertes Ergebnis pro Aktie";
-            settings.SeriesHeaderType = typeof( int );
-            settings.SeriesValueType = typeof( float );
-
-            var result = myDocument.ExtractTable( path, settings, new HtmlExtractionSettings() );
-
-            Assert.IsTrue( result.Success );
-
-            var table = result.Value;
-            table.Dump();
-
-            Assert.AreEqual( 6, table.Rows.Count );
-
-            Assert.AreEqual( 2.78f, table.Rows[ 0 ][ 0 ] );
-            Assert.AreEqual( 3.00f, table.Rows[ 1 ][ 0 ] );
-            Assert.AreEqual( 2.89f, table.Rows[ 2 ][ 0 ] );
-            Assert.AreEqual( 3.30f, table.Rows[ 3 ][ 0 ] );
-            Assert.AreEqual( 3.33f, table.Rows[ 4 ][ 0 ] );
-            Assert.AreEqual( 4.38f, table.Rows[ 5 ][ 0 ] );
-
-            Assert.AreEqual( 2001, table.Rows[ 0 ][ 1 ] );
-            Assert.AreEqual( 2002, table.Rows[ 1 ][ 1 ] );
-            Assert.AreEqual( 2003, table.Rows[ 2 ][ 1 ] );
-            Assert.AreEqual( 2004, table.Rows[ 3 ][ 1 ] );
-            Assert.AreEqual( 2005, table.Rows[ 4 ][ 1 ] );
-            Assert.AreEqual( 2006, table.Rows[ 5 ][ 1 ] );
         }
 
         [Test]

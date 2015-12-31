@@ -5,7 +5,7 @@ namespace RaynMaker.Import.Parsers.Html
     /// Defines the settings used to extract data from a Html document.
     /// See <c>ExtractTable</c> methods of the <see cref="HtmlDocumentExtensions"/>.
     /// </summary>
-    public class HtmlExtractionSettings
+    class HtmlExtractionSettings
     {
         /// <summary>
         /// Defines the defaults.

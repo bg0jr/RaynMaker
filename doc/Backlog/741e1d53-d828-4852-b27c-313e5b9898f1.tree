@@ -51,6 +51,9 @@
         <Node Id="1d0bde2c-9285-4444-ba92-23f2a207c791">
           <Caption><![CDATA[From ScenarioTests back to UnitTests?]]></Caption>
         </Node>
+        <Node Id="00210dbc-fa23-4bf5-96f3-1ce7563f0a72">
+          <Caption><![CDATA[make html extensions internal]]></Caption>
+        </Node>
       </Node>
       <Node Id="d0da3880-c6d3-477b-bee2-8553b930be55">
         <Caption><![CDATA[Rework WebSpy]]></Caption>
@@ -60,6 +63,9 @@
       </Node>
       <Node Id="974d35f4-e601-4e31-a3c6-20a2a24e4256">
         <Caption><![CDATA[Rename unit tests to .UnitTests]]></Caption>
+      </Node>
+      <Node Id="6c39ee0d-5992-4511-b61e-a4e7387f51fe">
+        <Caption><![CDATA[HtmlDocumentBasicReadingTests]]></Caption>
       </Node>
     </Node>
     <Node Id="63da965d-c664-48a9-8250-578d54290207">

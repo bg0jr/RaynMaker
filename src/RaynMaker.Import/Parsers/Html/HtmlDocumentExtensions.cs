@@ -111,7 +111,7 @@ namespace RaynMaker.Import.Parsers.Html
         /// <param name="path">the path to the table</param>
         /// <param name="textOnly">set this to true to get only the text of the cell, otherwise the
         /// cell itself as HtmlElement is returned</param>
-        public static FallibleActionResult<DataTable> ExtractTable( this IHtmlDocument doc, HtmlPath path, bool textOnly )
+        internal static FallibleActionResult<DataTable> ExtractTable( this IHtmlDocument doc, HtmlPath path, bool textOnly )
         {
             Contract.RequiresNotNull( doc, "doc" );
             Contract.RequiresNotNull( path, "path" );
@@ -182,7 +182,7 @@ namespace RaynMaker.Import.Parsers.Html
         /// <param name="doc">the HTML document</param>
         /// <param name="htmlSettings">the HTML settings used to configure the extraction process</param>
         /// <param name="tableSettings">the table specific configuration</param>
-        public static FallibleActionResult<DataTable> ExtractTable( this IHtmlDocument doc, HtmlPath path, TableExtractionSettings tableSettings, HtmlExtractionSettings htmlSettings )
+        internal static FallibleActionResult<DataTable> ExtractTable( this IHtmlDocument doc, HtmlPath path, TableExtractionSettings tableSettings, HtmlExtractionSettings htmlSettings )
         {
             if( !path.PointsToTable && !path.PointsToTableCell )
             {

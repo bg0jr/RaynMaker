@@ -9,7 +9,7 @@ namespace RaynMaker.Import.Parsers
     /// <summary>
     /// Extension to the System.Data.DataRow class.
     /// </summary>
-    public static class DataRowExtensions
+    static class DataRowExtensions
     {
         /// <summary>
         /// Returns an IEnumerableT of the given DataRowCollection.

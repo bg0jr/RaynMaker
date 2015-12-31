@@ -7,7 +7,7 @@ namespace RaynMaker.Import.Parsers
     /// <summary>
     /// Defines the settings used to extract parts a table.
     /// </summary>
-    public class TableExtractionSettings
+    class TableExtractionSettings
     {
         private Type mySeriesValueType;
         private Type mySeriesHeaderType;
