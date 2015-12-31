@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="8029db40-5c61-4247-9674-2e92f20986d1" Created="635869697485764731" LastModified="635870580970328215">
+<Node Id="8029db40-5c61-4247-9674-2e92f20986d1" Created="635869697485764731" LastModified="635871704495830840">
   <Caption><![CDATA[Tests for required parameters]]></Caption>
-  <Content><![CDATA[of the formats]]></Content>
+  <Content><![CDATA[- extraction
+- locating
+
+also check if we can add a range
+- e.g. locators should have positive numbers]]></Content>
 </Node>
