@@ -36,23 +36,23 @@
     <Compile Include="Documents\ProxyPoolTest.cs" />
     <Compile Include="Spec\Extraction\AbsolutePositionLocatorTests.cs" />
     <Compile Include="Spec\DataSourceTests.cs" />
-    <Compile Include="Spec\Extraction\CsvFormatTests.cs" />
-    <Compile Include="Spec\Extraction\AbstractFormatTests.cs" />
-    <Compile Include="Spec\Extraction\AbstractTableFormatTests.cs" />
-    <Compile Include="Spec\Extraction\AbstractSeriesFormatTests.cs" />
+    <Compile Include="Spec\Extraction\CsvDescriptorTests.cs" />
+    <Compile Include="Spec\Extraction\FigureDescriptorBaseTests.cs" />
+    <Compile Include="Spec\Extraction\TableDescriptorBaseTests.cs" />
+    <Compile Include="Spec\Extraction\SeriesDescriptorBaseTests.cs" />
     <Compile Include="Spec\Extraction\StringContainsLocatorTests.cs" />
     <Compile Include="Spec\Extraction\RegexPatternLocatorTests.cs" />
-    <Compile Include="Spec\Extraction\PathTableFormatTests.cs" />
-    <Compile Include="Spec\Extraction\PathSingleValueFormatTests.cs" />
-    <Compile Include="Spec\Extraction\PathCellFormatTests.cs" />
+    <Compile Include="Spec\Extraction\PathTableDescriptorTests.cs" />
+    <Compile Include="Spec\Extraction\PathSingleValueDescriptorTests.cs" />
+    <Compile Include="Spec\Extraction\PathCellDescriptorTests.cs" />
     <Compile Include="Spec\Locating\SubmitFormularTests.cs" />
     <Compile Include="Spec\Locating\ResponseTests.cs" />
     <Compile Include="Spec\Locating\RequestTests.cs" />
     <Compile Include="Spec\Locating\DocumentLocatorTests.cs" />
     <Compile Include="Spec\Locating\FormularTests.cs" />
     <Compile Include="Spec\Extraction\FormatColumnTests.cs" />
-    <Compile Include="Spec\Extraction\PathSeriesFormatTests.cs" />
-    <Compile Include="Spec\Extraction\SeparatorSeriesFormatTests.cs" />
+    <Compile Include="Spec\Extraction\PathSeriesDescriptorTests.cs" />
+    <Compile Include="Spec\Extraction\SeparatorSeriesDescriptorTests.cs" />
     <Compile Include="Spec\Extraction\ValueFormatTests.cs" />
   </ItemGroup>
   <ItemGroup>

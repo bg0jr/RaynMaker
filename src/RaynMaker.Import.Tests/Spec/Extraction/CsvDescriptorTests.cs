@@ -6,7 +6,7 @@ using RaynMaker.Import.Tests;
 namespace RaynMaker.Import.Tests.Spec.Extraction
 {
     [TestFixture]
-    public class CsvFormatTests 
+    public class CsvDescriptorTests 
     {
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()

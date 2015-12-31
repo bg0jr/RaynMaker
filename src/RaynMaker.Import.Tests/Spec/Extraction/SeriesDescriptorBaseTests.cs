@@ -7,7 +7,7 @@ using RaynMaker.Import.Spec.v2.Extraction;
 namespace RaynMaker.Import.Tests.Spec.Extraction
 {
     [TestFixture]
-    public class AbstractSeriesFormatTests
+    public class SeriesDescriptorBaseTests
     {
         [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "DummyFormat" )]
         private class DummyFormat : SeriesDescriptorBase

@@ -6,7 +6,7 @@ using RaynMaker.Import.Spec.v2.Extraction;
 namespace RaynMaker.Import.Tests.Spec.Extraction
 {
     [TestFixture]
-    public class PathCellFormatTests
+    public class PathCellDescriptorTests
     {
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()

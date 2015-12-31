@@ -6,7 +6,7 @@ using RaynMaker.Import.Spec.v2.Extraction;
 namespace RaynMaker.Import.Tests.Spec.Extraction
 {
     [TestFixture]
-    public class AbstractTableFormatTests
+    public class TableDescriptorBaseTests
     {
         [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "DummyFormat" )]
         private class DummyFormat : TableDescriptorBase

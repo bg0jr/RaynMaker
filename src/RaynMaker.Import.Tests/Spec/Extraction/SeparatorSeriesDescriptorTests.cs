@@ -10,7 +10,7 @@ using RaynMaker.Import.Spec.v2.Extraction;
 namespace RaynMaker.Import.Tests.Spec.Extraction
 {
     [TestFixture]
-    public class SeparatorSeriesFormatTests
+    public class SeparatorSeriesDescriptorTests
     {
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
