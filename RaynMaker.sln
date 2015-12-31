@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Analyzer", "src\RaynMaker.Analyzer\RaynMaker.Analyzer.csproj", "{4164C457-C990-4D92-8175-C8BF4AD6A1DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Browser", "src\RaynMaker.Browser\RaynMaker.Browser.csproj", "{D3B2B34E-7D18-4506-93D8-B56CCBAEA7D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Module.Browser", "src\RaynMaker.Browser\RaynMaker.Module.Browser.csproj", "{D3B2B34E-7D18-4506-93D8-B56CCBAEA7D7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Infrastructure", "src\RaynMaker.Infrastructure\RaynMaker.Infrastructure.csproj", "{837ADDBE-901B-4ED9-9DF4-0E259E262167}"
 EndProject
@@ -15,17 +15,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Entities.Persista
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Samples", "src\RaynMaker.Samples\RaynMaker.Samples.csproj", "{B4F336A4-8CD2-49F7-8541-97AA31EA53D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Data", "src\RaynMaker.Data\RaynMaker.Data.csproj", "{972E7886-F83D-41DF-BA26-5071C34EC2F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Module.Data", "src\RaynMaker.Data\RaynMaker.Module.Data.csproj", "{972E7886-F83D-41DF-BA26-5071C34EC2F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Entities.Tests", "src\RaynMaker.Entities.Tests\RaynMaker.Entities.Tests.csproj", "{479CB8A7-9096-4A4C-B825-305E2DFF0456}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Entities.UnitTests", "src\RaynMaker.Entities.Tests\RaynMaker.Entities.UnitTests.csproj", "{479CB8A7-9096-4A4C-B825-305E2DFF0456}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Analysis", "src\RaynMaker.Analysis\RaynMaker.Analysis.csproj", "{87F14106-B2F8-4F90-9A14-18723AD25EEF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Module.Analysis", "src\RaynMaker.Analysis\RaynMaker.Module.Analysis.csproj", "{87F14106-B2F8-4F90-9A14-18723AD25EEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Analysis.Tests", "src\RaynMaker.Analysis.Tests\RaynMaker.Analysis.Tests.csproj", "{E26E3116-709D-463D-81A3-81D6C9A9C195}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Module.Analysis.Tests", "src\RaynMaker.Analysis.Tests\RaynMaker.Module.Analysis.Tests.csproj", "{E26E3116-709D-463D-81A3-81D6C9A9C195}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Import.Web", "src\RaynMaker.Import.Web\RaynMaker.Import.Web.csproj", "{2BAB6393-3900-4233-B817-333460881312}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Module.Import.Web", "src\RaynMaker.Import.Web\RaynMaker.Module.Import.Web.csproj", "{2BAB6393-3900-4233-B817-333460881312}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Import", "src\RaynMaker.Import\RaynMaker.Import.csproj", "{4CD006FA-B1A2-4E57-A0F1-DB32259FF70A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Module.Import", "src\RaynMaker.Import\RaynMaker.Module.Import.csproj", "{4CD006FA-B1A2-4E57-A0F1-DB32259FF70A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2BB4938E-9210-49D7-A01E-BC25948455EF}"
 	ProjectSection(SolutionItems) = preProject
@@ -34,15 +34,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		build\packager.msbuild = build\packager.msbuild
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Import.Tests", "src\RaynMaker.Import.Tests\RaynMaker.Import.Tests.csproj", "{60A81643-28BD-42C6-B1E9-51C77275A335}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Module.Import.UnitTests", "src\RaynMaker.Import.Tests\RaynMaker.Module.Import.UnitTests.csproj", "{60A81643-28BD-42C6-B1E9-51C77275A335}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Notes", "src\RaynMaker.Notes\RaynMaker.Notes.csproj", "{915A1FE6-9C41-4260-B32D-D958A524F177}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Module.Notes", "src\RaynMaker.Notes\RaynMaker.Module.Notes.csproj", "{915A1FE6-9C41-4260-B32D-D958A524F177}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Import.Web.Tests", "src\RaynMaker.Import.Web.Tests\RaynMaker.Import.Web.Tests.csproj", "{EB8FAAF2-3BFC-4C79-B9F2-4BE1C76E682E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Module.Import.Web.UnitTests", "src\RaynMaker.Import.Web.Tests\RaynMaker.Module.Import.Web.UnitTests.csproj", "{EB8FAAF2-3BFC-4C79-B9F2-4BE1C76E682E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Entities.Persistancy.Tests", "src\RaynMaker.Entities.Persistancy.Tests\RaynMaker.Entities.Persistancy.Tests.csproj", "{94EE79F4-D2B7-4477-A0C5-D95DB14FE79D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Entities.ScenarioTests", "src\RaynMaker.Entities.Persistancy.Tests\RaynMaker.Entities.ScenarioTests.csproj", "{94EE79F4-D2B7-4477-A0C5-D95DB14FE79D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Import.ScenarioTests", "src\RaynMaker.Import.ScenarioTests\RaynMaker.Import.ScenarioTests.csproj", "{5D702A14-EEB2-40B3-9CA7-27B9F2A70936}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Module.Import.ScenarioTests", "src\RaynMaker.Import.ScenarioTests\RaynMaker.Module.Import.ScenarioTests.csproj", "{5D702A14-EEB2-40B3-9CA7-27B9F2A70936}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

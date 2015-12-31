@@ -59,9 +59,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RaynMaker.Import\RaynMaker.Import.csproj">
+    <ProjectReference Include="..\RaynMaker.Import\RaynMaker.Module.Import.csproj">
       <Project>{4cd006fa-b1a2-4e57-a0f1-db32259ff70a}</Project>
-      <Name>RaynMaker.Import</Name>
+      <Name>RaynMaker.Module.Import</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -43,6 +43,9 @@
       <Node Id="2fecc38b-95fe-4aa1-8741-2f2782ac81e0">
         <Caption><![CDATA[Associated Data]]></Caption>
       </Node>
+      <Node Id="0a2dc681-faf8-492c-865b-efd1bd95b65e">
+        <Caption><![CDATA[Testing strategy]]></Caption>
+      </Node>
     </Node>
     <Node Id="71af65af-326c-4854-bf78-5360559660a1">
       <Caption><![CDATA[Ticker: Currency Translation support]]></Caption>

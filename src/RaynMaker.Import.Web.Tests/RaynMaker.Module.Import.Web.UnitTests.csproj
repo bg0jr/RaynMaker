@@ -3,16 +3,12 @@
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Import Project="..\..\build\Globals.msbuild" />
   <PropertyGroup>
-    <ProjectGuid>{E26E3116-709D-463D-81A3-81D6C9A9C195}</ProjectGuid>
+    <ProjectGuid>{EB8FAAF2-3BFC-4C79-B9F2-4BE1C76E682E}</ProjectGuid>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <RootNamespace>RaynMaker.Import.Web.Tests</RootNamespace>
+    <AssemblyName>RaynMaker.Import.Web.Tests</AssemblyName>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RaynMaker.Analysis.Tests</RootNamespace>
-    <AssemblyName>RaynMaker.Analysis.Tests</AssemblyName>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Practices.Prism.Mvvm, Version=1.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -27,10 +23,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Prism.Mvvm.1.1.1\lib\net45\Microsoft.Practices.Prism.SharedInterfaces.dll</HintPath>
     </Reference>
-    <Reference Include="Moq">
+    <Reference Include="Moq, Version=4.2.1507.118, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Moq.4.2.1507.0118\lib\net40\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework">
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -42,17 +40,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalysisSpec\FunctionsTests.cs" />
-    <Compile Include="AnalysisSpec\Providers\GenericPriceRatioProviderTests.cs" />
-    <Compile Include="AnalysisSpec\Providers\GenericJoinProviderTests.cs" />
-    <Compile Include="Engine\ExpressionEvaluatorTests.cs" />
-    <Compile Include="Engine\Fakes\FakeExpressionEvaluationContext.cs" />
-    <Compile Include="Engine\Fakes\FakeFigureProvider.cs" />
-    <Compile Include="Engine\Fakes\FakeFigureProviderContext.cs" />
-    <Compile Include="Engine\Fakes\FakeFunctions.cs" />
-    <Compile Include="Engine\FunctionCallTests.cs" />
-    <Compile Include="Engine\TextEvaluatorTests.cs" />
+    <Compile Include="ViewModels\BasicDatumProviderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RaynMaker.Entities\RaynMaker.Entities.csproj">
+      <Project>{0b9b8ac3-da99-4264-9d59-382adee06fd9}</Project>
+      <Name>RaynMaker.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RaynMaker.Import.Web\RaynMaker.Module.Import.Web.csproj">
+      <Project>{2bab6393-3900-4233-b817-333460881312}</Project>
+      <Name>RaynMaker.Module.Import.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RaynMaker.Import\RaynMaker.Module.Import.csproj">
+      <Project>{4cd006fa-b1a2-4e57-a0f1-db32259ff70a}</Project>
+      <Name>RaynMaker.Module.Import</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -61,20 +64,5 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RaynMaker.Analysis\RaynMaker.Analysis.csproj">
-      <Project>{87f14106-b2f8-4f90-9a14-18723ad25eef}</Project>
-      <Name>RaynMaker.Analysis</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RaynMaker.Entities.Tests\RaynMaker.Entities.Tests.csproj">
-      <Project>{479cb8a7-9096-4a4c-b825-305e2dff0456}</Project>
-      <Name>RaynMaker.Entities.Tests</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RaynMaker.Entities\RaynMaker.Entities.csproj">
-      <Project>{0b9b8ac3-da99-4264-9d59-382adee06fd9}</Project>
-      <Name>RaynMaker.Entities</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -218,9 +218,9 @@
       <Project>{0b9b8ac3-da99-4264-9d59-382adee06fd9}</Project>
       <Name>RaynMaker.Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RaynMaker.Import\RaynMaker.Import.csproj">
+    <ProjectReference Include="..\RaynMaker.Import\RaynMaker.Module.Import.csproj">
       <Project>{4cd006fa-b1a2-4e57-a0f1-db32259ff70a}</Project>
-      <Name>RaynMaker.Import</Name>
+      <Name>RaynMaker.Module.Import</Name>
     </ProjectReference>
     <ProjectReference Include="..\RaynMaker.Infrastructure\RaynMaker.Infrastructure.csproj">
       <Project>{837addbe-901b-4ed9-9df4-0e259e262167}</Project>
