@@ -8,7 +8,7 @@ using RaynMaker.Import.Tests;
 namespace RaynMaker.Import.Spec
 {
     [TestFixture]
-    public class DataSourceTests 
+    public class DataSourceTests
     {
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
@@ -19,8 +19,8 @@ namespace RaynMaker.Import.Spec
             dataSource.Quality = 17;
             dataSource.DocumentType = DocumentType.Html;
             dataSource.LocatingSpec = new DocumentLocator(
-                new DocumentLocationFragment( UriType.Request, "http://test1.org" ),
-                new DocumentLocationFragment( UriType.Response, "http://test2.org" ) );
+                new Request( "http://test1.org" ),
+                new Response( "http://test2.org" ) );
             dataSource.ExtractionSpec.Add( new CsvDescriptor( "dummy.csv", ";" ) );
 
             var clone = FormatFactory.Clone( dataSource );
@@ -30,7 +30,7 @@ namespace RaynMaker.Import.Spec
             Assert.That( clone.Quality, Is.EqualTo( 17 ) );
             Assert.That( clone.DocumentType, Is.EqualTo( DocumentType.Html ) );
 
-            Assert.That( clone.LocatingSpec.Uris[ 0 ].UrlString, Is.EqualTo( "http://test1.org" ) );
+            Assert.That( clone.LocatingSpec.Fragments[ 0 ].UrlString, Is.EqualTo( "http://test1.org" ) );
 
             Assert.That( clone.ExtractionSpec[ 0 ].Figure, Is.EqualTo( "dummy.csv" ) );
         }
@@ -41,7 +41,7 @@ namespace RaynMaker.Import.Spec
             var dataSource = new DataSource();
             dataSource.Vendor = "vendor";
             dataSource.Name = "name";
-            dataSource.LocatingSpec = new DocumentLocator( new DocumentLocationFragment( UriType.Request, "http://test1.org" ) );
+            dataSource.LocatingSpec = new DocumentLocator( new Request( "http://test1.org" ) );
             dataSource.ExtractionSpec.Add( new CsvDescriptor( "dummy.csv", ";" ) );
 
             var clone = FormatFactory.Clone( dataSource );

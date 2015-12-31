@@ -31,16 +31,16 @@ namespace RaynMaker.Import.Web.ViewModels
 
             var macroPattern = new Regex( @"(\$\{.*\})" );
             var filtered = new List<DocumentLocationFragment>();
-            foreach( var navUrl in navigation.Uris )
+            foreach( var fragment in navigation.Fragments )
             {
-                var md = macroPattern.Match( navUrl.UrlString );
+                var md = macroPattern.Match( fragment.UrlString );
                 if( md.Success )
                 {
                     var macro = md.Groups[ 1 ].Value;
                     var value = GetMacroValue( macro.Substring( 2, macro.Length - 3 ), stock );
                     if( value != null )
                     {
-                        filtered.Add( new DocumentLocationFragment( navUrl.UrlType, navUrl.UrlString.Replace( macro, value ) ) );
+                        filtered.Add( CreateFragment( fragment.GetType(), fragment.UrlString.Replace( macro, value ) ) );
                     }
                     else
                     {
@@ -49,12 +49,28 @@ namespace RaynMaker.Import.Web.ViewModels
                 }
                 else
                 {
-                    filtered.Add( navUrl );
+                    filtered.Add( fragment );
                 }
             }
 
             myBrowser.Navigate( docType, new DocumentLocator( filtered ) );
-            Document = (IHtmlDocument)myBrowser.Document;
+            Document = ( IHtmlDocument )myBrowser.Document;
+        }
+
+        private DocumentLocationFragment CreateFragment( Type type, string url )
+        {
+            if( type == typeof( Request ) )
+            {
+                return new Request( url );
+            }
+            else if( type == typeof( Response ) )
+            {
+                return new Response( url );
+            }
+            else
+            {
+                throw new NotSupportedException( "Unknown fragment type: " + type );
+            }
         }
 
         private string GetMacroValue( string macroId, Stock stock )
@@ -87,7 +103,7 @@ namespace RaynMaker.Import.Web.ViewModels
             markupDoc.Anchor = format.Path;
             markupDoc.Dimension = format.Orientation;
             //markupDoc.SeriesName = format.SeriesName;
-            
+
             if( markupDoc.Dimension == SeriesOrientation.Row )
             {
                 markupDoc.ColumnHeaderRow = format.TimesLocator.SeriesToScan;

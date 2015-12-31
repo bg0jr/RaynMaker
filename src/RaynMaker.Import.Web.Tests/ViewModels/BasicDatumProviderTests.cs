@@ -41,7 +41,7 @@ namespace RaynMaker.Import.Web.Tests.ViewModels
 
             provider.Navigate( DocumentType.Html, navigation, new Stock { Isin = "AB01010101" } );
 
-            Assert.That( browser.Args_Navigation.Uris.Single().UrlString, Is.EqualTo( "http://www.server.com/search?id=AB01010101&paging=off" ) );
+            Assert.That( browser.Args_Navigation.Fragments.Single().UrlString, Is.EqualTo( "http://www.server.com/search?id=AB01010101&paging=off" ) );
         }
 
         [Test]
@@ -54,7 +54,7 @@ namespace RaynMaker.Import.Web.Tests.ViewModels
 
             provider.Navigate( DocumentType.Html, navigation, new Stock { Wpkn = "AB0976D" } );
 
-            Assert.That( browser.Args_Navigation.Uris.Single().UrlString, Is.EqualTo( "http://www.server.com/search?id=AB0976D&paging=off" ) );
+            Assert.That( browser.Args_Navigation.Fragments.Single().UrlString, Is.EqualTo( "http://www.server.com/search?id=AB0976D&paging=off" ) );
         }
 
         [Test]
@@ -67,16 +67,15 @@ namespace RaynMaker.Import.Web.Tests.ViewModels
 
             provider.Navigate( DocumentType.Html, navigation, new Stock { Symbol = "JNJ" } );
 
-            Assert.That( browser.Args_Navigation.Uris.Single().UrlString, Is.EqualTo( "http://www.server.com/search?id=JNJ&paging=off" ) );
+            Assert.That( browser.Args_Navigation.Fragments.Single().UrlString, Is.EqualTo( "http://www.server.com/search?id=JNJ&paging=off" ) );
         }
 
         private static DocumentLocator CreateNavigation( params string[] urlTemplates )
         {
             bool isRequest = false;
-            Func<UriType> GetUriType = () => ( isRequest = !isRequest ) ? UriType.Request : UriType.Response;
 
             return new DocumentLocator( urlTemplates
-                .Select( url => new DocumentLocationFragment( GetUriType(), url ) ) );
+                .Select( url => ( isRequest = !isRequest ) ? ( DocumentLocationFragment )new Request( url ) : ( DocumentLocationFragment )new Response( url ) ) );
         }
     }
 }

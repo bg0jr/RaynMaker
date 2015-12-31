@@ -19,18 +19,18 @@ namespace RaynMaker.Import.Documents
                 return uri;
             }
 
-            return NavigateToFinalSite( navigation.Uris );
+            return NavigateToFinalSite( navigation.Fragments );
         }
 
         private Uri TryNavigateWithWildcards( DocumentLocator navi )
         {
-            if ( navi.Uris.Count != 1 )
+            if ( navi.Fragments.Count != 1 )
             {
                 // we can only handle single urls
                 return null;
             }
 
-            var url = navi.Uris[ 0 ];
+            var url = navi.Fragments[ 0 ];
             Uri uri = new Uri( url.UrlString );
             if ( !uri.IsFile && !uri.IsUnc )
             {
@@ -79,21 +79,19 @@ namespace RaynMaker.Import.Documents
         {
             string param = null;
 
-            var lastRequest = navigationSteps.Last();
-            if( lastRequest.UrlType != UriType.Request )
+            var lastFragment = navigationSteps.Last();
+            if( lastFragment is Request )
             {
                 // last step is a response - take the one before
-                lastRequest = navigationSteps.ElementAt( navigationSteps.Count() - 2 );
+                lastFragment = navigationSteps.ElementAt( navigationSteps.Count() - 2 );
             }
 
             Uri currentUrl = null;
-            foreach ( DocumentLocationFragment navUrl in navigationSteps )
+            foreach ( var fragment in navigationSteps )
             {
-                Contract.Invariant( navUrl.UrlType != UriType.None, "UrlType must NOT be None" );
-
-                if ( navUrl.UrlType == UriType.Request )
+                if ( fragment is Request )
                 {
-                    string url = navUrl.UrlString;
+                    string url = fragment.UrlString;
                     if ( param != null )
                     {
                         url = string.Format( url, param );
@@ -108,7 +106,7 @@ namespace RaynMaker.Import.Documents
 
                     currentUrl = new Uri( url );
 
-                    if ( navUrl == lastRequest )
+                    if ( fragment == lastFragment )
                     {
                         // we can stop here - we created the url for the last step
                         // furster navigation not necessary
@@ -117,18 +115,18 @@ namespace RaynMaker.Import.Documents
 
                     currentUrl = SendRequest( currentUrl );
                 }
-                else if ( navUrl.UrlType == UriType.Response )
+                else if ( fragment is Response)
                 {
                     // get param from response url if any
-                    param = PatternMatching.MatchEmbeddedRegex( navUrl.UrlString, currentUrl.ToString() );
+                    param = PatternMatching.MatchEmbeddedRegex( fragment.UrlString, currentUrl.ToString() );
                 }
-                else if ( navUrl.UrlType == UriType.SubmitFormular )
+                else if ( fragment is SubmitFormular )
                 {
-                    currentUrl = SubmitFormular( currentUrl, navUrl.Formular );
+                    currentUrl = SubmitFormular( currentUrl, ((SubmitFormular)fragment).Formular );
                 }
                 else
                 {
-                    throw new NotSupportedException( "UrlType: " + navUrl.UrlType );
+                    throw new NotSupportedException( "UrlType: " + fragment.GetType() );
                 }
             }
 

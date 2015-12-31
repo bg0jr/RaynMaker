@@ -66,6 +66,9 @@
     <Compile Include="Spec\v1\StringContainsLocator.cs" />
     <Compile Include="Spec\v1\UriType.cs" />
     <Compile Include="Spec\v1\ValueFormat.cs" />
+    <Compile Include="Spec\v2\Locating\Request.cs" />
+    <Compile Include="Spec\v2\Locating\Response.cs" />
+    <Compile Include="Spec\v2\Locating\SubmitFormular.cs" />
     <Compile Include="WinForms\IOleControl.cs" />
     <Compile Include="WinForms\WebBrowserDownloadControlFlags.cs" />
     <Compile Include="Documents\DocumentLoaderFactory.cs" />
@@ -126,7 +129,6 @@
     <Compile Include="Spec\v2\Extraction\RegexPatternLocator.cs" />
     <Compile Include="Spec\v2\Extraction\SeparatorSeriesDescriptor.cs" />
     <Compile Include="Spec\v2\Extraction\StringContainsLocator.cs" />
-    <Compile Include="Spec\v2\Locating\UriType.cs" />
     <Compile Include="Spec\v2\Extraction\ValueFormat.cs" />
     <Compile Include="WinForms\SafeWebBrowser.cs">
       <SubType>Component</SubType>

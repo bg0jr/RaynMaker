@@ -40,7 +40,7 @@ namespace RaynMaker.Import.Documents
 
         internal Uri TryGet( DocumentLocator key )
         {
-            var entry = myIndex.TryGet( key.UrisHashCode );
+            var entry = myIndex.TryGet( key.FragmentsHashCode );
             if( entry == null )
             {
                 return null;
@@ -49,7 +49,7 @@ namespace RaynMaker.Import.Documents
             if( entry.IsExpired )
             {
                 // found but live time of entry expired
-                myIndex.Remove( key.UrisHashCode );
+                myIndex.Remove( key.FragmentsHashCode );
                 return null;
             }
 
@@ -81,14 +81,14 @@ namespace RaynMaker.Import.Documents
 
             if( document.IsFile )
             {
-                return new CacheEntryBase( key.UrisHashCode, expirationTime, document );
+                return new CacheEntryBase( key.FragmentsHashCode, expirationTime, document );
             }
             else
             {
-                var cacheFile = Path.Combine( myCacheFolder, key.UrisHashCode + ".dat" );
+                var cacheFile = Path.Combine( myCacheFolder, key.FragmentsHashCode + ".dat" );
                 WebUtil.DownloadTo( document, cacheFile );
 
-                return new ValueCacheEntry( key.UrisHashCode, expirationTime, new Uri( cacheFile ) );
+                return new ValueCacheEntry( key.FragmentsHashCode, expirationTime, new Uri( cacheFile ) );
             }
         }
 

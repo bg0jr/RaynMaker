@@ -45,7 +45,9 @@
     <Compile Include="Spec\Extraction\PathTableFormatTests.cs" />
     <Compile Include="Spec\Extraction\PathSingleValueFormatTests.cs" />
     <Compile Include="Spec\Extraction\PathCellFormatTests.cs" />
-    <Compile Include="Spec\Locating\LocatingFragmentTests.cs" />
+    <Compile Include="Spec\Locating\SubmitFormularTests.cs" />
+    <Compile Include="Spec\Locating\ResponseTests.cs" />
+    <Compile Include="Spec\Locating\RequestTests.cs" />
     <Compile Include="Spec\Locating\DocumentLocatorTests.cs" />
     <Compile Include="Spec\Locating\FormularTests.cs" />
     <Compile Include="Spec\Extraction\FormatColumnTests.cs" />

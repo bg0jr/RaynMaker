@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="97bac886-5126-46cb-91cd-cb81ddcd72bf" Created="635870137416702630" LastModified="635870137826416065">
-  <Caption><![CDATA[ReadOnly collections where possible]]></Caption>
-  <Content><![CDATA[- Navigation.Urls required (but this breaks serialized xdb files)]]></Content>
-</Node>

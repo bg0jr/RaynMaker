@@ -13,45 +13,44 @@ namespace RaynMaker.Import.Spec.v2.Locating
     public class DocumentLocator
     {
         public DocumentLocator( string url )
-            : this( new DocumentLocationFragment( UriType.Request, url ) )
+            : this( new Request( url ) )
         {
         }
 
-        public DocumentLocator( params DocumentLocationFragment[] urls )
-            : this( urls.ToList() )
+        public DocumentLocator( params DocumentLocationFragment[] fragments )
+            : this( fragments.ToList() )
         {
         }
 
-        public DocumentLocator( IEnumerable<DocumentLocationFragment> urls )
+        public DocumentLocator( IEnumerable<DocumentLocationFragment> fragments )
         {
-            Contract.RequiresNotNullNotEmpty( urls, "urls" );
+            Contract.RequiresNotNullNotEmpty( fragments, "fragments" );
 
-            Uris = urls.ToList();
+            Fragments = fragments.ToList();
 
-            UrisHashCode = CreateUrisHashCode();
+            FragmentsHashCode = CreateUrisHashCode();
         }
 
         private int CreateUrisHashCode()
         {
-            var uriStrings = Uris.Select( uri => uri.UrlString ).ToArray();
-            var hashCodeString = string.Join( string.Empty, uriStrings );
+            var fragmentStrings = Fragments.Select( fragment => fragment.UrlString ).ToArray();
+            var hashCodeString = string.Join( string.Empty, fragmentStrings );
 
             return hashCodeString.GetHashCode();
         }
 
-        // keep immutable because of stored UrisHashCode
         [DataMember]
-        public List<DocumentLocationFragment> Uris { get; private set; }
+        public IReadOnlyList<DocumentLocationFragment> Fragments { get; private set; }
 
         [DataMember]
-        public int UrisHashCode { get; private set; }
+        public int FragmentsHashCode { get; private set; }
 
         // required also for be addable to Exception.Data
         public override string ToString()
         {
             var sb = new StringBuilder();
 
-            foreach( var uri in Uris )
+            foreach( var uri in Fragments )
             {
                 sb.AppendLine( uri.ToString() );
             }
