@@ -32,6 +32,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DocumentBrowserExtensions.cs" />
     <Compile Include="Documents\ICache.cs" />
     <Compile Include="FormatFactory.cs" />
     <Compile Include="ImportSpecSerializer.cs" />

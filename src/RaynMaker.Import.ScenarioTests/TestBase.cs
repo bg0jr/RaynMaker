@@ -31,19 +31,11 @@ namespace RaynMaker.Import.ScenarioTests
             }
         }
 
-        protected IDocument LoadDocument( DocumentType docType, string name )
+        protected T LoadDocument<T>( string name ) where T : IDocument
         {
             var file = Path.Combine( TestDataRoot, name );
 
-            var navi = new DocumentLocator( new DocumentLocationFragment( UriType.Request, file ) );
-            myBrowser.Value.Navigate( docType, navi );
-
-            return myBrowser.Value.Document;
-        }
-
-        protected IHtmlDocument LoadHtmlDocument( string name )
-        {
-            return ( IHtmlDocument )LoadDocument( DocumentType.Html, name );
+            return myBrowser.Value.LoadDocument<T>( file );
         }
     }
 }

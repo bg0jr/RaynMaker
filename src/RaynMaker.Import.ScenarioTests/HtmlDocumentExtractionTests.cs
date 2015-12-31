@@ -19,7 +19,7 @@ namespace RaynMaker.Import.ScenarioTests
         [Test]
         public void WpknFromAriva()
         {
-            var doc = LoadDocument( DocumentType.Html, "ariva.overview.US0138171014.html" );
+            var doc = LoadDocument<IHtmlDocument>( "ariva.overview.US0138171014.html" );
 
             var descriptor = new PathSingleValueDescriptor( "Ariva.Wpkn" );
             descriptor.Path = @"/BODY[0]/DIV[4]/DIV[0]/DIV[3]/DIV[0]";
@@ -38,7 +38,7 @@ namespace RaynMaker.Import.ScenarioTests
         {
             HtmlPath path = HtmlPath.Parse( "/BODY[0]/CENTER[0]/P[1]/TABLE[0]/TBODY[0]/TR[0]/TD[0]/TABLE[3]/TBODY[0]/TR[0]/TD[0]/CENTER[0]/TABLE[3]/TBODY[0]/TR[0]/TD[0]/TABLE[0]" );
 
-            var doc = LoadHtmlDocument( "yahoo-bmw-all.html" );
+            var doc = LoadDocument<IHtmlDocument>( "yahoo-bmw-all.html" );
             var result = doc.ExtractTable( path, false );
 
             Assert.IsTrue( result.Success );

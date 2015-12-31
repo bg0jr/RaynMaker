@@ -2,6 +2,7 @@
 using System.Data;
 using System.IO;
 using NUnit.Framework;
+using RaynMaker.Import.Documents;
 using RaynMaker.Import.Spec.v2;
 using RaynMaker.Import.Spec.v2.Extraction;
 
@@ -25,7 +26,7 @@ namespace RaynMaker.Import.ScenarioTests
             myFormat.SkipColumns = new int[] { 0, 2, 3 };
             myFormat.SkipRows = new int[] { 1 };
 
-            myDocument = LoadDocument( DocumentType.Text, "eps.csv" );
+            myDocument = LoadDocument<TextDocument>( "eps.csv" );
         }
 
         [Test]

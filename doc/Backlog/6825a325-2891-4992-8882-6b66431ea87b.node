@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="6825a325-2891-4992-8882-6b66431ea87b" Created="635871105743809737" LastModified="635871105848195707">
-  <Caption><![CDATA[Generics support for documents]]></Caption>
-  <Content><![CDATA[        protected IHtmlDocument LoadHtmlDocument( string name )
-        {
-            return ( IHtmlDocument )LoadDocument( DocumentType.Html, name );
-        }
-]]></Content>
-</Node>
