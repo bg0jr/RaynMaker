@@ -25,11 +25,7 @@ namespace RaynMaker.Import.Parsers.Html
 
             if( pathSeriesFormat != null )
             {
-                var htmlSettings = new HtmlExtractionSettings();
-                htmlSettings.ExtractLinkUrl = pathSeriesFormat.ExtractLinkUrl;
-
-                var result = myDocument.ExtractTable( HtmlPath.Parse( pathSeriesFormat.Path ),
-                    TableFormatter.ToExtractionSettings( pathSeriesFormat ), htmlSettings );
+                var result = myDocument.ExtractTable( HtmlPath.Parse( pathSeriesFormat.Path ), TableFormatter.ToExtractionSettings( pathSeriesFormat ) );
                 if( !result.Success )
                 {
                     throw new Exception( "Failed to extract table from document: " + result.FailureReason );

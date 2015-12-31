@@ -11,13 +11,11 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
         {
             var format = new PathSeriesDescriptor( "dummy" );
             format.Path = "123";
-            format.ExtractLinkUrl = true;
             format.SeriesName = "x";
 
             var clone = FormatFactory.Clone( format );
 
             Assert.That( clone.Path, Is.EqualTo( "123" ) );
-            Assert.That( clone.ExtractLinkUrl, Is.EqualTo( true ) );
             Assert.That( clone.SeriesName, Is.EqualTo( "x" ) );
         }
     }

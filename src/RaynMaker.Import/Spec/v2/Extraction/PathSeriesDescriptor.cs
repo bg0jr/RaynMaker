@@ -13,7 +13,6 @@ namespace RaynMaker.Import.Spec.v2.Extraction
         public PathSeriesDescriptor( string datum )
             : base( datum )
         {
-            ExtractLinkUrl = false;
         }
 
         /// <summary>
@@ -21,13 +20,6 @@ namespace RaynMaker.Import.Spec.v2.Extraction
         /// </summary>
         [DataMember]
         public string Path { get; set; }
-
-        /// <summary>
-        /// In case of a document that supports link extraction below the actual value this property
-        /// indicates that the link should be extracted instead of the display text.
-        /// </summary>
-        [DataMember]
-        public bool ExtractLinkUrl { get; set; }
 
         [DataMember]
         public string SeriesName { get; set; }

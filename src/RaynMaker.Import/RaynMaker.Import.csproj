@@ -95,7 +95,6 @@
     <Compile Include="Documents\AgilityPack\HtmlElementAdapter.cs" />
     <Compile Include="Parsers\Html\HtmlDocumentExtensions.cs" />
     <Compile Include="Parsers\Html\HtmlElementExtensions.cs" />
-    <Compile Include="Parsers\Html\HtmlExtractionSettings.cs" />
     <Compile Include="Parsers\Html\HtmlForm.cs" />
     <Compile Include="Parsers\Html\HtmlPath.cs" />
     <Compile Include="Parsers\Html\HtmlPathElement.cs" />

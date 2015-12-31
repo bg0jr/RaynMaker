@@ -182,14 +182,14 @@ namespace RaynMaker.Import.Parsers.Html
         /// <param name="doc">the HTML document</param>
         /// <param name="htmlSettings">the HTML settings used to configure the extraction process</param>
         /// <param name="tableSettings">the table specific configuration</param>
-        internal static FallibleActionResult<DataTable> ExtractTable( this IHtmlDocument doc, HtmlPath path, TableExtractionSettings tableSettings, HtmlExtractionSettings htmlSettings )
+        internal static FallibleActionResult<DataTable> ExtractTable( this IHtmlDocument doc, HtmlPath path, TableExtractionSettings tableSettings )
         {
             if( !path.PointsToTable && !path.PointsToTableCell )
             {
                 throw new InvalidExpressionException( "Path neither points to table nor to cell" );
             }
 
-            FallibleActionResult<DataTable> result = ExtractTable( doc, path, !htmlSettings.ExtractLinkUrl );
+            var result = ExtractTable( doc, path, true );
             if( !result.Success )
             {
                 // pass throu failure result
@@ -210,17 +210,7 @@ namespace RaynMaker.Import.Parsers.Html
             }
 
             // get the value of the raw cell. extract the link url if configured.
-            Func<object, object> GetValue = e =>
-            {
-                if( htmlSettings.ExtractLinkUrl )
-                {
-                    return ( ( IHtmlElement )e ).FirstLinkOrInnerText();
-                }
-                else
-                {
-                    return e;
-                }
-            };
+            Func<object, object> GetValue = e => e;
 
             var t = result.Value.ExtractSeries( cellCoords, GetValue, tableSettings );
             if( t == null )
