@@ -11,7 +11,6 @@ namespace RaynMaker.Import.Spec.v2.Extraction
     /// Base class for all formats that describe a series of data.
     /// A series consists of a set of time-value pairs.
     /// </summary>
-    // TODO: actually we no longer need "expand" if we have an anchor
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "AbstractSeriesFormat" )]
     public abstract class AbstractSeriesDescriptor : AbstractDimensionalDescriptor
     {
@@ -23,11 +22,11 @@ namespace RaynMaker.Import.Spec.v2.Extraction
         }
 
         /// <summary>
-        /// Direction of the series in the "table".
+        /// Defines how to find the position of the series in the table.
         /// </summary>
         [DataMember]
-        public CellDimension Expand { get; set; }
-
+        public TableFragmentDescriptor Anchor { get; set; }
+        
         /// <summary>
         /// Position of the series name: the column
         /// if Expand == Row, the row otherwise.
@@ -53,11 +52,5 @@ namespace RaynMaker.Import.Spec.v2.Extraction
         /// </summary>
         [DataMember]
         public FormatColumn TimeAxisFormat { get; set; }
-
-        /// <summary>
-        /// Defines how to find the position of the series in the table.
-        /// </summary>
-        [DataMember]
-        public TableFragmentAnchor Anchor { get; set; }
     }
 }

@@ -11,8 +11,6 @@ namespace RaynMaker.Import.Spec.v2.Extraction
         public PathCellDescriptor( string datum )
             : base( datum )
         {
-            Expand = CellDimension.None;
-            Anchor = null;
         }
 
         [DataMember]

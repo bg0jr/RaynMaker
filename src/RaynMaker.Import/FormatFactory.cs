@@ -40,7 +40,6 @@ namespace RaynMaker.Import
         private static IFigureDescriptor CreatePathCellFormat()
         {
             var format = new PathCellDescriptor( string.Empty );
-            format.Expand = CellDimension.None;
 
             format.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000.0000" );
 

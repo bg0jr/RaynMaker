@@ -27,14 +27,14 @@
         <Node Id="8029db40-5c61-4247-9674-2e92f20986d1">
           <Caption><![CDATA[Tests for required parameters]]></Caption>
         </Node>
+        <Node Id="7a1123b4-d78b-4b34-9e9f-2be087951033">
+          <Caption><![CDATA[PathSeriesDescriptor]]></Caption>
+        </Node>
       </Node>
       <Node Id="e4cba108-1415-42e0-ac8f-4e9d7596dfab">
         <Caption><![CDATA[Browser]]></Caption>
         <Node Id="77a3da08-70e8-4ae1-b90d-40a5b428e21d">
           <Caption><![CDATA[TryNavigateWithWildcards]]></Caption>
-        </Node>
-        <Node Id="3494b210-9cef-4613-abf0-fb368c2075f8">
-          <Caption><![CDATA[SubmitFormular not implemented]]></Caption>
         </Node>
         <Node Id="0f5864c5-a862-4580-a6ca-33f43b077fb6">
           <Caption><![CDATA[Navigator]]></Caption>
@@ -55,6 +55,9 @@
           <Caption><![CDATA[make html extensions internal]]></Caption>
         </Node>
       </Node>
+      <Node Id="3494b210-9cef-4613-abf0-fb368c2075f8">
+        <Caption><![CDATA[SubmitFormular not implemented]]></Caption>
+      </Node>
       <Node Id="d0da3880-c6d3-477b-bee2-8553b930be55">
         <Caption><![CDATA[Rework WebSpy]]></Caption>
       </Node>
@@ -66,6 +69,12 @@
       </Node>
       <Node Id="6c39ee0d-5992-4511-b61e-a4e7387f51fe">
         <Caption><![CDATA[HtmlDocumentBasicReadingTests]]></Caption>
+      </Node>
+      <Node Id="11e80f8f-dc31-44a2-9c9c-c790ede307bd">
+        <Caption><![CDATA[Tests for PathSeriesFormatViewModel]]></Caption>
+      </Node>
+      <Node Id="f915dae9-ecf3-454f-897f-8ed8c8efa639">
+        <Caption><![CDATA[Tests for PathCellFormatViewModel]]></Caption>
       </Node>
     </Node>
     <Node Id="63da965d-c664-48a9-8250-578d54290207">

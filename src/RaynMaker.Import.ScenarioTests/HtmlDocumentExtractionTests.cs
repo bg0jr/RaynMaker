@@ -33,8 +33,7 @@ namespace RaynMaker.Import.ScenarioTests
 
             var descriptor = new PathSeriesDescriptor( "Eps" );
             descriptor.Path = @"/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]";
-            descriptor.Anchor = TableFragmentAnchor.ForRow( new StringContainsLocator( 0, "verwässertes Ergebnis pro Aktie" ) );
-            descriptor.Expand = CellDimension.Row;
+            descriptor.Anchor = TableFragmentDescriptor.ForRow( new StringContainsLocator( 0, "verwässertes Ergebnis pro Aktie" ) );
 
             descriptor.SeriesNamePosition = 0;
             descriptor.TimeAxisPosition = 1;

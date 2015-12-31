@@ -20,8 +20,7 @@ namespace RaynMaker.Import.ScenarioTests
             var descriptor = new SeparatorSeriesDescriptor( "EarningsPerShare" );
             descriptor.Separator = ";";
 
-            descriptor.Anchor = TableFragmentAnchor.ForRow( new StringContainsLocator( 0, "EPS" ) );
-            descriptor.Expand = CellDimension.Row;
+            descriptor.Anchor = TableFragmentDescriptor.ForRow( new StringContainsLocator( 0, "EPS" ) );
 
             descriptor.TimeAxisPosition = 0;
             descriptor.SeriesNamePosition = 0;

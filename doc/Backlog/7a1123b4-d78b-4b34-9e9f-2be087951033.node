@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="7a1123b4-d78b-4b34-9e9f-2be087951033" Created="635871421409415784" LastModified="635871421677881139">
+  <Caption><![CDATA[PathSeriesDescriptor]]></Caption>
+  <Content><![CDATA[get rid of SeriesName - we actually only need it for the markup document
+for parsing anchor is sufficient]]></Content>
+</Node>

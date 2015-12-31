@@ -150,8 +150,8 @@ namespace RaynMaker.Import.Parsers
         public static TableExtractionSettings ToExtractionSettings(AbstractSeriesDescriptor format)
         {
             TableExtractionSettings settings = new TableExtractionSettings();
-            settings.Dimension = format.Expand;
-            if( format.Expand == CellDimension.Column )
+            settings.Dimension = format.Anchor.Expand;
+            if( settings.Dimension == CellDimension.Column )
             {
                 settings.ColumnHeaderRow = format.SeriesNamePosition;
                 settings.RowHeaderColumn = format.TimeAxisPosition;
@@ -170,7 +170,7 @@ namespace RaynMaker.Import.Parsers
             return settings;
         }
 
-        private static DataTable ExtractSeries( AbstractSeriesDescriptor format, DataTable rawTable, TableFragmentAnchor anchor_in )
+        private static DataTable ExtractSeries( AbstractSeriesDescriptor format, DataTable rawTable, TableFragmentDescriptor anchor_in )
         {
             if( anchor_in == null )
             {

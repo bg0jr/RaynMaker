@@ -22,16 +22,14 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
             var format = new DummyFormat();
-            format.Expand = CellDimension.Row;
             format.SeriesNamePosition = 17;
             format.TimeAxisPosition = 23;
             format.ValueFormat = new FormatColumn( "value", typeof( double ), "0.00" );
             format.TimeAxisFormat = new FormatColumn( "time", typeof( DateTime ), "G" );
-            format.Anchor = TableFragmentAnchor.ForCell( new AbsolutePositionLocator( 4 ), new AbsolutePositionLocator( 8 ) );
+            format.Anchor = TableFragmentDescriptor.ForCell( new AbsolutePositionLocator( 4 ), new AbsolutePositionLocator( 8 ) );
 
             var clone = FormatFactory.Clone( format );
 
-            Assert.That( clone.Expand, Is.EqualTo( format.Expand ) );
             Assert.That( clone.SeriesNamePosition, Is.EqualTo( format.SeriesNamePosition ) );
             Assert.That( clone.TimeAxisPosition, Is.EqualTo( format.TimeAxisPosition ) );
 

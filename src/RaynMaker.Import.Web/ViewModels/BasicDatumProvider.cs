@@ -85,14 +85,14 @@ namespace RaynMaker.Import.Web.ViewModels
             var markupDoc = new MarkupDocument();
             markupDoc.Document = ( ( HtmlDocumentAdapter )Document ).Document;
             markupDoc.Anchor = format.Path;
-            markupDoc.Dimension = format.Expand;
+            markupDoc.Dimension = format.Anchor.Expand;
             markupDoc.SeriesName = format.SeriesName;
-            if( format.Expand == CellDimension.Row )
+            if( markupDoc.Dimension == CellDimension.Row )
             {
                 markupDoc.ColumnHeaderRow = format.TimeAxisPosition;
                 markupDoc.RowHeaderColumn = format.SeriesNamePosition;
             }
-            else if( format.Expand == CellDimension.Column )
+            else if( markupDoc.Dimension == CellDimension.Column )
             {
                 markupDoc.RowHeaderColumn = format.TimeAxisPosition;
                 markupDoc.ColumnHeaderRow = format.SeriesNamePosition;
