@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="66345ed8-c456-4550-9e3a-b9681095e956" Created="635871462030969204" LastModified="635871465450324779">
+  <Caption><![CDATA[Cleanup TableFragmentDescriptor]]></Caption>
+  <Content><![CDATA[- remove expand
+- find a good name
+  - actuall every figuredescriptor has two parts:
+    1. find the figure
+       - optional: Path
+       - Anchor describes how to get series out of table
+    2. describe how to extract it (including format)
+
+
+- does "TimeAxisPosition" also belong to Anchor?
+- does "skip" also belong to Anchor?
+
+Anchor == "How to get series out of table"
+
+BUT: we use Anchor also for "single values"
+- then skip does not make sense
+
+we could also think about merging anchor back into descriptors ...]]></Content>
+</Node>

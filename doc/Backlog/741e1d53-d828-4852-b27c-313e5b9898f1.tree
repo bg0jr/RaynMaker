@@ -7,8 +7,11 @@
     </Node>
     <Node Id="b6cbd93c-bdbd-49b4-bbb8-33de0a595e04">
       <Caption><![CDATA[1.7 - Polish Import module]]></Caption>
-      <Node Id="c25bd228-54d3-4799-b93b-9debb4279799">
-        <Caption><![CDATA[ScenarioTests]]></Caption>
+      <Node Id="66345ed8-c456-4550-9e3a-b9681095e956">
+        <Caption><![CDATA[Cleanup TableFragmentDescriptor]]></Caption>
+      </Node>
+      <Node Id="7a1123b4-d78b-4b34-9e9f-2be087951033">
+        <Caption><![CDATA[PathSeriesDescriptor]]></Caption>
       </Node>
       <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">
         <Caption><![CDATA[Spec]]></Caption>
@@ -26,9 +29,6 @@
         </Node>
         <Node Id="8029db40-5c61-4247-9674-2e92f20986d1">
           <Caption><![CDATA[Tests for required parameters]]></Caption>
-        </Node>
-        <Node Id="7a1123b4-d78b-4b34-9e9f-2be087951033">
-          <Caption><![CDATA[PathSeriesDescriptor]]></Caption>
         </Node>
       </Node>
       <Node Id="e4cba108-1415-42e0-ac8f-4e9d7596dfab">

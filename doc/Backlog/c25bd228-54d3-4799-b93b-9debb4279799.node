@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="c25bd228-54d3-4799-b93b-9debb4279799" Created="635870853040281295" LastModified="635871388057488162">
-  <Caption><![CDATA[ScenarioTests]]></Caption>
-  <Content><![CDATA[
-- cleanup existing scenario tests
-- write more tests for parsing
-
-]]></Content>
-</Node>
