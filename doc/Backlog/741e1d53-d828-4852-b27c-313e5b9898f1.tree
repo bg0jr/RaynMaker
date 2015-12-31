@@ -7,15 +7,6 @@
     </Node>
     <Node Id="b6cbd93c-bdbd-49b4-bbb8-33de0a595e04">
       <Caption><![CDATA[1.7 - Polish Import module]]></Caption>
-      <Node Id="66345ed8-c456-4550-9e3a-b9681095e956">
-        <Caption><![CDATA[Cleanup TableFragmentDescriptor]]></Caption>
-      </Node>
-      <Node Id="288f0876-45b5-4fe5-a4ea-88e6de352a33">
-        <Caption><![CDATA[rename CellDimension]]></Caption>
-      </Node>
-      <Node Id="b1a136d0-680b-4aa2-bd2c-ee1cb0d9cbbc">
-        <Caption><![CDATA[better naming for ISeriesLocator]]></Caption>
-      </Node>
       <Node Id="ff78be26-41b3-44a1-b1cc-8acdbe915731">
         <Caption><![CDATA[ValueFormat of AbstractSeriesFormat]]></Caption>
       </Node>
