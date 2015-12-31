@@ -28,9 +28,9 @@
         </Grid.RowDefinitions>
 
         <Grid.Resources>
-            <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type spec:CellDimension}" x:Key="CellDimensions">
+            <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type spec:SeriesOrientation}" x:Key="CellDimensions">
                 <ObjectDataProvider.MethodParameters>
-                    <x:Type TypeName="spec:CellDimension" />
+                    <x:Type TypeName="spec:SeriesOrientation" />
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
         </Grid.Resources>

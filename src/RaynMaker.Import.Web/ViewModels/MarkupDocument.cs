@@ -19,7 +19,7 @@ namespace RaynMaker.Import.Web.ViewModels
         private HtmlElementAdapter mySelectedElement = null;
         private HtmlTable myTable = null;
         private string myAnchor = null;
-        private CellDimension myDimension = CellDimension.None;
+        private SeriesOrientation myDimension;
         private int[] mySkipColumns = null;
         private int[] mySkipRows = null;
         private int myRowHeader = -1;
@@ -150,7 +150,7 @@ namespace RaynMaker.Import.Web.ViewModels
             mySelectedElement = null;
             myTable = null;
 
-            myDimension = CellDimension.None;
+            myDimension = SeriesOrientation.Row;
 
             mySkipColumns = null;
             mySkipRows = null;
@@ -159,7 +159,7 @@ namespace RaynMaker.Import.Web.ViewModels
             mySeriesName = null;
         }
 
-        public CellDimension Dimension
+        public SeriesOrientation Dimension
         {
             get { return myDimension; }
             set
@@ -251,12 +251,12 @@ namespace RaynMaker.Import.Web.ViewModels
             // unmark all first
             myMarker.UnmarkAll();
 
-            if( myDimension == CellDimension.Row )
+            if( myDimension == SeriesOrientation.Row )
             {
                 myMarker.MarkTableRow( mySelectedElement.Element );
                 DoSkipColumns();
             }
-            else if( myDimension == CellDimension.Column )
+            else if( myDimension == SeriesOrientation.Column )
             {
                 myMarker.MarkTableColumn( mySelectedElement.Element );
                 DoSkipRows();
@@ -280,7 +280,7 @@ namespace RaynMaker.Import.Web.ViewModels
             }
 
             IHtmlElement header = null;
-            if( myDimension == CellDimension.Column )
+            if( myDimension == SeriesOrientation.Column )
             {
                 if( myColumnHeader != -1 )
                 {
@@ -370,13 +370,13 @@ namespace RaynMaker.Import.Web.ViewModels
             var FindHeader = FindHeaderCreator( pos );
 
             List<IHtmlElement> header = null;
-            if( myDimension == CellDimension.None )
-            {
-                // mark single column/row 
-                header = new List<IHtmlElement>();
-                header.Add( FindHeader( mySelectedElement ) );
-            }
-            else
+            //if( myDimension == SeriesOrientation.None )
+            //{
+            //    // mark single column/row 
+            //    header = new List<IHtmlElement>();
+            //    header.Add( FindHeader( mySelectedElement ) );
+            //}
+            //else
             {
                 // mark all columns/rows
                 header = myMarker.MarkedElements

@@ -88,7 +88,7 @@ namespace RaynMaker.Import.Web.ViewModels
             markupDoc.Dimension = format.Orientation;
             //markupDoc.SeriesName = format.SeriesName;
             
-            if( markupDoc.Dimension == CellDimension.Row )
+            if( markupDoc.Dimension == SeriesOrientation.Row )
             {
                 markupDoc.ColumnHeaderRow = format.TimesLocator.SeriesToScan;
                 markupDoc.RowHeaderColumn = format.ValuesLocator.SeriesToScan;
@@ -96,7 +96,7 @@ namespace RaynMaker.Import.Web.ViewModels
                 markupDoc.SkipColumns = null;
                 markupDoc.SkipRows = format.Excludes;
             }
-            else if( markupDoc.Dimension == CellDimension.Column )
+            else if( markupDoc.Dimension == SeriesOrientation.Column )
             {
                 markupDoc.RowHeaderColumn = format.TimesLocator.SeriesToScan;
                 markupDoc.ColumnHeaderRow = format.ValuesLocator.SeriesToScan;

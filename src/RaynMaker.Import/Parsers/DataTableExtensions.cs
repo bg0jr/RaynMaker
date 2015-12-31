@@ -68,7 +68,7 @@ namespace RaynMaker.Import.Parsers
                 }
                 return null;
             };
-            if( settings.Dimension == CellDimension.Row )
+            if( settings.Dimension == SeriesOrientation.Row )
             {
                 action( settings.ColumnHeaderRow != -1 );
                 DataRow dataRow = table.Rows[ anchor.Y ];
@@ -96,7 +96,7 @@ namespace RaynMaker.Import.Parsers
             }
             else
             {
-                if( settings.Dimension == CellDimension.Column )
+                if( settings.Dimension == SeriesOrientation.Column )
                 {
                     action( settings.RowHeaderColumn != -1 );
                     string text2 = null;

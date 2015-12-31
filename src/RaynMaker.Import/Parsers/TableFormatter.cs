@@ -148,7 +148,7 @@ namespace RaynMaker.Import.Parsers
         {
             TableExtractionSettings settings = new TableExtractionSettings();
             settings.Dimension = format.Orientation;
-            if( settings.Dimension == CellDimension.Column )
+            if( settings.Dimension == SeriesOrientation.Column )
             {
                 settings.ColumnHeaderRow = format.ValuesLocator.SeriesToScan;
                 settings.RowHeaderColumn = format.TimesLocator.SeriesToScan;
@@ -176,7 +176,7 @@ namespace RaynMaker.Import.Parsers
             // calculate the anchor
             Point anchor = new Point( 0, 0 );
 
-            if( format.Orientation == CellDimension.Column )
+            if( format.Orientation == SeriesOrientation.Column )
             {
                 int rowToScan = format.ValuesLocator.SeriesToScan;
                 if( rawTable.Rows.Count <= rowToScan )
@@ -191,7 +191,7 @@ namespace RaynMaker.Import.Parsers
                 }
             }
 
-            if( format.Orientation == CellDimension.Row )
+            if( format.Orientation == SeriesOrientation.Row )
             {
                 int colToScan = format.ValuesLocator.SeriesToScan;
                 if( rawTable.Columns.Count <= colToScan )

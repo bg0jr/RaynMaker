@@ -38,7 +38,7 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
         {
             var format = new DummyFormat();
 
-            format.Orientation = CellDimension.Row;
+            format.Orientation = SeriesOrientation.Row;
 
             format.ValuesLocator = new AbsolutePositionLocator( 4 );
             format.ValueFormat = new FormatColumn( "value", typeof( double ), "0.00" );

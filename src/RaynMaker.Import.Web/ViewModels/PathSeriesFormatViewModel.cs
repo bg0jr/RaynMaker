@@ -10,7 +10,7 @@ namespace RaynMaker.Import.Web.ViewModels
     {
         private string myPath;
         private string myValue;
-        private CellDimension mySelectedDimension;
+        private SeriesOrientation mySelectedDimension;
         private bool myIsValid;
         private string myRowHeaderColumn;
         private string myColumnHeaderRow;
@@ -35,8 +35,8 @@ namespace RaynMaker.Import.Web.ViewModels
             ValueFormat = Format.ValueFormat ?? new FormatColumn( "value" );
             InMillions = Format.InMillions;
 
-            ColumnHeaderRow = ( format.Orientation == CellDimension.Row ? Format.TimesLocator.SeriesToScan : Format.ValuesLocator.SeriesToScan ).ToString();
-            RowHeaderColumn = ( format.Orientation == CellDimension.Row ? Format.ValuesLocator.SeriesToScan : Format.TimesLocator.SeriesToScan ).ToString();
+            ColumnHeaderRow = ( format.Orientation == SeriesOrientation.Row ? Format.TimesLocator.SeriesToScan : Format.ValuesLocator.SeriesToScan ).ToString();
+            RowHeaderColumn = ( format.Orientation == SeriesOrientation.Row ? Format.ValuesLocator.SeriesToScan : Format.TimesLocator.SeriesToScan ).ToString();
 
             // needs to be AFTER RowHeaderColumn and ColumnHeaderRow
             SelectedDimension = Format.Orientation;
@@ -86,7 +86,7 @@ namespace RaynMaker.Import.Web.ViewModels
             set { SetProperty( ref myValue, value ); }
         }
 
-        public CellDimension SelectedDimension
+        public SeriesOrientation SelectedDimension
         {
             get { return mySelectedDimension; }
             set

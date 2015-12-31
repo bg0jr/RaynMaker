@@ -19,7 +19,7 @@ namespace RaynMaker.Import.ScenarioTests
         {
             var descriptor = new SeparatorSeriesDescriptor( "EarningsPerShare" );
             descriptor.Separator = ";";
-            descriptor.Orientation = CellDimension.Row;
+            descriptor.Orientation = SeriesOrientation.Row;
             descriptor.ValuesLocator = new StringContainsLocator( 0, "EPS" );
             descriptor.TimesLocator = new AbsolutePositionLocator( 0 );
             descriptor.Excludes = new int[] { 0, 1 };

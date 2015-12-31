@@ -23,7 +23,7 @@ namespace RaynMaker.Import.Spec.v2.Extraction
         }
 
         [DataMember]
-        public CellDimension Orientation { get; set; }
+        public SeriesOrientation Orientation { get; set; }
 
         /// <summary>
         /// Describes the position of the values within a table.

@@ -21,7 +21,7 @@ namespace RaynMaker.Import.Parsers
         /// instead of a cell.
         /// </remarks>
         /// </summary>
-        public CellDimension Dimension
+        public SeriesOrientation Dimension
         {
             get;
             set;
@@ -49,16 +49,16 @@ namespace RaynMaker.Import.Parsers
         {
             get
             {
-                return this.mySkipRows;
+                return mySkipRows;
             }
             set
             {
                 if( value == null )
                 {
-                    this.mySkipRows = new int[ 0 ];
+                    mySkipRows = new int[ 0 ];
                     return;
                 }
-                this.mySkipRows = value;
+                mySkipRows = value;
             }
         }
         /// <summary>
@@ -68,16 +68,16 @@ namespace RaynMaker.Import.Parsers
         {
             get
             {
-                return this.mySkipColumns;
+                return mySkipColumns;
             }
             set
             {
                 if( value == null )
                 {
-                    this.mySkipColumns = new int[ 0 ];
+                    mySkipColumns = new int[ 0 ];
                     return;
                 }
-                this.mySkipColumns = value;
+                mySkipColumns = value;
             }
         }
         /// <summary>
@@ -100,11 +100,11 @@ namespace RaynMaker.Import.Parsers
         {
             get
             {
-                return this.mySeriesValueType;
+                return mySeriesValueType;
             }
             set
             {
-                this.mySeriesValueType = ( ( value == null ) ? typeof( string ) : value );
+                mySeriesValueType = ( ( value == null ) ? typeof( string ) : value );
             }
         }
         /// <summary>
@@ -115,11 +115,11 @@ namespace RaynMaker.Import.Parsers
         {
             get
             {
-                return this.mySeriesHeaderType;
+                return mySeriesHeaderType;
             }
             set
             {
-                this.mySeriesHeaderType = ( ( value == null ) ? typeof( string ) : value );
+                mySeriesHeaderType = ( ( value == null ) ? typeof( string ) : value );
             }
         }
         /// <summary>
@@ -128,14 +128,13 @@ namespace RaynMaker.Import.Parsers
         /// </summary>
         public TableExtractionSettings()
         {
-            this.Dimension = CellDimension.None;
-            this.SkipColumns = null;
-            this.SkipRows = null;
-            this.RowHeaderColumn = -1;
-            this.ColumnHeaderRow = -1;
-            this.SeriesHeaderType = typeof( string );
-            this.SeriesValueType = typeof( string );
-            this.SeriesName = null;
+            SkipColumns = null;
+            SkipRows = null;
+            RowHeaderColumn = -1;
+            ColumnHeaderRow = -1;
+            SeriesHeaderType = typeof( string );
+            SeriesValueType = typeof( string );
+            SeriesName = null;
         }
     }
 }
