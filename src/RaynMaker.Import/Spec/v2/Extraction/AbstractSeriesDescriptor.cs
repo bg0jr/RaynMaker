@@ -12,11 +12,14 @@ namespace RaynMaker.Import.Spec.v2.Extraction
     /// A series consists of a set of time-value pairs.
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "AbstractSeriesFormat" )]
-    public abstract class AbstractSeriesDescriptor : AbstractDimensionalDescriptor
+    public abstract class AbstractSeriesDescriptor : AbstractFigureDescriptor
     {
+        private int[] mySkipValues = null;
+
         protected AbstractSeriesDescriptor( string name )
             : base( name )
         {
+            SkipValues = null;
             TimeAxisPosition = -1;
         }
 
@@ -25,13 +28,20 @@ namespace RaynMaker.Import.Spec.v2.Extraction
         /// </summary>
         [DataMember]
         public TableFragmentDescriptor Anchor { get; set; }
-        
+
         /// <summary>
         /// Position of the time axis series. 
         /// Has to have same orientation as value series
         /// </summary>
         [DataMember]
         public int TimeAxisPosition { get; set; }
+
+        [DataMember]
+        public int[] SkipValues
+        {
+            get { return mySkipValues; }
+            set { mySkipValues = value == null ? new int[] { } : value.ToArray(); }
+        }
 
         /// <summary>
         /// Format of the value column.

@@ -75,14 +75,11 @@
         <TextBlock Grid.Row="3" Grid.Column="0" Text="Row header column" VerticalAlignment="Center"/>
         <TextBox Grid.Row="3" Grid.Column="1" Margin="5,2,0,0" Text="{Binding RowHeaderColumn, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <TextBlock Grid.Row="3" Grid.Column="2" Text="Skip rows" VerticalAlignment="Center" Margin="5,0,0,0"/>
-        <TextBox Grid.Row="3" Grid.Column="3" Width="50" HorizontalAlignment="Left" Margin="5,2,0,0" Text="{Binding SkipRows, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Grid.Row="3" Grid.Column="2" Text="Skip values" VerticalAlignment="Center" Margin="5,0,0,0"/>
+        <TextBox Grid.Row="3" Grid.Column="3" Width="50" HorizontalAlignment="Left" Margin="5,2,0,0" Text="{Binding SkipValues, UpdateSourceTrigger=PropertyChanged}"/>
 
         <TextBlock Grid.Row="4" Grid.Column="0" Text="Column header row" VerticalAlignment="Center"/>
         <TextBox Grid.Row="4" Grid.Column="1" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding ColumnHeaderRow, UpdateSourceTrigger=PropertyChanged}"/>
-
-        <TextBlock Grid.Row="4" Grid.Column="2" Text="Skip columns" VerticalAlignment="Center" Margin="5,0,0,0"/>
-        <TextBox Grid.Row="4" Grid.Column="3" Width="50" HorizontalAlignment="Left" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding SkipColumns, UpdateSourceTrigger=PropertyChanged}"/>
 
         <TextBlock Grid.Row="5" Grid.Column="0" Text="Time format" VerticalAlignment="Center"/>
         <v:FormatColumnView Grid.Row="5" Grid.Column="1"  Grid.ColumnSpan="6" Margin="5,2,0,0" DataContext="{Binding TimeFormat}"/>

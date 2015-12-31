@@ -39,7 +39,6 @@
     <Compile Include="Spec\Extraction\CsvFormatTests.cs" />
     <Compile Include="Spec\Extraction\AnchorTests.cs" />
     <Compile Include="Spec\Extraction\AbstractFormatTests.cs" />
-    <Compile Include="Spec\Extraction\AbstractDimensionalFormatTest.cs" />
     <Compile Include="Spec\Extraction\AbstractTableFormatTests.cs" />
     <Compile Include="Spec\Extraction\AbstractSeriesFormatTests.cs" />
     <Compile Include="Spec\Extraction\StringContainsLocatorTests.cs" />

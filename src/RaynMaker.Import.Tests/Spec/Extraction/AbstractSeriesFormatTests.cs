@@ -19,6 +19,36 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
         }
 
         [Test]
+        public void SkipValuesIsImmutable()
+        {
+            var format = new DummyFormat();
+
+            var skipValues = new int[] { 1, 2, 3 };
+            format.SkipValues = skipValues;
+
+            skipValues[ 1 ] = 42;
+
+            Assert.AreEqual( 1, format.SkipValues[ 0 ] );
+            Assert.AreEqual( 2, format.SkipValues[ 1 ] );
+            Assert.AreEqual( 3, format.SkipValues[ 2 ] );
+        }
+
+        [Test]
+        public void SkipColumnsIsImmutable()
+        {
+            var format = new DummyFormat();
+
+            var skipColumns = new int[] { 1, 2, 3 };
+            format.SkipValues = skipColumns;
+
+            skipColumns[ 1 ] = 42;
+
+            Assert.AreEqual( 1, format.SkipValues[ 0 ] );
+            Assert.AreEqual( 2, format.SkipValues[ 1 ] );
+            Assert.AreEqual( 3, format.SkipValues[ 2 ] );
+        }
+        
+        [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
             var format = new DummyFormat();
@@ -26,6 +56,7 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
             format.TimeAxisPosition = 23;
             format.ValueFormat = new FormatColumn( "value", typeof( double ), "0.00" );
             format.TimeFormat = new FormatColumn( "time", typeof( DateTime ), "G" );
+            format.SkipValues = new[] { 11, 88 };
 
             var clone = FormatFactory.Clone( format );
 
@@ -41,6 +72,8 @@ namespace RaynMaker.Import.Tests.Spec.Extraction
 
             Assert.That( ( ( AbsolutePositionLocator )clone.Anchor.Row ).Position, Is.EqualTo( 4 ) );
             Assert.That( ( ( AbsolutePositionLocator )clone.Anchor.Column ).Position, Is.EqualTo( 8 ) );
+        
+            Assert.That( clone.SkipValues, Is.EquivalentTo( format.SkipValues ) );
         }
     }
 }

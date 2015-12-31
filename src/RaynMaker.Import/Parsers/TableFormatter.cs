@@ -155,14 +155,18 @@ namespace RaynMaker.Import.Parsers
             {
                 settings.ColumnHeaderRow = format.Anchor.SeriesNamePosition;
                 settings.RowHeaderColumn = format.TimeAxisPosition;
+
+                settings.SkipColumns = null;
+                settings.SkipRows = format.SkipValues;
             }
             else
             {
                 settings.ColumnHeaderRow = format.TimeAxisPosition;
                 settings.RowHeaderColumn = format.Anchor.SeriesNamePosition;
+
+                settings.SkipColumns = format.SkipValues;
+                settings.SkipRows = null;
             }
-            settings.SkipColumns = format.SkipColumns;
-            settings.SkipRows = format.SkipRows;
 
             // do not enable validation here
             //settings.SeriesName = format.SeriesNameContains;

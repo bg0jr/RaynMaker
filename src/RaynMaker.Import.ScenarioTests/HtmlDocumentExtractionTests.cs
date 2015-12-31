@@ -37,7 +37,7 @@ namespace RaynMaker.Import.ScenarioTests
 
             descriptor.TimeAxisPosition = 1;
 
-            descriptor.SkipColumns = new[] { 0 };
+            descriptor.SkipValues = new[] { 0 };
 
             descriptor.ValueFormat = new FormatColumn( "value", typeof( float ), "00,00" );
             descriptor.TimeFormat = new FormatColumn( "year", typeof( int ), "00000000" );

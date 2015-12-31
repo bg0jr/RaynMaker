@@ -15,8 +15,7 @@ namespace RaynMaker.Import.Web.ViewModels
         private bool myIsValid;
         private string myRowHeaderColumn;
         private string myColumnHeaderRow;
-        private string mySkipRows;
-        private string mySkipColumns;
+        private string mySkipValues;
 
         public PathSeriesFormatViewModel( PathSeriesDescriptor format )
             : base( format )
@@ -32,8 +31,7 @@ namespace RaynMaker.Import.Web.ViewModels
             // first set properties without side-effects to others
             SelectedDatum = Datums.FirstOrDefault( d => d.Name == Format.Datum );
             Path = Format.Path;
-            SkipColumns = string.Join( ",", format.SkipColumns );
-            SkipRows = string.Join( ",", format.SkipRows );
+            SkipValues = string.Join( ",", format.SkipValues );
             SeriesName = format.SeriesName;
             TimeFormat = Format.TimeFormat ?? new FormatColumn( "time" );
             ValueFormat = Format.ValueFormat ?? new FormatColumn( "value" );
@@ -221,15 +219,15 @@ namespace RaynMaker.Import.Web.ViewModels
             }
         }
 
-        public string SkipRows
+        public string SkipValues
         {
-            get { return mySkipRows; }
+            get { return mySkipValues; }
             set
             {
-                if( SetProperty( ref mySkipRows, value ) )
+                if( SetProperty( ref mySkipValues, value ) )
                 {
-                    Format.SkipRows = GetIntArray( mySkipRows );
-                    MarkupDocument.SkipRows = Format.SkipRows;
+                    Format.SkipValues = GetIntArray( mySkipValues );
+                    MarkupDocument.SkipRows = Format.SkipValues;
                 }
             }
         }
@@ -254,19 +252,6 @@ namespace RaynMaker.Import.Web.ViewModels
             }
 
             return null;
-        }
-
-        public string SkipColumns
-        {
-            get { return mySkipColumns; }
-            set
-            {
-                if( SetProperty( ref mySkipColumns, value ) )
-                {
-                    Format.SkipColumns = GetIntArray( mySkipColumns );
-                    MarkupDocument.SkipColumns = Format.SkipColumns;
-                }
-            }
         }
 
         public FormatColumn TimeFormat { get; private set; }

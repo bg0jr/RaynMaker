@@ -110,7 +110,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Documents\ProxyPool.cs" />
     <Compile Include="Spec\v2\Extraction\Table\AbsolutePositionLocator.cs" />
-    <Compile Include="Spec\v2\Extraction\AbstractDimensionalDescriptor.cs" />
     <Compile Include="Spec\v2\Extraction\AbstractFigureDescriptor.cs" />
     <Compile Include="Spec\v2\Extraction\AbstractSeriesDescriptor.cs" />
     <Compile Include="Spec\v2\Extraction\AbstractTableDescriptor.cs" />

@@ -24,7 +24,7 @@ namespace RaynMaker.Import.ScenarioTests
 
             descriptor.TimeAxisPosition = 0;
 
-            descriptor.SkipColumns = new int[] { 0, 1 };
+            descriptor.SkipValues = new int[] { 0, 1 };
 
             return descriptor;
         }
