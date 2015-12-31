@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Entities.UnitTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Module.Analysis", "src\RaynMaker.Analysis\RaynMaker.Module.Analysis.csproj", "{87F14106-B2F8-4F90-9A14-18723AD25EEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Module.Analysis.Tests", "src\RaynMaker.Analysis.Tests\RaynMaker.Module.Analysis.Tests.csproj", "{E26E3116-709D-463D-81A3-81D6C9A9C195}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Module.Analysis.UnitTests", "src\RaynMaker.Analysis.Tests\RaynMaker.Module.Analysis.UnitTests.csproj", "{E26E3116-709D-463D-81A3-81D6C9A9C195}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Module.Import.Web", "src\RaynMaker.Import.Web\RaynMaker.Module.Import.Web.csproj", "{2BAB6393-3900-4233-B817-333460881312}"
 EndProject
