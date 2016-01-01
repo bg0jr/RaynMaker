@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using RaynMaker.Modules.Import.Parsers.Html;
 
-namespace RaynMaker.Modules.Import.Tests.Html
+namespace RaynMaker.Modules.Import.UnitTests.Html
 {
     [TestFixture]
     public class HtmlPathTests

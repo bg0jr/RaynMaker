@@ -3,7 +3,7 @@ using System.Linq;
 using RaynMaker.Modules.Analysis.Engine;
 using RaynMaker.Entities;
 
-namespace RaynMaker.Modules.Analysis.Tests.Engine.Fakes
+namespace RaynMaker.Modules.Analysis.UnitTests.Engine.Fakes
 {
     class FakeFigureProviderContext : IFigureProviderContext
     {

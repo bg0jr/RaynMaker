@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="974d35f4-e601-4e31-a3c6-20a2a24e4256" Created="635870815365946446" LastModified="635870815555787304">
-  <Caption><![CDATA[Rename unit tests to .UnitTests]]></Caption>
-  <Content><![CDATA[- project
-- assembly
-- namespace]]></Content>
-</Node>

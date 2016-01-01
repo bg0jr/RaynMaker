@@ -1,9 +1,9 @@
 ﻿using System.Runtime.Serialization;
 using NUnit.Framework;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
-using RaynMaker.Modules.Import.Tests;
+using RaynMaker.Modules.Import.UnitTests;
 
-namespace RaynMaker.Modules.Import.Tests.Spec.Extraction
+namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 {
     [TestFixture]
     public class FigureDescriptorBaseTests

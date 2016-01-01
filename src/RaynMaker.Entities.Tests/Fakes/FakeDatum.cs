@@ -1,6 +1,6 @@
 ﻿using RaynMaker.Entities;
 
-namespace RaynMaker.Entities.Tests.Fakes
+namespace RaynMaker.Entities.UnitTests.Fakes
 {
     public class FakeDatum : AbstractDatum
     {

@@ -10,7 +10,7 @@ using System;
 using RaynMaker.Modules.Import.Spec.v2.Locating;
 using RaynMaker.Modules.Import.Spec.v2;
 
-namespace RaynMaker.Modules.Import.Web.Tests.ViewModels
+namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
 {
     [TestFixture]
     class BasicDatumProviderTests

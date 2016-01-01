@@ -3,7 +3,7 @@ using System.Linq;
 using NUnit.Framework;
 using RaynMaker.Entities.Datums;
 
-namespace RaynMaker.Entities.Tests
+namespace RaynMaker.Entities.UnitTests
 {
     [TestFixture]
     class DynamicsTests

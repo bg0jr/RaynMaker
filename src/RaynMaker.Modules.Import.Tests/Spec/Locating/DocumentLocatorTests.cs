@@ -4,7 +4,7 @@ using NUnit.Framework;
 using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2.Locating;
 
-namespace RaynMaker.Modules.Import.Tests.Spec.Locating
+namespace RaynMaker.Modules.Import.UnitTests.Spec.Locating
 {
     [TestFixture]
     public class DocumentLocatorTests

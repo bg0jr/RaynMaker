@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RaynMaker.Modules.Analysis.Engine;
 
-namespace RaynMaker.Modules.Analysis.Tests.Engine.Fakes
+namespace RaynMaker.Modules.Analysis.UnitTests.Engine.Fakes
 {
     class FakeExpressionEvaluationContext : IExpressionEvaluationContext
     {

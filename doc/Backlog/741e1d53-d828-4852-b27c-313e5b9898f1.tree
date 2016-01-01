@@ -49,9 +49,6 @@
       <Node Id="abb9f7c2-8cac-4750-a6d5-c1ea36d41609">
         <Caption><![CDATA[Add more verification in data collection]]></Caption>
       </Node>
-      <Node Id="974d35f4-e601-4e31-a3c6-20a2a24e4256">
-        <Caption><![CDATA[Rename unit tests to .UnitTests]]></Caption>
-      </Node>
       <Node Id="6c39ee0d-5992-4511-b61e-a4e7387f51fe">
         <Caption><![CDATA[HtmlDocumentBasicReadingTests]]></Caption>
       </Node>

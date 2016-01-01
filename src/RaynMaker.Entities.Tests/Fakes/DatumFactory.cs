@@ -3,7 +3,7 @@ using System.ComponentModel;
 using RaynMaker.Entities;
 using RaynMaker.Entities.Datums;
 
-namespace RaynMaker.Entities.Tests.Fakes
+namespace RaynMaker.Entities.UnitTests.Fakes
 {
     public class DatumFactory
     {

@@ -3,9 +3,9 @@ using NUnit.Framework;
 using RaynMaker.Modules.Analysis.AnalysisSpec;
 using RaynMaker.Entities;
 using RaynMaker.Entities.Datums;
-using RaynMaker.Entities.Tests.Fakes;
+using RaynMaker.Entities.UnitTests.Fakes;
 
-namespace RaynMaker.Modules.Analysis.Tests.AnalysisSpec
+namespace RaynMaker.Modules.Analysis.UnitTests.AnalysisSpec
 {
     [TestFixture]
     public class FunctionsTests

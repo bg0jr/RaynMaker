@@ -5,9 +5,9 @@ using NUnit.Framework;
 using RaynMaker.Modules.Analysis.AnalysisSpec.Providers;
 using RaynMaker.Modules.Analysis.Engine;
 using RaynMaker.Entities;
-using RaynMaker.Entities.Tests.Fakes;
+using RaynMaker.Entities.UnitTests.Fakes;
 
-namespace RaynMaker.Modules.Analysis.Tests.AnalysisSpec.Providers
+namespace RaynMaker.Modules.Analysis.UnitTests.AnalysisSpec.Providers
 {
     [TestFixture]
     public class GenericJoinProviderTests
