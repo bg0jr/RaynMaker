@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="RaynMaker.Modules.Notes.Views.NotesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:l="clr-namespace:RaynMaker.Modules.Notes.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <DockPanel LastChildFill="True">
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+            <Button Content="OK" Command="{Binding OkCommand}" Width="50"/>
+            <Button Content="Cancel" Command="{Binding CancelCommand}" Margin="5,0,0,0" Width="50"/>
+        </StackPanel>
+
+        <l:NotesEditor Background="White" Document="{Binding Document, Mode=OneWayToSource}"/>
+    </DockPanel>
+</UserControl>

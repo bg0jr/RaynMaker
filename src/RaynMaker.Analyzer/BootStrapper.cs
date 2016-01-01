@@ -21,6 +21,7 @@ namespace RaynMaker.Analyzer
             base.ConfigureAggregateCatalog();
 
             AggregateCatalog.Catalogs.Add( new AssemblyCatalog( GetType().Assembly ) );
+            AggregateCatalog.Catalogs.Add( new AssemblyCatalog( typeof( IProject ).Assembly ) );
             AggregateCatalog.Catalogs.Add( new AssemblyCatalog( typeof( PopupWindowActionRegionAdapter ).Assembly ) );
 
             AggregateCatalog.Catalogs.Add( new TypeCatalog(
@@ -29,7 +30,7 @@ namespace RaynMaker.Analyzer
                 ) );
 
             var moduleRoot = Path.GetDirectoryName( GetType().Assembly.Location );
-            foreach( var moduleFile in Directory.GetFiles( moduleRoot, "RaynMaker.*.dll" ) )
+            foreach( var moduleFile in Directory.GetFiles( moduleRoot, "RaynMaker.Modules.*.dll" ) )
             {
                 AggregateCatalog.Catalogs.Add( new AssemblyCatalog( moduleFile ) );
             }

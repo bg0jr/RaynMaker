@@ -1,0 +1,97 @@
+﻿<UserControl x:Class="RaynMaker.Modules.Import.Web.Views.NavigationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:prism="http://www.codeplex.com/prism"
+             xmlns:pn="http://github.com/ronin4net/plainion"
+             xmlns:l="clr-namespace:RaynMaker.Modules.Import.Web"
+             xmlns:v="clr-namespace:RaynMaker.Modules.Import.Web.Views"
+             xmlns:spec="https://github.com/bg0jr/RaynMaker/Import/Spec"
+             mc:Ignorable="d" 
+             d:DesignWidth="500">
+    <i:Interaction.Triggers>
+        <prism:InteractionRequestTrigger SourceObject="{Binding EditCaptureRequest, Mode=OneWay}">
+            <pn:PopupViewAction WindowWidth="700" WindowHeight="500" prism:RegionManager.RegionName="{x:Static l:RegionNames.EditCaptureView}"/>
+        </prism:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
+    <Grid MinHeight="150">
+        <Grid.Visibility>
+            <Binding Path="Session.CurrentSource">
+                <Binding.Converter>
+                    <pn:ConverterChain>
+                        <pn:IsEmptyConverter/>
+                        <pn:NotConverter/>
+                        <pn:BoolToVisibilityConverter/>
+                    </pn:ConverterChain>
+                </Binding.Converter>
+            </Binding>
+        </Grid.Visibility>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.Resources>
+                <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type spec:DocumentType}" x:Key="DocumentType">
+                    <ObjectDataProvider.MethodParameters>
+                        <x:Type TypeName="spec:DocumentType" />
+                    </ObjectDataProvider.MethodParameters>
+                </ObjectDataProvider>
+            </Grid.Resources>
+            
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Document type" VerticalAlignment="Center"/>
+            <ComboBox Grid.Row="0" Grid.Column="1" Margin="5,0,0,2" Width="150" 
+                      ItemsSource="{Binding Source={StaticResource DocumentType}, Mode=OneTime}" 
+                      SelectedItem="{Binding SelectedDocumentType}"/>
+        </Grid>
+        
+        <ListBox Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" VerticalAlignment="Stretch" Margin="0,3,0,0"
+                 ItemsSource="{Binding Urls}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding UrlType}" FontWeight="SemiBold"/>
+                        <TextBlock Text="{Binding UrlString}" Margin="5,0,0,0"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button Grid.Row="1" Grid.Column="1" Margin="5,3,0,2" Command="{Binding CaptureCommand}">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Content" Value="Start capturing"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsCapturing}" Value="True">
+                            <Setter Property="Content" Value="Stop capturing"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsCapturing}" Value="False">
+                            <Setter Property="Content" Value="Start capturing"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button Grid.Row="2" Grid.Column="1" Content="Edit" Margin="5,2,0,0" Command="{Binding EditCommand}"/>
+
+        <v:AddressBarView Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" DataContext="{Binding AddressBar}" Margin="0,3,0,0"/>
+    </Grid>
+</UserControl>

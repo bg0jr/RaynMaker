@@ -1,0 +1,24 @@
+﻿using System;
+using NUnit.Framework;
+using RaynMaker.Modules.Import.Spec;
+using RaynMaker.Modules.Import.Spec.v2.Extraction;
+
+namespace RaynMaker.Modules.Import.Tests.Spec.Extraction
+{
+    [TestFixture]
+    public class PathSingleValueDescriptorTests
+    {
+        [Test]
+        public void Clone_WhenCalled_AllMembersAreCloned()
+        {
+            var format = new PathSingleValueDescriptor( "dummy" );
+            format.Path = "111";
+            format.ValueFormat = new ValueFormat( typeof( int ), "0.xx" );
+
+            var clone = FormatFactory.Clone( format );
+
+            Assert.That( clone.Path, Is.EqualTo( "111" ) );
+            Assert.That( clone.ValueFormat.Format, Is.EqualTo( "0.xx" ) );
+        }
+    }
+}
