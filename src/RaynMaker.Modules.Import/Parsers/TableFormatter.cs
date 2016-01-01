@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
-using System.Drawing;
 using System.Linq;
+using Plainion;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Modules.Import.Parsers
@@ -137,75 +137,102 @@ namespace RaynMaker.Modules.Import.Parsers
             return table;
         }
 
-        /// <summary>
-        /// SeriesName validation not enabled here.
-        /// </summary>
-        public static TableExtractionSettings ToExtractionSettings( SeriesDescriptorBase format )
-        {
-            TableExtractionSettings settings = new TableExtractionSettings();
-            settings.Dimension = format.Orientation;
-            if( settings.Dimension == SeriesOrientation.Column )
-            {
-                settings.ColumnHeaderRow = format.ValuesLocator.HeaderSeriesPosition;
-                settings.RowHeaderColumn = format.TimesLocator.HeaderSeriesPosition;
-
-                settings.SkipColumns = null;
-                settings.SkipRows = format.Excludes;
-            }
-            else
-            {
-                settings.ColumnHeaderRow = format.TimesLocator.HeaderSeriesPosition;
-                settings.RowHeaderColumn = format.ValuesLocator.HeaderSeriesPosition;
-
-                settings.SkipColumns = format.Excludes;
-                settings.SkipRows = null;
-            }
-
-            // do not enable validation here
-            //settings.SeriesName = format.SeriesNameContains;
-
-            return settings;
-        }
-
         private static DataTable ExtractSeries( SeriesDescriptorBase format, DataTable rawTable )
         {
-            // calculate the anchor
-            Point anchor = new Point( 0, 0 );
+            Contract.Requires( format.Orientation == SeriesOrientation.Row || format.Orientation == SeriesOrientation.Column, "Unknown SeriesOrientation: " + format.Orientation );
 
-            if( format.Orientation == SeriesOrientation.Column )
+            var result = new DataTable();
+            result.Locale = rawTable.Locale;
+
+            result.Columns.Add( new DataColumn( format.ValueFormat.Name, format.ValueFormat.Type ) );
+            if( format.TimesLocator != null && format.TimeFormat != null )
             {
-                int rowToScan = format.ValuesLocator.HeaderSeriesPosition;
-                if( rawTable.Rows.Count <= rowToScan )
-                {
-                    throw new InvalidExpressionException( "Anchor points outside table" );
-                }
-
-                anchor.X = format.ValuesLocator.FindIndex( rawTable.Rows[ rowToScan ].ItemArray.Select( item => item.ToString() ) );
-                if( anchor.X == -1 )
-                {
-                    throw new InvalidExpressionException( "Anchor condition failed: column not found" );
-                }
+                result.Columns.Add( new DataColumn( format.TimeFormat.Name, format.TimeFormat.Type ) );
             }
+
+            Action<object, object> AddValues = ( value, time ) =>
+            {
+                DataRow dataRow2 = result.NewRow();
+                result.Rows.Add( dataRow2 );
+
+                dataRow2[ 0 ] = Convert.ChangeType( value, format.ValueFormat.Type );
+
+                if( time != null )
+                {
+                    dataRow2[ 1 ] = Convert.ChangeType( time, format.TimeFormat.Type );
+                }
+            };
+
+            Func<int, int, string> GetTimeValue = ( row, col ) =>
+            {
+                if( row != -1 && col != -1 )
+                {
+                    return Convert.ToString( rawTable.Rows[ row ][ col ], result.Locale );
+                }
+                return null;
+            };
 
             if( format.Orientation == SeriesOrientation.Row )
             {
-                int colToScan = format.ValuesLocator.HeaderSeriesPosition;
-                if( rawTable.Columns.Count <= colToScan )
+                int valuesColToScan = format.ValuesLocator.HeaderSeriesPosition;
+                Contract.Requires( valuesColToScan < rawTable.Columns.Count, "ValuesLocator points outside table" );
+
+                var valuesRowIdx = format.ValuesLocator.FindIndex( rawTable.Rows.ToSet().Select( row => row[ valuesColToScan ].ToString() ) );
+                Contract.Invariant( valuesRowIdx != -1, "ValuesLocator condition failed: column not found" );
+
+                var timesRowIdx = -1;
+                if( format.TimesLocator != null && format.TimeFormat != null )
                 {
-                    throw new InvalidExpressionException( "Anchor points outside table" );
+                    var timesColToScan = format.TimesLocator.HeaderSeriesPosition;
+                    Contract.Requires( timesColToScan < rawTable.Columns.Count, "TimesLocator points outside table" );
+
+                    timesRowIdx = format.TimesLocator.FindIndex( rawTable.Rows.ToSet().Select( row => row[ timesColToScan ].ToString() ) );
+                    Contract.Invariant( timesRowIdx != -1, "TimesLocator condition failed: column not found" );
                 }
 
-                anchor.Y = format.ValuesLocator.FindIndex( rawTable.Rows.ToSet().Select( row => row[ colToScan ].ToString() ) );
-                if( anchor.Y == -1 )
+                var dataRow = rawTable.Rows[ valuesRowIdx ];
+                for( int i = 0; i < dataRow.ItemArray.Length; i++ )
                 {
-                    throw new InvalidExpressionException( "Anchor condition failed: row not found" );
+                    if( i != valuesColToScan && !format.Excludes.Contains( i ) )
+                    {
+                        var value = dataRow[ i ];
+                        var time = GetTimeValue( timesRowIdx, i );
+                        AddValues( value, time );
+                    }
+                }
+            }
+            else //column
+            {
+                int valuesRowToScan = format.ValuesLocator.HeaderSeriesPosition;
+                Contract.Invariant( valuesRowToScan < rawTable.Rows.Count, "ValuesLocator points outside table" );
+
+                var valuesColIdx = format.ValuesLocator.FindIndex( rawTable.Rows[ valuesRowToScan ].ItemArray.Select( item => item.ToString() ) );
+                Contract.Invariant( valuesColIdx != -1, "ValuesLocator condition failed: row not found" );
+
+                var timesColIdx = -1;
+                if( format.TimesLocator != null && format.TimeFormat != null )
+                {
+                    var timesRowToScan = format.TimesLocator.HeaderSeriesPosition;
+                    Contract.Invariant( timesRowToScan < rawTable.Rows.Count, "TimesLocator points outside table" );
+
+                    timesColIdx = format.TimesLocator.FindIndex( rawTable.Rows[ timesRowToScan ].ItemArray.Select( item => item.ToString() ) );
+                    Contract.Invariant( timesColIdx != -1, "TimesLocator condition failed: row not found" );
+                }
+
+                for( int i = 0; i < rawTable.Rows.Count; i++ )
+                {
+                    if( i != valuesRowToScan && !format.Excludes.Contains( i ) )
+                    {
+                        var value = rawTable.Rows[ i ][ valuesColIdx ];
+                        var time = GetTimeValue( i, timesColIdx );
+                        AddValues( value, time );
+                    }
                 }
             }
 
-            // How to get the value
-            Func<object, object> GetValue = value => value;
+            result.AcceptChanges();
 
-            return rawTable.ExtractSeries( anchor, GetValue, ToExtractionSettings( format ) );
+            return result;
         }
     }
 }

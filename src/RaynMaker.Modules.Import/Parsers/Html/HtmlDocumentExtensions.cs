@@ -166,59 +166,14 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             return FallibleActionResult<DataTable>.CreateSuccessResult( table );
         }
 
-        /// <summary>
-        /// Extracts a cell or a series of the html table the given path is pointing to. 
-        /// If the path points to the table element itself instead of a cell the whole table will be 
-        /// extracted.
-        /// The series to be extracted is always arranged in a column (independed of the original layout
-        /// in the html table). The first column contains the values, the second the series header (if
-        /// any defined). The series name is stored in the ColumnName of the first column.
-        /// <remarks>
-        /// Returns null if table not found by path. Currently we cannot handle thead 
-        /// and tfoot. 
-        /// </remarks>
-        /// </summary>
-        /// <param name="path">points to a cell or the body of a table (pointers to TR elements are invalid)</param>
-        /// <param name="doc">the HTML document</param>
-        /// <param name="htmlSettings">the HTML settings used to configure the extraction process</param>
-        /// <param name="tableSettings">the table specific configuration</param>
-        internal static FallibleActionResult<DataTable> ExtractTable( this IHtmlDocument doc, HtmlPath path, TableExtractionSettings tableSettings )
+        internal static FallibleActionResult<DataTable> ExtractTable( this IHtmlDocument doc, HtmlPath path )
         {
             if( !path.PointsToTable && !path.PointsToTableCell )
             {
                 throw new InvalidExpressionException( "Path neither points to table nor to cell" );
             }
 
-            var result = ExtractTable( doc, path, true );
-            if( !result.Success )
-            {
-                // pass throu failure result
-                return result;
-            }
-
-            // path points to whole table => return whole table
-            if( path.PointsToTable )
-            {
-                return result;
-            }
-
-            // get the x,y position of the cell the path is pointing to
-            Point cellCoords = path.GetTableCellPosition();
-            if( cellCoords.X < 0 || cellCoords.Y < 0 )
-            {
-                throw new InvalidExpressionException( "Path expression corrupt: cell position in table could not be calculated" );
-            }
-
-            // get the value of the raw cell. extract the link url if configured.
-            Func<object, object> GetValue = e => e;
-
-            var t = result.Value.ExtractSeries( cellCoords, GetValue, tableSettings );
-            if( t == null )
-            {
-                return FallibleActionResult<DataTable>.CreateFailureResult( "Could not extract series specified" );
-            }
-
-            return FallibleActionResult<DataTable>.CreateSuccessResult( t );
+            return ExtractTable( doc, path, true );
         }
     }
 }

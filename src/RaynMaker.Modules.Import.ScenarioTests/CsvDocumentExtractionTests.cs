@@ -28,39 +28,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         }
 
         [Test]
-        public void FetchSeries()
-        {
-            var descriptor = CreateSeparatorSeriesDescriptor();
-
-            var parser = DocumentProcessorsFactory.CreateParser( myDocument, descriptor );
-            var table = parser.ExtractTable();
-
-            Assert.AreEqual( 10, table.Rows.Count );
-            Assert.AreEqual( "3,2", table.Rows[ 0 ][ 0 ] );
-            Assert.AreEqual( "3,4", table.Rows[ 1 ][ 0 ] );
-            Assert.AreEqual( "3,4", table.Rows[ 2 ][ 0 ] );
-            Assert.AreEqual( "3,3", table.Rows[ 3 ][ 0 ] );
-            Assert.AreEqual( "2,9", table.Rows[ 4 ][ 0 ] );
-            Assert.AreEqual( "2,8", table.Rows[ 5 ][ 0 ] );
-            Assert.AreEqual( "3", table.Rows[ 6 ][ 0 ] );
-            Assert.AreEqual( "3", table.Rows[ 7 ][ 0 ] );
-            Assert.AreEqual( "3,1", table.Rows[ 8 ][ 0 ] );
-            Assert.AreEqual( "3,5", table.Rows[ 9 ][ 0 ] );
-
-            Assert.AreEqual( "1997", table.Rows[ 0 ][ 1 ] );
-            Assert.AreEqual( "1998", table.Rows[ 1 ][ 1 ] );
-            Assert.AreEqual( "1999", table.Rows[ 2 ][ 1 ] );
-            Assert.AreEqual( "2000", table.Rows[ 3 ][ 1 ] );
-            Assert.AreEqual( "2001", table.Rows[ 4 ][ 1 ] );
-            Assert.AreEqual( "2002", table.Rows[ 5 ][ 1 ] );
-            Assert.AreEqual( "2003", table.Rows[ 6 ][ 1 ] );
-            Assert.AreEqual( "2004", table.Rows[ 7 ][ 1 ] );
-            Assert.AreEqual( "2005", table.Rows[ 8 ][ 1 ] );
-            Assert.AreEqual( "2006", table.Rows[ 9 ][ 1 ] );
-        }
-
-        [Test]
-        public void FetchTypedSeries()
+        public void ExtractSeriesWithTimeAxis()
         {
             var descriptor = CreateSeparatorSeriesDescriptor();
             descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000" );
@@ -94,7 +62,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         }
 
         [Test]
-        public void FetchTypedSeriesWithoutTimeaxis()
+        public void ExtractSeriesWithoutTimeAxis()
         {
             var descriptor = CreateSeparatorSeriesDescriptor();
             descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000" );
