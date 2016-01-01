@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace RaynMaker.Modules.Import.Spec.v2.Extraction
@@ -16,18 +17,20 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         public AbsolutePositionLocator( int headerSeriesPosition, int position )
         {
             HeaderSeriesPosition = headerSeriesPosition;
-            Position = position;
+            SeriesPosition = position;
         }
 
+        [Range( 0d, double.PositiveInfinity )]
         [DataMember]
         public int HeaderSeriesPosition { get; private set; }
 
+        [Range( 0d, double.PositiveInfinity )]
         [DataMember]
-        public int Position { get; private set; }
+        public int SeriesPosition { get; private set; }
 
         public int FindIndex( IEnumerable<string> items )
         {
-            return Position;
+            return SeriesPosition;
         }
     }
 }

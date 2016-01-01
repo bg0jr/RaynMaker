@@ -52,12 +52,12 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 
             Assert.That( clone.Orientation, Is.EqualTo( format.Orientation ) );
 
-            Assert.That( ( ( AbsolutePositionLocator )clone.ValuesLocator ).Position, Is.EqualTo( 4 ) );
+            Assert.That( ( ( AbsolutePositionLocator )clone.ValuesLocator ).SeriesPosition, Is.EqualTo( 4 ) );
             Assert.That( clone.ValueFormat.Name, Is.EqualTo( format.ValueFormat.Name ) );
             Assert.That( clone.ValueFormat.Type, Is.EqualTo( format.ValueFormat.Type ) );
             Assert.That( clone.ValueFormat.Format, Is.EqualTo( format.ValueFormat.Format ) );
 
-            Assert.That( ( ( AbsolutePositionLocator )clone.TimesLocator ).Position, Is.EqualTo( 23 ) );
+            Assert.That( ( ( AbsolutePositionLocator )clone.TimesLocator ).SeriesPosition, Is.EqualTo( 23 ) );
             Assert.That( clone.TimeFormat.Name, Is.EqualTo( format.TimeFormat.Name ) );
             Assert.That( clone.TimeFormat.Type, Is.EqualTo( format.TimeFormat.Type ) );
             Assert.That( clone.TimeFormat.Format, Is.EqualTo( format.TimeFormat.Format ) );
