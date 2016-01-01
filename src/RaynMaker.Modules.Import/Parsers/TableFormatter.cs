@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Modules.Import.Parsers
@@ -150,16 +146,16 @@ namespace RaynMaker.Modules.Import.Parsers
             settings.Dimension = format.Orientation;
             if( settings.Dimension == SeriesOrientation.Column )
             {
-                settings.ColumnHeaderRow = format.ValuesLocator.SeriesToScan;
-                settings.RowHeaderColumn = format.TimesLocator.SeriesToScan;
+                settings.ColumnHeaderRow = format.ValuesLocator.HeaderSeriesPosition;
+                settings.RowHeaderColumn = format.TimesLocator.HeaderSeriesPosition;
 
                 settings.SkipColumns = null;
                 settings.SkipRows = format.Excludes;
             }
             else
             {
-                settings.ColumnHeaderRow = format.TimesLocator.SeriesToScan;
-                settings.RowHeaderColumn = format.ValuesLocator.SeriesToScan;
+                settings.ColumnHeaderRow = format.TimesLocator.HeaderSeriesPosition;
+                settings.RowHeaderColumn = format.ValuesLocator.HeaderSeriesPosition;
 
                 settings.SkipColumns = format.Excludes;
                 settings.SkipRows = null;
@@ -178,7 +174,7 @@ namespace RaynMaker.Modules.Import.Parsers
 
             if( format.Orientation == SeriesOrientation.Column )
             {
-                int rowToScan = format.ValuesLocator.SeriesToScan;
+                int rowToScan = format.ValuesLocator.HeaderSeriesPosition;
                 if( rawTable.Rows.Count <= rowToScan )
                 {
                     throw new InvalidExpressionException( "Anchor points outside table" );
@@ -193,7 +189,7 @@ namespace RaynMaker.Modules.Import.Parsers
 
             if( format.Orientation == SeriesOrientation.Row )
             {
-                int colToScan = format.ValuesLocator.SeriesToScan;
+                int colToScan = format.ValuesLocator.HeaderSeriesPosition;
                 if( rawTable.Columns.Count <= colToScan )
                 {
                     throw new InvalidExpressionException( "Anchor points outside table" );

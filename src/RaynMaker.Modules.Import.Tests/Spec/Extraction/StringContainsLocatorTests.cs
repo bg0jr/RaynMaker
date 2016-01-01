@@ -15,7 +15,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 
             var clone = FormatFactory.Clone( format );
 
-            Assert.That( clone.SeriesToScan, Is.EqualTo( 4 ) );
+            Assert.That( clone.HeaderSeriesPosition, Is.EqualTo( 4 ) );
             Assert.That( clone.Pattern, Is.EqualTo( "Sales" ) );
         }
     }

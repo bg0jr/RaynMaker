@@ -106,16 +106,16 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
             if( markupDoc.Dimension == SeriesOrientation.Row )
             {
-                markupDoc.ColumnHeaderRow = format.TimesLocator.SeriesToScan;
-                markupDoc.RowHeaderColumn = format.ValuesLocator.SeriesToScan;
+                markupDoc.ColumnHeaderRow = format.TimesLocator.HeaderSeriesPosition;
+                markupDoc.RowHeaderColumn = format.ValuesLocator.HeaderSeriesPosition;
 
                 markupDoc.SkipColumns = null;
                 markupDoc.SkipRows = format.Excludes;
             }
             else if( markupDoc.Dimension == SeriesOrientation.Column )
             {
-                markupDoc.RowHeaderColumn = format.TimesLocator.SeriesToScan;
-                markupDoc.ColumnHeaderRow = format.ValuesLocator.SeriesToScan;
+                markupDoc.RowHeaderColumn = format.TimesLocator.HeaderSeriesPosition;
+                markupDoc.ColumnHeaderRow = format.ValuesLocator.HeaderSeriesPosition;
 
                 markupDoc.SkipColumns = format.Excludes;
                 markupDoc.SkipRows = null;

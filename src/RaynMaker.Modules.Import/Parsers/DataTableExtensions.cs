@@ -40,9 +40,11 @@ namespace RaynMaker.Modules.Import.Parsers
             {
                 throw new InvalidExpressionException( "Path points to cell outside table" );
             }
-            DataTable result = new DataTable();
+
+            var result = new DataTable();
             result.Locale = table.Locale;
-            Action<bool> action = delegate( bool addHeaderCol )
+
+            Action<bool> AddColumns = delegate( bool addHeaderCol )
             {
                 result.Columns.Add( new DataColumn( "Values", settings.SeriesValueType ) );
                 if( addHeaderCol )
@@ -50,7 +52,8 @@ namespace RaynMaker.Modules.Import.Parsers
                     result.Columns.Add( new DataColumn( "Header", settings.SeriesHeaderType ) );
                 }
             };
-            Action<object, object> action2 = delegate( object value, object header )
+
+            Action<object, object> AddValues = delegate( object value, object header )
             {
                 DataRow dataRow2 = result.NewRow();
                 result.Rows.Add( dataRow2 );
@@ -60,6 +63,7 @@ namespace RaynMaker.Modules.Import.Parsers
                     dataRow2[ 1 ] = Convert.ChangeType( header, settings.SeriesHeaderType );
                 }
             };
+
             Func<int, int, string> func = delegate( int row, int col )
             {
                 if( row != -1 && col != -1 )
@@ -68,10 +72,12 @@ namespace RaynMaker.Modules.Import.Parsers
                 }
                 return null;
             };
+
             if( settings.Dimension == SeriesOrientation.Row )
             {
-                action( settings.ColumnHeaderRow != -1 );
-                DataRow dataRow = table.Rows[ anchor.Y ];
+                AddColumns( settings.ColumnHeaderRow != -1 );
+
+                var dataRow = table.Rows[ anchor.Y ];
                 string text = null;
                 for( int i = 0; i < dataRow.ItemArray.Length; i++ )
                 {
@@ -83,9 +89,9 @@ namespace RaynMaker.Modules.Import.Parsers
                     {
                         if( !settings.SkipColumns.Contains( i ) )
                         {
-                            object arg = dataRow[ i ];
-                            string arg2 = func( settings.ColumnHeaderRow, i );
-                            action2( arg, arg2 );
+                            object value = dataRow[ i ];
+                            string header = func( settings.ColumnHeaderRow, i );
+                            AddValues( value, header );
                         }
                     }
                 }
@@ -98,7 +104,8 @@ namespace RaynMaker.Modules.Import.Parsers
             {
                 if( settings.Dimension == SeriesOrientation.Column )
                 {
-                    action( settings.RowHeaderColumn != -1 );
+                    AddColumns( settings.RowHeaderColumn != -1 );
+
                     string text2 = null;
                     for( int j = 0; j < table.Rows.Count; j++ )
                     {
@@ -110,9 +117,9 @@ namespace RaynMaker.Modules.Import.Parsers
                         {
                             if( !settings.SkipRows.Contains( j ) )
                             {
-                                object arg3 = table.Rows[ j ][ anchor.X ];
-                                string arg4 = func( j, settings.RowHeaderColumn );
-                                action2( arg3, arg4 );
+                                object value = table.Rows[ j ][ anchor.X ];
+                                string header = func( j, settings.RowHeaderColumn );
+                                AddValues( value, header );
                             }
                         }
                     }
@@ -126,19 +133,22 @@ namespace RaynMaker.Modules.Import.Parsers
                     object arg5 = table.Rows[ anchor.Y ][ anchor.X ];
                     string arg6 = func( anchor.Y, settings.RowHeaderColumn );
                     string text3 = func( settings.ColumnHeaderRow, anchor.X );
-                    action( settings.RowHeaderColumn != -1 );
+                    AddColumns( settings.RowHeaderColumn != -1 );
                     if( text3 != null )
                     {
                         result.Columns[ 0 ].ColumnName = text3;
                     }
-                    action2( arg5, arg6 );
+                    AddValues( arg5, arg6 );
                 }
             }
+
             result.AcceptChanges();
+
             if( settings.SeriesName != null && !result.Columns[ 0 ].ColumnName.Contains( settings.SeriesName ) )
             {
                 throw new InvalidExpressionException( string.Format( "Validation of series name failed: '{0}' does not contain '{1}'", result.Columns[ 0 ].ColumnName, settings.SeriesName ) );
             }
+
             return result;
         }
     }

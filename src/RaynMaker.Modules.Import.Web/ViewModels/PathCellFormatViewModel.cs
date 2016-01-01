@@ -51,7 +51,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 // always first copy patterns - then set position (positions are guard against unintended model overwrite due to half-initialized viewmodel)
                 ColumnPattern = ( ( StringContainsLocator )Format.Column ).Pattern;
-                ColumnPosition = Format.Column.SeriesToScan;
+                ColumnPosition = Format.Column.HeaderSeriesPosition;
             }
             else
             {
@@ -63,7 +63,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 // always first copy patterns - then set position (positions are guard against unintended model overwrite due to half-initialized viewmodel)
                 RowPattern = ( ( StringContainsLocator )Format.Row ).Pattern;
-                RowPosition = Format.Row.SeriesToScan;
+                RowPosition = Format.Row.HeaderSeriesPosition;
             }
             else
             {
@@ -158,13 +158,13 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 if( RowPattern != null )
                 {
-                    var rowHeader = MarkupDocument.FindRowHeader( Format.Row.SeriesToScan )( MarkupDocument.SelectedElement ).InnerText;
+                    var rowHeader = MarkupDocument.FindRowHeader( Format.Row.HeaderSeriesPosition )( MarkupDocument.SelectedElement ).InnerText;
                     IsRowValid = rowHeader.Contains( RowPattern, StringComparison.OrdinalIgnoreCase );
                 }
 
                 if( ColumnPattern != null )
                 {
-                    var colHeader = MarkupDocument.FindColumnHeader( Format.Column.SeriesToScan )( MarkupDocument.SelectedElement ).InnerText;
+                    var colHeader = MarkupDocument.FindColumnHeader( Format.Column.HeaderSeriesPosition )( MarkupDocument.SelectedElement ).InnerText;
                     IsColumnValid = colHeader.Contains( ColumnPattern, StringComparison.OrdinalIgnoreCase );
                 }
             }

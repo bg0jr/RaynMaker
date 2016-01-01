@@ -3,17 +3,18 @@
 namespace RaynMaker.Modules.Import.Spec.v2.Extraction
 {
     /// <summary>
-    /// Describes a position of a row or column of a data table.
+    /// Describes the position of a series within a table.
+    /// The series can be a column or a row.
     /// </summary>
     public interface ISeriesLocator
     {
         /// <summary>
-        /// Returns the index of the series to scan.
+        /// Gets the index of the series containing the header of the described series.
         /// </summary>
-        int SeriesToScan { get; }
+        int HeaderSeriesPosition { get; }
 
         /// <summary>
-        /// Scans the given series and returns the requested index.
+        /// Scans the given series items (specified via <see cref="HeaderSeriesPosition"/>) and returns the index of the described series.
         /// </summary>
         /// <returns>
         /// Returns the index of the found series or -1 if nothing could be found.

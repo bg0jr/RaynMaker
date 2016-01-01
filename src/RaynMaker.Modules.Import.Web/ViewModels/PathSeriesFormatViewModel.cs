@@ -35,8 +35,8 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             ValueFormat = Format.ValueFormat ?? new FormatColumn( "value" );
             InMillions = Format.InMillions;
 
-            ColumnHeaderRow = ( format.Orientation == SeriesOrientation.Row ? Format.TimesLocator.SeriesToScan : Format.ValuesLocator.SeriesToScan ).ToString();
-            RowHeaderColumn = ( format.Orientation == SeriesOrientation.Row ? Format.ValuesLocator.SeriesToScan : Format.TimesLocator.SeriesToScan ).ToString();
+            ColumnHeaderRow = ( format.Orientation == SeriesOrientation.Row ? Format.TimesLocator.HeaderSeriesPosition : Format.ValuesLocator.HeaderSeriesPosition ).ToString();
+            RowHeaderColumn = ( format.Orientation == SeriesOrientation.Row ? Format.ValuesLocator.HeaderSeriesPosition : Format.TimesLocator.HeaderSeriesPosition ).ToString();
 
             // needs to be AFTER RowHeaderColumn and ColumnHeaderRow
             SelectedDimension = Format.Orientation;

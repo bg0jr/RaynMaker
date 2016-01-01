@@ -40,7 +40,7 @@ namespace RaynMaker.Modules.Import.Spec.v2.Locating
         }
 
         [DataMember]
-        public IReadOnlyList<DocumentLocationFragment> Fragments { get; private set; }
+        public IList<DocumentLocationFragment> Fragments { get; private set; }
 
         [DataMember]
         public int FragmentsHashCode { get; private set; }

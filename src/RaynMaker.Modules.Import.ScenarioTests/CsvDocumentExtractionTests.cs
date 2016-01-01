@@ -21,7 +21,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             descriptor.Separator = ";";
             descriptor.Orientation = SeriesOrientation.Row;
             descriptor.ValuesLocator = new StringContainsLocator( 0, "EPS" );
-            descriptor.TimesLocator = new AbsolutePositionLocator( 0 );
+            descriptor.TimesLocator = new AbsolutePositionLocator( 0, 0 );
             descriptor.Excludes = new int[] { 0, 1 };
 
             return descriptor;

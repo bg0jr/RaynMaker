@@ -40,10 +40,10 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 
             format.Orientation = SeriesOrientation.Row;
 
-            format.ValuesLocator = new AbsolutePositionLocator( 4 );
+            format.ValuesLocator = new AbsolutePositionLocator( 0, 4 );
             format.ValueFormat = new FormatColumn( "value", typeof( double ), "0.00" );
 
-            format.TimesLocator = new AbsolutePositionLocator( 23 );
+            format.TimesLocator = new AbsolutePositionLocator( 0, 23 );
             format.TimeFormat = new FormatColumn( "time", typeof( DateTime ), "G" );
 
             format.Excludes = new[] { 11, 88 };
@@ -51,8 +51,8 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             var clone = FormatFactory.Clone( format );
 
             Assert.That( clone.Orientation, Is.EqualTo( format.Orientation ) );
-            
-            Assert.That( ((AbsolutePositionLocator)clone.ValuesLocator).Position, Is.EqualTo( 4 ) );
+
+            Assert.That( ( ( AbsolutePositionLocator )clone.ValuesLocator ).Position, Is.EqualTo( 4 ) );
             Assert.That( clone.ValueFormat.Name, Is.EqualTo( format.ValueFormat.Name ) );
             Assert.That( clone.ValueFormat.Type, Is.EqualTo( format.ValueFormat.Type ) );
             Assert.That( clone.ValueFormat.Format, Is.EqualTo( format.ValueFormat.Format ) );

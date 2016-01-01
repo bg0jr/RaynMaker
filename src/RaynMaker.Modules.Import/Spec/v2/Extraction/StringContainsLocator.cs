@@ -12,14 +12,14 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "StringContainsLocator" )]
     public class StringContainsLocator : ISeriesLocator
     {
-        public StringContainsLocator( int seriesToScan, string value )
+        public StringContainsLocator( int headerSeriesPosition, string value )
         {
-            SeriesToScan = seriesToScan;
+            HeaderSeriesPosition = headerSeriesPosition;
             Pattern = value;
         }
 
         [DataMember]
-        public int SeriesToScan { get; private set; }
+        public int HeaderSeriesPosition { get; private set; }
 
         [DataMember]
         public string Pattern { get; private set; }

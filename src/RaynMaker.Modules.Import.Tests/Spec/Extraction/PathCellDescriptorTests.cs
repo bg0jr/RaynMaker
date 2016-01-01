@@ -13,8 +13,8 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         {
             var format = new PathCellDescriptor( "dummy" );
             format.Path = "123";
-            format.Column = new AbsolutePositionLocator( 4 );
-            format.Row = new AbsolutePositionLocator( 23 );
+            format.Column = new AbsolutePositionLocator(0, 4 );
+            format.Row = new AbsolutePositionLocator( 0, 23 );
             format.ValueFormat = new ValueFormat( typeof( double ), "0.00" );
             format.Currency = "Euro";
 

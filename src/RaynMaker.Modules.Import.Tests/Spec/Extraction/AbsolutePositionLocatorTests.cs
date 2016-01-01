@@ -10,12 +10,12 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var locator = new AbsolutePositionLocator( 17 );
+            var locator = new AbsolutePositionLocator( 6, 17 );
 
             var clone = FormatFactory.Clone( locator );
 
             Assert.That( clone.Position, Is.EqualTo( locator.Position ) );
-            Assert.That( clone.SeriesToScan, Is.EqualTo( locator.SeriesToScan ) );
+            Assert.That( clone.HeaderSeriesPosition, Is.EqualTo( locator.HeaderSeriesPosition ) );
         }
     }
 }

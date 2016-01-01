@@ -11,19 +11,19 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "RegexPatternLocator" )]
     public class RegexPatternLocator : ISeriesLocator
     {
-        public RegexPatternLocator( int seriesToScan, string value )
-            : this( seriesToScan, new Regex( value ) )
+        public RegexPatternLocator( int headerSeriesPosition, string value )
+            : this( headerSeriesPosition, new Regex( value ) )
         {
         }
 
-        public RegexPatternLocator( int seriesToScan, Regex value )
+        public RegexPatternLocator( int headerSeriesPosition, Regex value )
         {
-            SeriesToScan = seriesToScan;
+            HeaderSeriesPosition = headerSeriesPosition;
             Pattern = value;
         }
 
         [DataMember]
-        public int SeriesToScan { get; private set; }
+        public int HeaderSeriesPosition { get; private set; }
 
         public Regex Pattern { get; private set; }
 
