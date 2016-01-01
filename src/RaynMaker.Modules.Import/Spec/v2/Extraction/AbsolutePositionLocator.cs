@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using Plainion;
 
 namespace RaynMaker.Modules.Import.Spec.v2.Extraction
 {
@@ -14,17 +15,18 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         /// The HeaderSeriesPosition has still to be specified even if the series position is already clear because the HeaderSeriesPosition might
         /// be used later on to extract the header of the series.
         /// </summary>
-        public AbsolutePositionLocator( int headerSeriesPosition, int position )
+        public AbsolutePositionLocator( int headerSeriesPosition, int seriesPosition )
         {
+            Contract.Requires( headerSeriesPosition >= 0, "HeaderSeriesPosition must be greater or equal to 0" );
+            Contract.Requires( seriesPosition >= 0, "SeriesPosition must be greater or equal to 0" );
+
             HeaderSeriesPosition = headerSeriesPosition;
-            SeriesPosition = position;
+            SeriesPosition = seriesPosition;
         }
 
-        [Range( 0d, double.PositiveInfinity )]
         [DataMember]
         public int HeaderSeriesPosition { get; private set; }
 
-        [Range( 0d, double.PositiveInfinity )]
         [DataMember]
         public int SeriesPosition { get; private set; }
 

@@ -1,4 +1,6 @@
-﻿using System.Runtime.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
+using Plainion;
 
 namespace RaynMaker.Modules.Import.Spec.v2.Extraction
 {
@@ -11,6 +13,8 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         public CsvDescriptor( string figure, string sep, params FormatColumn[] cols )
             : base( figure, cols )
         {
+            Contract.RequiresNotNullNotEmpty( sep, "sep" );
+
             Separator = sep;
         }
 

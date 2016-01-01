@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using NUnit.Framework;
 using Plainion.Validation;
 using RaynMaker.Modules.Import.Spec;
@@ -29,21 +30,17 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         }
 
         [Test]
-        public void Validate_HeaderSeriesPositionOutOfRange_Throws()
+        public void Ctor_HeaderSeriesPositionOutOfRange_Throws()
         {
-            var locator = new AbsolutePositionLocator( -1, 17 );
-
-            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( locator ) );
-            Assert.That( ex.Message, Is.StringContaining( "HeaderSeriesPosition must be between 0 and" ) );
+            var ex = Assert.Throws<ArgumentException>( () => new AbsolutePositionLocator( -1, 17 ));
+            Assert.That( ex.Message, Is.StringContaining( "HeaderSeriesPosition must be greater or equal to 0" ) );
         }
 
         [Test]
-        public void Validate_SeriesPositionOutOfRange_Throws()
+        public void Ctor_SeriesPositionOutOfRange_Throws()
         {
-            var locator = new AbsolutePositionLocator( 0, -1 );
-
-            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( locator ) );
-            Assert.That( ex.Message, Is.StringContaining( "SeriesPosition must be between 0 and" ) );
+            var ex = Assert.Throws<ArgumentException>( () => new AbsolutePositionLocator( 0, -1 ) );
+            Assert.That( ex.Message, Is.StringContaining( "SeriesPosition must be greater or equal to 0" ) );
         }
     }
 }
