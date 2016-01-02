@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Runtime.Serialization;
+using Plainion.Serialization;
 using Plainion.Validation;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 using RaynMaker.Modules.Import.Spec.v2.Locating;
@@ -10,7 +9,7 @@ using RaynMaker.Modules.Import.Spec.v2.Locating;
 namespace RaynMaker.Modules.Import.Spec.v2
 {
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "DataSource" )]
-    public class DataSource : SpecBase
+    public class DataSource : SerializableBindableBase
     {
         private string myVendor;
         private string myName;

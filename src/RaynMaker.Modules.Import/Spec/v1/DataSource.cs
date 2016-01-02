@@ -2,12 +2,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.Serialization;
+using Plainion.Serialization;
 using Plainion.Validation;
 
 namespace RaynMaker.Modules.Import.Spec.v1
 {
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "DataSource" )]
-    public class DataSource : SpecBase
+    public class DataSource : SerializableBindableBase
     {
         private string myVendor;
         private string myName;

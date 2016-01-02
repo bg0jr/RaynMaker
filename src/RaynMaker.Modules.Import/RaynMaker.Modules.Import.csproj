@@ -41,7 +41,6 @@
     <Compile Include="Spec\v2\DocumentTypeNotNoneAttribute.cs" />
     <Compile Include="Spec\v2\Extraction\CsvDescriptor.cs" />
     <Compile Include="Spec\v2\Extraction\PathCellDescriptor.cs" />
-    <Compile Include="Spec\SpecBase.cs" />
     <Compile Include="Spec\v1\AbsolutePositionLocator.cs" />
     <Compile Include="Spec\v1\AbstractDimensionalFormat.cs" />
     <Compile Include="Spec\v1\AbstractFormat.cs" />
