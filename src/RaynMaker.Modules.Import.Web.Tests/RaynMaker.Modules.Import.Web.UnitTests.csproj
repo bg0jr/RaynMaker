@@ -50,11 +50,11 @@
     </ProjectReference>
     <ProjectReference Include="..\RaynMaker.Modules.Import.Web\RaynMaker.Modules.Import.Web.csproj">
       <Project>{2bab6393-3900-4233-b817-333460881312}</Project>
-      <Name>RaynMaker.Module.Import.Web</Name>
+      <Name>RaynMaker.Modules.Import.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\RaynMaker.Modules.Import\RaynMaker.Modules.Import.csproj">
       <Project>{4cd006fa-b1a2-4e57-a0f1-db32259ff70a}</Project>
-      <Name>RaynMaker.Module.Import</Name>
+      <Name>RaynMaker.Modules.Import</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

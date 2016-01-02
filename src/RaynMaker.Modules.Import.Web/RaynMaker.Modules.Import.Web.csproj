@@ -220,7 +220,7 @@
     </ProjectReference>
     <ProjectReference Include="..\RaynMaker.Modules.Import\RaynMaker.Modules.Import.csproj">
       <Project>{4cd006fa-b1a2-4e57-a0f1-db32259ff70a}</Project>
-      <Name>RaynMaker.Module.Import</Name>
+      <Name>RaynMaker.Modules.Import</Name>
     </ProjectReference>
     <ProjectReference Include="..\RaynMaker.Infrastructure\RaynMaker.Infrastructure.csproj">
       <Project>{837addbe-901b-4ed9-9df4-0e259e262167}</Project>

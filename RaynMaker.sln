@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Entities", "src\R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Entities.Persistancy", "src\RaynMaker.Entities.Persistancy\RaynMaker.Entities.Persistancy.csproj", "{21124BD2-15F7-45F8-BD77-184E7FED47C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Samples", "src\RaynMaker.Samples\RaynMaker.Samples.csproj", "{B4F336A4-8CD2-49F7-8541-97AA31EA53D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.SDK", "src\RaynMaker.SDK\RaynMaker.SDK.csproj", "{B4F336A4-8CD2-49F7-8541-97AA31EA53D5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Modules.Data", "src\RaynMaker.Modules.Data\RaynMaker.Modules.Data.csproj", "{972E7886-F83D-41DF-BA26-5071C34EC2F7}"
 EndProject

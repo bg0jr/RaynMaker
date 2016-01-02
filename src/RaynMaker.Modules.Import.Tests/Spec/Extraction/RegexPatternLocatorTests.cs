@@ -1,15 +1,57 @@
-﻿using System;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
 using Plainion.Validation;
-using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
+using RaynMaker.SDK;
 
 namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 {
     [TestFixture]
     public class RegexPatternLocatorTests
     {
+        [Test]
+        public void HeaderSeriesPosition_Set_ValueIsSet()
+        {
+            var locator = new RegexPatternLocator();
+
+            locator.HeaderSeriesPosition = 6;
+
+            Assert.That( locator.HeaderSeriesPosition, Is.EqualTo( 6 ) );
+        }
+
+        [Test]
+        public void HeaderSeriesPosition_Set_ChangeIsNotified()
+        {
+            var locator = new RegexPatternLocator();
+            var counter = new PropertyChangedCounter( locator );
+
+            locator.HeaderSeriesPosition = 6;
+
+            Assert.That( counter.GetCount( () => locator.HeaderSeriesPosition ), Is.EqualTo( 1 ) );
+        }
+
+        [Test]
+        public void Pattern_Set_ValueIsSet()
+        {
+            var locator = new RegexPatternLocator();
+
+            locator.Pattern = new Regex( "Current*" );
+
+            Assert.That( locator.Pattern.ToString(), Is.EqualTo( "Current*" ) );
+        }
+
+        [Test]
+        public void Pattern_Set_ChangeIsNotified()
+        {
+            var locator = new RegexPatternLocator();
+            var counter = new PropertyChangedCounter( locator );
+
+            locator.Pattern = new Regex( "Current*" );
+
+            Assert.That( counter.GetCount( () => locator.Pattern ), Is.EqualTo( 1 ) );
+        }
+
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
@@ -30,24 +72,21 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         }
 
         [Test]
-        public void Ctor_HeaderSeriesPositionOutOfRange_Throws()
+        public void Validate_HeaderSeriesPositionOutOfRange_Throws()
         {
-            var ex = Assert.Throws<ArgumentException>( () => new RegexPatternLocator(/* -1, "^.*$"*/ ) );
-            Assert.That( ex.Message, Is.StringContaining( "HeaderSeriesPosition must be greater or equal to 0" ) );
+            var locator = new RegexPatternLocator { HeaderSeriesPosition = -1, Pattern = new Regex( "^.*$" ) };
+
+            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( locator ) );
+            Assert.That( ex.Message, Is.StringContaining( "HeaderSeriesPosition must be between 0 and " + int.MaxValue ) );
         }
 
         [Test]
-        public void Ctor_PatternNull_Throws()
+        public void Validate_PatternNull_Throws()
         {
-            var ex = Assert.Throws<ArgumentNullException>( () => new RegexPatternLocator(/* 0, ( Regex )null*/ ) );
-            Assert.That( ex.Message, Is.StringContaining( "Value cannot be null." + Environment.NewLine + "Parameter name: pattern" ) );
-        }
+            var locator = new RegexPatternLocator { HeaderSeriesPosition = 0, Pattern = null };
 
-        [Test]
-        public void Ctor_PatternEmpty_Throws()
-        {
-            var ex = Assert.Throws<ArgumentNullException>( () => new RegexPatternLocator(/* 0, string.Empty*/ ) );
-            Assert.That( ex.Message, Is.StringContaining( "string must not null or empty: pattern" ) );
+            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( locator ) );
+            Assert.That( ex.Message, Is.StringContaining( "Pattern field is required" ) );
         }
     }
 }

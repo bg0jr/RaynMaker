@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="148dd5af-55c0-4cad-8a5e-7cf8cc33c122" Created="635873281780121255" LastModified="635873282145052128">
+  <Caption><![CDATA[Ensure in factory that we always get a copy ]]></Caption>
+  <Content><![CDATA[from serialized datasource
+
+because now everything is mutable]]></Content>
+</Node>

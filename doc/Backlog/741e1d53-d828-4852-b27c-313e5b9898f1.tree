@@ -9,9 +9,6 @@
       <Caption><![CDATA[1.7 - Polish Import module]]></Caption>
       <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">
         <Caption><![CDATA[Spec]]></Caption>
-        <Node Id="54489aca-79d6-4e0a-a6b0-5a571ffa9b70">
-          <Caption><![CDATA[all descriptors mutable]]></Caption>
-        </Node>
         <Node Id="2c53553e-7cac-4f58-bcee-b1ff7a5fc9c3">
           <Caption><![CDATA[solve backward compatibility]]></Caption>
         </Node>
@@ -75,6 +72,9 @@
       </Node>
       <Node Id="ff78be26-41b3-44a1-b1cc-8acdbe915731">
         <Caption><![CDATA[ValueFormat of AbstractSeriesFormat]]></Caption>
+      </Node>
+      <Node Id="148dd5af-55c0-4cad-8a5e-7cf8cc33c122">
+        <Caption><![CDATA[Ensure in factory that we always get a copy ]]></Caption>
       </Node>
     </Node>
     <Node Id="63da965d-c664-48a9-8250-578d54290207">
