@@ -207,5 +207,47 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
             Assert.That( ex.Message, Is.StringContaining( "The ValueFormat field is required" ) );
         }
+
+        [Test]
+        public void Validate_InvalidColumn_Throws()
+        {
+            var descriptor = new PathCellDescriptor();
+            descriptor.Figure = "Price";
+            descriptor.Path = "123";
+            descriptor.Column = new AbsolutePositionLocator();
+            descriptor.Row = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 23 };
+            descriptor.ValueFormat = new ValueFormat( typeof( double ), "0.00" );
+
+            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
+            Assert.That( ex.Message, Is.StringContaining( "HeaderSeriesPosition must be between 0 and " + int.MaxValue ) );
+        }
+
+        [Test]
+        public void Validate_InvalidRow_Throws()
+        {
+            var descriptor = new PathCellDescriptor();
+            descriptor.Figure = "Price";
+            descriptor.Path = "123";
+            descriptor.Column = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 23 };
+            descriptor.Row = new AbsolutePositionLocator();
+            descriptor.ValueFormat = new ValueFormat( typeof( double ), "0.00" );
+
+            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
+            Assert.That( ex.Message, Is.StringContaining( "HeaderSeriesPosition must be between 0 and " + int.MaxValue ) );
+        }
+
+        [Test]
+        public void Validate_InvalidValueFormat_Throws()
+        {
+            var descriptor = new PathCellDescriptor();
+            descriptor.Figure = "Price";
+            descriptor.Path = "123";
+            descriptor.Column = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 23 };
+            descriptor.Row = new AbsolutePositionLocator();
+            descriptor.ValueFormat = new ValueFormat( );
+
+            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
+            Assert.That( ex.Message, Is.StringContaining( "Type field is required" ) );
+        }
     }
 }

@@ -17,6 +17,11 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         private int myHeaderSeriesPosition;
         private Regex myPattern;
 
+        public RegexPatternLocator()
+        {
+            myHeaderSeriesPosition = -1;
+        }
+
         [Range( 0, int.MaxValue )]
         [DataMember]
         public int HeaderSeriesPosition

@@ -15,6 +15,12 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         private int myHeaderSeriesPosition;
         private int mySeriesPosition;
 
+        public AbsolutePositionLocator()
+        {
+            myHeaderSeriesPosition = -1;
+            mySeriesPosition = -1;
+        }
+
         /// <summary>
         /// The HeaderSeriesPosition has still to be specified even if the series position is already clear because the HeaderSeriesPosition might
         /// be used later on to extract the header of the series.

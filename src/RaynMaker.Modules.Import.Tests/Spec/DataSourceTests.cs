@@ -255,5 +255,20 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec
             var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( dataSource ) );
             Assert.That( ex.Message, Is.StringContaining( "The Location field is required" ) );
         }
+
+        [Test]
+        public void Validate_InvalidDescriptor_Thows()
+        {
+            var dataSource = new DataSource();
+            dataSource.Vendor = "vendor";
+            dataSource.Name = "name";
+            dataSource.DocumentType = DocumentType.Html;
+            dataSource.Location = new DocumentLocator( new Request( "http://test1.org" ) );
+
+            dataSource.Figures.Add( new CsvDescriptor() );
+
+            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( dataSource ) );
+            Assert.That( ex.Message, Is.StringContaining( "The Figure field is required" ) );
+        }
     }
 }

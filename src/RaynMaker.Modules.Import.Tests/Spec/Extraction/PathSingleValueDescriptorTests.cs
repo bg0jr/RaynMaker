@@ -100,5 +100,17 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
             Assert.That( ex.Message, Is.StringContaining( "The ValueFormat field is required" ) );
         }
+
+        [Test]
+        public void Validate_InvalidValueFormat_Throws()
+        {
+            var descriptor = new PathSingleValueDescriptor();
+            descriptor.Figure = "Price";
+            descriptor.Path = "123";
+            descriptor.ValueFormat = new ValueFormat();
+
+            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
+            Assert.That( ex.Message, Is.StringContaining( "Type field is required" ) );
+        }
     }
 }

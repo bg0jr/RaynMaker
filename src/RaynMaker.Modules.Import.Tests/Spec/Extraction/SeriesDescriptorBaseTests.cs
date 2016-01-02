@@ -222,5 +222,53 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
             Assert.That( ex.Message, Is.StringContaining( "The ValueFormat field is required" ) );
         }
+
+        [Test]
+        public void Validate_InvalidValuesLocator_Throws()
+        {
+            var descriptor = new DummyDescriptor();
+            descriptor.Figure = "Equity";
+            descriptor.ValuesLocator = new AbsolutePositionLocator();
+            descriptor.ValueFormat = new FormatColumn( "values", typeof( double ), "0.00" );
+
+            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
+            Assert.That( ex.Message, Is.StringContaining( "HeaderSeriesPosition must be between 0 and " + int.MaxValue ) );
+        }
+
+        [Test]
+        public void Validate_InvalidValueFormat_Throws()
+        {
+            var descriptor = new DummyDescriptor();
+            descriptor.Figure = "Equity";
+            descriptor.ValuesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 23 };
+            descriptor.ValueFormat = new FormatColumn();
+
+            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
+            Assert.That( ex.Message, Is.StringContaining( "Type field is required" ) );
+        }
+
+        [Test]
+        public void Validate_InvalidTimesLocator_Throws()
+        {
+            var descriptor = new DummyDescriptor();
+            descriptor.Figure = "Equity";
+            descriptor.TimesLocator = new AbsolutePositionLocator();
+            descriptor.TimeFormat = new FormatColumn( "Times", typeof( double ), "0.00" );
+
+            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
+            Assert.That( ex.Message, Is.StringContaining( "HeaderSeriesPosition must be between 0 and " + int.MaxValue ) );
+        }
+
+        [Test]
+        public void Validate_InvalidTimeFormat_Throws()
+        {
+            var descriptor = new DummyDescriptor();
+            descriptor.Figure = "Equity";
+            descriptor.TimesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 23 };
+            descriptor.TimeFormat = new FormatColumn();
+
+            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
+            Assert.That( ex.Message, Is.StringContaining( "Type field is required" ) );
+        }
     }
 }

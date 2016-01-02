@@ -24,7 +24,7 @@ namespace RaynMaker.Modules.Import.Spec.v2
         }
 
         // e.g. Ariva
-        [Required(AllowEmptyStrings=false)]
+        [Required( AllowEmptyStrings = false )]
         [DataMember]
         public string Vendor
         {
@@ -57,7 +57,7 @@ namespace RaynMaker.Modules.Import.Spec.v2
             set { SetProperty( ref myDocumentType, value ); }
         }
 
-        [Required]
+        [Required, ValidateObject]
         [DataMember]
         public DocumentLocator Location
         {

@@ -151,5 +151,16 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
             Assert.That( ex.Message, Is.StringContaining( "Columns must not be empty" ) );
         }
+
+        [Test]
+        public void Validate_InvalidColumn_Throws()
+        {
+            var descriptor = new DummyDescriptor();
+            descriptor.Figure = "Equity";
+            descriptor.Columns.Add( new FormatColumn() );
+
+            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
+            Assert.That( ex.Message, Is.StringContaining( "Type field is required" ) );
+        }
     }
 }
