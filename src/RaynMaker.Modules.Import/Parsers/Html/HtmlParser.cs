@@ -10,42 +10,42 @@ namespace RaynMaker.Modules.Import.Parsers.Html
     class HtmlParser : IDocumentParser
     {
         private IHtmlDocument myDocument;
-        private IFigureDescriptor myFormat;
+        private IFigureDescriptor myDescriptor;
 
-        public HtmlParser( IHtmlDocument document, IFigureDescriptor format )
+        public HtmlParser( IHtmlDocument document, IFigureDescriptor descriptor )
         {
             myDocument = document;
-            myFormat = format;
+            myDescriptor = descriptor;
         }
 
         public DataTable ExtractTable()
         {
-            PathSeriesDescriptor pathSeriesFormat = myFormat as PathSeriesDescriptor;
-            PathTableDescriptor pathTableFormat = myFormat as PathTableDescriptor;
+            PathSeriesDescriptor pathSeriesDescriptor = myDescriptor as PathSeriesDescriptor;
+            PathTableDescriptor pathTableDescriptor = myDescriptor as PathTableDescriptor;
 
-            if( pathSeriesFormat != null )
+            if( pathSeriesDescriptor != null )
             {
-                var result = myDocument.ExtractTable( HtmlPath.Parse( pathSeriesFormat.Path ) );
+                var result = myDocument.ExtractTable( HtmlPath.Parse( pathSeriesDescriptor.Path ) );
                 if( !result.Success )
                 {
                     throw new Exception( "Failed to extract table from document: " + result.FailureReason );
                 }
 
-                return TableFormatter.ToFormattedTable( pathSeriesFormat, result.Value );
+                return TableFormatter.ToFormattedTable( pathSeriesDescriptor, result.Value );
             }
-            else if( pathTableFormat != null )
+            else if( pathTableDescriptor != null )
             {
-                var result = myDocument.ExtractTable( HtmlPath.Parse( pathTableFormat.Path ), true );
+                var result = myDocument.ExtractTable( HtmlPath.Parse( pathTableDescriptor.Path ), true );
                 if( !result.Success )
                 {
                     throw new Exception( "Failed to extract table from document: " + result.FailureReason );
                 }
 
-                return TableFormatter.ToFormattedTable( pathTableFormat, result.Value );
+                return TableFormatter.ToFormattedTable( pathTableDescriptor, result.Value );
             }
-            else if( myFormat is PathSingleValueDescriptor )
+            else if( myDescriptor is PathSingleValueDescriptor )
             {
-                var f = ( PathSingleValueDescriptor )myFormat;
+                var f = ( PathSingleValueDescriptor )myDescriptor;
                 var str = myDocument.GetTextByPath( HtmlPath.Parse( f.Path ) );
                 var value = f.ValueFormat.Convert( str );
 
@@ -54,7 +54,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             }
             else
             {
-                throw new NotSupportedException( "Format not supported for Html documents: " + myFormat.GetType() );
+                throw new NotSupportedException( "Format not supported for Html documents: " + myDescriptor.GetType() );
             }
         }
 

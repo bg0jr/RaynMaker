@@ -15,23 +15,23 @@ namespace RaynMaker.Modules.Import.Parsers
         /// is extracted.
         /// Empty rows will be removed.
         /// </summary>
-        public static DataTable ToFormattedTable( TableDescriptorBase format, DataTable rawTable )
+        public static DataTable ToFormattedTable( TableDescriptorBase descriptor, DataTable rawTable )
         {
             DataTable table = new DataTable();
-            foreach( var col in format.Columns )
+            foreach( var col in descriptor.Columns )
             {
                 table.Columns.Add( col.Name, col.Type );
             }
-            ToFormattedTable( format, rawTable, table );
+            ToFormattedTable( descriptor, rawTable, table );
 
             return table;
         }
 
-        public static void ToFormattedTable( TableDescriptorBase format, DataTable rawTable, DataTable targetTable )
+        public static void ToFormattedTable( TableDescriptorBase descriptor, DataTable rawTable, DataTable targetTable )
         {
             for( int r = 0; r < rawTable.Rows.Count; ++r )
             {
-                if( format.SkipRows.Contains( r ) )
+                if( descriptor.SkipRows.Contains( r ) )
                 {
                     continue;
                 }
@@ -42,17 +42,17 @@ namespace RaynMaker.Modules.Import.Parsers
                 bool isEmpty = true;
                 for( int c = 0; c < rawRow.ItemArray.Length; ++c )
                 {
-                    if( format.SkipColumns.Contains( c ) )
+                    if( descriptor.SkipColumns.Contains( c ) )
                     {
                         continue;
                     }
 
-                    if( targetCol == format.Columns.Length )
+                    if( targetCol == descriptor.Columns.Length )
                     {
                         break;
                     }
 
-                    FormatColumn formatCol = format.Columns[ targetCol ];
+                    FormatColumn formatCol = descriptor.Columns[ targetCol ];
                     object value = formatCol.Convert( rawRow[ c ].ToString() );
                     row[ formatCol.Name ] = ( value != null ? value : DBNull.Value );
                     if( row[ formatCol.Name ] != DBNull.Value )
@@ -79,7 +79,7 @@ namespace RaynMaker.Modules.Import.Parsers
         /// which has been tailored using DataTable.ExtractSeries()
         /// </remarks>
         /// </summary>
-        public static DataTable ToFormattedTable( SeriesDescriptorBase format, DataTable table_in )
+        public static DataTable ToFormattedTable( SeriesDescriptorBase descriptor, DataTable table_in )
         {
             if( table_in == null )
             {
@@ -88,31 +88,31 @@ namespace RaynMaker.Modules.Import.Parsers
 
             DataTable rawTable = table_in;
 
-            rawTable = ExtractSeries( format, table_in );
+            rawTable = ExtractSeries( descriptor, table_in );
             if( rawTable == null )
             {
                 return null;
             }
 
-            if( format.ValueFormat == null && format.TimeFormat == null )
+            if( descriptor.ValueFormat == null && descriptor.TimeFormat == null )
             {
                 return rawTable;
             }
 
             DataTable table = new DataTable();
 
-            if( format.ValueFormat != null )
+            if( descriptor.ValueFormat != null )
             {
-                table.Columns.Add( new DataColumn( format.ValueFormat.Name, format.ValueFormat.Type ) );
+                table.Columns.Add( new DataColumn( descriptor.ValueFormat.Name, descriptor.ValueFormat.Type ) );
             }
             else
             {
                 throw new InvalidOperationException( "No value format specified" );
             }
 
-            if( format.TimeFormat != null )
+            if( descriptor.TimeFormat != null )
             {
-                table.Columns.Add( new DataColumn( format.TimeFormat.Name, format.TimeFormat.Type ) );
+                table.Columns.Add( new DataColumn( descriptor.TimeFormat.Name, descriptor.TimeFormat.Type ) );
             }
 
             foreach( DataRow rawRow in rawTable.Rows )
@@ -125,10 +125,10 @@ namespace RaynMaker.Modules.Import.Parsers
                     row[ idx ] = ( value != null ? value : DBNull.Value );
                 };
 
-                Convert( 0, format.ValueFormat );
-                if( format.TimeFormat != null )
+                Convert( 0, descriptor.ValueFormat );
+                if( descriptor.TimeFormat != null )
                 {
-                    Convert( 1, format.TimeFormat );
+                    Convert( 1, descriptor.TimeFormat );
                 }
 
                 table.Rows.Add( row );
@@ -137,17 +137,17 @@ namespace RaynMaker.Modules.Import.Parsers
             return table;
         }
 
-        private static DataTable ExtractSeries( SeriesDescriptorBase format, DataTable rawTable )
+        private static DataTable ExtractSeries( SeriesDescriptorBase descriptor, DataTable rawTable )
         {
-            Contract.Requires( format.Orientation == SeriesOrientation.Row || format.Orientation == SeriesOrientation.Column, "Unknown SeriesOrientation: " + format.Orientation );
+            Contract.Requires( descriptor.Orientation == SeriesOrientation.Row || descriptor.Orientation == SeriesOrientation.Column, "Unknown SeriesOrientation: " + descriptor.Orientation );
 
             var result = new DataTable();
             result.Locale = rawTable.Locale;
 
-            result.Columns.Add( new DataColumn( format.ValueFormat.Name, format.ValueFormat.Type ) );
-            if( format.TimesLocator != null && format.TimeFormat != null )
+            result.Columns.Add( new DataColumn( descriptor.ValueFormat.Name, descriptor.ValueFormat.Type ) );
+            if( descriptor.TimesLocator != null && descriptor.TimeFormat != null )
             {
-                result.Columns.Add( new DataColumn( format.TimeFormat.Name, format.TimeFormat.Type ) );
+                result.Columns.Add( new DataColumn( descriptor.TimeFormat.Name, descriptor.TimeFormat.Type ) );
             }
 
             Action<object, object> AddValues = ( value, time ) =>
@@ -155,11 +155,11 @@ namespace RaynMaker.Modules.Import.Parsers
                 DataRow dataRow2 = result.NewRow();
                 result.Rows.Add( dataRow2 );
 
-                dataRow2[ 0 ] = Convert.ChangeType( value, format.ValueFormat.Type );
+                dataRow2[ 0 ] = Convert.ChangeType( value, descriptor.ValueFormat.Type );
 
                 if( time != null )
                 {
-                    dataRow2[ 1 ] = Convert.ChangeType( time, format.TimeFormat.Type );
+                    dataRow2[ 1 ] = Convert.ChangeType( time, descriptor.TimeFormat.Type );
                 }
             };
 
@@ -172,28 +172,28 @@ namespace RaynMaker.Modules.Import.Parsers
                 return null;
             };
 
-            if( format.Orientation == SeriesOrientation.Row )
+            if( descriptor.Orientation == SeriesOrientation.Row )
             {
-                int valuesColToScan = format.ValuesLocator.HeaderSeriesPosition;
+                int valuesColToScan = descriptor.ValuesLocator.HeaderSeriesPosition;
                 Contract.Requires( valuesColToScan < rawTable.Columns.Count, "ValuesLocator points outside table" );
 
-                var valuesRowIdx = format.ValuesLocator.FindIndex( rawTable.Rows.ToSet().Select( row => row[ valuesColToScan ].ToString() ) );
+                var valuesRowIdx = descriptor.ValuesLocator.FindIndex( rawTable.Rows.ToSet().Select( row => row[ valuesColToScan ].ToString() ) );
                 Contract.Invariant( valuesRowIdx != -1, "ValuesLocator condition failed: column not found" );
 
                 var timesRowIdx = -1;
-                if( format.TimesLocator != null && format.TimeFormat != null )
+                if( descriptor.TimesLocator != null && descriptor.TimeFormat != null )
                 {
-                    var timesColToScan = format.TimesLocator.HeaderSeriesPosition;
+                    var timesColToScan = descriptor.TimesLocator.HeaderSeriesPosition;
                     Contract.Requires( timesColToScan < rawTable.Columns.Count, "TimesLocator points outside table" );
 
-                    timesRowIdx = format.TimesLocator.FindIndex( rawTable.Rows.ToSet().Select( row => row[ timesColToScan ].ToString() ) );
+                    timesRowIdx = descriptor.TimesLocator.FindIndex( rawTable.Rows.ToSet().Select( row => row[ timesColToScan ].ToString() ) );
                     Contract.Invariant( timesRowIdx != -1, "TimesLocator condition failed: column not found" );
                 }
 
                 var dataRow = rawTable.Rows[ valuesRowIdx ];
                 for( int i = 0; i < dataRow.ItemArray.Length; i++ )
                 {
-                    if( i != valuesColToScan && !format.Excludes.Contains( i ) )
+                    if( i != valuesColToScan && !descriptor.Excludes.Contains( i ) )
                     {
                         var value = dataRow[ i ];
                         var time = GetTimeValue( timesRowIdx, i );
@@ -203,25 +203,25 @@ namespace RaynMaker.Modules.Import.Parsers
             }
             else //column
             {
-                int valuesRowToScan = format.ValuesLocator.HeaderSeriesPosition;
+                int valuesRowToScan = descriptor.ValuesLocator.HeaderSeriesPosition;
                 Contract.Invariant( valuesRowToScan < rawTable.Rows.Count, "ValuesLocator points outside table" );
 
-                var valuesColIdx = format.ValuesLocator.FindIndex( rawTable.Rows[ valuesRowToScan ].ItemArray.Select( item => item.ToString() ) );
+                var valuesColIdx = descriptor.ValuesLocator.FindIndex( rawTable.Rows[ valuesRowToScan ].ItemArray.Select( item => item.ToString() ) );
                 Contract.Invariant( valuesColIdx != -1, "ValuesLocator condition failed: row not found" );
 
                 var timesColIdx = -1;
-                if( format.TimesLocator != null && format.TimeFormat != null )
+                if( descriptor.TimesLocator != null && descriptor.TimeFormat != null )
                 {
-                    var timesRowToScan = format.TimesLocator.HeaderSeriesPosition;
+                    var timesRowToScan = descriptor.TimesLocator.HeaderSeriesPosition;
                     Contract.Invariant( timesRowToScan < rawTable.Rows.Count, "TimesLocator points outside table" );
 
-                    timesColIdx = format.TimesLocator.FindIndex( rawTable.Rows[ timesRowToScan ].ItemArray.Select( item => item.ToString() ) );
+                    timesColIdx = descriptor.TimesLocator.FindIndex( rawTable.Rows[ timesRowToScan ].ItemArray.Select( item => item.ToString() ) );
                     Contract.Invariant( timesColIdx != -1, "TimesLocator condition failed: row not found" );
                 }
 
                 for( int i = 0; i < rawTable.Rows.Count; i++ )
                 {
-                    if( i != valuesRowToScan && !format.Excludes.Contains( i ) )
+                    if( i != valuesRowToScan && !descriptor.Excludes.Contains( i ) )
                     {
                         var value = rawTable.Rows[ i ][ valuesColIdx ];
                         var time = GetTimeValue( i, timesColIdx );

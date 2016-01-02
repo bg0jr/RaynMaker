@@ -28,18 +28,18 @@ namespace RaynMaker.Modules.Import
             return new WinFormsDocumentBrowser( CreateNavigator(), webBrowser );
         }
 
-        public static IDocumentParser CreateParser( IDocument document, IFigureDescriptor format )
+        public static IDocumentParser CreateParser( IDocument document, IFigureDescriptor descriptor )
         {
             var htmlDocument = document as IHtmlDocument;
             if( htmlDocument != null )
             {
-                return new HtmlParser( htmlDocument, format );
+                return new HtmlParser( htmlDocument, descriptor );
             }
 
             var textDocument = document as TextDocument;
             if( textDocument != null )
             {
-                return new TextParser( textDocument, format );
+                return new TextParser( textDocument, descriptor );
             }
 
             throw new NotSupportedException( "Unable to find parser for document type: " + document.GetType() );

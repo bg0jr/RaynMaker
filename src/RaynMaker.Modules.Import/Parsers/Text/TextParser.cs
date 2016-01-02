@@ -9,32 +9,32 @@ namespace RaynMaker.Modules.Import.Parsers.Text
     class TextParser : IDocumentParser
     {
         private TextDocument myDocument;
-        private IFigureDescriptor myFormat;
+        private IFigureDescriptor myDescriptor;
 
-        public TextParser( TextDocument textDocument, IFigureDescriptor format )
+        public TextParser( TextDocument textDocument, IFigureDescriptor descriptor )
         {
             myDocument = textDocument;
-            myFormat = format;
+            myDescriptor = descriptor;
         }
 
         public DataTable ExtractTable()
         {
-            SeparatorSeriesDescriptor separatorSeriesFormat = myFormat as SeparatorSeriesDescriptor;
-            CsvDescriptor csvFormat = myFormat as CsvDescriptor;
+            SeparatorSeriesDescriptor separatorSeriesDescriptor = myDescriptor as SeparatorSeriesDescriptor;
+            CsvDescriptor csvDescriptor = myDescriptor as CsvDescriptor;
 
-            if( csvFormat != null )
+            if( csvDescriptor != null )
             {
-                DataTable result = CsvReader.Read( myDocument.Location.LocalPath, csvFormat.Separator );
-                return TableFormatter.ToFormattedTable( csvFormat, result );
+                DataTable result = CsvReader.Read( myDocument.Location.LocalPath, csvDescriptor.Separator );
+                return TableFormatter.ToFormattedTable( csvDescriptor, result );
             }
-            else if( separatorSeriesFormat != null )
+            else if( separatorSeriesDescriptor != null )
             {
-                DataTable result = CsvReader.Read( myDocument.Location.LocalPath, separatorSeriesFormat.Separator );
-                return TableFormatter.ToFormattedTable( separatorSeriesFormat, result );
+                DataTable result = CsvReader.Read( myDocument.Location.LocalPath, separatorSeriesDescriptor.Separator );
+                return TableFormatter.ToFormattedTable( separatorSeriesDescriptor, result );
             }
             else
             {
-                throw new NotSupportedException( "Format not supported for text files: " + myFormat.GetType() );
+                throw new NotSupportedException( "Format not supported for text files: " + myDescriptor.GetType() );
             }
         }
     }
