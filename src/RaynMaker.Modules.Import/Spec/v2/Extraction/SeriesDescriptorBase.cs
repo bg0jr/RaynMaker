@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -17,17 +18,17 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         private FormatColumn myValueFormat;
         private ISeriesLocator myTimesLocator;
         private FormatColumn myTimeFormat;
-        
+
         protected SeriesDescriptorBase()
         {
-            Excludes = new List<int>();
+            Excludes = new ObservableCollection<int>();
         }
 
         [DataMember]
         public SeriesOrientation Orientation
-                {
-                    get { return myOrientation; }
-                    set { SetProperty( ref myOrientation, value ); }
+        {
+            get { return myOrientation; }
+            set { SetProperty( ref myOrientation, value ); }
         }
 
         /// <summary>
@@ -36,7 +37,7 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         /// </summary>
         [Required, ValidateObject]
         [DataMember]
-        public ISeriesLocator ValuesLocator 
+        public ISeriesLocator ValuesLocator
         {
             get { return myValuesLocator; }
             set { SetProperty( ref myValuesLocator, value ); }
@@ -44,7 +45,7 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
 
         [Required, ValidateObject]
         [DataMember]
-        public FormatColumn ValueFormat 
+        public FormatColumn ValueFormat
         {
             get { return myValueFormat; }
             set { SetProperty( ref myValueFormat, value ); }
@@ -56,7 +57,7 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         /// </summary>
         [ValidateObject]
         [DataMember]
-        public ISeriesLocator TimesLocator 
+        public ISeriesLocator TimesLocator
         {
             get { return myTimesLocator; }
             set { SetProperty( ref myTimesLocator, value ); }
@@ -64,7 +65,7 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
 
         [ValidateObject]
         [DataMember]
-        public FormatColumn TimeFormat 
+        public FormatColumn TimeFormat
         {
             get { return myTimeFormat; }
             set { SetProperty( ref myTimeFormat, value ); }
@@ -77,7 +78,7 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         private void OnDeserialized( StreamingContext context )
         {
             // make writeable again
-            Excludes = Excludes.ToList();
+            Excludes = new ObservableCollection<int>( Excludes );
         }
     }
 }

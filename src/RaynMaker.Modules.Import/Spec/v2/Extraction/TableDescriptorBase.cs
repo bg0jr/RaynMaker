@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.Serialization;
-using Plainion;
 using Plainion.Validation;
 
 namespace RaynMaker.Modules.Import.Spec.v2.Extraction
@@ -15,9 +14,9 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
     {
         protected TableDescriptorBase()
         {
-            Columns = new List<FormatColumn>();
-            SkipColumns = new List<int>();
-            SkipRows = new List<int>();
+            Columns = new ObservableCollection<FormatColumn>();
+            SkipColumns = new ObservableCollection<int>();
+            SkipRows = new ObservableCollection<int>();
         }
 
         [CollectionNotEmpty, ValidateObject]
@@ -34,9 +33,9 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         private void OnDeserialized( StreamingContext context )
         {
             // make writeable again
-            Columns = Columns.ToList();
-            SkipRows = SkipRows.ToList();
-            SkipColumns = SkipColumns.ToList();
+            Columns = new ObservableCollection<FormatColumn>( Columns );
+            SkipRows = new ObservableCollection<int>( SkipRows );
+            SkipColumns = new ObservableCollection<int>( SkipColumns );
         }
     }
 }
