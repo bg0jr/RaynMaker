@@ -12,11 +12,6 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "FormatColumn" )]
     public class FormatColumn : ValueFormat
     {
-        public FormatColumn( string name )
-            : this( name, typeof( string ), null )
-        {
-        }
-
         public FormatColumn( string name, Type type )
             : this( name, type, null )
         {

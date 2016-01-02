@@ -31,8 +31,8 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             SelectedDatum = Datums.FirstOrDefault( d => d.Name == Format.Figure );
             Path = Format.Path;
             SkipValues = string.Join( ",", format.Excludes );
-            TimeFormat = Format.TimeFormat ?? new FormatColumn( "time" );
-            ValueFormat = Format.ValueFormat ?? new FormatColumn( "value" );
+            TimeFormat = Format.TimeFormat ?? new FormatColumn( "time", typeof( int ) );
+            ValueFormat = Format.ValueFormat ?? new FormatColumn( "value", typeof( double ) );
             InMillions = Format.InMillions;
 
             ColumnHeaderRow = ( format.Orientation == SeriesOrientation.Row ? Format.TimesLocator.HeaderSeriesPosition : Format.ValuesLocator.HeaderSeriesPosition ).ToString();

@@ -18,16 +18,6 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         private string myFormat;
         private Type myType;
 
-        public ValueFormat()
-            : this( typeof( string ), null )
-        {
-        }
-
-        public ValueFormat( Regex extractionPattern )
-            : this( typeof( string ), null, extractionPattern )
-        {
-        }
-
         public ValueFormat( Type type )
             : this( type, null )
         {
@@ -40,9 +30,11 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
 
         public ValueFormat( Type type, string format, Regex extractionPattern )
         {
-            ExtractionPattern = extractionPattern;
+            Contract.RequiresNotNull( type, "type" );
+
+            Type = type;
             Format = format;
-            Type = ( type != null ? type : typeof( string ) );
+            ExtractionPattern = extractionPattern;
         }
 
         /// <summary>

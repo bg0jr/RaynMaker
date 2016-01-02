@@ -11,11 +11,11 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var format = new CsvDescriptor( "dummy", ";",
+            var descriptor = new CsvDescriptor( "dummy", ";",
                 new FormatColumn( "c1", typeof( double ), "0.00" ),
                 new FormatColumn( "c2", typeof( string ), "" ) );
 
-            var clone = FormatFactory.Clone( format );
+            var clone = FormatFactory.Clone( descriptor );
 
             Assert.That( clone.Separator, Is.EqualTo( ";" ) );
 
@@ -26,11 +26,11 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Validate_IsValid_DoesNotThrows()
         {
-            var format = new CsvDescriptor( "dummy", ";",
+            var descriptor = new CsvDescriptor( "dummy", ";",
                 new FormatColumn( "c1", typeof( double ), "0.00" ),
                 new FormatColumn( "c2", typeof( string ), "" ) );
 
-            RecursiveValidator.Validate( format );
+            RecursiveValidator.Validate( descriptor );
         }
 
         [Test]

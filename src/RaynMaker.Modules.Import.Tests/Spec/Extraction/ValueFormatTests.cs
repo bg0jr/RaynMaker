@@ -34,7 +34,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void ConvertString()
         {
-            var format = new ValueFormat();
+            var format = new ValueFormat( typeof( string ) );
             object value = format.Convert( "hiho" );
 
             Assert.AreEqual( "hiho", value );

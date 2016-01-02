@@ -14,10 +14,10 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
             Figure = figure;
         }
 
-        [Required]
+        [Required( AllowEmptyStrings = false )]
         [DataMember]
         public string Figure { get; set; }
-    
+
         [DataMember]
         public bool InMillions { get; set; }
     }

@@ -1,5 +1,7 @@
-﻿using System.Runtime.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 using NUnit.Framework;
+using Plainion.Validation;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 using RaynMaker.Modules.Import.UnitTests;
 
@@ -8,10 +10,10 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
     [TestFixture]
     public class FigureDescriptorBaseTests
     {
-        [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "DummyFormat" )]
-        private class DummyFormat : FigureDescriptorBase
+        [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "DummyDesciptor" )]
+        private class DummyDesciptor : FigureDescriptorBase
         {
-            public DummyFormat()
+            public DummyDesciptor()
                 : base( "dummy" )
             {
             }
@@ -20,14 +22,35 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var format = new DummyFormat();
-            format.Figure = "blue";
-            format.InMillions = true;
+            var descriptor = new DummyDesciptor();
+            descriptor.Figure = "blue";
+            descriptor.InMillions = true;
 
-            var clone = FormatFactory.Clone( format );
+            var clone = FormatFactory.Clone( descriptor );
 
-            Assert.That( clone.Figure, Is.EqualTo( format.Figure ) );
-            Assert.That( clone.InMillions, Is.EqualTo( format.InMillions ) );
+            Assert.That( clone.Figure, Is.EqualTo( descriptor.Figure ) );
+            Assert.That( clone.InMillions, Is.EqualTo( descriptor.InMillions ) );
+        }
+
+        [Test]
+        public void Validate_IsValid_DoesNotThrows()
+        {
+            var descriptor = new DummyDesciptor();
+            descriptor.Figure = "blue";
+            descriptor.InMillions = true;
+
+            RecursiveValidator.Validate( descriptor );
+        }
+
+        [Test]
+        public void Validate_InvalidFigure_Throws( [Values( null, "" )]string figure )
+        {
+            var descriptor = new DummyDesciptor();
+            descriptor.Figure = figure;
+            descriptor.InMillions = true;
+
+            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
+            Assert.That( ex.Message, Is.StringContaining( "The Figure field is required" ) );
         }
     }
 }

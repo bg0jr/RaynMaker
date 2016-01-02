@@ -44,7 +44,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             // first set properties without side-effects to others
             SelectedDatum = Datums.FirstOrDefault( d => d.Name == Format.Figure );
             Path = Format.Path;
-            ValueFormat = Format.ValueFormat ?? new ValueFormat();
+            ValueFormat = Format.ValueFormat ?? new ValueFormat( typeof( double ) );
             SelectedCurrency = myLutService.CurrenciesLut.Currencies.SingleOrDefault( c => c.Symbol == format.Currency );
 
             if( format.Column != null )
