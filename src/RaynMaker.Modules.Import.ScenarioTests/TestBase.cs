@@ -22,15 +22,6 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
         protected string TestDataRoot { get; private set; }
 
-        protected string DumpSpec<T>( T obj )
-        {
-            using( var writer = new StringWriter() )
-            {
-                FigureDescriptorFactory.Dump( writer, obj );
-                return writer.ToString();
-            }
-        }
-
         protected T LoadDocument<T>( string name ) where T : IDocument
         {
             var file = Path.Combine( TestDataRoot, name );

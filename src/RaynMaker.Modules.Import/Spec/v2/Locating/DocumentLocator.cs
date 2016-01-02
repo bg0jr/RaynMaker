@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -18,22 +19,20 @@ namespace RaynMaker.Modules.Import.Spec.v2.Locating
         }
 
         public DocumentLocator( params DocumentLocationFragment[] fragments )
-            : this( fragments.ToList() )
+            : this( ( IEnumerable<DocumentLocationFragment> )fragments )
         {
         }
 
         public DocumentLocator( IEnumerable<DocumentLocationFragment> fragments )
         {
-            Contract.RequiresNotNullNotEmpty( fragments, "fragments" );
+            Contract.RequiresNotNull( fragments, "fragments" );
 
-            Fragments = fragments.ToList();
-
-            FragmentsHashCode = CreateUrisHashCode();
+            Fragments = new ObservableCollection<DocumentLocationFragment>( fragments );
         }
 
-        private int CreateUrisHashCode()
+        public int GetFragmentsHashCode()
         {
-            var fragmentStrings = Fragments.Select( fragment => fragment.UrlString ).ToArray();
+            var fragmentStrings = Fragments.Select( fragment => fragment.UrlString );
             var hashCodeString = string.Join( string.Empty, fragmentStrings );
 
             return hashCodeString.GetHashCode();
@@ -41,9 +40,6 @@ namespace RaynMaker.Modules.Import.Spec.v2.Locating
 
         [DataMember]
         public IList<DocumentLocationFragment> Fragments { get; private set; }
-
-        [DataMember]
-        public int FragmentsHashCode { get; private set; }
 
         // required also for be addable to Exception.Data
         public override string ToString()
@@ -56,6 +52,13 @@ namespace RaynMaker.Modules.Import.Spec.v2.Locating
             }
 
             return sb.ToString();
+        }
+
+        [OnDeserialized]
+        private void OnDeserialized( StreamingContext context )
+        {
+            // make writeable again
+            Fragments = new ObservableCollection<DocumentLocationFragment>( Fragments );
         }
     }
 }

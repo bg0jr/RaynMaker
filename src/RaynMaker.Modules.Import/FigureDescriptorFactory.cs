@@ -59,21 +59,5 @@ namespace RaynMaker.Modules.Import
                 return serializer.Read<T>( stream );
             }
         }
-
-        public static void Dump<T>( TextWriter writer, T obj )
-        {
-            Contract.RequiresNotNull( obj, "obj" );
-
-            var settings = new XmlWriterSettings
-            {
-                Indent = true
-            };
-
-            using( var xmlWriter = XmlWriter.Create( writer, settings ) )
-            {
-                var serializer = new ImportSpecSerializer { EnableValidation = false };
-                serializer.Write( xmlWriter, obj );
-            }
-        }
     }
 }
