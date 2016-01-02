@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using Plainion;
 
 namespace RaynMaker.Modules.Import.Spec.v2.Locating
 {
@@ -15,17 +16,21 @@ namespace RaynMaker.Modules.Import.Spec.v2.Locating
 
         protected DocumentLocationFragment( Uri url )
         {
+            Contract.RequiresNotNull( url, "url" );
+
             myUrl = url;
             UrlString = url.ToString();
         }
 
         protected DocumentLocationFragment( string url )
         {
+            Contract.RequiresNotNullNotEmpty( url, "url" );
+
             UrlString = url;
         }
 
         [DataMember( Name = "Url" )]
-        public string UrlString { get; set; }
+        public string UrlString { get; private set; }
 
         public Uri Url
         {

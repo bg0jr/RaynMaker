@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using Plainion;
 
 namespace RaynMaker.Modules.Import.Spec.v2.Locating
 {
@@ -12,6 +13,8 @@ namespace RaynMaker.Modules.Import.Spec.v2.Locating
         public SubmitFormular( string url, Formular form )
             : base( url )
         {
+            Contract.RequiresNotNull( form, "form" );
+
             Formular = form;
         }
 
@@ -21,6 +24,8 @@ namespace RaynMaker.Modules.Import.Spec.v2.Locating
         public SubmitFormular( Uri url, Formular form )
             : base( url )
         {
+            Contract.RequiresNotNull( form, "form" );
+            
             Formular = form;
         }
 

@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Plainion.Validation;
 using RaynMaker.Modules.Import.Spec.v2.Locating;
 
 namespace RaynMaker.Modules.Import.UnitTests.Spec.Locating
@@ -9,11 +10,19 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Locating
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var navi = new Request( "http://test1.org" );
+            var fragment = new Request( "http://test1.org" );
 
-            var clone = FigureDescriptorFactory.Clone( navi );
+            var clone = FigureDescriptorFactory.Clone( fragment );
 
             Assert.That( clone.UrlString, Is.EqualTo( "http://test1.org" ) );
+        }
+
+        [Test]
+        public void Validate_IsValid_DoesNotThrows()
+        {
+            var fragment = new Request( "http://www.me.com" );
+
+            RecursiveValidator.Validate( fragment );
         }
     }
 }

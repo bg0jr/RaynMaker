@@ -24,7 +24,7 @@ namespace RaynMaker.Modules.Import.Spec.v2
         }
 
         // e.g. Ariva
-        [Required]
+        [Required(AllowEmptyStrings=false)]
         [DataMember]
         public string Vendor
         {
@@ -33,7 +33,7 @@ namespace RaynMaker.Modules.Import.Spec.v2
         }
 
         // e.g. Fundamentals
-        [Required]
+        [Required( AllowEmptyStrings = false )]
         [DataMember]
         public string Name
         {
@@ -41,7 +41,7 @@ namespace RaynMaker.Modules.Import.Spec.v2
             set { SetProperty( ref myName, value ); }
         }
 
-        [Required]
+        [Range( 0, int.MaxValue )]
         [DataMember]
         public int Quality
         {
@@ -49,6 +49,7 @@ namespace RaynMaker.Modules.Import.Spec.v2
             set { SetProperty( ref myQuality, value ); }
         }
 
+        [DocumentTypeNotNone]
         [DataMember]
         public DocumentType DocumentType
         {

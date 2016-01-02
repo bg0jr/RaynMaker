@@ -34,11 +34,6 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             }
         }
 
-        public Uri CreateSubmitUrl()
-        {
-            return CreateSubmitUrl( Formular.Empty );
-        }
-
         public Uri CreateSubmitUrl( Formular formular )
         {
             var builder = new UriBuilder();

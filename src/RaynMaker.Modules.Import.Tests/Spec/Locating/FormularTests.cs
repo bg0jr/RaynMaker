@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using Plainion.Validation;
 using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2.Locating;
 
@@ -18,6 +19,21 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Locating
 
             Assert.That( clone.Name, Is.EqualTo( "dummy.f1" ) );
             Assert.That( clone.Parameters[ "p1" ], Is.EqualTo( "v1" ) );
+        }
+
+        [Test]
+        public void Validate_IsValid_DoesNotThrows()
+        {
+            var form = new Formular( "dummy.f1" );
+
+            RecursiveValidator.Validate( form );
+        }
+
+        [Test]
+        public void Ctor_UrlStringIsNullOrEmpty_Throws( [Values( null, "" )] string name )
+        {
+            var ex = Assert.Throws<ArgumentNullException>( () => new Formular( name ) );
+            Assert.That( ex.Message, Is.StringContaining( "string must not null or empty: name" ) );
         }
     }
 }

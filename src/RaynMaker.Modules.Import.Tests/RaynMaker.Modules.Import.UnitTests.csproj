@@ -46,6 +46,7 @@
     <Compile Include="Spec\Extraction\PathTableDescriptorTests.cs" />
     <Compile Include="Spec\Extraction\PathSingleValueDescriptorTests.cs" />
     <Compile Include="Spec\Extraction\PathCellDescriptorTests.cs" />
+    <Compile Include="Spec\Locating\DocumentLocationFragmentTests.cs" />
     <Compile Include="Spec\Locating\SubmitFormularTests.cs" />
     <Compile Include="Spec\Locating\ResponseTests.cs" />
     <Compile Include="Spec\Locating\RequestTests.cs" />

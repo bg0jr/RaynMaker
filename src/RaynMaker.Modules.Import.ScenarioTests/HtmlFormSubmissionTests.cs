@@ -20,16 +20,6 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         }
         
         [Test]
-        public void CreateSubmitUrl_EmptyFormular()
-        {
-            var form = myDocument.GetFormByName( "histcsv" );
-
-            var submitUrl = form.CreateSubmitUrl();
-
-            Assert.That( submitUrl.AbsoluteUri, Is.EqualTo( "file:///quote/historic/historic.csv?secu=292&boerse_id=6&clean_split=1&clean_payout=0&clean_bezug=0&min_time=25.2.2011&max_time=25.2.2012&trenner=%3b" ) );
-        }
-
-        [Test]
         public void CreateSubmitUrl_FilledFormular()
         {
             var form = myDocument.GetFormByName( "histcsv" );

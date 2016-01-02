@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Plainion;
 
 namespace RaynMaker.Modules.Import.Spec.v2.Locating
 {
@@ -11,8 +12,6 @@ namespace RaynMaker.Modules.Import.Spec.v2.Locating
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "Formular" )]
     public class Formular
     {
-        public static Formular Empty = new Formular( string.Empty );
-
         public Formular( string name )
             : this( name, new Tuple<string, string>[] { } )
         {
@@ -20,6 +19,8 @@ namespace RaynMaker.Modules.Import.Spec.v2.Locating
 
         public Formular( string name, params Tuple<string, string>[] parameters )
         {
+            Contract.RequiresNotNullNotEmpty( name, "name" );
+
             Name = name;
             Parameters = new Dictionary<string, string>();
 
