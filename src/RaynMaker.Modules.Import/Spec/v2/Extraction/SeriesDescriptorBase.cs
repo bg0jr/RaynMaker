@@ -12,13 +12,23 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "SeriesDescriptorBase" )]
     public abstract class SeriesDescriptorBase : FigureDescriptorBase
     {
+        private SeriesOrientation myOrientation;
+        private ISeriesLocator myValuesLocator;
+        private FormatColumn myValueFormat;
+        private ISeriesLocator myTimesLocator;
+        private FormatColumn myTimeFormat;
+        
         protected SeriesDescriptorBase()
         {
             Excludes = new List<int>();
         }
 
         [DataMember]
-        public SeriesOrientation Orientation { get; set; }
+        public SeriesOrientation Orientation
+                {
+                    get { return myOrientation; }
+                    set { SetProperty( ref myOrientation, value ); }
+        }
 
         /// <summary>
         /// Describes the position of the values within a table.
@@ -26,11 +36,19 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         /// </summary>
         [Required, ValidateObject]
         [DataMember]
-        public ISeriesLocator ValuesLocator { get; set; }
+        public ISeriesLocator ValuesLocator 
+        {
+            get { return myValuesLocator; }
+            set { SetProperty( ref myValuesLocator, value ); }
+        }
 
         [Required, ValidateObject]
         [DataMember]
-        public FormatColumn ValueFormat { get; set; }
+        public FormatColumn ValueFormat 
+        {
+            get { return myValueFormat; }
+            set { SetProperty( ref myValueFormat, value ); }
+        }
 
         /// <summary>
         /// Describes the position of the times within a table.
@@ -38,11 +56,19 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         /// </summary>
         [ValidateObject]
         [DataMember]
-        public ISeriesLocator TimesLocator { get; set; }
+        public ISeriesLocator TimesLocator 
+        {
+            get { return myTimesLocator; }
+            set { SetProperty( ref myTimesLocator, value ); }
+        }
 
         [ValidateObject]
         [DataMember]
-        public FormatColumn TimeFormat { get; set; }
+        public FormatColumn TimeFormat 
+        {
+            get { return myTimeFormat; }
+            set { SetProperty( ref myTimeFormat, value ); }
+        }
 
         [DataMember]
         public IList<int> Excludes { get; private set; }

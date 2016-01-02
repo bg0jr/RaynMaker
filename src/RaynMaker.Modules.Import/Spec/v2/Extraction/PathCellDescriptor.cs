@@ -11,26 +11,52 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "PathCellDescriptor" )]
     public class PathCellDescriptor : FigureDescriptorBase
     {
+        private string myPath;
+        private ISeriesLocator myColumn;
+        private ISeriesLocator myRow;
+        private ValueFormat myValueFormat;
+        private string myCurrency;
+
         /// <summary>
         /// Gets or sets the path within the document to the table.
         /// </summary>
         [Required( AllowEmptyStrings = false )]
         [DataMember]
-        public string Path { get; set; }
+        public string Path
+        {
+            get { return myPath; }
+            set { SetProperty( ref myPath, value ); }
+        }
 
         [Required, ValidateObject]
         [DataMember]
-        public ISeriesLocator Column { get; set; }
+        public ISeriesLocator Column
+        {
+            get { return myColumn; }
+            set { SetProperty( ref myColumn, value ); }
+        }
 
         [Required, ValidateObject]
         [DataMember]
-        public ISeriesLocator Row { get; set; }
+        public ISeriesLocator Row
+        {
+            get { return myRow; }
+            set { SetProperty( ref myRow, value ); }
+        }
 
         [Required, ValidateObject]
         [DataMember]
-        public ValueFormat ValueFormat { get; set; }
+        public ValueFormat ValueFormat
+        {
+            get { return myValueFormat; }
+            set { SetProperty( ref myValueFormat, value ); }
+        }
 
         [DataMember]
-        public string Currency { get; set; }
+        public string Currency
+        {
+            get { return myCurrency; }
+            set { SetProperty( ref myCurrency, value ); }
+        }
     }
 }

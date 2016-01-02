@@ -11,11 +11,17 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "PathTableDescriptor" )]
     public class PathTableDescriptor : TableDescriptorBase
     {
+        private string myPath;
+
         /// <summary>
         /// Gets or sets the path within the document to the table.
         /// </summary>
         [Required( AllowEmptyStrings = false )]
         [DataMember]
-        public string Path { get; set; }
+        public string Path
+        {
+            get { return myPath; }
+            set { SetProperty( ref myPath, value ); }
+        }
     }
 }

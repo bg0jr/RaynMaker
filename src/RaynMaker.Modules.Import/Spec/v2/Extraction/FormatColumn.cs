@@ -11,6 +11,8 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "FormatColumn" )]
     public class FormatColumn : ValueFormat
     {
+        private string myName;
+
         public FormatColumn()
         {
         }
@@ -28,6 +30,10 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
 
         [Required( AllowEmptyStrings = false )]
         [DataMember]
-        public string Name { get; set; }
+        public string Name
+        {
+            get { return myName; }
+            set { SetProperty( ref myName, value ); }
+        }
     }
 }

@@ -10,11 +10,17 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "SeparatorSeriesDescriptor" )]
     public class SeparatorSeriesDescriptor : SeriesDescriptorBase
     {
+        private string mySeparator;
+
         /// <summary>
         /// Cell separator used in the file.
         /// </summary>
         [Required( AllowEmptyStrings = false )]
         [DataMember]
-        public string Separator { get; set; }
+        public string Separator
+        {
+            get { return mySeparator; }
+            set { SetProperty( ref mySeparator, value ); }
+        }
     }
 }
