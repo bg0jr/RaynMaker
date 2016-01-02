@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using NUnit.Framework;
 using Plainion.Validation;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
-using RaynMaker.Modules.Import.UnitTests;
+using RaynMaker.SDK;
 
 namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 {
@@ -18,6 +18,48 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             }
         }
 
+        [Test]
+        public void Figure_Set_ValueIsSet()
+        {
+            var descriptor = new DummyDesciptor();
+
+            descriptor.Figure = "EPS";
+
+            Assert.That( descriptor.Figure, Is.EqualTo( "EPS" ) );
+        }
+
+        [Test]
+        public void Figure_Set_ChangeIsNotified()
+        {
+            var descriptor = new DummyDesciptor();
+            var counter = new PropertyChangedCounter( descriptor );
+
+            descriptor.Figure = "EPS";
+
+            Assert.That( counter.GetCount( () => descriptor.Figure ), Is.EqualTo( 1 ) );
+        }
+
+        [Test]
+        public void InMillions_Set_ValueIsSet()
+        {
+            var descriptor = new DummyDesciptor();
+
+            descriptor.InMillions = true;
+
+            Assert.That( descriptor.InMillions, Is.True );
+        }
+
+        [Test]
+        public void InMillions_Set_ChangeIsNotified()
+        {
+            var descriptor = new DummyDesciptor();
+            var counter = new PropertyChangedCounter( descriptor );
+
+            descriptor.InMillions = true;
+
+            Assert.That( counter.GetCount( () => descriptor.InMillions ), Is.EqualTo( 1 ) );
+        }
+        
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {

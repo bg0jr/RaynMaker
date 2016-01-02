@@ -1,7 +1,8 @@
-﻿using System;
+﻿using System.ComponentModel.DataAnnotations;
 using NUnit.Framework;
 using Plainion.Validation;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
+using RaynMaker.SDK;
 
 namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 {
@@ -9,19 +10,39 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
     public class CsvDescriptorTests
     {
         [Test]
+        public void Separator_Set_ValueIsSet()
+        {
+            var descriptor = new CsvDescriptor();
+
+            descriptor.Separator = ";";
+
+            Assert.That( descriptor.Separator, Is.EqualTo( ";" ) );
+        }
+
+        [Test]
+        public void Separator_Set_ChangeIsNotified()
+        {
+            var descriptor = new CsvDescriptor();
+            var counter = new PropertyChangedCounter( descriptor );
+
+            descriptor.Separator = ";";
+
+            Assert.That( counter.GetCount( () => descriptor.Separator ), Is.EqualTo( 1 ) );
+        }
+        
+        [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
             var descriptor = new CsvDescriptor();
             descriptor.Figure = "dummy";
+            descriptor.Separator = ";";
             descriptor.Columns.Add( new FormatColumn( "c1", typeof( double ), "0.00" ) );
-            descriptor.Columns.Add( new FormatColumn( "c2", typeof( string ), "" ) );
 
             var clone = FigureDescriptorFactory.Clone( descriptor );
 
             Assert.That( clone.Separator, Is.EqualTo( ";" ) );
 
             Assert.That( clone.Columns[ 0 ].Name, Is.EqualTo( "c1" ) );
-            Assert.That( clone.Columns[ 1 ].Name, Is.EqualTo( "c2" ) );
         }
 
         [Test]
@@ -29,18 +50,34 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         {
             var descriptor = new CsvDescriptor();
             descriptor.Figure = "dummy";
+            descriptor.Separator = ";";
             descriptor.Columns.Add( new FormatColumn( "c1", typeof( double ), "0.00" ) );
-            descriptor.Columns.Add( new FormatColumn( "c2", typeof( string ), "" ) );
 
             RecursiveValidator.Validate( descriptor );
         }
 
         [Test]
-        public void Ctor_InvalidSeparator_Throws( [Values( null, "" )]string separator )
+        public void Validate_SeparatorNull_Throws()
         {
-            var ex = Assert.Throws<ArgumentNullException>( () => new CsvDescriptor() );
+            var descriptor = new CsvDescriptor();
+            descriptor.Figure = "dummy";
+            descriptor.Separator = null;
+            descriptor.Columns.Add( new FormatColumn( "c1", typeof( double ), "0.00" ) );
 
-            Assert.That( ex.Message, Is.StringContaining( "string must not null or empty: sep" ) );
+            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
+            Assert.That( ex.Message, Is.StringContaining( "Separator field is required" ) );
+        }
+
+        [Test]
+        public void Validate_ColumnsEmpty_Throws()
+        {
+            var descriptor = new CsvDescriptor();
+            descriptor.Figure = "dummy";
+            descriptor.Separator = ";";
+            descriptor.Columns.Clear();
+
+            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
+            Assert.That( ex.Message, Is.StringContaining( "Columns must not be empty" ) );
         }
     }
 }

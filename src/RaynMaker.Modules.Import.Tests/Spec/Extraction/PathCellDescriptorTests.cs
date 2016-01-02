@@ -13,7 +13,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var descriptor = new PathCellDescriptor(  );
+            var descriptor = new PathCellDescriptor();
             descriptor.Path = "123";
             descriptor.Column = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 4 };
             descriptor.Row = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 23 };
