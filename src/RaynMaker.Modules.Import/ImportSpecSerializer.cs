@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml;
 using Plainion.Validation;
+using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2;
-using RaynMaker.Modules.Import.Spec.v2.Locating;
 
 namespace RaynMaker.Modules.Import
 {
@@ -22,10 +21,18 @@ namespace RaynMaker.Modules.Import
 
         public bool EnableValidation { get; set; }
 
+        public DataSourcesSheet ReadCompatible( Stream stream )
+        {
+            var serializer = CreateSerializer( typeof( DataSourcesSheet ) );
+            var sheet = ( DataSourcesSheet )serializer.ReadObject( stream );
+
+            return SpecMigration.Migrate( sheet );
+        }
+
         public T Read<T>( Stream stream )
         {
             var serializer = CreateSerializer( typeof( T ) );
-            return ( T )serializer.ReadObject( stream );
+            return (T)serializer.ReadObject( stream );
         }
 
         private static DataContractSerializer CreateSerializer( Type root )

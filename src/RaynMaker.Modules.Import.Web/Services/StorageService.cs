@@ -29,7 +29,7 @@ namespace RaynMaker.Modules.Import.Web.Services
                 {
                     var serializer = new ImportSpecSerializer();
                     var sheet = serializer.Read<DataSourcesSheet>( stream );
-                    return sheet.Sources;
+                    return sheet.GetSources<DataSource>();
                 }
             }
 
@@ -39,7 +39,7 @@ namespace RaynMaker.Modules.Import.Web.Services
         public void Store( IEnumerable<DataSource> sources )
         {
             var sheet = new DataSourcesSheet();
-            sheet.Sources = sources;
+            sheet.SetSources( sources );
 
             var file = Path.Combine( myProjectHost.Project.StorageRoot, "DataSources.xdb" );
             using( var stream = new FileStream( file, FileMode.Create, FileAccess.Write ) )

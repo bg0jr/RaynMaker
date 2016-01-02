@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using NUnit.Framework;
 using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2;
@@ -16,8 +17,11 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             {
                 var serializer = new ImportSpecSerializer();
 
-                var dataSource = serializer.Read<DataSource>( stream );
+                var sheet = serializer.ReadCompatible( stream );
 
+                var dataSource = sheet.GetSources<DataSource>().First();
+
+                // TODO: validate more
                 Assert.That( dataSource.Vendor, Is.EqualTo( "Ariva" ) );
                 Assert.That( dataSource.Location.Fragments[ 0 ].UrlString, Is.EqualTo( "http://www.ariva.de/search/search.m?searchname=${Isin}" ) );
                 Assert.That( dataSource.Figures[ 0 ].Figure, Is.EqualTo( "Dividend" ) );
