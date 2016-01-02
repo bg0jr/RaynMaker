@@ -4,12 +4,55 @@ using NUnit.Framework;
 using Plainion.Validation;
 using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
+using RaynMaker.SDK;
 
 namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 {
     [TestFixture]
     public class PathSingleValueDescriptorTests
     {
+        [Test]
+        public void Path_Set_ValueIsSet()
+        {
+            var descriptor = new PathSingleValueDescriptor();
+
+            descriptor.Path = "123";
+
+            Assert.That( descriptor.Path, Is.EqualTo( "123" ) );
+        }
+
+        [Test]
+        public void Path_Set_ChangeIsNotified()
+        {
+            var descriptor = new PathSingleValueDescriptor();
+            var counter = new PropertyChangedCounter( descriptor );
+
+            descriptor.Path = "123";
+
+            Assert.That( counter.GetCount( () => descriptor.Path ), Is.EqualTo( 1 ) );
+        }
+
+        [Test]
+        public void ValueFormat_Set_ValueIsSet()
+        {
+            var descriptor = new PathSingleValueDescriptor();
+
+            descriptor.ValueFormat = new ValueFormat( typeof( double ), "0.00" );
+
+            Assert.That( descriptor.ValueFormat.Format, Is.EqualTo( "0.00" ) );
+        }
+
+        [Test]
+        public void ValueFormat_Set_ChangeIsNotified()
+        {
+            var descriptor = new PathSingleValueDescriptor();
+            var counter = new PropertyChangedCounter( descriptor );
+
+            descriptor.ValueFormat = new ValueFormat( typeof( double ), "0.00" );
+
+            Assert.That( counter.GetCount( () => descriptor.ValueFormat ), Is.EqualTo( 1 ) );
+        }
+        
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
@@ -27,6 +70,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         public void Validate_IsValid_DoesNotThrows()
         {
             var descriptor = new PathSingleValueDescriptor();
+            descriptor.Figure = "Price";
             descriptor.Path = "123";
             descriptor.ValueFormat = new FormatColumn( "values", typeof( double ), "0.00" );
 
@@ -37,6 +81,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         public void Validate_InvalidPath_Throws( [Values( null, "" )]string path )
         {
             var descriptor = new PathSingleValueDescriptor();
+            descriptor.Figure = "Price";
             descriptor.Path = path;
             descriptor.ValueFormat = new FormatColumn( "values", typeof( double ), "0.00" );
 
@@ -48,6 +93,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         public void Validate_MisingValueFormat_Throws()
         {
             var descriptor = new PathSingleValueDescriptor();
+            descriptor.Figure = "Price";
             descriptor.Path = "123";
             descriptor.ValueFormat = null;
 

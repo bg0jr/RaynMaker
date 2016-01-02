@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using NUnit.Framework;
 using Plainion.Validation;
-using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
+using RaynMaker.SDK;
 
 namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 {
@@ -17,6 +17,132 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             public DummyDescriptor()
             {
             }
+        }
+
+        [Test]
+        public void Orientation_Set_ValueIsSet()
+        {
+            var descriptor = new DummyDescriptor();
+
+            descriptor.Orientation = SeriesOrientation.Column;
+
+            Assert.That( descriptor.Orientation, Is.EqualTo( SeriesOrientation.Column ) );
+        }
+
+        [Test]
+        public void Orientation_Set_ChangeIsNotified()
+        {
+            var descriptor = new DummyDescriptor();
+            var counter = new PropertyChangedCounter( descriptor );
+
+            descriptor.Orientation = SeriesOrientation.Column;
+
+            Assert.That( counter.GetCount( () => descriptor.Orientation ), Is.EqualTo( 1 ) );
+        }
+
+        [Test]
+        public void ValuesLocator_Set_ValueIsSet()
+        {
+            var descriptor = new DummyDescriptor();
+
+            descriptor.ValuesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 7, SeriesPosition = 4 };
+
+            Assert.That( descriptor.ValuesLocator.HeaderSeriesPosition, Is.EqualTo( 7 ) );
+        }
+
+        [Test]
+        public void ValuesLocator_Set_ChangeIsNotified()
+        {
+            var descriptor = new DummyDescriptor();
+            var counter = new PropertyChangedCounter( descriptor );
+
+            descriptor.ValuesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 4 };
+
+            Assert.That( counter.GetCount( () => descriptor.ValuesLocator ), Is.EqualTo( 1 ) );
+        }
+
+        [Test]
+        public void ValueFormat_Set_ValueIsSet()
+        {
+            var descriptor = new DummyDescriptor();
+
+            descriptor.ValueFormat = new FormatColumn( "c1", typeof( double ), "0.00" );
+
+            Assert.That( descriptor.ValueFormat.Format, Is.EqualTo( "0.00" ) );
+        }
+
+        [Test]
+        public void ValueFormat_Set_ChangeIsNotified()
+        {
+            var descriptor = new DummyDescriptor();
+            var counter = new PropertyChangedCounter( descriptor );
+
+            descriptor.ValueFormat = new FormatColumn( "c1", typeof( double ), "0.00" );
+
+            Assert.That( counter.GetCount( () => descriptor.ValueFormat ), Is.EqualTo( 1 ) );
+        }
+
+        [Test]
+        public void TimesLocator_Set_TimeIsSet()
+        {
+            var descriptor = new DummyDescriptor();
+
+            descriptor.TimesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 7, SeriesPosition = 4 };
+
+            Assert.That( descriptor.TimesLocator.HeaderSeriesPosition, Is.EqualTo( 7 ) );
+        }
+
+        [Test]
+        public void TimesLocator_Set_ChangeIsNotified()
+        {
+            var descriptor = new DummyDescriptor();
+            var counter = new PropertyChangedCounter( descriptor );
+
+            descriptor.TimesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 4 };
+
+            Assert.That( counter.GetCount( () => descriptor.TimesLocator ), Is.EqualTo( 1 ) );
+        }
+
+        [Test]
+        public void TimeFormat_Set_TimeIsSet()
+        {
+            var descriptor = new DummyDescriptor();
+
+            descriptor.TimeFormat = new FormatColumn( "c1", typeof( double ), "0.00" );
+
+            Assert.That( descriptor.TimeFormat.Format, Is.EqualTo( "0.00" ) );
+        }
+
+        [Test]
+        public void TimeFormat_Set_ChangeIsNotified()
+        {
+            var descriptor = new DummyDescriptor();
+            var counter = new PropertyChangedCounter( descriptor );
+
+            descriptor.TimeFormat = new FormatColumn( "c1", typeof( double ), "0.00" );
+
+            Assert.That( counter.GetCount( () => descriptor.TimeFormat ), Is.EqualTo( 1 ) );
+        }
+
+        [Test]
+        public void Excludes_Add_ValueAdded()
+        {
+            var descriptor = new DummyDescriptor();
+
+            descriptor.Excludes.Add(11);
+
+            Assert.That( descriptor.Excludes, Contains.Item( 11 ) );
+        }
+
+        [Test]
+        public void Excludes_Add_ChangeIsNotified()
+        {
+            var descriptor = new DummyDescriptor();
+            var counter = new CollectionChangedCounter( descriptor.Excludes );
+
+            descriptor.Excludes.Add( 11 );
+
+            Assert.That( counter.Count, Is.EqualTo( 1 ) );
         }
 
         [Test]
@@ -55,6 +181,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         public void Validate_IsValid_DoesNotThrows()
         {
             var descriptor = new DummyDescriptor();
+            descriptor.Figure = "Equity";
             descriptor.ValuesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 4 };
             descriptor.ValueFormat = new FormatColumn( "values", typeof( double ), "0.00" );
 
