@@ -17,12 +17,13 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
         private SeparatorSeriesDescriptor CreateSeparatorSeriesDescriptor()
         {
-            var descriptor = new SeparatorSeriesDescriptor( "EarningsPerShare" );
+            var descriptor = new SeparatorSeriesDescriptor();
+            descriptor.Figure = "EarningsPerShare";
             descriptor.Separator = ";";
             descriptor.Orientation = SeriesOrientation.Row;
-            descriptor.ValuesLocator = new StringContainsLocator( 0, "EPS" );
-            descriptor.TimesLocator = new AbsolutePositionLocator( 0, 0 );
-            descriptor.Excludes = new int[] { 0, 1 };
+            descriptor.ValuesLocator = new StringContainsLocator { HeaderSeriesPosition = 0, Pattern = "EPS" };
+            descriptor.TimesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 0 };
+            descriptor.Excludes.AddRange( 0, 1 );
 
             return descriptor;
         }

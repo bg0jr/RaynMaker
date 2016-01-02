@@ -21,7 +21,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec
             dataSource.LocatingSpec = new DocumentLocator(
                 new Request( "http://test1.org" ),
                 new Response( "http://test2.org" ) );
-            dataSource.ExtractionSpec.Add( new CsvDescriptor( "dummy.csv", ";", new FormatColumn( "c1", typeof( double ), "0.00" ) ) );
+            dataSource.ExtractionSpec.Add( new CsvDescriptor { Figure = "dummy.csv" } );
 
             var clone = FigureDescriptorFactory.Clone( dataSource );
 
@@ -42,11 +42,11 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec
             dataSource.Vendor = "vendor";
             dataSource.Name = "name";
             dataSource.LocatingSpec = new DocumentLocator( new Request( "http://test1.org" ) );
-            dataSource.ExtractionSpec.Add( new CsvDescriptor( "dummy.csv", ";", new FormatColumn( "c1", typeof( double ), "0.00" ) ) );
+            dataSource.ExtractionSpec.Add( new CsvDescriptor { Figure = "dummy.csv" } );
 
             var clone = FigureDescriptorFactory.Clone( dataSource );
 
-            clone.ExtractionSpec.Add( new PathSeriesDescriptor( "dummy.series" ) );
+            clone.ExtractionSpec.Add( new PathSeriesDescriptor() );
 
             Assert.That( clone.ExtractionSpec[ 0 ].Figure, Is.EqualTo( "dummy.csv" ) );
             Assert.That( clone.ExtractionSpec[ 1 ].Figure, Is.EqualTo( "dummy.series" ) );
@@ -60,6 +60,12 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec
             dataSource.Name = "name";
             dataSource.DocumentType = DocumentType.Html;
             dataSource.LocatingSpec = new DocumentLocator( new Request( "http://test1.org" ) );
+
+            var descriptor = new CsvDescriptor();
+            descriptor.Figure = "dummy.csv";
+            descriptor.Separator = ";";
+            descriptor.Columns.Add( new FormatColumn( "c1", typeof( double ), "0.00" ) );
+            dataSource.ExtractionSpec.Add( descriptor );
 
             RecursiveValidator.Validate( dataSource );
         }

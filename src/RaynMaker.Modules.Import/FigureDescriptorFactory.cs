@@ -29,7 +29,7 @@ namespace RaynMaker.Modules.Import
 
         private static IFigureDescriptor CreatePathSeriesDescriptor()
         {
-            var desciptor = new PathSeriesDescriptor( string.Empty );
+            var desciptor = new PathSeriesDescriptor();
 
             desciptor.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000.0000" );
             desciptor.TimeFormat = new FormatColumn( "time", typeof( int ), "0000" );
@@ -39,7 +39,7 @@ namespace RaynMaker.Modules.Import
 
         private static IFigureDescriptor CreatePathCellDescriptor()
         {
-            var descriptor = new PathCellDescriptor( string.Empty );
+            var descriptor = new PathCellDescriptor();
 
             descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000.0000" );
 

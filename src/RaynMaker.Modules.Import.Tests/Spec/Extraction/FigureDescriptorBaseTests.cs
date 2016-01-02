@@ -14,7 +14,6 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         private class DummyDesciptor : FigureDescriptorBase
         {
             public DummyDesciptor()
-                : base( "dummy" )
             {
             }
         }

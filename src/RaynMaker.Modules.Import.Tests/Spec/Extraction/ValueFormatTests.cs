@@ -13,8 +13,8 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void EqualsAndHashCode()
         {
-            var format = new ValueFormat( typeof( int ), "000000", new Regex( @"WKN: ([\d]+)" ) );
-            var same = new ValueFormat( typeof( int ), "000000", new Regex( @"WKN: ([\d]+)" ) );
+            var format = new ValueFormat( typeof( int ), "000000" ) { ExtractionPattern = new Regex( @"WKN: ([\d]+)" ) };
+            var same = new ValueFormat( typeof( int ), "000000" ) { ExtractionPattern = new Regex( @"WKN: ([\d]+)" ) };
 
             Assert.IsTrue( format.Equals( same ) );
             Assert.IsTrue( format.Equals( ( object )same ) );
@@ -24,7 +24,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void EqualsAndHashCodeFailure()
         {
-            var format = new ValueFormat( typeof( int ), "000000", new Regex( @"WKN: ([\d]+)" ) );
+            var format = new ValueFormat( typeof( int ), "000000" ) { ExtractionPattern = new Regex( @"WKN: ([\d]+)" ) };
             var other = new ValueFormat( typeof( int ), "000000" );
 
             Assert.IsFalse( format.Equals( other ) );
@@ -44,7 +44,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void ConvertRegExString()
         {
-            var format = new ValueFormat( typeof( int ), "000000", new Regex( @"WKN: ([\d]+)" ) );
+            var format = new ValueFormat( typeof( int ), "000000" ) { ExtractionPattern = new Regex( @"WKN: ([\d]+)" ) };
             object value = format.Convert( "WKN: 850206" );
 
             Assert.AreEqual( 850206, ( int )value );
@@ -53,7 +53,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void ConvertCurrency()
         {
-            var format = new ValueFormat( typeof( double ), "000000.00", new Regex( @"([\d.]+)\s*€" ) );
+            var format = new ValueFormat( typeof( double ), "000000.00" ) { ExtractionPattern = new Regex( @"([\d.]+)\s*€" ) };
 
             double value = ( double )format.Convert( "2.5€" );
             Assert.AreEqual( 2.5, value, 0.000001d );
@@ -94,7 +94,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var col = new ValueFormat( typeof( double ), "##0.00", new Regex( @"(\d+)$" ) );
+            var col = new ValueFormat( typeof( double ), "##0.00" ) { ExtractionPattern = new Regex( @"(\d+)$" ) };
 
             var clone = FigureDescriptorFactory.Clone( col );
 

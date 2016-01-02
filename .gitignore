@@ -43,4 +43,5 @@
 /packages/Plainion.Windows.1.11.0.0
 /packages/Plainion.Core.2.6.0.0
 /TestResult.xml
+/TestResults/**
 /packages/Plainion.Core.2.8.0.0

@@ -13,10 +13,10 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var descriptor = new PathCellDescriptor( "dummy" );
+            var descriptor = new PathCellDescriptor(  );
             descriptor.Path = "123";
-            descriptor.Column = new AbsolutePositionLocator(0, 4 );
-            descriptor.Row = new AbsolutePositionLocator( 0, 23 );
+            descriptor.Column = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 4 };
+            descriptor.Row = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 23 };
             descriptor.ValueFormat = new ValueFormat( typeof( double ), "0.00" );
             descriptor.Currency = "Euro";
 
@@ -36,10 +36,10 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Validate_IsValid_DoesNotThrows()
         {
-            var descriptor = new PathCellDescriptor( "dummy" );
+            var descriptor = new PathCellDescriptor();
             descriptor.Path = "123";
-            descriptor.Column = new AbsolutePositionLocator( 0, 4 );
-            descriptor.Row = new AbsolutePositionLocator( 0, 23 );
+            descriptor.Column = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 4 };
+            descriptor.Row = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 23 };
             descriptor.ValueFormat = new ValueFormat( typeof( double ), "0.00" );
 
             RecursiveValidator.Validate( descriptor );
@@ -48,10 +48,10 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Validate_InvalidPath_Throws( [Values( null, "" )]string path )
         {
-            var descriptor = new PathCellDescriptor( "dummy" );
+            var descriptor = new PathCellDescriptor();
             descriptor.Path = path;
-            descriptor.Column = new AbsolutePositionLocator( 0, 4 );
-            descriptor.Row = new AbsolutePositionLocator( 0, 23 );
+            descriptor.Column = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 4 };
+            descriptor.Row = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 23 };
             descriptor.ValueFormat = new ValueFormat( typeof( double ), "0.00" );
 
             var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
@@ -61,10 +61,10 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Validate_MisingColumn_Throws()
         {
-            var descriptor = new PathCellDescriptor( "dummy" );
+            var descriptor = new PathCellDescriptor();
             descriptor.Path = "123";
             descriptor.Column = null;
-            descriptor.Row = new AbsolutePositionLocator( 0, 23 );
+            descriptor.Row = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 23 };
             descriptor.ValueFormat = new ValueFormat( typeof( double ), "0.00" );
 
             var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
@@ -74,9 +74,9 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Validate_MisingRow_Throws()
         {
-            var descriptor = new PathCellDescriptor( "dummy" );
+            var descriptor = new PathCellDescriptor();
             descriptor.Path = "123";
-            descriptor.Column = new AbsolutePositionLocator( 0, 4 );
+            descriptor.Column = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 4 };
             descriptor.Row = null;
             descriptor.ValueFormat = new ValueFormat( typeof( double ), "0.00" );
 
@@ -87,10 +87,10 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Validate_MisingValueFormat_Throws()
         {
-            var descriptor = new PathCellDescriptor( "dummy" );
+            var descriptor = new PathCellDescriptor();
             descriptor.Path = "123";
-            descriptor.Column = new AbsolutePositionLocator( 0, 4 );
-            descriptor.Row = new AbsolutePositionLocator( 0, 23 );
+            descriptor.Column = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 4 };
+            descriptor.Row = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 23 };
             descriptor.ValueFormat = null;
 
             var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );

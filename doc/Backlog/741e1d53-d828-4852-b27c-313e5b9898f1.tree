@@ -9,11 +9,20 @@
       <Caption><![CDATA[1.7 - Polish Import module]]></Caption>
       <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">
         <Caption><![CDATA[Spec]]></Caption>
+        <Node Id="54489aca-79d6-4e0a-a6b0-5a571ffa9b70">
+          <Caption><![CDATA[all descriptors mutable]]></Caption>
+        </Node>
         <Node Id="2c53553e-7cac-4f58-bcee-b1ff7a5fc9c3">
           <Caption><![CDATA[solve backward compatibility]]></Caption>
         </Node>
         <Node Id="eceec06d-bd40-4c94-a2ec-df4cd016cc97">
           <Caption><![CDATA[Add missing Scenario tests: one per descriptor]]></Caption>
+        </Node>
+        <Node Id="da5d984a-fb2d-40fb-8589-d1451c313861">
+          <Caption><![CDATA[test recursive validation]]></Caption>
+        </Node>
+        <Node Id="72295605-b833-4774-881d-89921d0a3643">
+          <Caption><![CDATA[DocumentLocator]]></Caption>
         </Node>
       </Node>
       <Node Id="e4cba108-1415-42e0-ac8f-4e9d7596dfab">

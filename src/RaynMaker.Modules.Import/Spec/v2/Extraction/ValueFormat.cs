@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -18,23 +19,19 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         private string myFormat;
         private Type myType;
 
+        public ValueFormat()
+        {
+        }
+
         public ValueFormat( Type type )
             : this( type, null )
         {
         }
 
         public ValueFormat( Type type, string format )
-            : this( type, format, null )
         {
-        }
-
-        public ValueFormat( Type type, string format, Regex extractionPattern )
-        {
-            Contract.RequiresNotNull( type, "type" );
-
             Type = type;
             Format = format;
-            ExtractionPattern = extractionPattern;
         }
 
         /// <summary>
@@ -68,6 +65,7 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
             set { SetProperty( ref myFormat, value != null ? value.Trim() : null ); }
         }
 
+        [Required]
         public Type Type
         {
             get { return myType; }

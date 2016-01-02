@@ -70,6 +70,7 @@
     <Compile Include="Spec\v2\Locating\Request.cs" />
     <Compile Include="Spec\v2\Locating\Response.cs" />
     <Compile Include="Spec\v2\Locating\SubmitFormular.cs" />
+    <Compile Include="Spec\v2\CollectionNotEmptyAttribute.cs" />
     <Compile Include="WinForms\IOleControl.cs" />
     <Compile Include="WinForms\WebBrowserDownloadControlFlags.cs" />
     <Compile Include="Documents\DocumentLoaderFactory.cs" />

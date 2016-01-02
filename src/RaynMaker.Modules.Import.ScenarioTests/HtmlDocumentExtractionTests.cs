@@ -14,9 +14,9 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         {
             var doc = LoadDocument<IHtmlDocument>( "ariva.overview.US0138171014.html" );
 
-            var descriptor = new PathSingleValueDescriptor( "Ariva.Wpkn" );
+            var descriptor = new PathSingleValueDescriptor();
             descriptor.Path = @"/BODY[0]/DIV[4]/DIV[0]/DIV[3]/DIV[0]";
-            descriptor.ValueFormat = new ValueFormat( typeof( int ), "00000000", new Regex( @"WKN: (\d+)" ) );
+            descriptor.ValueFormat = new ValueFormat( typeof( int ), "00000000" ) { ExtractionPattern = new Regex( @"WKN: (\d+)" ) };
 
             var parser = DocumentProcessorsFactory.CreateParser( doc, descriptor );
             var table = parser.ExtractTable();
@@ -31,14 +31,15 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         {
             var doc = LoadDocument<IHtmlDocument>( "ariva.html" );
 
-            var descriptor = new PathSeriesDescriptor( "Eps" );
+            var descriptor = new PathSeriesDescriptor();
+            descriptor.Figure = "EPS";
             descriptor.Path = @"/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]";
             descriptor.Orientation = SeriesOrientation.Row;
-            descriptor.ValuesLocator = new StringContainsLocator( 0, "verwässertes Ergebnis pro Aktie" );
+            descriptor.ValuesLocator = new StringContainsLocator { HeaderSeriesPosition = 0, Pattern = "verwässertes Ergebnis pro Aktie" };
             descriptor.ValueFormat = new FormatColumn( "value", typeof( float ), "00,00" );
-            descriptor.TimesLocator = new AbsolutePositionLocator( 0, 1 );
+            descriptor.TimesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 1 };
             descriptor.TimeFormat = new FormatColumn( "year", typeof( int ), "00000000" );
-            descriptor.Excludes = new[] { 0 };
+            descriptor.Excludes.Add( 0 );
 
             var parser = DocumentProcessorsFactory.CreateParser( doc, descriptor );
             var table = parser.ExtractTable();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Data;
 using System.Text.RegularExpressions;
@@ -110,14 +111,14 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 markupDoc.RowHeaderColumn = format.ValuesLocator.HeaderSeriesPosition;
 
                 markupDoc.SkipColumns = null;
-                markupDoc.SkipRows = format.Excludes;
+                markupDoc.SkipRows = format.Excludes.ToArray();
             }
             else if( markupDoc.Dimension == SeriesOrientation.Column )
             {
                 markupDoc.RowHeaderColumn = format.TimesLocator.HeaderSeriesPosition;
                 markupDoc.ColumnHeaderRow = format.ValuesLocator.HeaderSeriesPosition;
 
-                markupDoc.SkipColumns = format.Excludes;
+                markupDoc.SkipColumns = format.Excludes.ToArray();
                 markupDoc.SkipRows = null;
             }
 

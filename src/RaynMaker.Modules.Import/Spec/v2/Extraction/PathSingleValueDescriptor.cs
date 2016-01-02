@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using Plainion.Validation;
 
 namespace RaynMaker.Modules.Import.Spec.v2.Extraction
 {
@@ -10,11 +11,6 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "PathSingleValueDescriptor" )]
     public class PathSingleValueDescriptor : FigureDescriptorBase
     {
-        public PathSingleValueDescriptor( string figure )
-            : base( figure )
-        {
-        }
-
         /// <summary>
         /// Gets or sets the path within the document to the figure.
         /// </summary>
@@ -22,7 +18,7 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         [DataMember]
         public string Path { get; set; }
 
-        [Required]
+        [Required,ValidateObject]
         [DataMember]
         public ValueFormat ValueFormat { get; set; }
     }

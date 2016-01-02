@@ -13,7 +13,8 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var descriptor = new PathTableDescriptor( "dummy", new FormatColumn( "c1", typeof( double ) ) );
+            var descriptor = new PathTableDescriptor( );
+            descriptor.Columns.Add( new FormatColumn( "c1", typeof( double ) ) );
 
             var clone = FigureDescriptorFactory.Clone( descriptor );
 
@@ -23,7 +24,8 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Validate_IsValid_DoesNotThrows()
         {
-            var descriptor = new PathTableDescriptor( "dummy", new FormatColumn( "c1", typeof( double ) ) );
+            var descriptor = new PathTableDescriptor();
+            descriptor.Columns.Add( new FormatColumn( "c1", typeof( double ) ) );
             descriptor.Path = "123";
 
             RecursiveValidator.Validate( descriptor );
@@ -32,7 +34,8 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Validate_InvalidPath_Throws( [Values( null, "" )]string path )
         {
-            var descriptor = new PathTableDescriptor( "dummy", new FormatColumn( "c1", typeof( double ) ) );
+            var descriptor = new PathTableDescriptor();
+            descriptor.Columns.Add( new FormatColumn( "c1", typeof( double ) ) );
             descriptor.Path = path;
 
             var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );

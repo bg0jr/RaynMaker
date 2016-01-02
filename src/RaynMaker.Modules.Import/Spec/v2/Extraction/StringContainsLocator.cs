@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Plainion;
 using Plainion.Collections;
+using Plainion.Serialization;
 
 namespace RaynMaker.Modules.Import.Spec.v2.Extraction
 {
@@ -10,22 +12,26 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
     /// Locates a series using substring matching by ignoring the case.
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "StringContainsLocator" )]
-    public class StringContainsLocator : ISeriesLocator
+    public class StringContainsLocator : SerializableBindableBase, ISeriesLocator
     {
-        public StringContainsLocator( int headerSeriesPosition, string pattern )
+        private int myHeaderSeriesPosition;
+        private string myPattern;
+
+        [Range( 0, int.MaxValue )]
+        [DataMember]
+        public int HeaderSeriesPosition
         {
-            Contract.Requires( headerSeriesPosition >= 0, "HeaderSeriesPosition must be greater or equal to 0" );
-            Contract.RequiresNotNullNotEmpty( pattern, "pattern" );
-            
-            HeaderSeriesPosition = headerSeriesPosition;
-            Pattern = pattern;
+            get { return myHeaderSeriesPosition; }
+            set { SetProperty( ref myHeaderSeriesPosition, value ); }
         }
 
+        [Required]
         [DataMember]
-        public int HeaderSeriesPosition { get; private set; }
-
-        [DataMember]
-        public string Pattern { get; private set; }
+        public string Pattern
+        {
+            get { return myPattern; }
+            set { SetProperty( ref myPattern, value ); }
+        }
 
         public int FindIndex( IEnumerable<string> list )
         {

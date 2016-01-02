@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using NUnit.Framework;
+using Plainion.Collections;
 using Plainion.Validation;
 using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
@@ -14,43 +15,12 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         private class DummyDescriptor : TableDescriptorBase
         {
             public DummyDescriptor( params FormatColumn[] columns )
-                : base( "dummy", columns )
             {
+                foreach(var col in columns)
+                {
+                    Columns.Add( col );
+                }
             }
-        }
-
-        [Test]
-        public void SkipRowsIsImmutable()
-        {
-            var descriptor = new DummyDescriptor(
-                new FormatColumn( "c1", typeof( double ), "0.00" ),
-                new FormatColumn( "c2", typeof( string ), "" ) );
-
-            var skipRows = new int[] { 1, 2, 3 };
-            descriptor.SkipRows = skipRows;
-
-            skipRows[ 1 ] = 42;
-
-            Assert.AreEqual( 1, descriptor.SkipRows[ 0 ] );
-            Assert.AreEqual( 2, descriptor.SkipRows[ 1 ] );
-            Assert.AreEqual( 3, descriptor.SkipRows[ 2 ] );
-        }
-
-        [Test]
-        public void SkipColumnsIsImmutable()
-        {
-            var descriptor = new DummyDescriptor(
-                new FormatColumn( "c1", typeof( double ), "0.00" ),
-                new FormatColumn( "c2", typeof( string ), "" ) );
-
-            var skipColumns = new int[] { 1, 2, 3 };
-            descriptor.SkipColumns = skipColumns;
-
-            skipColumns[ 1 ] = 42;
-
-            Assert.AreEqual( 1, descriptor.SkipColumns[ 0 ] );
-            Assert.AreEqual( 2, descriptor.SkipColumns[ 1 ] );
-            Assert.AreEqual( 3, descriptor.SkipColumns[ 2 ] );
         }
 
         [Test]
@@ -59,8 +29,8 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             var descriptor = new DummyDescriptor(
                 new FormatColumn( "c1", typeof( double ), "0.00" ),
                 new FormatColumn( "c2", typeof( string ), "" ) );
-            descriptor.SkipRows = new[] { 5, 9 };
-            descriptor.SkipColumns = new[] { 11, 88 };
+            descriptor.SkipRows.AddRange(  5, 9 );
+            descriptor.SkipColumns.AddRange( 11, 88 );
 
             var clone = FigureDescriptorFactory.Clone( descriptor );
 

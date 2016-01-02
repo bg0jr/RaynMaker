@@ -1,6 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Runtime.Serialization;
 using Plainion;
+using Plainion.Validation;
 
 namespace RaynMaker.Modules.Import.Spec.v2.Extraction
 {
@@ -10,45 +13,30 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "TableDescriptorBase" )]
     public abstract class TableDescriptorBase : FigureDescriptorBase
     {
-        private int[] mySkipRows = null;
-        private int[] mySkipColumns = null;
-
-        protected TableDescriptorBase( string figure, params FormatColumn[] columns )
-            : base( figure )
+        protected TableDescriptorBase()
         {
-            Contract.RequiresNotNullNotEmpty( columns, "columns" );
-
-            SkipColumns = null;
-            SkipRows = null;
-
-            Columns = columns;
+            Columns = new List<FormatColumn>();
+            SkipColumns = new List<int>();
+            SkipRows = new List<int>();
         }
 
+        [CollectionNotEmpty, ValidateObject]
         [DataMember]
-        public FormatColumn[] Columns { get; private set; }
-
-        [DataMember]
-        public int[] SkipRows
-        {
-            get { return mySkipRows; }
-            set { mySkipRows = GetCopyOrEmptySetIfNull( value ); }
-        }
+        public IList<FormatColumn> Columns { get; private set; }
 
         [DataMember]
-        public int[] SkipColumns
-        {
-            get { return mySkipColumns; }
-            set { mySkipColumns = GetCopyOrEmptySetIfNull( value ); }
-        }
+        public IList<int> SkipRows { get; private set; }
 
-        private int[] GetCopyOrEmptySetIfNull( int[] values )
-        {
-            if( values == null )
-            {
-                return new int[] { };
-            }
+        [DataMember]
+        public IList<int> SkipColumns { get; private set; }
 
-            return values.ToArray();
+        [OnDeserialized]
+        private void OnDeserialized( StreamingContext context )
+        {
+            // make writeable again
+            Columns = Columns.ToList();
+            SkipRows = SkipRows.ToList();
+            SkipColumns = SkipColumns.ToList();
         }
     }
 }

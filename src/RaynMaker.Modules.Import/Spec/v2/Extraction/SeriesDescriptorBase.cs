@@ -1,6 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.Serialization;
+using Plainion.Validation;
 
 namespace RaynMaker.Modules.Import.Spec.v2.Extraction
 {
@@ -10,12 +12,9 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "SeriesDescriptorBase" )]
     public abstract class SeriesDescriptorBase : FigureDescriptorBase
     {
-        private int[] myExcludes = null;
-
-        protected SeriesDescriptorBase( string name )
-            : base( name )
+        protected SeriesDescriptorBase()
         {
-            Excludes = null;
+            Excludes = new List<int>();
         }
 
         [DataMember]
@@ -25,11 +24,11 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         /// Describes the position of the values within a table.
         /// Orientation of the values series is described by the Orientation property.
         /// </summary>
-        [Required]
+        [Required, ValidateObject]
         [DataMember]
         public ISeriesLocator ValuesLocator { get; set; }
 
-        [Required]
+        [Required, ValidateObject]
         [DataMember]
         public FormatColumn ValueFormat { get; set; }
 
@@ -37,17 +36,22 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         /// Describes the position of the times within a table.
         /// Orientation of the times series is described by the Orientation property.
         /// </summary>
+        [ValidateObject]
         [DataMember]
         public ISeriesLocator TimesLocator { get; set; }
 
+        [ValidateObject]
         [DataMember]
         public FormatColumn TimeFormat { get; set; }
 
         [DataMember]
-        public int[] Excludes
+        public IList<int> Excludes { get; private set; }
+
+        [OnDeserialized]
+        private void OnDeserialized( StreamingContext context )
         {
-            get { return myExcludes; }
-            set { myExcludes = value == null ? new int[] { } : value.ToArray(); }
+            // make writeable again
+            Excludes = Excludes.ToList();
         }
     }
 }

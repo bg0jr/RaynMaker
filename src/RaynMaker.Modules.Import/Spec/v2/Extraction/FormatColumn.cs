@@ -1,7 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using System.Text.RegularExpressions;
-using Plainion;
 
 namespace RaynMaker.Modules.Import.Spec.v2.Extraction
 {
@@ -12,25 +11,23 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "FormatColumn" )]
     public class FormatColumn : ValueFormat
     {
+        public FormatColumn()
+        {
+        }
+
         public FormatColumn( string name, Type type )
             : this( name, type, null )
         {
         }
 
         public FormatColumn( string name, Type type, string format )
-            : this( name, type, format, null )
+            : base( type, format )
         {
-        }
-
-        public FormatColumn( string name, Type type, string format, Regex extractionPattern )
-            : base( type, format, extractionPattern )
-        {
-            Contract.RequiresNotNullNotEmpty( name, "name" );
-
             Name = name;
         }
 
+        [Required( AllowEmptyStrings = false )]
         [DataMember]
-        public string Name { get; private set; }
+        public string Name { get; set; }
     }
 }

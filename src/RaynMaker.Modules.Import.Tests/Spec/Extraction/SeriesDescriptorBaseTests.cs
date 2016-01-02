@@ -15,24 +15,8 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         private class DummyDescriptor : SeriesDescriptorBase
         {
             public DummyDescriptor()
-                : base( "dummy" )
             {
             }
-        }
-
-        [Test]
-        public void SkipValuesIsImmutable()
-        {
-            var descriptor = new DummyDescriptor();
-
-            var excludes = new int[] { 1, 2, 3 };
-            descriptor.Excludes = excludes;
-
-            excludes[ 1 ] = 42;
-
-            Assert.AreEqual( 1, descriptor.Excludes[ 0 ] );
-            Assert.AreEqual( 2, descriptor.Excludes[ 1 ] );
-            Assert.AreEqual( 3, descriptor.Excludes[ 2 ] );
         }
 
         [Test]
@@ -42,13 +26,13 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 
             descriptor.Orientation = SeriesOrientation.Row;
 
-            descriptor.ValuesLocator = new AbsolutePositionLocator( 0, 4 );
+            descriptor.ValuesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 4 };
             descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "0.00" );
 
-            descriptor.TimesLocator = new AbsolutePositionLocator( 0, 23 );
+            descriptor.TimesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 23 };
             descriptor.TimeFormat = new FormatColumn( "time", typeof( DateTime ), "G" );
 
-            descriptor.Excludes = new[] { 11, 88 };
+            descriptor.Excludes.AddRange( 11, 88 );
 
             var clone = FigureDescriptorFactory.Clone( descriptor );
 
@@ -71,7 +55,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         public void Validate_IsValid_DoesNotThrows()
         {
             var descriptor = new DummyDescriptor();
-            descriptor.ValuesLocator = new AbsolutePositionLocator( 0, 4 );
+            descriptor.ValuesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 4 };
             descriptor.ValueFormat = new FormatColumn( "values", typeof( double ), "0.00" );
 
             RecursiveValidator.Validate( descriptor );
@@ -80,7 +64,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Validate_MissingValueLocator_Throws()
         {
-            var descriptor = new SeparatorSeriesDescriptor( "dummy" );
+            var descriptor = new SeparatorSeriesDescriptor();
             descriptor.ValuesLocator = null;
             descriptor.ValueFormat = new FormatColumn( "values", typeof( double ), "0.00" );
 
@@ -91,8 +75,8 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Validate_MissingValueFormat_Throws()
         {
-            var descriptor = new SeparatorSeriesDescriptor( "dummy" );
-            descriptor.ValuesLocator = new AbsolutePositionLocator( 0, 4 );
+            var descriptor = new SeparatorSeriesDescriptor();
+            descriptor.ValuesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 4 };
             descriptor.ValueFormat = null;
 
             var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );

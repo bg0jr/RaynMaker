@@ -11,9 +11,10 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var descriptor = new CsvDescriptor( "dummy", ";",
-                new FormatColumn( "c1", typeof( double ), "0.00" ),
-                new FormatColumn( "c2", typeof( string ), "" ) );
+            var descriptor = new CsvDescriptor();
+            descriptor.Figure = "dummy";
+            descriptor.Columns.Add( new FormatColumn( "c1", typeof( double ), "0.00" ) );
+            descriptor.Columns.Add( new FormatColumn( "c2", typeof( string ), "" ) );
 
             var clone = FigureDescriptorFactory.Clone( descriptor );
 
@@ -26,9 +27,10 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Validate_IsValid_DoesNotThrows()
         {
-            var descriptor = new CsvDescriptor( "dummy", ";",
-                new FormatColumn( "c1", typeof( double ), "0.00" ),
-                new FormatColumn( "c2", typeof( string ), "" ) );
+            var descriptor = new CsvDescriptor();
+            descriptor.Figure = "dummy";
+            descriptor.Columns.Add( new FormatColumn( "c1", typeof( double ), "0.00" ) );
+            descriptor.Columns.Add( new FormatColumn( "c2", typeof( string ), "" ) );
 
             RecursiveValidator.Validate( descriptor );
         }
@@ -36,9 +38,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Ctor_InvalidSeparator_Throws( [Values( null, "" )]string separator )
         {
-            var ex = Assert.Throws<ArgumentNullException>( () =>  new CsvDescriptor( "dummy", separator,
-                new FormatColumn( "c1", typeof( double ), "0.00" ),
-                new FormatColumn( "c2", typeof( string ), "" ) ));
+            var ex = Assert.Throws<ArgumentNullException>( () => new CsvDescriptor() );
 
             Assert.That( ex.Message, Is.StringContaining( "string must not null or empty: sep" ) );
         }

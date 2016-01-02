@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="54489aca-79d6-4e0a-a6b0-5a571ffa9b70" Created="635873165936505120" LastModified="635873166123125794">
+  <Caption><![CDATA[all descriptors mutable]]></Caption>
+  <Content><![CDATA[because how else would it work in UI?]]></Content>
+</Node>

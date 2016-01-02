@@ -13,7 +13,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var descriptor = new PathSingleValueDescriptor( "dummy" );
+            var descriptor = new PathSingleValueDescriptor();
             descriptor.Path = "111";
             descriptor.ValueFormat = new ValueFormat( typeof( int ), "0.xx" );
 
@@ -26,7 +26,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Validate_IsValid_DoesNotThrows()
         {
-            var descriptor = new PathSingleValueDescriptor( "dummy" );
+            var descriptor = new PathSingleValueDescriptor();
             descriptor.Path = "123";
             descriptor.ValueFormat = new FormatColumn( "values", typeof( double ), "0.00" );
 
@@ -36,7 +36,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Validate_InvalidPath_Throws( [Values( null, "" )]string path )
         {
-            var descriptor = new PathSingleValueDescriptor( "dummy" );
+            var descriptor = new PathSingleValueDescriptor();
             descriptor.Path = path;
             descriptor.ValueFormat = new FormatColumn( "values", typeof( double ), "0.00" );
 
@@ -47,7 +47,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Validate_MisingValueFormat_Throws()
         {
-            var descriptor = new PathSingleValueDescriptor( "dummy" );
+            var descriptor = new PathSingleValueDescriptor();
             descriptor.Path = "123";
             descriptor.ValueFormat = null;
 

@@ -170,8 +170,9 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 if( SetProperty( ref mySkipValues, value ) )
                 {
-                    Format.Excludes = GetIntArray( mySkipValues );
-                    MarkupDocument.SkipRows = Format.Excludes;
+                    Format.Excludes.Clear();
+                    Format.Excludes.AddRange( GetIntArray( mySkipValues ) );
+                    MarkupDocument.SkipRows = Format.Excludes.ToArray();
                 }
             }
         }

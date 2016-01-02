@@ -47,7 +47,7 @@ namespace RaynMaker.Modules.Import.Parsers
                         continue;
                     }
 
-                    if( targetCol == descriptor.Columns.Length )
+                    if( targetCol == descriptor.Columns.Count )
                     {
                         break;
                     }

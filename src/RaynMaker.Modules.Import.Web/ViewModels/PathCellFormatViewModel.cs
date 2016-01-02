@@ -151,8 +151,8 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 return;
             }
 
-            Format.Row = new StringContainsLocator( RowPosition, RowPattern );
-            Format.Column = new StringContainsLocator( ColumnPosition, ColumnPattern );
+            Format.Row = new StringContainsLocator { HeaderSeriesPosition = RowPosition, Pattern = RowPattern };
+            Format.Column = new StringContainsLocator { HeaderSeriesPosition = ColumnPosition, Pattern = ColumnPattern };
 
             if( MarkupDocument.SelectedElement != null )
             {
