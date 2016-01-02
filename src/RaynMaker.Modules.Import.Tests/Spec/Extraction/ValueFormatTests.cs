@@ -1,15 +1,80 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
 using Plainion.Validation;
 using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
+using RaynMaker.SDK;
 
 namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 {
     [TestFixture]
     public class ValueFormatTests
     {
+        [Test]
+        public void Type_Set_ValueIsSet()
+        {
+            var format = new ValueFormat();
+
+            format.Type = typeof( string );
+
+            Assert.That( format.Type, Is.EqualTo( typeof( string ) ) );
+        }
+
+        [Test]
+        public void Type_Set_ChangeIsNotified()
+        {
+            var format = new ValueFormat();
+            var counter = new PropertyChangedCounter( format );
+
+            format.Type = typeof( string );
+
+            Assert.That( counter.GetCount( () => format.Type ), Is.EqualTo( 1 ) );
+        }
+
+        [Test]
+        public void Format_Set_ValueIsSet()
+        {
+            var format = new ValueFormat();
+
+            format.Format = "#0.00";
+
+            Assert.That( format.Format, Is.EqualTo( "#0.00" ) );
+        }
+
+        [Test]
+        public void Format_Set_ChangeIsNotified()
+        {
+            var format = new ValueFormat();
+            var counter = new PropertyChangedCounter( format );
+
+            format.Format = "#0.00";
+
+            Assert.That( counter.GetCount( () => format.Format ), Is.EqualTo( 1 ) );
+        }
+
+        [Test]
+        public void ExtractionPattern_Set_ValueIsSet()
+        {
+            var format = new ValueFormat();
+
+            format.ExtractionPattern = new Regex( @"(\d+)" );
+
+            Assert.That( format.ExtractionPattern, Is.EqualTo( "#0.00" ) );
+        }
+
+        [Test]
+        public void ExtractionPattern_Set_ChangeIsNotified()
+        {
+            var format = new ValueFormat();
+            var counter = new PropertyChangedCounter( format );
+
+            format.ExtractionPattern = new Regex( @"(\d+)" );
+
+            Assert.That( counter.GetCount( () => format.ExtractionPattern ), Is.EqualTo( 1 ) );
+        }
+
         [Test]
         public void EqualsAndHashCode()
         {
@@ -94,9 +159,9 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var col = new ValueFormat( typeof( double ), "##0.00" ) { ExtractionPattern = new Regex( @"(\d+)$" ) };
+            var format = new ValueFormat( typeof( double ), "##0.00" ) { ExtractionPattern = new Regex( @"(\d+)$" ) };
 
-            var clone = FigureDescriptorFactory.Clone( col );
+            var clone = FigureDescriptorFactory.Clone( format );
 
             Assert.That( clone.Type, Is.EqualTo( typeof( double ) ) );
             Assert.That( clone.Format, Is.EqualTo( "##0.00" ) );
@@ -106,17 +171,18 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Validate_IsValid_DoesNotThrows()
         {
-            var col = new ValueFormat( typeof( string ) );
+            var format = new ValueFormat( typeof( string ) );
 
-            RecursiveValidator.Validate( col );
+            RecursiveValidator.Validate( format );
         }
 
         [Test]
-        public void Ctor_TypeIsNull_Throws()
+        public void Validate_TypeIsNull_Throws()
         {
-            var ex = Assert.Throws<ArgumentNullException>( () => new ValueFormat( null ) );
+            var format = new ValueFormat();
 
-            Assert.That( ex.Message, Is.StringContaining( "Value cannot be null." + Environment.NewLine + "Parameter name: type" ) );
+            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( format ) );
+            Assert.That( ex.Message, Is.StringContaining( "Type field is required" ) );
         }
     }
 }

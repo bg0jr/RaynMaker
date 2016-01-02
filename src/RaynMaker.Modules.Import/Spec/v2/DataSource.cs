@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Plainion.Serialization;
@@ -66,6 +67,6 @@ namespace RaynMaker.Modules.Import.Spec.v2
 
         [Required, ValidateObject]
         [DataMember]
-        public ObservableCollection<IFigureDescriptor> ExtractionSpec { get; private set; }
+        public IList<IFigureDescriptor> ExtractionSpec { get; private set; }
     }
 }

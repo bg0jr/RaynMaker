@@ -1,14 +1,37 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using NUnit.Framework;
 using Plainion.Validation;
 using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
+using RaynMaker.SDK;
 
 namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 {
     [TestFixture]
     public class FormatColumnTests
     {
+        [Test]
+        public void Name_Set_ValueIsSet()
+        {
+            var col = new FormatColumn();
+
+            col.Name = "c1";
+
+            Assert.That( col.Name, Is.EqualTo( "c1" ) );
+        }
+
+        [Test]
+        public void Name_Set_ChangeIsNotified()
+        {
+            var col = new FormatColumn();
+            var counter = new PropertyChangedCounter( col );
+
+            col.Name = "c1";
+
+            Assert.That( counter.GetCount( () => col.Name ), Is.EqualTo( 1 ) );
+        }
+        
         [Test]
         public void Ctor_WhenCalled_NameIsSet()
         {
@@ -36,11 +59,12 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         }
 
         [Test]
-        public void Ctor_InvalidColumnName_Throws( [Values( null, "" )]string columnName )
+        public void Validate_InvalidColumnName_Throws( [Values( null, "" )]string columnName )
         {
-            var ex = Assert.Throws<ArgumentNullException>( () => new FormatColumn( columnName, typeof( string ) ) );
+            var col = new FormatColumn( columnName, typeof( string ) );
 
-            Assert.That( ex.Message, Is.StringContaining( "string must not null or empty: name" ) );
+            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( col ) );
+            Assert.That( ex.Message, Is.StringContaining( "Name field is required" ) );
         }
     }
 }
