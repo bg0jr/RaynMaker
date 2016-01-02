@@ -19,9 +19,9 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec
             dataSource.LocatingSpec = new DocumentLocator(
                 new Request( "http://test1.org" ),
                 new Response( "http://test2.org" ) );
-            dataSource.ExtractionSpec.Add( new CsvDescriptor( "dummy.csv", ";" ) );
+            dataSource.ExtractionSpec.Add( new CsvDescriptor( "dummy.csv", ";", new FormatColumn( "c1", typeof( double ), "0.00" ) ) );
 
-            var clone = FormatFactory.Clone( dataSource );
+            var clone = FigureDescriptorFactory.Clone( dataSource );
 
             Assert.That( clone.Vendor, Is.EqualTo( "vendor" ) );
             Assert.That( clone.Name, Is.EqualTo( "name" ) );
@@ -40,9 +40,9 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec
             dataSource.Vendor = "vendor";
             dataSource.Name = "name";
             dataSource.LocatingSpec = new DocumentLocator( new Request( "http://test1.org" ) );
-            dataSource.ExtractionSpec.Add( new CsvDescriptor( "dummy.csv", ";" ) );
+            dataSource.ExtractionSpec.Add( new CsvDescriptor( "dummy.csv", ";", new FormatColumn( "c1", typeof( double ), "0.00" ) ) );
 
-            var clone = FormatFactory.Clone( dataSource );
+            var clone = FigureDescriptorFactory.Clone( dataSource );
 
             clone.ExtractionSpec.Add( new PathSeriesDescriptor( "dummy.series" ) );
 

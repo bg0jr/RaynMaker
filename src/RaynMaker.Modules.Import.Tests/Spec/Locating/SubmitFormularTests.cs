@@ -11,7 +11,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Locating
         {
             var navi = new SubmitFormular( "http://test1.org", new Formular( "dummy.form" ) );
 
-            var clone = FormatFactory.Clone( navi );
+            var clone = FigureDescriptorFactory.Clone( navi );
 
             Assert.That( clone.UrlString, Is.EqualTo( "http://test1.org" ) );
             Assert.That( clone.Formular.Name, Is.EqualTo( "dummy.form" ) );

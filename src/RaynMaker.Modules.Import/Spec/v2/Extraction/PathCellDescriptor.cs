@@ -18,7 +18,7 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         /// <summary>
         /// Gets or sets the path within the document to the table.
         /// </summary>
-        [Required(AllowEmptyStrings=false)]
+        [Required( AllowEmptyStrings = false )]
         [DataMember]
         public string Path { get; set; }
 

@@ -15,7 +15,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
                 new FormatColumn( "c1", typeof( double ), "0.00" ),
                 new FormatColumn( "c2", typeof( string ), "" ) );
 
-            var clone = FormatFactory.Clone( descriptor );
+            var clone = FigureDescriptorFactory.Clone( descriptor );
 
             Assert.That( clone.Separator, Is.EqualTo( ";" ) );
 

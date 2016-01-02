@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace RaynMaker.Modules.Import.Spec.v2.Extraction
@@ -12,12 +13,12 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         public SeparatorSeriesDescriptor( string figure )
             : base( figure )
         {
-            Separator = ";";
         }
 
         /// <summary>
         /// Cell separator used in the file.
         /// </summary>
+        [Required( AllowEmptyStrings = false )]
         [DataMember]
         public string Separator { get; set; }
     }

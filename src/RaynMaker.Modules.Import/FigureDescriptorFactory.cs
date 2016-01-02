@@ -10,40 +10,40 @@ using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Modules.Import
 {
-    public class FormatFactory
+    public class FigureDescriptorFactory
     {
         public static IFigureDescriptor Create( Type type )
         {
             if( type == typeof( PathSeriesDescriptor ) )
             {
-                return CreatePathSeriesFormat();
+                return CreatePathSeriesDescriptor();
             }
 
             if( type == typeof( PathCellDescriptor ) )
             {
-                return CreatePathCellFormat();
+                return CreatePathCellDescriptor();
             }
 
             throw new NotSupportedException( "Unknown format type: " + type.Name );
         }
 
-        private static IFigureDescriptor CreatePathSeriesFormat()
+        private static IFigureDescriptor CreatePathSeriesDescriptor()
         {
-            var format = new PathSeriesDescriptor( string.Empty );
+            var desciptor = new PathSeriesDescriptor( string.Empty );
 
-            format.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000.0000" );
-            format.TimeFormat = new FormatColumn( "time", typeof( int ), "0000" );
+            desciptor.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000.0000" );
+            desciptor.TimeFormat = new FormatColumn( "time", typeof( int ), "0000" );
 
-            return format;
+            return desciptor;
         }
 
-        private static IFigureDescriptor CreatePathCellFormat()
+        private static IFigureDescriptor CreatePathCellDescriptor()
         {
-            var format = new PathCellDescriptor( string.Empty );
+            var descriptor = new PathCellDescriptor( string.Empty );
 
-            format.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000.0000" );
+            descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000.0000" );
 
-            return format;
+            return descriptor;
         }
 
         public static T Clone<T>( T obj )
@@ -52,7 +52,7 @@ namespace RaynMaker.Modules.Import
 
             using( var stream = new MemoryStream() )
             {
-                var serializer = new ImportSpecSerializer();
+                var serializer = new ImportSpecSerializer { EnableValidation = false };
                 serializer.Write( stream, obj );
 
                 stream.Seek( 0, SeekOrigin.Begin );
@@ -71,7 +71,7 @@ namespace RaynMaker.Modules.Import
 
             using( var xmlWriter = XmlWriter.Create( writer, settings ) )
             {
-                var serializer = new ImportSpecSerializer();
+                var serializer = new ImportSpecSerializer { EnableValidation = false };
                 serializer.Write( xmlWriter, obj );
             }
         }

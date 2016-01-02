@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System.ComponentModel.DataAnnotations;
+using NUnit.Framework;
+using Plainion.Validation;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
@@ -9,12 +11,35 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var format = new PathSeriesDescriptor( "dummy" );
-            format.Path = "123";
+            var descriptor = new PathSeriesDescriptor( "dummy" );
+            descriptor.Path = "123";
 
-            var clone = FormatFactory.Clone( format );
+            var clone = FigureDescriptorFactory.Clone( descriptor );
 
             Assert.That( clone.Path, Is.EqualTo( "123" ) );
+        }
+
+        [Test]
+        public void Validate_IsValid_DoesNotThrows()
+        {
+            var descriptor = new PathSeriesDescriptor( "dummy" );
+            descriptor.Path = "123";
+            descriptor.ValuesLocator = new AbsolutePositionLocator( 0, 4 );
+            descriptor.ValueFormat = new FormatColumn( "values", typeof( double ), "0.00" );
+
+            RecursiveValidator.Validate( descriptor );
+        }
+
+        [Test]
+        public void Validate_InvalidPath_Throws( [Values( null, "" )]string path )
+        {
+            var descriptor = new PathSeriesDescriptor( "dummy" );
+            descriptor.Path = path;
+            descriptor.ValuesLocator = new AbsolutePositionLocator( 0, 4 );
+            descriptor.ValueFormat = new FormatColumn( "values", typeof( double ), "0.00" );
+
+            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
+            Assert.That( ex.Message, Is.StringContaining( "The Path field is required" ) );
         }
     }
 }

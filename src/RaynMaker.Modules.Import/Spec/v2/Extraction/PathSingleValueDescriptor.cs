@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace RaynMaker.Modules.Import.Spec.v2.Extraction
@@ -17,9 +18,11 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         /// <summary>
         /// Gets or sets the path within the document to the figure.
         /// </summary>
+        [Required( AllowEmptyStrings = false )]
         [DataMember]
         public string Path { get; set; }
 
+        [Required]
         [DataMember]
         public ValueFormat ValueFormat { get; set; }
     }

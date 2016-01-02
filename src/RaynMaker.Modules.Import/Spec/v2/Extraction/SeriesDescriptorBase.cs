@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace RaynMaker.Modules.Import.Spec.v2.Extraction
@@ -24,9 +25,11 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         /// Describes the position of the values within a table.
         /// Orientation of the values series is described by the Orientation property.
         /// </summary>
+        [Required]
         [DataMember]
         public ISeriesLocator ValuesLocator { get; set; }
 
+        [Required]
         [DataMember]
         public FormatColumn ValueFormat { get; set; }
 

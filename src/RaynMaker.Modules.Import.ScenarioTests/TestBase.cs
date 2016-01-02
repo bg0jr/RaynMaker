@@ -26,7 +26,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         {
             using( var writer = new StringWriter() )
             {
-                FormatFactory.Dump( writer, obj );
+                FigureDescriptorFactory.Dump( writer, obj );
                 return writer.ToString();
             }
         }

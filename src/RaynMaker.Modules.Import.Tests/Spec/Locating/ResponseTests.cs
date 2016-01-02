@@ -11,7 +11,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Locating
         {
             var navi = new Response( "http://test1.org" );
 
-            var clone = FormatFactory.Clone( navi );
+            var clone = FigureDescriptorFactory.Clone( navi );
 
             Assert.That( clone.UrlString, Is.EqualTo( "http://test1.org" ) );
         }

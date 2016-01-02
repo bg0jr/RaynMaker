@@ -22,7 +22,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         {
             var col = new FormatColumn( "c1", typeof( string ) );
 
-            var clone = FormatFactory.Clone( col );
+            var clone = FigureDescriptorFactory.Clone( col );
 
             Assert.That( clone.Name, Is.EqualTo( "c1" ) );
         }
@@ -36,7 +36,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         }
 
         [Test]
-        public void Ctor_InvalidSeparator_Throws( [Values( null, "" )]string columnName )
+        public void Ctor_InvalidColumnName_Throws( [Values( null, "" )]string columnName )
         {
             var ex = Assert.Throws<ArgumentNullException>( () => new FormatColumn( columnName, typeof( string ) ) );
 

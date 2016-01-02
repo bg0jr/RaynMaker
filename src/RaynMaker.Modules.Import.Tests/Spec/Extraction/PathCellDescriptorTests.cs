@@ -20,7 +20,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             descriptor.ValueFormat = new ValueFormat( typeof( double ), "0.00" );
             descriptor.Currency = "Euro";
 
-            var clone = FormatFactory.Clone( descriptor );
+            var clone = FigureDescriptorFactory.Clone( descriptor );
 
             Assert.That( clone.Path, Is.EqualTo( "123" ) );
 

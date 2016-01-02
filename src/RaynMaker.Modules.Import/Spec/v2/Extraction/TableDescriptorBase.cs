@@ -13,15 +13,15 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         private int[] mySkipRows = null;
         private int[] mySkipColumns = null;
 
-        protected TableDescriptorBase( string figure, params FormatColumn[] cols )
+        protected TableDescriptorBase( string figure, params FormatColumn[] columns )
             : base( figure )
         {
-            Contract.RequiresNotNull( cols, "cols" );
+            Contract.RequiresNotNullNotEmpty( columns, "columns" );
 
             SkipColumns = null;
             SkipRows = null;
 
-            Columns = cols;
+            Columns = columns;
         }
 
         [DataMember]

@@ -15,6 +15,13 @@ namespace RaynMaker.Modules.Import
     /// </summary>
     public class ImportSpecSerializer
     {
+        public ImportSpecSerializer()
+        {
+            EnableValidation = true;
+        }
+
+        public bool EnableValidation { get; set; }
+
         public T Read<T>( Stream stream )
         {
             var serializer = CreateSerializer( typeof( T ) );
@@ -34,7 +41,10 @@ namespace RaynMaker.Modules.Import
 
         public void Write<T>( Stream stream, T obj )
         {
-            RecursiveValidator.Validate( obj );
+            if( EnableValidation )
+            {
+                RecursiveValidator.Validate( obj );
+            }
 
             var serializer = CreateSerializer( typeof( T ) );
             serializer.WriteObject( stream, obj );
@@ -42,7 +52,10 @@ namespace RaynMaker.Modules.Import
 
         public void Write<T>( XmlWriter writer, T obj )
         {
-            RecursiveValidator.Validate( obj );
+            if( EnableValidation )
+            {
+                RecursiveValidator.Validate( obj );
+            }
 
             var serializer = CreateSerializer( typeof( T ) );
             serializer.WriteObject( writer, obj );

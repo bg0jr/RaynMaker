@@ -7,13 +7,16 @@
     </Node>
     <Node Id="b6cbd93c-bdbd-49b4-bbb8-33de0a595e04">
       <Caption><![CDATA[1.7 - Polish Import module]]></Caption>
-      <Node Id="67c9fca9-063b-4411-9451-6bfe6e8162f1">
-        <Caption><![CDATA[Fix all tests]]></Caption>
-      </Node>
       <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">
         <Caption><![CDATA[Spec]]></Caption>
         <Node Id="8029db40-5c61-4247-9674-2e92f20986d1">
           <Caption><![CDATA[Tests for required parameters]]></Caption>
+        </Node>
+        <Node Id="2c53553e-7cac-4f58-bcee-b1ff7a5fc9c3">
+          <Caption><![CDATA[solve backward compatibility]]></Caption>
+        </Node>
+        <Node Id="eceec06d-bd40-4c94-a2ec-df4cd016cc97">
+          <Caption><![CDATA[Add missing Scenario tests: one per descriptor]]></Caption>
         </Node>
       </Node>
       <Node Id="e4cba108-1415-42e0-ac8f-4e9d7596dfab">

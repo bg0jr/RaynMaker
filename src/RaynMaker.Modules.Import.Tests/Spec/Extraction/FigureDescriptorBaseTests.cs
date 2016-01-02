@@ -26,7 +26,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             descriptor.Figure = "blue";
             descriptor.InMillions = true;
 
-            var clone = FormatFactory.Clone( descriptor );
+            var clone = FigureDescriptorFactory.Clone( descriptor );
 
             Assert.That( clone.Figure, Is.EqualTo( descriptor.Figure ) );
             Assert.That( clone.InMillions, Is.EqualTo( descriptor.InMillions ) );

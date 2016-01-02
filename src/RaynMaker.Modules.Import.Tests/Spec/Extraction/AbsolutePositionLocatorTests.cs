@@ -15,7 +15,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         {
             var locator = new AbsolutePositionLocator( 6, 17 );
 
-            var clone = FormatFactory.Clone( locator );
+            var clone = FigureDescriptorFactory.Clone( locator );
 
             Assert.That( clone.SeriesPosition, Is.EqualTo( locator.SeriesPosition ) );
             Assert.That( clone.HeaderSeriesPosition, Is.EqualTo( locator.HeaderSeriesPosition ) );

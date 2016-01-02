@@ -16,7 +16,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Locating
                 new Request( "http://test1.org" ),
                 new Response( "http://test2.org" ) );
 
-            var clone = FormatFactory.Clone( navi );
+            var clone = FigureDescriptorFactory.Clone( navi );
 
             Assert.That( clone.FragmentsHashCode, Is.EqualTo( navi.FragmentsHashCode ) );
 

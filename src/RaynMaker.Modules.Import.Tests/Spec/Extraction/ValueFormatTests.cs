@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
+using Plainion.Validation;
 using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
@@ -95,11 +96,27 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         {
             var col = new ValueFormat( typeof( double ), "##0.00", new Regex( @"(\d+)$" ) );
 
-            var clone = FormatFactory.Clone( col );
+            var clone = FigureDescriptorFactory.Clone( col );
 
             Assert.That( clone.Type, Is.EqualTo( typeof( double ) ) );
             Assert.That( clone.Format, Is.EqualTo( "##0.00" ) );
             Assert.That( clone.ExtractionPattern.ToString(), Is.EqualTo( @"(\d+)$" ) );
+        }
+
+        [Test]
+        public void Validate_IsValid_DoesNotThrows()
+        {
+            var col = new ValueFormat( typeof( string ) );
+
+            RecursiveValidator.Validate( col );
+        }
+
+        [Test]
+        public void Ctor_TypeIsNull_Throws()
+        {
+            var ex = Assert.Throws<ArgumentNullException>( () => new ValueFormat( null ) );
+
+            Assert.That( ex.Message, Is.StringContaining( "Value cannot be null." + Environment.NewLine + "Parameter name: type" ) );
         }
     }
 }

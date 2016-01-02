@@ -34,7 +34,7 @@
   <ItemGroup>
     <Compile Include="DocumentBrowserExtensions.cs" />
     <Compile Include="Documents\ICache.cs" />
-    <Compile Include="FormatFactory.cs" />
+    <Compile Include="FigureDescriptorFactory.cs" />
     <Compile Include="ImportSpecSerializer.cs" />
     <Compile Include="Parsers\TableFormatter.cs" />
     <Compile Include="Spec\v2\DataSource.cs" />

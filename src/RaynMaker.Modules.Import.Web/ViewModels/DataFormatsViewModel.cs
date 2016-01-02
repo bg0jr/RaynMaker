@@ -152,7 +152,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 if( n.Confirmed )
                 {
-                    var format = FormatFactory.Create( n.FormatType );
+                    var format = FigureDescriptorFactory.Create( n.FormatType );
 
                     Session.CurrentSource.ExtractionSpec.Add( format );
 
@@ -191,7 +191,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 return;
             }
 
-            var format = FormatFactory.Clone( Formats[ SelectedFormatIndex ].Format );
+            var format = FigureDescriptorFactory.Clone( Formats[ SelectedFormatIndex ].Format );
 
             // reset the Datum to enforce user interaction after clone (Datum is mandatory) 
             format.Figure = null;
