@@ -112,6 +112,26 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         }
 
         [Test]
+        public void Clone_WhenCalled_CollectionsAreMutableAndObservable()
+        {
+            var descriptor = new DummyDescriptor();
+
+            var clone = FigureDescriptorFactory.Clone( descriptor );
+
+            var counter = new CollectionChangedCounter( clone.Columns );
+            clone.Columns.Add( new FormatColumn() );
+            Assert.That( counter.Count, Is.EqualTo( 1 ) );
+
+            counter = new CollectionChangedCounter( clone.SkipColumns );
+            clone.SkipColumns.Add( 1 );
+            Assert.That( counter.Count, Is.EqualTo( 1 ) );
+
+            counter = new CollectionChangedCounter( clone.SkipRows );
+            clone.SkipRows.Add( 1 );
+            Assert.That( counter.Count, Is.EqualTo( 1 ) );
+        }
+
+        [Test]
         public void Validate_IsValid_DoesNotThrows()
         {
             var descriptor = new DummyDescriptor(

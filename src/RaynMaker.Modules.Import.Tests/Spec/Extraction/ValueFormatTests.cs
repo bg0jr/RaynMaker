@@ -61,7 +61,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 
             format.ExtractionPattern = new Regex( @"(\d+)" );
 
-            Assert.That( format.ExtractionPattern, Is.EqualTo( "#0.00" ) );
+            Assert.That( format.ExtractionPattern.ToString(), Is.EqualTo( @"(\d+)" ) );
         }
 
         [Test]
@@ -73,28 +73,6 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             format.ExtractionPattern = new Regex( @"(\d+)" );
 
             Assert.That( counter.GetCount( () => format.ExtractionPattern ), Is.EqualTo( 1 ) );
-        }
-
-        [Test]
-        public void EqualsAndHashCode()
-        {
-            var format = new ValueFormat( typeof( int ), "000000" ) { ExtractionPattern = new Regex( @"WKN: ([\d]+)" ) };
-            var same = new ValueFormat( typeof( int ), "000000" ) { ExtractionPattern = new Regex( @"WKN: ([\d]+)" ) };
-
-            Assert.IsTrue( format.Equals( same ) );
-            Assert.IsTrue( format.Equals( ( object )same ) );
-            Assert.AreEqual( format.GetHashCode(), same.GetHashCode() );
-        }
-
-        [Test]
-        public void EqualsAndHashCodeFailure()
-        {
-            var format = new ValueFormat( typeof( int ), "000000" ) { ExtractionPattern = new Regex( @"WKN: ([\d]+)" ) };
-            var other = new ValueFormat( typeof( int ), "000000" );
-
-            Assert.IsFalse( format.Equals( other ) );
-            Assert.IsFalse( format.Equals( ( object )other ) );
-            Assert.AreNotEqual( format.GetHashCode(), other.GetHashCode() );
         }
 
         [Test]

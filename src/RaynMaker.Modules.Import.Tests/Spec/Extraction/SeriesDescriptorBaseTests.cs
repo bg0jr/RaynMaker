@@ -129,7 +129,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         {
             var descriptor = new DummyDescriptor();
 
-            descriptor.Excludes.Add(11);
+            descriptor.Excludes.Add( 11 );
 
             Assert.That( descriptor.Excludes, Contains.Item( 11 ) );
         }
@@ -175,6 +175,19 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             Assert.That( clone.TimeFormat.Format, Is.EqualTo( descriptor.TimeFormat.Format ) );
 
             Assert.That( clone.Excludes, Is.EquivalentTo( descriptor.Excludes ) );
+        }
+
+        [Test]
+        public void Clone_WhenCalled_CollectionsAreMutableAndObservable()
+        {
+            var descriptor = new DummyDescriptor();
+
+            var clone = FigureDescriptorFactory.Clone( descriptor );
+
+            var counter = new CollectionChangedCounter( clone.Excludes );
+            clone.Excludes.Add( 1 );
+
+            Assert.That( counter.Count, Is.EqualTo( 1 ) );
         }
 
         [Test]

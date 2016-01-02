@@ -18,7 +18,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec
 
             dataSource.Vendor = "Vendor";
 
-            Assert.That( dataSource.Vendor, Is.EqualTo( "c1" ) );
+            Assert.That( dataSource.Vendor, Is.EqualTo( "Vendor" ) );
         }
 
         [Test]
@@ -96,51 +96,51 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec
         }
 
         [Test]
-        public void LocatingSpec_Set_ValueIsSet()
+        public void Location_Set_ValueIsSet()
         {
             var dataSource = new DataSource();
 
-            dataSource.LocatingSpec = new DocumentLocator(
+            dataSource.Location = new DocumentLocator(
                 new Request( "http://test1.org" ),
                 new Response( "http://test2.org" ) );
 
-            Assert.That( dataSource.LocatingSpec.Fragments[ 0 ].UrlString, Is.EqualTo( "http://test1.org" ) );
+            Assert.That( dataSource.Location.Fragments[ 0 ].UrlString, Is.EqualTo( "http://test1.org" ) );
         }
 
         [Test]
-        public void LocatingSpec_Set_ChangeIsNotified()
+        public void Location_Set_ChangeIsNotified()
         {
             var dataSource = new DataSource();
             var counter = new PropertyChangedCounter( dataSource );
 
-            dataSource.LocatingSpec = new DocumentLocator(
+            dataSource.Location = new DocumentLocator(
                 new Request( "http://test1.org" ),
                 new Response( "http://test2.org" ) );
 
-            Assert.That( counter.GetCount( () => dataSource.LocatingSpec ), Is.EqualTo( 1 ) );
+            Assert.That( counter.GetCount( () => dataSource.Location ), Is.EqualTo( 1 ) );
         }
 
         [Test]
-        public void ExtractionSpec_Add_ValueAdded()
+        public void Figures_Add_ValueAdded()
         {
             var dataSource = new DataSource();
 
-            dataSource.ExtractionSpec.Add( new CsvDescriptor() );
+            dataSource.Figures.Add( new CsvDescriptor() { Figure = "t45" } );
 
-            Assert.That( dataSource.ExtractionSpec, Contains.Item( 11 ) );
+            Assert.That( dataSource.Figures[ 0 ].Figure, Is.EqualTo( "t45" ) );
         }
 
         [Test]
-        public void ExtractionSpec_Add_ChangeIsNotified()
+        public void Figures_Add_ChangeIsNotified()
         {
             var dataSource = new DataSource();
-            var counter = new CollectionChangedCounter( dataSource.ExtractionSpec );
+            var counter = new CollectionChangedCounter( dataSource.Figures );
 
-            dataSource.ExtractionSpec.Add( new CsvDescriptor() );
+            dataSource.Figures.Add( new CsvDescriptor() );
 
             Assert.That( counter.Count, Is.EqualTo( 1 ) );
         }
-        
+
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
@@ -149,10 +149,10 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec
             dataSource.Name = "name";
             dataSource.Quality = 17;
             dataSource.DocumentType = DocumentType.Html;
-            dataSource.LocatingSpec = new DocumentLocator(
+            dataSource.Location = new DocumentLocator(
                 new Request( "http://test1.org" ),
                 new Response( "http://test2.org" ) );
-            dataSource.ExtractionSpec.Add( new CsvDescriptor { Figure = "dummy.csv" } );
+            dataSource.Figures.Add( new CsvDescriptor { Figure = "dummy.csv" } );
 
             var clone = FigureDescriptorFactory.Clone( dataSource );
 
@@ -161,26 +161,29 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec
             Assert.That( clone.Quality, Is.EqualTo( 17 ) );
             Assert.That( clone.DocumentType, Is.EqualTo( DocumentType.Html ) );
 
-            Assert.That( clone.LocatingSpec.Fragments[ 0 ].UrlString, Is.EqualTo( "http://test1.org" ) );
+            Assert.That( clone.Location.Fragments[ 0 ].UrlString, Is.EqualTo( "http://test1.org" ) );
 
-            Assert.That( clone.ExtractionSpec[ 0 ].Figure, Is.EqualTo( "dummy.csv" ) );
+            Assert.That( clone.Figures[ 0 ].Figure, Is.EqualTo( "dummy.csv" ) );
         }
 
         [Test]
-        public void Clone_WhenCalled_FormatsCollectionOfCloneIsMutable()
+        public void Clone_WhenCalled_FiguresCollectionIsMutableAndObservable()
         {
             var dataSource = new DataSource();
             dataSource.Vendor = "vendor";
             dataSource.Name = "name";
-            dataSource.LocatingSpec = new DocumentLocator( new Request( "http://test1.org" ) );
-            dataSource.ExtractionSpec.Add( new CsvDescriptor { Figure = "dummy.csv" } );
+            dataSource.Location = new DocumentLocator( new Request( "http://test1.org" ) );
+            dataSource.Figures.Add( new CsvDescriptor { Figure = "dummy.csv" } );
 
             var clone = FigureDescriptorFactory.Clone( dataSource );
 
-            clone.ExtractionSpec.Add( new PathSeriesDescriptor() );
+            var counter = new CollectionChangedCounter( clone.Figures );
 
-            Assert.That( clone.ExtractionSpec[ 0 ].Figure, Is.EqualTo( "dummy.csv" ) );
-            Assert.That( clone.ExtractionSpec[ 1 ].Figure, Is.EqualTo( "dummy.series" ) );
+            clone.Figures.Add( new CsvDescriptor { Figure = "dummy.series" } );
+
+            Assert.That( clone.Figures[ 0 ].Figure, Is.EqualTo( "dummy.csv" ) );
+            Assert.That( clone.Figures[ 1 ].Figure, Is.EqualTo( "dummy.series" ) );
+            Assert.That( counter.Count, Is.EqualTo( 1 ) );
         }
 
         [Test]
@@ -190,13 +193,13 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec
             dataSource.Vendor = "vendor";
             dataSource.Name = "name";
             dataSource.DocumentType = DocumentType.Html;
-            dataSource.LocatingSpec = new DocumentLocator( new Request( "http://test1.org" ) );
+            dataSource.Location = new DocumentLocator( new Request( "http://test1.org" ) );
 
             var descriptor = new CsvDescriptor();
             descriptor.Figure = "dummy.csv";
             descriptor.Separator = ";";
             descriptor.Columns.Add( new FormatColumn( "c1", typeof( double ), "0.00" ) );
-            dataSource.ExtractionSpec.Add( descriptor );
+            dataSource.Figures.Add( descriptor );
 
             RecursiveValidator.Validate( dataSource );
         }
@@ -208,7 +211,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec
             dataSource.Vendor = vendor;
             dataSource.Name = "name";
             dataSource.DocumentType = DocumentType.Html;
-            dataSource.LocatingSpec = new DocumentLocator( new Request( "http://test1.org" ) );
+            dataSource.Location = new DocumentLocator( new Request( "http://test1.org" ) );
 
             var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( dataSource ) );
             Assert.That( ex.Message, Is.StringContaining( "The Vendor field is required" ) );
@@ -221,7 +224,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec
             dataSource.Vendor = "vendor";
             dataSource.Name = name;
             dataSource.DocumentType = DocumentType.Html;
-            dataSource.LocatingSpec = new DocumentLocator( new Request( "http://test1.org" ) );
+            dataSource.Location = new DocumentLocator( new Request( "http://test1.org" ) );
 
             var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( dataSource ) );
             Assert.That( ex.Message, Is.StringContaining( "The Name field is required" ) );
@@ -234,23 +237,23 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec
             dataSource.Vendor = "vendor";
             dataSource.Name = "name";
             dataSource.DocumentType = DocumentType.None;
-            dataSource.LocatingSpec = new DocumentLocator( new Request( "http://test1.org" ) );
+            dataSource.Location = new DocumentLocator( new Request( "http://test1.org" ) );
 
             var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( dataSource ) );
             Assert.That( ex.Message, Is.StringContaining( "DocumentType must not be DocumentType.None" ) );
         }
 
         [Test]
-        public void Validate_LocatingSpecMissing_Throws()
+        public void Validate_LocationMissing_Throws()
         {
             var dataSource = new DataSource();
             dataSource.Vendor = "vendor";
             dataSource.Name = "name";
             dataSource.DocumentType = DocumentType.Html;
-            dataSource.LocatingSpec = null;
+            dataSource.Location = null;
 
             var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( dataSource ) );
-            Assert.That( ex.Message, Is.StringContaining( "The LocatingSpec field is required" ) );
+            Assert.That( ex.Message, Is.StringContaining( "The Location field is required" ) );
         }
     }
 }

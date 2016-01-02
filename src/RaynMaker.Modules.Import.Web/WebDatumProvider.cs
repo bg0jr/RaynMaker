@@ -36,7 +36,7 @@ namespace RaynMaker.Modules.Import.Web
         public bool CanFetch( Type datum )
         {
             return myStorageService.Load()
-                .Any( source => source.ExtractionSpec.Any( f => f.Figure == datum.Name ) );
+                .Any( source => source.Figures.Any( f => f.Figure == datum.Name ) );
         }
 
         public void Fetch( DataProviderRequest request, ICollection<IDatum> resultContainer )

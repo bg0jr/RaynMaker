@@ -16,11 +16,11 @@ namespace RaynMaker.Modules.Import.Spec.v2
         private string myName;
         private int myQuality;
         private DocumentType myDocumentType;
-        private DocumentLocator myLocatingSpec;
+        private DocumentLocator myLocation;
 
         public DataSource()
         {
-            ExtractionSpec = new ObservableCollection<IFigureDescriptor>();
+            Figures = new ObservableCollection<IFigureDescriptor>();
         }
 
         // e.g. Ariva
@@ -59,14 +59,21 @@ namespace RaynMaker.Modules.Import.Spec.v2
 
         [Required]
         [DataMember]
-        public DocumentLocator LocatingSpec
+        public DocumentLocator Location
         {
-            get { return myLocatingSpec; }
-            set { SetProperty( ref myLocatingSpec, value ); }
+            get { return myLocation; }
+            set { SetProperty( ref myLocation, value ); }
         }
 
         [Required, ValidateObject]
         [DataMember]
-        public IList<IFigureDescriptor> ExtractionSpec { get; private set; }
+        public IList<IFigureDescriptor> Figures { get; private set; }
+
+        [OnDeserialized]
+        private void OnDeserialized( StreamingContext context )
+        {
+            // make writeable again
+            Figures = new ObservableCollection<IFigureDescriptor>( Figures );
+        }
     }
 }

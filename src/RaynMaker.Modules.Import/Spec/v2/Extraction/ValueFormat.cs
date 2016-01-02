@@ -13,7 +13,7 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
     /// Describes how to get a value from a string
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "ValueFormat" )]
-    public class ValueFormat : SerializableBindableBase, IEquatable<ValueFormat>
+    public class ValueFormat : SerializableBindableBase
     {
         private Regex myExtractionPattern;
         private string myFormat;
@@ -172,26 +172,6 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
                 return s.Substring( 0, num );
             }
             return s;
-        }
-
-        public bool Equals( ValueFormat other )
-        {
-            return GetHashCode() == other.GetHashCode();
-        }
-
-        public override bool Equals( object other )
-        {
-            if( !( other is ValueFormat ) )
-            {
-                return false;
-            }
-
-            return Equals( ( ValueFormat )other );
-        }
-
-        public override int GetHashCode()
-        {
-            return ( Type.FullName + Format + ( ExtractionPattern != null ? ExtractionPattern.ToString() : string.Empty ) ).GetHashCode();
         }
     }
 }

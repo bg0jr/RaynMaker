@@ -30,7 +30,7 @@ namespace RaynMaker.Modules.Import.Web.Model
                 {
                     if( myCurrentSource != null )
                     {
-                        CurrentFormat = myCurrentSource.ExtractionSpec.FirstOrDefault();
+                        CurrentFormat = myCurrentSource.Figures.FirstOrDefault();
                     }
                 }
             }

@@ -48,7 +48,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 // changing Urls property will automatically be reflected in mySelectedSite.Navigation.Uris.
                 // -> make a copy!
-                var modelUrls = Session.CurrentSource.LocatingSpec.Fragments.ToList();
+                var modelUrls = Session.CurrentSource.Location.Fragments.ToList();
                 Urls.Clear();
                 Urls.AddRange( modelUrls );
 
@@ -124,8 +124,8 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         {
             if( Session.CurrentSource != null )
             {
-                var old = Session.CurrentSource.LocatingSpec;
-                Session.CurrentSource.LocatingSpec = new DocumentLocator( old.Fragments.Concat( Urls ) );
+                var old = Session.CurrentSource.Location;
+                Session.CurrentSource.Location = new DocumentLocator( old.Fragments.Concat( Urls ) );
             }
         }
 

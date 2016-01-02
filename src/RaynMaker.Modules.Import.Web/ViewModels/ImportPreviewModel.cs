@@ -169,7 +169,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
             var provider = new BasicDatumProvider( myDocumentBrowser );
 
-            var formats = mySelectedSource.ExtractionSpec
+            var formats = mySelectedSource.Figures
                 // TODO: only works as long as PathCellFormat is derived from PathSeriesFormat
                 .Cast<PathSeriesDescriptor>()
                 .Where( f => f.Figure == myDatumType.Name );
@@ -178,13 +178,13 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 try
                 {
-                    provider.Navigate( DocumentType.Html, mySelectedSource.LocatingSpec, Stock );
+                    provider.Navigate( DocumentType.Html, mySelectedSource.Location, Stock );
                 }
                 catch( Exception ex )
                 {
                     ex.Data[ "Datum" ] = myDatumType.Name;
                     ex.Data[ "SiteName" ] = mySelectedSource.Name;
-                    ex.Data[ "OriginalLocationSpec" ] = mySelectedSource.LocatingSpec.ToString();
+                    ex.Data[ "OriginalLocationSpec" ] = mySelectedSource.Location.ToString();
                     //ex.Data[ "ModifiedLocationSpec" ] = modifiedNavigation;
 
                     myLogger.Error( ex, "Failed to fetch '{0}' from site {1}", myDatumType.Name, mySelectedSource.Name );
@@ -241,7 +241,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 {
                     ex.Data[ "Datum" ] = myDatumType.Name;
                     ex.Data[ "SiteName" ] = mySelectedSource.Name;
-                    ex.Data[ "OriginalLocationSpec" ] = mySelectedSource.LocatingSpec.ToString();
+                    ex.Data[ "OriginalLocationSpec" ] = mySelectedSource.Location.ToString();
                     ex.Data[ "OriginalFormat" ] = format.Figure;
 
                     myLogger.Error( ex, "Failed to fetch '{0}' from site {1}", myDatumType.Name, mySelectedSource.Name );
@@ -254,7 +254,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             myDatumType = datum;
 
             var sources = myStorageService.Load()
-                .Where( source => source.ExtractionSpec.Any( f => f.Figure == myDatumType.Name ) );
+                .Where( source => source.Figures.Any( f => f.Figure == myDatumType.Name ) );
 
             Sources.AddRange( sources.OrderBy( s => s.Quality ) );
             SelectedSource = Sources.FirstOrDefault();

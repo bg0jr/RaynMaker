@@ -19,8 +19,8 @@ namespace RaynMaker.Modules.Import.ScenarioTests
                 var dataSource = serializer.Read<DataSource>( stream );
 
                 Assert.That( dataSource.Vendor, Is.EqualTo( "Ariva" ) );
-                Assert.That( dataSource.LocatingSpec.Fragments[ 0 ].UrlString, Is.EqualTo( "http://www.ariva.de/search/search.m?searchname=${Isin}" ) );
-                Assert.That( dataSource.ExtractionSpec[ 0 ].Figure, Is.EqualTo( "Dividend" ) );
+                Assert.That( dataSource.Location.Fragments[ 0 ].UrlString, Is.EqualTo( "http://www.ariva.de/search/search.m?searchname=${Isin}" ) );
+                Assert.That( dataSource.Figures[ 0 ].Figure, Is.EqualTo( "Dividend" ) );
             }
         }
     }
