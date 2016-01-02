@@ -8,7 +8,7 @@ namespace RaynMaker.Modules.Import.Spec.v1
     /// has a hierarchical structure like XML or HTML documents.
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "PathSeriesFormat" )]
-    public class PathSeriesFormat : AbstractSeriesFormat
+    class PathSeriesFormat : AbstractSeriesFormat
     {
         public PathSeriesFormat( string datum )
             : base( datum )

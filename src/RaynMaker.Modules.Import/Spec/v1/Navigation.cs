@@ -9,7 +9,7 @@ namespace RaynMaker.Modules.Import.Spec.v1
     /// Descripes the steps for automated site navigation.
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "Navigation" )]
-    public class Navigation
+    class Navigation
     {
         public static Navigation Empty = new Navigation();
 

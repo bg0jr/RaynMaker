@@ -9,7 +9,7 @@ namespace RaynMaker.Modules.Import.Spec.v1
     /// Specified parameters will be set when submitting the form.
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "Formular" )]
-    public class Formular
+    class Formular
     {
         public static Formular Empty = new Formular( string.Empty );
 

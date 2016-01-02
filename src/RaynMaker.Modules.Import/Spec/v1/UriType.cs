@@ -1,7 +1,7 @@
 ﻿
 namespace RaynMaker.Modules.Import.Spec.v1
 {
-    public enum UriType
+    enum UriType
     {
         None,
         Request,

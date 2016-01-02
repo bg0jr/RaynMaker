@@ -5,7 +5,7 @@ namespace RaynMaker.Modules.Import.Spec.v1
     /// <summary>
     /// Describes a position of a row or column of a data table.
     /// </summary>
-    public interface ICellLocator
+    interface ICellLocator
     {
         /// <summary>
         /// Returns the index of the series to scan for the requested

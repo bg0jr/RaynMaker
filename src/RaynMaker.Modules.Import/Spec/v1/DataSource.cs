@@ -8,7 +8,7 @@ using Plainion.Validation;
 namespace RaynMaker.Modules.Import.Spec.v1
 {
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "DataSource" )]
-    public class DataSource : SerializableBindableBase
+    class DataSource : SerializableBindableBase
     {
         private string myVendor;
         private string myName;

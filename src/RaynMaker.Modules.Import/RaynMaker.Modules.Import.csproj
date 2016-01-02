@@ -37,7 +37,9 @@
     <Compile Include="FigureDescriptorFactory.cs" />
     <Compile Include="ImportSpecSerializer.cs" />
     <Compile Include="Parsers\TableFormatter.cs" />
+    <Compile Include="Spec\v1\DataSourcesSheet.cs" />
     <Compile Include="Spec\v2\DataSource.cs" />
+    <Compile Include="Spec\v2\DataSourcesSheet.cs" />
     <Compile Include="Spec\v2\DocumentTypeNotNoneAttribute.cs" />
     <Compile Include="Spec\v2\Extraction\CsvDescriptor.cs" />
     <Compile Include="Spec\v2\Extraction\PathCellDescriptor.cs" />

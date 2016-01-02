@@ -10,7 +10,7 @@ namespace RaynMaker.Modules.Import.Spec.v1
     /// Searches with contains. and ignore case
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "StringContainsLocator" )]
-    public class StringContainsLocator : ICellLocator
+    class StringContainsLocator : ICellLocator
     {
         public StringContainsLocator( int seriesToScan, string value )
         {

@@ -8,7 +8,7 @@ namespace RaynMaker.Modules.Import.Spec.v1
     /// has a table similar structure (e.g. CSV file).
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "SeparatorSeriesFormat" )]
-    public class SeparatorSeriesFormat : AbstractSeriesFormat
+    class SeparatorSeriesFormat : AbstractSeriesFormat
     {
         public SeparatorSeriesFormat( string datum )
             : base( datum )

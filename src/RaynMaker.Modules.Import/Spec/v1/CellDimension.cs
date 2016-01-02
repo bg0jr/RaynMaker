@@ -4,7 +4,7 @@ namespace RaynMaker.Modules.Import.Spec.v1
     /// <summary>
     /// Defines the part of a table under inspection.
     /// </summary>
-    public enum CellDimension
+    enum CellDimension
     {
         /// <summary>
         /// No dimension. The single cell.

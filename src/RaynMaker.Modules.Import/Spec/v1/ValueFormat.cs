@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
 using System.Text.RegularExpressions;
 using Plainion;
 using Plainion.Serialization;
@@ -13,7 +12,7 @@ namespace RaynMaker.Modules.Import.Spec.v1
     /// Describes how to get a value from a string
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "ValueFormat" )]
-    public class ValueFormat : SerializableBindableBase, IEquatable<ValueFormat>
+    class ValueFormat : SerializableBindableBase, IEquatable<ValueFormat>
     {
         private Regex myExtractionPattern;
         private string myFormat;

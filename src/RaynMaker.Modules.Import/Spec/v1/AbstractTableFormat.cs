@@ -7,7 +7,7 @@ namespace RaynMaker.Modules.Import.Spec.v1
     /// Base class of all formats that describe the whole table instead of a series.
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "AbstractTableFormat" )]
-    public abstract class AbstractTableFormat : AbstractDimensionalFormat
+    abstract class AbstractTableFormat : AbstractDimensionalFormat
     {
         protected AbstractTableFormat( string datum, params FormatColumn[] cols )
             : base( datum )

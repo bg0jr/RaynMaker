@@ -10,7 +10,7 @@ namespace RaynMaker.Modules.Import.Spec.v1
     /// TODO: maybe we should have a generic FormatColumn passing the type info via generic type param
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "FormatColumn" )]
-    public class FormatColumn : ValueFormat
+    class FormatColumn : ValueFormat
     {
         public FormatColumn( string name )
             : this( name, typeof( string ), null )

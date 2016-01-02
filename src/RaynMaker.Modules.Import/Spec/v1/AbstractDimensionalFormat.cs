@@ -8,7 +8,7 @@ namespace RaynMaker.Modules.Import.Spec.v1
     /// Base class of all single or multi dimensional formats.
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "AbstractDimensionalFormat" )]
-    public abstract class AbstractDimensionalFormat : AbstractFormat
+    abstract class AbstractDimensionalFormat : AbstractFormat
     {
         private int[] mySkipRows = null;
         private int[] mySkipColumns = null;
@@ -36,7 +36,7 @@ namespace RaynMaker.Modules.Import.Spec.v1
 
         private int[] GetCopyOrEmptySetIfNull( int[] values )
         {
-            if ( values == null )
+            if( values == null )
             {
                 return new int[] { };
             }

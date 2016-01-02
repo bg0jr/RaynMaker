@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace RaynMaker.Modules.Import.Spec.v1
 {
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "CsvFormat" )]
-    public class CsvFormat : AbstractTableFormat
+    class CsvFormat : AbstractTableFormat
     {
         public CsvFormat( string datum, string sep, params FormatColumn[] cols )
             : base( datum, cols )

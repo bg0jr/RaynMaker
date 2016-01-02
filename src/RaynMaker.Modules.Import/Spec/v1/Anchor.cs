@@ -9,7 +9,7 @@ namespace RaynMaker.Modules.Import.Spec.v1
     /// </remarks>
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "Anchor" )]
-    public sealed class Anchor
+    sealed class Anchor
     {
         private Anchor( ICellLocator row, ICellLocator col )
         {

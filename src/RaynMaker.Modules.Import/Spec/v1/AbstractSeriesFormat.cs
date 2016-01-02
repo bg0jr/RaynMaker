@@ -13,7 +13,7 @@ namespace RaynMaker.Modules.Import.Spec.v1
     /// </summary>
     // TODO: actually we no longer need "expand" if we have an anchor
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "AbstractSeriesFormat" )]
-    public abstract class AbstractSeriesFormat : AbstractDimensionalFormat
+    abstract class AbstractSeriesFormat : AbstractDimensionalFormat
     {
         protected AbstractSeriesFormat( string name )
             : base( name )

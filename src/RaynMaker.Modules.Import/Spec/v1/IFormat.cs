@@ -1,6 +1,6 @@
 ﻿namespace RaynMaker.Modules.Import.Spec.v1
 {
-    public interface IFormat
+    interface IFormat
     {
         string Datum { get; set; }
 

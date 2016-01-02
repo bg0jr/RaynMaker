@@ -11,7 +11,7 @@ namespace RaynMaker.Modules.Import.Spec.v1
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "NavigatorUrl" )]
     [KnownType( typeof( NavigationUrl[] ) )]
-    public class NavigationUrl
+    class NavigationUrl
     {
         private Uri myUrl = null;
 

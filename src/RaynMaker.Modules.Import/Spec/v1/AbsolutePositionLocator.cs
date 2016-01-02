@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace RaynMaker.Modules.Import.Spec.v1
 {
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "AbsolutePositionLocator" )]
-    public class AbsolutePositionLocator : ICellLocator
+    class AbsolutePositionLocator : ICellLocator
     {
         public AbsolutePositionLocator( int position )
         {

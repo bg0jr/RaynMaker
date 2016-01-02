@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace RaynMaker.Modules.Import.Spec.v1
 {
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "AbstractFormat" )]
-    public abstract class AbstractFormat : IFormat
+    abstract class AbstractFormat : IFormat
     {
         protected AbstractFormat( string datum )
         {
@@ -15,7 +15,7 @@ namespace RaynMaker.Modules.Import.Spec.v1
         [Required]
         [DataMember]
         public string Datum { get; set; }
-    
+
         [DataMember]
         public bool InMillions { get; set; }
     }
