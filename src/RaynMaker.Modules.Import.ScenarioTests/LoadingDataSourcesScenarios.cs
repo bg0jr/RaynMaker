@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
 using NUnit.Framework;
-using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 using RaynMaker.Modules.Import.Spec.v2.Locating;
@@ -9,10 +8,10 @@ using RaynMaker.Modules.Import.Spec.v2.Locating;
 namespace RaynMaker.Modules.Import.ScenarioTests
 {
     [TestFixture]
-    class DataSourceLoadingTests : TestBase
+    class LoadingDataSourcesScenarios : TestBase
     {
         [Test]
-        public void Load_ImportSpecVersion1_WithoutException()
+        public void Load_ImportSpecVersion1_RelevantDataGetsConverted()
         {
             using( var stream = new FileStream( Path.Combine( TestDataRoot, "DataSources.xdb" ), FileMode.Open, FileAccess.Read ) )
             {

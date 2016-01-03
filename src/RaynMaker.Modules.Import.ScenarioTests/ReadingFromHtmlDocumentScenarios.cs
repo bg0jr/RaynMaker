@@ -7,7 +7,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 {
     [TestFixture]
     [RequiresSTA]
-    public class HtmlDocumentExtractionTests : TestBase
+    public class ReadingFromHtmlDocumentScenarios : TestBase
     {
         [Test]
         public void GetSingleValueByPath()

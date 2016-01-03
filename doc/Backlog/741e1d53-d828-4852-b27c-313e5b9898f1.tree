@@ -9,9 +9,6 @@
       <Caption><![CDATA[1.7 - Polish Import module]]></Caption>
       <Node Id="90fa36a3-609b-4248-a5f4-624d9b1bb1a7">
         <Caption><![CDATA[Spec]]></Caption>
-        <Node Id="2c53553e-7cac-4f58-bcee-b1ff7a5fc9c3">
-          <Caption><![CDATA[solve backward compatibility]]></Caption>
-        </Node>
         <Node Id="eceec06d-bd40-4c94-a2ec-df4cd016cc97">
           <Caption><![CDATA[Add missing Scenario tests: one per descriptor]]></Caption>
         </Node>
@@ -20,9 +17,6 @@
         <Caption><![CDATA[Browser]]></Caption>
         <Node Id="77a3da08-70e8-4ae1-b90d-40a5b428e21d">
           <Caption><![CDATA[TryNavigateWithWildcards]]></Caption>
-        </Node>
-        <Node Id="0f5864c5-a862-4580-a6ca-33f43b077fb6">
-          <Caption><![CDATA[Navigator]]></Caption>
         </Node>
       </Node>
       <Node Id="2fa0c595-c62b-40a5-9076-33e615fcad82">

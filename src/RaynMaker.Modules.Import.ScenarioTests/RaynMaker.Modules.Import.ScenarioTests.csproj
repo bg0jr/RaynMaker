@@ -28,12 +28,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataSourceLoadingTests.cs" />
-    <Compile Include="HtmlFormSubmissionTests.cs" />
-    <Compile Include="HtmlDocumentExtractionTests.cs" />
-    <Compile Include="HtmlDocumentBasicReadingTests.cs" />
+    <Compile Include="LoadingDataSourcesScenarios.cs" />
+    <Compile Include="SubmittingFormScenarios.cs" />
+    <Compile Include="ReadingFromHtmlDocumentScenarios.cs" />
+    <Compile Include="ParsingHtmlScenarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CsvDocumentExtractionTests.cs" />
+    <Compile Include="ReadingFromCsvDocumentScenarios.cs" />
     <Compile Include="TestBase.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -47,24 +47,24 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestData\HtmlDocumentExtractionTests\ariva.html">
+    <Content Include="TestData\ReadingFromHtmlDocumentScenarios\ariva.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\HtmlFormSubmissionTests\ariva.historicalprices.DE0008404005.html">
+    <Content Include="TestData\SubmittingFormScenarios\ariva.historicalprices.DE0008404005.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\HtmlDocumentBasicReadingTests\ariva.html">
+    <Content Include="TestData\ParsingHtmlScenarios\ariva.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\DataSourceLoadingTests\DataSources.xdb">
+    <Content Include="TestData\LoadingDataSourcesScenarios\DataSources.xdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\CsvDocumentExtractionTests\DE0005151005.csv">
+    <Content Include="TestData\ReadingFromCsvDocumentScenarios\DE0005151005.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestData\HtmlDocumentExtractionTests\ariva.overview.US0138171014.html">
+    <Content Include="TestData\ReadingFromHtmlDocumentScenarios\ariva.overview.US0138171014.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

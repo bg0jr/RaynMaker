@@ -9,7 +9,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 {
     [TestFixture]
     [RequiresSTA]
-    public class HtmlFormSubmissionTests : TestBase
+    public class SubmittingFormScenarios : TestBase
     {
         private IHtmlDocument myDocument = null;
 
