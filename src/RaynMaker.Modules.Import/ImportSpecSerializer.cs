@@ -32,7 +32,7 @@ namespace RaynMaker.Modules.Import
         public T Read<T>( Stream stream )
         {
             var serializer = CreateSerializer( typeof( T ) );
-            return (T)serializer.ReadObject( stream );
+            return ( T )serializer.ReadObject( stream );
         }
 
         private static DataContractSerializer CreateSerializer( Type root )
