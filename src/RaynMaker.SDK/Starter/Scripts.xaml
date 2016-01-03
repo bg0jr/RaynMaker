@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Script xmlns="http://github.com/ronin4net/plainion/appfw/shell" 
+        xmlns:s="clr-namespace:RaynMaker.SDK.Scripts" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Script.Option>-MkOffline</Script.Option>
+    <Script.Description>Makes Html documents offline available</Script.Description>
+    <s:MkOffline/>
+</Script>
+    
