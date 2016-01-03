@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Windows.Forms;
-using RaynMaker.Modules.Import.Documents.WinForms;
-using RaynMaker.Modules.Import.WinForms;
+using RaynMaker.Modules.Import.Design;
 
 namespace RaynMaker.Modules.Import.Documents.WinForms
 {

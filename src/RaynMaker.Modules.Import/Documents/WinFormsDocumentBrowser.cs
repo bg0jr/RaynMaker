@@ -1,11 +1,10 @@
 using System;
 using System.Windows.Forms;
 using Plainion;
+using RaynMaker.Modules.Import.Design;
 using RaynMaker.Modules.Import.Documents.WinForms;
-using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2;
 using RaynMaker.Modules.Import.Spec.v2.Locating;
-using RaynMaker.Modules.Import.WinForms;
 
 namespace RaynMaker.Modules.Import.Documents
 {

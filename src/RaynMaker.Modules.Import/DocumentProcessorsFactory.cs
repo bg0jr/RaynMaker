@@ -1,10 +1,9 @@
 ﻿using System;
+using RaynMaker.Modules.Import.Design;
 using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Parsers.Html;
 using RaynMaker.Modules.Import.Parsers.Text;
-using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
-using RaynMaker.Modules.Import.WinForms;
 
 namespace RaynMaker.Modules.Import
 {

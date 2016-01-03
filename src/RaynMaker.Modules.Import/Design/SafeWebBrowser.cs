@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace RaynMaker.Modules.Import.WinForms
+namespace RaynMaker.Modules.Import.Design
 {
     // http://stackoverflow.com/questions/7608550/implement-idispatchinvoke-to-be-called-by-a-webbrowser-control
     public class SafeWebBrowser : WebBrowser

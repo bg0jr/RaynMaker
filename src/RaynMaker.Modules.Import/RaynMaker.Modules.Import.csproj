@@ -32,6 +32,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Design\HtmlMarker.cs" />
+    <Compile Include="Design\HtmlMarkupDocument.cs" />
     <Compile Include="DocumentBrowserExtensions.cs" />
     <Compile Include="Documents\ICache.cs" />
     <Compile Include="FigureDescriptorFactory.cs" />
@@ -72,8 +74,8 @@
     <Compile Include="Spec\v2\Locating\Response.cs" />
     <Compile Include="Spec\v2\Locating\SubmitFormular.cs" />
     <Compile Include="Spec\v2\CollectionNotEmptyAttribute.cs" />
-    <Compile Include="WinForms\IOleControl.cs" />
-    <Compile Include="WinForms\WebBrowserDownloadControlFlags.cs" />
+    <Compile Include="Design\IOleControl.cs" />
+    <Compile Include="Design\WebBrowserDownloadControlFlags.cs" />
     <Compile Include="Documents\DocumentLoaderFactory.cs" />
     <Compile Include="IDocumentParser.cs" />
     <Compile Include="Parsers\Html\HtmlParser.cs" />
@@ -132,7 +134,7 @@
     <Compile Include="Spec\v2\Extraction\SeparatorSeriesDescriptor.cs" />
     <Compile Include="Spec\v2\Extraction\StringContainsLocator.cs" />
     <Compile Include="Spec\v2\Extraction\ValueFormat.cs" />
-    <Compile Include="WinForms\SafeWebBrowser.cs">
+    <Compile Include="Design\SafeWebBrowser.cs">
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>

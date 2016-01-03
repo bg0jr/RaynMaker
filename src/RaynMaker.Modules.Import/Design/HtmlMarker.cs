@@ -6,7 +6,7 @@ using Plainion;
 using RaynMaker.Modules.Import.Documents.WinForms;
 using RaynMaker.Modules.Import.Parsers.Html;
 
-namespace RaynMaker.Modules.Import.Web.Services
+namespace RaynMaker.Modules.Import.Design
 {
     class HtmlMarker
     {

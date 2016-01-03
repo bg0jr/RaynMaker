@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace RaynMaker.Modules.Import.WinForms
+namespace RaynMaker.Modules.Import.Design
 {
     [ComImport, InterfaceType( ComInterfaceType.InterfaceIsIUnknown ), Guid( "B196B288-BAB4-101A-B69C-00AA00341D07" )]
     internal interface IOleControl

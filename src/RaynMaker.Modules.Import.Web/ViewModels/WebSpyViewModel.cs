@@ -4,14 +4,12 @@ using System.Linq;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
-using RaynMaker.Modules.Import.Spec;
-using RaynMaker.Modules.Import.Spec.v2;
-using RaynMaker.Modules.Import.Spec.v2.Locating;
-using RaynMaker.Modules.Import.Web.Model;
-using RaynMaker.Modules.Import.Web.Services;
-using RaynMaker.Modules.Import.WinForms;
 using RaynMaker.Infrastructure;
 using RaynMaker.Infrastructure.Services;
+using RaynMaker.Modules.Import.Design;
+using RaynMaker.Modules.Import.Spec.v2;
+using RaynMaker.Modules.Import.Web.Model;
+using RaynMaker.Modules.Import.Web.Services;
 
 namespace RaynMaker.Modules.Import.Web.ViewModels
 {

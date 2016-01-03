@@ -5,10 +5,10 @@ using System.Windows.Forms;
 using Microsoft.Practices.Prism.Mvvm;
 using Plainion;
 using RaynMaker.Entities;
+using RaynMaker.Modules.Import.Design;
 using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Documents.WinForms;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
-using RaynMaker.Modules.Import.Web.Services;
 
 namespace RaynMaker.Modules.Import.Web.ViewModels
 {
@@ -27,7 +27,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 .OrderBy( d => d.Name )
                 .ToList();
 
-            MarkupDocument = new MarkupDocument();
+            MarkupDocument = new HtmlMarkupDocument();
             MarkupDocument.SelectionChanged += OnSelectionChanged;
         }
 
@@ -49,7 +49,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             }
         }
 
-        protected MarkupDocument MarkupDocument { get; private set; }
+        protected HtmlMarkupDocument MarkupDocument { get; private set; }
 
         protected virtual void OnSelectionChanged()
         {

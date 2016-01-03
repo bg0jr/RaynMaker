@@ -10,12 +10,11 @@ using Plainion;
 using Plainion.Collections;
 using Plainion.Logging;
 using RaynMaker.Entities;
-using RaynMaker.Modules.Import.Spec;
+using RaynMaker.Infrastructure.Services;
+using RaynMaker.Modules.Import.Design;
 using RaynMaker.Modules.Import.Spec.v2;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 using RaynMaker.Modules.Import.Web.Services;
-using RaynMaker.Modules.Import.WinForms;
-using RaynMaker.Infrastructure.Services;
 
 namespace RaynMaker.Modules.Import.Web.ViewModels
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RaynMaker.Modules.Import.WinForms
+namespace RaynMaker.Modules.Import.Design
 {
     [Flags]
     public enum WebBrowserDownloadControlFlags : uint

@@ -7,7 +7,7 @@
              xmlns:prism="http://www.codeplex.com/prism"
              xmlns:pn="http://github.com/ronin4net/plainion"
              xmlns:l="clr-namespace:RaynMaker.Modules.Import.Web.Views"
-             xmlns:winforms="clr-namespace:RaynMaker.Modules.Import.WinForms;assembly=RaynMaker.Modules.Import"
+             xmlns:importdesign="clr-namespace:RaynMaker.Modules.Import.Design;assembly=RaynMaker.Modules.Import"
              mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="700">
     <Grid>
         <Grid.RowDefinitions>
@@ -44,7 +44,7 @@
 
         <Grid Grid.Row="2" Margin="3">
             <WindowsFormsHost HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,2,0,2">
-                <winforms:SafeWebBrowser x:Name="myBrowser"/>
+                <importdesign:SafeWebBrowser x:Name="myBrowser"/>
             </WindowsFormsHost>
         </Grid>
     </Grid>

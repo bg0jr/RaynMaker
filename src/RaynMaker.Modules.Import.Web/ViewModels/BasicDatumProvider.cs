@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Plainion;
 using RaynMaker.Entities;
+using RaynMaker.Modules.Import.Design;
 using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Documents.WinForms;
 using RaynMaker.Modules.Import.Spec.v2;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 using RaynMaker.Modules.Import.Spec.v2.Locating;
-using RaynMaker.Modules.Import.Web.Services;
 
 namespace RaynMaker.Modules.Import.Web.ViewModels
 {
@@ -100,7 +100,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             Contract.RequiresNotNull( format, "format" );
             Contract.Invariant( Document != null, "Document not yet loaded" );
 
-            var markupDoc = new MarkupDocument();
+            var markupDoc = new HtmlMarkupDocument();
             markupDoc.Document = ( ( HtmlDocumentAdapter )Document ).Document;
             markupDoc.Anchor = format.Path;
             markupDoc.Dimension = format.Orientation;

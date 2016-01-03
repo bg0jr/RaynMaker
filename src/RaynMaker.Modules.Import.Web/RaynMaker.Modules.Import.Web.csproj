@@ -120,14 +120,12 @@
     <Compile Include="Views\DataFormatsView.xaml.cs">
       <DependentUpon>DataFormatsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Services\HtmlMarker.cs" />
     <Compile Include="Views\DataSourceDefinitionView.xaml.cs">
       <DependentUpon>DataSourceDefinitionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EditCaptureView.xaml.cs">
       <DependentUpon>EditCaptureView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Services\MarkupDocument.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

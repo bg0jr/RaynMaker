@@ -8,9 +8,14 @@ using RaynMaker.Modules.Import.Documents.WinForms;
 using RaynMaker.Modules.Import.Parsers.Html;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
-namespace RaynMaker.Modules.Import.Web.Services
+namespace RaynMaker.Modules.Import.Design
 {
-    class MarkupDocument : IDisposable
+    /// <summary>
+    /// - "Marker" - marks one element and remembers the element so that we can unmark again
+    /// - "Markers" - collection of all markers
+    /// - "Pen" - which does the markup and has logic to mark table rows and columns
+    /// </summary>
+    public class HtmlMarkupDocument : IDisposable
     {
         private HtmlMarker myMarker = null;
         private HtmlDocumentAdapter myDocument = null;
@@ -26,7 +31,7 @@ namespace RaynMaker.Modules.Import.Web.Services
         private int myColumnHeader = -1;
         private string mySeriesName = null;
 
-        public MarkupDocument()
+        public HtmlMarkupDocument()
         {
             myMarker = new HtmlMarker();
             Reset();
@@ -405,7 +410,7 @@ namespace RaynMaker.Modules.Import.Web.Services
             }
         }
 
-        internal void UnmarkAll()
+        public void UnmarkAll()
         {
             myMarker.UnmarkAll();
         }
