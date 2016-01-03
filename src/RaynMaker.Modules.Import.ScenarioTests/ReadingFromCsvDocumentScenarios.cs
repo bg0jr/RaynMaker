@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
@@ -7,14 +8,6 @@ namespace RaynMaker.Modules.Import.ScenarioTests
     [TestFixture]
     public class ReadingFromCsvDocumentScenarios : TestBase
     {
-        private IDocument myDocument = null;
-
-        [TestFixtureSetUp]
-        public void TestFixtureSetUp()
-        {
-            myDocument = LoadDocument<TextDocument>( "DE0005151005.csv" );
-        }
-
         [Test]
         public void GetSeries()
         {
@@ -28,7 +21,8 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000" );
             descriptor.TimeFormat = new FormatColumn( "year", typeof( int ), "000" );
 
-            var parser = DocumentProcessorsFactory.CreateParser( myDocument, descriptor );
+            var doc = LoadDocument<TextDocument>( "DE0005151005.csv" );
+            var parser = DocumentProcessorsFactory.CreateParser( doc, descriptor );
             var table = parser.ExtractTable();
 
             Assert.AreEqual( 10, table.Rows.Count );
@@ -53,6 +47,29 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             Assert.AreEqual( 2004, ( int )table.Rows[ 7 ][ "year" ] );
             Assert.AreEqual( 2005, ( int )table.Rows[ 8 ][ "year" ] );
             Assert.AreEqual( 2006, ( int )table.Rows[ 9 ][ "year" ] );
+        }
+
+        [Test]
+        public void GetTable()
+        {
+            var descriptor = new CsvDescriptor();
+            descriptor.Figure = "HistoricalPrices";
+            descriptor.Separator = ";";
+            descriptor.InMillions = false;
+            descriptor.SkipColumns.Add( 1 );
+            descriptor.SkipRows.Add( 0 );
+            descriptor.Columns.Add( new FormatColumn( "Date", typeof( DateTime ) ) );
+            descriptor.Columns.Add( new FormatColumn( "High", typeof( double ), "000,000.00" ) );
+            descriptor.Columns.Add( new FormatColumn( "Low", typeof( double ), "000,000.00" ) );
+            descriptor.Columns.Add( new FormatColumn( "Open", typeof( double ), "000,000.00" ) );
+            descriptor.Columns.Add( new FormatColumn( "Close", typeof( double ), "000,000.00" ) );
+
+            var doc = LoadDocument<TextDocument>( "Prices.csv" );
+            var parser = DocumentProcessorsFactory.CreateParser( doc, descriptor );
+            var table = parser.ExtractTable();
+
+            Assert.That( table.Rows.Count, Is.EqualTo( 3 ) );
+            Assert.That( table.Rows[ 0 ][ "Date" ], Is.EqualTo( DateTime.Parse( "01.01.2016" ) ) );
         }
     }
 }

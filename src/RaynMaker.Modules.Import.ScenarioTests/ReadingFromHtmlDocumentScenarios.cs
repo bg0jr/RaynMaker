@@ -10,7 +10,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
     public class ReadingFromHtmlDocumentScenarios : TestBase
     {
         [Test]
-        public void GetSingleValueByPath()
+        public void GetSingleValue()
         {
             var doc = LoadDocument<IHtmlDocument>( "ariva.overview.US0138171014.html" );
 
@@ -27,7 +27,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         }
 
         [Test]
-        public void GetSeriesByPath()
+        public void GetSeries()
         {
             var doc = LoadDocument<IHtmlDocument>( "ariva.html" );
 
@@ -59,6 +59,16 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             Assert.AreEqual( 2004, table.Rows[ 3 ][ 1 ] );
             Assert.AreEqual( 2005, table.Rows[ 4 ][ 1 ] );
             Assert.AreEqual( 2006, table.Rows[ 5 ][ 1 ] );
+        }
+
+        [Test]
+        public void GetCell()
+        {
+        }
+
+        [Test]
+        public void GetTable()
+        {
         }
     }
 }
