@@ -8,13 +8,6 @@ namespace RaynMaker.Modules.Import.Parsers
 {
     class TableFormatter
     {
-        /// <summary>
-        /// Tries to format the given DataTable as descripbed in the 
-        /// FormatColumns. That means: types are converted into the 
-        /// required types, only the described part of the raw table 
-        /// is extracted.
-        /// Empty rows will be removed.
-        /// </summary>
         public static DataTable ToFormattedTable( TableDescriptorBase descriptor, DataTable rawTable )
         {
             DataTable table = new DataTable();
@@ -70,36 +63,19 @@ namespace RaynMaker.Modules.Import.Parsers
             }
         }
 
-        /// <summary>
-        /// Tries to format the given DataTable as descripbed in 
-        /// ValueFormat and TimeAxisFormat. That means: types are 
-        /// converted into the required types, the first column
-        /// is treated as value column the second as timeaxis column.
-        /// <remarks>Usually this method is called with a table
-        /// which has been tailored using DataTable.ExtractSeries()
-        /// </remarks>
-        /// </summary>
-        public static DataTable ToFormattedTable( SeriesDescriptorBase descriptor, DataTable table_in )
+        public static DataTable ToFormattedTable( SeriesDescriptorBase descriptor, DataTable inputTable )
         {
-            if( table_in == null )
-            {
-                throw new ArgumentNullException( "table_in" );
-            }
+            Contract.RequiresNotNull( descriptor, "descriptor" );
+            Contract.RequiresNotNull( inputTable, "inputTable" );
 
-            DataTable rawTable = table_in;
-
-            rawTable = ExtractSeries( descriptor, table_in );
-            if( rawTable == null )
-            {
-                return null;
-            }
+            var rawTable = ExtractSeries( descriptor, inputTable );
 
             if( descriptor.ValueFormat == null && descriptor.TimeFormat == null )
             {
                 return rawTable;
             }
 
-            DataTable table = new DataTable();
+            var table = new DataTable();
 
             if( descriptor.ValueFormat != null )
             {
@@ -233,6 +209,28 @@ namespace RaynMaker.Modules.Import.Parsers
             result.AcceptChanges();
 
             return result;
+        }
+
+        internal static object GetValue( PathCellDescriptor descriptor, DataTable inputTable )
+        {
+            Contract.RequiresNotNull( descriptor, "descriptor" );
+            Contract.RequiresNotNull( inputTable, "inputTable" );
+
+            int rowToScan = descriptor.Column.HeaderSeriesPosition;
+            Contract.Requires( rowToScan < inputTable.Columns.Count, "ValuesLocator points outside table" );
+
+            var colIdx = descriptor.Column.FindIndex( inputTable.Rows[ rowToScan ].ItemArray.Select( item => item.ToString() ) );
+            Contract.Invariant( colIdx != -1, "ValuesLocator condition failed: column not found" );
+
+            var colToScan = descriptor.Row.HeaderSeriesPosition;
+            Contract.Requires( colToScan < inputTable.Columns.Count, "TimesLocator points outside table" );
+
+            var rowIdx = descriptor.Row.FindIndex( inputTable.Rows.ToSet().Select( row => row[ colToScan ].ToString() ) );
+            Contract.Invariant( colIdx != -1, "TimesLocator condition failed: column not found" );
+
+            var value = inputTable.Rows[ rowIdx ][colIdx];
+
+            return descriptor.ValueFormat.Convert( value.ToString() );
         }
     }
 }

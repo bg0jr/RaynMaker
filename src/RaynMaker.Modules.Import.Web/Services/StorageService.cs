@@ -28,7 +28,7 @@ namespace RaynMaker.Modules.Import.Web.Services
                 using( var stream = new FileStream( file, FileMode.Open, FileAccess.Read ) )
                 {
                     var serializer = new ImportSpecSerializer();
-                    var sheet = serializer.Read<DataSourcesSheet>( stream );
+                    var sheet = serializer.ReadCompatible( stream );
                     return sheet.GetSources<DataSource>();
                 }
             }

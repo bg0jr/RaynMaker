@@ -111,10 +111,15 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         /// <param name="path">the path to the table</param>
         /// <param name="textOnly">set this to true to get only the text of the cell, otherwise the
         /// cell itself as HtmlElement is returned</param>
-        internal static FallibleActionResult<DataTable> ExtractTable( this IHtmlDocument doc, HtmlPath path, bool textOnly )
+        internal static FallibleActionResult<DataTable> ExtractTable( this IHtmlDocument doc, HtmlPath path )
         {
             Contract.RequiresNotNull( doc, "doc" );
             Contract.RequiresNotNull( path, "path" );
+
+            if( !path.PointsToTable && !path.PointsToTableCell )
+            {
+                throw new InvalidExpressionException( "Path neither points to table nor to cell" );
+            }
 
             HtmlTable htmlTable = doc.GetTableByPath( path );
             if( htmlTable == null )
@@ -125,8 +130,6 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             DataTable table = new DataTable();
             // TODO: should we get the culture from the HTML page somehow?
             table.Locale = CultureInfo.InvariantCulture;
-
-            Func<IHtmlElement, object> GetContent = element => ( textOnly ? ( object )element.InnerText : element );
 
             foreach( var tr in htmlTable.Rows )
             {
@@ -153,7 +156,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
                 // add data
                 for( int i = 0; i < htmlRow.Count; ++i )
                 {
-                    row[ i ] = GetContent( htmlRow[ i ] );
+                    row[ i ] = htmlRow[ i ].InnerText;
                 }
             }
 
@@ -164,16 +167,6 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             }
 
             return FallibleActionResult<DataTable>.CreateSuccessResult( table );
-        }
-
-        internal static FallibleActionResult<DataTable> ExtractTable( this IHtmlDocument doc, HtmlPath path )
-        {
-            if( !path.PointsToTable && !path.PointsToTableCell )
-            {
-                throw new InvalidExpressionException( "Path neither points to table nor to cell" );
-            }
-
-            return ExtractTable( doc, path, true );
         }
     }
 }

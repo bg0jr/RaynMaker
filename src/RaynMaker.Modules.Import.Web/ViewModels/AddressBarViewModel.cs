@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
@@ -23,11 +24,16 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             get { return myUrl; }
             set
             {
-                if( value != null
-                    && !value.StartsWith( "http://", StringComparison.OrdinalIgnoreCase )
-                    && !value.StartsWith( "https://", StringComparison.OrdinalIgnoreCase ) )
+                Uri uri;
+                if( value != null && Uri.TryCreate( value, UriKind.Absolute, out uri ) )
                 {
-                    value = "http://" + value;
+                    if( !uri.IsFile
+                        && !value.StartsWith( "file://", StringComparison.OrdinalIgnoreCase )
+                        && !value.StartsWith( "http://", StringComparison.OrdinalIgnoreCase )
+                        && !value.StartsWith( "https://", StringComparison.OrdinalIgnoreCase ) )
+                    {
+                        value = "http://" + value;
+                    }
                 }
                 SetProperty( ref myUrl, value );
             }

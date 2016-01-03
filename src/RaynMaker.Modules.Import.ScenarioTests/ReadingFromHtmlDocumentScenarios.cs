@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 using NUnit.Framework;
 using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
@@ -64,11 +65,57 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         [Test]
         public void GetCell()
         {
+            var doc = LoadDocument<IHtmlDocument>( "ariva.prices.DE0007664039.html" );
+
+            var descriptor = new PathCellDescriptor();
+            descriptor.Figure = "CurrentPrice";
+            descriptor.Path = @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]";
+            descriptor.Column = new StringContainsLocator { HeaderSeriesPosition = 0, Pattern = "Letzter" };
+            descriptor.Row = new StringContainsLocator { HeaderSeriesPosition = 0, Pattern = "Frankfurt" };
+            descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "00,00" ) { ExtractionPattern = new Regex( @"([0-9,\.]+)" ) };
+
+            var parser = DocumentProcessorsFactory.CreateParser( doc, descriptor );
+            var table = parser.ExtractTable();
+
+            Assert.That( table.Rows.Count, Is.EqualTo( 1 ) );
+
+            var value = table.Rows[ 0 ][ 0 ];
+
+            Assert.That( value, Is.EqualTo( 134.356d ) );
         }
 
         [Test]
         public void GetTable()
         {
+            var doc = LoadDocument<IHtmlDocument>( "ariva.historical.prices.DE0007664039.html" );
+
+            var descriptor = new PathTableDescriptor();
+            descriptor.Figure = "HistoricalPrices";
+            descriptor.Path = @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]";
+            descriptor.Columns.Add( new FormatColumn( "date", typeof( DateTime ) ) );
+            descriptor.Columns.Add( new FormatColumn( "open", typeof( double ), "00,00" ) );
+            descriptor.Columns.Add( new FormatColumn( "high", typeof( double ), "00,00" ) );
+            descriptor.Columns.Add( new FormatColumn( "low", typeof( double ), "00,00" ) );
+            descriptor.Columns.Add( new FormatColumn( "close", typeof( double ), "00,00" ) );
+            descriptor.SkipColumns.AddRange( 5, 6 );
+            descriptor.SkipRows.AddRange( 0, 23 );
+
+            var parser = DocumentProcessorsFactory.CreateParser( doc, descriptor );
+            var table = parser.ExtractTable();
+
+            Assert.That( table.Rows.Count, Is.EqualTo( 22 ) );
+
+            Assert.That( table.Rows[ 0 ][ 0 ], Is.EqualTo( new DateTime( 2015, 12, 30 ) ) );
+            Assert.That( table.Rows[ 0 ][ 1 ], Is.EqualTo( 135.45d ) );
+            Assert.That( table.Rows[ 0 ][ 2 ], Is.EqualTo( 135.45d ) );
+            Assert.That( table.Rows[ 0 ][ 3 ], Is.EqualTo( 133.55d ) );
+            Assert.That( table.Rows[ 0 ][ 4 ], Is.EqualTo( 133.75d ) );
+
+            Assert.That( table.Rows[ 21 ][ 0 ], Is.EqualTo( new DateTime( 2015, 11, 27 ) ) );
+            Assert.That( table.Rows[ 21 ][ 1 ], Is.EqualTo( 124.50d ) );
+            Assert.That( table.Rows[ 21 ][ 2 ], Is.EqualTo( 125.10d ) );
+            Assert.That( table.Rows[ 21 ][ 3 ], Is.EqualTo( 121.05d ) );
+            Assert.That( table.Rows[ 21 ][ 4 ], Is.EqualTo( 123.85d ) );
         }
     }
 }

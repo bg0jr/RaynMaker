@@ -20,9 +20,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
 
         public DataTable ExtractTable()
         {
-            PathSeriesDescriptor pathSeriesDescriptor = myDescriptor as PathSeriesDescriptor;
-            PathTableDescriptor pathTableDescriptor = myDescriptor as PathTableDescriptor;
-
+            var pathSeriesDescriptor = myDescriptor as PathSeriesDescriptor;
             if( pathSeriesDescriptor != null )
             {
                 var result = myDocument.ExtractTable( HtmlPath.Parse( pathSeriesDescriptor.Path ) );
@@ -33,9 +31,11 @@ namespace RaynMaker.Modules.Import.Parsers.Html
 
                 return TableFormatter.ToFormattedTable( pathSeriesDescriptor, result.Value );
             }
-            else if( pathTableDescriptor != null )
+
+            var pathTableDescriptor = myDescriptor as PathTableDescriptor;
+            if( pathTableDescriptor != null )
             {
-                var result = myDocument.ExtractTable( HtmlPath.Parse( pathTableDescriptor.Path ), true );
+                var result = myDocument.ExtractTable( HtmlPath.Parse( pathTableDescriptor.Path ));
                 if( !result.Success )
                 {
                     throw new Exception( "Failed to extract table from document: " + result.FailureReason );
@@ -43,19 +43,33 @@ namespace RaynMaker.Modules.Import.Parsers.Html
 
                 return TableFormatter.ToFormattedTable( pathTableDescriptor, result.Value );
             }
-            else if( myDescriptor is PathSingleValueDescriptor )
+
+            var pathCellDescriptor = myDescriptor as PathCellDescriptor;
+            if( pathCellDescriptor != null )
             {
-                var f = ( PathSingleValueDescriptor )myDescriptor;
-                var str = myDocument.GetTextByPath( HtmlPath.Parse( f.Path ) );
-                var value = f.ValueFormat.Convert( str );
+                var result = myDocument.ExtractTable( HtmlPath.Parse( pathCellDescriptor.Path ) );
+                if( !result.Success )
+                {
+                    throw new Exception( "Failed to extract table from document: " + result.FailureReason );
+                }
+
+                var value = TableFormatter.GetValue( pathCellDescriptor, result.Value );
 
                 // XXX: this is really ugly - i have to create a table just to satisfy the interface :(
-                return CreateTableForScalar( f.ValueFormat.Type, value );
+                return CreateTableForScalar( pathCellDescriptor.ValueFormat.Type, value );
             }
-            else
+
+            var pathSingleValueDescriptor = myDescriptor as PathSingleValueDescriptor;
+            if( pathSingleValueDescriptor != null )
             {
-                throw new NotSupportedException( "Format not supported for Html documents: " + myDescriptor.GetType() );
+                var str = myDocument.GetTextByPath( HtmlPath.Parse( pathSingleValueDescriptor.Path ) );
+                var value = pathSingleValueDescriptor.ValueFormat.Convert( str );
+
+                // XXX: this is really ugly - i have to create a table just to satisfy the interface :(
+                return CreateTableForScalar( pathSingleValueDescriptor.ValueFormat.Type, value );
             }
+
+            throw new NotSupportedException( "Format not supported for Html documents: " + myDescriptor.GetType() );
         }
 
         private DataTable CreateTableForScalar( Type dataType, object value )
