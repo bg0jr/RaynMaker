@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.IO;
 using HtmlAgilityPack;
 using Plainion.AppFw.Shell.Forms;
@@ -66,16 +67,20 @@ namespace RaynMaker.SDK.Scripts
 
         private static void RemoveWebReferences( HtmlDocument doc )
         {
-            TraverseNodeTree( doc.DocumentNode, RemoveWebReferences );
+            TraverseNodeTree( doc.DocumentNode, 0 );
         }
 
-        private static void TraverseNodeTree( HtmlNode root, Action<HtmlNode> visitorAction )
+        private static void TraverseNodeTree( HtmlNode root, int depth )
         {
             foreach( HtmlNode node in root.ChildNodes )
             {
-                visitorAction( node );
+                Console.WriteLine( " ".PadLeft( depth ) + "<" + root.Name + " Depth=" + depth + ">" );
 
-                TraverseNodeTree( node, visitorAction );
+                RemoveWebReferences( node );
+
+                TraverseNodeTree( node, depth + 1 );
+
+                Console.WriteLine( " ".PadLeft( depth ) + "</" + root.Name + ">" );
             }
         }
 
@@ -86,7 +91,9 @@ namespace RaynMaker.SDK.Scripts
             RemoveIFrameTag( node );
             RemoveLinkTag( node );
             RemoveEmbedTag( node );
-            RemoveComment( node );
+            
+            // caused StackOverflowExceptions
+            //RemoveComment( node );
         }
 
         private static void RemoveScriptTag( HtmlNode node )
