@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="a48b622c-e7b2-4396-b47d-2d76b8aafa12" Created="635874260746567029" LastModified="635874260986490752">
+  <Caption><![CDATA[Cleanup MarkupDocument handling]]></Caption>
+  <Content><![CDATA[it is too generic and brings lot of complexity into the ViewModels]]></Content>
+</Node>

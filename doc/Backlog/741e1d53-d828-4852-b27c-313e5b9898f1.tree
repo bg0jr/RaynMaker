@@ -7,6 +7,18 @@
     </Node>
     <Node Id="b6cbd93c-bdbd-49b4-bbb8-33de0a595e04">
       <Caption><![CDATA[1.7 - Polish Import module]]></Caption>
+      <Node Id="a48b622c-e7b2-4396-b47d-2d76b8aafa12">
+        <Caption><![CDATA[Cleanup MarkupDocument handling]]></Caption>
+      </Node>
+      <Node Id="11e80f8f-dc31-44a2-9c9c-c790ede307bd">
+        <Caption><![CDATA[Tests for PathSeriesFormatViewModel]]></Caption>
+      </Node>
+      <Node Id="f915dae9-ecf3-454f-897f-8ed8c8efa639">
+        <Caption><![CDATA[Tests for PathCellFormatViewModel]]></Caption>
+      </Node>
+      <Node Id="d0da3880-c6d3-477b-bee2-8553b930be55">
+        <Caption><![CDATA[Rework WebSpy]]></Caption>
+      </Node>
       <Node Id="e4cba108-1415-42e0-ac8f-4e9d7596dfab">
         <Caption><![CDATA[Browser]]></Caption>
         <Node Id="77a3da08-70e8-4ae1-b90d-40a5b428e21d">
@@ -31,20 +43,11 @@
       <Node Id="3494b210-9cef-4613-abf0-fb368c2075f8">
         <Caption><![CDATA[SubmitFormular not implemented]]></Caption>
       </Node>
-      <Node Id="d0da3880-c6d3-477b-bee2-8553b930be55">
-        <Caption><![CDATA[Rework WebSpy]]></Caption>
-      </Node>
       <Node Id="abb9f7c2-8cac-4750-a6d5-c1ea36d41609">
         <Caption><![CDATA[Add more verification in data collection]]></Caption>
       </Node>
       <Node Id="6c39ee0d-5992-4511-b61e-a4e7387f51fe">
         <Caption><![CDATA[HtmlDocumentBasicReadingTests]]></Caption>
-      </Node>
-      <Node Id="11e80f8f-dc31-44a2-9c9c-c790ede307bd">
-        <Caption><![CDATA[Tests for PathSeriesFormatViewModel]]></Caption>
-      </Node>
-      <Node Id="f915dae9-ecf3-454f-897f-8ed8c8efa639">
-        <Caption><![CDATA[Tests for PathCellFormatViewModel]]></Caption>
       </Node>
       <Node Id="211a7a10-87e8-4363-b9ce-6f9835655d50">
         <Caption><![CDATA[Remove "format" name from everywhere]]></Caption>
