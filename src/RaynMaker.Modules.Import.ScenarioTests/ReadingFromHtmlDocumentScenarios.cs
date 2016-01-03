@@ -29,7 +29,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         [Test]
         public void GetSeries()
         {
-            var doc = LoadDocument<IHtmlDocument>( "ariva.html" );
+            var doc = LoadDocument<IHtmlDocument>( "ariva.fundamentals.html" );
 
             var descriptor = new PathSeriesDescriptor();
             descriptor.Figure = "EPS";

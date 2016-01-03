@@ -82,6 +82,9 @@
     <None Include="Samples\.rym-Sample\Notes\General.rtf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="Starter.cmd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RaynMaker.Modules.Import\RaynMaker.Modules.Import.csproj">
@@ -90,10 +93,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Starter\Scripts.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Content Include="Starter\Scripts.xaml">
       <SubType>Designer</SubType>
-    </Page>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -31,7 +31,7 @@
     <Compile Include="LoadingDataSourcesScenarios.cs" />
     <Compile Include="SubmittingFormScenarios.cs" />
     <Compile Include="ReadingFromHtmlDocumentScenarios.cs" />
-    <Compile Include="ParsingHtmlScenarios.cs" />
+    <Compile Include="NavigatingHtmlDocumentScenarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadingFromCsvDocumentScenarios.cs" />
     <Compile Include="TestBase.cs" />
@@ -47,13 +47,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestData\ReadingFromHtmlDocumentScenarios\ariva.html">
+    <Content Include="TestData\ReadingFromHtmlDocumentScenarios\ariva.fundamentals.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\ReadingFromHtmlDocumentScenarios\ariva.historical.prices.DE0007664039.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\ReadingFromHtmlDocumentScenarios\ariva.prices.DE0007664039.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\SubmittingFormScenarios\ariva.historicalprices.DE0008404005.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\ParsingHtmlScenarios\ariva.html">
+    <Content Include="TestData\NavigatingHtmlDocumentScenarios\ariva.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="TestData\LoadingDataSourcesScenarios\DataSources.xdb">

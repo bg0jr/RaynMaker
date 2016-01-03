@@ -15,18 +15,10 @@ namespace RaynMaker.SDK.Scripts
         private string myOutputFile = null;
 
         [Argument( Short = "-n", Description = "Only download the given page" )]
-        public bool DownloadOnly
-        {
-            get;
-            set;
-        }
+        public bool DownloadOnly { get; set; }
 
         [Argument( Short = "-url", Description = "URL to the page to download" ), Required]
-        public Uri InputUri
-        {
-            get;
-            set;
-        }
+        public string InputUri { get; set; }
 
         protected override void Run()
         {
@@ -42,22 +34,23 @@ namespace RaynMaker.SDK.Scripts
         private void LoadDocument()
         {
             bool deleteInput = false;
-            string inputFile = InputUri.ToString();
+            var url = new Uri( InputUri );
+            var file = InputUri;
 
-            if( InputUri.Scheme != Uri.UriSchemeFile )
+            if( url.Scheme != Uri.UriSchemeFile )
             {
                 deleteInput = true;
-                inputFile = Path.GetTempFileName();
+                file = Path.GetTempFileName();
 
-                WebUtil.DownloadTo( InputUri, inputFile );
+                WebUtil.DownloadTo( url, file );
             }
 
             myDocument = new HtmlDocument();
-            myDocument.Load( inputFile );
+            myDocument.Load( file );
 
             if( deleteInput )
             {
-                File.Delete( inputFile );
+                File.Delete( file );
             }
         }
 
@@ -71,12 +64,12 @@ namespace RaynMaker.SDK.Scripts
             RemoveWebReferences( myDocument );
         }
 
-        public static void RemoveWebReferences( HtmlDocument doc )
+        private static void RemoveWebReferences( HtmlDocument doc )
         {
             TraverseNodeTree( doc.DocumentNode, RemoveWebReferences );
         }
 
-        public static void TraverseNodeTree( HtmlNode root, Action<HtmlNode> visitorAction )
+        private static void TraverseNodeTree( HtmlNode root, Action<HtmlNode> visitorAction )
         {
             foreach( HtmlNode node in root.ChildNodes )
             {
@@ -86,7 +79,7 @@ namespace RaynMaker.SDK.Scripts
             }
         }
 
-        public static void RemoveWebReferences( HtmlNode node )
+        private static void RemoveWebReferences( HtmlNode node )
         {
             RemoveScriptTag( node );
             RemoveImgTag( node );
@@ -98,7 +91,7 @@ namespace RaynMaker.SDK.Scripts
 
         private static void RemoveScriptTag( HtmlNode node )
         {
-            if( !node.Name.Equals( "script" ,StringComparison.OrdinalIgnoreCase) ) return;
+            if( !node.Name.Equals( "script", StringComparison.OrdinalIgnoreCase ) ) return;
 
             node.RemoveAll();
         }
@@ -140,7 +133,7 @@ namespace RaynMaker.SDK.Scripts
 
         private void StoreOfflineDocument()
         {
-            myOutputFile = GetOutputFile( InputUri );
+            myOutputFile = GetOutputFile( new Uri( InputUri ) );
             myDocument.Save( myOutputFile );
         }
 
