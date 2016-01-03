@@ -8,6 +8,7 @@ using RaynMaker.Entities;
 using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Documents.WinForms;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
+using RaynMaker.Modules.Import.Web.Services;
 
 namespace RaynMaker.Modules.Import.Web.ViewModels
 {

@@ -8,7 +8,7 @@ using RaynMaker.Modules.Import.Documents.WinForms;
 using RaynMaker.Modules.Import.Parsers.Html;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
-namespace RaynMaker.Modules.Import.Web.ViewModels
+namespace RaynMaker.Modules.Import.Web.Services
 {
     class MarkupDocument : IDisposable
     {
