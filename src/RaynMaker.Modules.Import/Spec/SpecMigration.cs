@@ -61,7 +61,7 @@ namespace RaynMaker.Modules.Import.Spec
 
             foreach( var navi in navigation.Uris )
             {
-                locator.Fragments.Add( Migrate(navi) );
+                locator.Fragments.Add( Migrate( navi ) );
             }
 
             return locator;
@@ -79,7 +79,7 @@ namespace RaynMaker.Modules.Import.Spec
             }
             else if( navi.UrlType == v1.UriType.SubmitFormular )
             {
-                return new v2.Locating.SubmitFormular(navi.UrlString, Migrate(navi.Formular) );
+                return new v2.Locating.SubmitFormular( navi.UrlString, Migrate( navi.Formular ) );
             }
 
             throw new NotSupportedException( "Unknown UrlType: " + navi.UrlType );
@@ -99,7 +99,83 @@ namespace RaynMaker.Modules.Import.Spec
 
         private static v2.Extraction.IFigureDescriptor Migrate( v1.IFormat format )
         {
-            return null;
+            if( format is v1.PathCellFormat )
+            {
+                return Migrate( ( v1.PathCellFormat )format );
+            }
+            else if( format is v1.PathSeriesFormat )
+            {
+                return Migrate( ( v1.PathSeriesFormat )format );
+            }
+
+            throw new NotSupportedException( "Unknown format type: " + format.GetType() );
+        }
+
+        private static v2.Extraction.PathCellDescriptor Migrate( v1.PathCellFormat source )
+        {
+            var target = new v2.Extraction.PathCellDescriptor();
+
+            target.Column = Migrate( source.Anchor.Column );
+            target.Currency = source.Currency;
+            target.Figure = source.Datum;
+            target.InMillions = source.InMillions;
+            target.Path = source.Path;
+            target.Row = Migrate( source.Anchor.Row );
+            target.ValueFormat = Migrate( source.ValueFormat );
+
+            return target;
+        }
+
+        private static v2.Extraction.ISeriesLocator Migrate( v1.ICellLocator cellLocator )
+        {
+            var absolute = cellLocator as v1.AbsolutePositionLocator;
+            if( absolute != null )
+            {
+                return new v2.Extraction.AbsolutePositionLocator { HeaderSeriesPosition = absolute.SeriesToScan, SeriesPosition = absolute.Position };
+            }
+
+            var stringContains = cellLocator as v1.StringContainsLocator;
+            if( stringContains != null )
+            {
+                return new v2.Extraction.StringContainsLocator { HeaderSeriesPosition = stringContains.SeriesToScan, Pattern = stringContains.Pattern};
+            }
+
+            var regex = cellLocator as v1.RegexPatternLocator;
+            if( regex != null )
+            {
+                return new v2.Extraction.RegexPatternLocator { HeaderSeriesPosition = regex.SeriesToScan, Pattern = regex.Pattern };
+            }
+
+            throw new NotSupportedException( "Unknown cell locator type: " + cellLocator.GetType() );
+        }
+
+        private static v2.Extraction.PathSeriesDescriptor Migrate( v1.PathSeriesFormat source )
+        {
+            var target = new v2.Extraction.PathSeriesDescriptor();
+
+            foreach( var exclude in source.Expand == v1.CellDimension.Row ? source.SkipColumns : source.SkipRows )
+            {
+                target.Excludes.Add( exclude );
+            }
+
+            target.Figure = source.Datum;
+            target.InMillions = source.InMillions;
+            target.Orientation = source.Expand == v1.CellDimension.Row ? v2.Extraction.SeriesOrientation.Row : v2.Extraction.SeriesOrientation.Column;
+            target.Path = source.Path;
+            target.TimeFormat = Migrate( source.TimeAxisFormat );
+            target.TimesLocator = new v2.Extraction.AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = source.TimeAxisPosition };
+            target.ValueFormat = Migrate( source.ValueFormat );
+            target.ValuesLocator = new v2.Extraction.StringContainsLocator { HeaderSeriesPosition = source.SeriesNamePosition, Pattern = source.SeriesName };
+
+            return target;
+        }
+
+        private static v2.Extraction.FormatColumn Migrate( v1.FormatColumn source )
+        {
+            return new v2.Extraction.FormatColumn( source.Name, source.Type, source.Format )
+            {
+                ExtractionPattern = source.ExtractionPattern
+            };
         }
     }
 }

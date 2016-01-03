@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="a1c2b17c-a4ef-404e-80b4-85bcc8e843e5" Created="635873992054909278" LastModified="635873992431990846">
+  <Caption><![CDATA[Auto "Path" correction]]></Caption>
+  <Content><![CDATA[every descriptor describes how Path property is used. if it points to cell 
+because of clicking and actually we want to have table we 
+could auto-correct it]]></Content>
+</Node>

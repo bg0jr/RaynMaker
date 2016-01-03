@@ -70,6 +70,9 @@
       <Node Id="148dd5af-55c0-4cad-8a5e-7cf8cc33c122">
         <Caption><![CDATA[Ensure in factory that we always get a copy ]]></Caption>
       </Node>
+      <Node Id="a1c2b17c-a4ef-404e-80b4-85bcc8e843e5">
+        <Caption><![CDATA[Auto "Path" correction]]></Caption>
+      </Node>
     </Node>
     <Node Id="63da965d-c664-48a9-8250-578d54290207">
       <Caption><![CDATA[1.8]]></Caption>
