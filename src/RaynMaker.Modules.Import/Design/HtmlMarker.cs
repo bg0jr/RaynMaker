@@ -51,7 +51,7 @@ namespace RaynMaker.Modules.Import.Design
 
             var info = new MarkedHtmlElement( element );
 
-            info.Value.Style += string.Format( "color:black;background-color:{0}", ColorTranslator.ToHtml( color ) );
+            info.Value.Style += string.Format( ";color:black;background-color:{0}", ColorTranslator.ToHtml( color ) );
 
             myMarkedElements.Add( info );
         }

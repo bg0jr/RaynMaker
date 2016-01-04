@@ -28,11 +28,28 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
             <li id='a5'>bullet one</li>
             <li id='a6'>bullet two</li>
         </ul>
+
+        <p id='a7' style='color:red;background-color:blue;font-size:300%'>
+            with existing style
+        </p>
+
+        <table>
+            <tbody id='a8'>
+                <tr>
+                    <td>c1</td>
+                    <td>c2</td>
+                </tr>
+                <tr>
+                    <td id='a9'>c3</td>
+                    <td>c4</td>
+                </tr>
+            </tbody>
+        </table>
     </body>
 </html>
 ";
 
-        private static bool ShowMarkupResultInBrowser = true;
+        private static bool ShowMarkupResultInBrowser = false;
 
         private SafeWebBrowser myBrowser;
         private HtmlMarker myMarker;
@@ -69,49 +86,113 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         }
 
         [Test]
-        public void Mark_ParagraphWithInnerTags_EntireParagraphTextMarked()
+        public void ParagraphWithInnerTags()
         {
             var element = myBrowser.Document.GetElementById( "a1" );
 
             myMarker.Mark( element );
-
             Assert_IsMarked( element );
+
+            myMarker.Unmark( element );
+            Assert_IsUnmarked( element, null );
         }
 
         [Test]
-        public void Mark_DivWithTwoParagraphs_AllParagraphsMarked()
+        public void DivWithTwoParagraphs()
         {
             var element = myBrowser.Document.GetElementById( "a2" );
 
             myMarker.Mark( element );
-
             Assert_IsMarked( element );
+
+            myMarker.Unmark( element );
+            Assert_IsUnmarked( element, null );
         }
 
         [Test]
-        public void Mark_OneBulletOfList_OnlySingleBulletMarked()
+        public void OneBulletOfList()
         {
             var element = myBrowser.Document.GetElementById( "a5" );
 
             myMarker.Mark( element );
-
             Assert_IsMarked( element );
+
+            myMarker.Unmark( element );
+            Assert_IsUnmarked( element, null );
         }
 
         [Test]
-        public void Mark_WholeList_WholeListMarked()
+        public void WholeList()
         {
             var element = myBrowser.Document.GetElementById( "a4" );
 
             myMarker.Mark( element );
-
             Assert_IsMarked( element );
+
+            myMarker.Unmark( element );
+            Assert_IsUnmarked( element, null );
+        }
+
+        [Test]
+        public void ElementWithExistingStyle()
+        {
+            var element = myBrowser.Document.GetElementById( "a7" );
+
+            myMarker.Mark( element );
+            Assert_IsMarked( element );
+
+            myMarker.Unmark( element );
+            Assert_IsUnmarked( element, "background-color: blue" );
+        }
+
+        [Test]
+        public void EntireTable()
+        {
+            var element = myBrowser.Document.GetElementById( "a8" );
+
+            myMarker.Mark( element );
+            Assert_IsMarked( element );
+
+            myMarker.Unmark( element );
+            Assert_IsUnmarked( element, null );
+        }
+
+        [Test]
+        public void SingleTableCell()
+        {
+            var element = myBrowser.Document.GetElementById( "a9" );
+
+            myMarker.Mark( element );
+            Assert_IsMarked( element );
+
+            myMarker.Unmark( element );
+            Assert_IsUnmarked( element, null );
         }
 
         private void Assert_IsMarked( HtmlElement element )
         {
             Assert.That( myMarker.IsMarked( element ), Is.True );
             Assert.That( element.Style, Is.StringContaining( "background-color: yellow" ).IgnoreCase );
+
+            if( ShowMarkupResultInBrowser )
+            {
+                ShowMarkedDocument();
+            }
+        }
+
+        private void Assert_IsUnmarked( HtmlElement element, string originalStyle )
+        {
+            Assert.That( myMarker.IsMarked( element ), Is.False );
+
+            if( originalStyle == null )
+            {
+                Assert.That( element.Style, Is.Null );
+            }
+            else
+            {
+                // we cannot check for exact match of original style because the different parameters get reordered
+                Assert.That( element.Style, Is.StringContaining( originalStyle ).IgnoreCase );
+            }
 
             if( ShowMarkupResultInBrowser )
             {
