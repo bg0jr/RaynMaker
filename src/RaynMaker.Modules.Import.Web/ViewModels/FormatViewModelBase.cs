@@ -27,7 +27,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 .OrderBy( d => d.Name )
                 .ToList();
 
-            MarkupDocument = new HtmlMarkupDocument();
+            MarkupDocument = new HtmlMarkupBehavior();
             MarkupDocument.SelectionChanged += OnSelectionChanged;
         }
 
@@ -49,7 +49,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             }
         }
 
-        protected HtmlMarkupDocument MarkupDocument { get; private set; }
+        protected HtmlMarkupBehavior MarkupDocument { get; private set; }
 
         protected virtual void OnSelectionChanged()
         {

@@ -100,7 +100,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             Contract.RequiresNotNull( format, "format" );
             Contract.Invariant( Document != null, "Document not yet loaded" );
 
-            var markupDoc = new HtmlMarkupDocument();
+            var markupDoc = new HtmlMarkupBehavior();
             markupDoc.Document = ( ( HtmlDocumentAdapter )Document ).Document;
             markupDoc.Anchor = format.Path;
             markupDoc.Dimension = format.Orientation;

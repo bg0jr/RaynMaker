@@ -33,7 +33,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Design\HtmlMarker.cs" />
-    <Compile Include="Design\HtmlMarkupDocument.cs" />
+    <Compile Include="Design\HtmlMarkupBehavior.cs" />
     <Compile Include="DocumentBrowserExtensions.cs" />
     <Compile Include="Documents\ICache.cs" />
     <Compile Include="FigureDescriptorFactory.cs" />

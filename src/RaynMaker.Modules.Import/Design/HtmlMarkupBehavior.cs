@@ -16,7 +16,7 @@ namespace RaynMaker.Modules.Import.Design
     /// - "Markers" - collection of all markers
     /// - "Pen" - which does the markup and has logic to mark table rows and columns
     /// </summary>
-    public class HtmlMarkupDocument : IDisposable
+    public class HtmlMarkupBehavior : IDisposable
     {
         private HtmlMarker myMarker = null;
         private HtmlDocumentAdapter myDocument = null;
@@ -32,7 +32,7 @@ namespace RaynMaker.Modules.Import.Design
         private int myColumnHeader = -1;
         private string mySeriesName = null;
 
-        public HtmlMarkupDocument()
+        public HtmlMarkupBehavior()
         {
             myMarker = new HtmlMarker();
             Reset();
