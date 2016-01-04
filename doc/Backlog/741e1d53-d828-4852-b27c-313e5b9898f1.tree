@@ -69,6 +69,9 @@
       <Caption><![CDATA[1.8]]></Caption>
       <Node Id="b8907cdc-8dd8-4768-afed-7f7b77f096b6">
         <Caption><![CDATA[Help - finish dictionary]]></Caption>
+        <Node Id="4066e64e-0a86-4311-ac39-faba69a5a147">
+          <Caption><![CDATA[migrate to PanDoc?]]></Caption>
+        </Node>
       </Node>
       <Node Id="b3281029-c701-44d4-89e8-b43624845610">
         <Caption><![CDATA[Cancel & Undo of Entity changes]]></Caption>

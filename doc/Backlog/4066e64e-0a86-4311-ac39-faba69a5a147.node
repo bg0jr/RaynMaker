@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="4066e64e-0a86-4311-ac39-faba69a5a147" Created="635875086409185928" LastModified="635875086599786829">
+  <Caption><![CDATA[migrate to PanDoc?]]></Caption>
+  <Content><![CDATA[so that we have statically generated html files?
+flatdoc is quite slow]]></Content>
+</Node>
