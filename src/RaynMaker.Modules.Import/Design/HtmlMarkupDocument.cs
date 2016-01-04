@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Plainion;
 using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Documents.WinForms;
 using RaynMaker.Modules.Import.Parsers.Html;
@@ -37,7 +38,6 @@ namespace RaynMaker.Modules.Import.Design
             Reset();
         }
 
-        public Action<bool> ValidationChanged = null;
         public Action SelectionChanged = null;
 
         public HtmlElementAdapter SelectedElement
@@ -88,8 +88,6 @@ namespace RaynMaker.Modules.Import.Design
                 myDocument = new HtmlDocumentAdapter( value );
                 //Debug.WriteLine( GetHashCode() + ": Add OnClick" );
                 myDocument.Document.Click += HtmlDocument_Click;
-
-                myMarker.Document = myDocument;
 
                 // Internally adjusts SelectedElement
                 Anchor = Anchor;
@@ -258,12 +256,12 @@ namespace RaynMaker.Modules.Import.Design
 
             if( myDimension == SeriesOrientation.Row )
             {
-                myMarker.MarkTableRow( mySelectedElement.Element );
+                MarkTableRow( mySelectedElement.Element );
                 DoSkipColumns();
             }
             else if( myDimension == SeriesOrientation.Column )
             {
-                myMarker.MarkTableColumn( mySelectedElement.Element );
+                MarkTableColumn( mySelectedElement.Element );
                 DoSkipRows();
             }
             else
@@ -299,23 +297,6 @@ namespace RaynMaker.Modules.Import.Design
                 {
                     header = FindRowHeader( myRowHeader )( mySelectedElement );
                 }
-            }
-
-            if( header != null && !header.InnerText.Contains( mySeriesName ) )
-            {
-                FireValidationChanged( false );
-            }
-            else
-            {
-                FireValidationChanged( true );
-            }
-        }
-
-        private void FireValidationChanged( bool isValid )
-        {
-            if( ValidationChanged != null )
-            {
-                ValidationChanged( isValid );
             }
         }
 
@@ -413,6 +394,52 @@ namespace RaynMaker.Modules.Import.Design
         public void UnmarkAll()
         {
             myMarker.UnmarkAll();
+        }
+
+        private void MarkTableRow( HtmlElement start )
+        {
+            MarkTableRow( start, myMarker.DefaultColor );
+        }
+
+        private void MarkTableRow( HtmlElement start, Color color )
+        {
+            Contract.RequiresNotNull( start != null, "start" );
+
+            var adapter = myDocument.Create( start );
+
+            if( HtmlTable.GetEmbeddingTR( adapter ) == null )
+            {
+                // not clicked into table row
+                return;
+            }
+
+            foreach( var e in HtmlTable.GetRow( adapter ).OfType<HtmlElementAdapter>() )
+            {
+                myMarker.Mark( e.Element, color );
+            }
+        }
+
+        private void MarkTableColumn( HtmlElement start )
+        {
+            MarkTableColumn( start, myMarker.DefaultColor );
+        }
+
+        private void MarkTableColumn( HtmlElement start, Color color )
+        {
+            Contract.RequiresNotNull( start != null, "start" );
+
+            var adapter = myDocument.Create( start );
+
+            if( HtmlTable.GetEmbeddingTD( adapter ) == null )
+            {
+                // not clicked into table column
+                return;
+            }
+
+            foreach( var e in HtmlTable.GetColumn( adapter ).OfType<HtmlElementAdapter>() )
+            {
+                myMarker.Mark( e.Element, color );
+            }
         }
     }
 }

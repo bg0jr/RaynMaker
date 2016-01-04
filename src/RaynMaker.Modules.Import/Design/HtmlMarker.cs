@@ -18,8 +18,6 @@ namespace RaynMaker.Modules.Import.Design
             DefaultColor = Color.Yellow;
         }
 
-        public HtmlDocumentAdapter Document { get; set; }
-
         public IEnumerable<HtmlElement> MarkedElements { get { return myMarkedElements; } }
 
         public Color DefaultColor { get; set; }
@@ -98,50 +96,5 @@ namespace RaynMaker.Modules.Import.Design
             return myMarkedElements.Contains( e );
         }
 
-        public void MarkTableRow( HtmlElement start )
-        {
-            MarkTableRow( start, DefaultColor );
-        }
-
-        public void MarkTableRow( HtmlElement start, Color color )
-        {
-            Contract.RequiresNotNull( start != null, "start" );
-
-            var adapter = Document.Create( start );
-
-            if( HtmlTable.GetEmbeddingTR( adapter ) == null )
-            {
-                // not clicked into table row
-                return;
-            }
-
-            foreach( var e in HtmlTable.GetRow( adapter ).OfType<HtmlElementAdapter>() )
-            {
-                Mark( e.Element, color );
-            }
-        }
-
-        public void MarkTableColumn( HtmlElement start )
-        {
-            MarkTableColumn( start, DefaultColor );
-        }
-
-        public void MarkTableColumn( HtmlElement start, Color color )
-        {
-            Contract.RequiresNotNull( start != null, "start" );
-
-            var adapter = Document.Create( start );
-
-            if( HtmlTable.GetEmbeddingTD( adapter ) == null )
-            {
-                // not clicked into table column
-                return;
-            }
-
-            foreach( var e in HtmlTable.GetColumn( adapter ).OfType<HtmlElementAdapter>() )
-            {
-                Mark( e.Element, color );
-            }
-        }
     }
 }

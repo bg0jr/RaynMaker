@@ -21,8 +21,6 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         {
             Format = format;
 
-            MarkupDocument.ValidationChanged += SeriesName_ValidationChanged;
-
             IsValid = true;
 
             Value = "";
@@ -43,11 +41,6 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         }
 
         public new PathSeriesDescriptor Format { get; private set; }
-
-        private void SeriesName_ValidationChanged( bool isValid )
-        {
-            IsValid = isValid;
-        }
 
         protected override void OnSelectionChanged()
         {
