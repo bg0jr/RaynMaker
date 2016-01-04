@@ -12,9 +12,11 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
 {
     [RequiresSTA]
     [TestFixture]
-    class HtmlElementMarkerTests
+    class HtmlElementMarkerTests : HtmlMarkupTestBase
     {
-        private const string HtmlContent = @"
+        protected override string GetHtml()
+        {
+            return @"
 <html>
     <body>
         <div id='a2'>
@@ -50,32 +52,9 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
     </body>
 </html>
 ";
+        }
 
-        private static bool ShowMarkupResultInBrowser = false;
-
-        private SafeWebBrowser myBrowser;
-        private IHtmlDocument myDocument;
         private HtmlElementMarker myMarker;
-
-        [TestFixtureSetUp]
-        public void TestFixtureSetUp()
-        {
-            myBrowser = new SafeWebBrowser();
-            myBrowser.DownloadControlFlags = DocumentLoaderFactory.DownloadControlFlags;
-
-            myBrowser.DocumentText = HtmlContent;
-            myBrowser.Document.OpenNew( true );
-            myBrowser.Document.Write( HtmlContent );
-            myBrowser.Refresh();
-
-            myDocument = new HtmlDocumentAdapter( myBrowser.Document );
-        }
-
-        [TestFixtureTearDown]
-        public void TestFixtureTearDown()
-        {
-            myBrowser.Dispose();
-        }
 
         [SetUp]
         public void SetUp()
@@ -93,7 +72,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         [Test]
         public void Mark_ParagraphWithInnerTags()
         {
-            var element = myDocument.GetElementById( "a1" );
+            var element = Document.GetElementById( "a1" );
 
             myMarker.Mark( element );
             Assert_IsMarked( element );
@@ -105,7 +84,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         [Test]
         public void Mark_DivWithTwoParagraphs()
         {
-            var element = myDocument.GetElementById( "a2" );
+            var element = Document.GetElementById( "a2" );
 
             myMarker.Mark( element );
             Assert_IsMarked( element );
@@ -117,7 +96,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         [Test]
         public void Mark_OneBulletOfList()
         {
-            var element = myDocument.GetElementById( "a5" );
+            var element = Document.GetElementById( "a5" );
 
             myMarker.Mark( element );
             Assert_IsMarked( element );
@@ -129,7 +108,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         [Test]
         public void Mark_WholeList()
         {
-            var element = myDocument.GetElementById( "a4" );
+            var element = Document.GetElementById( "a4" );
 
             myMarker.Mark( element );
             Assert_IsMarked( element );
@@ -141,7 +120,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         [Test]
         public void Mark_ElementWithExistingStyle()
         {
-            var element = myDocument.GetElementById( "a7" );
+            var element = Document.GetElementById( "a7" );
 
             myMarker.Mark( element );
             Assert_IsMarked( element );
@@ -153,7 +132,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         [Test]
         public void Mark_EntireTable()
         {
-            var element = myDocument.GetElementById( "a8" );
+            var element = Document.GetElementById( "a8" );
 
             myMarker.Mark( element );
             Assert_IsMarked( element );
@@ -165,54 +144,13 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         [Test]
         public void Mark_SingleTableCell()
         {
-            var element = myDocument.GetElementById( "a9" );
+            var element = Document.GetElementById( "a9" );
 
             myMarker.Mark( element );
             Assert_IsMarked( element );
 
             myMarker.Unmark();
             Assert_IsUnmarked( element, null );
-        }
-
-        private void Assert_IsMarked( IHtmlElement element )
-        {
-            Assert.That( element.Style, Is.StringContaining( "background-color: yellow" ).IgnoreCase );
-
-            if( ShowMarkupResultInBrowser )
-            {
-                ShowMarkedDocument();
-            }
-        }
-
-        private void Assert_IsUnmarked( IHtmlElement element, string originalStyle )
-        {
-            if( originalStyle == null )
-            {
-                Assert.That( element.Style, Is.Null );
-            }
-            else
-            {
-                // we cannot check for exact match of original style because the different parameters get reordered
-                Assert.That( element.Style, Is.StringContaining( originalStyle ).IgnoreCase );
-            }
-
-            if( ShowMarkupResultInBrowser )
-            {
-                ShowMarkedDocument();
-            }
-        }
-
-        private void ShowMarkedDocument()
-        {
-            myBrowser.Document.Title = TestContext.CurrentContext.Test.Name;
-
-            var file = Path.GetTempFileName() + ".html";
-
-            File.WriteAllText( file, myBrowser.Document.Body.Parent.OuterHtml, Encoding.GetEncoding( myBrowser.Document.Encoding ) );
-
-            Process.Start( file ).WaitForExit();
-
-            File.Delete( file );
         }
     }
 }

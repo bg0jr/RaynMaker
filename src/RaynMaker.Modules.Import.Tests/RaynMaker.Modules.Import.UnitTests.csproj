@@ -32,6 +32,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Design\HtmlMarkupTestBase.cs" />
+    <Compile Include="Design\HtmlElementCollectionMarkerTests.cs" />
     <Compile Include="Design\HtmlElementMarkerTests.cs" />
     <Compile Include="Documents\PatternMatchingTests.cs" />
     <Compile Include="FigureDescriptorFactoryTests.cs" />
