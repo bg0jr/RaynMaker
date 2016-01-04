@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Windows.Forms;
 using Plainion;
 using RaynMaker.Modules.Import.Documents.WinForms;
@@ -7,11 +6,8 @@ using RaynMaker.Modules.Import.Parsers.Html;
 
 namespace RaynMaker.Modules.Import.Design
 {
-    public class HtmlMarkupBehavior : IDisposable
+    public class HtmlMarkupBehavior<T> : IDisposable where T : IHtmlMarker
     {
-        private HtmlElementMarker myElementMarker;
-        private HtmlTableMarker myTableMarker;
-
         private HtmlDocumentAdapter myDocument;
         // holds the element which has been marked by the user "click"
         // (before extensions has been applied)
@@ -19,13 +15,14 @@ namespace RaynMaker.Modules.Import.Design
 
         private string myPath;
 
-        public HtmlMarkupBehavior()
+        public HtmlMarkupBehavior( T marker )
         {
-            myElementMarker = new HtmlElementMarker( Color.Yellow );
-            myTableMarker = new HtmlTableMarker( Color.Yellow, Color.SteelBlue );
+            Marker = marker;
 
             Reset();
         }
+
+        public T Marker { get; private set; }
 
         public HtmlDocument Document
         {
@@ -66,7 +63,7 @@ namespace RaynMaker.Modules.Import.Design
             {
                 Contract.Invariant( myDocument != null, "Document not attached" );
 
-                UnmarkAll();
+                Marker.Unmark();
 
                 mySelectedElement = value;
 
@@ -123,8 +120,7 @@ namespace RaynMaker.Modules.Import.Design
 
         public void Reset()
         {
-            myElementMarker.Unmark();
-            myTableMarker.Reset();
+            Marker.Reset();
 
             mySelectedElement = null;
         }
@@ -142,22 +138,9 @@ namespace RaynMaker.Modules.Import.Design
             }
 
             // unmark all first
-            UnmarkAll();
+            Marker.Unmark();
 
-            if( mySelectedElement.FindEmbeddingTable() != null )
-            {
-                myTableMarker.Mark( mySelectedElement );
-            }
-            else
-            {
-                myElementMarker.Mark( mySelectedElement );
-            }
-        }
-
-        public void UnmarkAll()
-        {
-            myElementMarker.Unmark();
-            myTableMarker.Unmark();
+            Marker.Mark( mySelectedElement );
         }
     }
 }

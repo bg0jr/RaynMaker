@@ -6,7 +6,7 @@ using RaynMaker.Modules.Import.Documents;
 
 namespace RaynMaker.Modules.Import.Design
 {
-    public class HtmlElementCollectionMarker : IEnumerable<HtmlElementMarker>
+    public class HtmlElementCollectionMarker : IHtmlMarker, IEnumerable<HtmlElementMarker>
     {
         private IList<HtmlElementMarker> myMarkers;
 
@@ -40,7 +40,7 @@ namespace RaynMaker.Modules.Import.Design
             myMarkers.Remove( marker );
         }
 
-        public void UnmarkAll()
+        public void Unmark()
         {
             foreach( var marker in myMarkers )
             {
@@ -49,6 +49,11 @@ namespace RaynMaker.Modules.Import.Design
             myMarkers.Clear();
         }
 
+        public void Reset()
+        {
+            Unmark();
+        }
+        
         public IEnumerator<HtmlElementMarker> GetEnumerator()
         {
             return myMarkers.GetEnumerator();

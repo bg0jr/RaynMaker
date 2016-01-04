@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RaynMaker.Modules.Import.Documents;
 
 namespace RaynMaker.Modules.Import.Design
 {
-    interface IHtmlMarker
+    public interface IHtmlMarker
     {
+        void Mark( IHtmlElement element );
+
+        void Unmark();
+
+        void Reset();
     }
 }

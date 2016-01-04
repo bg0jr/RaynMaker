@@ -4,7 +4,7 @@ using RaynMaker.Modules.Import.Documents;
 
 namespace RaynMaker.Modules.Import.Design
 {
-    public class HtmlElementMarker
+    public class HtmlElementMarker : IHtmlMarker
     {
         public static string MarkupClass = "__rym_markup__";
 
@@ -47,11 +47,9 @@ namespace RaynMaker.Modules.Import.Design
             myOriginalStyle = null;
         }
 
-        public bool IsMarked( IHtmlElement element )
+        public void Reset()
         {
-            Contract.RequiresNotNull( element != null, "element" );
-
-            return Element == element;
+            Unmark();
         }
     }
 }

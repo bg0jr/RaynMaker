@@ -10,7 +10,7 @@ using RaynMaker.Modules.Import.Parsers.Html;
 
 namespace RaynMaker.Modules.Import.Design
 {
-    public class HtmlTableMarker
+    public class HtmlTableMarker : IHtmlMarker
     {
         private HtmlElementAdapter myElement;
         private HtmlTable myTable;
@@ -44,7 +44,7 @@ namespace RaynMaker.Modules.Import.Design
 
             if( myElement != null )
             {
-                myCellMarker.UnmarkAll();
+                myCellMarker.Unmark();
             }
 
             myElement = ( HtmlElementAdapter )element;
@@ -58,8 +58,8 @@ namespace RaynMaker.Modules.Import.Design
 
         public void Unmark()
         {
-            myCellMarker.UnmarkAll();
-            myHeaderMarker.UnmarkAll();
+            myCellMarker.Unmark();
+            myHeaderMarker.Unmark();
         }
 
         public void Reset()
