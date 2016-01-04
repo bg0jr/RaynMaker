@@ -104,6 +104,7 @@
     <Compile Include="ViewModels\FormatSelectionNotification.cs" />
     <Compile Include="ViewModels\FormatViewModelBase.cs" />
     <Compile Include="ViewModels\FormatViewModelFactory.cs" />
+    <Compile Include="ViewModels\IDescriptorViewModel.cs" />
     <Compile Include="ViewModels\ImportPreviewModel.cs" />
     <Compile Include="ViewModels\NavigationViewModel.cs" />
     <Compile Include="ViewModels\PathCellFormatViewModel.cs" />

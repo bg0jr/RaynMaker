@@ -7,10 +7,11 @@ using RaynMaker.Entities;
 using System.Collections.Generic;
 using RaynMaker.Infrastructure.Services;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
+using RaynMaker.Modules.Import.Design;
 
 namespace RaynMaker.Modules.Import.Web.ViewModels
 {
-    class PathCellFormatViewModel : FormatViewModelBase
+    class PathCellFormatViewModel : FormatViewModelBase<HtmlTableMarker>
     {
         private ILutService myLutService;
 
@@ -25,7 +26,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         private Currency mySelectedCurreny;
 
         public PathCellFormatViewModel( ILutService lutService, PathCellDescriptor format )
-            : base( format )
+            : base( format, new HtmlTableMarker() )
         {
             myLutService = lutService;
 
@@ -78,10 +79,10 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         protected override void OnSelectionChanged()
         {
-            if( MarkupDocument.SelectedElement != null )
+            if( MarkupBehavior.SelectedElement != null )
             {
-                Path = MarkupDocument.SelectedElement.GetPath().ToString();
-                Value = MarkupDocument.SelectedElement.InnerText;
+                Path = MarkupBehavior.SelectedElement.GetPath().ToString();
+                Value = MarkupBehavior.SelectedElement.InnerText;
                 UpdateAnchor();
             }
         }
@@ -111,11 +112,11 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
                     if( !string.IsNullOrWhiteSpace( myPath ) )
                     {
-                        MarkupDocument.PathToSelectedElement = myPath;
+                        MarkupBehavior.PathToSelectedElement = myPath;
 
-                        if( MarkupDocument.SelectedElement != null )
+                        if( MarkupBehavior.SelectedElement != null )
                         {
-                            Value = MarkupDocument.SelectedElement.InnerText;
+                            Value = MarkupBehavior.SelectedElement.InnerText;
                         }
                     }
                 }
@@ -136,7 +137,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 if( SetProperty( ref myRowPosition, value ) )
                 {
                     UpdateAnchor();
-                    MarkupDocument.RowHeaderColumn = value;
+                    MarkupBehavior.Marker.RowHeaderColumn = value;
                 }
             }
         }
@@ -154,17 +155,17 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             Format.Row = new StringContainsLocator { HeaderSeriesPosition = RowPosition, Pattern = RowPattern };
             Format.Column = new StringContainsLocator { HeaderSeriesPosition = ColumnPosition, Pattern = ColumnPattern };
 
-            if( MarkupDocument.SelectedElement != null )
+            if( MarkupBehavior.SelectedElement != null )
             {
                 if( RowPattern != null )
                 {
-                    var rowHeader = MarkupDocument.FindRowHeader( Format.Row.HeaderSeriesPosition )( MarkupDocument.SelectedElement ).InnerText;
+                    var rowHeader = MarkupBehavior.Marker.FindRowHeader( Format.Row.HeaderSeriesPosition )( MarkupBehavior.SelectedElement ).InnerText;
                     IsRowValid = rowHeader.Contains( RowPattern, StringComparison.OrdinalIgnoreCase );
                 }
 
                 if( ColumnPattern != null )
                 {
-                    var colHeader = MarkupDocument.FindColumnHeader( Format.Column.HeaderSeriesPosition )( MarkupDocument.SelectedElement ).InnerText;
+                    var colHeader = MarkupBehavior.Marker.FindColumnHeader( Format.Column.HeaderSeriesPosition )( MarkupBehavior.SelectedElement ).InnerText;
                     IsColumnValid = colHeader.Contains( ColumnPattern, StringComparison.OrdinalIgnoreCase );
                 }
             }
@@ -196,7 +197,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 if( SetProperty( ref myColumnPosition, value ) )
                 {
                     UpdateAnchor();
-                    MarkupDocument.ColumnHeaderRow = value;
+                    MarkupBehavior.Marker.ColumnHeaderRow = value;
                 }
             }
         }

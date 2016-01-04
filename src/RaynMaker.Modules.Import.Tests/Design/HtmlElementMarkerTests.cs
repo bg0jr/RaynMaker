@@ -1,16 +1,18 @@
 ﻿using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using NUnit.Framework;
 using RaynMaker.Modules.Import.Design;
 using RaynMaker.Modules.Import.Documents;
+using RaynMaker.Modules.Import.Documents.WinForms;
 
 namespace RaynMaker.Modules.Import.UnitTests.Design
 {
     [RequiresSTA]
     [TestFixture]
-    class HtmlMarkerTests
+    class HtmlElementMarkerTests
     {
         private const string HtmlContent = @"
 <html>
@@ -52,6 +54,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         private static bool ShowMarkupResultInBrowser = false;
 
         private SafeWebBrowser myBrowser;
+        private IHtmlDocument myDocument;
         private HtmlElementMarker myMarker;
 
         [TestFixtureSetUp]
@@ -64,6 +67,8 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
             myBrowser.Document.OpenNew( true );
             myBrowser.Document.Write( HtmlContent );
             myBrowser.Refresh();
+
+            myDocument = new HtmlDocumentAdapter( myBrowser.Document );
         }
 
         [TestFixtureTearDown]
@@ -75,103 +80,102 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         [SetUp]
         public void SetUp()
         {
-            myMarker = new HtmlElementMarker();
+            myMarker = new HtmlElementMarker( Color.Yellow );
         }
 
         [TearDown]
         public void TearDown()
         {
-            myMarker.UnmarkAll();
+            myMarker.Reset();
             myMarker = null;
         }
 
         [Test]
-        public void ParagraphWithInnerTags()
+        public void Mark_ParagraphWithInnerTags()
         {
-            var element = myBrowser.Document.GetElementById( "a1" );
+            var element = myDocument.GetElementById( "a1" );
 
             myMarker.Mark( element );
             Assert_IsMarked( element );
 
-            myMarker.Unmark( element );
+            myMarker.Unmark();
             Assert_IsUnmarked( element, null );
         }
 
         [Test]
-        public void DivWithTwoParagraphs()
+        public void Mark_DivWithTwoParagraphs()
         {
-            var element = myBrowser.Document.GetElementById( "a2" );
+            var element = myDocument.GetElementById( "a2" );
 
             myMarker.Mark( element );
             Assert_IsMarked( element );
 
-            myMarker.Unmark( element );
+            myMarker.Unmark();
             Assert_IsUnmarked( element, null );
         }
 
         [Test]
-        public void OneBulletOfList()
+        public void Mark_OneBulletOfList()
         {
-            var element = myBrowser.Document.GetElementById( "a5" );
+            var element = myDocument.GetElementById( "a5" );
 
             myMarker.Mark( element );
             Assert_IsMarked( element );
 
-            myMarker.Unmark( element );
+            myMarker.Unmark();
             Assert_IsUnmarked( element, null );
         }
 
         [Test]
-        public void WholeList()
+        public void Mark_WholeList()
         {
-            var element = myBrowser.Document.GetElementById( "a4" );
+            var element = myDocument.GetElementById( "a4" );
 
             myMarker.Mark( element );
             Assert_IsMarked( element );
 
-            myMarker.Unmark( element );
+            myMarker.Unmark();
             Assert_IsUnmarked( element, null );
         }
 
         [Test]
-        public void ElementWithExistingStyle()
+        public void Mark_ElementWithExistingStyle()
         {
-            var element = myBrowser.Document.GetElementById( "a7" );
+            var element = myDocument.GetElementById( "a7" );
 
             myMarker.Mark( element );
             Assert_IsMarked( element );
 
-            myMarker.Unmark( element );
+            myMarker.Unmark();
             Assert_IsUnmarked( element, "background-color: blue" );
         }
 
         [Test]
-        public void EntireTable()
+        public void Mark_EntireTable()
         {
-            var element = myBrowser.Document.GetElementById( "a8" );
+            var element = myDocument.GetElementById( "a8" );
 
             myMarker.Mark( element );
             Assert_IsMarked( element );
 
-            myMarker.Unmark( element );
+            myMarker.Unmark();
             Assert_IsUnmarked( element, null );
         }
 
         [Test]
-        public void SingleTableCell()
+        public void Mark_SingleTableCell()
         {
-            var element = myBrowser.Document.GetElementById( "a9" );
+            var element = myDocument.GetElementById( "a9" );
 
             myMarker.Mark( element );
             Assert_IsMarked( element );
 
-            myMarker.Unmark( element );
+            myMarker.Unmark();
             Assert_IsUnmarked( element, null );
         }
 
-        private void Assert_IsMarked( HtmlElement element )
+        private void Assert_IsMarked( IHtmlElement element )
         {
-            Assert.That( myMarker.IsMarked( element ), Is.True );
             Assert.That( element.Style, Is.StringContaining( "background-color: yellow" ).IgnoreCase );
 
             if( ShowMarkupResultInBrowser )
@@ -180,10 +184,8 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
             }
         }
 
-        private void Assert_IsUnmarked( HtmlElement element, string originalStyle )
+        private void Assert_IsUnmarked( IHtmlElement element, string originalStyle )
         {
-            Assert.That( myMarker.IsMarked( element ), Is.False );
-
             if( originalStyle == null )
             {
                 Assert.That( element.Style, Is.Null );

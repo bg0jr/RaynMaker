@@ -12,6 +12,9 @@ namespace RaynMaker.Modules.Import.Design
 {
     public class HtmlTableMarker : IHtmlMarker
     {
+        public static Color DefaultCellColor = Color.Yellow;
+        public static Color DefaultHeaderColor = Color.SteelBlue;
+
         private HtmlElementAdapter myElement;
         private HtmlTable myTable;
         private HtmlElementCollectionMarker myCellMarker;
@@ -22,6 +25,11 @@ namespace RaynMaker.Modules.Import.Design
         private int[] mySkipRows;
         private int myRowHeader;
         private int myColumnHeader;
+
+        public HtmlTableMarker()
+            : this( DefaultCellColor, DefaultHeaderColor )
+        {
+        }
 
         public HtmlTableMarker( Color cellColor, Color headerColor )
         {

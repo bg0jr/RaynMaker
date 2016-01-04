@@ -46,5 +46,10 @@ namespace RaynMaker.Modules.Import.Documents.WinForms
 
             return myElementAdapters[ element ];
         }
+
+        public IHtmlElement GetElementById( string id )
+        {
+            return Create( Document.GetElementById( id ) );
+        }
     }
 }

@@ -28,7 +28,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
             mySelectedFormatIndex = -1;
 
-            Formats = new ObservableCollection<FormatViewModelBase>();
+            Formats = new ObservableCollection<IDescriptorViewModel>();
 
             AddCommand = new DelegateCommand( OnAdd );
             FormatSelectionRequest = new InteractionRequest<FormatSelectionNotification>();
@@ -93,7 +93,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             Document = doc;
         }
 
-        public ObservableCollection<FormatViewModelBase> Formats { get; private set; }
+        public ObservableCollection<IDescriptorViewModel> Formats { get; private set; }
 
         public int SelectedFormatIndex
         {
@@ -111,7 +111,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 {
                     if( oldFormat != -1 )
                     {
-                        Formats[ oldFormat ].UnMark();
+                        Formats[ oldFormat ].Unmark();
                         Formats[ oldFormat ].Document = null;
                     }
 

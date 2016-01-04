@@ -22,6 +22,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -31,7 +32,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Design\HtmlMarkerTests.cs" />
+    <Compile Include="Design\HtmlElementMarkerTests.cs" />
     <Compile Include="Documents\PatternMatchingTests.cs" />
     <Compile Include="FigureDescriptorFactoryTests.cs" />
     <Compile Include="Parsers\Html\HtmlPathTests.cs" />

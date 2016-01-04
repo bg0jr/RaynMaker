@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Practices.Prism.Mvvm;
@@ -12,23 +13,23 @@ using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Modules.Import.Web.ViewModels
 {
-    class FormatViewModelBase : BindableBase
+    class FormatViewModelBase<TMarker> : BindableBase, IDescriptorViewModel where TMarker : IHtmlMarker
     {
         private Type mySelectedDatum;
         private bool myInMillions;
 
-        protected FormatViewModelBase( IFigureDescriptor format )
+        protected FormatViewModelBase( IFigureDescriptor descriptor, TMarker marker )
         {
-            Contract.RequiresNotNull( format, "format" );
+            Contract.RequiresNotNull( descriptor, "descriptor" );
 
-            Format = format;
+            Format = descriptor;
 
             Datums = Dynamics.AllDatums
                 .OrderBy( d => d.Name )
                 .ToList();
 
-            MarkupDocument = new HtmlMarkupBehavior();
-            MarkupDocument.SelectionChanged += OnSelectionChanged;
+            MarkupBehavior = new HtmlMarkupBehavior<TMarker>( marker );
+            MarkupBehavior.SelectionChanged += OnSelectionChanged;
         }
 
         public IFigureDescriptor Format { get; private set; }
@@ -49,7 +50,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             }
         }
 
-        protected HtmlMarkupBehavior MarkupDocument { get; private set; }
+        protected HtmlMarkupBehavior<TMarker> MarkupBehavior { get; private set; }
 
         protected virtual void OnSelectionChanged()
         {
@@ -73,9 +74,9 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                     doc = adapter.Document;
                 }
 
-                MarkupDocument.Document = doc;
+                MarkupBehavior.Document = doc;
 
-                if( MarkupDocument.Document == null )
+                if( MarkupBehavior.Document == null )
                 {
                     return;
                 }
@@ -86,12 +87,12 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         public void Apply()
         {
-            MarkupDocument.Apply();
+            MarkupBehavior.Apply();
         }
 
-        public void UnMark()
+        public void Unmark()
         {
-            MarkupDocument.UnmarkAll();
+            MarkupBehavior.Marker.Unmark();
         }
 
         public bool InMillions

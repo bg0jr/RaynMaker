@@ -38,5 +38,10 @@ namespace RaynMaker.Modules.Import.Documents.AgilityPack
 
             return myElementAdapters[ element ];
         }
+
+        public IHtmlElement GetElementById( string id )
+        {
+            return Create( Document.GetElementbyId( id ) );
+        }
     }
 }

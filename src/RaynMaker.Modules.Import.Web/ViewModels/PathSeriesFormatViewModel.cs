@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
+using RaynMaker.Modules.Import.Design;
 using RaynMaker.Modules.Import.Parsers.Html;
 using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Modules.Import.Web.ViewModels
 {
-    class PathSeriesFormatViewModel : FormatViewModelBase
+    class PathSeriesFormatViewModel : FormatViewModelBase<HtmlTableMarker>
     {
         private string myPath;
         private string myValue;
@@ -17,7 +18,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         private string mySkipValues;
 
         public PathSeriesFormatViewModel( PathSeriesDescriptor format )
-            : base( format )
+            : base( format, new HtmlTableMarker() )
         {
             Format = format;
 
@@ -44,10 +45,10 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         protected override void OnSelectionChanged()
         {
-            if( MarkupDocument.SelectedElement != null )
+            if( MarkupBehavior.SelectedElement != null )
             {
-                Path = MarkupDocument.SelectedElement.GetPath().ToString();
-                Value = MarkupDocument.SelectedElement.InnerText;
+                Path = MarkupBehavior.SelectedElement.GetPath().ToString();
+                Value = MarkupBehavior.SelectedElement.InnerText;
             }
         }
 
@@ -62,11 +63,11 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
                     if( !string.IsNullOrWhiteSpace( myPath ) )
                     {
-                        MarkupDocument.PathToSelectedElement = myPath;
+                        MarkupBehavior.PathToSelectedElement = myPath;
 
-                        if( MarkupDocument.SelectedElement != null )
+                        if( MarkupBehavior.SelectedElement != null )
                         {
-                            Value = MarkupDocument.SelectedElement.InnerText;
+                            Value = MarkupBehavior.SelectedElement.InnerText;
                         }
                     }
                 }
@@ -86,7 +87,16 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 if( SetProperty( ref mySelectedDimension, value ) )
                 {
-                    MarkupDocument.Dimension = mySelectedDimension;
+                    if( SelectedDimension == SeriesOrientation.Row )
+                    {
+                        MarkupBehavior.Marker.ExpandColumn = false;
+                        MarkupBehavior.Marker.ExpandRow = true;
+                    }
+                    else if( SelectedDimension == SeriesOrientation.Column )
+                    {
+                        MarkupBehavior.Marker.ExpandColumn = true;
+                        MarkupBehavior.Marker.ExpandRow = false;
+                    }
                 }
             }
         }
@@ -120,7 +130,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 if( SetProperty( ref myRowHeaderColumn, value ) )
                 {
-                    MarkHeader( myRowHeaderColumn, x => MarkupDocument.RowHeaderColumn = x );
+                    MarkHeader( myRowHeaderColumn, x => MarkupBehavior.Marker.RowHeaderColumn = x );
                 }
             }
         }
@@ -151,7 +161,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 if( SetProperty( ref myColumnHeaderRow, value ) )
                 {
-                    MarkHeader( myColumnHeaderRow, x => MarkupDocument.ColumnHeaderRow = x );
+                    MarkHeader( myColumnHeaderRow, x => MarkupBehavior.Marker.ColumnHeaderRow = x );
                 }
             }
         }
@@ -165,7 +175,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 {
                     Format.Excludes.Clear();
                     Format.Excludes.AddRange( GetIntArray( mySkipValues ) );
-                    MarkupDocument.SkipRows = Format.Excludes.ToArray();
+                    MarkupBehavior.Marker.SkipRows = Format.Excludes.ToArray();
                 }
             }
         }

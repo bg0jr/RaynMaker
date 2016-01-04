@@ -31,7 +31,8 @@ namespace RaynMaker.Modules.Import.Design
 
             Element = element;
 
-            myOriginalStyle += string.Format( ";color:black;background-color:{0}", ColorTranslator.ToHtml( Color ) );
+            myOriginalStyle =Element.Style;
+            Element.Style+= string.Format( ";color:black;background-color:{0}", ColorTranslator.ToHtml( Color ) );
         }
 
         public void Unmark()

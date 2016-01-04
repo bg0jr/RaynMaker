@@ -100,27 +100,29 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             Contract.RequiresNotNull( format, "format" );
             Contract.Invariant( Document != null, "Document not yet loaded" );
 
-            var markupBehavior = new HtmlMarkupBehavior();
+            var markupBehavior = new HtmlMarkupBehavior<HtmlTableMarker>( new HtmlTableMarker() );
             markupBehavior.Document = ( ( HtmlDocumentAdapter )Document ).Document;
             markupBehavior.PathToSelectedElement = format.Path;
-            markupBehavior.Dimension = format.Orientation;
-            //markupDoc.SeriesName = format.SeriesName;
 
-            if( markupBehavior.Dimension == SeriesOrientation.Row )
+            if( format.Orientation == SeriesOrientation.Row )
             {
-                markupBehavior.ColumnHeaderRow = format.TimesLocator.HeaderSeriesPosition;
-                markupBehavior.RowHeaderColumn = format.ValuesLocator.HeaderSeriesPosition;
+                markupBehavior.Marker.ExpandRow = true;
 
-                markupBehavior.SkipColumns = null;
-                markupBehavior.SkipRows = format.Excludes.ToArray();
+                markupBehavior.Marker.ColumnHeaderRow = format.TimesLocator.HeaderSeriesPosition;
+                markupBehavior.Marker.RowHeaderColumn = format.ValuesLocator.HeaderSeriesPosition;
+
+                markupBehavior.Marker.SkipColumns = null;
+                markupBehavior.Marker.SkipRows = format.Excludes.ToArray();
             }
-            else if( markupBehavior.Dimension == SeriesOrientation.Column )
+            else if( format.Orientation == SeriesOrientation.Column )
             {
-                markupBehavior.RowHeaderColumn = format.TimesLocator.HeaderSeriesPosition;
-                markupBehavior.ColumnHeaderRow = format.ValuesLocator.HeaderSeriesPosition;
+                markupBehavior.Marker.ExpandColumn = true;
 
-                markupBehavior.SkipColumns = format.Excludes.ToArray();
-                markupBehavior.SkipRows = null;
+                markupBehavior.Marker.RowHeaderColumn = format.TimesLocator.HeaderSeriesPosition;
+                markupBehavior.Marker.ColumnHeaderRow = format.ValuesLocator.HeaderSeriesPosition;
+
+                markupBehavior.Marker.SkipColumns = format.Excludes.ToArray();
+                markupBehavior.Marker.SkipRows = null;
             }
 
             markupBehavior.Apply();

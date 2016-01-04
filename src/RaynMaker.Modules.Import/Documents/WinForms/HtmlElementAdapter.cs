@@ -62,7 +62,6 @@ namespace RaynMaker.Modules.Import.Documents.WinForms
             get { return Element.InnerHtml; }
         }
 
-
         public string Style
         {
             get { return Element.Style; }
