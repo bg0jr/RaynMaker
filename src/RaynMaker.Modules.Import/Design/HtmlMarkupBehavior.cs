@@ -11,11 +11,6 @@ using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Modules.Import.Design
 {
-    /// <summary>
-    /// - "Marker" - marks one element and remembers the element so that we can unmark again
-    /// - "Markers" - collection of all markers
-    /// - "Pen" - which does the markup and has logic to mark table rows and columns
-    /// </summary>
     public class HtmlMarkupBehavior : IDisposable
     {
         private HtmlMarker myMarker = null;
@@ -24,13 +19,12 @@ namespace RaynMaker.Modules.Import.Design
         // (before extensions has been applied)
         private HtmlElementAdapter mySelectedElement = null;
         private HtmlTable myTable = null;
-        private string myAnchor = null;
+        private string myPath = null;
         private SeriesOrientation myDimension;
         private int[] mySkipColumns = null;
         private int[] mySkipRows = null;
         private int myRowHeader = -1;
         private int myColumnHeader = -1;
-        private string mySeriesName = null;
 
         public HtmlMarkupBehavior()
         {
@@ -90,7 +84,7 @@ namespace RaynMaker.Modules.Import.Design
                 myDocument.Document.Click += HtmlDocument_Click;
 
                 // Internally adjusts SelectedElement
-                Anchor = Anchor;
+                Path = Path;
             }
         }
 
@@ -109,12 +103,15 @@ namespace RaynMaker.Modules.Import.Design
             SelectedElement = adapter;
         }
 
-        public string Anchor
+        /// <summary>
+        /// Path to the HtmlElement
+        /// </summary>
+        public string Path
         {
-            get { return myAnchor; }
+            get { return myPath; }
             set
             {
-                myAnchor = value;
+                myPath = value;
 
                 UpdateSelectedElement();
             }
@@ -122,9 +119,9 @@ namespace RaynMaker.Modules.Import.Design
 
         private void UpdateSelectedElement()
         {
-            if( myDocument != null && myAnchor != null )
+            if( myDocument != null && myPath != null )
             {
-                var path = HtmlPath.TryParse( myAnchor );
+                var path = HtmlPath.TryParse( myPath );
                 if( path == null )
                 {
                     // TODO: signal error to UI
@@ -159,7 +156,6 @@ namespace RaynMaker.Modules.Import.Design
             mySkipRows = null;
             myRowHeader = -1;
             myColumnHeader = -1;
-            mySeriesName = null;
         }
 
         public SeriesOrientation Dimension
@@ -228,16 +224,6 @@ namespace RaynMaker.Modules.Import.Design
             }
         }
 
-        public string SeriesName
-        {
-            get { return mySeriesName; }
-            set
-            {
-                mySeriesName = value;
-                ValidateSeriesName();
-            }
-        }
-
         public void Apply()
         {
             if( mySelectedElement == null )
@@ -271,33 +257,6 @@ namespace RaynMaker.Modules.Import.Design
 
             MarkRowHeader();
             MarkColumnHeader();
-
-            ValidateSeriesName();
-        }
-
-        private void ValidateSeriesName()
-        {
-            if( mySelectedElement == null || mySeriesName == null )
-            {
-                return;
-            }
-
-            IHtmlElement header = null;
-            if( myDimension == SeriesOrientation.Column )
-            {
-                if( myColumnHeader != -1 )
-                {
-                    header = FindColumnHeader( myColumnHeader )( mySelectedElement );
-                }
-            }
-            else
-            {
-                // row or cell
-                if( myRowHeader != -1 )
-                {
-                    header = FindRowHeader( myRowHeader )( mySelectedElement );
-                }
-            }
         }
 
         private void DoSkipRows()

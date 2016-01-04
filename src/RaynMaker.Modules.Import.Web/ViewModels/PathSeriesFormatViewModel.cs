@@ -62,7 +62,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
                     if( !string.IsNullOrWhiteSpace( myPath ) )
                     {
-                        MarkupDocument.Anchor = myPath;
+                        MarkupDocument.Path = myPath;
 
                         if( MarkupDocument.SelectedElement != null )
                         {

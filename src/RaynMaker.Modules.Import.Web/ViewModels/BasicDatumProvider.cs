@@ -102,7 +102,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
             var markupDoc = new HtmlMarkupBehavior();
             markupDoc.Document = ( ( HtmlDocumentAdapter )Document ).Document;
-            markupDoc.Anchor = format.Path;
+            markupDoc.Path = format.Path;
             markupDoc.Dimension = format.Orientation;
             //markupDoc.SeriesName = format.SeriesName;
 
