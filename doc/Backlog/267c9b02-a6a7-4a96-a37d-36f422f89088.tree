@@ -68,5 +68,8 @@
     <Node Id="a492627a-bc92-4c5f-9318-9d38e2974e8a">
       <Caption><![CDATA[Paging]]></Caption>
     </Node>
+    <Node Id="d09cf686-91ac-49ac-9d9b-76ca99f82218">
+      <Caption><![CDATA[DocumentBrowser: Disable caching for local files]]></Caption>
+    </Node>
   </Node>
 </Tree>

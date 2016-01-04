@@ -3,80 +3,77 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Plainion;
-using RaynMaker.Modules.Import.Documents.WinForms;
 using RaynMaker.Modules.Import.Parsers.Html;
 
 namespace RaynMaker.Modules.Import.Design
 {
     class HtmlMarker
     {
-        private IList<HtmlElement> myMarkedElements;
+        public class MarkedHtmlElement
+        {
+            public MarkedHtmlElement( HtmlElement value )
+            {
+                Value = value;
+                OriginalStyle = Value.Style;
+            }
+
+            public HtmlElement Value { get; private set; }
+            public string OriginalStyle { get; private set; }
+        }
+
+        private IList<MarkedHtmlElement> myMarkedElements;
+
+        public static Color DefaultColor = Color.Yellow;
+        public static string MarkupClass = "__rym_markup__";
 
         public HtmlMarker()
         {
-            myMarkedElements = new List<HtmlElement>();
-            DefaultColor = Color.Yellow;
+            myMarkedElements = new List<MarkedHtmlElement>();
         }
 
-        public IEnumerable<HtmlElement> MarkedElements { get { return myMarkedElements; } }
+        public IEnumerable<MarkedHtmlElement> MarkedElements { get { return myMarkedElements; } }
 
-        public Color DefaultColor { get; set; }
-
-        public void Mark( HtmlElement e )
+        public void Mark( HtmlElement element )
         {
-            Mark( e, DefaultColor );
+            Mark( element, DefaultColor );
         }
 
-        public void Mark( HtmlElement e, Color color )
+        public void Mark( HtmlElement element, Color color )
         {
-            Contract.RequiresNotNull( e != null, "e" );
+            Contract.RequiresNotNull( element != null, "element" );
+            Contract.RequiresNotNull( color != null, "color" );
 
-            if( e.TagName == "TABLE" || e.TagName == "TBODY" )
-            {
-                // not supported
-                return;
-            }
-
-            if( IsMarked( e ) )
+            if( IsMarked( element ) )
             {
                 // unmark first - maybe it was marked with another color before
-                Unmark( e );
+                Unmark( element );
             }
 
-            if( e.InnerHtml == null )
-            {
-                // create a pseudo element
-                e.AppendChild( e.Document.CreateElement( "SPAN" ) );
-                e.InnerText = "&nbsp;";
-            }
+            var info = new MarkedHtmlElement( element );
 
-            string text = e.InnerText == null ? "&nbsp;" : e.InnerText.Trim();
+            info.Value.Style += string.Format( "color:black;background-color:{0}", ColorTranslator.ToHtml( color ) );
 
-            e.InnerHtml = string.Format( "<SPAN id=\"__rym_markup__\" style=\"color:black;background-color:{0}\">{1}</SPAN>",
-                ColorTranslator.ToHtml( color ), text );
-
-            myMarkedElements.Add( e );
-            //Debug.WriteLine( GetHashCode() + "Add    : " + e.InnerText );
+            myMarkedElements.Add( info );
         }
 
-        public void Unmark( HtmlElement e )
+        public void Unmark( HtmlElement element )
         {
-            Contract.RequiresNotNull( e != null, "e" );
+            Contract.RequiresNotNull( element != null, "element" );
 
-            if( !IsMarked( e ) )
+            var markedElement = FindBy( element );
+
+            if( markedElement == null )
             {
                 return;
             }
 
-            e.InnerHtml = e.InnerText;
-
-            myMarkedElements.Remove( e );
-            //Debug.WriteLine( GetHashCode() + "Remove : " + e.InnerText );
+            Unmark( markedElement );
         }
 
-        private bool HasMarkUp( HtmlElement e )
+        private void Unmark( MarkedHtmlElement markedElement )
         {
-            return ( e.Children.Count > 0 && e.Children[ 0 ].Id == "__rym_markup__" );
+            markedElement.Value.Style = markedElement.OriginalStyle;
+            myMarkedElements.Remove( markedElement );
         }
 
         public void UnmarkAll()
@@ -89,12 +86,16 @@ namespace RaynMaker.Modules.Import.Design
             Contract.Invariant( myMarkedElements.Count == 0, "No element expected to be selected" );
         }
 
-        public bool IsMarked( HtmlElement e )
+        public bool IsMarked( HtmlElement element )
         {
-            Contract.RequiresNotNull( e != null, "e" );
-
-            return myMarkedElements.Contains( e );
+            return FindBy( element ) != null;
         }
 
+        public MarkedHtmlElement FindBy( HtmlElement element )
+        {
+            Contract.RequiresNotNull( element != null, "element" );
+
+            return myMarkedElements.SingleOrDefault( e => e.Value == element );
+        }
     }
 }

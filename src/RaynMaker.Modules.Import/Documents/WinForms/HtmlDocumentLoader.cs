@@ -39,7 +39,7 @@ namespace RaynMaker.Modules.Import.Documents.WinForms
 
             return new HtmlDocumentAdapter( myBrowser.Document );
         }
-
+        
         public void Dispose()
         {
             if( myBrowser == null )

@@ -366,7 +366,7 @@ namespace RaynMaker.Modules.Import.Design
             {
                 // mark all columns/rows
                 header = myMarker.MarkedElements
-                    .Select( m => myDocument.Create( m ) )
+                    .Select( m => myDocument.Create( m.Value ) )
                     .Select( m => FindHeader( m ) )
                     .Distinct()
                     .ToList();
@@ -398,7 +398,7 @@ namespace RaynMaker.Modules.Import.Design
 
         private void MarkTableRow( HtmlElement start )
         {
-            MarkTableRow( start, myMarker.DefaultColor );
+            MarkTableRow( start, HtmlMarker.DefaultColor );
         }
 
         private void MarkTableRow( HtmlElement start, Color color )
@@ -421,7 +421,7 @@ namespace RaynMaker.Modules.Import.Design
 
         private void MarkTableColumn( HtmlElement start )
         {
-            MarkTableColumn( start, myMarker.DefaultColor );
+            MarkTableColumn( start, HtmlMarker.DefaultColor );
         }
 
         private void MarkTableColumn( HtmlElement start, Color color )

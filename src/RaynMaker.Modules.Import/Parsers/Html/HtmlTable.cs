@@ -206,5 +206,10 @@ namespace RaynMaker.Modules.Import.Parsers.Html
                 yield return e;
             }
         }
+
+        internal static bool IsTable( HtmlElement element )
+        {
+            return element.TagName.Equals( "TABLE", StringComparison.OrdinalIgnoreCase ) || element.TagName.Equals( "TBODY", StringComparison.OrdinalIgnoreCase );
+        }
     }
 }
