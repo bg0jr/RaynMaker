@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Plainion;
 
 namespace RaynMaker.Modules.Import.Documents.WinForms
 {
@@ -9,14 +10,8 @@ namespace RaynMaker.Modules.Import.Documents.WinForms
     {
         internal HtmlElementAdapter( HtmlDocumentAdapter document, HtmlElement element )
         {
-            if( document == null )
-            {
-                throw new ArgumentNullException( "document" );
-            }
-            if( element == null )
-            {
-                throw new ArgumentNullException( "element" );
-            }
+            Contract.RequiresNotNull( document, "document" );
+            Contract.RequiresNotNull( element, "element" );
 
             DocumentAdapter = document;
             Element = element;
@@ -65,6 +60,13 @@ namespace RaynMaker.Modules.Import.Documents.WinForms
         public string InnerHtml
         {
             get { return Element.InnerHtml; }
+        }
+
+
+        public string Style
+        {
+            get { return Element.Style; }
+            set { Element.Style = value; }
         }
     }
 }

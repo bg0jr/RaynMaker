@@ -4,10 +4,10 @@ namespace RaynMaker.Modules.Import.Documents
 {
     public interface IHtmlElement
     {
-        IHtmlDocument Document{ get; }
+        IHtmlDocument Document { get; }
 
         IHtmlElement Parent { get; }
-        
+
         IEnumerable<IHtmlElement> Children { get; }
 
         string TagName { get; }
@@ -16,6 +16,8 @@ namespace RaynMaker.Modules.Import.Documents
 
         string InnerText { get; }
 
-        string InnerHtml { get;  }
+        string InnerHtml { get; }
+
+        string Style { get; set; }
     }
 }

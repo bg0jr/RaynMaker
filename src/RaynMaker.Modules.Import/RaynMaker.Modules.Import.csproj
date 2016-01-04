@@ -32,8 +32,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Design\HtmlMarker.cs" />
+    <Compile Include="Design\HtmlElementCollectionMarker.cs" />
+    <Compile Include="Design\HtmlElementMarker.cs" />
+    <Compile Include="Design\HtmlTableMarker.cs" />
     <Compile Include="Design\HtmlMarkupBehavior.cs" />
+    <Compile Include="Design\IHtmlMarker.cs" />
     <Compile Include="DocumentBrowserExtensions.cs" />
     <Compile Include="Documents\ICache.cs" />
     <Compile Include="FigureDescriptorFactory.cs" />

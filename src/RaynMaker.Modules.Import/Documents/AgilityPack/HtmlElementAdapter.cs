@@ -3,22 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HtmlAgilityPack;
+using Plainion;
 
 namespace RaynMaker.Modules.Import.Documents.AgilityPack
 {
-    //[CLSCompliant( false )]
     public class HtmlElementAdapter : IHtmlElement
     {
         internal HtmlElementAdapter( HtmlDocumentAdapter document, HtmlNode element )
         {
-            if ( document == null )
-            {
-                throw new ArgumentNullException( "document" );
-            }
-            if ( element == null )
-            {
-                throw new ArgumentNullException( "element" );
-            }
+            Contract.RequiresNotNull( document, "document" );
+            Contract.RequiresNotNull( element, "element" );
 
             DocumentAdapter = document;
             Element = element;
@@ -89,6 +83,13 @@ namespace RaynMaker.Modules.Import.Documents.AgilityPack
             sb.Append( TagName );
 
             return sb.ToString();
+        }
+
+
+        public string Style
+        {
+            get { return Element.Attributes[ "style" ].Value; }
+            set { Element.Attributes[ "style" ].Value = value; }
         }
     }
 }

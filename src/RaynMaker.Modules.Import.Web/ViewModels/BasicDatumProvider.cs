@@ -100,32 +100,32 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             Contract.RequiresNotNull( format, "format" );
             Contract.Invariant( Document != null, "Document not yet loaded" );
 
-            var markupDoc = new HtmlMarkupBehavior();
-            markupDoc.Document = ( ( HtmlDocumentAdapter )Document ).Document;
-            markupDoc.Path = format.Path;
-            markupDoc.Dimension = format.Orientation;
+            var markupBehavior = new HtmlMarkupBehavior();
+            markupBehavior.Document = ( ( HtmlDocumentAdapter )Document ).Document;
+            markupBehavior.PathToSelectedElement = format.Path;
+            markupBehavior.Dimension = format.Orientation;
             //markupDoc.SeriesName = format.SeriesName;
 
-            if( markupDoc.Dimension == SeriesOrientation.Row )
+            if( markupBehavior.Dimension == SeriesOrientation.Row )
             {
-                markupDoc.ColumnHeaderRow = format.TimesLocator.HeaderSeriesPosition;
-                markupDoc.RowHeaderColumn = format.ValuesLocator.HeaderSeriesPosition;
+                markupBehavior.ColumnHeaderRow = format.TimesLocator.HeaderSeriesPosition;
+                markupBehavior.RowHeaderColumn = format.ValuesLocator.HeaderSeriesPosition;
 
-                markupDoc.SkipColumns = null;
-                markupDoc.SkipRows = format.Excludes.ToArray();
+                markupBehavior.SkipColumns = null;
+                markupBehavior.SkipRows = format.Excludes.ToArray();
             }
-            else if( markupDoc.Dimension == SeriesOrientation.Column )
+            else if( markupBehavior.Dimension == SeriesOrientation.Column )
             {
-                markupDoc.RowHeaderColumn = format.TimesLocator.HeaderSeriesPosition;
-                markupDoc.ColumnHeaderRow = format.ValuesLocator.HeaderSeriesPosition;
+                markupBehavior.RowHeaderColumn = format.TimesLocator.HeaderSeriesPosition;
+                markupBehavior.ColumnHeaderRow = format.ValuesLocator.HeaderSeriesPosition;
 
-                markupDoc.SkipColumns = format.Excludes.ToArray();
-                markupDoc.SkipRows = null;
+                markupBehavior.SkipColumns = format.Excludes.ToArray();
+                markupBehavior.SkipRows = null;
             }
 
-            markupDoc.Apply();
+            markupBehavior.Apply();
 
-            markupDoc.Document = null;
+            markupBehavior.Document = null;
         }
 
         public DataTable GetResult( IFigureDescriptor format )

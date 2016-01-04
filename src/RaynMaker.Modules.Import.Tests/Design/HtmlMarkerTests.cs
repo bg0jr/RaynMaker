@@ -52,7 +52,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         private static bool ShowMarkupResultInBrowser = false;
 
         private SafeWebBrowser myBrowser;
-        private HtmlMarker myMarker;
+        private HtmlElementMarker myMarker;
 
         [TestFixtureSetUp]
         public void TestFixtureSetUp()
@@ -75,7 +75,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         [SetUp]
         public void SetUp()
         {
-            myMarker = new HtmlMarker();
+            myMarker = new HtmlElementMarker();
         }
 
         [TearDown]

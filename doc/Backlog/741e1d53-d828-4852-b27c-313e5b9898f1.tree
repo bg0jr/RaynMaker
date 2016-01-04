@@ -64,6 +64,12 @@
       <Node Id="a1c2b17c-a4ef-404e-80b4-85bcc8e843e5">
         <Caption><![CDATA[Auto "Path" correction]]></Caption>
       </Node>
+      <Node Id="2b28d15c-19f0-4905-8437-0b5e0509b55b">
+        <Caption><![CDATA[Documents]]></Caption>
+        <Node Id="47279eeb-e3d9-42be-955a-8e0aaac47e2b">
+          <Caption><![CDATA[Equals and GetHashcode for HtmlElementAdapter]]></Caption>
+        </Node>
+      </Node>
     </Node>
     <Node Id="63da965d-c664-48a9-8250-578d54290207">
       <Caption><![CDATA[1.8]]></Caption>
