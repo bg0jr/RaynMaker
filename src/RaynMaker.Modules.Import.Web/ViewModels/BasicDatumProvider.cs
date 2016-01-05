@@ -101,7 +101,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             Contract.Invariant( Document != null, "Document not yet loaded" );
 
             var markupBehavior = new HtmlMarkupBehavior<HtmlTableMarker>( new HtmlTableMarker() );
-            markupBehavior.Document = ( ( HtmlDocumentAdapter )Document ).Document;
+            markupBehavior.AttachTo( ( HtmlDocumentAdapter )Document );
             markupBehavior.PathToSelectedElement = format.Path;
 
             if( format.Orientation == SeriesOrientation.Row )
@@ -127,7 +127,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
             markupBehavior.Apply();
 
-            markupBehavior.Document = null;
+            markupBehavior.Detach();
         }
 
         public DataTable GetResult( IFigureDescriptor format )

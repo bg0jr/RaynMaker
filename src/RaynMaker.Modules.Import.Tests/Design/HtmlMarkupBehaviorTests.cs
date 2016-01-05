@@ -1,7 +1,10 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using NUnit.Framework;
 using RaynMaker.Modules.Import.Design;
 using RaynMaker.Modules.Import.Documents;
+using RaynMaker.Modules.Import.Documents.WinForms;
+using RaynMaker.Modules.Import.Parsers.Html;
 
 namespace RaynMaker.Modules.Import.UnitTests.Design
 {
@@ -57,11 +60,40 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         }
 
         [Test]
-        public void SelectedElement_WhenSet_WhenCalled_MarkerIsSet()
+        public void AttachTo_SetToDocumentToWhichAnotherBehaviorIsAlreadyAttached_Throws()
         {
-            var behavior = new HtmlMarkupBehavior<HtmlElementMarker>( new HtmlElementMarker( Color.Yellow ) );
+            myBrowser.LoadHtml( HtmlDocument1 );
+            var document = new HtmlDocumentAdapter( myBrowser.Document );
 
-            Assert.That( behavior.Marker, Is.Not.Null );
+            var behavior1 = new HtmlMarkupBehavior<HtmlElementMarker>( new HtmlElementMarker( Color.Yellow ) );
+            behavior1.AttachTo( document );
+
+            var behavior2 = new HtmlMarkupBehavior<HtmlElementMarker>( new HtmlElementMarker( Color.Red ) );
+            var ex = Assert.Throws<InvalidOperationException>( () => behavior2.AttachTo( document ) );
+            Assert.That( ex.Message, Is.StringContaining( "Only one attached HtmlMarkupBehavior per HtmlDocument supported" ) );
+        }
+
+        /// <summary>
+        /// Checking for "same document" with System.Windows.Forms.WebBrowser is not that easy as the WebBrowser control
+        /// reuses HtmlDocument instances. So we currently consider every HtmlDocument to be a new one.
+        /// </summary>
+        [Test]
+        public void AttachTo_WhenCalled_SelectedElementAndPathNulled()
+        {
+            myBrowser.LoadHtml( HtmlDocument1 );
+            var document = new HtmlDocumentAdapter( myBrowser.Document );
+
+            var behavior = new HtmlMarkupBehavior<HtmlElementMarker>( new HtmlElementMarker( Color.Yellow ) );
+            behavior.AttachTo( document );
+
+            behavior.SelectedElement = ( HtmlElementAdapter )document.GetElementById( "x11" );
+
+            myBrowser.LoadHtml( HtmlDocument2 );
+            document = new HtmlDocumentAdapter( myBrowser.Document );
+            behavior.AttachTo( document );
+
+            Assert.That( behavior.SelectedElement, Is.Null );
+            Assert.That( behavior.PathToSelectedElement, Is.Null );
         }
     }
 }

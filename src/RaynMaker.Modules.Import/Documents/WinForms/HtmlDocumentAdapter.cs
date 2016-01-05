@@ -11,10 +11,7 @@ namespace RaynMaker.Modules.Import.Documents.WinForms
 
         public HtmlDocumentAdapter( HtmlDocument doc )
         {
-            if( doc == null )
-            {
-                throw new ArgumentNullException( "doc" );
-            }
+            Contract.RequiresNotNull( doc, "doc" );
 
             Document = doc;
             myElementAdapters = new Dictionary<HtmlElement, HtmlElementAdapter>();

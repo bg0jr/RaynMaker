@@ -74,9 +74,9 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                     doc = adapter.Document;
                 }
 
-                MarkupBehavior.Document = doc;
+                MarkupBehavior.AttachTo( doc );
 
-                if( MarkupBehavior.Document == null )
+                if( doc == null )
                 {
                     return;
                 }

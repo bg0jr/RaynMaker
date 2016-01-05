@@ -8,7 +8,6 @@ namespace RaynMaker.Modules.Import.Design
 {
     public class HtmlMarkupBehavior<T> : IDisposable where T : IHtmlMarker
     {
-        private HtmlDocumentAdapter myDocument;
         // holds the element which has been marked by the user "click"
         // (before extensions has been applied)
         private HtmlElementAdapter mySelectedElement;
@@ -24,45 +23,64 @@ namespace RaynMaker.Modules.Import.Design
 
         public void Dispose()
         {
-            if( myDocument != null )
+            if( Document != null )
             {
-                myDocument.Document.Click -= HtmlDocument_Click;
+                Document.Document.Click -= HtmlDocument_Click;
             }
         }
 
-        public HtmlDocument Document
+        public HtmlDocumentAdapter Document { get; private set; }
+
+        public void AttachTo( HtmlDocument document )
         {
-            get { return myDocument != null ? myDocument.Document : null; }
-            set
+            Contract.RequiresNotNull( document, "document" );
+
+            AttachTo( new HtmlDocumentAdapter( document ) );
+        }
+
+        public void AttachTo( HtmlDocumentAdapter document )
+        {
+            Contract.RequiresNotNull( document, "document" );
+
+            // WebBrowser reused HtmlDocument instances
+            // -> we cannot ignore assignment of same HtmlDocument here
+
+            var behaviorHashCode = document.Document.Body.GetAttribute( "RaynMakerHtmlMarkupBehavior" );
+            Contract.Invariant( string.IsNullOrEmpty( behaviorHashCode ) || behaviorHashCode == GetHashCode().ToString(),
+                "A HtmlMarkupBehavior already attached to the given HtmlDocument. Only one attached HtmlMarkupBehavior per HtmlDocument supported" );
+
+            Detach();
+
+            Document = document;
+            Document.Document.Click += HtmlDocument_Click;
+
+            Document.Document.Body.SetAttribute( "RaynMakerHtmlMarkupBehavior", GetHashCode().ToString() );
+
+            Apply();
+        }
+
+        public void Detach()
+        {
+            if( Document == null )
             {
-                if( myDocument != null )
-                {
-                    myDocument.Document.Click -= HtmlDocument_Click;
-                }
-
-                mySelectedElement = null;
-                myPath = null;
-                // We have to unmark all because anyway with new document the HtmlElements inside the Marker are invalid.
-                // We do not call Reset() in order to keep the settings in the Marker (e.g. HtmlTableMarker).
-                Marker.Unmark();
-
-                if( value == null )
-                {
-                    return;
-                }
-
-                myDocument = new HtmlDocumentAdapter( value );
-                myDocument.Document.Click += HtmlDocument_Click;
-
-                Apply();
+                return;
             }
+
+            Document.Document.Click -= HtmlDocument_Click;
+
+            mySelectedElement = null;
+            myPath = null;
+
+            // We have to unmark all because anyway with new document the HtmlElements inside the Marker are invalid.
+            // We do not call Reset() in order to keep the settings in the Marker (e.g. HtmlTableMarker).
+            Marker.Unmark();
         }
 
         private void HtmlDocument_Click( object sender, HtmlElementEventArgs e )
         {
-            var element = myDocument.Document.GetElementFromPoint( e.ClientMousePosition );
+            var element = Document.Document.GetElementFromPoint( e.ClientMousePosition );
 
-            SelectedElement = myDocument.Create( element );
+            SelectedElement = Document.Create( element );
         }
 
         public Action SelectionChanged { get; set; }
@@ -72,7 +90,7 @@ namespace RaynMaker.Modules.Import.Design
             get { return mySelectedElement; }
             set
             {
-                Contract.Invariant( myDocument != null, "Document not attached" );
+                Contract.Invariant( Document != null, "Document not attached" );
 
                 if( mySelectedElement == value )
                 {
@@ -114,7 +132,7 @@ namespace RaynMaker.Modules.Import.Design
         {
             Marker.Unmark();
 
-            if( myDocument == null )
+            if( Document == null )
             {
                 return;
             }
@@ -125,12 +143,13 @@ namespace RaynMaker.Modules.Import.Design
                 if( path != null )
                 {
                     // Trigger SelectionChanged event
-                    SelectedElement = ( HtmlElementAdapter )myDocument.GetElementByPath( path );
+                    SelectedElement = ( HtmlElementAdapter )Document.GetElementByPath( path );
                 }
             }
             else if( mySelectedElement != null && myPath == null )
             {
-                PathToSelectedElement = mySelectedElement.GetPath().ToString();
+                // do NOT set property - it will reset SelectedElement again (StackOverflowException)
+                myPath = mySelectedElement.GetPath().ToString();
             }
 
             if( mySelectedElement == null || mySelectedElement.TagName.Equals( "INPUT", StringComparison.OrdinalIgnoreCase ) )
