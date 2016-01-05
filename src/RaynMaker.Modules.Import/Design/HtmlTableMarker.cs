@@ -12,8 +12,8 @@ namespace RaynMaker.Modules.Import.Design
 {
     public class HtmlTableMarker : IHtmlMarker
     {
-        public static Color DefaultCellColor = Color.Yellow;
-        public static Color DefaultHeaderColor = Color.SteelBlue;
+        public static readonly Color DefaultCellColor = Color.Yellow;
+        public static readonly Color DefaultHeaderColor = Color.SteelBlue;
 
         private HtmlElementAdapter myElement;
         private HtmlTable myTable;
@@ -49,11 +49,6 @@ namespace RaynMaker.Modules.Import.Design
         public void Mark( IHtmlElement element )
         {
             Contract.RequiresNotNull( element, "element" );
-
-            if( myElement != null )
-            {
-                myCellMarker.Unmark();
-            }
 
             myElement = ( HtmlElementAdapter )element;
 
@@ -158,7 +153,7 @@ namespace RaynMaker.Modules.Import.Design
             }
         }
 
-        public void Apply()
+        private void Apply()
         {
             if( myElement == null )
             {
