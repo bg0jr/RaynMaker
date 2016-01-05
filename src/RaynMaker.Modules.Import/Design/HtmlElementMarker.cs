@@ -56,8 +56,11 @@ namespace RaynMaker.Modules.Import.Design
 
         public void Unmark()
         {
-            if( Element == null )
+            if( Element == null || Element.Parent == null )
             {
+                // if the Parent is null we consider this HtmlElement as to be disconnected from HtmlDocument.
+                // (e.g.: System.Windows.Forms.WebBrowser does reuse HtmlDocument instances)
+                // -> no need to unmark s.th. - the HtmlElement is dead
                 return;
             }
 

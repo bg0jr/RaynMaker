@@ -56,7 +56,8 @@ namespace RaynMaker.Modules.Import.Design
 
             Document.Document.Body.SetAttribute( "RaynMakerHtmlMarkupBehavior", GetHashCode().ToString() );
 
-            Apply();
+            // In Detach() we resetted everything so nothing to apply here
+            // Apply();
         }
 
         public void Detach()
@@ -74,6 +75,10 @@ namespace RaynMaker.Modules.Import.Design
             // We have to unmark all because anyway with new document the HtmlElements inside the Marker are invalid.
             // We do not call Reset() in order to keep the settings in the Marker (e.g. HtmlTableMarker).
             Marker.Unmark();
+
+            Document.Document.Body.SetAttribute( "RaynMakerHtmlMarkupBehavior", null );
+
+            Document = null;
         }
 
         private void HtmlDocument_Click( object sender, HtmlElementEventArgs e )
