@@ -16,21 +16,21 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         <table>
             <thead>
                 <tr>
-                    <th/>
-                    <th>Column 1</th>
-                    <th>Column 2</th>
+                    <th id='c00'/>
+                    <th id='c01'>Column 1</th>
+                    <th id='c02'>Column 2</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th>Row 1</th>
-                    <td>c1</td>
-                    <td>c2</td>
+                    <th id='c10'>Row 1</th>
+                    <td id='c11'>v 11</td>
+                    <td id='c12'>v 12</td>
                 </tr>
                 <tr>
-                    <th>Row 2</th>
-                    <td id='a1'>c3</td>
-                    <td>c4</td>
+                    <th id='c20'>Row 2</th>
+                    <td id='c21'>v 21</td>
+                    <td id='c22'>v 22</td>
                 </tr>
             </tbody>
         </table>
@@ -45,6 +45,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         public void SetUp()
         {
             myMarker = new HtmlTableMarker( Color.Yellow, Color.SteelBlue );
+            ShowMarkupResultInBrowser = true;
         }
 
         [TearDown]
@@ -57,16 +58,42 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         [Test]
         public void Mark_SingleCell()
         {
-            var cell1= Document.GetElementById( "a1" );
-            myMarker.Mark( cell1 );
-            
-            Assert_IsMarked( cell1 );
+            var cell21 = Document.GetElementById( "c21" );
+            myMarker.Mark( cell21 );
 
-            ShowMarkedDocument();
+            Assert_IsMarked( cell21 );
+
             myMarker.Unmark();
-            ShowMarkedDocument();
 
-            Assert_IsUnmarked( cell1, null );
+            Assert_IsUnmarked( cell21, null );
+        }
+
+        [Test]
+        public void Mark_ExpandRow()
+        {
+            myMarker.Mark( Document.GetElementById( "c21" ) );
+
+            myMarker.ExpandRow = true;
+
+            Assert_IsMarked( "c20", "c21", "c22" );
+
+            myMarker.Unmark();
+
+            Assert_IsUnmarked( "c20", "c21", "c22" );
+        }
+
+        [Test]
+        public void ExpandRow_Mark()
+        {
+            myMarker.ExpandRow = true;
+
+            myMarker.Mark( Document.GetElementById( "c21" ) );
+
+            Assert_IsMarked( "c20", "c21", "c22" );
+
+            myMarker.Unmark();
+
+            Assert_IsUnmarked( "c20", "c21", "c22" );
         }
     }
 }

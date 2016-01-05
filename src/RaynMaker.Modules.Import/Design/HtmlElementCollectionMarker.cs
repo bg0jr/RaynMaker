@@ -23,8 +23,14 @@ namespace RaynMaker.Modules.Import.Design
 
         public void Mark( IHtmlElement element )
         {
+            if( myMarkers.Any( m => m.Element == element ) )
+            {
+                return;
+            }
+
             var marker = new HtmlElementMarker( Color );
             marker.Mark( element );
+
             myMarkers.Add( marker );
         }
 
@@ -37,6 +43,7 @@ namespace RaynMaker.Modules.Import.Design
             }
 
             marker.Unmark();
+
             myMarkers.Remove( marker );
         }
 

@@ -11,7 +11,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
     [RequiresSTA]
     abstract class HtmlMarkupTestBase
     {
-        protected static bool ShowMarkupResultInBrowser = false;
+        protected bool ShowMarkupResultInBrowser = false;
 
         private SafeWebBrowser myBrowser;
         protected IHtmlDocument Document { get; private set; }
@@ -49,6 +49,20 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
             }
         }
 
+        protected void Assert_IsMarked( params string[] elementIds)
+        {
+            foreach( var id in elementIds )
+            {
+                var element = Document.GetElementById( id );
+                Assert.That( element.Style, Is.StringContaining( "background-color: yellow" ).IgnoreCase );
+            }
+
+            if( ShowMarkupResultInBrowser )
+            {
+                ShowMarkedDocument();
+            }
+        }
+
         protected void Assert_IsUnmarked( IHtmlElement element, string originalStyle )
         {
             if( originalStyle == null )
@@ -66,7 +80,21 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
                 ShowMarkedDocument();
             }
         }
-        
+
+        protected void Assert_IsUnmarked( params string[] elementIds )
+        {
+            foreach( var id in elementIds )
+            {
+                var element = Document.GetElementById( id );
+                Assert.That( element.Style, Is.Null );
+            }
+
+            if( ShowMarkupResultInBrowser )
+            {
+                ShowMarkedDocument();
+            }
+        }
+
         protected void ShowMarkedDocument()
         {
             myBrowser.Document.Title = TestContext.CurrentContext.Test.Name;

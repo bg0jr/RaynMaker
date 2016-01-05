@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Linq;
 using NUnit.Framework;
 using RaynMaker.Modules.Import.Design;
 
@@ -54,6 +55,22 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
 
             Assert_IsUnmarked( firstBullet, null );
             Assert_IsUnmarked( thirdBullet, null );
+        }
+
+        [Test]
+        public void Mark_MultipleTimesSameElement_OnlyMarkedOnce()
+        {
+            myMarker.Mark( Document.GetElementById( "a1" ) );
+            myMarker.Mark( Document.GetElementById( "a1" ) );
+            myMarker.Mark( Document.GetElementById( "a1" ) );
+
+            Assert.That( myMarker.Elements.Count(), Is.EqualTo( 1 ) );
+
+            Assert_IsMarked( "a1" );
+
+            myMarker.Unmark();
+
+            Assert_IsUnmarked( "a1", "a2", "a3" );
         }
     }
 }

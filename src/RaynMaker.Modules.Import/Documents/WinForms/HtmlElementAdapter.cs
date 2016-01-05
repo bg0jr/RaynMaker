@@ -52,6 +52,11 @@ namespace RaynMaker.Modules.Import.Documents.WinForms
             return Element.GetAttribute( attr );
         }
 
+        public void SetAttribute( string attr, string value )
+        {
+            Element.SetAttribute( attr, value );
+        }
+
         public string InnerText
         {
             get { return Element.InnerText; }

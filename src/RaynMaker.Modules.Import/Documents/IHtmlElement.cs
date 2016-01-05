@@ -14,6 +14,8 @@ namespace RaynMaker.Modules.Import.Documents
 
         string GetAttribute( string attr );
 
+        void SetAttribute( string attr, string value );
+
         string InnerText { get; }
 
         string InnerHtml { get; }

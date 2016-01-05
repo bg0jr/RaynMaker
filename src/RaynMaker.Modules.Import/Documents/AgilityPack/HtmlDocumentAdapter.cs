@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using HtmlAgilityPack;
+using Plainion;
 
 namespace RaynMaker.Modules.Import.Documents.AgilityPack
 {
@@ -31,6 +32,8 @@ namespace RaynMaker.Modules.Import.Documents.AgilityPack
 
         public HtmlElementAdapter Create( HtmlNode element )
         {
+            Contract.RequiresNotNull( element, "element" );
+            
             if( !myElementAdapters.ContainsKey( element ) )
             {
                 myElementAdapters[ element ] = new HtmlElementAdapter( this, element );
@@ -41,7 +44,13 @@ namespace RaynMaker.Modules.Import.Documents.AgilityPack
 
         public IHtmlElement GetElementById( string id )
         {
-            return Create( Document.GetElementbyId( id ) );
+            var element = Document.GetElementbyId( id );
+            if( element == null )
+            {
+                return null;
+            }
+
+            return Create( element );
         }
     }
 }

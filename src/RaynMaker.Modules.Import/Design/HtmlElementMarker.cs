@@ -8,7 +8,11 @@ namespace RaynMaker.Modules.Import.Design
     {
         public static string MarkupClass = "__rym_markup__";
 
-        private string myOriginalStyle;
+        private const string Attribute_OrigStyle = "OrigStyle";
+        private const string Attribute_Marker = "Marker";
+        private const string Attribute_MarkerCount = "MarkerCount";
+
+        private int myMarkerIdx;
 
         public HtmlElementMarker( Color color )
         {
@@ -31,8 +35,23 @@ namespace RaynMaker.Modules.Import.Design
 
             Element = element;
 
-            myOriginalStyle =Element.Style;
-            Element.Style+= string.Format( ";color:black;background-color:{0}", ColorTranslator.ToHtml( Color ) );
+            var markerCountAttr = Element.GetAttribute( Attribute_MarkerCount );
+            if( string.IsNullOrEmpty( markerCountAttr ) )
+            {
+                Element.SetAttribute( Attribute_OrigStyle, Element.Style );
+                myMarkerIdx = 0;
+            }
+            else
+            {
+                myMarkerIdx = int.Parse( markerCountAttr );
+            }
+
+            var markupStyle = string.Format( ";color:black;background-color:{0}", ColorTranslator.ToHtml( Color ) );
+
+            Element.SetAttribute( Attribute_Marker + myMarkerIdx, markupStyle );
+            Element.SetAttribute( Attribute_MarkerCount, ( myMarkerIdx + 1 ).ToString() );
+
+            Element.Style = Element.GetAttribute( Attribute_OrigStyle ) + markupStyle;
         }
 
         public void Unmark()
@@ -42,10 +61,52 @@ namespace RaynMaker.Modules.Import.Design
                 return;
             }
 
-            Element.Style = myOriginalStyle;
+            var markerCount = int.Parse( Element.GetAttribute( Attribute_MarkerCount ) );
+
+            if( myMarkerIdx + 1 == markerCount )
+            {
+                // no further marker on top of us
+                // -> rollback our markup
+
+                // is there still another marker applied?
+                string marker = null;
+                int previousMarkerIdx = myMarkerIdx - 1;
+                for( ; previousMarkerIdx >= 0; previousMarkerIdx-- )
+                {
+                    marker = Element.GetAttribute( Attribute_Marker + previousMarkerIdx );
+                    if( !string.IsNullOrEmpty( marker ) )
+                    {
+                        break;
+                    }
+                }
+
+                if( previousMarkerIdx >= 0 )
+                {
+                    // another marker found
+                    // -> apply its style
+                    Element.Style = Element.GetAttribute( Attribute_OrigStyle ) + marker;
+
+                    Element.SetAttribute( Attribute_MarkerCount, ( previousMarkerIdx + 1 ).ToString() );
+                }
+                else
+                {
+                    // no marker found
+                    // -> apply orig style
+                    Element.Style = Element.GetAttribute( Attribute_OrigStyle );
+
+                    Element.SetAttribute( Attribute_MarkerCount, ( 0 ).ToString() );
+                }
+            }
+            else
+            {
+                // another marker on top of us
+                // -> nothing to do - just cleanup
+            }
+
+            Element.SetAttribute( Attribute_Marker + myMarkerIdx, string.Empty );
 
             Element = null;
-            myOriginalStyle = null;
+            myMarkerIdx = -1;
         }
 
         public void Reset()

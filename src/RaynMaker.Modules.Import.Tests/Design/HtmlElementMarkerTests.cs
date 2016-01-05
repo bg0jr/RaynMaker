@@ -152,5 +152,59 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
             myMarker.Unmark();
             Assert_IsUnmarked( element, null );
         }
+
+        [Test]
+        public void Unmark_MultipleMarkersUnmarkedInReversedOrder_RollbackToPreviousStyle()
+        {
+            var element = Document.GetElementById( "a3" );
+
+            var yellowMarker = new HtmlElementMarker( Color.Yellow );
+            yellowMarker.Mark( element );
+            Assert.That( element.Style, Is.StringContaining( "background-color: yellow" ).IgnoreCase );
+
+            var blueMarker = new HtmlElementMarker( Color.Blue );
+            blueMarker.Mark( element );
+            Assert.That( element.Style, Is.StringContaining( "background-color: blue" ).IgnoreCase );
+
+            var greenMarker = new HtmlElementMarker( Color.Green );
+            greenMarker.Mark( element );
+            Assert.That( element.Style, Is.StringContaining( "background-color: green" ).IgnoreCase );
+
+            greenMarker.Unmark();
+            Assert.That( element.Style, Is.StringContaining( "background-color: blue" ).IgnoreCase );
+
+            blueMarker.Unmark();
+            Assert.That( element.Style, Is.StringContaining( "background-color: yellow" ).IgnoreCase );
+
+            yellowMarker.Unmark();
+            Assert.That( element.Style, Is.Null );
+        }
+
+        [Test]
+        public void Unmark_MultipleMarkersUnmarkedInSameOrder_LastStyleKeptUntilLastMarkerIsRemoved()
+        {
+            var element = Document.GetElementById( "a3" );
+
+            var yellowMarker = new HtmlElementMarker( Color.Yellow );
+            yellowMarker.Mark( element );
+            Assert.That( element.Style, Is.StringContaining( "background-color: yellow" ).IgnoreCase );
+
+            var blueMarker = new HtmlElementMarker( Color.Blue );
+            blueMarker.Mark( element );
+            Assert.That( element.Style, Is.StringContaining( "background-color: blue" ).IgnoreCase );
+
+            var greenMarker = new HtmlElementMarker( Color.Green );
+            greenMarker.Mark( element );
+            Assert.That( element.Style, Is.StringContaining( "background-color: green" ).IgnoreCase );
+
+            yellowMarker.Unmark();
+            Assert.That( element.Style, Is.StringContaining( "background-color: green" ).IgnoreCase );
+
+            blueMarker.Unmark();
+            Assert.That( element.Style, Is.StringContaining( "background-color: green" ).IgnoreCase );
+
+            greenMarker.Unmark();
+            Assert.That( element.Style, Is.Null );
+        }
     }
 }

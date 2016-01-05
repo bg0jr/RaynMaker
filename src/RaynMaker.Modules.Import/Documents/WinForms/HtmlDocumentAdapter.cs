@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Plainion;
 
 namespace RaynMaker.Modules.Import.Documents.WinForms
 {
@@ -33,6 +34,8 @@ namespace RaynMaker.Modules.Import.Documents.WinForms
 
         public HtmlElementAdapter Create( HtmlElement element )
         {
+            Contract.RequiresNotNull( element, "element" );
+
             // does not work :(
             //if ( Document != element.Document )
             //{
@@ -49,7 +52,13 @@ namespace RaynMaker.Modules.Import.Documents.WinForms
 
         public IHtmlElement GetElementById( string id )
         {
-            return Create( Document.GetElementById( id ) );
+            var element = Document.GetElementById( id );
+            if( element == null )
+            {
+                return null;
+            }
+
+            return Create( element );
         }
     }
 }

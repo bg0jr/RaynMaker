@@ -18,17 +18,9 @@ namespace RaynMaker.Modules.Import.Documents.AgilityPack
             Element = element;
         }
 
-        public HtmlDocumentAdapter DocumentAdapter
-        {
-            get;
-            private set;
-        }
+        public HtmlDocumentAdapter DocumentAdapter { get; private set; }
 
-        public HtmlNode Element
-        {
-            get;
-            private set;
-        }
+        public HtmlNode Element { get; private set; }
 
         public IHtmlDocument Document
         {
@@ -57,9 +49,26 @@ namespace RaynMaker.Modules.Import.Documents.AgilityPack
 
         public string GetAttribute( string attr )
         {
+            if( !Element.Attributes.Contains( attr ) )
+            {
+                Element.Attributes.Add( attr, "" );
+            }
+
             return Element.Attributes[ attr ].Value;
         }
 
+        public void SetAttribute( string attr, string value )
+        {
+            if( !Element.Attributes.Contains( attr ) )
+            {
+                Element.Attributes.Add( attr, value );
+            }
+            else
+            {
+                Element.Attributes[ attr ].Value = value;
+            }
+        }
+        
         public string InnerText
         {
             get
