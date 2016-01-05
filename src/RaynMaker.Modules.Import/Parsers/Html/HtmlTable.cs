@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Plainion;
+using Plainion.Collections;
 using RaynMaker.Modules.Import.Documents;
 
 namespace RaynMaker.Modules.Import.Parsers.Html
@@ -12,44 +13,15 @@ namespace RaynMaker.Modules.Import.Parsers.Html
     /// </summary>
     public class HtmlTable
     {
-        private IHtmlElement myBody = null;
-
-        /// <summary>
-        /// Creates an instance based on the given root element.
-        /// </summary>
-        /// <param name="root">html element pointing to the table</param>
-        public HtmlTable( IHtmlElement root )
+        public HtmlTable( IHtmlElement tableElement )
         {
-            Contract.RequiresNotNull( root, "root" );
-            Contract.Requires( root.TagName == "TABLE", "root must be TABLE element" );
+            Contract.RequiresNotNull( tableElement, "tableElement" );
+            Contract.Requires( tableElement.TagName.Equals( "TABLE", StringComparison.OrdinalIgnoreCase ), "root must be TABLE element" );
 
-            TableElement = root;
+            TableElement = tableElement;
         }
 
-        /// <summary>
-        /// The HtmlElement representing the table.
-        /// </summary>
         public IHtmlElement TableElement { get; private set; }
-
-        /// <summary>
-        /// Returns the HTML element representing the HTML table body.
-        /// <remarks>
-        /// Returns the TBODY element if one exists, <see cref="TableElement"/> otherwise.
-        /// </remarks>
-        /// </summary>
-        public IHtmlElement TableBody
-        {
-            get
-            {
-                if( myBody == null )
-                {
-                    var body = TableElement.Children.FirstOrDefault( e => e.TagName == "TBODY" );
-                    myBody = ( body == null ? TableElement : body );
-                }
-
-                return myBody;
-            }
-        }
 
         /// <summary>
         /// Returns the column index of the given HtmlElement or of its
@@ -97,7 +69,8 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             {
                 return -1;
             }
-            return tr.GetChildPos();
+
+            return tr.FindEmbeddingTable().Rows.IndexOf( tr );
         }
 
         /// <summary>
@@ -125,13 +98,13 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         /// <returns>the TD element found, null otherwise</returns>
         public IHtmlElement GetCellAt( int row, int column )
         {
-            var r = TableBody.GetChildAt( "TR", row );
+            var r = Rows.ElementAt( row );
             if( r == null )
             {
                 return null;
             }
 
-            return r.GetChildAt(new[]{ "TD","TH"}, column );
+            return r.GetChildAt( new[] { "TD", "TH" }, column );
         }
 
         /// <summary>
@@ -187,17 +160,16 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         {
             Contract.RequiresNotNull( cell, "cell" );
 
-            HtmlTable table = cell.FindEmbeddingTable();
-            if( table == null )
-            {
-                throw new ArgumentException( "Element does not point to into table" );
-            }
+            var table = cell.FindEmbeddingTable();
 
+            Contract.Requires( table != null, "Element does not point to into table" );
+
+            // ignore tag - we could have TH and TD in the row
             int colIdx = cell.GetChildPos();
 
-            foreach( object row in table.TableBody.Children )
+            foreach( var row in table.Rows )
             {
-                IHtmlElement e = ( ( IHtmlElement )row ).GetChildAt( new[] { "TD", "TH" }, colIdx );
+                var e = row.GetChildAt( new[] { "TD", "TH" }, colIdx );
                 if( e == null )
                 {
                     continue;

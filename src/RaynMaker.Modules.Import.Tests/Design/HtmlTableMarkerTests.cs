@@ -95,5 +95,33 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
 
             Assert_IsUnmarked( "c20", "c21", "c22" );
         }
+
+        [Test]
+        public void Mark_ExpandColumn()
+        {
+            myMarker.Mark( Document.GetElementById( "c21" ) );
+
+            myMarker.ExpandColumn = true;
+
+            Assert_IsMarked( "c01", "c11", "c21" );
+
+            myMarker.Unmark();
+
+            Assert_IsUnmarked( "c01", "c11", "c21" );
+        }
+
+        [Test]
+        public void ExpandColumn_Mark()
+        {
+            myMarker.ExpandColumn = true;
+
+            myMarker.Mark( Document.GetElementById( "c21" ) );
+
+            Assert_IsMarked( "c01", "c11", "c21" );
+
+            myMarker.Unmark();
+
+            Assert_IsUnmarked( "c01", "c11", "c21" );
+        }
     }
 }

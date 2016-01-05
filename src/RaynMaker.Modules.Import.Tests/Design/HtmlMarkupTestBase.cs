@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using NUnit.Framework;
@@ -23,6 +24,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
             myBrowser.DownloadControlFlags = DocumentLoaderFactory.DownloadControlFlags;
 
             var html = GetHtml();
+            myBrowser.Url = new Uri( "about:blank" );
             myBrowser.DocumentText = html;
             myBrowser.Document.OpenNew( true );
             myBrowser.Document.Write( html );
@@ -41,30 +43,35 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
 
         protected void Assert_IsMarked( IHtmlElement element )
         {
-            Assert.That( element.Style, Is.StringContaining( "background-color: yellow" ).IgnoreCase );
-
             if( ShowMarkupResultInBrowser )
             {
                 ShowMarkedDocument();
             }
+            
+            Assert.That( element.Style, Is.StringContaining( "background-color: yellow" ).IgnoreCase );
         }
 
-        protected void Assert_IsMarked( params string[] elementIds)
+        protected void Assert_IsMarked( params string[] elementIds )
         {
+            if( ShowMarkupResultInBrowser )
+            {
+                ShowMarkedDocument();
+            }
+
             foreach( var id in elementIds )
             {
                 var element = Document.GetElementById( id );
-                Assert.That( element.Style, Is.StringContaining( "background-color: yellow" ).IgnoreCase );
-            }
-
-            if( ShowMarkupResultInBrowser )
-            {
-                ShowMarkedDocument();
+                Assert.That( element.Style, Is.StringContaining( "background-color: yellow" ).IgnoreCase, "Element with Id='{0}' is not marked", id );
             }
         }
 
         protected void Assert_IsUnmarked( IHtmlElement element, string originalStyle )
         {
+            if( ShowMarkupResultInBrowser )
+            {
+                ShowMarkedDocument();
+            }
+            
             if( originalStyle == null )
             {
                 Assert.That( element.Style, Is.Null );
@@ -74,24 +81,19 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
                 // we cannot check for exact match of original style because the different parameters get reordered
                 Assert.That( element.Style, Is.StringContaining( originalStyle ).IgnoreCase );
             }
-
-            if( ShowMarkupResultInBrowser )
-            {
-                ShowMarkedDocument();
-            }
         }
 
         protected void Assert_IsUnmarked( params string[] elementIds )
         {
-            foreach( var id in elementIds )
-            {
-                var element = Document.GetElementById( id );
-                Assert.That( element.Style, Is.Null );
-            }
-
             if( ShowMarkupResultInBrowser )
             {
                 ShowMarkedDocument();
+            }
+
+            foreach( var id in elementIds )
+            {
+                var element = Document.GetElementById( id );
+                Assert.That( element.Style, Is.Null, "Element with Id='{0}' is still marked", id );
             }
         }
 

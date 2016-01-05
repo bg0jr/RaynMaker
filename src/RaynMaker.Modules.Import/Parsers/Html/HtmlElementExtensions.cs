@@ -36,7 +36,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             var cur = element;
             while( cur.Parent != null )
             {
-                path.Elements.Insert( 0, new HtmlPathElement( cur.TagName, cur.GetChildPos() ) );
+                path.Elements.Insert( 0, new HtmlPathElement( cur.TagName, cur.GetChildOfTagPos() ) );
 
                 cur = cur.Parent;
             }
@@ -47,7 +47,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         /// <summary>
         /// Returns the position of the HtmlElement in its parents children.
         /// </summary>
-        public static int GetChildPos( this IHtmlElement element )
+        public static int GetChildOfTagPos( this IHtmlElement element )
         {
             Contract.RequiresNotNull( element, "element" );
 
@@ -71,6 +71,29 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             }
 
             //throw new ArgumentException( "Could not find child pos for child: " + e.TagName );
+            return -1;
+        }
+
+        public static int GetChildPos( this IHtmlElement element )
+        {
+            Contract.RequiresNotNull( element, "element" );
+
+            if( element.Parent == null )
+            {
+                // assume its valid HTML with <html/> as root element
+                return 0;
+            }
+
+            int childPos = 0;
+            foreach( var child in element.Parent.Children )
+            {
+                if( child == element )
+                {
+                    return childPos;
+                }
+                childPos++;
+            }
+
             return -1;
         }
 

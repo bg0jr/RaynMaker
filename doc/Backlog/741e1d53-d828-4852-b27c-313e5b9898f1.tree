@@ -7,6 +7,9 @@
     </Node>
     <Node Id="b6cbd93c-bdbd-49b4-bbb8-33de0a595e04">
       <Caption><![CDATA[1.7 - Polish Import module]]></Caption>
+      <Node Id="9877182f-53d2-48f3-85d7-c4d7ede75014">
+        <Caption><![CDATA[HtmlTable tests]]></Caption>
+      </Node>
       <Node Id="a48b622c-e7b2-4396-b47d-2d76b8aafa12">
         <Caption><![CDATA[Cleanup MarkupDocument handling]]></Caption>
       </Node>

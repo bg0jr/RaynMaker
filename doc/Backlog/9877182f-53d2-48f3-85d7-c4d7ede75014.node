@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="9877182f-53d2-48f3-85d7-c4d7ede75014" Created="635875758969908785" LastModified="635875759289537066">
+  <Caption><![CDATA[HtmlTable tests]]></Caption>
+  <Content><![CDATA[- remove static methods
+- test with tbody and thead
+- test without tbody and thead]]></Content>
+</Node>

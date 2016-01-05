@@ -27,7 +27,6 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             HtmlTable table = myDocument.GetTableByPath( path );
 
             Assert.AreEqual( "TABLE", table.TableElement.TagName );
-            Assert.AreEqual( "TBODY", table.TableBody.TagName );
             Assert.AreEqual( 9, table.Rows.Count() );
         }
 
@@ -107,7 +106,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
             var e = myDocument.GetElementByPath( path );
 
-            Assert.AreEqual( 1, e.GetChildPos() );
+            Assert.AreEqual( 1, e.GetChildOfTagPos() );
         }
 
         [Test]
@@ -117,7 +116,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
             var e = myDocument.GetElementByPath( path );
 
-            Assert.AreEqual( 0, e.GetRoot().GetChildPos() );
+            Assert.AreEqual( 0, e.GetRoot().GetChildOfTagPos() );
         }
 
         [Test]
@@ -241,8 +240,8 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
             Assert.AreEqual( "TD", e.TagName );
             Assert.AreEqual( "TR", e.Parent.TagName );
-            Assert.AreEqual( 1, e.GetChildPos() );
-            Assert.AreEqual( 6, e.Parent.GetChildPos() );
+            Assert.AreEqual( 1, e.GetChildOfTagPos() );
+            Assert.AreEqual( 6, e.Parent.GetChildOfTagPos() );
         }
 
         [Test]
@@ -278,7 +277,6 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             HtmlTable table = myDocument.GetTableByPath( path );
 
             Assert.AreEqual( e, table.TableElement );
-            Assert.AreEqual( e.Children.First(), table.TableBody );
         }
     }
 }
