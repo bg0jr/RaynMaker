@@ -19,6 +19,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
                     <th id='c00'/>
                     <th id='c01'>Column 1</th>
                     <th id='c02'>Column 2</th>
+                    <th id='c03'>Column 3</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,11 +27,19 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
                     <th id='c10'>Row 1</th>
                     <td id='c11'>v 11</td>
                     <td id='c12'>v 12</td>
+                    <td id='c13'>v 13</td>
                 </tr>
                 <tr>
                     <th id='c20'>Row 2</th>
                     <td id='c21'>v 21</td>
                     <td id='c22'>v 22</td>
+                    <td id='c23'>v 23</td>
+                </tr>
+                <tr>
+                    <th id='c30'>Row 3</th>
+                    <td id='c31'>v 31</td>
+                    <td id='c32'>v 32</td>
+                    <td id='c33'>v 33</td>
                 </tr>
             </tbody>
         </table>
@@ -45,7 +54,6 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         public void SetUp()
         {
             myMarker = new HtmlTableMarker( Color.Yellow, Color.SteelBlue );
-            ShowMarkupResultInBrowser = false;
         }
 
         [TearDown]
@@ -183,5 +191,53 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
 
             Assert_IsUnmarked( "c01", "c20" );
         }
+
+        [Test]
+        public void Mark_SkipColumnAndRows()
+        {
+            myMarker.Mark( Document.GetElementById( "c22" ) );
+
+            myMarker.ExpandColumn = true;
+            myMarker.ExpandRow = true;
+            myMarker.ColumnHeaderRow = 0;
+            myMarker.RowHeaderColumn = 0;
+            myMarker.SkipRows = new[] { 1 };
+            myMarker.SkipColumns = new[] { 1 };
+
+            Assert_IsMarked( myMarker.HeaderColor, "c00", "c02", "c03" );
+            Assert_IsMarked( myMarker.HeaderColor, "c00", "c20", "c30" );
+            Assert_IsMarked( myMarker.CellColor, "c22", "c23", "c32" );
+
+            myMarker.Unmark();
+
+            Assert_IsUnmarked( "c00", "c02", "c03" );
+            Assert_IsUnmarked( "c00", "c20", "c30" );
+            Assert_IsUnmarked( "c22", "c23", "c32" );
+        }
+
+        [Test]
+        public void SkipColumnAndRows_Mark()
+        {
+            myMarker.ExpandColumn = true;
+            myMarker.ExpandRow = true;
+            myMarker.ColumnHeaderRow = 0;
+            myMarker.RowHeaderColumn = 0;
+            myMarker.SkipRows = new[] { 1 };
+            myMarker.SkipColumns = new[] { 1 };
+
+            myMarker.Mark( Document.GetElementById( "c22" ) );
+
+            Assert_IsMarked( myMarker.HeaderColor, "c00", "c02", "c03" );
+            Assert_IsMarked( myMarker.HeaderColor, "c00", "c20", "c30" );
+            Assert_IsMarked( myMarker.CellColor, "c22", "c23", "c32" );
+
+            myMarker.Unmark();
+
+            Assert_IsUnmarked( "c00", "c02", "c03" );
+            Assert_IsUnmarked( "c00", "c20", "c30" );
+            Assert_IsUnmarked( "c22", "c23", "c32" );
+        }
+
+        // TODO: reset, manual apply?
     }
 }
