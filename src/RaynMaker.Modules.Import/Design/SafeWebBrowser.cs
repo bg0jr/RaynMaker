@@ -14,6 +14,17 @@ namespace RaynMaker.Modules.Import.Design
         private const int DISPID_AMBIENT_DLCONTROL = -5512;
         private int myDownloadControlFlags;
 
+        public void LoadHtml( string html )
+        {
+            Url = new Uri( "about:blank" );
+
+            DocumentText = html;
+            Document.OpenNew( true );
+            Document.Write( html );
+
+            Refresh();
+        }
+
         protected override WebBrowserSiteBase CreateWebBrowserSiteBase()
         {
             return new SafeWebBrowserSite( this );

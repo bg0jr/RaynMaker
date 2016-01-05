@@ -24,12 +24,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
             myBrowser = new SafeWebBrowser();
             myBrowser.DownloadControlFlags = DocumentLoaderFactory.DownloadControlFlags;
 
-            var html = GetHtml();
-            myBrowser.Url = new Uri( "about:blank" );
-            myBrowser.DocumentText = html;
-            myBrowser.Document.OpenNew( true );
-            myBrowser.Document.Write( html );
-            myBrowser.Refresh();
+            myBrowser.LoadHtml( GetHtml() );
 
             Document = new HtmlDocumentAdapter( myBrowser.Document );
         }

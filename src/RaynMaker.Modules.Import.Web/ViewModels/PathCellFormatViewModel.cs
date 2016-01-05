@@ -81,7 +81,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         {
             if( MarkupBehavior.SelectedElement != null )
             {
-                Path = MarkupBehavior.SelectedElement.GetPath().ToString();
+                Path = MarkupBehavior.PathToSelectedElement;
                 Value = MarkupBehavior.SelectedElement.InnerText;
                 UpdateAnchor();
             }

@@ -18,11 +18,17 @@ namespace RaynMaker.Modules.Import.Design
         public HtmlMarkupBehavior( T marker )
         {
             Marker = marker;
-
-            Reset();
         }
 
         public T Marker { get; private set; }
+
+        public void Dispose()
+        {
+            if( myDocument != null )
+            {
+                myDocument.Document.Click -= HtmlDocument_Click;
+            }
+        }
 
         public HtmlDocument Document
         {
@@ -34,6 +40,12 @@ namespace RaynMaker.Modules.Import.Design
                     myDocument.Document.Click -= HtmlDocument_Click;
                 }
 
+                mySelectedElement = null;
+                myPath = null;
+                // We have to unmark all because anyway with new document the HtmlElements inside the Marker are invalid.
+                // We do not call Reset() in order to keep the settings in the Marker (e.g. HtmlTableMarker).
+                Marker.Unmark();
+
                 if( value == null )
                 {
                     return;
@@ -42,8 +54,7 @@ namespace RaynMaker.Modules.Import.Design
                 myDocument = new HtmlDocumentAdapter( value );
                 myDocument.Document.Click += HtmlDocument_Click;
 
-                // Internally adjusts SelectedElement
-                PathToSelectedElement = PathToSelectedElement;
+                Apply();
             }
         }
 
@@ -54,7 +65,7 @@ namespace RaynMaker.Modules.Import.Design
             SelectedElement = myDocument.Create( element );
         }
 
-        public Action SelectionChanged = null;
+        public Action SelectionChanged { get; set; }
 
         public HtmlElementAdapter SelectedElement
         {
@@ -63,16 +74,16 @@ namespace RaynMaker.Modules.Import.Design
             {
                 Contract.Invariant( myDocument != null, "Document not attached" );
 
-                Marker.Unmark();
+                if( mySelectedElement == value )
+                {
+                    return;
+                }
 
                 mySelectedElement = value;
+                // sync with SelectedElement in Apply()
+                myPath = null;
 
-                if( mySelectedElement != null )
-                {
-                    Apply();
-
-                    mySelectedElement.Element.ScrollIntoView( false );
-                }
+                Apply();
 
                 if( SelectionChanged != null )
                 {
@@ -86,50 +97,40 @@ namespace RaynMaker.Modules.Import.Design
             get { return myPath; }
             set
             {
-                myPath = value;
-
-                UpdateSelectedElement();
-            }
-        }
-
-        private void UpdateSelectedElement()
-        {
-            if( myDocument != null && myPath != null )
-            {
-                var path = HtmlPath.TryParse( myPath );
-                if( path == null )
+                if( myPath == value )
                 {
-                    // TODO: signal error to UI
                     return;
                 }
-                SelectedElement = ( HtmlElementAdapter )myDocument.GetElementByPath( path );
-            }
-            else
-            {
-                SelectedElement = null;
-            }
-        }
 
-        public void Dispose()
-        {
-            if( myDocument != null )
-            {
-                myDocument.Document.Click -= HtmlDocument_Click;
+                myPath = value;
+                // sync with PathToSelectedElement in Apply()
+                mySelectedElement = null;
+
+                Apply();
             }
-        }
-
-        public void Reset()
-        {
-            Marker.Reset();
-
-            mySelectedElement = null;
         }
 
         public void Apply()
         {
-            if( mySelectedElement == null )
+            Marker.Unmark();
+
+            if( myDocument == null )
             {
-                UpdateSelectedElement();
+                return;
+            }
+
+            if( mySelectedElement == null && myPath != null )
+            {
+                var path = HtmlPath.TryParse( myPath );
+                if( path != null )
+                {
+                    // Trigger SelectionChanged event
+                    SelectedElement = ( HtmlElementAdapter )myDocument.GetElementByPath( path );
+                }
+            }
+            else if( mySelectedElement != null && myPath == null )
+            {
+                PathToSelectedElement = mySelectedElement.GetPath().ToString();
             }
 
             if( mySelectedElement == null || mySelectedElement.TagName.Equals( "INPUT", StringComparison.OrdinalIgnoreCase ) )
@@ -137,10 +138,9 @@ namespace RaynMaker.Modules.Import.Design
                 return;
             }
 
-            // unmark all first
-            Marker.Unmark();
-
             Marker.Mark( mySelectedElement );
+
+            mySelectedElement.Element.ScrollIntoView( false );
         }
     }
 }
