@@ -8,9 +8,6 @@ using RaynMaker.Modules.Import.Documents;
 
 namespace RaynMaker.Modules.Import.Parsers.Html
 {
-    /// <summary>
-    /// Adds helpful API to an <see cref="HtmlElement"/> which represents the root of a html table.
-    /// </summary>
     public class HtmlTable
     {
         public HtmlTable( IHtmlElement tableElement )
@@ -24,11 +21,9 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         public IHtmlElement TableElement { get; private set; }
 
         /// <summary>
-        /// Returns the column index of the given HtmlElement or of its
-        /// surrounding TD element.
-        /// <seealso cref="GetEmbeddingTD"/>
+        /// Returns the column index of the given HtmlElement or of its surrounding TD element.
         /// </summary>
-        public static int GetColumnIndex( IHtmlElement e )
+        public int GetColumnIndex( IHtmlElement e )
         {
             var td = GetEmbeddingTD( e );
             if( td == null )
@@ -42,17 +37,17 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         /// Returns the TD element embedding the given element.
         /// If the given element itself is a TD, this one is returned.
         /// </summary>
-        public static IHtmlElement GetEmbeddingTD( IHtmlElement e )
+        public IHtmlElement GetEmbeddingTD( IHtmlElement element )
         {
-            Contract.RequiresNotNull( e, "e" );
+            Contract.RequiresNotNull( element, "e" );
 
-            if( e.TagName == "TD" || e.TagName == "TH" )
+            if( element.TagName == "TD" || element.TagName == "TH" )
             {
-                return e;
+                return element;
             }
             else
             {
-                var parent = e.FindParent( p => p.TagName == "TD" || p.TagName == "TH", p => e.IsTableOrTBody() );
+                var parent = element.FindParent( e => e.TagName == "TD" || e.TagName == "TH", e => IsTableOrTBody( e ) );
                 return ( parent == null ? null : parent );
             }
         }
@@ -62,7 +57,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         /// surrounding TR element.
         /// <seealso cref="GetEmbeddingTR"/>
         /// </summary> 
-        public static int GetRowIndex( IHtmlElement e )
+        public int GetRowIndex( IHtmlElement e )
         {
             var tr = GetEmbeddingTR( e );
             if( tr == null )
@@ -70,24 +65,24 @@ namespace RaynMaker.Modules.Import.Parsers.Html
                 return -1;
             }
 
-            return tr.FindEmbeddingTable().Rows.IndexOf( tr );
+            return Rows.IndexOf( tr );
         }
 
         /// <summary>
         /// Returns the TR element embedding the given element.
         /// If the given element itself is a TR, this one is returned.
         /// </summary>
-        public static IHtmlElement GetEmbeddingTR( IHtmlElement e )
+        public IHtmlElement GetEmbeddingTR( IHtmlElement element )
         {
-            Contract.RequiresNotNull( e, "e" );
+            Contract.RequiresNotNull( element, "e" );
 
-            if( e.TagName == "TR" )
+            if( element.TagName == "TR" )
             {
-                return e;
+                return element;
             }
             else
             {
-                var parent = e.FindParent( p => p.TagName == "TR", p => e.IsTableOrTBody() );
+                var parent = element.FindParent( e => e.TagName == "TR", e => IsTableOrTBody( e ) );
                 return ( parent == null ? null : parent );
             }
         }
@@ -138,7 +133,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         /// <summary>
         /// Gets the complete row of the given cell.
         /// </summary>
-        public static IEnumerable<IHtmlElement> GetRow( IHtmlElement cell )
+        public IEnumerable<IHtmlElement> GetRow( IHtmlElement cell )
         {
             Contract.RequiresNotNull( cell, "cell" );
 
@@ -156,18 +151,14 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         /// <remarks>Attention: Handling "colspan" is not implemented.
         /// A TR without any TD is skipped.</remarks>
         /// </summary>
-        public static IEnumerable<IHtmlElement> GetColumn( IHtmlElement cell )
+        public IEnumerable<IHtmlElement> GetColumn( IHtmlElement cell )
         {
             Contract.RequiresNotNull( cell, "cell" );
-
-            var table = cell.FindEmbeddingTable();
-
-            Contract.Requires( table != null, "Element does not point to into table" );
 
             // ignore tag - we could have TH and TD in the row
             int colIdx = cell.GetChildPos();
 
-            foreach( var row in table.Rows )
+            foreach( var row in Rows )
             {
                 var e = row.GetChildAt( new[] { "TD", "TH" }, colIdx );
                 if( e == null )
@@ -179,7 +170,41 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             }
         }
 
-        internal static bool IsTable( HtmlElement element )
+        /// <summary>
+        /// Gets the HtmlTable the given path is pointing to.
+        /// If the path is pointing into a table, the embedding table is returned.
+        /// If the path is not pointing to a table element null is returned.
+        /// </summary>
+        public static HtmlTable FindByPath( IHtmlDocument doc, HtmlPath path )
+        {
+            var start = doc.GetElementByPath( path );
+            if( start == null )
+            {
+                return null;
+            }
+
+            return FindByCell( start );
+        }
+
+        /// <summary>
+        /// Searches for the table which embedds the given element.
+        /// If the given HtmlElement is a TABLE element, this one is returned.
+        /// </summary>
+        public static HtmlTable FindByCell( IHtmlElement cell )
+        {
+            Contract.RequiresNotNull( cell, "start" );
+
+            if( cell.TagName == "TABLE" )
+            {
+                return new HtmlTable( cell );
+            }
+
+            var table = cell.FindParent( p => p.TagName == "TABLE" );
+
+            return ( table == null ? null : new HtmlTable( table ) );
+        }
+
+        public static bool IsTableOrTBody( IHtmlElement element )
         {
             return element.TagName.Equals( "TABLE", StringComparison.OrdinalIgnoreCase ) || element.TagName.Equals( "TBODY", StringComparison.OrdinalIgnoreCase );
         }

@@ -55,21 +55,6 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             return e.InnerText;
         }
 
-        /// <summary>
-        /// Gets the HtmlTable the given path is pointing to.
-        /// If the path is pointing into a table, the embedding table is returned.
-        /// If the path is not pointing to a table element null is returned.
-        /// </summary>
-        public static HtmlTable GetTableByPath( this IHtmlDocument doc, HtmlPath path )
-        {
-            var start = doc.GetElementByPath( path );
-            if( start == null )
-            {
-                return null;
-            }
-
-            return start.FindEmbeddingTable();
-        }
 
         public static HtmlForm GetFormByName( this IHtmlDocument document, string formName )
         {
@@ -121,7 +106,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
                 throw new InvalidExpressionException( "Path neither points to table nor to cell" );
             }
 
-            HtmlTable htmlTable = doc.GetTableByPath( path );
+            var htmlTable = HtmlTable.FindByPath( doc, path );
             if( htmlTable == null )
             {
                 return FallibleActionResult<DataTable>.CreateFailureResult( "Could not get table by path" );

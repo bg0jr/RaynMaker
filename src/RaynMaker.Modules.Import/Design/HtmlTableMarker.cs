@@ -52,7 +52,7 @@ namespace RaynMaker.Modules.Import.Design
 
             myElement = ( HtmlElementAdapter )element;
 
-            myTable = myElement.FindEmbeddingTable();
+            myTable = HtmlTable.FindByCell( myElement );
 
             // As the using code has to decide to take this marker or another impl we should handle 
             // "wrong elements" a bit relaxed here. Otherwise we force the using code to put checks and if-then-else stuff.
@@ -166,7 +166,7 @@ namespace RaynMaker.Modules.Import.Design
             Unmark();
 
             myCellMarker.Mark( myElement );
-            
+
             if( myTable == null )
             {
                 // no table handling
@@ -191,7 +191,7 @@ namespace RaynMaker.Modules.Import.Design
 
         private void DoSkipRows()
         {
-            int column = HtmlTable.GetColumnIndex( myElement );
+            int column = myTable.GetColumnIndex( myElement );
             if( column != -1 )
             {
                 SkipElements( mySkipRows, row => myTable.GetCellAt( row, column ) );
@@ -214,7 +214,7 @@ namespace RaynMaker.Modules.Import.Design
 
         private void DoSkipColumns()
         {
-            int row = HtmlTable.GetRowIndex( myElement );
+            int row = myTable.GetRowIndex( myElement );
             if( row != -1 )
             {
                 SkipElements( mySkipColumns, col => myTable.GetCellAt( row, col ) );
@@ -223,12 +223,12 @@ namespace RaynMaker.Modules.Import.Design
 
         public Func<IHtmlElement, IHtmlElement> FindRowHeader( int pos )
         {
-            return e => myTable.GetCellAt( HtmlTable.GetRowIndex( e ), pos );
+            return e => myTable.GetCellAt( myTable.GetRowIndex( e ), pos );
         }
 
         public Func<IHtmlElement, IHtmlElement> FindColumnHeader( int pos )
         {
-            return e => myTable.GetCellAt( pos, HtmlTable.GetColumnIndex( e ) );
+            return e => myTable.GetCellAt( pos, myTable.GetColumnIndex( e ) );
         }
 
         private void MarkRowHeader()
@@ -264,7 +264,7 @@ namespace RaynMaker.Modules.Import.Design
 
         private void MarkTableRow()
         {
-            foreach( var e in HtmlTable.GetRow( myElement ) )
+            foreach( var e in myTable.GetRow( myElement ) )
             {
                 myCellMarker.Mark( e );
             }
@@ -272,7 +272,7 @@ namespace RaynMaker.Modules.Import.Design
 
         private void MarkTableColumn()
         {
-            foreach( var e in HtmlTable.GetColumn( myElement ) )
+            foreach( var e in myTable.GetColumn( myElement ) )
             {
                 myCellMarker.Mark( e );
             }
