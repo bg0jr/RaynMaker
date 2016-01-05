@@ -130,5 +130,30 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
             Assert.That( behavior.SelectedElement, Is.Null );
             Assert.That( behavior.PathToSelectedElement, Is.Null );
         }
+
+        [Test]
+        public void SelectedElement_NoDocumentAttached_Throws()
+        {
+            var behavior = new HtmlMarkupBehavior<HtmlElementMarker>( new HtmlElementMarker( Color.Yellow ) );
+
+            myBrowser.LoadHtml( HtmlDocument1 );
+            var document = new HtmlDocumentAdapter( myBrowser.Document );
+            var ex = Assert.Throws<InvalidOperationException>( () => behavior.SelectedElement = ( HtmlElementAdapter )document.GetElementById( "x11" ) );
+            Assert.That( ex.Message, Is.StringContaining( "Document not attached" ) );
+        }
+
+        [Test]
+        public void PathToSelectedElement_NoDocumentAttached_PathSet()
+        {
+            var behavior = new HtmlMarkupBehavior<HtmlElementMarker>( new HtmlElementMarker( Color.Yellow ) );
+
+            myBrowser.LoadHtml( HtmlDocument1 );
+            var document = new HtmlDocumentAdapter( myBrowser.Document );
+            var path =  document.GetElementById( "x11" ).GetPath().ToString();
+
+            behavior.PathToSelectedElement = path;
+
+            Assert.That( behavior.PathToSelectedElement, Is.EqualTo( path ) );
+        }
     }
 }
