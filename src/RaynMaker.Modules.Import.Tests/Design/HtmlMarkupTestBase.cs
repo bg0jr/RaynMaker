@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Text;
 using NUnit.Framework;
@@ -47,11 +48,16 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
             {
                 ShowMarkedDocument();
             }
-            
+
             Assert.That( element.Style, Is.StringContaining( "background-color: yellow" ).IgnoreCase );
         }
 
         protected void Assert_IsMarked( params string[] elementIds )
+        {
+            Assert_IsMarked( Color.Yellow, elementIds );
+        }
+
+        protected void Assert_IsMarked( Color color, params string[] elementIds )
         {
             if( ShowMarkupResultInBrowser )
             {
@@ -61,7 +67,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
             foreach( var id in elementIds )
             {
                 var element = Document.GetElementById( id );
-                Assert.That( element.Style, Is.StringContaining( "background-color: yellow" ).IgnoreCase, "Element with Id='{0}' is not marked", id );
+                Assert.That( element.Style, Is.StringContaining( "background-color: " + ColorTranslator.ToHtml( color ) ).IgnoreCase, "Element with Id='{0}' is not marked", id );
             }
         }
 
@@ -71,7 +77,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
             {
                 ShowMarkedDocument();
             }
-            
+
             if( originalStyle == null )
             {
                 Assert.That( element.Style, Is.Null );

@@ -45,7 +45,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         public void SetUp()
         {
             myMarker = new HtmlTableMarker( Color.Yellow, Color.SteelBlue );
-            ShowMarkupResultInBrowser = true;
+            ShowMarkupResultInBrowser = false;
         }
 
         [TearDown]
@@ -122,6 +122,66 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
             myMarker.Unmark();
 
             Assert_IsUnmarked( "c01", "c11", "c21" );
+        }
+
+        [Test]
+        public void Mark_ColumnHeaderRow()
+        {
+            myMarker.Mark( Document.GetElementById( "c21" ) );
+
+            myMarker.ExpandRow = true;
+            myMarker.ColumnHeaderRow = 0;
+
+            Assert_IsMarked( myMarker.HeaderColor, "c00", "c01", "c02" );
+
+            myMarker.Unmark();
+
+            Assert_IsUnmarked( "c00", "c01", "c02" );
+        }
+
+        [Test]
+        public void ColumnHeaderRow_Mark()
+        {
+            myMarker.ExpandRow = true;
+            myMarker.ColumnHeaderRow = 0;
+
+            myMarker.Mark( Document.GetElementById( "c21" ) );
+
+            Assert_IsMarked( myMarker.HeaderColor, "c00", "c01", "c02" );
+
+            myMarker.Unmark();
+
+            Assert_IsUnmarked( "c00", "c01", "c02" );
+        }
+
+        [Test]
+        public void Mark_ColumnHeaderRowAndRowHeaderColumn()
+        {
+            myMarker.Mark( Document.GetElementById( "c21" ) );
+
+            myMarker.ColumnHeaderRow = 0;
+            myMarker.RowHeaderColumn = 0;
+
+            Assert_IsMarked( myMarker.HeaderColor, "c01", "c20" );
+
+            myMarker.Unmark();
+
+            Assert_IsUnmarked( "c01", "c20" );
+        }
+
+        [Test]
+        public void ColumnHeaderRowAndRowHeaderColumn_Mark()
+        {
+            myMarker.ColumnHeaderRow = 0;
+            myMarker.RowHeaderColumn = 0;
+
+            myMarker.Mark( Document.GetElementById( "c21" ) );
+
+            Assert_IsMarked( myMarker.HeaderColor, "c01", "c20" );
+
+            myMarker.Unmark();
+
+            Assert_IsUnmarked( "c01", "c20" );
         }
     }
 }

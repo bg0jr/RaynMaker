@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="edea5198-6f4a-4955-943f-061c8d0d06e3" Created="635875769725533971" LastModified="635875770053752744">
+  <Caption><![CDATA[HtmlTableMarker cleanup]]></Caption>
+  <Content><![CDATA[code quite ugly
+after tests complete -> refactoring]]></Content>
+</Node>
