@@ -54,7 +54,9 @@ namespace RaynMaker.Modules.Import.Design
 
             myTable = myElement.FindEmbeddingTable();
 
-            Contract.Requires( myTable != null, "given HtmlElement does not point to or into <table/>" );
+            // As the using code has to decide to take this marker or another impl we should handle 
+            // "wrong elements" a bit relaxed here. Otherwise we force the using code to put checks and if-then-else stuff.
+            //Contract.Requires( myTable != null, "given HtmlElement does not point to or into <table/>" );
 
             Apply();
         }
@@ -163,19 +165,25 @@ namespace RaynMaker.Modules.Import.Design
             // unmark all first
             Unmark();
 
+            myCellMarker.Mark( myElement );
+            
+            if( myTable == null )
+            {
+                // no table handling
+                return;
+            }
+
             if( ExpandRow )
             {
-                MarkTableRow( myElement.Element );
+                MarkTableRow();
                 DoSkipColumns();
             }
 
             if( ExpandColumn )
             {
-                MarkTableColumn( myElement.Element );
+                MarkTableColumn();
                 DoSkipRows();
             }
-
-            myCellMarker.Mark( myElement );
 
             MarkRowHeader();
             MarkColumnHeader();
@@ -184,27 +192,33 @@ namespace RaynMaker.Modules.Import.Design
         private void DoSkipRows()
         {
             int column = HtmlTable.GetColumnIndex( myElement );
-            if( column == -1 )
+            if( column != -1 )
+            {
+                SkipElements( mySkipRows, row => myTable.GetCellAt( row, column ) );
+            }
+        }
+
+        private void SkipElements( int[] positions, Func<int, IHtmlElement> GetCellAt )
+        {
+            if( positions == null )
             {
                 return;
             }
 
-            Func<int, IHtmlElement> GetCellAt = row => myTable.GetCellAt( row, column );
-
-            SkipElements( mySkipRows, GetCellAt );
+            foreach( var pos in positions )
+            {
+                myCellMarker.Unmark( GetCellAt( pos ) );
+                myHeaderMarker.Unmark( GetCellAt( pos ) );
+            }
         }
 
         private void DoSkipColumns()
         {
             int row = HtmlTable.GetRowIndex( myElement );
-            if( row == -1 )
+            if( row != -1 )
             {
-                return;
+                SkipElements( mySkipColumns, col => myTable.GetCellAt( row, col ) );
             }
-
-            Func<int, IHtmlElement> GetCellAt = col => myTable.GetCellAt( row, col );
-
-            SkipElements( mySkipColumns, GetCellAt );
         }
 
         public Func<IHtmlElement, IHtmlElement> FindRowHeader( int pos )
@@ -236,71 +250,29 @@ namespace RaynMaker.Modules.Import.Design
 
             var FindHeader = FindHeaderCreator( pos );
 
-            List<IHtmlElement> header = null;
-            //if( myDimension == SeriesOrientation.None )
-            //{
-            //    // mark single column/row 
-            //    header = new List<IHtmlElement>();
-            //    header.Add( FindHeader( mySelectedElement ) );
-            //}
-            //else
-            {
-                // mark all columns/rows
-                header = myCellMarker.Elements
-                    .Select( e => FindHeader( e ) )
-                    .Distinct()
-                    .ToList();
-            }
+            // mark all columns/rows
+            var header = myCellMarker.Elements
+                  .Select( e => FindHeader( e ) )
+                  .Distinct()
+                  .ToList();
 
-            foreach( var e in header.Cast<HtmlElementAdapter>() )
+            foreach( var e in header )
             {
                 myHeaderMarker.Mark( e );
             }
         }
 
-
-        private void SkipElements( int[] positions, Func<int, IHtmlElement> GetCellAt )
+        private void MarkTableRow()
         {
-            if( positions == null )
-            {
-                return;
-            }
-
-            foreach( var pos in positions )
-            {
-                myCellMarker.Unmark( GetCellAt( pos ) );
-                myHeaderMarker.Unmark( GetCellAt( pos ) );
-            }
-        }
-
-
-        private void MarkTableRow( HtmlElement start )
-        {
-            var adapter = myElement.DocumentAdapter.Create( start );
-
-            if( HtmlTable.GetEmbeddingTR( adapter ) == null )
-            {
-                // not clicked into table row
-                return;
-            }
-
-            foreach( var e in HtmlTable.GetRow( adapter ) )
+            foreach( var e in HtmlTable.GetRow( myElement ) )
             {
                 myCellMarker.Mark( e );
             }
         }
 
-        private void MarkTableColumn( HtmlElement start )
+        private void MarkTableColumn()
         {
-            var adapter = myElement.DocumentAdapter.Create( start );
-
-            if( HtmlTable.GetEmbeddingTD( adapter ) == null )
-            {
-                // not clicked into table column
-                return;
-            }
-
-            foreach( var e in HtmlTable.GetColumn( adapter ) )
+            foreach( var e in HtmlTable.GetColumn( myElement ) )
             {
                 myCellMarker.Mark( e );
             }

@@ -54,6 +54,8 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
                 <td id='x22'>vx 22</td>
             </tr>
         </table>
+
+        <p id='p1'>Not a table</p>
     </body>
 </html>
 ";
@@ -65,7 +67,6 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         public void SetUp()
         {
             myMarker = new HtmlTableMarker( Color.Yellow, Color.SteelBlue );
-            ShowMarkupResultInBrowser = true;
         }
 
         [TearDown]
@@ -73,6 +74,19 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         {
             myMarker.Reset();
             myMarker = null;
+        }
+
+        [Test]
+        public void Mark_NotACell_ElementIsMarked()
+        {
+            var element = Document.GetElementById( "p1" );
+            myMarker.Mark( element );
+
+            Assert_IsMarked( element );
+
+            myMarker.Unmark();
+
+            Assert_IsUnmarked( element, null );
         }
 
         [Test]
@@ -209,8 +223,8 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         {
             myMarker.Mark( Document.GetElementById( "c21" ) );
 
-            myMarker.ExpandColumn = true;
             myMarker.ColumnHeaderRow = 0;
+            myMarker.RowHeaderColumn = 0;
 
             Assert_IsMarked( myMarker.HeaderColor, "c01", "c20" );
 
@@ -312,7 +326,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
 
             Assert.That( myMarker.ExpandColumn, Is.False );
             Assert.That( myMarker.ExpandRow, Is.False );
-            Assert.That( myMarker.ColumnHeaderRow, Is.EqualTo(-1) );
+            Assert.That( myMarker.ColumnHeaderRow, Is.EqualTo( -1 ) );
             Assert.That( myMarker.RowHeaderColumn, Is.EqualTo( -1 ) );
             Assert.That( myMarker.SkipRows, Is.Null );
             Assert.That( myMarker.SkipColumns, Is.Null );
