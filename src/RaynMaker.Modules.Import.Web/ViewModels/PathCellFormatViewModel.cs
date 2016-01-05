@@ -159,13 +159,15 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 if( RowPattern != null )
                 {
-                    var rowHeader = MarkupBehavior.Marker.FindRowHeader( Format.Row.HeaderSeriesPosition )( MarkupBehavior.SelectedElement ).InnerText;
+                    var table = MarkupBehavior.Marker.Table;
+                    var rowHeader = table.GetCellAt( table.GetRowIndex( MarkupBehavior.SelectedElement ), Format.Row.HeaderSeriesPosition ).InnerText;
                     IsRowValid = rowHeader.Contains( RowPattern, StringComparison.OrdinalIgnoreCase );
                 }
 
                 if( ColumnPattern != null )
                 {
-                    var colHeader = MarkupBehavior.Marker.FindColumnHeader( Format.Column.HeaderSeriesPosition )( MarkupBehavior.SelectedElement ).InnerText;
+                    var table = MarkupBehavior.Marker.Table;
+                    var colHeader = table.GetCellAt( Format.Column.HeaderSeriesPosition, table.GetColumnIndex( MarkupBehavior.SelectedElement ) ).InnerText;
                     IsColumnValid = colHeader.Contains( ColumnPattern, StringComparison.OrdinalIgnoreCase );
                 }
             }

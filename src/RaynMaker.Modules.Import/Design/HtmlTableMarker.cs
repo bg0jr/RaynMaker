@@ -16,15 +16,14 @@ namespace RaynMaker.Modules.Import.Design
         public static readonly Color DefaultHeaderColor = Color.SteelBlue;
 
         private HtmlElementAdapter myElement;
-        private HtmlTable myTable;
         private HtmlElementCollectionMarker myCellMarker;
         private HtmlElementCollectionMarker myHeaderMarker;
         private bool myExpandRow;
         private bool myExpandColumn;
         private int[] mySkipColumns;
         private int[] mySkipRows;
-        private int myRowHeader;
-        private int myColumnHeader;
+        private int myRowHeaderColumn;
+        private int myColumnHeaderRow;
 
         public HtmlTableMarker()
             : this( DefaultCellColor, DefaultHeaderColor )
@@ -46,13 +45,15 @@ namespace RaynMaker.Modules.Import.Design
 
         public Color HeaderColor { get; private set; }
 
+        public HtmlTable Table { get; private set; }
+
         public void Mark( IHtmlElement element )
         {
             Contract.RequiresNotNull( element, "element" );
 
             myElement = ( HtmlElementAdapter )element;
 
-            myTable = HtmlTable.FindByCell( myElement );
+            Table = HtmlTable.FindByCell( myElement );
 
             // As the using code has to decide to take this marker or another impl we should handle 
             // "wrong elements" a bit relaxed here. Otherwise we force the using code to put checks and if-then-else stuff.
@@ -75,8 +76,8 @@ namespace RaynMaker.Modules.Import.Design
             myExpandRow = false;
             mySkipColumns = null;
             mySkipRows = null;
-            myRowHeader = -1;
-            myColumnHeader = -1;
+            myRowHeaderColumn = -1;
+            myColumnHeaderRow = -1;
         }
 
         public bool ExpandColumn
@@ -129,28 +130,28 @@ namespace RaynMaker.Modules.Import.Design
 
         public int RowHeaderColumn
         {
-            get { return myRowHeader; }
+            get { return myRowHeaderColumn; }
             set
             {
                 if( value < 0 )
                 {
                     value = -1;
                 }
-                myRowHeader = value;
+                myRowHeaderColumn = value;
                 Apply();
             }
         }
 
         public int ColumnHeaderRow
         {
-            get { return myColumnHeader; }
+            get { return myColumnHeaderRow; }
             set
             {
                 if( value < 0 )
                 {
                     value = -1;
                 }
-                myColumnHeader = value;
+                myColumnHeaderRow = value;
                 Apply();
             }
         }
@@ -167,7 +168,7 @@ namespace RaynMaker.Modules.Import.Design
 
             myCellMarker.Mark( myElement );
 
-            if( myTable == null )
+            if( Table == null )
             {
                 // no table handling
                 return;
@@ -191,10 +192,10 @@ namespace RaynMaker.Modules.Import.Design
 
         private void DoSkipRows()
         {
-            int column = myTable.GetColumnIndex( myElement );
+            int column = Table.GetColumnIndex( myElement );
             if( column != -1 )
             {
-                SkipElements( mySkipRows, row => myTable.GetCellAt( row, column ) );
+                SkipElements( mySkipRows, row => Table.GetCellAt( row, column ) );
             }
         }
 
@@ -214,45 +215,42 @@ namespace RaynMaker.Modules.Import.Design
 
         private void DoSkipColumns()
         {
-            int row = myTable.GetRowIndex( myElement );
+            int row = Table.GetRowIndex( myElement );
             if( row != -1 )
             {
-                SkipElements( mySkipColumns, col => myTable.GetCellAt( row, col ) );
+                SkipElements( mySkipColumns, col => Table.GetCellAt( row, col ) );
             }
         }
 
-        public Func<IHtmlElement, IHtmlElement> FindRowHeader( int pos )
-        {
-            return e => myTable.GetCellAt( myTable.GetRowIndex( e ), pos );
-        }
-
-        public Func<IHtmlElement, IHtmlElement> FindColumnHeader( int pos )
-        {
-            return e => myTable.GetCellAt( pos, myTable.GetColumnIndex( e ) );
-        }
-
+        // header is everything in the specified RowHeaderColumn along with the expansion of the marked cell
         private void MarkRowHeader()
         {
-            MarkHeader( myRowHeader, FindRowHeader );
-        }
-
-        private void MarkColumnHeader()
-        {
-            MarkHeader( myColumnHeader, FindColumnHeader );
-        }
-
-        private void MarkHeader( int pos, Func<int, Func<IHtmlElement, IHtmlElement>> FindHeaderCreator )
-        {
-            if( pos == -1 )
+            if( myRowHeaderColumn == -1 )
             {
                 return;
             }
 
-            var FindHeader = FindHeaderCreator( pos );
-
-            // mark all columns/rows
             var header = myCellMarker.Elements
-                  .Select( e => FindHeader( e ) )
+                  .Select( e => Table.GetCellAt( Table.GetRowIndex( e ), myRowHeaderColumn ) )
+                  .Distinct()
+                  .ToList();
+
+            foreach( var e in header )
+            {
+                myHeaderMarker.Mark( e );
+            }
+        }
+
+        // header is everything in the specified ColumnHeaderRow along with the expansion of the marked cell
+        private void MarkColumnHeader()
+        {
+            if( myColumnHeaderRow == -1 )
+            {
+                return;
+            }
+
+            var header = myCellMarker.Elements
+                  .Select( e => Table.GetCellAt( myColumnHeaderRow, Table.GetColumnIndex( e ) ) )
                   .Distinct()
                   .ToList();
 
@@ -264,7 +262,7 @@ namespace RaynMaker.Modules.Import.Design
 
         private void MarkTableRow()
         {
-            foreach( var e in myTable.GetRow( myElement ) )
+            foreach( var e in Table.GetRow( myElement ) )
             {
                 myCellMarker.Mark( e );
             }
@@ -272,7 +270,7 @@ namespace RaynMaker.Modules.Import.Design
 
         private void MarkTableColumn()
         {
-            foreach( var e in myTable.GetColumn( myElement ) )
+            foreach( var e in Table.GetColumn( myElement ) )
             {
                 myCellMarker.Mark( e );
             }
