@@ -18,11 +18,11 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         {
             myDocument = LoadDocument<IHtmlDocument>( "ariva.historicalprices.DE0008404005.html" );
         }
-        
+
         [Test]
         public void CreateSubmitUrl_FilledFormular()
         {
-            var form = myDocument.GetFormByName( "histcsv" );
+            var form = HtmlForm.FindByName( myDocument, "histcsv" );
 
             var formular = new Formular( "histcsv",
                 Tuple.Create( "boerse_id", "1" ),
@@ -38,7 +38,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         [Test]
         public void GetFormByName()
         {
-            var form = myDocument.GetFormByName( "histcsv" );
+            var form = HtmlForm.FindByName( myDocument, "histcsv" );
 
             Assert.That( form, Is.Not.Null );
             Assert.That( form.Name, Is.EqualTo( "histcsv" ).IgnoreCase );

@@ -171,23 +171,6 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         }
 
         /// <summary>
-        /// If the given element is a html link or it contains
-        /// a child which is a html link then the url of the first 
-        /// link found is returned. Otherwise the InnerText of the element
-        /// is returned.
-        /// </summary>
-        public static string FirstLinkOrInnerText( this IHtmlElement element )
-        {
-            if( element.TagName == "A" )
-            {
-                return element.GetAttribute( "HREF" );
-            }
-
-            IHtmlElement link = element.Children.FirstOrDefault( child => child.TagName == "A" );
-            return ( link != null ? link.GetAttribute( "HREF" ) : element.InnerText );
-        }
-
-        /// <summary>
         /// Recursively returns all inner elements
         /// </summary>
         public static IEnumerable<IHtmlElement> GetInnerElements( this IHtmlElement element )

@@ -36,11 +36,11 @@
         <Node Id="1d0bde2c-9285-4444-ba92-23f2a207c791">
           <Caption><![CDATA[From ScenarioTests back to UnitTests?]]></Caption>
         </Node>
-        <Node Id="00210dbc-fa23-4bf5-96f3-1ce7563f0a72">
-          <Caption><![CDATA[make html extensions internal]]></Caption>
-        </Node>
         <Node Id="9877182f-53d2-48f3-85d7-c4d7ede75014">
           <Caption><![CDATA[HtmlTable tests]]></Caption>
+        </Node>
+        <Node Id="1ffd727b-1688-4da0-9abb-87de110267c7">
+          <Caption><![CDATA[Cleanup test and fix HtmlElementExtensions]]></Caption>
         </Node>
       </Node>
       <Node Id="3494b210-9cef-4613-abf0-fb368c2075f8">

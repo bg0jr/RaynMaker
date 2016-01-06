@@ -247,27 +247,15 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             Assert.AreEqual( 6, e.Parent.GetChildOfTagPos() );
         }
 
-        [Test]
-        public void GetTextByPath()
-        {
-            HtmlPath path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]/TR[6]/TD[1]" );
-
-            var e = myDocument.GetElementByPath( path );
-            string value = myDocument.GetTextByPath( path );
-
-            Assert.AreEqual( e.InnerText, value );
-            Assert.AreEqual( "2,78", value );
-        }
 
         [Test]
-        public void GetTextByPath_SimplePath()
+        public void GetElementByPath_SimplePath()
         {
             HtmlPath path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[0]/DIV[1]" );
 
             var e = myDocument.GetElementByPath( path );
-            string value = myDocument.GetTextByPath( path );
 
-            Assert.AreEqual( "Willkommen, Gast!", value );
+            Assert.AreEqual( "Willkommen, Gast!", e.InnerText );
         }
 
         [Test]

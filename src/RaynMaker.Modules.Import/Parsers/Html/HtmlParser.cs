@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
+using Plainion;
 using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Parsers.Html;
 using RaynMaker.Modules.Import.Spec;
@@ -23,7 +26,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             var pathSeriesDescriptor = myDescriptor as PathSeriesDescriptor;
             if( pathSeriesDescriptor != null )
             {
-                var result = myDocument.ExtractTable( HtmlPath.Parse( pathSeriesDescriptor.Path ) );
+                var result = ExtractTable( myDocument, HtmlPath.Parse( pathSeriesDescriptor.Path ) );
                 if( !result.Success )
                 {
                     throw new Exception( "Failed to extract table from document: " + result.FailureReason );
@@ -35,7 +38,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             var pathTableDescriptor = myDescriptor as PathTableDescriptor;
             if( pathTableDescriptor != null )
             {
-                var result = myDocument.ExtractTable( HtmlPath.Parse( pathTableDescriptor.Path ));
+                var result = ExtractTable( myDocument, HtmlPath.Parse( pathTableDescriptor.Path ) );
                 if( !result.Success )
                 {
                     throw new Exception( "Failed to extract table from document: " + result.FailureReason );
@@ -47,7 +50,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             var pathCellDescriptor = myDescriptor as PathCellDescriptor;
             if( pathCellDescriptor != null )
             {
-                var result = myDocument.ExtractTable( HtmlPath.Parse( pathCellDescriptor.Path ) );
+                var result = ExtractTable( myDocument, HtmlPath.Parse( pathCellDescriptor.Path ) );
                 if( !result.Success )
                 {
                     throw new Exception( "Failed to extract table from document: " + result.FailureReason );
@@ -62,7 +65,9 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             var pathSingleValueDescriptor = myDescriptor as PathSingleValueDescriptor;
             if( pathSingleValueDescriptor != null )
             {
-                var str = myDocument.GetTextByPath( HtmlPath.Parse( pathSingleValueDescriptor.Path ) );
+                var e = myDocument.GetElementByPath( HtmlPath.Parse( pathSingleValueDescriptor.Path ) );
+                var str = e == null ? null : e.InnerText;
+
                 var value = pathSingleValueDescriptor.ValueFormat.Convert( str );
 
                 // XXX: this is really ugly - i have to create a table just to satisfy the interface :(
@@ -70,6 +75,73 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             }
 
             throw new NotSupportedException( "Format not supported for Html documents: " + myDescriptor.GetType() );
+        }
+
+        /// <summary>
+        /// Extracts the complete html table the given path is pointing to. If the path points
+        /// to a cell of a table the complete table is extracted still.
+        /// <remarks>
+        /// Returns null if table not found by path. Currently we cannot handle thead 
+        /// and tfoot. The number of the column is defined by the html table row with the most
+        /// html columns
+        /// </remarks>
+        /// </summary>
+        private FallibleActionResult<DataTable> ExtractTable( IHtmlDocument doc, HtmlPath path )
+        {
+            Contract.RequiresNotNull( doc, "doc" );
+            Contract.RequiresNotNull( path, "path" );
+
+            if( !path.PointsToTable && !path.PointsToTableCell )
+            {
+                throw new InvalidExpressionException( "Path neither points to table nor to cell" );
+            }
+
+            var htmlTable = HtmlTable.FindByPath( doc, path );
+            if( htmlTable == null )
+            {
+                return FallibleActionResult<DataTable>.CreateFailureResult( "Could not get table by path" );
+            }
+
+            DataTable table = new DataTable();
+            // TODO: should we get the culture from the HTML page somehow?
+            table.Locale = CultureInfo.InvariantCulture;
+
+            foreach( var tr in htmlTable.Rows )
+            {
+                var htmlRow = new List<IHtmlElement>();
+                foreach( var td in tr.Children )
+                {
+                    if( td.TagName == "TD" || td.TagName == "TH" )
+                    {
+                        htmlRow.Add( td );
+                    }
+                }
+
+                // add columns if necessary
+                if( htmlRow.Count > table.Columns.Count )
+                {
+                    ( htmlRow.Count - table.Columns.Count ).Times( x => table.Columns.Add( string.Empty, typeof( object ) ) );
+                }
+
+                // add new row to table
+                DataRow row = table.NewRow();
+                table.Rows.Add( row );
+                table.AcceptChanges();
+
+                // add data
+                for( int i = 0; i < htmlRow.Count; ++i )
+                {
+                    row[ i ] = htmlRow[ i ].InnerText;
+                }
+            }
+
+            if( table.Rows.Count == 0 )
+            {
+                table.Dispose();
+                return FallibleActionResult<DataTable>.CreateFailureResult( "Table was empty" );
+            }
+
+            return FallibleActionResult<DataTable>.CreateSuccessResult( table );
         }
 
         private DataTable CreateTableForScalar( Type dataType, object value )

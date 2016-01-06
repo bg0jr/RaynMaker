@@ -84,5 +84,32 @@ namespace RaynMaker.Modules.Import.Parsers.Html
 
             return urlPairs;
         }
+
+        public static HtmlForm FindByName( IHtmlDocument document, string formName )
+        {
+            return new HtmlForm( FindByName( document.Body, formName ) );
+        }
+
+        private static IHtmlElement FindByName( IHtmlElement element, string formName )
+        {
+            foreach( var child in element.Children )
+            {
+                if( child.TagName.Equals( "form", StringComparison.OrdinalIgnoreCase )
+                    && child.GetAttribute( "name" ).Equals( formName, StringComparison.OrdinalIgnoreCase ) )
+                {
+                    return child;
+                }
+                else
+                {
+                    var form = FindByName( child, formName );
+                    if( form != null )
+                    {
+                        return form;
+                    }
+                }
+            }
+
+            return null;
+        }
     }
 }
