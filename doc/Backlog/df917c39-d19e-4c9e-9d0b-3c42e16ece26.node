@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="df917c39-d19e-4c9e-9d0b-3c42e16ece26" Created="635876609335749364" LastModified="635876610225320244">
-  <Caption><![CDATA[Add support for PathCellDescriptor]]></Caption>
-  <Content><![CDATA[OR can we just have different solution for the Mark() method and then
-delete this class?]]></Content>
-</Node>

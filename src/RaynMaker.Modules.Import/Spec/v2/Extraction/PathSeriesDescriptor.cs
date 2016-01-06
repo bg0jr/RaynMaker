@@ -8,7 +8,7 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
     /// Describes a series within a table.
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "PathSeriesDescriptor" )]
-    public class PathSeriesDescriptor : SeriesDescriptorBase
+    public class PathSeriesDescriptor : SeriesDescriptorBase, IPathDescriptor
     {
         private string myPath;
 

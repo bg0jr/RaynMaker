@@ -13,6 +13,18 @@
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.Prism.Mvvm, Version=1.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Prism.Mvvm.1.1.1\lib\net45\Microsoft.Practices.Prism.Mvvm.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Prism.Mvvm.Desktop, Version=1.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Prism.Mvvm.1.1.1\lib\net45\Microsoft.Practices.Prism.Mvvm.Desktop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Prism.SharedInterfaces, Version=1.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Prism.Mvvm.1.1.1\lib\net45\Microsoft.Practices.Prism.SharedInterfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Plainion.Core, Version=2.8.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Plainion.Core.2.8.0.0\lib\NET45\Plainion.Core.dll</HintPath>
@@ -32,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\DataTableToSeriesConverter.cs" />
+    <Compile Include="Converters\DataTableToSingleValueConverter.cs" />
+    <Compile Include="Converters\DataTableToTableConverter.cs" />
     <Compile Include="Design\HtmlElementCollectionMarker.cs" />
     <Compile Include="Design\HtmlElementMarker.cs" />
     <Compile Include="Design\HtmlTableMarker.cs" />
@@ -42,6 +57,7 @@
     <Compile Include="Documents\ILocatorMacroResolver.cs" />
     <Compile Include="Documents\NullLocatorMacroResolver.cs" />
     <Compile Include="FigureDescriptorFactory.cs" />
+    <Compile Include="IDataTableToEntityConverter.cs" />
     <Compile Include="ImportSpecSerializer.cs" />
     <Compile Include="MarkupFactory.cs" />
     <Compile Include="Parsers\TableFormatter.cs" />
@@ -50,6 +66,7 @@
     <Compile Include="Spec\v2\DataSource.cs" />
     <Compile Include="Spec\v2\DocumentTypeNotNoneAttribute.cs" />
     <Compile Include="Spec\v2\Extraction\CsvDescriptor.cs" />
+    <Compile Include="Spec\v2\Extraction\IPathDescriptor.cs" />
     <Compile Include="Spec\v2\Extraction\PathCellDescriptor.cs" />
     <Compile Include="Spec\v1\AbsolutePositionLocator.cs" />
     <Compile Include="Spec\v1\AbstractDimensionalFormat.cs" />
@@ -76,6 +93,7 @@
     <Compile Include="Spec\v1\StringContainsLocator.cs" />
     <Compile Include="Spec\v1\UriType.cs" />
     <Compile Include="Spec\v1\ValueFormat.cs" />
+    <Compile Include="Spec\v2\Extraction\SingleValueDescriptorBase.cs" />
     <Compile Include="Spec\v2\Locating\Request.cs" />
     <Compile Include="Spec\v2\Locating\Response.cs" />
     <Compile Include="Spec\v2\Locating\SubmitFormular.cs" />
@@ -103,7 +121,7 @@
     <Compile Include="Documents\TextDocumentLoader.cs" />
     <Compile Include="Documents\WebUtil.cs" />
     <Compile Include="Documents\WinForms\HtmlDocumentLoader.cs" />
-    <Compile Include="DocumentProcessorsFactory.cs" />
+    <Compile Include="DocumentProcessingFactory.cs" />
     <Compile Include="Documents\AgilityPack\HtmlDocumentAdapter.cs" />
     <Compile Include="Documents\AgilityPack\HtmlElementAdapter.cs" />
     <Compile Include="Parsers\Html\HtmlDocumentExtensions.cs" />
@@ -146,6 +164,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RaynMaker.Entities\RaynMaker.Entities.csproj">
+      <Project>{0b9b8ac3-da99-4264-9d59-382adee06fd9}</Project>
+      <Name>RaynMaker.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -19,7 +19,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             descriptor.Path = @"/BODY[0]/DIV[4]/DIV[0]/DIV[3]/DIV[0]";
             descriptor.ValueFormat = new ValueFormat( typeof( int ), "00000000" ) { ExtractionPattern = new Regex( @"WKN: (\d+)" ) };
 
-            var parser = DocumentProcessorsFactory.CreateParser( doc, descriptor );
+            var parser = DocumentProcessingFactory.CreateParser( doc, descriptor );
             var table = parser.ExtractTable();
 
             Assert.AreEqual( 1, table.Rows.Count );
@@ -42,7 +42,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             descriptor.TimeFormat = new FormatColumn( "year", typeof( int ), "00000000" );
             descriptor.Excludes.Add( 0 );
 
-            var parser = DocumentProcessorsFactory.CreateParser( doc, descriptor );
+            var parser = DocumentProcessingFactory.CreateParser( doc, descriptor );
             var table = parser.ExtractTable();
 
             Assert.AreEqual( 6, table.Rows.Count );
@@ -74,7 +74,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             descriptor.Row = new StringContainsLocator { HeaderSeriesPosition = 0, Pattern = "Frankfurt" };
             descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "00,00" ) { ExtractionPattern = new Regex( @"([0-9,\.]+)" ) };
 
-            var parser = DocumentProcessorsFactory.CreateParser( doc, descriptor );
+            var parser = DocumentProcessingFactory.CreateParser( doc, descriptor );
             var table = parser.ExtractTable();
 
             Assert.That( table.Rows.Count, Is.EqualTo( 1 ) );
@@ -100,7 +100,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             descriptor.SkipColumns.AddRange( 5, 6 );
             descriptor.SkipRows.AddRange( 0, 23 );
 
-            var parser = DocumentProcessorsFactory.CreateParser( doc, descriptor );
+            var parser = DocumentProcessingFactory.CreateParser( doc, descriptor );
             var table = parser.ExtractTable();
 
             Assert.That( table.Rows.Count, Is.EqualTo( 22 ) );

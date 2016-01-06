@@ -29,6 +29,8 @@ namespace RaynMaker.Modules.Import
 
         private static IHtmlMarker TryCreate( PathSeriesDescriptor descriptor )
         {
+            if( descriptor == null ) return null;
+
             var marker = new HtmlTableMarker();
 
             if( descriptor.Orientation == SeriesOrientation.Row )
@@ -57,6 +59,8 @@ namespace RaynMaker.Modules.Import
 
         private static IHtmlMarker TryCreate( PathCellDescriptor descriptor )
         {
+            if( descriptor == null ) return null;
+
             var marker = new HtmlTableMarker();
 
             marker.ColumnHeaderRow = descriptor.Column.HeaderSeriesPosition;
@@ -67,11 +71,15 @@ namespace RaynMaker.Modules.Import
 
         private static IHtmlMarker TryCreate( PathSingleValueDescriptor descriptor )
         {
+            if( descriptor == null ) return null;
+
             return new HtmlElementMarker( HtmlTableMarker.DefaultCellColor );
         }
 
         private static IHtmlMarker TryCreate( PathTableDescriptor descriptor )
         {
+            if( descriptor == null ) return null;
+
             return new HtmlElementMarker( HtmlTableMarker.DefaultCellColor );
         }
 

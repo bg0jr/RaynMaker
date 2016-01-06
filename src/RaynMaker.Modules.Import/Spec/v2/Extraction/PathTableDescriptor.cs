@@ -9,7 +9,7 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
     /// Describes extraction of an entire table which can be located using an explicit path.
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "PathTableDescriptor" )]
-    public class PathTableDescriptor : TableDescriptorBase
+    public class PathTableDescriptor : TableDescriptorBase, IPathDescriptor
     {
         private string myPath;
 

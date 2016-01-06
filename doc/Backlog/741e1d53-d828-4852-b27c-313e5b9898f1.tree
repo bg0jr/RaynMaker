@@ -9,18 +9,6 @@
       <Caption><![CDATA[1.7 - Polish Import module]]></Caption>
       <Node Id="3d95bd5e-1cd7-4e94-b339-0abf5ead4323">
         <Caption><![CDATA[Merge back to MAIN - pre-conds]]></Caption>
-        <Node Id="a918b24b-a26c-44df-b044-20526d53b4a4">
-          <Caption><![CDATA[BasicDatumProvider]]></Caption>
-          <Node Id="0f239fb9-839d-4a10-99f3-e753758a06b3">
-            <Caption><![CDATA[Add macro resolution to Navigator]]></Caption>
-          </Node>
-          <Node Id="df917c39-d19e-4c9e-9d0b-3c42e16ece26">
-            <Caption><![CDATA[Add support for PathCellDescriptor]]></Caption>
-          </Node>
-          <Node Id="e2bedc6f-8f9d-4a60-ad1e-a283d044e5c4">
-            <Caption><![CDATA[Tests]]></Caption>
-          </Node>
-        </Node>
         <Node Id="b61a3fca-556c-4ef9-90e2-642e8a780e00">
           <Caption><![CDATA[StringContainsLocatorViewModel]]></Caption>
         </Node>

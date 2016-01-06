@@ -55,7 +55,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         {
             set
             {
-                myDocumentBrowser = DocumentProcessorsFactory.CreateBrowser( value );
+                myDocumentBrowser = DocumentProcessingFactory.CreateBrowser( value );
 
                 // disable links
                 // TODO: we cannot use this, it disables navigation in general (Navigate() too)

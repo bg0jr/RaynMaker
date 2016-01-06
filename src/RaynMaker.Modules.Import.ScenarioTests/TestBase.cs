@@ -13,7 +13,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             var assemblyPath = new Uri( Path.GetDirectoryName( GetType().Assembly.Location ) ).LocalPath;
             TestDataRoot = Path.Combine( assemblyPath, "TestData" );
 
-            myBrowser = new Lazy<IDocumentBrowser>( () => DocumentProcessorsFactory.CreateBrowser() );
+            myBrowser = new Lazy<IDocumentBrowser>( () => DocumentProcessingFactory.CreateBrowser() );
         }
 
         protected string TestDataRoot { get; private set; }

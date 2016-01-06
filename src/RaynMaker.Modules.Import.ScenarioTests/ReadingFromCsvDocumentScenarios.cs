@@ -22,7 +22,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             descriptor.TimeFormat = new FormatColumn( "year", typeof( int ), "000" );
 
             var doc = LoadDocument<TextDocument>( "Csv", "DE0005151005.csv" );
-            var parser = DocumentProcessorsFactory.CreateParser( doc, descriptor );
+            var parser = DocumentProcessingFactory.CreateParser( doc, descriptor );
             var table = parser.ExtractTable();
 
             Assert.AreEqual( 10, table.Rows.Count );
@@ -65,7 +65,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             descriptor.Columns.Add( new FormatColumn( "Close", typeof( double ), "000,000.00" ) );
 
             var doc = LoadDocument<TextDocument>( "Csv", "Prices.csv" );
-            var parser = DocumentProcessorsFactory.CreateParser( doc, descriptor );
+            var parser = DocumentProcessingFactory.CreateParser( doc, descriptor );
             var table = parser.ExtractTable();
 
             Assert.That( table.Rows.Count, Is.EqualTo( 3 ) );

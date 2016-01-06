@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Plainion.Validation;
 
@@ -9,12 +8,11 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
     /// Describes a figure within one cell of a table.
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "PathCellDescriptor" )]
-    public class PathCellDescriptor : FigureDescriptorBase
+    public class PathCellDescriptor : SingleValueDescriptorBase, IPathDescriptor
     {
         private string myPath;
         private ISeriesLocator myColumn;
         private ISeriesLocator myRow;
-        private ValueFormat myValueFormat;
         private string myCurrency;
 
         /// <summary>
@@ -43,14 +41,6 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         {
             get { return myRow; }
             set { SetProperty( ref myRow, value ); }
-        }
-
-        [Required, ValidateObject]
-        [DataMember]
-        public ValueFormat ValueFormat
-        {
-            get { return myValueFormat; }
-            set { SetProperty( ref myValueFormat, value ); }
         }
 
         [DataMember]

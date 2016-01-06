@@ -23,10 +23,10 @@
 &lt;/ItemContent&gt;</Content>
     </DesignerItem>
     <DesignerItem>
-      <Left>707.59999999999991</Left>
+      <Left>685.59999999999991</Left>
       <Top>663.50000000000091</Top>
-      <Width>78</Width>
-      <Height>65</Height>
+      <Width>122.99999999999996</Width>
+      <Height>64</Height>
       <ID>0135c471-8870-4b3c-88d1-2ef45807ec17</ID>
       <zIndex>2</zIndex>
       <IsGroup>false</IsGroup>
@@ -45,7 +45,7 @@
         &lt;av:RowDefinition Height="1" /&gt;
         &lt;av:RowDefinition Height="*" /&gt;
       &lt;/av:Grid.RowDefinitions&gt;
-      &lt;av:TextBlock Text="Parser" Name="ClassName" Margin="5,5,5,5" HorizontalAlignment="Center" IsHitTestVisible="False" av:Grid.Row="0" /&gt;
+      &lt;av:TextBlock Text="DocumentParser" Name="ClassName" Margin="5,5,5,5" HorizontalAlignment="Center" IsHitTestVisible="False" av:Grid.Row="0" /&gt;
       &lt;av:Line X1="0" Y1="0" X2="1" Y2="1" Stretch="Fill" Stroke="#FF000000" StrokeThickness="1" av:Grid.Row="1" /&gt;
     &lt;/av:Grid&gt;
   &lt;/av:Border&gt;
@@ -223,9 +223,9 @@
 &lt;/ItemContent&gt;</Content>
     </DesignerItem>
     <DesignerItem>
-      <Left>486</Left>
+      <Left>470</Left>
       <Top>777.10000000000036</Top>
-      <Width>157.19999999999985</Width>
+      <Width>173.19999999999988</Width>
       <Height>65</Height>
       <ID>cbcef777-1fcf-4297-ba1b-a95b844f2752</ID>
       <zIndex>17</zIndex>
@@ -245,7 +245,7 @@
         &lt;av:RowDefinition Height="1" /&gt;
         &lt;av:RowDefinition Height="*" /&gt;
       &lt;/av:Grid.RowDefinitions&gt;
-      &lt;av:TextBlock Text="DataToDatumConverter" Name="ClassName" Margin="5,5,5,5" HorizontalAlignment="Center" IsHitTestVisible="False" av:Grid.Row="0" /&gt;
+      &lt;av:TextBlock Text="DataTableToEntityConverter" Name="ClassName" Margin="5,5,5,5" HorizontalAlignment="Center" IsHitTestVisible="False" av:Grid.Row="0" /&gt;
       &lt;av:Line X1="0" Y1="0" X2="1" Y2="1" Stretch="Fill" Stroke="#FF000000" StrokeThickness="1" av:Grid.Row="1" /&gt;
     &lt;/av:Grid&gt;
   &lt;/av:Border&gt;
@@ -522,10 +522,10 @@
 &lt;/ItemContent&gt;</Content>
     </DesignerItem>
     <DesignerItem>
-      <Left>334</Left>
+      <Left>332</Left>
       <Top>61.5</Top>
-      <Width>159.00000000000003</Width>
-      <Height>64</Height>
+      <Width>177.00000000000003</Width>
+      <Height>65</Height>
       <ID>cdc82637-2146-4d32-8679-8f0eba2844ce</ID>
       <zIndex>39</zIndex>
       <IsGroup>false</IsGroup>
@@ -544,7 +544,7 @@
         &lt;av:RowDefinition Height="1" /&gt;
         &lt;av:RowDefinition Height="*" /&gt;
       &lt;/av:Grid.RowDefinitions&gt;
-      &lt;av:TextBlock Text="LocatingFragment" Name="ClassName" Margin="5,5,5,5" HorizontalAlignment="Center" IsHitTestVisible="False" av:Grid.Row="0" /&gt;
+      &lt;av:TextBlock Text="DocumentLocationFragment" Name="ClassName" Margin="5,5,5,5" HorizontalAlignment="Center" IsHitTestVisible="False" av:Grid.Row="0" /&gt;
       &lt;av:Line X1="0" Y1="0" X2="1" Y2="1" Stretch="Fill" Stroke="#FF000000" StrokeThickness="1" av:Grid.Row="1" /&gt;
     &lt;/av:Grid&gt;
   &lt;/av:Border&gt;

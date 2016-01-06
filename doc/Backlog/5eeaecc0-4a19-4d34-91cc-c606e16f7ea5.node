@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="5eeaecc0-4a19-4d34-91cc-c606e16f7ea5" Created="635876577258684661" LastModified="635876577341059372">
+<Node Id="5eeaecc0-4a19-4d34-91cc-c606e16f7ea5" Created="635876577258684661" LastModified="635876825048913329">
   <Caption><![CDATA[Tests for ImportPreviewModel]]></Caption>
-  <Content><![CDATA[]]></Content>
+  <Content><![CDATA[- what can we extract and test separately? we anyway would like to have
+  import without preview later on]]></Content>
 </Node>

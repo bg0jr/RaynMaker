@@ -134,7 +134,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         {
             set
             {
-                myDocumentBrowser = DocumentProcessorsFactory.CreateBrowser( value );
+                myDocumentBrowser = DocumentProcessingFactory.CreateBrowser( value );
 
                 if( SelectedSource != null )
                 {
@@ -169,8 +169,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             myData.Clear();
 
             var descriptors = mySelectedSource.Figures
-                // TODO: only works as long as PathCellFormat is derived from PathSeriesFormat
-                .Cast<PathSeriesDescriptor>()
+                .Cast<IPathDescriptor>()
                 .Where( f => f.Figure == myDatumType.Name );
 
             foreach( var descriptor in descriptors )
@@ -178,63 +177,22 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 try
                 {
                     myDocumentBrowser.Navigate( DocumentType.Html, mySelectedSource.Location, new StockMacroResolver( Stock ) );
-                }
-                catch( Exception ex )
-                {
-                    ex.Data[ "Figure" ] = myDatumType.Name;
-                    ex.Data[ "DataSource.Vendor" ] = mySelectedSource.Vendor;
-                    ex.Data[ "DataSource.Name" ] = mySelectedSource.Name;
-                    ex.Data[ "Location" ] = mySelectedSource.Location.ToString();
 
-                    myLogger.Error( ex, "Failed to fetch '{0}' from site {1}", myDatumType.Name, mySelectedSource.Name );
-                }
-
-                // try take over currency
-                //var pathCellFormat = format as PathCellDescriptor;
-                //if( pathCellFormat != null )
-                //{
-                //    Currency = CurrenciesLut.Currencies.SingleOrDefault( c => c.Symbol == pathCellFormat.Currency );
-                //}
-
-                try
-                {
                     var htmlDocument = ( IHtmlDocument )myDocumentBrowser.Document;
+
+                    // Mark the part of the document described by the FigureDescriptor to have a preview
 
                     var marker = MarkupFactory.Create( descriptor );
                     marker.Mark( htmlDocument.GetElementByPath( HtmlPath.Parse( descriptor.Path ) ) );
 
                     // already extract data here to check for format issues etc
 
-                    var parser = DocumentProcessorsFactory.CreateParser( htmlDocument, descriptor );
+                    var parser = DocumentProcessingFactory.CreateParser( htmlDocument, descriptor );
                     var table = parser.ExtractTable();
-                    foreach( DataRow row in table.Rows )
-                    {
-                        if( row[ descriptor.ValueFormat.Name ] == DBNull.Value )
-                        {
-                            continue;
-                        }
 
-                        var value = ( double )row[ descriptor.ValueFormat.Name ];
-
-                        IPeriod period;
-                        if( descriptor.TimeFormat != null )
-                        {
-                            var year = ( int )row[ descriptor.TimeFormat.Name ];
-                            period = new YearPeriod( year );
-                        }
-                        else
-                        {
-                            // TODO: is this a proper default?
-                            period = new DayPeriod( DateTime.Now );
-                        }
-
-                        var datum = Dynamics.CreateDatum( Stock, myDatumType, period, null );
-                        datum.Source = mySelectedSource.Vendor + " - " + mySelectedSource.Name;
-
-                        datum.Value = descriptor.InMillions ? value * 1000000 : value;
-
-                        myData.Add( datum );
-                    }
+                    var converter = DocumentProcessingFactory.CreateConverter( descriptor, mySelectedSource );
+                    var series = converter.Convert( table, Stock );
+                    myData.AddRange( series );
 
                     // we found s.th. with this format 
                     // -> skip alternative formats
