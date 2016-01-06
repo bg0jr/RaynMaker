@@ -9,9 +9,7 @@ namespace RaynMaker.Modules.Import
     {
         IDocument Document { get; }
 
-        void Navigate( DocumentType docType, Uri url );
-
-        void Navigate( DocumentType docType, DocumentLocator navi );
+        void Navigate( DocumentType docType, DocumentLocator locator );
 
         event Action<Uri> Navigating;
 

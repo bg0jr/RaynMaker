@@ -1,18 +1,27 @@
 ﻿using System;
 using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Spec.v2;
+using RaynMaker.Modules.Import.Spec.v2.Locating;
 
 namespace RaynMaker.Modules.Import
 {
+    /// <summary>
+    /// Collects convenience methods for using IDocumentBrowser while keeping actual IDocumentBrowser interface slim.
+    /// </summary>
     public static class DocumentBrowserExtensions
     {
-        public static T LoadDocument<T>( this IDocumentBrowser browser, string url ) where T : IDocument
+        public static void Navigate( this IDocumentBrowser self, DocumentType docType, Uri url )
+        {
+            self.Navigate( docType, new DocumentLocator( new Request( url ) ) );
+        }
+        
+        public static T LoadDocument<T>( this IDocumentBrowser self, string url ) where T : IDocument
         {
             var docType = GetDocumentType( typeof( T ) );
 
-            browser.Navigate( docType, new Uri( url ) );
+            self.Navigate( docType, new Uri( url ) );
 
-            return ( T )browser.Document;
+            return ( T )self.Document;
         }
 
         private static DocumentType GetDocumentType( Type type )
