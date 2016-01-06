@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="a918b24b-a26c-44df-b044-20526d53b4a4" Created="635876574550839781" LastModified="635876576685171858">
+  <Caption><![CDATA[Tests for BasicDatumProvider]]></Caption>
+  <Content><![CDATA[Bring macro resolution to Navigator and test it there.
+(either IMacroResolver or just a Func<>)]]></Content>
+</Node>

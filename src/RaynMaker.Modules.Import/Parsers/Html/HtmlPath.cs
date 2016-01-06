@@ -82,6 +82,27 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             return Point.Empty;
         }
 
+        /// <summary>
+        /// Shortens the path from table cell to enclosing table.
+        /// Returns new copy
+        /// </summary>
+        public HtmlPath GetPathToTable()
+        {
+            var result = new HtmlPath( Elements );
+
+            while( result.Elements.Count > 0 )
+            {
+                if( result.PointsToTable )
+                {
+                    return result;
+                }
+
+                result = new HtmlPath( result.Elements.Take( result.Elements.Count - 1 ) );
+            }
+
+            return result;
+        }
+
         public override string ToString()
         {
             return PathSeparator + string.Join( PathSeparator.ToString(), Elements );

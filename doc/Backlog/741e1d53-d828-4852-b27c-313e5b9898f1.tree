@@ -15,6 +15,15 @@
         <Node Id="f915dae9-ecf3-454f-897f-8ed8c8efa639">
           <Caption><![CDATA[Tests for PathCellFormatViewModel]]></Caption>
         </Node>
+        <Node Id="a918b24b-a26c-44df-b044-20526d53b4a4">
+          <Caption><![CDATA[Tests for BasicDatumProvider]]></Caption>
+        </Node>
+        <Node Id="42fa04af-abc8-4ad2-912f-e1a6c4336079">
+          <Caption><![CDATA[Tests for DataFormatsViewModel]]></Caption>
+        </Node>
+        <Node Id="5eeaecc0-4a19-4d34-91cc-c606e16f7ea5">
+          <Caption><![CDATA[Tests for ImportPreviewModel]]></Caption>
+        </Node>
       </Node>
       <Node Id="d0da3880-c6d3-477b-bee2-8553b930be55">
         <Caption><![CDATA[Rework WebSpy]]></Caption>

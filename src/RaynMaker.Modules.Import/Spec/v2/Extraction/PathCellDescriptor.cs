@@ -18,7 +18,8 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         private string myCurrency;
 
         /// <summary>
-        /// Gets or sets the path within the document to the table.
+        /// Gets or sets the path within the document to the table. 
+        /// The path must point to the table itself not to any cell within the table.
         /// </summary>
         [Required( AllowEmptyStrings = false )]
         [DataMember]

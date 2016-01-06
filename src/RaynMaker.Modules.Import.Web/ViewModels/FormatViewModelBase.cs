@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Practices.Prism.Mvvm;
@@ -72,10 +71,10 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 //}
 
                 HtmlDocument doc = null;
+
                 if( value != null )
                 {
-                    var htmlDocument = ( IHtmlDocument )value;
-                    var adapter = ( HtmlDocumentAdapter )htmlDocument;
+                    var adapter = ( HtmlDocumentAdapter )value;
                     doc = adapter.Document;
                 }
 
