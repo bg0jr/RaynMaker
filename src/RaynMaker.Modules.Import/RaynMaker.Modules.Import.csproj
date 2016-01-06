@@ -43,6 +43,7 @@
     <Compile Include="Documents\NullLocatorMacroResolver.cs" />
     <Compile Include="FigureDescriptorFactory.cs" />
     <Compile Include="ImportSpecSerializer.cs" />
+    <Compile Include="MarkupFactory.cs" />
     <Compile Include="Parsers\TableFormatter.cs" />
     <Compile Include="Spec\SpecMigration.cs" />
     <Compile Include="Spec\DataSourcesSheet.cs" />

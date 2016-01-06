@@ -7,7 +7,7 @@ using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Modules.Import
 {
-    public class DocumentProcessorsFactory
+    public static class DocumentProcessorsFactory
     {
         public static IDocumentBrowser CreateBrowser()
         {

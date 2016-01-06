@@ -12,6 +12,8 @@ using Plainion.Logging;
 using RaynMaker.Entities;
 using RaynMaker.Infrastructure.Services;
 using RaynMaker.Modules.Import.Design;
+using RaynMaker.Modules.Import.Documents;
+using RaynMaker.Modules.Import.Parsers.Html;
 using RaynMaker.Modules.Import.Spec.v2;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 using RaynMaker.Modules.Import.Web.Services;
@@ -166,25 +168,23 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
             myData.Clear();
 
-            var provider = new BasicDatumProvider( myDocumentBrowser );
-
-            var formats = mySelectedSource.Figures
+            var descriptors = mySelectedSource.Figures
                 // TODO: only works as long as PathCellFormat is derived from PathSeriesFormat
                 .Cast<PathSeriesDescriptor>()
                 .Where( f => f.Figure == myDatumType.Name );
 
-            foreach( var format in formats )
+            foreach( var descriptor in descriptors )
             {
                 try
                 {
-                    provider.Navigate( DocumentType.Html, mySelectedSource.Location, Stock );
+                    myDocumentBrowser.Navigate( DocumentType.Html, mySelectedSource.Location, new StockMacroResolver( Stock ) );
                 }
                 catch( Exception ex )
                 {
-                    ex.Data[ "Datum" ] = myDatumType.Name;
-                    ex.Data[ "SiteName" ] = mySelectedSource.Name;
-                    ex.Data[ "OriginalLocationSpec" ] = mySelectedSource.Location.ToString();
-                    //ex.Data[ "ModifiedLocationSpec" ] = modifiedNavigation;
+                    ex.Data[ "Figure" ] = myDatumType.Name;
+                    ex.Data[ "DataSource.Vendor" ] = mySelectedSource.Vendor;
+                    ex.Data[ "DataSource.Name" ] = mySelectedSource.Name;
+                    ex.Data[ "Location" ] = mySelectedSource.Location.ToString();
 
                     myLogger.Error( ex, "Failed to fetch '{0}' from site {1}", myDatumType.Name, mySelectedSource.Name );
                 }
@@ -198,24 +198,28 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
                 try
                 {
-                    provider.Mark( format );
+                    var htmlDocument = ( IHtmlDocument )myDocumentBrowser.Document;
+
+                    var marker = MarkupFactory.Create( descriptor );
+                    marker.Mark( htmlDocument.GetElementByPath( HtmlPath.Parse( descriptor.Path ) ) );
 
                     // already extract data here to check for format issues etc
 
-                    var table = provider.GetResult( format );
+                    var parser = DocumentProcessorsFactory.CreateParser( htmlDocument, descriptor );
+                    var table = parser.ExtractTable();
                     foreach( DataRow row in table.Rows )
                     {
-                        if( row[ format.ValueFormat.Name ] == DBNull.Value )
+                        if( row[ descriptor.ValueFormat.Name ] == DBNull.Value )
                         {
                             continue;
                         }
 
-                        var value = ( double )row[ format.ValueFormat.Name ];
+                        var value = ( double )row[ descriptor.ValueFormat.Name ];
 
                         IPeriod period;
-                        if( format.TimeFormat != null )
+                        if( descriptor.TimeFormat != null )
                         {
-                            var year = ( int )row[ format.TimeFormat.Name ];
+                            var year = ( int )row[ descriptor.TimeFormat.Name ];
                             period = new YearPeriod( year );
                         }
                         else
@@ -227,7 +231,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                         var datum = Dynamics.CreateDatum( Stock, myDatumType, period, null );
                         datum.Source = mySelectedSource.Vendor + " - " + mySelectedSource.Name;
 
-                        datum.Value = format.InMillions ? value * 1000000 : value;
+                        datum.Value = descriptor.InMillions ? value * 1000000 : value;
 
                         myData.Add( datum );
                     }
@@ -238,10 +242,11 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 }
                 catch( Exception ex )
                 {
-                    ex.Data[ "Datum" ] = myDatumType.Name;
-                    ex.Data[ "SiteName" ] = mySelectedSource.Name;
-                    ex.Data[ "OriginalLocationSpec" ] = mySelectedSource.Location.ToString();
-                    ex.Data[ "OriginalFormat" ] = format.Figure;
+                    ex.Data[ "Figure" ] = myDatumType.Name;
+                    ex.Data[ "DataSource.Vendor" ] = mySelectedSource.Vendor;
+                    ex.Data[ "DataSource.Name" ] = mySelectedSource.Name;
+                    ex.Data[ "Location" ] = mySelectedSource.Location.ToString();
+                    ex.Data[ "FigureDescriptor" ] = descriptor.GetType().FullName;
 
                     myLogger.Error( ex, "Failed to fetch '{0}' from site {1}", myDatumType.Name, mySelectedSource.Name );
                 }

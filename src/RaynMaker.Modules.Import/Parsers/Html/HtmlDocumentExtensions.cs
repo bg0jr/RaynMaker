@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
-using System.Globalization;
 using Plainion;
 using RaynMaker.Modules.Import.Documents;
-using RaynMaker.Modules.Import.Spec;
 
 namespace RaynMaker.Modules.Import.Parsers.Html
 {

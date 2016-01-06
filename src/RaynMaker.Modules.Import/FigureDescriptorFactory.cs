@@ -1,40 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Xml;
 using Plainion;
-using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Modules.Import
 {
-    public class FigureDescriptorFactory
+    public static class FigureDescriptorFactory
     {
         public static IFigureDescriptor Create( Type type )
         {
-            if( type == typeof( PathSeriesDescriptor ) )
-            {
-                return CreatePathSeriesDescriptor();
-            }
+            if( type == typeof( PathSeriesDescriptor ) ) return CreatePathSeriesDescriptor();
+            if( type == typeof( PathCellDescriptor ) ) return CreatePathCellDescriptor();
+            if( type == typeof( PathSingleValueDescriptor ) ) return CreatePathSingleValueDescriptor();
+            if( type == typeof( PathTableDescriptor ) ) return CreatePathTableDescriptor();
+            if( type == typeof( CsvDescriptor ) ) return CreateCsvDescriptor();
+            if( type == typeof( SeparatorSeriesDescriptor ) ) return CreateSeparatorSeriesDescriptor();
 
-            if( type == typeof( PathCellDescriptor ) )
-            {
-                return CreatePathCellDescriptor();
-            }
-
-            throw new NotSupportedException( "Unknown format type: " + type.Name );
+            throw new NotSupportedException( "Unknown descriptor type: " + type.Name );
         }
 
         private static IFigureDescriptor CreatePathSeriesDescriptor()
         {
-            var desciptor = new PathSeriesDescriptor();
+            var descriptor = new PathSeriesDescriptor();
 
-            desciptor.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000.0000" );
-            desciptor.TimeFormat = new FormatColumn( "time", typeof( int ), "0000" );
+            descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000.0000" );
+            descriptor.TimeFormat = new FormatColumn( "time", typeof( int ), "0000" );
 
-            return desciptor;
+            return descriptor;
         }
 
         private static IFigureDescriptor CreatePathCellDescriptor()
@@ -44,6 +36,35 @@ namespace RaynMaker.Modules.Import
             descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000.0000" );
 
             return descriptor;
+        }
+
+        private static IFigureDescriptor CreatePathSingleValueDescriptor()
+        {
+            var descriptor = new PathSingleValueDescriptor();
+
+            descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000.0000" );
+
+            return descriptor;
+        }
+
+        private static IFigureDescriptor CreatePathTableDescriptor()
+        {
+            return new PathTableDescriptor();
+        }
+
+        private static IFigureDescriptor CreateCsvDescriptor()
+        {
+            return new CsvDescriptor();
+        }
+
+        private static IFigureDescriptor CreateSeparatorSeriesDescriptor()
+        {
+            var desciptor = new SeparatorSeriesDescriptor();
+
+            desciptor.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000.0000" );
+            desciptor.TimeFormat = new FormatColumn( "time", typeof( int ), "0000" );
+
+            return desciptor;
         }
 
         public static T Clone<T>( T obj )
