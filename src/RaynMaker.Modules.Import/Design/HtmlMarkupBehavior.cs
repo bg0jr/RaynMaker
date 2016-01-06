@@ -88,7 +88,7 @@ namespace RaynMaker.Modules.Import.Design
             SelectedElement = Document.Create( element );
         }
 
-        public Action SelectionChanged { get; set; }
+        public event EventHandler SelectionChanged;
 
         public HtmlElementAdapter SelectedElement
         {
@@ -110,7 +110,7 @@ namespace RaynMaker.Modules.Import.Design
 
                 if( SelectionChanged != null )
                 {
-                    SelectionChanged();
+                    SelectionChanged( this, EventArgs.Empty );
                 }
             }
         }
@@ -133,6 +133,7 @@ namespace RaynMaker.Modules.Import.Design
             }
         }
 
+        // TODO: do we really need this to be public?
         public void Apply()
         {
             Marker.Unmark();

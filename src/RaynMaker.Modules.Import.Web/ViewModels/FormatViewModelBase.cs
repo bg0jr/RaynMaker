@@ -52,6 +52,11 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         protected HtmlMarkupBehavior<TMarker> MarkupBehavior { get; private set; }
 
+        private void OnSelectionChanged( object sender, EventArgs e )
+        {
+            OnSelectionChanged();
+        }
+
         protected virtual void OnSelectionChanged()
         {
         }

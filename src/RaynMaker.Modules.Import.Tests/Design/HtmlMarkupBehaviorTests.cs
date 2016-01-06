@@ -155,5 +155,67 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
 
             Assert.That( behavior.PathToSelectedElement, Is.EqualTo( path ) );
         }
+
+        [Test]
+        public void SelectedElement_WhenSet_PathToSelectedElementAdjusted()
+        {
+            myBrowser.LoadHtml( HtmlDocument1 );
+            var document = new HtmlDocumentAdapter( myBrowser.Document );
+
+            var behavior = new HtmlMarkupBehavior<HtmlElementMarker>( new HtmlElementMarker( Color.Yellow ) );
+            behavior.AttachTo( document );
+
+            behavior.SelectedElement = ( HtmlElementAdapter )document.GetElementById( "x11" );
+
+            Assert.That( behavior.PathToSelectedElement, Is.EqualTo( document.GetElementById( "x11" ).GetPath().ToString() ) );
+        }
+
+        [Test]
+        public void PathToSelectedElement_WhenSet_SelectedElementAdjusted()
+        {
+            myBrowser.LoadHtml( HtmlDocument1 );
+            var document = new HtmlDocumentAdapter( myBrowser.Document );
+
+            var behavior = new HtmlMarkupBehavior<HtmlElementMarker>( new HtmlElementMarker( Color.Yellow ) );
+            behavior.AttachTo( document );
+
+            behavior.PathToSelectedElement = document.GetElementById( "x11" ).GetPath().ToString(); ;
+
+            Assert.That( behavior.SelectedElement, Is.SameAs( document.GetElementById( "x11" ) ) );
+        }
+
+        [Test]
+        public void SelectedElement_WhenSet_SelectionChangedRaised()
+        {
+            myBrowser.LoadHtml( HtmlDocument1 );
+            var document = new HtmlDocumentAdapter( myBrowser.Document );
+
+            var behavior = new HtmlMarkupBehavior<HtmlElementMarker>( new HtmlElementMarker( Color.Yellow ) );
+            behavior.AttachTo( document );
+
+            bool selectionChangedRaised = false;
+            behavior.SelectionChanged += ( s, e ) => selectionChangedRaised = true;
+
+            behavior.SelectedElement = ( HtmlElementAdapter )document.GetElementById( "x11" );
+
+            Assert.That( selectionChangedRaised, Is.True );
+        }
+
+        [Test]
+        public void PathToSelectedElement_WhenSet_SelectionChangedRaised()
+        {
+            myBrowser.LoadHtml( HtmlDocument1 );
+            var document = new HtmlDocumentAdapter( myBrowser.Document );
+
+            var behavior = new HtmlMarkupBehavior<HtmlElementMarker>( new HtmlElementMarker( Color.Yellow ) );
+            behavior.AttachTo( document );
+
+            bool selectionChangedRaised = false;
+            behavior.SelectionChanged += ( s, e ) => selectionChangedRaised = true;
+            
+            behavior.PathToSelectedElement = document.GetElementById( "x11" ).GetPath().ToString(); ;
+
+            Assert.That( selectionChangedRaised, Is.True );
+        }
     }
 }
