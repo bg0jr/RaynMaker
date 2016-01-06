@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="45e19c03-4d5c-4992-9267-f95fe657c170" Created="635876871228334641" LastModified="635876872009219305">
+  <Caption><![CDATA[Add TimeLocator to PathCellDescriptor]]></Caption>
+  <Content><![CDATA[otherwise we are forced to take DateTime.Now.
+this way we at least have the option to specify it
+
+TimeFormat would be required as well
+
+check existing scenariotest then]]></Content>
+</Node>

@@ -85,6 +85,12 @@
           <Caption><![CDATA[Equals and GetHashcode for HtmlElementAdapter]]></Caption>
         </Node>
       </Node>
+      <Node Id="45e19c03-4d5c-4992-9267-f95fe657c170">
+        <Caption><![CDATA[Add TimeLocator to PathCellDescriptor]]></Caption>
+      </Node>
+      <Node Id="93bc7b72-793a-43da-8b25-bd0018ae7325">
+        <Caption><![CDATA[DataTableToEntityConverters - currency]]></Caption>
+      </Node>
     </Node>
     <Node Id="63da965d-c664-48a9-8250-578d54290207">
       <Caption><![CDATA[1.8]]></Caption>

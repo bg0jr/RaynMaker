@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
+using RaynMaker.Entities;
+using RaynMaker.Entities.Datums;
 using RaynMaker.Modules.Import.Documents;
+using RaynMaker.Modules.Import.Spec.v2;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Modules.Import.ScenarioTests
@@ -13,7 +17,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         [Test]
         public void GetSingleValue()
         {
-            var doc = LoadDocument<IHtmlDocument>("Html", "ariva.overview.US0138171014.html" );
+            var doc = LoadDocument<IHtmlDocument>( "Html", "ariva.overview.US0138171014.html" );
 
             var descriptor = new PathSingleValueDescriptor();
             descriptor.Path = @"/BODY[0]/DIV[4]/DIV[0]/DIV[3]/DIV[0]";
@@ -28,18 +32,24 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         }
 
         [Test]
-        public void GetSeries()
+        public void GetSeriesAndConvertToEntities()
         {
             var doc = LoadDocument<IHtmlDocument>( "Html", "ariva.fundamentals.DE0005190003.html" );
 
+            var dataSource = new DataSource();
+            dataSource.Vendor = "Ariva";
+            dataSource.Name = "Fundamentals";
+            dataSource.Quality = 1;
+
             var descriptor = new PathSeriesDescriptor();
-            descriptor.Figure = "EPS";
+            descriptor.Figure = "Dividend";
             descriptor.Path = @"/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]";
             descriptor.Orientation = SeriesOrientation.Row;
-            descriptor.ValuesLocator = new StringContainsLocator { HeaderSeriesPosition = 0, Pattern = "verwässertes Ergebnis pro Aktie" };
-            descriptor.ValueFormat = new FormatColumn( "value", typeof( float ), "00,00" );
+            descriptor.ValuesLocator = new StringContainsLocator { HeaderSeriesPosition = 0, Pattern = "Dividendenausschüttung" };
+            descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "00,00" );
             descriptor.TimesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 1 };
             descriptor.TimeFormat = new FormatColumn( "year", typeof( int ), "00000000" );
+            descriptor.InMillions = true;
             descriptor.Excludes.Add( 0 );
 
             var parser = DocumentProcessingFactory.CreateParser( doc, descriptor );
@@ -47,12 +57,12 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
             Assert.AreEqual( 6, table.Rows.Count );
 
-            Assert.AreEqual( 2.78f, table.Rows[ 0 ][ 0 ] );
-            Assert.AreEqual( 3.00f, table.Rows[ 1 ][ 0 ] );
-            Assert.AreEqual( 2.89f, table.Rows[ 2 ][ 0 ] );
-            Assert.AreEqual( 3.30f, table.Rows[ 3 ][ 0 ] );
-            Assert.AreEqual( 3.33f, table.Rows[ 4 ][ 0 ] );
-            Assert.AreEqual( 4.38f, table.Rows[ 5 ][ 0 ] );
+            Assert.AreEqual( 350000000d, table.Rows[ 0 ][ 0 ] );
+            Assert.AreEqual( 351000000d, table.Rows[ 1 ][ 0 ] );
+            Assert.AreEqual( 392000000d, table.Rows[ 2 ][ 0 ] );
+            Assert.AreEqual( 419000000d, table.Rows[ 3 ][ 0 ] );
+            Assert.AreEqual( 424000000d, table.Rows[ 4 ][ 0 ] );
+            Assert.AreEqual( 458000000d, table.Rows[ 5 ][ 0 ] );
 
             Assert.AreEqual( 2001, table.Rows[ 0 ][ 1 ] );
             Assert.AreEqual( 2002, table.Rows[ 1 ][ 1 ] );
@@ -60,19 +70,43 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             Assert.AreEqual( 2004, table.Rows[ 3 ][ 1 ] );
             Assert.AreEqual( 2005, table.Rows[ 4 ][ 1 ] );
             Assert.AreEqual( 2006, table.Rows[ 5 ][ 1 ] );
+
+            var converter = DocumentProcessingFactory.CreateConverter( descriptor, dataSource );
+            var series = converter.Convert( table, new Stock { Isin = "DE0007664039" } ).Cast<Dividend>();
+
+            foreach( var dividend in series )
+            {
+                Assert.That( dividend.Company.Stocks.First().Isin, Is.EqualTo( "DE0007664039" ) );
+                Assert.That( dividend.Period, Is.InstanceOf<YearPeriod>() );
+                Assert.That( dividend.Source, Is.StringContaining( "ariva" ).IgnoreCase.And.StringContaining( "fundamentals" ).IgnoreCase );
+                Assert.That( dividend.Timestamp.Date, Is.EqualTo( DateTime.Today ) );
+              
+                // will not be set by converter in order to keep dependencies to Entities small
+                Assert.That( dividend.Currency, Is.Null );
+            }
+
+            //Assert.That( ( ( DayPeriod )price.Period ).Day.Date, Is.EqualTo( DateTime.Today ) );
+            //Assert.That( price.Value, Is.EqualTo( 134.356d ) );
+
         }
 
         [Test]
-        public void GetCell()
+        public void GetCellAndConvertToEntity()
         {
             var doc = LoadDocument<IHtmlDocument>( "Html", "ariva.prices.DE0007664039.html" );
 
+            var dataSource = new DataSource();
+            dataSource.Vendor = "Ariva";
+            dataSource.Name = "Prices";
+            dataSource.Quality = 1;
+
             var descriptor = new PathCellDescriptor();
-            descriptor.Figure = "CurrentPrice";
+            descriptor.Figure = "Price";
             descriptor.Path = @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]";
             descriptor.Column = new StringContainsLocator { HeaderSeriesPosition = 0, Pattern = "Letzter" };
             descriptor.Row = new StringContainsLocator { HeaderSeriesPosition = 0, Pattern = "Frankfurt" };
             descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "00,00" ) { ExtractionPattern = new Regex( @"([0-9,\.]+)" ) };
+            descriptor.Currency = "EUR";
 
             var parser = DocumentProcessingFactory.CreateParser( doc, descriptor );
             var table = parser.ExtractTable();
@@ -82,6 +116,20 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             var value = table.Rows[ 0 ][ 0 ];
 
             Assert.That( value, Is.EqualTo( 134.356d ) );
+
+            var converter = DocumentProcessingFactory.CreateConverter( descriptor, dataSource );
+            var series = converter.Convert( table, new Stock { Isin = "DE0007664039" } );
+
+            var price = ( Price )series.Single();
+
+            Assert.That( price.Stock.Isin, Is.EqualTo( "DE0007664039" ) );
+            Assert.That( ( ( DayPeriod )price.Period ).Day.Date, Is.EqualTo( DateTime.Today ) );
+            Assert.That( price.Source, Is.StringContaining( "ariva" ).IgnoreCase.And.StringContaining( "price" ).IgnoreCase );
+            Assert.That( price.Timestamp.Date, Is.EqualTo( DateTime.Today ) );
+            Assert.That( price.Value, Is.EqualTo( 134.356d ) );
+
+            // will not be set by converter in order to keep dependencies to Entities small
+            Assert.That( price.Currency, Is.Null );
         }
 
         [Test]
