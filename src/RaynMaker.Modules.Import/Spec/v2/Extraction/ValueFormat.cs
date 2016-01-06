@@ -18,6 +18,7 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         private Regex myExtractionPattern;
         private string myFormat;
         private Type myType;
+        private bool myInMillions;
 
         public ValueFormat()
         {
@@ -79,6 +80,13 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
             set { Type = Type.GetType( value ); }
         }
 
+        [DataMember]
+        public bool InMillions
+        {
+            get { return myInMillions; }
+            set { SetProperty( ref myInMillions, value ); }
+        }
+        
         /// <summary>
         /// The value will always be trimmed first.
         /// </summary>
@@ -131,13 +139,13 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
                 {
                     // all other non-digit numbers are treated as thousands separators now
                     value = TakeBefore( value, decimalSep ).RemoveAll( c => !Char.IsDigit( c ) );
-                    return long.Parse( TakeBefore( value, decimalSep ) );
+                    return long.Parse( TakeBefore( value, decimalSep ) ) * ( InMillions ? 1000000 : 1 );
                 }
                 else if( Type == typeof( int ) )
                 {
                     // all other non-digit numbers are treated as thousands separators now
                     value = TakeBefore( value, decimalSep ).RemoveAll( c => !Char.IsDigit( c ) );
-                    return int.Parse( TakeBefore( value, decimalSep ) );
+                    return int.Parse( TakeBefore( value, decimalSep ) ) * ( InMillions ? 1000000 : 1 );
                 }
 
                 NumberFormatInfo nfi = new NumberFormatInfo();
@@ -147,11 +155,11 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
 
                 if( Type == typeof( float ) )
                 {
-                    return float.Parse( value, nfi );
+                    return float.Parse( value, nfi ) * ( InMillions ? 1000000 : 1 );
                 }
                 else if( Type == typeof( double ) )
                 {
-                    return double.Parse( value, nfi );
+                    return double.Parse( value, nfi ) * ( InMillions ? 1000000 : 1 );
                 }
 
                 return value;

@@ -42,7 +42,6 @@ namespace RaynMaker.Modules.Import.ScenarioTests
                     var descriptor = ( PathSeriesDescriptor )dataSource.Figures.Single();
                     Assert.That( descriptor.Excludes, Is.EquivalentTo( new int[] { 6 } ) );
                     Assert.That( descriptor.Figure, Is.EqualTo( "Dividend" ) );
-                    Assert.That( descriptor.InMillions, Is.False );
                     Assert.That( descriptor.Orientation, Is.EqualTo( SeriesOrientation.Row ) );
                     Assert.That( descriptor.Path, Is.EqualTo( "/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/TABLE[3]/TBODY[0]/TR[9]/TD[1]" ) );
                     Assert.That( descriptor.TimeFormat.Type, Is.EqualTo( typeof( int ) ) );
@@ -50,6 +49,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
                     Assert.That( ( ( AbsolutePositionLocator )descriptor.TimesLocator ).SeriesPosition, Is.EqualTo( 0 ) );
                     Assert.That( descriptor.ValueFormat.Type, Is.EqualTo( typeof( double ) ) );
                     Assert.That( descriptor.ValueFormat.Format, Is.EqualTo( "000.000,0000" ) );
+                    Assert.That( descriptor.ValueFormat.InMillions, Is.False );
                     Assert.That( ( ( StringContainsLocator )descriptor.ValuesLocator ).Pattern, Is.EqualTo( "Dividendenaussch" ) );
                 }
 
@@ -72,12 +72,12 @@ namespace RaynMaker.Modules.Import.ScenarioTests
                     Assert.That( ( ( StringContainsLocator )descriptor.Column ).Pattern, Is.EqualTo( "Letzter" ) );
                     Assert.That( descriptor.Currency, Is.EquivalentTo( "EUR" ) );
                     Assert.That( descriptor.Figure, Is.EqualTo( "Price" ) );
-                    Assert.That( descriptor.InMillions, Is.False );
                     Assert.That( descriptor.Path, Is.EqualTo( "/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" ) );
                     Assert.That( ( ( StringContainsLocator )descriptor.Row ).HeaderSeriesPosition, Is.EqualTo( 0 ) );
                     Assert.That( ( ( StringContainsLocator )descriptor.Row ).Pattern, Is.EqualTo( "Frankfurt" ) );
                     Assert.That( descriptor.ValueFormat.Type, Is.EqualTo( typeof( double ) ) );
                     Assert.That( descriptor.ValueFormat.Format, Is.EqualTo( "000.000,0000" ) );
+                    Assert.That( descriptor.ValueFormat.InMillions, Is.False );
                 }
             }
         }
@@ -108,7 +108,6 @@ namespace RaynMaker.Modules.Import.ScenarioTests
                     var descriptor = ( PathSeriesDescriptor )dataSource.Figures.Single();
                     Assert.That( descriptor.Excludes, Is.EquivalentTo( new int[] { 6 } ) );
                     Assert.That( descriptor.Figure, Is.EqualTo( "Dividend" ) );
-                    Assert.That( descriptor.InMillions, Is.False );
                     Assert.That( descriptor.Orientation, Is.EqualTo( SeriesOrientation.Row ) );
                     Assert.That( descriptor.Path, Is.EqualTo( "/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/TABLE[3]/TBODY[0]/TR[9]/TD[1]" ) );
                     Assert.That( descriptor.TimeFormat.Type, Is.EqualTo( typeof( int ) ) );
@@ -116,6 +115,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
                     Assert.That( ( ( AbsolutePositionLocator )descriptor.TimesLocator ).SeriesPosition, Is.EqualTo( 0 ) );
                     Assert.That( descriptor.ValueFormat.Type, Is.EqualTo( typeof( double ) ) );
                     Assert.That( descriptor.ValueFormat.Format, Is.EqualTo( "000.000,0000" ) );
+                    Assert.That( descriptor.ValueFormat.InMillions, Is.False );
                     Assert.That( ( ( StringContainsLocator )descriptor.ValuesLocator ).Pattern, Is.EqualTo( "Dividendenaussch" ) );
                 }
 
@@ -138,12 +138,12 @@ namespace RaynMaker.Modules.Import.ScenarioTests
                     Assert.That( ( ( StringContainsLocator )descriptor.Column ).Pattern, Is.EqualTo( "Letzter" ) );
                     Assert.That( descriptor.Currency, Is.EquivalentTo( "EUR" ) );
                     Assert.That( descriptor.Figure, Is.EqualTo( "Price" ) );
-                    Assert.That( descriptor.InMillions, Is.False );
                     Assert.That( descriptor.Path, Is.EqualTo( "/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" ) );
                     Assert.That( ( ( StringContainsLocator )descriptor.Row ).HeaderSeriesPosition, Is.EqualTo( 0 ) );
                     Assert.That( ( ( StringContainsLocator )descriptor.Row ).Pattern, Is.EqualTo( "Frankfurt" ) );
                     Assert.That( descriptor.ValueFormat.Type, Is.EqualTo( typeof( double ) ) );
                     Assert.That( descriptor.ValueFormat.Format, Is.EqualTo( "000.000,0000" ) );
+                    Assert.That( descriptor.ValueFormat.InMillions, Is.False );
                 }
             }
         }

@@ -120,10 +120,9 @@ namespace RaynMaker.Modules.Import.Spec
             target.Column = Migrate( source.Anchor.Column );
             target.Currency = source.Currency;
             target.Figure = source.Datum;
-            target.InMillions = source.InMillions;
             target.Path = source.Path;
             target.Row = Migrate( source.Anchor.Row );
-            target.ValueFormat = Migrate( source.ValueFormat );
+            target.ValueFormat = Migrate( source.ValueFormat, source.InMillions );
 
             return target;
         }
@@ -139,7 +138,7 @@ namespace RaynMaker.Modules.Import.Spec
             var stringContains = cellLocator as v1.StringContainsLocator;
             if( stringContains != null )
             {
-                return new v2.Extraction.StringContainsLocator { HeaderSeriesPosition = stringContains.SeriesToScan, Pattern = stringContains.Pattern};
+                return new v2.Extraction.StringContainsLocator { HeaderSeriesPosition = stringContains.SeriesToScan, Pattern = stringContains.Pattern };
             }
 
             var regex = cellLocator as v1.RegexPatternLocator;
@@ -161,22 +160,22 @@ namespace RaynMaker.Modules.Import.Spec
             }
 
             target.Figure = source.Datum;
-            target.InMillions = source.InMillions;
             target.Orientation = source.Expand == v1.CellDimension.Row ? v2.Extraction.SeriesOrientation.Row : v2.Extraction.SeriesOrientation.Column;
             target.Path = source.Path;
-            target.TimeFormat = Migrate( source.TimeAxisFormat );
+            target.TimeFormat = Migrate( source.TimeAxisFormat, false );
             target.TimesLocator = new v2.Extraction.AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = source.TimeAxisPosition };
-            target.ValueFormat = Migrate( source.ValueFormat );
+            target.ValueFormat = Migrate( source.ValueFormat, source.InMillions );
             target.ValuesLocator = new v2.Extraction.StringContainsLocator { HeaderSeriesPosition = source.SeriesNamePosition, Pattern = source.SeriesName };
 
             return target;
         }
 
-        private static v2.Extraction.FormatColumn Migrate( v1.FormatColumn source )
+        private static v2.Extraction.FormatColumn Migrate( v1.FormatColumn source, bool inMillions )
         {
             return new v2.Extraction.FormatColumn( source.Name, source.Type, source.Format )
             {
-                ExtractionPattern = source.ExtractionPattern
+                ExtractionPattern = source.ExtractionPattern,
+                InMillions = inMillions
             };
         }
     }

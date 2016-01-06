@@ -2,9 +2,9 @@
 
 namespace RaynMaker.Modules.Import.Web.Views
 {
-    public partial class FormatColumnView : UserControl
+    public partial class ValueFormatView : UserControl
     {
-        public FormatColumnView()
+        public ValueFormatView()
         {
             InitializeComponent();
         }

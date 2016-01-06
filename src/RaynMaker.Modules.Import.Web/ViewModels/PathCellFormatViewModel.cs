@@ -41,7 +41,6 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             Path = Format.Path;
             ValueFormat = Format.ValueFormat ?? new ValueFormat( typeof( double ) );
             SelectedCurrency = myLutService.CurrenciesLut.Currencies.SingleOrDefault( c => c.Symbol == descriptor.Currency );
-            InMillions = Format.InMillions;
 
             IsColumnValid = false;
             if( descriptor.Column != null )

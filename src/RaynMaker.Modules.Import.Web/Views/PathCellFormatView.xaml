@@ -24,7 +24,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0"  Grid.Column="0" Text="Datum" VerticalAlignment="Center" />
@@ -82,12 +81,9 @@
         </TextBox>
 
         <TextBlock Grid.Row="5" Grid.Column="0" Text="Value format" VerticalAlignment="Center"/>
-        <v:FormatColumnView Grid.Row="5" Grid.Column="1"  Grid.ColumnSpan="6" Margin="5,2,0,0" DataContext="{Binding ValueFormat}"/>
+        <v:ValueFormatView Grid.Row="5" Grid.Column="1"  Grid.ColumnSpan="6" Margin="5,2,0,0" DataContext="{Binding ValueFormat}"/>
 
         <TextBlock Grid.Row="6" Grid.Column="0" Text="Currency" VerticalAlignment="Center"/>
         <ComboBox Grid.Row="6" Grid.Column="1"  ItemsSource="{Binding Currencies}" SelectedItem="{Binding SelectedCurrency}"/>
-        
-        <CheckBox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,2,0,0" VerticalAlignment="Center"
-                  Content="Values in millions" IsChecked="{Binding InMillions}"/>
     </Grid>
 </UserControl>

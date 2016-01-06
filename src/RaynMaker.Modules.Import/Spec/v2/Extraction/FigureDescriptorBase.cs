@@ -11,7 +11,6 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
     public abstract class FigureDescriptorBase : SerializableBindableBase, IFigureDescriptor
     {
         private string myFigure;
-        private bool myInMillions;
 
         [Required( AllowEmptyStrings = false )]
         [DataMember]
@@ -19,13 +18,6 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
         {
             get { return myFigure; }
             set { SetProperty( ref myFigure, value ); }
-        }
-
-        [DataMember]
-        public bool InMillions
-        {
-            get { return myInMillions; }
-            set { SetProperty( ref myInMillions, value ); }
         }
     }
 }

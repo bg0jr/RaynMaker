@@ -6,7 +6,5 @@
     public interface IFigureDescriptor
     {
         string Figure { get; set; }
-
-        bool InMillions { get; set; }
     }
 }

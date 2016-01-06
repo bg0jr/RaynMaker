@@ -133,8 +133,8 @@
     <AppDesigner Include="Properties\" />
     <Compile Include="RegionNames.cs" />
     <Compile Include="ViewModels\WebSpyMenuItemModel.cs" />
-    <Compile Include="Views\FormatColumnView.xaml.cs">
-      <DependentUpon>FormatColumnView.xaml</DependentUpon>
+    <Compile Include="Views\ValueFormatView.xaml.cs">
+      <DependentUpon>ValueFormatView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ImportPreview.xaml.cs">
       <DependentUpon>ImportPreview.xaml</DependentUpon>
@@ -182,7 +182,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\FormatColumnView.xaml">
+    <Page Include="Views\ValueFormatView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

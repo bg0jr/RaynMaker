@@ -45,8 +45,6 @@ namespace RaynMaker.Modules.Import.Converters
             var datum = Dynamics.CreateDatum( stock, myEntityType, period, null );
             datum.Source = mySource;
 
-            datum.Value = myDescriptor.InMillions ? value * 1000000 : value;
-
             return new[] { datum };
         }
     }

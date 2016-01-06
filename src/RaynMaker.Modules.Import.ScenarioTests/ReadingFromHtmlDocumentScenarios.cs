@@ -46,10 +46,9 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             descriptor.Path = @"/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]";
             descriptor.Orientation = SeriesOrientation.Row;
             descriptor.ValuesLocator = new StringContainsLocator { HeaderSeriesPosition = 0, Pattern = "Dividendenausschüttung" };
-            descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "00,00" );
+            descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "00,00" ) { InMillions = true };
             descriptor.TimesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 1 };
             descriptor.TimeFormat = new FormatColumn( "year", typeof( int ), "00000000" );
-            descriptor.InMillions = true;
             descriptor.Excludes.Add( 0 );
 
             var parser = DocumentProcessingFactory.CreateParser( doc, descriptor );

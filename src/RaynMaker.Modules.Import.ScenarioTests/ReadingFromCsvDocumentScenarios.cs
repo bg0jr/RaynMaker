@@ -55,7 +55,6 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             var descriptor = new CsvDescriptor();
             descriptor.Figure = "HistoricalPrices";
             descriptor.Separator = ";";
-            descriptor.InMillions = false;
             descriptor.SkipColumns.Add( 1 );
             descriptor.SkipRows.Add( 0 );
             descriptor.Columns.Add( new FormatColumn( "Date", typeof( DateTime ) ) );

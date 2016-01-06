@@ -24,7 +24,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Grid.Resources>
@@ -82,12 +81,9 @@
         <TextBox Grid.Row="4" Grid.Column="1" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding ColumnHeaderRow, UpdateSourceTrigger=PropertyChanged}"/>
 
         <TextBlock Grid.Row="5" Grid.Column="0" Text="Time format" VerticalAlignment="Center"/>
-        <v:FormatColumnView Grid.Row="5" Grid.Column="1"  Grid.ColumnSpan="6" Margin="5,2,0,0" DataContext="{Binding TimeFormat}"/>
+        <v:ValueFormatView Grid.Row="5" Grid.Column="1"  Grid.ColumnSpan="6" Margin="5,2,0,0" DataContext="{Binding TimeFormat}"/>
 
         <TextBlock Grid.Row="6" Grid.Column="0" Text="Value format" VerticalAlignment="Center"/>
-        <v:FormatColumnView Grid.Row="6" Grid.Column="1"  Grid.ColumnSpan="6" Margin="5,2,0,0" DataContext="{Binding ValueFormat}"/>
-        
-        <CheckBox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,2,0,0" VerticalAlignment="Center"
-                  Content="Values in millions" IsChecked="{Binding InMillions}"/>
+        <v:ValueFormatView Grid.Row="6" Grid.Column="1"  Grid.ColumnSpan="6" Margin="5,2,0,0" DataContext="{Binding ValueFormat}"/>
     </Grid>
 </UserControl>

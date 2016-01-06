@@ -15,7 +15,6 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
     class FormatViewModelBase<TMarker> : BindableBase, IDescriptorViewModel where TMarker : IHtmlMarker
     {
         private Type mySelectedDatum;
-        private bool myInMillions;
 
         protected FormatViewModelBase( IFigureDescriptor descriptor, TMarker marker )
         {
@@ -97,18 +96,6 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         public void Unmark()
         {
             MarkupBehavior.Marker.Unmark();
-        }
-
-        public bool InMillions
-        {
-            get { return myInMillions; }
-            set
-            {
-                if( SetProperty( ref myInMillions, value ) )
-                {
-                    Format.InMillions = myInMillions;
-                }
-            }
         }
     }
 }

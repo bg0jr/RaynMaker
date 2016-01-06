@@ -32,7 +32,6 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             SkipValues = string.Join( ",", format.Excludes );
             TimeFormat = Format.TimeFormat ?? new FormatColumn( "time", typeof( int ) );
             ValueFormat = Format.ValueFormat ?? new FormatColumn( "value", typeof( double ) );
-            InMillions = Format.InMillions;
 
             ColumnHeaderRow = ( format.Orientation == SeriesOrientation.Row ? Format.TimesLocator.HeaderSeriesPosition : Format.ValuesLocator.HeaderSeriesPosition ).ToString();
             RowHeaderColumn = ( format.Orientation == SeriesOrientation.Row ? Format.ValuesLocator.HeaderSeriesPosition : Format.TimesLocator.HeaderSeriesPosition ).ToString();

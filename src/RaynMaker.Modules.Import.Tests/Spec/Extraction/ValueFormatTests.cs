@@ -115,7 +115,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         }
 
         [Test]
-        public void ConvertdoubleWithoutFormat()
+        public void ConvertDoubleWithoutFormat()
         {
             var format = new ValueFormat( typeof( double ) );
             object value = format.Convert( "2.5" );
@@ -137,19 +137,25 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var format = new ValueFormat( typeof( double ), "##0.00" ) { ExtractionPattern = new Regex( @"(\d+)$" ) };
+            var format = new ValueFormat( typeof( double ), "##0.00" )
+            {
+                ExtractionPattern = new Regex( @"(\d+)$" ),
+                InMillions = true
+            };
 
             var clone = FigureDescriptorFactory.Clone( format );
 
             Assert.That( clone.Type, Is.EqualTo( typeof( double ) ) );
             Assert.That( clone.Format, Is.EqualTo( "##0.00" ) );
             Assert.That( clone.ExtractionPattern.ToString(), Is.EqualTo( @"(\d+)$" ) );
+            Assert.That( clone.InMillions, Is.EqualTo( format.InMillions ) );
         }
 
         [Test]
         public void Validate_IsValid_DoesNotThrows()
         {
             var format = new ValueFormat( typeof( string ) );
+            format.InMillions = true;
 
             RecursiveValidator.Validate( format );
         }
@@ -161,6 +167,38 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 
             var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( format ) );
             Assert.That( ex.Message, Is.StringContaining( "Type field is required" ) );
+        }
+
+        [Test]
+        public void InMillions_Set_ValueIsSet()
+        {
+            var format = new ValueFormat();
+
+            format.InMillions = true;
+
+            Assert.That( format.InMillions, Is.True );
+        }
+
+        [Test]
+        public void InMillions_Set_ChangeIsNotified()
+        {
+            var format = new ValueFormat();
+            var counter = new PropertyChangedCounter( format );
+
+            format.InMillions = true;
+
+            Assert.That( counter.GetCount( () => format.InMillions ), Is.EqualTo( 1 ) );
+        }
+
+        [Test]
+        public void Convert_InMillions_ValueMultipliedByOneMillion()
+        {
+            var format = new ValueFormat( typeof( double ), "00.00" );
+            format.InMillions = true;
+
+            double value = ( double )format.Convert( "2.5" );
+
+            Assert.That( value, Is.EqualTo( 2.5 * 1000000 ) );
         }
     }
 }
