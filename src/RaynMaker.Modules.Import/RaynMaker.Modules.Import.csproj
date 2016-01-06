@@ -46,7 +46,6 @@
   <ItemGroup>
     <Compile Include="Converters\DataTableToSeriesConverter.cs" />
     <Compile Include="Converters\DataTableToSingleValueConverter.cs" />
-    <Compile Include="Converters\DataTableToTableConverter.cs" />
     <Compile Include="Design\HtmlElementCollectionMarker.cs" />
     <Compile Include="Design\HtmlElementMarker.cs" />
     <Compile Include="Design\HtmlTableMarker.cs" />

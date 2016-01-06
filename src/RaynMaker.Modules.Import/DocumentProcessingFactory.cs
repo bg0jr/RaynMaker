@@ -63,8 +63,8 @@ namespace RaynMaker.Modules.Import
             var source = dataSource.Vendor + "|" + dataSource.Name;
 
             if( descriptor is SeriesDescriptorBase ) return new DataTableToSeriesConverter( descriptor as SeriesDescriptorBase, entityType, source );
-            if( descriptor is TableDescriptorBase ) return new DataTableToTableConverter( descriptor as TableDescriptorBase, entityType, source );
             if( descriptor is SingleValueDescriptorBase ) return new DataTableToSingleValueConverter( descriptor as SingleValueDescriptorBase, entityType, source );
+            //if( descriptor is TableDescriptorBase ) return new DataTableToTableConverter( descriptor as TableDescriptorBase, entityType, source );
 
             throw new NotSupportedException( "Unknown descriptor type: " + descriptor.GetType().Name );
         }

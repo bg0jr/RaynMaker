@@ -131,10 +131,12 @@ namespace RaynMaker.Modules.Import.Parsers
                 DataRow dataRow2 = result.NewRow();
                 result.Rows.Add( dataRow2 );
 
+                // TODO: why do we have to change the type here? ist it the correct type already?
                 dataRow2[ 0 ] = Convert.ChangeType( value, descriptor.ValueFormat.Type );
 
                 if( time != null )
                 {
+                    // TODO: why do we have to change the type here? ist it the correct type already?
                     dataRow2[ 1 ] = Convert.ChangeType( time, descriptor.TimeFormat.Type );
                 }
             };

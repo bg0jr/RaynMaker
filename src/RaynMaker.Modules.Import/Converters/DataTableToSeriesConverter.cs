@@ -40,8 +40,16 @@ namespace RaynMaker.Modules.Import.Converters
                 IPeriod period;
                 if( myDescriptor.TimeFormat != null )
                 {
-                    var year = ( int )row[ myDescriptor.TimeFormat.Name ];
-                    period = new YearPeriod( year );
+                    if( myDescriptor.TimeFormat.Type == typeof( int ) )
+                    {
+                        var year = ( int )row[ myDescriptor.TimeFormat.Name ];
+                        period = new YearPeriod( year );
+                    }
+                    else
+                    {
+                        var date = ( DateTime )row[ myDescriptor.TimeFormat.Name ];
+                        period = new DayPeriod( date );
+                    }
                 }
                 else
                 {

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="f2b0d9a6-0bb2-4ebe-92d7-b5f3eaf9c9d0" Created="635876864812597681" LastModified="635876864944855246">
+  <Caption><![CDATA[DataTableConverter tests]]></Caption>
+  <Content><![CDATA[DataTableToSeriesConverter
+DataTableToSingleValueConverter]]></Content>
+</Node>

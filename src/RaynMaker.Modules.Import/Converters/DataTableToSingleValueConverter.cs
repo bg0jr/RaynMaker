@@ -4,23 +4,50 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Plainion;
 using RaynMaker.Entities;
+using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Modules.Import.Converters
 {
     class DataTableToSingleValueConverter : IDataTableToEntityConverter
     {
-        private Spec.v2.Extraction.SingleValueDescriptorBase singleValueDescriptorBase;
+        private SingleValueDescriptorBase myDescriptor;
+        private Type myEntityType;
+        private string mySource;
 
-        public DataTableToSingleValueConverter( Spec.v2.Extraction.SingleValueDescriptorBase singleValueDescriptorBase, Type entityType, string source )
+        public DataTableToSingleValueConverter( SingleValueDescriptorBase descriptor, Type entityType, string source )
         {
-            // TODO: Complete member initialization
-            this.singleValueDescriptorBase = singleValueDescriptorBase;
+            Contract.RequiresNotNull( descriptor, "descriptor" );
+            Contract.RequiresNotNull( entityType, "entityType" );
+            Contract.RequiresNotNullNotEmpty( source, "source" );
+
+            myDescriptor = descriptor;
+            myEntityType = entityType;
+            mySource = source;
         }
 
         public IEnumerable<IDatum> Convert( DataTable table, Stock stock )
         {
-            throw new NotImplementedException();
+            Contract.Requires( !( table.Rows.Count > 1 ), "Cannot convert table with more than one row" );
+            Contract.Requires( table.Columns.Count == 1, "Can only convert table with exactly one column" );
+
+            if( table.Rows.Count == 0 )
+            {
+                return Enumerable.Empty<IDatum>();
+            }
+
+            var value = ( double )table.Rows[ 0 ][ 0 ];
+
+            // TODO: is this a proper default?
+            var period = new DayPeriod( DateTime.Now );
+
+            var datum = Dynamics.CreateDatum( stock, myEntityType, period, null );
+            datum.Source = mySource;
+
+            datum.Value = myDescriptor.InMillions ? value * 1000000 : value;
+
+            return new[] { datum };
         }
     }
 }
