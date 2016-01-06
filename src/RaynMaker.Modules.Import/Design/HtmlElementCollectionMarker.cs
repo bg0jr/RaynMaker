@@ -6,6 +6,9 @@ using RaynMaker.Modules.Import.Documents;
 
 namespace RaynMaker.Modules.Import.Design
 {
+    /// <summary>
+    /// Hightlights a collection of HTML elements using <see cref="HtmlElementMarker"/>.
+    /// </summary>
     public class HtmlElementCollectionMarker : IHtmlMarker, IEnumerable<HtmlElementMarker>
     {
         private IList<HtmlElementMarker> myMarkers;

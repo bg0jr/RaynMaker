@@ -6,6 +6,12 @@ using RaynMaker.Modules.Import.Parsers.Html;
 
 namespace RaynMaker.Modules.Import.Design
 {
+    /// <summary>
+    /// Applies highlighting of HTML elements to an HtmlDocument. 
+    /// The hightligted HtmlElement can be defined by setting <see cref="SelectedElement"/>, <see cref="PathToSelectedElement"/> or
+    /// by clicking into the HtmlDocument.
+    /// This behavior implements a "single selection" behavior.
+    /// </summary>
     public class HtmlMarkupBehavior<T> : IDisposable where T : IHtmlMarker
     {
         // holds the element which has been marked by the user "click"

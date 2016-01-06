@@ -4,6 +4,10 @@ using RaynMaker.Modules.Import.Documents;
 
 namespace RaynMaker.Modules.Import.Design
 {
+    /// <summary>
+    /// Highlights HTML elements by applying certain background color.
+    /// Stacking of <see cref="HtmlElementMarker"/> instances is supported.
+    /// </summary>
     public class HtmlElementMarker : IHtmlMarker
     {
         public static string MarkupClass = "__rym_markup__";

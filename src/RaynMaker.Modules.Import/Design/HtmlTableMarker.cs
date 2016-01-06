@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using Plainion;
 using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Documents.WinForms;
@@ -10,6 +8,9 @@ using RaynMaker.Modules.Import.Parsers.Html;
 
 namespace RaynMaker.Modules.Import.Design
 {
+    /// <summary>
+    /// Highlights one fragment (e.g. one series) within a HTML table using <see cref="HtmlElementMarker"/>.
+    /// </summary>
     public class HtmlTableMarker : IHtmlMarker
     {
         public static readonly Color DefaultCellColor = Color.Yellow;
@@ -47,6 +48,9 @@ namespace RaynMaker.Modules.Import.Design
 
         public HtmlTable Table { get; private set; }
 
+        /// <summary>
+        /// Marks the given HTML table cell element and its siblings according to the expansion settings.
+        /// </summary>
         public void Mark( IHtmlElement element )
         {
             Contract.RequiresNotNull( element, "element" );
@@ -128,6 +132,9 @@ namespace RaynMaker.Modules.Import.Design
             }
         }
 
+        /// <summary>
+        /// Gets or sets the column which defines the header of the row of the highlighted/selected cell.
+        /// </summary>
         public int RowHeaderColumn
         {
             get { return myRowHeaderColumn; }
@@ -142,6 +149,9 @@ namespace RaynMaker.Modules.Import.Design
             }
         }
 
+        /// <summary>
+        /// Gets or sets the row which defines the header of the column of the highlighted/selected cell.
+        /// </summary>
         public int ColumnHeaderRow
         {
             get { return myColumnHeaderRow; }
@@ -232,8 +242,7 @@ namespace RaynMaker.Modules.Import.Design
 
             var header = myCellMarker.Elements
                   .Select( e => Table.GetCellAt( Table.GetRowIndex( e ), myRowHeaderColumn ) )
-                  .Distinct()
-                  .ToList();
+                  .Distinct();
 
             foreach( var e in header )
             {
@@ -251,8 +260,7 @@ namespace RaynMaker.Modules.Import.Design
 
             var header = myCellMarker.Elements
                   .Select( e => Table.GetCellAt( myColumnHeaderRow, Table.GetColumnIndex( e ) ) )
-                  .Distinct()
-                  .ToList();
+                  .Distinct();
 
             foreach( var e in header )
             {
