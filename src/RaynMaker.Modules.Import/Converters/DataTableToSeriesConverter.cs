@@ -35,8 +35,6 @@ namespace RaynMaker.Modules.Import.Converters
                     continue;
                 }
 
-                var value = ( double )row[ myDescriptor.ValueFormat.Name ];
-
                 IPeriod period;
                 if( myDescriptor.TimeFormat != null )
                 {
@@ -59,6 +57,7 @@ namespace RaynMaker.Modules.Import.Converters
 
                 var datum = Dynamics.CreateDatum( stock, myEntityType, period, null );
                 datum.Source = mySource;
+                datum.Value = ( double )row[ myDescriptor.ValueFormat.Name ];;
 
                 series.Add( datum );
             }

@@ -70,8 +70,12 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             Assert.AreEqual( 2005, table.Rows[ 4 ][ 1 ] );
             Assert.AreEqual( 2006, table.Rows[ 5 ][ 1 ] );
 
+            var stock = new Stock { Isin = "DE0007664039" };
+            stock.Company = new Company { Name = "Volkswagen" };
+            stock.Company.Stocks.Add( stock );
+
             var converter = DocumentProcessingFactory.CreateConverter( descriptor, dataSource );
-            var series = converter.Convert( table, new Stock { Isin = "DE0007664039" } ).Cast<Dividend>();
+            var series = converter.Convert( table, stock ).Cast<Dividend>().ToList();
 
             foreach( var dividend in series )
             {
@@ -79,13 +83,23 @@ namespace RaynMaker.Modules.Import.ScenarioTests
                 Assert.That( dividend.Period, Is.InstanceOf<YearPeriod>() );
                 Assert.That( dividend.Source, Is.StringContaining( "ariva" ).IgnoreCase.And.StringContaining( "fundamentals" ).IgnoreCase );
                 Assert.That( dividend.Timestamp.Date, Is.EqualTo( DateTime.Today ) );
-              
+
                 // will not be set by converter in order to keep dependencies to Entities small
                 Assert.That( dividend.Currency, Is.Null );
             }
 
-            //Assert.That( ( ( DayPeriod )price.Period ).Day.Date, Is.EqualTo( DateTime.Today ) );
-            //Assert.That( price.Value, Is.EqualTo( 134.356d ) );
+            Assert.That( series[ 0 ].Period, Is.EqualTo( new YearPeriod( 2001 ) ) );
+            Assert.That( series[ 0 ].Value, Is.EqualTo( 350000000d ) );
+            Assert.That( series[ 1 ].Period, Is.EqualTo( new YearPeriod( 2002 ) ) );
+            Assert.That( series[ 1 ].Value, Is.EqualTo( 351000000d ) );
+            Assert.That( series[ 2 ].Period, Is.EqualTo( new YearPeriod( 2003 ) ) );
+            Assert.That( series[ 2 ].Value, Is.EqualTo( 392000000d ) );
+            Assert.That( series[ 3 ].Period, Is.EqualTo( new YearPeriod( 2004 ) ) );
+            Assert.That( series[ 3 ].Value, Is.EqualTo( 419000000d ) );
+            Assert.That( series[ 4 ].Period, Is.EqualTo( new YearPeriod( 2005 ) ) );
+            Assert.That( series[ 4 ].Value, Is.EqualTo( 424000000d ) );
+            Assert.That( series[ 5 ].Period, Is.EqualTo( new YearPeriod( 2006 ) ) );
+            Assert.That( series[ 5 ].Value, Is.EqualTo( 458000000d ) );
 
         }
 

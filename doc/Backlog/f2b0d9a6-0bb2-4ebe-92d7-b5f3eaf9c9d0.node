@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="f2b0d9a6-0bb2-4ebe-92d7-b5f3eaf9c9d0" Created="635876864812597681" LastModified="635876883185898574">
-  <Caption><![CDATA[DataTableConverter tests]]></Caption>
-  <Content><![CDATA[InMillions has to be handled by table conversion in parser when we go
-for correct type
-
-describe in document (whiteboard) that parser already generates table
-with correct types and formats]]></Content>
-</Node>

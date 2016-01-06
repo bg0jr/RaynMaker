@@ -9,8 +9,8 @@
       <Caption><![CDATA[1.7 - Polish Import module]]></Caption>
       <Node Id="3d95bd5e-1cd7-4e94-b339-0abf5ead4323">
         <Caption><![CDATA[Merge back to MAIN - pre-conds]]></Caption>
-        <Node Id="f2b0d9a6-0bb2-4ebe-92d7-b5f3eaf9c9d0">
-          <Caption><![CDATA[DataTableConverter tests]]></Caption>
+        <Node Id="7bcc8111-d9c2-40c9-afda-5021676f4e03">
+          <Caption><![CDATA[DataSource migration]]></Caption>
         </Node>
         <Node Id="b61a3fca-556c-4ef9-90e2-642e8a780e00">
           <Caption><![CDATA[StringContainsLocatorViewModel]]></Caption>
@@ -26,9 +26,6 @@
         </Node>
         <Node Id="5eeaecc0-4a19-4d34-91cc-c606e16f7ea5">
           <Caption><![CDATA[Tests for ImportPreviewModel]]></Caption>
-        </Node>
-        <Node Id="7bcc8111-d9c2-40c9-afda-5021676f4e03">
-          <Caption><![CDATA[DataSource migration]]></Caption>
         </Node>
       </Node>
       <Node Id="d0da3880-c6d3-477b-bee2-8553b930be55">

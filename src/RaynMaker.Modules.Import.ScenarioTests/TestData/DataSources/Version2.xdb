@@ -6,7 +6,6 @@
       <a:Figures xmlns:b="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
         <b:anyType i:type="a:PathSeriesDescriptor">
           <a:Figure>Dividend</a:Figure>
-          <a:InMillions>false</a:InMillions>
           <a:Excludes>
             <b:int>6</b:int>
           </a:Excludes>
@@ -24,6 +23,7 @@
           <a:ValueFormat>
             <a:ExtractionPattern i:nil="true"/>
             <a:Format>000.000,0000</a:Format>
+            <a:InMillions>false</a:InMillions>
             <a:Type>System.Double, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</a:Type>
             <a:Name>value</a:Name>
           </a:ValueFormat>
@@ -56,7 +56,6 @@
       <a:Figures xmlns:b="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
         <b:anyType i:type="a:PathCellDescriptor">
           <a:Figure>Price</a:Figure>
-          <a:InMillions>false</a:InMillions>
           <a:Column i:type="a:StringContainsLocator">
             <a:HeaderSeriesPosition>0</a:HeaderSeriesPosition>
             <a:Pattern>Letzter</a:Pattern>
@@ -70,6 +69,7 @@
           <a:ValueFormat i:type="a:FormatColumn">
             <a:ExtractionPattern>([0-9,\.]+)</a:ExtractionPattern>
             <a:Format>000.000,0000</a:Format>
+            <a:InMillions>false</a:InMillions>
             <a:Type>System.Double, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</a:Type>
             <a:Name>value</a:Name>
           </a:ValueFormat>

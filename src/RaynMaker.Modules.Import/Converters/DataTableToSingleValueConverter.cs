@@ -37,13 +37,12 @@ namespace RaynMaker.Modules.Import.Converters
                 return Enumerable.Empty<IDatum>();
             }
 
-            var value = ( double )table.Rows[ 0 ][ 0 ];
-
             // TODO: is this a proper default?
             var period = new DayPeriod( DateTime.Now );
 
             var datum = Dynamics.CreateDatum( stock, myEntityType, period, null );
             datum.Source = mySource;
+            datum.Value= ( double )table.Rows[ 0 ][ 0 ];;
 
             return new[] { datum };
         }

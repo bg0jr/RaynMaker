@@ -575,10 +575,10 @@
 &lt;/ItemContent&gt;</Content>
     </DesignerItem>
     <DesignerItem>
-      <Left>904</Left>
-      <Top>820.5</Top>
-      <Width>118.99999999999999</Width>
-      <Height>51</Height>
+      <Left>887</Left>
+      <Top>832.5</Top>
+      <Width>266</Width>
+      <Height>50.999999999999986</Height>
       <ID>619669a9-f8f7-4495-be14-d323998792ea</ID>
       <zIndex>43</zIndex>
       <IsGroup>false</IsGroup>
@@ -593,7 +593,7 @@
   &lt;av:Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch"&gt;
     &lt;av:Rectangle Fill="#FFF8F8FF" Stroke="#FF000000" StrokeThickness="1" StrokeDashArray="4 2" Name="Body" IsHitTestVisible="False" /&gt;
     &lt;av:Grid Margin="2,2,2,2"&gt;
-      &lt;av:TextBlock Text="One specific figure in a generic format" TextWrapping="Wrap" Name="Text" Margin="3,3,3,3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsHitTestVisible="False" /&gt;
+      &lt;av:TextBlock Text="One specific figure in a generic table format.&amp;#xD;&amp;#xA;All values already converted into correct type." TextWrapping="Wrap" Name="Text" Margin="3,3,3,3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsHitTestVisible="False" /&gt;
     &lt;/av:Grid&gt;
   &lt;/av:Grid&gt;
 &lt;/ItemContent&gt;</Content>
