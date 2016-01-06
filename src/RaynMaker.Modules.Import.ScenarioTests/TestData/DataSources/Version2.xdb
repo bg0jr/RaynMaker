@@ -1,0 +1,96 @@
+<DataSources xmlns="https://github.com/bg0jr/RaynMaker/Import/Spec" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+  <Sources i:nil="true"/>
+  <SourcesV2 xmlns:a="https://github.com/bg0jr/RaynMaker/Import/Spec/v2">
+    <a:DataSource>
+      <a:DocumentType>Html</a:DocumentType>
+      <a:Figures xmlns:b="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+        <b:anyType i:type="a:PathSeriesDescriptor">
+          <a:Figure>Dividend</a:Figure>
+          <a:InMillions>false</a:InMillions>
+          <a:Excludes>
+            <b:int>6</b:int>
+          </a:Excludes>
+          <a:Orientation>Row</a:Orientation>
+          <a:TimeFormat>
+            <a:ExtractionPattern i:nil="true"/>
+            <a:Format>0000</a:Format>
+            <a:Type>System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</a:Type>
+            <a:Name>time</a:Name>
+          </a:TimeFormat>
+          <a:TimesLocator i:type="a:AbsolutePositionLocator">
+            <a:HeaderSeriesPosition>0</a:HeaderSeriesPosition>
+            <a:SeriesPosition>0</a:SeriesPosition>
+          </a:TimesLocator>
+          <a:ValueFormat>
+            <a:ExtractionPattern i:nil="true"/>
+            <a:Format>000.000,0000</a:Format>
+            <a:Type>System.Double, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</a:Type>
+            <a:Name>value</a:Name>
+          </a:ValueFormat>
+          <a:ValuesLocator i:type="a:StringContainsLocator">
+            <a:HeaderSeriesPosition>0</a:HeaderSeriesPosition>
+            <a:Pattern>Dividendenaussch</a:Pattern>
+          </a:ValuesLocator>
+          <a:Path>/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/TABLE[3]/TBODY[0]/TR[9]/TD[1]</a:Path>
+        </b:anyType>
+      </a:Figures>
+      <a:Location>
+        <a:Fragments>
+          <a:DocumentLocationFragment i:type="a:Request">
+            <a:Url>http://www.ariva.de/search/search.m?searchname=${Isin}</a:Url>
+          </a:DocumentLocationFragment>
+          <a:DocumentLocationFragment i:type="a:Response">
+            <a:Url>http://www.ariva.de/{(.*)}?</a:Url>
+          </a:DocumentLocationFragment>
+          <a:DocumentLocationFragment i:type="a:Request">
+            <a:Url>http://www.ariva.de/{0}/bilanz-guv</a:Url>
+          </a:DocumentLocationFragment>
+        </a:Fragments>
+      </a:Location>
+      <a:Name>Fundamentals</a:Name>
+      <a:Quality>1</a:Quality>
+      <a:Vendor>Ariva</a:Vendor>
+    </a:DataSource>
+    <a:DataSource>
+      <a:DocumentType>Html</a:DocumentType>
+      <a:Figures xmlns:b="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+        <b:anyType i:type="a:PathCellDescriptor">
+          <a:Figure>Price</a:Figure>
+          <a:InMillions>false</a:InMillions>
+          <a:Column i:type="a:StringContainsLocator">
+            <a:HeaderSeriesPosition>0</a:HeaderSeriesPosition>
+            <a:Pattern>Letzter</a:Pattern>
+          </a:Column>
+          <a:Currency>EUR</a:Currency>
+          <a:Path>/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]</a:Path>
+          <a:Row i:type="a:StringContainsLocator">
+            <a:HeaderSeriesPosition>0</a:HeaderSeriesPosition>
+            <a:Pattern>Frankfurt</a:Pattern>
+          </a:Row>
+          <a:ValueFormat i:type="a:FormatColumn">
+            <a:ExtractionPattern>([0-9,\.]+)</a:ExtractionPattern>
+            <a:Format>000.000,0000</a:Format>
+            <a:Type>System.Double, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</a:Type>
+            <a:Name>value</a:Name>
+          </a:ValueFormat>
+        </b:anyType>
+      </a:Figures>
+      <a:Location>
+        <a:Fragments>
+          <a:DocumentLocationFragment i:type="a:Request">
+            <a:Url>http://www.ariva.de/search/search.m?searchname=${Isin}</a:Url>
+          </a:DocumentLocationFragment>
+          <a:DocumentLocationFragment i:type="a:Response">
+            <a:Url>http://www.ariva.de/{(.*)}?</a:Url>
+          </a:DocumentLocationFragment>
+          <a:DocumentLocationFragment i:type="a:Request">
+            <a:Url>http://www.ariva.de/{0}/kurs</a:Url>
+          </a:DocumentLocationFragment>
+        </a:Fragments>
+      </a:Location>
+      <a:Name>Prices</a:Name>
+      <a:Quality>0</a:Quality>
+      <a:Vendor>Ariva</a:Vendor>
+    </a:DataSource>
+  </SourcesV2>
+</DataSources>

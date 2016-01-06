@@ -21,7 +21,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000" );
             descriptor.TimeFormat = new FormatColumn( "year", typeof( int ), "000" );
 
-            var doc = LoadDocument<TextDocument>( "DE0005151005.csv" );
+            var doc = LoadDocument<TextDocument>( "Csv", "DE0005151005.csv" );
             var parser = DocumentProcessorsFactory.CreateParser( doc, descriptor );
             var table = parser.ExtractTable();
 
@@ -64,7 +64,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             descriptor.Columns.Add( new FormatColumn( "Open", typeof( double ), "000,000.00" ) );
             descriptor.Columns.Add( new FormatColumn( "Close", typeof( double ), "000,000.00" ) );
 
-            var doc = LoadDocument<TextDocument>( "Prices.csv" );
+            var doc = LoadDocument<TextDocument>( "Csv", "Prices.csv" );
             var parser = DocumentProcessorsFactory.CreateParser( doc, descriptor );
             var table = parser.ExtractTable();
 

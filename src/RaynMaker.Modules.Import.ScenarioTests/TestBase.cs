@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
-using RaynMaker.Modules.Import.Documents;
-using RaynMaker.Modules.Import.Parsers.Html;
-using RaynMaker.Modules.Import.Spec.v2;
-using RaynMaker.Modules.Import.Spec.v2.Locating;
+using System.Linq;
 
 namespace RaynMaker.Modules.Import.ScenarioTests
 {
@@ -15,16 +11,16 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         public TestBase()
         {
             var assemblyPath = new Uri( Path.GetDirectoryName( GetType().Assembly.Location ) ).LocalPath;
-            TestDataRoot = Path.Combine( assemblyPath, "TestData", GetType().Name );
+            TestDataRoot = Path.Combine( assemblyPath, "TestData" );
 
             myBrowser = new Lazy<IDocumentBrowser>( () => DocumentProcessorsFactory.CreateBrowser() );
         }
 
         protected string TestDataRoot { get; private set; }
 
-        protected T LoadDocument<T>( string name ) where T : IDocument
+        protected T LoadDocument<T>( params string[] paths ) where T : IDocument
         {
-            var file = Path.Combine( TestDataRoot, name );
+            var file = Path.Combine( new[] { TestDataRoot }.Concat( paths ).ToArray() );
 
             return myBrowser.Value.LoadDocument<T>( file );
         }

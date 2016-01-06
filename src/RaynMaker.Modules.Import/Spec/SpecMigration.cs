@@ -15,9 +15,11 @@ namespace RaynMaker.Modules.Import.Spec
                 .Select( ds => ds.GetType() == typeof( v1.DataSource ) ? Migrate( ( v1.DataSource )ds ) : ( v2.DataSource )ds )
                 .ToList();
 
-            sheet.SetSources( dataSources );
+            // return a new sheet - we dont want to have the "old" datasources still in the sheet
+            var result = new DataSourcesSheet();
+            result.SetSources( dataSources );
 
-            return sheet;
+            return result;
         }
 
         private static v2.DataSource Migrate( v1.DataSource source )

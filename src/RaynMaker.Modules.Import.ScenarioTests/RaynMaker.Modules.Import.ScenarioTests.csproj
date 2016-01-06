@@ -47,38 +47,36 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestData\ReadingFromHtmlDocumentScenarios\ariva.fundamentals.html">
+    <Content Include="TestData\Html\ariva.fundamentals.DE0005190003.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\ReadingFromHtmlDocumentScenarios\ariva.historical.prices.DE0007664039.html">
+    <Content Include="TestData\Html\ariva.historical.prices.DE0007664039.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\ReadingFromHtmlDocumentScenarios\ariva.prices.DE0007664039.html">
+    <Content Include="TestData\Html\ariva.prices.DE0007664039.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\SubmittingFormScenarios\ariva.historicalprices.DE0008404005.html">
+    <Content Include="TestData\Html\ariva.historicalprices.DE0008404005.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\NavigatingHtmlDocumentScenarios\ariva.html">
+    <Content Include="TestData\DataSources\Version1.xdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TestData\LoadingDataSourcesScenarios\DataSources.xdb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestData\ReadingFromCsvDocumentScenarios\DE0005151005.csv">
+    <Content Include="TestData\Csv\DE0005151005.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestData\ReadingFromHtmlDocumentScenarios\ariva.overview.US0138171014.html">
+    <Content Include="TestData\Html\ariva.overview.US0138171014.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="TestData\ReadingFromCsvDocumentScenarios\Prices.csv">
+    <Content Include="TestData\Csv\Prices.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="TestData\DataSources\Version2.xdb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

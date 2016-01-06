@@ -16,7 +16,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         [TestFixtureSetUp]
         public void FixtureSetUp()
         {
-            myDocument = LoadDocument<IHtmlDocument>( "ariva.historicalprices.DE0008404005.html" );
+            myDocument = LoadDocument<IHtmlDocument>( "Html", "ariva.historicalprices.DE0008404005.html" );
         }
 
         [Test]

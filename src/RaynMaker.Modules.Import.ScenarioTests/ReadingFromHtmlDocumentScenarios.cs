@@ -13,7 +13,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         [Test]
         public void GetSingleValue()
         {
-            var doc = LoadDocument<IHtmlDocument>( "ariva.overview.US0138171014.html" );
+            var doc = LoadDocument<IHtmlDocument>("Html", "ariva.overview.US0138171014.html" );
 
             var descriptor = new PathSingleValueDescriptor();
             descriptor.Path = @"/BODY[0]/DIV[4]/DIV[0]/DIV[3]/DIV[0]";
@@ -30,7 +30,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         [Test]
         public void GetSeries()
         {
-            var doc = LoadDocument<IHtmlDocument>( "ariva.fundamentals.html" );
+            var doc = LoadDocument<IHtmlDocument>( "Html", "ariva.fundamentals.DE0005190003.html" );
 
             var descriptor = new PathSeriesDescriptor();
             descriptor.Figure = "EPS";
@@ -65,7 +65,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         [Test]
         public void GetCell()
         {
-            var doc = LoadDocument<IHtmlDocument>( "ariva.prices.DE0007664039.html" );
+            var doc = LoadDocument<IHtmlDocument>( "Html", "ariva.prices.DE0007664039.html" );
 
             var descriptor = new PathCellDescriptor();
             descriptor.Figure = "CurrentPrice";
@@ -87,7 +87,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         [Test]
         public void GetTable()
         {
-            var doc = LoadDocument<IHtmlDocument>( "ariva.historical.prices.DE0007664039.html" );
+            var doc = LoadDocument<IHtmlDocument>( "Html", "ariva.historical.prices.DE0007664039.html" );
 
             var descriptor = new PathTableDescriptor();
             descriptor.Figure = "HistoricalPrices";
