@@ -6,7 +6,7 @@
              xmlns:spec="clr-namespace:RaynMaker.Modules.Import.Spec;assembly=RaynMaker.Modules.Import"
              xmlns:v="clr-namespace:RaynMaker.Modules.Import.Web.Views"
              mc:Ignorable="d" 
-             d:DesignWidth="600">
+             d:DesignWidth="700">
     <Grid MinHeight="160">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -84,6 +84,6 @@
         <v:ValueFormatView Grid.Row="5" Grid.Column="1"  Grid.ColumnSpan="6" Margin="5,2,0,0" DataContext="{Binding ValueFormat}"/>
 
         <TextBlock Grid.Row="6" Grid.Column="0" Text="Currency" VerticalAlignment="Center"/>
-        <ComboBox Grid.Row="6" Grid.Column="1"  ItemsSource="{Binding Currencies}" SelectedItem="{Binding SelectedCurrency}"/>
+        <ComboBox Grid.Row="6" Grid.Column="1" Margin="0,2,0,0" ItemsSource="{Binding Currencies}" SelectedItem="{Binding SelectedCurrency}"/>
     </Grid>
 </UserControl>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="93bc7b72-793a-43da-8b25-bd0018ae7325" Created="635876878370263136" LastModified="635876878567954443">
+<Node Id="93bc7b72-793a-43da-8b25-bd0018ae7325" Created="635876878370263136" LastModified="635877135309554050">
   <Caption><![CDATA[DataTableToEntityConverters - currency]]></Caption>
   <Content><![CDATA[find a good way to take over currency as well]]></Content>
 </Node>

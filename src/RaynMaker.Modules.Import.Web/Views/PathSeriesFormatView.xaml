@@ -6,7 +6,7 @@
              xmlns:spec="https://github.com/bg0jr/RaynMaker/Import/Spec"
              xmlns:v="clr-namespace:RaynMaker.Modules.Import.Web.Views"
              mc:Ignorable="d" 
-             d:DesignWidth="600">
+             d:DesignWidth="700">
     <Grid MinHeight="160">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>

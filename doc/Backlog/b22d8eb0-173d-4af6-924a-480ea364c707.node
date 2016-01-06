@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="b22d8eb0-173d-4af6-924a-480ea364c707" Created="635871671511654253" LastModified="635871671865434488">
+<Node Id="b22d8eb0-173d-4af6-924a-480ea364c707" Created="635871671511654253" LastModified="635877135371407588">
   <Caption><![CDATA[Think about a "TimeFormat"]]></Caption>
   <Content><![CDATA[ValueFormat is actually not sufficient.
 

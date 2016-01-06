@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="b61a3fca-556c-4ef9-90e2-642e8a780e00" Created="635876607861755056" LastModified="635876608314260938">
-  <Caption><![CDATA[StringContainsLocatorViewModel]]></Caption>
-  <Content><![CDATA[- then we dont need guards any longer in descriptor view models
-- add own view
-]]></Content>
-</Node>
