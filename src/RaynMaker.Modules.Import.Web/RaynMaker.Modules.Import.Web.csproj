@@ -111,6 +111,7 @@
     <Compile Include="ViewModels\PathSeriesFormatViewModel.cs" />
     <Compile Include="ViewModels\BasicDatumProvider.cs" />
     <Compile Include="ViewModels\SpecDefinitionViewModelBase.cs" />
+    <Compile Include="ViewModels\StockMacroResolver.cs" />
     <Compile Include="ViewModels\WebSpyViewModel.cs" />
     <Compile Include="Views\AddressBarView.xaml.cs">
       <DependentUpon>AddressBarView.xaml</DependentUpon>

@@ -11,20 +11,23 @@ namespace RaynMaker.Modules.Import.Documents
 {
     class Navigator : INavigator
     {
-        public Uri Navigate( DocumentLocator navigation )
+        public Uri Navigate( DocumentLocator locator, ILocatorMacroResolver macroResolver )
         {
-            var uri = TryNavigateWithWildcards( navigation );
-            if ( uri != null )
+            Contract.RequiresNotNull( locator, "locator" );
+            Contract.RequiresNotNull( macroResolver, "macroResolver" );
+
+            var uri = TryNavigateWithWildcards( locator );
+            if( uri != null )
             {
                 return uri;
             }
 
-            return NavigateToFinalSite( navigation.Fragments );
+            return NavigateToFinalSite( locator.Fragments, macroResolver );
         }
 
         private Uri TryNavigateWithWildcards( DocumentLocator navi )
         {
-            if ( navi.Fragments.Count != 1 )
+            if( navi.Fragments.Count != 1 )
             {
                 // we can only handle single urls
                 return null;
@@ -32,7 +35,7 @@ namespace RaynMaker.Modules.Import.Documents
 
             var url = navi.Fragments[ 0 ];
             Uri uri = new Uri( url.UrlString );
-            if ( !uri.IsFile && !uri.IsUnc )
+            if( !uri.IsFile && !uri.IsUnc )
             {
                 // we cannot handle e.g. http now
                 return null;
@@ -40,7 +43,7 @@ namespace RaynMaker.Modules.Import.Documents
 
             // currently we only handle "/xyz/*/file.txt"
             int pos = url.UrlString.IndexOf( "/*/" );
-            if ( pos <= 0 )
+            if( pos <= 0 )
             {
                 // no pattern found
                 return null;
@@ -52,10 +55,10 @@ namespace RaynMaker.Modules.Import.Documents
 
             // now try everything with "or" 
             // first path which returns s.th. wins
-            foreach ( string dir in dirs )
+            foreach( string dir in dirs )
             {
                 string tmpUri = Path.Combine( dir, file );
-                if ( !File.Exists( tmpUri ) )
+                if( !File.Exists( tmpUri ) )
                 {
                     continue;
                 }
@@ -75,28 +78,30 @@ namespace RaynMaker.Modules.Import.Documents
         /// resulting parameter is set to the next request URL using 
         /// string.Format() at placeholder {0}.
         /// </summary>
-        private Uri NavigateToFinalSite( IEnumerable<DocumentLocationFragment> navigationSteps )
+        private Uri NavigateToFinalSite( IEnumerable<DocumentLocationFragment> fragments, ILocatorMacroResolver macroResolver )
         {
             string param = null;
 
-            var lastFragment = navigationSteps.Last();
+            var lastFragment = fragments.Last();
             if( lastFragment is Request )
             {
                 // last step is a response - take the one before
-                lastFragment = navigationSteps.ElementAt( navigationSteps.Count() - 2 );
+                lastFragment = fragments.ElementAt( fragments.Count() - 2 );
             }
 
             Uri currentUrl = null;
-            foreach ( var fragment in navigationSteps )
+            foreach( var origFragment in fragments )
             {
-                if ( fragment is Request )
+                var fragment = macroResolver.Resolve( origFragment );
+
+                if( fragment is Request )
                 {
                     string url = fragment.UrlString;
-                    if ( param != null )
+                    if( param != null )
                     {
                         url = string.Format( url, param );
                     }
-                    else if ( HasPlaceHolder( url ) )
+                    else if( HasPlaceHolder( url ) )
                     {
                         var ex = new ApplicationException( "Counldn't find a parameter for placeholder" );
                         ex.Data[ "Url" ] = url;
@@ -106,7 +111,7 @@ namespace RaynMaker.Modules.Import.Documents
 
                     currentUrl = new Uri( url );
 
-                    if ( fragment == lastFragment )
+                    if( fragment == lastFragment )
                     {
                         // we can stop here - we created the url for the last step
                         // furster navigation not necessary
@@ -115,14 +120,14 @@ namespace RaynMaker.Modules.Import.Documents
 
                     currentUrl = SendRequest( currentUrl );
                 }
-                else if ( fragment is Response)
+                else if( fragment is Response )
                 {
                     // get param from response url if any
                     param = PatternMatching.MatchEmbeddedRegex( fragment.UrlString, currentUrl.ToString() );
                 }
-                else if ( fragment is SubmitFormular )
+                else if( fragment is SubmitFormular )
                 {
-                    currentUrl = SubmitFormular( currentUrl, ((SubmitFormular)fragment).Formular );
+                    currentUrl = SubmitFormular( currentUrl, ( ( SubmitFormular )fragment ).Formular );
                 }
                 else
                 {
@@ -138,7 +143,7 @@ namespace RaynMaker.Modules.Import.Documents
             int begin = url.IndexOf( '{' );
             int end = url.IndexOf( '}' );
 
-            if ( begin < 0 || end < 0 )
+            if( begin < 0 || end < 0 )
             {
                 return false;
             }
@@ -163,7 +168,7 @@ namespace RaynMaker.Modules.Import.Documents
             }
             finally
             {
-                if ( response != null )
+                if( response != null )
                 {
                     response.Close();
                 }
@@ -178,7 +183,7 @@ namespace RaynMaker.Modules.Import.Documents
         /// </summary>
         private Uri SubmitFormular( Uri url, Formular formular )
         {
-            throw new NotImplementedException("SubmitFormular not implemented");
+            throw new NotImplementedException( "SubmitFormular not implemented" );
             //using ( var loader = new WinFormHtmlDocumentLoader() )
             //{
             //    var document = loader.LoadHtmlDocument( url );

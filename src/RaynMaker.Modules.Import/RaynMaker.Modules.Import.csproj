@@ -39,6 +39,8 @@
     <Compile Include="Design\IHtmlMarker.cs" />
     <Compile Include="DocumentBrowserExtensions.cs" />
     <Compile Include="Documents\ICache.cs" />
+    <Compile Include="Documents\ILocatorMacroResolver.cs" />
+    <Compile Include="Documents\NullLocatorMacroResolver.cs" />
     <Compile Include="FigureDescriptorFactory.cs" />
     <Compile Include="ImportSpecSerializer.cs" />
     <Compile Include="Parsers\TableFormatter.cs" />

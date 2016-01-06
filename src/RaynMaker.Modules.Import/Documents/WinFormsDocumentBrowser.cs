@@ -50,20 +50,9 @@ namespace RaynMaker.Modules.Import.Documents
 
         public IDocument Document { get; private set; }
 
-        public void Navigate( DocumentType docType, Uri url )
+        public void Navigate( DocumentType docType, DocumentLocator locator, ILocatorMacroResolver macroResolver )
         {
-            Contract.Requires( docType != DocumentType.None, "DocumentType must not be None" );
-            Contract.RequiresNotNull( url, "url" );
-
-            var loader = DocumentLoaderFactory.CreateLoader( docType, Browser );
-            Document = loader.Load( url );
-        }
-
-        public void Navigate( DocumentType docType, DocumentLocator navi )
-        {
-            Contract.RequiresNotNull( navi, "navi" );
-
-            var url = myNavigator.Navigate( navi );
+            var url = myNavigator.Navigate( locator, macroResolver );
             if( url == null )
             {
                 return;

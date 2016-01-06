@@ -14,7 +14,12 @@ namespace RaynMaker.Modules.Import
         {
             self.Navigate( docType, new DocumentLocator( new Request( url ) ) );
         }
-        
+
+        public static void Navigate( this IDocumentBrowser self, DocumentType docType, DocumentLocator locator )
+        {
+            self.Navigate( docType, locator, new NullLocatorMacroResolver() );
+        }
+
         public static T LoadDocument<T>( this IDocumentBrowser self, string url ) where T : IDocument
         {
             var docType = GetDocumentType( typeof( T ) );

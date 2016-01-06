@@ -44,9 +44,9 @@ namespace RaynMaker.Modules.Import.Documents
 
         public IDocument Document { get; private set; }
 
-        public void Navigate( DocumentType docType, DocumentLocator locator )
+        public void Navigate( DocumentType docType, DocumentLocator locator, ILocatorMacroResolver macroResolver )
         {
-            var uri = myNavigator.Navigate( locator );
+            var uri = myNavigator.Navigate( locator, macroResolver );
 
             myLogger.Info( "Url from navigator: {0}", uri );
 
