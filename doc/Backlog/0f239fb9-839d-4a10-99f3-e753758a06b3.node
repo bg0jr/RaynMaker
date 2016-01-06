@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="0f239fb9-839d-4a10-99f3-e753758a06b3" Created="635876609742322618" LastModified="635876609995397093">
+  <Caption><![CDATA[Add macro resolution to Navigator]]></Caption>
+  <Content><![CDATA[Bring macro resolution to Navigator and test it there.
+(either IMacroResolver or just a Func<>)]]></Content>
+</Node>

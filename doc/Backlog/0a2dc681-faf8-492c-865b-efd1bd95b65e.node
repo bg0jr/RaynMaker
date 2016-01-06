@@ -1,12 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="0a2dc681-faf8-492c-865b-efd1bd95b65e" Created="635871706915049211" LastModified="635872516725209610">
+<Node Id="0a2dc681-faf8-492c-865b-efd1bd95b65e" Created="635871706915049211" LastModified="635876607276921606">
   <Caption><![CDATA[Testing strategy]]></Caption>
   <Content><![CDATA[
 A module is identified by ".Modules." in the assembly and project name. 
 A module may consist of several product and test assemblies.
 A module must NOT depend on any other module
 
-- we have "ScenarioTests" per module.
-- we have "UnitTests" per assembly. 
+- we have "ScenarioTests" per module
+  - may use "TestData"
+  - coarse grained tests
+
+- we have "UnitTests" per assembly
+  - NO "TestData"
+  - small and detailed
+
 - we may have one "AcceptanceTests" assembly for the entire product]]></Content>
 </Node>
