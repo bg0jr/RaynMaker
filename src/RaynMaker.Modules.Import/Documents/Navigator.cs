@@ -83,7 +83,7 @@ namespace RaynMaker.Modules.Import.Documents
             string param = null;
 
             var lastFragment = fragments.Last();
-            if( lastFragment is Request )
+            if( lastFragment is Response )
             {
                 // last step is a response - take the one before
                 lastFragment = fragments.ElementAt( fragments.Count() - 2 );
