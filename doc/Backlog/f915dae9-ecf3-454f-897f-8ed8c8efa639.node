@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="f915dae9-ecf3-454f-897f-8ed8c8efa639" Created="635871447284155734" LastModified="635871447443644856">
+<Node Id="f915dae9-ecf3-454f-897f-8ed8c8efa639" Created="635871447284155734" LastModified="635876557455061958">
   <Caption><![CDATA[Tests for PathCellFormatViewModel]]></Caption>
   <Content><![CDATA[with all possible combinations of changes]]></Content>
 </Node>

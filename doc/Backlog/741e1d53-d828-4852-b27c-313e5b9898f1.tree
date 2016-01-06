@@ -7,11 +7,14 @@
     </Node>
     <Node Id="b6cbd93c-bdbd-49b4-bbb8-33de0a595e04">
       <Caption><![CDATA[1.7 - Polish Import module]]></Caption>
-      <Node Id="11e80f8f-dc31-44a2-9c9c-c790ede307bd">
-        <Caption><![CDATA[Tests for PathSeriesFormatViewModel]]></Caption>
-      </Node>
-      <Node Id="f915dae9-ecf3-454f-897f-8ed8c8efa639">
-        <Caption><![CDATA[Tests for PathCellFormatViewModel]]></Caption>
+      <Node Id="3d95bd5e-1cd7-4e94-b339-0abf5ead4323">
+        <Caption><![CDATA[Merge back to MAIN - pre-conds]]></Caption>
+        <Node Id="11e80f8f-dc31-44a2-9c9c-c790ede307bd">
+          <Caption><![CDATA[Tests for PathSeriesFormatViewModel]]></Caption>
+        </Node>
+        <Node Id="f915dae9-ecf3-454f-897f-8ed8c8efa639">
+          <Caption><![CDATA[Tests for PathCellFormatViewModel]]></Caption>
+        </Node>
       </Node>
       <Node Id="d0da3880-c6d3-477b-bee2-8553b930be55">
         <Caption><![CDATA[Rework WebSpy]]></Caption>
