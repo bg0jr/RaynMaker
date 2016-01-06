@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="7bcc8111-d9c2-40c9-afda-5021676f4e03" Created="635877082395397533" LastModified="635877082690044386">
-  <Caption><![CDATA[DataSource migration]]></Caption>
-  <Content><![CDATA[indicate whether migration happened so that we can autosave in
-storageservice]]></Content>
-</Node>

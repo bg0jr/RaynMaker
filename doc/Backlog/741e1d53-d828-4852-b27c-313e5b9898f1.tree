@@ -9,9 +9,6 @@
       <Caption><![CDATA[1.7 - Polish Import module]]></Caption>
       <Node Id="3d95bd5e-1cd7-4e94-b339-0abf5ead4323">
         <Caption><![CDATA[Merge back to MAIN - pre-conds]]></Caption>
-        <Node Id="7bcc8111-d9c2-40c9-afda-5021676f4e03">
-          <Caption><![CDATA[DataSource migration]]></Caption>
-        </Node>
         <Node Id="b61a3fca-556c-4ef9-90e2-642e8a780e00">
           <Caption><![CDATA[StringContainsLocatorViewModel]]></Caption>
         </Node>

@@ -29,6 +29,12 @@ namespace RaynMaker.Modules.Import.Web.Services
                 {
                     var serializer = new ImportSpecSerializer();
                     var sheet = serializer.ReadCompatible( stream );
+
+                    if( sheet.WasMigratedToNewerVersion )
+                    {
+                        Store( sheet.GetSources<DataSource>() );
+                    }
+
                     return sheet.GetSources<DataSource>();
                 }
             }

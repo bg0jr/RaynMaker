@@ -29,6 +29,14 @@ namespace RaynMaker.Modules.Import.Spec
         public void SetSources( IEnumerable<DataSource> sources )
         {
             SourcesV2 = sources;
+
+            if( SourcesV1 != null )
+            {
+                WasMigratedToNewerVersion = true;
+                SourcesV1 = null;
+            }
         }
+
+        public bool WasMigratedToNewerVersion { get; private set; }
     }
 }

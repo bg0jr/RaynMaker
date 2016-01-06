@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RaynMaker.Modules.Import.Spec;
 
 namespace RaynMaker.Modules.Import.Spec
 {
@@ -15,11 +11,10 @@ namespace RaynMaker.Modules.Import.Spec
                 .Select( ds => ds.GetType() == typeof( v1.DataSource ) ? Migrate( ( v1.DataSource )ds ) : ( v2.DataSource )ds )
                 .ToList();
 
-            // return a new sheet - we dont want to have the "old" datasources still in the sheet
-            var result = new DataSourcesSheet();
-            result.SetSources( dataSources );
+            // keep same instance. DataSourceSheet detects migration
+            sheet.SetSources( dataSources );
 
-            return result;
+            return sheet;
         }
 
         private static v2.DataSource Migrate( v1.DataSource source )

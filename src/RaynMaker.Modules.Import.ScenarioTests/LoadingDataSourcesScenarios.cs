@@ -20,6 +20,8 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
                 var sheet = serializer.ReadCompatible( stream );
 
+                Assert.That( sheet.WasMigratedToNewerVersion, Is.True );
+
                 using( var output = new FileStream( Path.Combine( TestDataRoot, "DataSources", "Version2.xdb" ), FileMode.Create, FileAccess.Write ) )
                 {
                     serializer.Write( output, sheet );
@@ -91,6 +93,8 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
                 var sheet = serializer.Read<DataSourcesSheet>( stream );
 
+                Assert.That( sheet.WasMigratedToNewerVersion, Is.False );
+                
                 {
                     var dataSource = sheet.GetSources<DataSource>().Single( ds => ds.Name == "Fundamentals" );
 
