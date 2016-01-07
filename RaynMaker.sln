@@ -40,7 +40,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Modules.Notes", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Modules.Import.Web.UnitTests", "src\RaynMaker.Modules.Import.Web.UnitTests\RaynMaker.Modules.Import.Web.UnitTests.csproj", "{EB8FAAF2-3BFC-4C79-B9F2-4BE1C76E682E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Entities.ScenarioTests", "src\RaynMaker.Entities.Persistancy.UnitTests\RaynMaker.Entities.ScenarioTests.csproj", "{94EE79F4-D2B7-4477-A0C5-D95DB14FE79D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Entities.ScenarioTests", "src\RaynMaker.Entities.ScenarioTests\RaynMaker.Entities.ScenarioTests.csproj", "{94EE79F4-D2B7-4477-A0C5-D95DB14FE79D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Modules.Import.ScenarioTests", "src\RaynMaker.Modules.Import.ScenarioTests\RaynMaker.Modules.Import.ScenarioTests.csproj", "{5D702A14-EEB2-40B3-9CA7-27B9F2A70936}"
 EndProject
