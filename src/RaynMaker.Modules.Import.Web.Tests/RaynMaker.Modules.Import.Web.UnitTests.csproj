@@ -31,6 +31,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Plainion.Core, Version=2.8.0.0, Culture=neutral, PublicKeyToken=11fdbc7b87b9a0de, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Plainion.Core.2.8.0.0\lib\NET45\Plainion.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ViewModels\PathCellFormatViewModelTests.cs" />
     <Compile Include="ViewModels\StockMacroResolverTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -47,6 +52,10 @@
     <ProjectReference Include="..\RaynMaker.Entities\RaynMaker.Entities.csproj">
       <Project>{0b9b8ac3-da99-4264-9d59-382adee06fd9}</Project>
       <Name>RaynMaker.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RaynMaker.Infrastructure\RaynMaker.Infrastructure.csproj">
+      <Project>{837addbe-901b-4ed9-9df4-0e259e262167}</Project>
+      <Name>RaynMaker.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\RaynMaker.Modules.Import.Web\RaynMaker.Modules.Import.Web.csproj">
       <Project>{2bab6393-3900-4233-b817-333460881312}</Project>

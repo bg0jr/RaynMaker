@@ -23,9 +23,6 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         private bool myIsColumnValid;
         private Currency mySelectedCurreny;
 
-        // guard to avoid unintended reset of model due to half-initialized viewmodel 
-        private bool myAllowUpdateModel;
-
         public PathCellFormatViewModel( ILutService lutService, PathCellDescriptor descriptor )
             : base( descriptor, new HtmlTableMarker() )
         {
@@ -33,13 +30,17 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
             Format = descriptor;
 
-            myAllowUpdateModel = false;
-
             Value = "";
 
             SelectedDatum = Datums.FirstOrDefault( d => d.Name == Format.Figure );
             Path = Format.Path;
-            ValueFormat = Format.ValueFormat ?? new ValueFormat( typeof( double ) );
+
+            if( Format.ValueFormat == null )
+            {
+                Format.ValueFormat = new ValueFormat( typeof( double ) );
+            }
+            ValueFormat = Format.ValueFormat;
+
             SelectedCurrency = myLutService.CurrenciesLut.Currencies.SingleOrDefault( c => c.Symbol == descriptor.Currency );
 
             IsColumnValid = false;
@@ -50,6 +51,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             }
             else
             {
+                Format.Column = new StringContainsLocator();
                 ColumnPosition = -1;
                 ColumnPattern = null;
             }
@@ -62,13 +64,13 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             }
             else
             {
+                Format.Row = new StringContainsLocator();
                 RowPosition = -1;
                 RowPattern = null;
             }
 
-            myAllowUpdateModel = true;
-            UpdateRow();
-            UpdateColumn();
+            ValidateRow();
+            ValidateColumn();
         }
 
         public new PathCellDescriptor Format { get; private set; }
@@ -78,10 +80,9 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             if( MarkupBehavior.SelectedElement != null )
             {
                 Path = MarkupBehavior.PathToSelectedElement;
-                Value = MarkupBehavior.SelectedElement.InnerText;
 
-                UpdateRow();
-                UpdateColumn();
+                ValidateRow();
+                ValidateColumn();
             }
         }
 
@@ -93,7 +94,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 if( SetProperty( ref myPath, value ) )
                 {
                     // Path must point to table NOT to cell in table
-                    var path = HtmlPath.Parse( myPath ).GetPathToTable();
+                    myPath = HtmlPath.Parse( myPath ).GetPathToTable().ToString();
 
                     Format.Path = myPath;
 
@@ -123,21 +124,15 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 if( SetProperty( ref myRowPosition, value ) )
                 {
-                    UpdateRow();
+                    ( ( StringContainsLocator )Format.Row ).HeaderSeriesPosition = myRowPosition;
+                    ValidateRow();
                     MarkupBehavior.Marker.RowHeaderColumn = value;
                 }
             }
         }
 
-        private void UpdateRow()
+        private void ValidateRow()
         {
-            if( !myAllowUpdateModel )
-            {
-                return;
-            }
-
-            Format.Row = new StringContainsLocator { HeaderSeriesPosition = RowPosition, Pattern = RowPattern };
-
             if( MarkupBehavior.SelectedElement != null && RowPattern != null )
             {
                 var table = MarkupBehavior.Marker.Table;
@@ -153,7 +148,8 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 if( SetProperty( ref myRowPattern, value ) )
                 {
-                    UpdateRow();
+                    ( ( StringContainsLocator )Format.Row ).Pattern = myRowPattern;
+                    ValidateRow();
                 }
             }
         }
@@ -171,21 +167,15 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 if( SetProperty( ref myColumnPosition, value ) )
                 {
-                    UpdateColumn();
+                    ( ( StringContainsLocator )Format.Column ).HeaderSeriesPosition = myColumnPosition;
+                    ValidateColumn();
                     MarkupBehavior.Marker.ColumnHeaderRow = value;
                 }
             }
         }
 
-        private void UpdateColumn()
+        private void ValidateColumn()
         {
-            if( !myAllowUpdateModel )
-            {
-                return;
-            }
-
-            Format.Column = new StringContainsLocator { HeaderSeriesPosition = ColumnPosition, Pattern = ColumnPattern };
-
             if( MarkupBehavior.SelectedElement != null && ColumnPattern != null )
             {
                 var table = MarkupBehavior.Marker.Table;
@@ -201,7 +191,8 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 if( SetProperty( ref myColumnPattern, value ) )
                 {
-                    UpdateColumn();
+                    ( ( StringContainsLocator )Format.Column ).Pattern = myColumnPattern;
+                    ValidateColumn();
                 }
             }
         }
@@ -234,6 +225,5 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 }
             }
         }
-
     }
 }
