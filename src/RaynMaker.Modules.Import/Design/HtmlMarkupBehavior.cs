@@ -94,7 +94,11 @@ namespace RaynMaker.Modules.Import.Design
 
         private void HtmlDocument_Click( object sender, HtmlElementEventArgs e )
         {
-            var element = Document.Document.GetElementFromPoint( e.ClientMousePosition );
+            var element = HtmlMarkupAutomationProvider.GetClickedElement( Document.Document );
+            if ( element == null )
+            {
+                element = Document.Document.GetElementFromPoint( e.ClientMousePosition );
+            }
 
             SelectedElement = Document.Create( element );
         }

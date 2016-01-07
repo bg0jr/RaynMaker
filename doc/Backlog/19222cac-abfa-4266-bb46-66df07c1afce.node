@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="19222cac-abfa-4266-bb46-66df07c1afce" Created="635877726860285893" LastModified="635877727369087153">
+  <Caption><![CDATA[HtmlPath.PointsToTableCell ignores children of TD]]></Caption>
+  <Content><![CDATA[it just checks whether last element is TD but what if path
+points to inner span or paragraph?]]></Content>
+</Node>

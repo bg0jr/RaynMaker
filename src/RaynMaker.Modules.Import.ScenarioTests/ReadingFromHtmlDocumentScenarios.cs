@@ -153,7 +153,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             var descriptor = new PathTableDescriptor();
             descriptor.Figure = "HistoricalPrices";
             descriptor.Path = @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]";
-            descriptor.Columns.Add( new FormatColumn( "date", typeof( DateTime ) ) );
+            descriptor.Columns.Add( new FormatColumn( "date", typeof( DateTime ), "dd.MM.yy" ) );
             descriptor.Columns.Add( new FormatColumn( "open", typeof( double ), "00,00" ) );
             descriptor.Columns.Add( new FormatColumn( "high", typeof( double ), "00,00" ) );
             descriptor.Columns.Add( new FormatColumn( "low", typeof( double ), "00,00" ) );

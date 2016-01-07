@@ -76,15 +76,15 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
             myMarker = null;
         }
 
+        /// <summary>
+        /// Rest of this marker implementation cannot handle the case that the selected element
+        /// is not within a table.
+        /// </summary>
         [Test]
-        public void Mark_NotACell_ElementIsMarked()
+        public void Mark_NotACell_ElementIsIgnored()
         {
             var element = Document.GetElementById( "p1" );
             myMarker.Mark( element );
-
-            Assert_IsMarked( element );
-
-            myMarker.Unmark();
 
             Assert_IsUnmarked( element, null );
         }

@@ -48,6 +48,7 @@
     <Compile Include="Converters\DataTableToSingleValueConverter.cs" />
     <Compile Include="Design\HtmlElementCollectionMarker.cs" />
     <Compile Include="Design\HtmlElementMarker.cs" />
+    <Compile Include="Design\HtmlMarkupAutomationProvider.cs" />
     <Compile Include="Design\HtmlTableMarker.cs" />
     <Compile Include="Design\HtmlMarkupBehavior.cs" />
     <Compile Include="Design\IHtmlMarker.cs" />

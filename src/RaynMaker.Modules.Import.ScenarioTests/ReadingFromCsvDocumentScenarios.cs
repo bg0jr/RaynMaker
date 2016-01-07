@@ -18,7 +18,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             descriptor.ValuesLocator = new StringContainsLocator { HeaderSeriesPosition = 0, Pattern = "EPS" };
             descriptor.TimesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 0 };
             descriptor.Excludes.AddRange( 0, 1 );
-            descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "000,000" );
+            descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "000,00" );
             descriptor.TimeFormat = new FormatColumn( "year", typeof( int ), "000" );
 
             var doc = LoadDocument<TextDocument>( "Csv", "DE0005151005.csv" );

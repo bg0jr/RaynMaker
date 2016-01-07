@@ -50,18 +50,22 @@ namespace RaynMaker.Modules.Import.Design
 
         /// <summary>
         /// Marks the given HTML table cell element and its siblings according to the expansion settings.
+        /// If the given HtmlElement is not within a HTML table this call is ignored.
         /// </summary>
         public void Mark( IHtmlElement element )
         {
             Contract.RequiresNotNull( element, "element" );
 
-            myElement = ( HtmlElementAdapter )element;
+            if ( element.FindParent( e => e.TagName.Equals( "TR", StringComparison.OrdinalIgnoreCase ) ) == null )
+            {
+                return;
+            }
+
+            myElement = (HtmlElementAdapter)element;
 
             Table = HtmlTable.FindByCell( myElement );
 
-            // As the using code has to decide to take this marker or another impl we should handle 
-            // "wrong elements" a bit relaxed here. Otherwise we force the using code to put checks and if-then-else stuff.
-            //Contract.Requires( myTable != null, "given HtmlElement does not point to or into <table/>" );
+            Contract.Requires( Table != null, "Couldnt find <table/> from given HtmlElement" );
 
             Apply();
         }
@@ -109,7 +113,7 @@ namespace RaynMaker.Modules.Import.Design
             get { return mySkipRows; }
             set
             {
-                if( value != null && value.Length == 0 )
+                if ( value != null && value.Length == 0 )
                 {
                     value = null;
                 }
@@ -123,7 +127,7 @@ namespace RaynMaker.Modules.Import.Design
             get { return mySkipColumns; }
             set
             {
-                if( value != null && value.Length == 0 )
+                if ( value != null && value.Length == 0 )
                 {
                     value = null;
                 }
@@ -140,7 +144,7 @@ namespace RaynMaker.Modules.Import.Design
             get { return myRowHeaderColumn; }
             set
             {
-                if( value < 0 )
+                if ( value < 0 )
                 {
                     value = -1;
                 }
@@ -157,7 +161,7 @@ namespace RaynMaker.Modules.Import.Design
             get { return myColumnHeaderRow; }
             set
             {
-                if( value < 0 )
+                if ( value < 0 )
                 {
                     value = -1;
                 }
@@ -168,7 +172,7 @@ namespace RaynMaker.Modules.Import.Design
 
         private void Apply()
         {
-            if( myElement == null )
+            if ( myElement == null )
             {
                 return;
             }
@@ -178,19 +182,19 @@ namespace RaynMaker.Modules.Import.Design
 
             myCellMarker.Mark( myElement );
 
-            if( Table == null )
+            if ( Table == null )
             {
                 // no table handling
                 return;
             }
 
-            if( ExpandRow )
+            if ( ExpandRow )
             {
                 MarkTableRow();
                 DoSkipColumns();
             }
 
-            if( ExpandColumn )
+            if ( ExpandColumn )
             {
                 MarkTableColumn();
                 DoSkipRows();
@@ -203,7 +207,7 @@ namespace RaynMaker.Modules.Import.Design
         private void DoSkipRows()
         {
             int column = Table.GetColumnIndex( myElement );
-            if( column != -1 )
+            if ( column != -1 )
             {
                 SkipElements( mySkipRows, row => Table.GetCellAt( row, column ) );
             }
@@ -211,12 +215,12 @@ namespace RaynMaker.Modules.Import.Design
 
         private void SkipElements( int[] positions, Func<int, IHtmlElement> GetCellAt )
         {
-            if( positions == null )
+            if ( positions == null )
             {
                 return;
             }
 
-            foreach( var pos in positions )
+            foreach ( var pos in positions )
             {
                 myCellMarker.Unmark( GetCellAt( pos ) );
                 myHeaderMarker.Unmark( GetCellAt( pos ) );
@@ -226,7 +230,7 @@ namespace RaynMaker.Modules.Import.Design
         private void DoSkipColumns()
         {
             int row = Table.GetRowIndex( myElement );
-            if( row != -1 )
+            if ( row != -1 )
             {
                 SkipElements( mySkipColumns, col => Table.GetCellAt( row, col ) );
             }
@@ -235,7 +239,7 @@ namespace RaynMaker.Modules.Import.Design
         // header is everything in the specified RowHeaderColumn along with the expansion of the marked cell
         private void MarkRowHeader()
         {
-            if( myRowHeaderColumn == -1 )
+            if ( myRowHeaderColumn == -1 )
             {
                 return;
             }
@@ -244,7 +248,7 @@ namespace RaynMaker.Modules.Import.Design
                   .Select( e => Table.GetCellAt( Table.GetRowIndex( e ), myRowHeaderColumn ) )
                   .Distinct();
 
-            foreach( var e in header )
+            foreach ( var e in header )
             {
                 myHeaderMarker.Mark( e );
             }
@@ -253,7 +257,7 @@ namespace RaynMaker.Modules.Import.Design
         // header is everything in the specified ColumnHeaderRow along with the expansion of the marked cell
         private void MarkColumnHeader()
         {
-            if( myColumnHeaderRow == -1 )
+            if ( myColumnHeaderRow == -1 )
             {
                 return;
             }
@@ -262,7 +266,7 @@ namespace RaynMaker.Modules.Import.Design
                   .Select( e => Table.GetCellAt( myColumnHeaderRow, Table.GetColumnIndex( e ) ) )
                   .Distinct();
 
-            foreach( var e in header )
+            foreach ( var e in header )
             {
                 myHeaderMarker.Mark( e );
             }
@@ -270,7 +274,7 @@ namespace RaynMaker.Modules.Import.Design
 
         private void MarkTableRow()
         {
-            foreach( var e in Table.GetRow( myElement ) )
+            foreach ( var e in Table.GetRow( myElement ) )
             {
                 myCellMarker.Mark( e );
             }
@@ -278,7 +282,7 @@ namespace RaynMaker.Modules.Import.Design
 
         private void MarkTableColumn()
         {
-            foreach( var e in Table.GetColumn( myElement ) )
+            foreach ( var e in Table.GetColumn( myElement ) )
             {
                 myCellMarker.Mark( e );
             }

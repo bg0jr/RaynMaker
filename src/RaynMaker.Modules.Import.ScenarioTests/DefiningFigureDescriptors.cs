@@ -8,6 +8,7 @@ using NUnit.Framework;
 using RaynMaker.Entities;
 using RaynMaker.Entities.Datums;
 using RaynMaker.Infrastructure.Services;
+using RaynMaker.Modules.Import.Design;
 using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Documents.WinForms;
 using RaynMaker.Modules.Import.Spec.v2;
@@ -35,16 +36,16 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         {
             var descriptor = new PathCellDescriptor();
             descriptor.Figure = "Price";
+            descriptor.ValueFormat = new ValueFormat( typeof( double ), "00,00" ) { ExtractionPattern = new Regex( @"([0-9,\.]+)" ) };
 
             var doc = (HtmlDocumentAdapter)LoadDocument<IHtmlDocument>( "Html", "ariva.prices.DE0007664039.html" );
 
             var viewModel = new PathCellFormatViewModel( myLutService.Object, descriptor );
             viewModel.Document = doc;
 
-            var cell = doc.Document.GetElementById( "rym_FrakfurtPrice" );
-            cell.InvokeMember( "Click", null );
+            HtmlMarkupAutomationProvider.SimulateClickOn( doc.Document, "rym_FrakfurtPrice" );
 
-            Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]") );
+            Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" ) );
             Assert.That( viewModel.Value, Is.EqualTo( "134.356" ) );
 
             //descriptor.Column = new StringContainsLocator { HeaderSeriesPosition = 0, Pattern = "Letzter" };

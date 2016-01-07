@@ -42,14 +42,14 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
             var viewModel = CreateViewModel( descriptor );
 
             Assert.That( descriptor.Column, Is.InstanceOf<StringContainsLocator>() );
-            Assert.That( ( ( StringContainsLocator )descriptor.Column ).HeaderSeriesPosition, Is.EqualTo( -1 ) );
-            Assert.That( ( ( StringContainsLocator )descriptor.Column ).Pattern, Is.Null );
+            Assert.That( ( (StringContainsLocator)descriptor.Column ).HeaderSeriesPosition, Is.EqualTo( -1 ) );
+            Assert.That( ( (StringContainsLocator)descriptor.Column ).Pattern, Is.Null );
             Assert.That( descriptor.Currency, Is.Null );
             Assert.That( descriptor.Figure, Is.Null );
             Assert.That( descriptor.Path, Is.Null );
             Assert.That( descriptor.Row, Is.InstanceOf<StringContainsLocator>() );
-            Assert.That( ( ( StringContainsLocator )descriptor.Row ).HeaderSeriesPosition, Is.EqualTo( -1 ) );
-            Assert.That( ( ( StringContainsLocator )descriptor.Row ).Pattern, Is.Null );
+            Assert.That( ( (StringContainsLocator)descriptor.Row ).HeaderSeriesPosition, Is.EqualTo( -1 ) );
+            Assert.That( ( (StringContainsLocator)descriptor.Row ).Pattern, Is.Null );
             Assert.That( descriptor.ValueFormat.Type, Is.EqualTo( typeof( double ) ) );
         }
 
@@ -66,13 +66,13 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
 
             var viewModel = CreateViewModel( descriptor );
 
-            Assert.That( ( ( StringContainsLocator )descriptor.Column ).HeaderSeriesPosition, Is.EqualTo( 7 ) );
-            Assert.That( ( ( StringContainsLocator )descriptor.Column ).Pattern, Is.EqualTo( "column" ) );
+            Assert.That( ( (StringContainsLocator)descriptor.Column ).HeaderSeriesPosition, Is.EqualTo( 7 ) );
+            Assert.That( ( (StringContainsLocator)descriptor.Column ).Pattern, Is.EqualTo( "column" ) );
             Assert.That( descriptor.Currency, Is.EqualTo( "EUR" ) );
             Assert.That( descriptor.Figure, Is.EqualTo( "Dividend" ) );
             Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" ) );
-            Assert.That( ( ( StringContainsLocator )descriptor.Row ).HeaderSeriesPosition, Is.EqualTo( 4 ) );
-            Assert.That( ( ( StringContainsLocator )descriptor.Row ).Pattern, Is.EqualTo( "row" ) );
+            Assert.That( ( (StringContainsLocator)descriptor.Row ).HeaderSeriesPosition, Is.EqualTo( 4 ) );
+            Assert.That( ( (StringContainsLocator)descriptor.Row ).Pattern, Is.EqualTo( "row" ) );
             Assert.That( descriptor.ValueFormat.Type, Is.EqualTo( typeof( double ) ) );
             Assert.That( descriptor.ValueFormat.Format, Is.EqualTo( "00.00" ) );
         }
@@ -137,7 +137,7 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
         }
 
         [Test]
-        public void Path_WhenCalled_PassedToDescriptorAndMarkupBehavior( [Values( null, @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" )]string path )
+        public void Path_WhenCalled_PassedToDescriptor( [Values( null, @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" )]string path )
         {
             var descriptor = new PathCellDescriptor();
             var viewModel = CreateViewModel( descriptor );
@@ -148,7 +148,30 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
             viewModel.Path = path;
 
             Assert.That( descriptor.Path, Is.EqualTo( path ) );
-            myMarkupBehavior.VerifySet( x => x.PathToSelectedElement = path );
+        }
+
+        [Test]
+        public void Path_PathToSelectedElementNull_SetPathToSelectedElement()
+        {
+            var descriptor = new PathCellDescriptor();
+            var viewModel = CreateViewModel( descriptor );
+
+            viewModel.Path = @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]/TR[1]/TD[1]";
+
+            myMarkupBehavior.VerifySet( x => x.PathToSelectedElement = @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" );
+        }
+
+        [Test]
+        public void Path_PathToSelectedElementNotNull_PathToSelectedElementNotChanged()
+        {
+            var descriptor = new PathCellDescriptor();
+            var viewModel = CreateViewModel( descriptor );
+
+            myMarkupBehavior.SetupGet( x => x.PathToSelectedElement ).Returns( @"/TABLE[0]/TBODY[0]/TR[1]/TD[1]" );
+
+            viewModel.Path = @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]/TR[1]/TD[1]";
+
+            myMarkupBehavior.VerifySet( x => x.PathToSelectedElement = It.IsAny<string>(), Times.Never );
         }
 
         /// <summary>
@@ -176,6 +199,7 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
             var viewModel = CreateViewModel( descriptor );
             viewModel.Document = new Mock<IHtmlDocument>().Object;
 
+            myMarkupBehavior.SetupGet( x => x.SelectedElement ).Returns( new Mock<IHtmlElement>().Object );
             myMarkupBehavior.SetupGet( x => x.PathToSelectedElement ).Returns( "/BODY[0]/DIV[7]" );
 
             myMarkupBehavior.Raise( x => x.SelectionChanged += null, this, EventArgs.Empty );

@@ -29,7 +29,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         {
             get
             {
-                if( Elements.Count == 0 )
+                if ( Elements.Count == 0 )
                 {
                     return null;
                 }
@@ -39,12 +39,12 @@ namespace RaynMaker.Modules.Import.Parsers.Html
 
         public bool PointsToTable
         {
-            get { return Last.IsTableOrTBody; }
+            get { return Elements.Count > 0 && Last.IsTableOrTBody; }
         }
 
         public bool PointsToTableCell
         {
-            get { return Last.TagName == "TD"; }
+            get { return Elements.Count > 0 && Last.TagName == "TD"; }
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         /// </summary>
         public Point GetTableCellPosition()
         {
-            if( !PointsToTableCell )
+            if ( !PointsToTableCell )
             {
                 return Point.Empty;
             }
@@ -63,15 +63,15 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             Point p = new Point();
             p.X = Last.Position;
 
-            foreach( HtmlPathElement tr in Elements.Reverse() )
+            foreach ( HtmlPathElement tr in Elements.Reverse() )
             {
-                if( tr.IsTableOrTBody )
+                if ( tr.IsTableOrTBody )
                 {
                     // then this is a currupt path
                     return Point.Empty;
                 }
 
-                if( tr.TagName == "TR" )
+                if ( tr.TagName == "TR" )
                 {
                     p.Y = tr.Position;
                     return p;
@@ -90,9 +90,9 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         {
             var result = new HtmlPath( Elements );
 
-            while( result.Elements.Count > 0 )
+            while ( result.Elements.Count > 0 )
             {
-                if( result.PointsToTable )
+                if ( result.PointsToTable )
                 {
                     return result;
                 }
@@ -117,7 +117,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
                 .Select( token => HtmlPathElement.TryParse( token ) )
                 .ToList();
 
-            if( pathElements.Any( e => e == null ) )
+            if ( pathElements.Any( e => e == null ) )
             {
                 return null;
             }

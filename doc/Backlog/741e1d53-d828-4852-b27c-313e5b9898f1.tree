@@ -78,6 +78,9 @@
         <Node Id="1ffd727b-1688-4da0-9abb-87de110267c7">
           <Caption><![CDATA[Cleanup test and fix HtmlElementExtensions]]></Caption>
         </Node>
+        <Node Id="19222cac-abfa-4266-bb46-66df07c1afce">
+          <Caption><![CDATA[HtmlPath.PointsToTableCell ignores children of TD]]></Caption>
+        </Node>
       </Node>
       <Node Id="e4cba108-1415-42e0-ac8f-4e9d7596dfab">
         <Caption><![CDATA[Browser]]></Caption>
