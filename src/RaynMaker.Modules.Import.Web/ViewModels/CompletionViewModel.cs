@@ -72,12 +72,8 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
             Browser.Navigate( DocumentType.Html, Session.CurrentSource.Location, new StockMacroResolver( SelectedStock ) );
 
-            // do not use own marker here - there is not point in time defined when Marker.Unmark() could be called and so the 
-            // markup would remain. We would need to change user navigation to add some transition like "leave validation"
-            if( Session.ApplyCurrentFormat != null )
-            {
-                Session.ApplyCurrentFormat();
-            }
+            // The new document is automatically given to the selected FigureDescriptor ViewModel.
+            // The MarkupBehavior gets automatically applied
         }
     }
 }

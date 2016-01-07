@@ -10,7 +10,7 @@ using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Modules.Import.Web.ViewModels
 {
-    class PathCellFormatViewModel : FormatViewModelBase<HtmlTableMarker>
+    class PathCellFormatViewModel : FormatViewModelBase<PathCellDescriptor, HtmlTableMarker>
     {
         private ILutService myLutService;
         private string myPath;
@@ -27,8 +27,6 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             : base( descriptor, new HtmlTableMarker() )
         {
             myLutService = lutService;
-
-            Format = descriptor;
 
             Value = "";
 
@@ -73,8 +71,6 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             ValidateColumn();
         }
 
-        public new PathCellDescriptor Format { get; private set; }
-
         protected override void OnSelectionChanged()
         {
             if( MarkupBehavior.SelectedElement != null )
@@ -86,26 +82,28 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             }
         }
 
+        protected override void OnDocumentChanged()
+        {
+            MarkupBehavior.PathToSelectedElement = Path;
+        }
+
         public string Path
         {
             get { return myPath; }
             set
             {
-                if( SetProperty( ref myPath, value ) )
-                {
-                    // Path must point to table NOT to cell in table
-                    myPath = HtmlPath.Parse( myPath ).GetPathToTable().ToString();
+                // Path must point to table NOT to cell in table
+                var path = value == null ? null : HtmlPath.Parse( value ).GetPathToTable().ToString();
 
+                if( SetProperty( ref myPath, path ) )
+                {
                     Format.Path = myPath;
 
-                    if( !string.IsNullOrWhiteSpace( myPath ) )
-                    {
-                        MarkupBehavior.PathToSelectedElement = myPath;
+                    MarkupBehavior.PathToSelectedElement = myPath;
 
-                        if( MarkupBehavior.SelectedElement != null )
-                        {
-                            Value = MarkupBehavior.SelectedElement.InnerText;
-                        }
+                    if( MarkupBehavior.SelectedElement != null )
+                    {
+                        Value = MarkupBehavior.SelectedElement.InnerText;
                     }
                 }
             }

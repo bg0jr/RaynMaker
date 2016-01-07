@@ -49,9 +49,5 @@ namespace RaynMaker.Modules.Import.Web.Model
 
             Sources.Clear();
         }
-
-        // TODO: workaround to allow selection from validation because
-        // HtmlMarker is stateful
-        public Action ApplyCurrentFormat { get; set; }
     }
 }

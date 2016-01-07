@@ -8,7 +8,6 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         IDocument Document { set; }
 
-        void Apply();
         void Unmark();
     }
 }

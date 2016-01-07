@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Plainion;
+using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Documents.WinForms;
 using RaynMaker.Modules.Import.Parsers.Html;
 
@@ -12,7 +13,7 @@ namespace RaynMaker.Modules.Import.Design
     /// by clicking into the HtmlDocument.
     /// This behavior implements a "single selection" behavior.
     /// </summary>
-    public class HtmlMarkupBehavior<T> : IDisposable where T : IHtmlMarker
+    public class HtmlMarkupBehavior<T> : IHtmlMarkupBehavior<T> where T : IHtmlMarker
     {
         // holds the element which has been marked by the user "click"
         // (before extensions has been applied)
@@ -44,20 +45,24 @@ namespace RaynMaker.Modules.Import.Design
             AttachTo( new HtmlDocumentAdapter( document ) );
         }
 
-        public void AttachTo( HtmlDocumentAdapter document )
+        public void AttachTo( IHtmlDocument document )
         {
             Contract.RequiresNotNull( document, "document" );
+
+            var documentAdapter = document as HtmlDocumentAdapter;
+
+            Contract.Requires( documentAdapter != null, "Only documents of type {0} supported", typeof( HtmlDocumentAdapter ).FullName );
 
             // WebBrowser reused HtmlDocument instances
             // -> we cannot ignore assignment of same HtmlDocument here
 
-            var behaviorHashCode = document.Document.Body.GetAttribute( "RaynMakerHtmlMarkupBehavior" );
+            var behaviorHashCode = documentAdapter.Document.Body.GetAttribute( "RaynMakerHtmlMarkupBehavior" );
             Contract.Invariant( string.IsNullOrEmpty( behaviorHashCode ) || behaviorHashCode == GetHashCode().ToString(),
                 "A HtmlMarkupBehavior already attached to the given HtmlDocument. Only one attached HtmlMarkupBehavior per HtmlDocument supported" );
 
             Detach();
 
-            Document = document;
+            Document = documentAdapter;
             Document.Document.Click += HtmlDocument_Click;
 
             Document.Document.Body.SetAttribute( "RaynMakerHtmlMarkupBehavior", GetHashCode().ToString() );
@@ -96,7 +101,7 @@ namespace RaynMaker.Modules.Import.Design
 
         public event EventHandler SelectionChanged;
 
-        public HtmlElementAdapter SelectedElement
+        public IHtmlElement SelectedElement
         {
             get { return mySelectedElement; }
             set
@@ -108,7 +113,11 @@ namespace RaynMaker.Modules.Import.Design
                     return;
                 }
 
-                mySelectedElement = value;
+                var elementAdapter = value as HtmlElementAdapter;
+
+                Contract.Requires( elementAdapter != null, "Only elements of type {0} supported", typeof( HtmlElementAdapter ).FullName );
+
+                mySelectedElement = elementAdapter;
                 // sync with SelectedElement in Apply()
                 myPath = null;
 
@@ -139,8 +148,7 @@ namespace RaynMaker.Modules.Import.Design
             }
         }
 
-        // TODO: do we really need this to be public?
-        public void Apply()
+        private void Apply()
         {
             Marker.Unmark();
 

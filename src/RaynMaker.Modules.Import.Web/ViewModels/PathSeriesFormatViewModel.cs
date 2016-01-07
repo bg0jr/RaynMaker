@@ -7,7 +7,7 @@ using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Modules.Import.Web.ViewModels
 {
-    class PathSeriesFormatViewModel : FormatViewModelBase<HtmlTableMarker>
+    class PathSeriesFormatViewModel : FormatViewModelBase<PathSeriesDescriptor,HtmlTableMarker>
     {
         private string myPath;
         private string myValue;
@@ -20,8 +20,6 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         public PathSeriesFormatViewModel( PathSeriesDescriptor format )
             : base( format, new HtmlTableMarker() )
         {
-            Format = format;
-
             IsValid = true;
 
             Value = "";
@@ -40,8 +38,6 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             SelectedDimension = Format.Orientation;
         }
 
-        public new PathSeriesDescriptor Format { get; private set; }
-
         protected override void OnSelectionChanged()
         {
             if( MarkupBehavior.SelectedElement != null )
@@ -51,6 +47,11 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             }
         }
 
+        protected override void OnDocumentChanged()
+        {
+            MarkupBehavior.PathToSelectedElement = Path;
+        }
+        
         public string Path
         {
             get { return myPath; }

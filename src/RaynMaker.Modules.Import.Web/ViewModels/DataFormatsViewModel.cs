@@ -22,8 +22,6 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         {
             myFormatViewModelFactory = new FormatViewModelFactory( lutService );
 
-            Session.ApplyCurrentFormat = ApplyCurrentFormat;
-
             PropertyChangedEventManager.AddHandler( Session, OnCurrentSourceChanged, PropertySupport.ExtractPropertyName( () => Session.CurrentSource ) );
 
             mySelectedFormatIndex = -1;
@@ -37,14 +35,6 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             CopyCommand = new DelegateCommand( OnCopy );
 
             OnCurrentSourceChanged( null, null );
-        }
-
-        private void ApplyCurrentFormat()
-        {
-            if( SelectedFormatIndex != -1 )
-            {
-                Formats[ SelectedFormatIndex ].Apply();
-            }
         }
 
         private void OnCurrentSourceChanged( object sender, PropertyChangedEventArgs e )
@@ -119,7 +109,6 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                     {
                         Session.CurrentFormat = Formats[ mySelectedFormatIndex ].Format;
                         Formats[ mySelectedFormatIndex ].Document = myDocument;
-                        Formats[ mySelectedFormatIndex ].Apply();
                     }
                 }
             }

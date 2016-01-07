@@ -51,6 +51,7 @@
     <Compile Include="Design\HtmlTableMarker.cs" />
     <Compile Include="Design\HtmlMarkupBehavior.cs" />
     <Compile Include="Design\IHtmlMarker.cs" />
+    <Compile Include="Design\IHtmlMarkupBehavior.cs" />
     <Compile Include="DocumentBrowserExtensions.cs" />
     <Compile Include="Documents\ICache.cs" />
     <Compile Include="Documents\ILocatorMacroResolver.cs" />

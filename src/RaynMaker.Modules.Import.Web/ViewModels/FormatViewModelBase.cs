@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using Microsoft.Practices.Prism.Mvvm;
 using Plainion;
 using RaynMaker.Entities;
 using RaynMaker.Modules.Import.Design;
-using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Documents.WinForms;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Modules.Import.Web.ViewModels
 {
-    class FormatViewModelBase<TMarker> : BindableBase, IDescriptorViewModel where TMarker : IHtmlMarker
+    class FormatViewModelBase<TFigureDescriptor, TMarker> : BindableBase, IDescriptorViewModel
+        where TFigureDescriptor : IFigureDescriptor
+        where TMarker : IHtmlMarker
     {
         private Type mySelectedDatum;
 
-        protected FormatViewModelBase( IFigureDescriptor descriptor, TMarker marker )
+        protected FormatViewModelBase( TFigureDescriptor descriptor, TMarker marker )
         {
             Contract.RequiresNotNull( descriptor, "descriptor" );
 
@@ -30,7 +30,9 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             MarkupBehavior.SelectionChanged += OnSelectionChanged;
         }
 
-        public IFigureDescriptor Format { get; private set; }
+        public TFigureDescriptor Format { get; private set; }
+
+        IFigureDescriptor IDescriptorViewModel.Format { get { return this.Format; } }
 
         // TODO: we do not support add, remove and edit of datums as they are currently fixed by entities model.
         // TODO: "Standing" datums also exists
@@ -48,7 +50,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             }
         }
 
-        protected HtmlMarkupBehavior<TMarker> MarkupBehavior { get; private set; }
+        protected IHtmlMarkupBehavior<TMarker> MarkupBehavior { get; private set; }
 
         private void OnSelectionChanged( object sender, EventArgs e )
         {
@@ -69,28 +71,25 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 //    return;
                 //}
 
-                HtmlDocument doc = null;
-
-                if( value != null )
+                if( value == null )
                 {
-                    var adapter = ( HtmlDocumentAdapter )value;
-                    doc = adapter.Document;
-                }
-
-                MarkupBehavior.AttachTo( doc );
-
-                if( doc == null )
-                {
+                    MarkupBehavior.Detach();
                     return;
                 }
 
-                OnSelectionChanged();
+                MarkupBehavior.AttachTo( ( HtmlDocumentAdapter )value );
+
+                OnDocumentChanged();
             }
         }
 
-        public void Apply()
+        /// <summary>
+        /// Can be used to reapply the path or SelectedElement. 
+        /// When toggeling between FigureDescriptor ViewModels we have to detach and reattach the document. Use this hook to update the path or selected element
+        /// so that everything gets applied to the new document automatically.
+        /// </summary>
+        protected virtual void OnDocumentChanged()
         {
-            MarkupBehavior.Apply();
         }
 
         public void Unmark()
