@@ -14,6 +14,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         where TFigureDescriptor : IFigureDescriptor
         where TMarker : IHtmlMarker
     {
+        private IDocument myDocument;
         private Type mySelectedDatum;
 
         protected FormatViewModelBase( TFigureDescriptor descriptor, TMarker marker )
@@ -69,21 +70,19 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         public IDocument Document
         {
+            get { return myDocument; }
             set
             {
                 // always force update because the document reference does NOT change!
-                //if( myMarkupDocument.Document == value )
-                //{
-                //    return;
-                //}
+                myDocument = value;
 
-                if( value == null )
+                if( myDocument == null )
                 {
                     MarkupBehavior.Detach();
                     return;
                 }
 
-                MarkupBehavior.AttachTo( ( HtmlDocumentAdapter )value );
+                MarkupBehavior.AttachTo( ( HtmlDocumentAdapter )myDocument );
 
                 OnDocumentChanged();
             }

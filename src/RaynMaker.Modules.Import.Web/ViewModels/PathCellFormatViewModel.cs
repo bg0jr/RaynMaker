@@ -81,10 +81,45 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         protected override void OnSelectionChanged()
         {
+            // call this before setting the Path property because it will reduce path from cell to table element
+            TryAutoDetectCellFromPath( HtmlPath.Parse( MarkupBehavior.PathToSelectedElement ) );
+
             Path = MarkupBehavior.PathToSelectedElement;
 
             ValidateRow();
             ValidateColumn();
+        }
+
+        /// <summary>
+        /// Path should come from user click which directly points to the wanted cell.
+        /// </summary>
+        private void TryAutoDetectCellFromPath( HtmlPath path )
+        {
+            if( !path.PointsToTableCell )
+            {
+                return;
+            }
+
+            var table = MarkupBehavior.Marker.Table;
+            if( table == null )
+            {
+                return;
+            }
+
+            if( ColumnPosition == -1 )
+            {
+                // just guess ...
+                ColumnPosition = 0;
+            }
+
+            if( RowPosition == -1 )
+            {
+                // just guess ...
+                RowPosition = 0;
+            }
+
+            ColumnPattern = table.GetCellAt( ColumnPosition, table.GetColumnIndex( MarkupBehavior.SelectedElement ) ).InnerText;
+            RowPattern = table.GetCellAt( table.GetRowIndex( MarkupBehavior.SelectedElement ), RowPosition ).InnerText;
         }
 
         protected override void OnDocumentChanged()
@@ -105,11 +140,6 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                     Format.Path = myPath;
 
                     MarkupBehavior.PathToSelectedElement = myPath;
-
-                    if( MarkupBehavior.SelectedElement != null )
-                    {
-                        Value = MarkupBehavior.SelectedElement.InnerText;
-                    }
                 }
             }
         }
@@ -142,7 +172,21 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 var rowHeader = table.GetCellAt( table.GetRowIndex( MarkupBehavior.SelectedElement ), Format.Row.HeaderSeriesPosition ).InnerText;
                 IsRowValid = rowHeader.Contains( RowPattern, StringComparison.OrdinalIgnoreCase );
+
+                TryUpdateValue();
             }
+        }
+
+        private void TryUpdateValue()
+        {
+            if( !IsRowValid || !IsColumnValid )
+            {
+                return;
+            }
+
+            var parser = DocumentProcessingFactory.CreateParser( Document, Format );
+            var table = parser.ExtractTable();
+            Value = table.Rows[ 0 ][ 0 ].ToString();
         }
 
         public string RowPattern
@@ -186,6 +230,8 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 var colHeader = table.GetCellAt( Format.Column.HeaderSeriesPosition, table.GetColumnIndex( MarkupBehavior.SelectedElement ) ).InnerText;
                 IsColumnValid = colHeader.Contains( ColumnPattern, StringComparison.OrdinalIgnoreCase );
+
+                TryUpdateValue();
             }
         }
 
