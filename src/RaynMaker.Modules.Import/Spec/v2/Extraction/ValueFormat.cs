@@ -181,5 +181,20 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
             }
             return s;
         }
+
+        public bool TryConvert( string valueStr, out object value )
+        {
+            value = null;
+
+            try
+            {
+                value = Convert( valueStr );
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

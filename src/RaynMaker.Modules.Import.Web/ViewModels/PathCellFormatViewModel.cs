@@ -42,7 +42,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             SelectedDatum = Datums.FirstOrDefault( d => d.Name == Format.Figure );
             Path = Format.Path;
 
-            if ( Format.ValueFormat == null )
+            if( Format.ValueFormat == null )
             {
                 Format.ValueFormat = new ValueFormat( typeof( double ) );
             }
@@ -51,9 +51,9 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             SelectedCurrency = myLutService.CurrenciesLut.Currencies.SingleOrDefault( c => c.Symbol == descriptor.Currency );
 
             IsColumnValid = false;
-            if ( descriptor.Column != null )
+            if( descriptor.Column != null )
             {
-                ColumnPattern = ( (StringContainsLocator)Format.Column ).Pattern;
+                ColumnPattern = ( ( StringContainsLocator )Format.Column ).Pattern;
                 ColumnPosition = Format.Column.HeaderSeriesPosition;
             }
             else
@@ -64,9 +64,9 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             }
 
             IsRowValid = false;
-            if ( descriptor.Row != null )
+            if( descriptor.Row != null )
             {
-                RowPattern = ( (StringContainsLocator)Format.Row ).Pattern;
+                RowPattern = ( ( StringContainsLocator )Format.Row ).Pattern;
                 RowPosition = Format.Row.HeaderSeriesPosition;
             }
             else
@@ -82,37 +82,47 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         protected override void OnDocumentChanged()
         {
-            var pathToCell = GetHtmlElementFromDescription();
-            MarkupBehavior.PathToSelectedElement = pathToCell;
+            var cell = GetHtmlElementFromDescription();
+            MarkupBehavior.PathToSelectedElement = cell != null ? cell.GetPath().ToString() : null;
         }
 
         // TODO: how can we make that code shareable throught "design" or "parsers"
-        private string GetHtmlElementFromDescription( )
+        private IHtmlElement GetHtmlElementFromDescription()
         {
-            if (string.IsNullOrEmpty(Path))
+            if( string.IsNullOrEmpty( Path ) )
             {
                 return null;
             }
 
-            var table = HtmlTable.FindByPath((IHtmlDocument)Document, HtmlPath.Parse( Path ) );
-        
+            var table = HtmlTable.FindByPath( ( IHtmlDocument )Document, HtmlPath.Parse( Path ) );
+
             int rowToScan = Format.Column.HeaderSeriesPosition;
-//            if (rowToScan < table.Rows.Count, "ValuesLocator points outside table" );
+            if( 0 > rowToScan || rowToScan >= table.Rows.Count )
+            {
+                return null;
+            }
 
-            //var colIdx = Format.Column.FindIndex( inputTable.Rows[ rowToScan ].ItemArray.Select( item => item.ToString() ) );
-            //Contract.Invariant( colIdx != -1, "ValuesLocator condition failed: column not found" );
+            var colIdx = Format.Column.FindIndex( table.GetRow( rowToScan ).Select( item => item.InnerText ) );
+            if( colIdx == -1 )
+            {
+                return null;
+            }
 
-            //var colToScan = Format.Row.HeaderSeriesPosition;
-            //Contract.Requires( colToScan < inputTable.Columns.Count, "TimesLocator points outside table" );
+            var colToScan = Format.Row.HeaderSeriesPosition;
+            if( 0 > colToScan || colToScan >= table.GetRow( 0 ).Count() )
+            {
+                return null;
+            }
 
-            //var rowIdx = Format.Row.FindIndex( inputTable.Rows.ToSet().Select( row => row[ colToScan ].ToString() ) );
-            //Contract.Invariant( colIdx != -1, "TimesLocator condition failed: column not found" );
+            var rowIdx = Format.Row.FindIndex( table.Rows.Select( row => table.GetRow( row ).ElementAt( colToScan ).InnerText ) );
+            if( rowIdx == -1 )
+            {
+                return null;
+            }
 
-            //var value = inputTable.Rows[ rowIdx ][ colIdx ];
-
-            return null;
+            return table.GetCellAt( rowIdx, colIdx );
         }
-        
+
         protected override void OnSelectionChanged()
         {
             Path = MarkupBehavior.PathToSelectedElement;
@@ -128,31 +138,31 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         /// </summary>
         private void TryAutoDetectCellFromSelection( IHtmlElement selectedElement )
         {
-            if ( !selectedElement.GetPath().PointsToTableCell )
+            if( !selectedElement.GetPath().PointsToTableCell )
             {
                 return;
             }
 
             var table = MarkupBehavior.Marker.Table;
-            if ( table == null )
+            if( table == null )
             {
                 return;
             }
 
-            if ( ColumnPosition == -1 )
+            if( ColumnPosition == -1 )
             {
                 // just guess ...
                 ColumnPosition = 0;
             }
 
-            if ( RowPosition == -1 )
+            if( RowPosition == -1 )
             {
                 // just guess ...
                 RowPosition = 0;
             }
 
-            ColumnPattern = table.GetCellAt( ColumnPosition, table.GetColumnIndex( selectedElement ) ).InnerText;
-            RowPattern = table.GetCellAt( table.GetRowIndex( selectedElement ), RowPosition ).InnerText;
+            ColumnPattern = table.GetCellAt( ColumnPosition, table.GetColumnIndex( selectedElement ) ).InnerText.Trim();
+            RowPattern = table.GetCellAt( table.GetRowIndex( selectedElement ), RowPosition ).InnerText.Trim();
         }
 
         public string Path
@@ -164,13 +174,13 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 var path = value == null ? null : HtmlPath.Parse( value ).GetPathToTable();
 
                 // in case we do not point to table we set the original path
-                if ( SetProperty( ref myPath, path != null ? path.ToString() : value ) )
+                if( SetProperty( ref myPath, path != null ? path.ToString() : value ) )
                 {
                     Format.Path = myPath;
 
                     // only overwrite if it was not set yet. Once the user has clicked we want
                     // to keep the user selection and NOT apply the reduced path (which is not supported by HtmlTableMarker)
-                    if ( string.IsNullOrEmpty( MarkupBehavior.PathToSelectedElement ) )
+                    if( string.IsNullOrEmpty( MarkupBehavior.PathToSelectedElement ) )
                     {
                         MarkupBehavior.PathToSelectedElement = myPath;
                     }
@@ -189,9 +199,9 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             get { return myRowPosition; }
             set
             {
-                if ( SetProperty( ref myRowPosition, value ) )
+                if( SetProperty( ref myRowPosition, value ) )
                 {
-                    ( (StringContainsLocator)Format.Row ).HeaderSeriesPosition = myRowPosition;
+                    ( ( StringContainsLocator )Format.Row ).HeaderSeriesPosition = myRowPosition;
                     ValidateRow();
                     MarkupBehavior.Marker.RowHeaderColumn = value;
                 }
@@ -202,7 +212,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         {
             var table = MarkupBehavior.Marker.Table;
 
-            if ( table != null && RowPattern != null )
+            if( table != null && RowPattern != null )
             {
                 var rowHeader = table.GetCellAt( table.GetRowIndex( MarkupBehavior.SelectedElement ), Format.Row.HeaderSeriesPosition ).InnerText;
                 IsRowValid = rowHeader.Contains( RowPattern, StringComparison.OrdinalIgnoreCase );
@@ -213,15 +223,33 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         private void TryUpdateValue()
         {
-            if ( !IsRowValid || !IsColumnValid || string.IsNullOrEmpty( Format.Path ) )
+            if( !IsRowValid || !IsColumnValid || string.IsNullOrEmpty( Format.Path ) )
             {
                 return;
             }
 
-            // TODO: parser might be a bit overkill here - we anyway need code to select the HtmlElement from format def
-            var parser = DocumentProcessingFactory.CreateParser( Document, Format );
-            var table = parser.ExtractTable();
-            Value = table.Rows[ 0 ][ 0 ].ToString();
+            var cell = GetHtmlElementFromDescription();
+            if( cell == null )
+            {
+                Value = null;
+                return;
+            }
+
+            if( Format.ValueFormat == null )
+            {
+                Value = cell.InnerText;
+                return;
+            }
+
+            object value;
+            if( Format.ValueFormat.TryConvert( cell.InnerText, out value ) )
+            {
+                Value = value.ToString();
+            }
+            else
+            {
+                Value = cell.InnerText;
+            }
         }
 
         public string RowPattern
@@ -229,9 +257,9 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             get { return myRowPattern; }
             set
             {
-                if ( SetProperty( ref myRowPattern, value ) )
+                if( SetProperty( ref myRowPattern, value ) )
                 {
-                    ( (StringContainsLocator)Format.Row ).Pattern = myRowPattern;
+                    ( ( StringContainsLocator )Format.Row ).Pattern = myRowPattern;
                     ValidateRow();
                 }
             }
@@ -248,9 +276,9 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             get { return myColumnPosition; }
             set
             {
-                if ( SetProperty( ref myColumnPosition, value ) )
+                if( SetProperty( ref myColumnPosition, value ) )
                 {
-                    ( (StringContainsLocator)Format.Column ).HeaderSeriesPosition = myColumnPosition;
+                    ( ( StringContainsLocator )Format.Column ).HeaderSeriesPosition = myColumnPosition;
                     ValidateColumn();
                     MarkupBehavior.Marker.ColumnHeaderRow = value;
                 }
@@ -261,7 +289,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         {
             var table = MarkupBehavior.Marker.Table;
 
-            if ( table != null && ColumnPattern != null )
+            if( table != null && ColumnPattern != null )
             {
                 var colHeader = table.GetCellAt( Format.Column.HeaderSeriesPosition, table.GetColumnIndex( MarkupBehavior.SelectedElement ) ).InnerText;
                 IsColumnValid = colHeader.Contains( ColumnPattern, StringComparison.OrdinalIgnoreCase );
@@ -275,9 +303,9 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             get { return myColumnPattern; }
             set
             {
-                if ( SetProperty( ref myColumnPattern, value ) )
+                if( SetProperty( ref myColumnPattern, value ) )
                 {
-                    ( (StringContainsLocator)Format.Column ).Pattern = myColumnPattern;
+                    ( ( StringContainsLocator )Format.Column ).Pattern = myColumnPattern;
                     ValidateColumn();
                 }
             }
@@ -305,7 +333,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             get { return mySelectedCurreny; }
             set
             {
-                if ( SetProperty( ref mySelectedCurreny, value ) )
+                if( SetProperty( ref mySelectedCurreny, value ) )
                 {
                     Format.Currency = value != null ? value.Symbol : null;
                 }

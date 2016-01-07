@@ -11,7 +11,7 @@ namespace RaynMaker.Modules.Import.Parsers
         public static DataTable ToFormattedTable( TableDescriptorBase descriptor, DataTable rawTable )
         {
             DataTable table = new DataTable();
-            foreach ( var col in descriptor.Columns )
+            foreach( var col in descriptor.Columns )
             {
                 table.Columns.Add( col.Name, col.Type );
             }
@@ -22,9 +22,9 @@ namespace RaynMaker.Modules.Import.Parsers
 
         public static void ToFormattedTable( TableDescriptorBase descriptor, DataTable rawTable, DataTable targetTable )
         {
-            for ( int r = 0; r < rawTable.Rows.Count; ++r )
+            for( int r = 0; r < rawTable.Rows.Count; ++r )
             {
-                if ( descriptor.SkipRows.Contains( r ) )
+                if( descriptor.SkipRows.Contains( r ) )
                 {
                     continue;
                 }
@@ -33,22 +33,22 @@ namespace RaynMaker.Modules.Import.Parsers
                 DataRow row = targetTable.NewRow();
                 int targetCol = 0;
                 bool isEmpty = true;
-                for ( int c = 0; c < rawRow.ItemArray.Length; ++c )
+                for( int c = 0; c < rawRow.ItemArray.Length; ++c )
                 {
-                    if ( descriptor.SkipColumns.Contains( c ) )
+                    if( descriptor.SkipColumns.Contains( c ) )
                     {
                         continue;
                     }
 
-                    if ( targetCol == descriptor.Columns.Count )
+                    if( targetCol == descriptor.Columns.Count )
                     {
                         break;
                     }
 
                     FormatColumn formatCol = descriptor.Columns[ targetCol ];
-                    object value = formatCol.Convert( (string)rawRow[ c ] );
+                    object value = formatCol.Convert( ( string )rawRow[ c ] );
                     row[ formatCol.Name ] = ( value != null ? value : DBNull.Value );
-                    if ( row[ formatCol.Name ] != DBNull.Value )
+                    if( row[ formatCol.Name ] != DBNull.Value )
                     {
                         isEmpty = false;
                     }
@@ -56,7 +56,7 @@ namespace RaynMaker.Modules.Import.Parsers
                     targetCol++;
                 }
 
-                if ( !isEmpty )
+                if( !isEmpty )
                 {
                     targetTable.Rows.Add( row );
                 }
@@ -74,7 +74,7 @@ namespace RaynMaker.Modules.Import.Parsers
             result.Locale = rawTable.Locale;
 
             result.Columns.Add( new DataColumn( descriptor.ValueFormat.Name, descriptor.ValueFormat.Type ) );
-            if ( descriptor.TimesLocator != null && descriptor.TimeFormat != null )
+            if( descriptor.TimesLocator != null && descriptor.TimeFormat != null )
             {
                 result.Columns.Add( new DataColumn( descriptor.TimeFormat.Name, descriptor.TimeFormat.Type ) );
             }
@@ -84,24 +84,24 @@ namespace RaynMaker.Modules.Import.Parsers
                 DataRow dataRow2 = result.NewRow();
                 result.Rows.Add( dataRow2 );
 
-                dataRow2[ 0 ] = descriptor.ValueFormat.Convert( (string)value );
+                dataRow2[ 0 ] = descriptor.ValueFormat.Convert( ( string )value );
 
-                if ( time != null )
+                if( time != null )
                 {
-                    dataRow2[ 1 ] = descriptor.TimeFormat.Convert( (string)time );
+                    dataRow2[ 1 ] = descriptor.TimeFormat.Convert( ( string )time );
                 }
             };
 
             Func<int, int, string> GetTimeValue = ( row, col ) =>
             {
-                if ( row != -1 && col != -1 )
+                if( row != -1 && col != -1 )
                 {
-                    return (string)rawTable.Rows[ row ][ col ];
+                    return ( string )rawTable.Rows[ row ][ col ];
                 }
                 return null;
             };
 
-            if ( descriptor.Orientation == SeriesOrientation.Row )
+            if( descriptor.Orientation == SeriesOrientation.Row )
             {
                 int valuesColToScan = descriptor.ValuesLocator.HeaderSeriesPosition;
                 Contract.Requires( valuesColToScan < rawTable.Columns.Count, "ValuesLocator points outside table" );
@@ -110,7 +110,7 @@ namespace RaynMaker.Modules.Import.Parsers
                 Contract.Invariant( valuesRowIdx != -1, "ValuesLocator condition failed: column not found" );
 
                 var timesRowIdx = -1;
-                if ( descriptor.TimesLocator != null && descriptor.TimeFormat != null )
+                if( descriptor.TimesLocator != null && descriptor.TimeFormat != null )
                 {
                     var timesColToScan = descriptor.TimesLocator.HeaderSeriesPosition;
                     Contract.Requires( timesColToScan < rawTable.Columns.Count, "TimesLocator points outside table" );
@@ -120,9 +120,9 @@ namespace RaynMaker.Modules.Import.Parsers
                 }
 
                 var dataRow = rawTable.Rows[ valuesRowIdx ];
-                for ( int i = 0; i < dataRow.ItemArray.Length; i++ )
+                for( int i = 0; i < dataRow.ItemArray.Length; i++ )
                 {
-                    if ( i != valuesColToScan && !descriptor.Excludes.Contains( i ) )
+                    if( i != valuesColToScan && !descriptor.Excludes.Contains( i ) )
                     {
                         var value = dataRow[ i ];
                         var time = GetTimeValue( timesRowIdx, i );
@@ -139,7 +139,7 @@ namespace RaynMaker.Modules.Import.Parsers
                 Contract.Invariant( valuesColIdx != -1, "ValuesLocator condition failed: row not found" );
 
                 var timesColIdx = -1;
-                if ( descriptor.TimesLocator != null && descriptor.TimeFormat != null )
+                if( descriptor.TimesLocator != null && descriptor.TimeFormat != null )
                 {
                     var timesRowToScan = descriptor.TimesLocator.HeaderSeriesPosition;
                     Contract.Invariant( timesRowToScan < rawTable.Rows.Count, "TimesLocator points outside table" );
@@ -148,9 +148,9 @@ namespace RaynMaker.Modules.Import.Parsers
                     Contract.Invariant( timesColIdx != -1, "TimesLocator condition failed: row not found" );
                 }
 
-                for ( int i = 0; i < rawTable.Rows.Count; i++ )
+                for( int i = 0; i < rawTable.Rows.Count; i++ )
                 {
-                    if ( i != valuesRowToScan && !descriptor.Excludes.Contains( i ) )
+                    if( i != valuesRowToScan && !descriptor.Excludes.Contains( i ) )
                     {
                         var value = rawTable.Rows[ i ][ valuesColIdx ];
                         var time = GetTimeValue( i, timesColIdx );
@@ -170,20 +170,20 @@ namespace RaynMaker.Modules.Import.Parsers
             Contract.RequiresNotNull( inputTable, "inputTable" );
 
             int rowToScan = descriptor.Column.HeaderSeriesPosition;
-            Contract.Requires( rowToScan < inputTable.Rows.Count, "ValuesLocator points outside table" );
+            Contract.Requires( 0 <= rowToScan && rowToScan < inputTable.Rows.Count, "ValuesLocator points outside table" );
 
             var colIdx = descriptor.Column.FindIndex( inputTable.Rows[ rowToScan ].ItemArray.Select( item => item.ToString() ) );
             Contract.Invariant( colIdx != -1, "ValuesLocator condition failed: column not found" );
 
             var colToScan = descriptor.Row.HeaderSeriesPosition;
-            Contract.Requires( colToScan < inputTable.Columns.Count, "TimesLocator points outside table" );
+            Contract.Requires( 0 <= colToScan && colToScan < inputTable.Columns.Count, "TimesLocator points outside table" );
 
             var rowIdx = descriptor.Row.FindIndex( inputTable.Rows.ToSet().Select( row => row[ colToScan ].ToString() ) );
             Contract.Invariant( colIdx != -1, "TimesLocator condition failed: column not found" );
 
             var value = inputTable.Rows[ rowIdx ][ colIdx ];
 
-            return descriptor.ValueFormat.Convert( (string)value );
+            return descriptor.ValueFormat.Convert( ( string )value );
         }
     }
 }

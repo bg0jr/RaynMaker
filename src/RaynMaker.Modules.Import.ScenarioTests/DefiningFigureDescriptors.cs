@@ -36,9 +36,8 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         {
             var descriptor = new PathCellDescriptor();
             descriptor.Figure = "Price";
-            descriptor.ValueFormat = new ValueFormat( typeof( double ), "00,00" ) { ExtractionPattern = new Regex( @"([0-9,\.]+)" ) };
 
-            var doc = (HtmlDocumentAdapter)LoadDocument<IHtmlDocument>( "Html", "ariva.prices.DE0007664039.html" );
+            var doc = ( HtmlDocumentAdapter )LoadDocument<IHtmlDocument>( "Html", "ariva.prices.DE0007664039.html" );
 
             var viewModel = new PathCellFormatViewModel( myLutService.Object, descriptor );
             viewModel.Document = doc;
@@ -46,14 +45,23 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             HtmlMarkupAutomationProvider.SimulateClickOn( doc.Document, "rym_FrakfurtPrice" );
 
             Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" ) );
-            Assert.That( viewModel.Value, Is.EqualTo( "134.356" ) );
+            Assert.That( viewModel.Value, Is.EqualTo( "134,356\t€" ) );
+            Assert.That( ( ( StringContainsLocator )descriptor.Column ).HeaderSeriesPosition, Is.EqualTo( 0 ) );
+            Assert.That( ( ( StringContainsLocator )descriptor.Column ).Pattern, Is.EqualTo( "Letzter" ) );
+            Assert.That( ( ( StringContainsLocator )descriptor.Row ).HeaderSeriesPosition, Is.EqualTo( 0 ) );
+            Assert.That( ( ( StringContainsLocator )descriptor.Row ).Pattern, Is.EqualTo( "Frankfurt" ) );
 
-            //descriptor.Column = new StringContainsLocator { HeaderSeriesPosition = 0, Pattern = "Letzter" };
-            //descriptor.Row = new StringContainsLocator { HeaderSeriesPosition = 0, Pattern = "Frankfurt" };
-            //descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "00,00" ) { ExtractionPattern = new Regex( @"([0-9,\.]+)" ) };
-            //descriptor.Currency = "EUR";
+            viewModel.ValueFormat.Type = typeof( double );
+            viewModel.ValueFormat.Format = "00,00";
+            viewModel.ValueFormat.ExtractionPattern = new Regex( @"([0-9,\.]+)" );
 
-            // TODO: validate selection in document!
+            Assert.That( viewModel.Value, Is.EqualTo( ( 134.356 ).ToString() ) );
+
+            viewModel.SelectedCurrency = myLutService.Object.CurrenciesLut.Currencies.Single( c => c.Symbol == "EUR" );
+
+            Assert.That( descriptor.Currency, Is.EqualTo( "EUR" ) );
+
+            // TODO: validate selection/markup in document!
         }
     }
 }

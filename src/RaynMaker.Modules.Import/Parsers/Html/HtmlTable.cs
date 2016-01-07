@@ -28,24 +28,24 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         /// Returns all rows of the HTML table.
         /// Including potential header
         /// </summary>
-        public IEnumerable<IHtmlElement> Rows
+        public IReadOnlyList<IHtmlElement> Rows
         {
             get { return myRows.Value; }
         }
 
         private IEnumerable<IHtmlElement> GetRows()
         {
-            foreach ( var row in TableElement.Children )
+            foreach( var row in TableElement.Children )
             {
-                if ( row.TagName == "TR" )
+                if( row.TagName == "TR" )
                 {
                     yield return row;
                 }
-                if ( row.TagName == "THEAD" || row.TagName == "TBODY" )
+                if( row.TagName == "THEAD" || row.TagName == "TBODY" )
                 {
-                    foreach ( var innerRow in row.Children )
+                    foreach( var innerRow in row.Children )
                     {
-                        if ( innerRow.TagName == "TR" )
+                        if( innerRow.TagName == "TR" )
                         {
                             yield return innerRow;
                         }
@@ -61,7 +61,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         public int GetColumnIndex( IHtmlElement e )
         {
             var td = GetEmbeddingTD( e );
-            if ( td == null )
+            if( td == null )
             {
                 return -1;
             }
@@ -76,7 +76,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         {
             Contract.RequiresNotNull( element, "e" );
 
-            if ( element.TagName == "TD" || element.TagName == "TH" )
+            if( element.TagName == "TD" || element.TagName == "TH" )
             {
                 return element;
             }
@@ -95,7 +95,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         public int GetRowIndex( IHtmlElement e )
         {
             var tr = GetEmbeddingTR( e );
-            if ( tr == null )
+            if( tr == null )
             {
                 return -1;
             }
@@ -111,7 +111,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         {
             Contract.RequiresNotNull( element, "e" );
 
-            if ( element.TagName == "TR" )
+            if( element.TagName == "TR" )
             {
                 return element;
             }
@@ -129,12 +129,19 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         public IHtmlElement GetCellAt( int row, int column )
         {
             var r = Rows.ElementAt( row );
-            if ( r == null )
+            if( r == null )
             {
                 return null;
             }
 
             return r.GetChildAt( new[] { "TD", "TH" }, column );
+        }
+
+        public IEnumerable<IHtmlElement> GetRow( int row )
+        {
+            Contract.Requires( 0 <= row && row < Rows.Count, "Index out of range" );
+
+            return Rows[ row ].Children;
         }
 
         /// <summary>
@@ -145,7 +152,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             Contract.RequiresNotNull( cell, "cell" );
 
             var row = GetEmbeddingTR( cell );
-            if ( row == null )
+            if( row == null )
             {
                 throw new ArgumentException( "Element does not point to cell inside table row" );
             }
@@ -165,10 +172,10 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             // ignore tag - we could have TH and TD in the row
             int colIdx = cell.GetChildPos();
 
-            foreach ( var row in Rows )
+            foreach( var row in Rows )
             {
                 var e = row.GetChildAt( new[] { "TD", "TH" }, colIdx );
-                if ( e == null )
+                if( e == null )
                 {
                     continue;
                 }
@@ -185,7 +192,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         public static HtmlTable FindByPath( IHtmlDocument doc, HtmlPath path )
         {
             var start = doc.GetElementByPath( path );
-            if ( start == null )
+            if( start == null )
             {
                 return null;
             }
@@ -201,7 +208,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         {
             Contract.RequiresNotNull( cell, "start" );
 
-            if ( cell.TagName == "TABLE" )
+            if( cell.TagName == "TABLE" )
             {
                 return new HtmlTable( cell );
             }
