@@ -66,7 +66,7 @@
       <Project>{87f14106-b2f8-4f90-9a14-18723ad25eef}</Project>
       <Name>RaynMaker.Modules.Analysis</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RaynMaker.Entities.Tests\RaynMaker.Entities.UnitTests.csproj">
+    <ProjectReference Include="..\RaynMaker.Entities.UnitTests\RaynMaker.Entities.UnitTests.csproj">
       <Project>{479cb8a7-9096-4a4c-b825-305e2dff0456}</Project>
       <Name>RaynMaker.Entities.UnitTests</Name>
     </ProjectReference>

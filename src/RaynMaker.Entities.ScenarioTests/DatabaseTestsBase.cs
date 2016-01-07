@@ -2,8 +2,9 @@
 using System.Threading;
 using NUnit.Framework;
 using Plainion;
+using RaynMaker.Entities.Persistancy;
 
-namespace RaynMaker.Entities.Persistancy.Tests
+namespace RaynMaker.Entities.ScenarioTests
 {
     [TestFixture]
     class DatabaseTestsBase

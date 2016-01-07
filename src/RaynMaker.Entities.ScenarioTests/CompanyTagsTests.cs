@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using RaynMaker.Entities.Persistancy;
 
-namespace RaynMaker.Entities.Persistancy.Tests
+namespace RaynMaker.Entities.ScenarioTests
 {
     [TestFixture]
     class CompanyTagsTests : DatabaseTestsBase

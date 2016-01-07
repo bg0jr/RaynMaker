@@ -3,8 +3,9 @@ using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using NUnit.Framework;
+using RaynMaker.Entities.Persistancy;
 
-namespace RaynMaker.Entities.Persistancy.Tests
+namespace RaynMaker.Entities.ScenarioTests
 {
     [TestFixture]
     class CascadingDeleteTests : DatabaseTestsBase

@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using NUnit.Framework;
+using RaynMaker.Entities.Persistancy;
 
-namespace RaynMaker.Entities.Persistancy.Tests
+namespace RaynMaker.Entities.ScenarioTests
 {
     /// <summary>
     /// Combines all tests together which are relatest to low level Database setup - e.g. cascading delete constraints
