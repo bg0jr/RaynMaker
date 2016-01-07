@@ -5,6 +5,7 @@ using NUnit.Framework;
 using RaynMaker.Entities;
 using RaynMaker.Entities.Datums;
 using RaynMaker.Infrastructure.Services;
+using RaynMaker.Modules.Import.Design;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 using RaynMaker.Modules.Import.Web.ViewModels;
 
@@ -14,6 +15,7 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
     class PathCellFormatViewModelTests
     {
         private Mock<ILutService> myLutService;
+        private Mock<IHtmlMarkupBehavior<HtmlTableMarker>> myMarkupBehavior;
 
         [SetUp]
         public void SetUp()
@@ -21,6 +23,13 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
             myLutService = new Mock<ILutService> { DefaultValue = DefaultValue.Mock };
             Mock.Get( myLutService.Object.CurrenciesLut ).SetupGet( x => x.Currencies ).Returns( new ObservableCollection<Entities.Currency>() );
             myLutService.Object.CurrenciesLut.Currencies.Add( new Entities.Currency { Symbol = "EUR" } );
+
+            myMarkupBehavior = new Mock<IHtmlMarkupBehavior<HtmlTableMarker>> { DefaultValue = DefaultValue.Mock };
+        }
+
+        private PathCellFormatViewModel CreateViewModel( PathCellDescriptor descriptor )
+        {
+            return new PathCellFormatViewModel( myLutService.Object, descriptor, myMarkupBehavior.Object );
         }
 
         [Test]
@@ -28,7 +37,7 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
         {
             var descriptor = new PathCellDescriptor();
 
-            var viewModel = new PathCellFormatViewModel( myLutService.Object, descriptor );
+            var viewModel = CreateViewModel( descriptor );
 
             Assert.That( descriptor.Column, Is.InstanceOf<StringContainsLocator>() );
             Assert.That( ( ( StringContainsLocator )descriptor.Column ).HeaderSeriesPosition, Is.EqualTo( -1 ) );
@@ -53,7 +62,7 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
             descriptor.Row = new StringContainsLocator { HeaderSeriesPosition = 4, Pattern = "row" };
             descriptor.ValueFormat = new ValueFormat( typeof( double ), "00.00" );
 
-            var viewModel = new PathCellFormatViewModel( myLutService.Object, descriptor );
+            var viewModel = CreateViewModel( descriptor );
 
             Assert.That( ( ( StringContainsLocator )descriptor.Column ).HeaderSeriesPosition, Is.EqualTo( 7 ) );
             Assert.That( ( ( StringContainsLocator )descriptor.Column ).Pattern, Is.EqualTo( "column" ) );
@@ -77,7 +86,7 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
             descriptor.Row = new StringContainsLocator { HeaderSeriesPosition = 4, Pattern = "row" };
             descriptor.ValueFormat = new ValueFormat( typeof( double ), "00.00" );
 
-            var viewModel = new PathCellFormatViewModel( myLutService.Object, descriptor );
+            var viewModel = CreateViewModel( descriptor );
 
             Assert.That( viewModel.ColumnPattern, Is.EqualTo( "column" ) );
             Assert.That( viewModel.ColumnPosition, Is.EqualTo( 7 ) );
@@ -97,7 +106,7 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
         {
             var descriptor = new PathCellDescriptor();
 
-            var viewModel = new PathCellFormatViewModel( myLutService.Object, descriptor );
+            var viewModel = CreateViewModel( descriptor );
 
             // "null" is included to allow the user to select "nothing"
             Assert.That( viewModel.Currencies, Is.EquivalentTo( new Entities.Currency[] { null }.Concat( myLutService.Object.CurrenciesLut.Currencies ) ) );
@@ -108,7 +117,7 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
         {
             var descriptor = new PathCellDescriptor();
 
-            var viewModel = new PathCellFormatViewModel( myLutService.Object, descriptor );
+            var viewModel = CreateViewModel( descriptor );
 
             Assert.That( viewModel.Datums, Is.EquivalentTo( Dynamics.AllDatums ) );
         }
@@ -117,7 +126,7 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
         public void Path_SetToTableCell_PathReducedToTable()
         {
             var descriptor = new PathCellDescriptor();
-            var viewModel = new PathCellFormatViewModel( myLutService.Object, descriptor );
+            var viewModel = CreateViewModel( descriptor );
 
             viewModel.Path = @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]/TR[1]/TD[1]";
 
@@ -126,15 +135,18 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
         }
 
         [Test]
-        public void Path_()
+        public void Path_WhenCalled_PassedToDescriptorAndMarkupBehavior( [Values( null, @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" )]string path )
         {
             var descriptor = new PathCellDescriptor();
-            var viewModel = new PathCellFormatViewModel( myLutService.Object, descriptor );
+            var viewModel = CreateViewModel( descriptor );
 
-            viewModel.Path = @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]/TR[1]/TD[1]";
+            // first set to s.th. different to ensure that really the body of the setter gets executed
+            viewModel.Path = "/BODY[0]";
 
-            Assert.That( viewModel.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" ) );
-            Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" ) );
+            viewModel.Path = path;
+
+            Assert.That( descriptor.Path, Is.EqualTo( path ) );
+            myMarkupBehavior.VerifySet( x => x.PathToSelectedElement = path );
         }
     }
 }

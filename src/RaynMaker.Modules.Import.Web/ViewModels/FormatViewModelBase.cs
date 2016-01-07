@@ -17,8 +17,14 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         private Type mySelectedDatum;
 
         protected FormatViewModelBase( TFigureDescriptor descriptor, TMarker marker )
+            : this( descriptor, new HtmlMarkupBehavior<TMarker>( marker ) )
+        {
+        }
+
+        protected FormatViewModelBase( TFigureDescriptor descriptor, IHtmlMarkupBehavior<TMarker> markupBehavior )
         {
             Contract.RequiresNotNull( descriptor, "descriptor" );
+            Contract.RequiresNotNull( markupBehavior, "markupBehavior" );
 
             Format = descriptor;
 
@@ -26,7 +32,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 .OrderBy( d => d.Name )
                 .ToList();
 
-            MarkupBehavior = new HtmlMarkupBehavior<TMarker>( marker );
+            MarkupBehavior = markupBehavior;
             MarkupBehavior.SelectionChanged += OnSelectionChanged;
         }
 

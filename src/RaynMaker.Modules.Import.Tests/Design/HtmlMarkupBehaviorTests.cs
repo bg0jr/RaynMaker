@@ -149,7 +149,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
 
             myBrowser.LoadHtml( HtmlDocument1 );
             var document = new HtmlDocumentAdapter( myBrowser.Document );
-            var path =  document.GetElementById( "x11" ).GetPath().ToString();
+            var path = document.GetElementById( "x11" ).GetPath().ToString();
 
             behavior.PathToSelectedElement = path;
 
@@ -157,7 +157,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         }
 
         [Test]
-        public void SelectedElement_WhenSet_PathToSelectedElementAdjusted()
+        public void SelectedElement_SetToNotNull_PathToSelectedElementAdjusted()
         {
             myBrowser.LoadHtml( HtmlDocument1 );
             var document = new HtmlDocumentAdapter( myBrowser.Document );
@@ -171,7 +171,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         }
 
         [Test]
-        public void PathToSelectedElement_WhenSet_SelectedElementAdjusted()
+        public void SelectedElement_SetToNull_PathToSelectedElementAdjusted()
         {
             myBrowser.LoadHtml( HtmlDocument1 );
             var document = new HtmlDocumentAdapter( myBrowser.Document );
@@ -179,9 +179,37 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
             var behavior = new HtmlMarkupBehavior<HtmlElementMarker>( new HtmlElementMarker( Color.Yellow ) );
             behavior.AttachTo( document );
 
-            behavior.PathToSelectedElement = document.GetElementById( "x11" ).GetPath().ToString(); ;
+            behavior.SelectedElement = null;
+
+            Assert.That( behavior.PathToSelectedElement, Is.Null );
+        }
+
+        [Test]
+        public void PathToSelectedElement_SetToNotNull_SelectedElementAdjusted()
+        {
+            myBrowser.LoadHtml( HtmlDocument1 );
+            var document = new HtmlDocumentAdapter( myBrowser.Document );
+
+            var behavior = new HtmlMarkupBehavior<HtmlElementMarker>( new HtmlElementMarker( Color.Yellow ) );
+            behavior.AttachTo( document );
+
+            behavior.PathToSelectedElement = document.GetElementById( "x11" ).GetPath().ToString();
 
             Assert.That( behavior.SelectedElement, Is.SameAs( document.GetElementById( "x11" ) ) );
+        }
+
+        [Test]
+        public void PathToSelectedElement_SetToNull_SelectedElementAdjusted()
+        {
+            myBrowser.LoadHtml( HtmlDocument1 );
+            var document = new HtmlDocumentAdapter( myBrowser.Document );
+
+            var behavior = new HtmlMarkupBehavior<HtmlElementMarker>( new HtmlElementMarker( Color.Yellow ) );
+            behavior.AttachTo( document );
+
+            behavior.PathToSelectedElement = null;
+
+            Assert.That( behavior.SelectedElement, Is.Null );
         }
 
         [Test]
@@ -212,7 +240,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
 
             bool selectionChangedRaised = false;
             behavior.SelectionChanged += ( s, e ) => selectionChangedRaised = true;
-            
+
             behavior.PathToSelectedElement = document.GetElementById( "x11" ).GetPath().ToString(); ;
 
             Assert.That( selectionChangedRaised, Is.True );

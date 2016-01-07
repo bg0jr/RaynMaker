@@ -24,7 +24,15 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         private Currency mySelectedCurreny;
 
         public PathCellFormatViewModel( ILutService lutService, PathCellDescriptor descriptor )
-            : base( descriptor, new HtmlTableMarker() )
+            : this( lutService, descriptor, new HtmlMarkupBehavior<HtmlTableMarker>( new HtmlTableMarker() ) )
+        {
+        }
+
+        /// <summary>
+        /// UT only!
+        /// </summary>
+        internal PathCellFormatViewModel( ILutService lutService, PathCellDescriptor descriptor, IHtmlMarkupBehavior<HtmlTableMarker> markupBehavior )
+            : base( descriptor, markupBehavior )
         {
             myLutService = lutService;
 
@@ -73,13 +81,10 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         protected override void OnSelectionChanged()
         {
-            if( MarkupBehavior.SelectedElement != null )
-            {
-                Path = MarkupBehavior.PathToSelectedElement;
+            Path = MarkupBehavior.PathToSelectedElement;
 
-                ValidateRow();
-                ValidateColumn();
-            }
+            ValidateRow();
+            ValidateColumn();
         }
 
         protected override void OnDocumentChanged()
@@ -112,7 +117,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         public string Value
         {
             get { return myValue; }
-            set { SetProperty( ref myValue, value ); }
+            private set { SetProperty( ref myValue, value ); }
         }
 
         public int RowPosition
@@ -131,9 +136,10 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         private void ValidateRow()
         {
-            if( MarkupBehavior.SelectedElement != null && RowPattern != null )
+            var table = MarkupBehavior.Marker.Table;
+
+            if( table != null && RowPattern != null )
             {
-                var table = MarkupBehavior.Marker.Table;
                 var rowHeader = table.GetCellAt( table.GetRowIndex( MarkupBehavior.SelectedElement ), Format.Row.HeaderSeriesPosition ).InnerText;
                 IsRowValid = rowHeader.Contains( RowPattern, StringComparison.OrdinalIgnoreCase );
             }
@@ -174,9 +180,10 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         private void ValidateColumn()
         {
-            if( MarkupBehavior.SelectedElement != null && ColumnPattern != null )
+            var table = MarkupBehavior.Marker.Table;
+
+            if( table != null && ColumnPattern != null )
             {
-                var table = MarkupBehavior.Marker.Table;
                 var colHeader = table.GetCellAt( Format.Column.HeaderSeriesPosition, table.GetColumnIndex( MarkupBehavior.SelectedElement ) ).InnerText;
                 IsColumnValid = colHeader.Contains( ColumnPattern, StringComparison.OrdinalIgnoreCase );
             }
