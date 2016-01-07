@@ -10,8 +10,6 @@ namespace RaynMaker.Modules.Import.Design
     /// </summary>
     public class HtmlElementMarker : IHtmlMarker
     {
-        public static string MarkupClass = "__rym_markup__";
-
         private const string Attribute_OrigStyle = "OrigStyle";
         private const string Attribute_Marker = "Marker";
         private const string Attribute_MarkerCount = "MarkerCount";
@@ -119,6 +117,17 @@ namespace RaynMaker.Modules.Import.Design
         public void Reset()
         {
             Unmark();
+        }
+
+        internal static bool IsMarked( IHtmlElement element )
+        {
+            var attr = element.GetAttribute( Attribute_MarkerCount );
+            if( string.IsNullOrEmpty( attr ) )
+            {
+                return false;
+            }
+
+            return int.Parse( attr ) > 0;
         }
     }
 }

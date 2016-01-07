@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using RaynMaker.Modules.Import.Documents;
 
 namespace RaynMaker.Modules.Import.Design
 {
@@ -22,6 +23,11 @@ namespace RaynMaker.Modules.Import.Design
             }
 
             return document.GetElementById( id );
+        }
+
+        public static bool IsMarked( IHtmlElement element )
+        {
+            return HtmlElementMarker.IsMarked( element );
         }
     }
 }

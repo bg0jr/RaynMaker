@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Plainion;
 using RaynMaker.Entities;
@@ -47,6 +48,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 Format.ValueFormat = new ValueFormat( typeof( double ) );
             }
             ValueFormat = Format.ValueFormat;
+            PropertyChangedEventManager.AddHandler( ValueFormat, OnValueFormatChanged, string.Empty );
 
             SelectedCurrency = myLutService.CurrenciesLut.Currencies.SingleOrDefault( c => c.Symbol == descriptor.Currency );
 
@@ -78,6 +80,11 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
             ValidateRow();
             ValidateColumn();
+        }
+
+        private void OnValueFormatChanged( object sender, PropertyChangedEventArgs e )
+        {
+            TryUpdateValue();
         }
 
         protected override void OnDocumentChanged()

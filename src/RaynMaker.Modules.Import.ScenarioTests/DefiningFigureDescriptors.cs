@@ -61,7 +61,9 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
             Assert.That( descriptor.Currency, Is.EqualTo( "EUR" ) );
 
-            // TODO: validate selection/markup in document!
+            var selectedCell = doc.GetElementById( "rym_FrakfurtPrice" );
+
+            Assert.That( HtmlMarkupAutomationProvider.IsMarked( selectedCell ), Is.True );
         }
     }
 }
