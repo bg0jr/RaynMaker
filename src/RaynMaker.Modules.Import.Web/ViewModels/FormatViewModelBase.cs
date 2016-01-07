@@ -5,7 +5,7 @@ using Microsoft.Practices.Prism.Mvvm;
 using Plainion;
 using RaynMaker.Entities;
 using RaynMaker.Modules.Import.Design;
-using RaynMaker.Modules.Import.Documents.WinForms;
+using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Modules.Import.Web.ViewModels
@@ -82,7 +82,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                     return;
                 }
 
-                MarkupBehavior.AttachTo( ( HtmlDocumentAdapter )myDocument );
+                MarkupBehavior.AttachTo( ( IHtmlDocument )myDocument );
 
                 OnDocumentChanged();
             }

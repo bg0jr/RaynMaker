@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
@@ -6,6 +7,7 @@ using RaynMaker.Entities;
 using RaynMaker.Entities.Datums;
 using RaynMaker.Infrastructure.Services;
 using RaynMaker.Modules.Import.Design;
+using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 using RaynMaker.Modules.Import.Web.ViewModels;
 
@@ -147,6 +149,38 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
 
             Assert.That( descriptor.Path, Is.EqualTo( path ) );
             myMarkupBehavior.VerifySet( x => x.PathToSelectedElement = path );
+        }
+
+        /// <summary>
+        /// We try to update the selection inside the document according to the state of the ViewModel.
+        /// Thats esp. required when toggling around with ViewModels with same Document (only one ViewModel can use a document at the time
+        /// because of the HtmlMarkupBehavior).
+        /// </summary>
+        [Test]
+        public void OnDocumentChanged_WhenCalled_PathSetToMarkupBehavior()
+        {
+            var descriptor = new PathCellDescriptor();
+            var viewModel = CreateViewModel( descriptor );
+            viewModel.Path = "/BODY[0]";
+
+            viewModel.Document = new Mock<IHtmlDocument>().Object;
+
+            myMarkupBehavior.VerifySet( x => x.PathToSelectedElement = viewModel.Path );
+        }
+
+        [Test]
+        public void OnSelectionChanged_WhenCalled_PathSet()
+        {
+            var descriptor = new PathCellDescriptor();
+
+            var viewModel = CreateViewModel( descriptor );
+            viewModel.Document = new Mock<IHtmlDocument>().Object;
+
+            myMarkupBehavior.SetupGet( x => x.PathToSelectedElement ).Returns( "/BODY[0]/DIV[7]" );
+
+            myMarkupBehavior.Raise( x => x.SelectionChanged += null, this, EventArgs.Empty );
+
+            Assert.That( viewModel.Path, Is.EqualTo( "/BODY[0]/DIV[7]" ) );
         }
     }
 }

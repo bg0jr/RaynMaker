@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefiningFigureDescriptors.cs" />
     <Compile Include="LoadingDataSourcesScenarios.cs" />
     <Compile Include="SubmittingFormScenarios.cs" />
     <Compile Include="ReadingFromHtmlDocumentScenarios.cs" />

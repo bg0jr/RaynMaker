@@ -83,8 +83,8 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         }
 
         /// <summary>
-        /// Shortens the path from table cell to enclosing table.
-        /// Returns new copy
+        /// Returns a new HtmlPath pointing to the table element this instance is pointing into.
+        /// If this instance is not pointing into any table at all null is returned;
         /// </summary>
         public HtmlPath GetPathToTable()
         {
@@ -100,7 +100,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
                 result = new HtmlPath( result.Elements.Take( result.Elements.Count - 1 ) );
             }
 
-            return result;
+            return result.Elements.Any() ? result : null;
         }
 
         public override string ToString()

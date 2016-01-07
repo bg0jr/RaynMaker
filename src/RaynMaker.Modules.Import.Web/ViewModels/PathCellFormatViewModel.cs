@@ -79,6 +79,11 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             ValidateColumn();
         }
 
+        protected override void OnDocumentChanged()
+        {
+            MarkupBehavior.PathToSelectedElement = Path;
+        }
+
         protected override void OnSelectionChanged()
         {
             // call this before setting the Path property because it will reduce path from cell to table element
@@ -122,20 +127,16 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             RowPattern = table.GetCellAt( table.GetRowIndex( MarkupBehavior.SelectedElement ), RowPosition ).InnerText;
         }
 
-        protected override void OnDocumentChanged()
-        {
-            MarkupBehavior.PathToSelectedElement = Path;
-        }
-
         public string Path
         {
             get { return myPath; }
             set
             {
                 // Path must point to table NOT to cell in table
-                var path = value == null ? null : HtmlPath.Parse( value ).GetPathToTable().ToString();
+                var path = value == null ? null : HtmlPath.Parse( value ).GetPathToTable();
 
-                if( SetProperty( ref myPath, path ) )
+                // in case we do not point to table we set the original path
+                if( SetProperty( ref myPath, path != null ? path.ToString() : value ) )
                 {
                     Format.Path = myPath;
 
