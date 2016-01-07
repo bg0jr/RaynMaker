@@ -1,13 +1,18 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using Moq;
 using NUnit.Framework;
 using RaynMaker.Entities;
 using RaynMaker.Entities.Datums;
+using RaynMaker.Infrastructure.Services;
 using RaynMaker.Modules.Import.Documents;
+using RaynMaker.Modules.Import.Documents.WinForms;
 using RaynMaker.Modules.Import.Spec.v2;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
-
+using RaynMaker.Modules.Import.Web.ViewModels;
 
 namespace RaynMaker.Modules.Import.ScenarioTests
 {
@@ -15,25 +20,37 @@ namespace RaynMaker.Modules.Import.ScenarioTests
     [RequiresSTA]
     class DefiningFigureDescriptors : TestBase
     {
+        private Mock<ILutService> myLutService;
+
+        [SetUp]
+        public void SetUp()
+        {
+            myLutService = new Mock<ILutService> { DefaultValue = DefaultValue.Mock };
+            Mock.Get( myLutService.Object.CurrenciesLut ).SetupGet( x => x.Currencies ).Returns( new ObservableCollection<Entities.Currency>() );
+            myLutService.Object.CurrenciesLut.Currencies.Add( new Entities.Currency { Symbol = "EUR" } );
+        }
+
         [Test]
         public void DefineCell()
         {
-            var doc = LoadDocument<IHtmlDocument>( "Html", "ariva.prices.DE0007664039.html" );
-
-            var dataSource = new DataSource();
-            dataSource.Vendor = "Ariva";
-            dataSource.Name = "Prices";
-            dataSource.Quality = 1;
-
             var descriptor = new PathCellDescriptor();
             descriptor.Figure = "Price";
-            descriptor.Path = @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]";
-            descriptor.Column = new StringContainsLocator { HeaderSeriesPosition = 0, Pattern = "Letzter" };
-            descriptor.Row = new StringContainsLocator { HeaderSeriesPosition = 0, Pattern = "Frankfurt" };
-            descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "00,00" ) { ExtractionPattern = new Regex( @"([0-9,\.]+)" ) };
-            descriptor.Currency = "EUR";
 
-            //var viewModel = new Path
+            var doc = (HtmlDocumentAdapter)LoadDocument<IHtmlDocument>( "Html", "ariva.prices.DE0007664039.html" );
+
+            var viewModel = new PathCellFormatViewModel( myLutService.Object, descriptor );
+            viewModel.Document = doc;
+
+            var cell = doc.Document.GetElementById( "rym_FrakfurtPrice" );
+            cell.InvokeMember( "Click", null );
+
+            Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]") );
+            Assert.That( viewModel.Value, Is.EqualTo( "134.356" ) );
+
+            //descriptor.Column = new StringContainsLocator { HeaderSeriesPosition = 0, Pattern = "Letzter" };
+            //descriptor.Row = new StringContainsLocator { HeaderSeriesPosition = 0, Pattern = "Frankfurt" };
+            //descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "00,00" ) { ExtractionPattern = new Regex( @"([0-9,\.]+)" ) };
+            //descriptor.Currency = "EUR";
         }
     }
 }
