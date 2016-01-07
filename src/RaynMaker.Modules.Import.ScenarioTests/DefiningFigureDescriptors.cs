@@ -52,6 +52,8 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             //descriptor.Row = new StringContainsLocator { HeaderSeriesPosition = 0, Pattern = "Frankfurt" };
             //descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "00,00" ) { ExtractionPattern = new Regex( @"([0-9,\.]+)" ) };
             //descriptor.Currency = "EUR";
+
+            // TODO: validate selection in document!
         }
     }
 }

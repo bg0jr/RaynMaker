@@ -82,9 +82,37 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         protected override void OnDocumentChanged()
         {
-            MarkupBehavior.PathToSelectedElement = Path;
+            var pathToCell = GetHtmlElementFromDescription();
+            MarkupBehavior.PathToSelectedElement = pathToCell;
         }
 
+        // TODO: how can we make that code shareable throught "design" or "parsers"
+        private string GetHtmlElementFromDescription( )
+        {
+            if (string.IsNullOrEmpty(Path))
+            {
+                return null;
+            }
+
+            var table = HtmlTable.FindByPath((IHtmlDocument)Document, HtmlPath.Parse( Path ) );
+        
+            int rowToScan = Format.Column.HeaderSeriesPosition;
+//            if (rowToScan < table.Rows.Count, "ValuesLocator points outside table" );
+
+            //var colIdx = Format.Column.FindIndex( inputTable.Rows[ rowToScan ].ItemArray.Select( item => item.ToString() ) );
+            //Contract.Invariant( colIdx != -1, "ValuesLocator condition failed: column not found" );
+
+            //var colToScan = Format.Row.HeaderSeriesPosition;
+            //Contract.Requires( colToScan < inputTable.Columns.Count, "TimesLocator points outside table" );
+
+            //var rowIdx = Format.Row.FindIndex( inputTable.Rows.ToSet().Select( row => row[ colToScan ].ToString() ) );
+            //Contract.Invariant( colIdx != -1, "TimesLocator condition failed: column not found" );
+
+            //var value = inputTable.Rows[ rowIdx ][ colIdx ];
+
+            return null;
+        }
+        
         protected override void OnSelectionChanged()
         {
             Path = MarkupBehavior.PathToSelectedElement;
@@ -190,6 +218,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 return;
             }
 
+            // TODO: parser might be a bit overkill here - we anyway need code to select the HtmlElement from format def
             var parser = DocumentProcessingFactory.CreateParser( Document, Format );
             var table = parser.ExtractTable();
             Value = table.Rows[ 0 ][ 0 ].ToString();

@@ -10,15 +10,50 @@ namespace RaynMaker.Modules.Import.Parsers.Html
 {
     public class HtmlTable
     {
+        private Lazy<IReadOnlyList<IHtmlElement>> myRows;
+
         public HtmlTable( IHtmlElement tableElement )
         {
             Contract.RequiresNotNull( tableElement, "tableElement" );
             Contract.Requires( tableElement.TagName.Equals( "TABLE", StringComparison.OrdinalIgnoreCase ), "root must be TABLE element" );
 
             TableElement = tableElement;
+
+            myRows = new Lazy<IReadOnlyList<IHtmlElement>>( () => GetRows().ToList() );
         }
 
         public IHtmlElement TableElement { get; private set; }
+
+        /// <summary>
+        /// Returns all rows of the HTML table.
+        /// Including potential header
+        /// </summary>
+        public IEnumerable<IHtmlElement> Rows
+        {
+            get { return myRows.Value; }
+        }
+
+        private IEnumerable<IHtmlElement> GetRows()
+        {
+            foreach ( var row in TableElement.Children )
+            {
+                if ( row.TagName == "TR" )
+                {
+                    yield return row;
+                }
+                if ( row.TagName == "THEAD" || row.TagName == "TBODY" )
+                {
+                    foreach ( var innerRow in row.Children )
+                    {
+                        if ( innerRow.TagName == "TR" )
+                        {
+                            yield return innerRow;
+                        }
+                    }
+                }
+            }
+        }
+
 
         /// <summary>
         /// Returns the column index of the given HtmlElement or of its surrounding TD element.
@@ -26,7 +61,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         public int GetColumnIndex( IHtmlElement e )
         {
             var td = GetEmbeddingTD( e );
-            if( td == null )
+            if ( td == null )
             {
                 return -1;
             }
@@ -41,7 +76,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         {
             Contract.RequiresNotNull( element, "e" );
 
-            if( element.TagName == "TD" || element.TagName == "TH" )
+            if ( element.TagName == "TD" || element.TagName == "TH" )
             {
                 return element;
             }
@@ -60,7 +95,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         public int GetRowIndex( IHtmlElement e )
         {
             var tr = GetEmbeddingTR( e );
-            if( tr == null )
+            if ( tr == null )
             {
                 return -1;
             }
@@ -76,7 +111,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         {
             Contract.RequiresNotNull( element, "e" );
 
-            if( element.TagName == "TR" )
+            if ( element.TagName == "TR" )
             {
                 return element;
             }
@@ -94,40 +129,12 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         public IHtmlElement GetCellAt( int row, int column )
         {
             var r = Rows.ElementAt( row );
-            if( r == null )
+            if ( r == null )
             {
                 return null;
             }
 
             return r.GetChildAt( new[] { "TD", "TH" }, column );
-        }
-
-        /// <summary>
-        /// Returns all rows of the HTML table.
-        /// Including potential header
-        /// </summary>
-        public IEnumerable<IHtmlElement> Rows
-        {
-            get
-            {
-                foreach( var row in TableElement.Children )
-                {
-                    if( row.TagName == "TR" )
-                    {
-                        yield return row;
-                    }
-                    if( row.TagName == "THEAD" || row.TagName == "TBODY" )
-                    {
-                        foreach( var innerRow in row.Children )
-                        {
-                            if( innerRow.TagName == "TR" )
-                            {
-                                yield return innerRow;
-                            }
-                        }
-                    }
-                }
-            }
         }
 
         /// <summary>
@@ -138,7 +145,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             Contract.RequiresNotNull( cell, "cell" );
 
             var row = GetEmbeddingTR( cell );
-            if( row == null )
+            if ( row == null )
             {
                 throw new ArgumentException( "Element does not point to cell inside table row" );
             }
@@ -158,10 +165,10 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             // ignore tag - we could have TH and TD in the row
             int colIdx = cell.GetChildPos();
 
-            foreach( var row in Rows )
+            foreach ( var row in Rows )
             {
                 var e = row.GetChildAt( new[] { "TD", "TH" }, colIdx );
-                if( e == null )
+                if ( e == null )
                 {
                     continue;
                 }
@@ -178,23 +185,23 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         public static HtmlTable FindByPath( IHtmlDocument doc, HtmlPath path )
         {
             var start = doc.GetElementByPath( path );
-            if( start == null )
+            if ( start == null )
             {
                 return null;
             }
 
-            return FindByCell( start );
+            return FindByElement( start );
         }
 
         /// <summary>
         /// Searches for the table which embedds the given element.
         /// If the given HtmlElement is a TABLE element, this one is returned.
         /// </summary>
-        public static HtmlTable FindByCell( IHtmlElement cell )
+        public static HtmlTable FindByElement( IHtmlElement cell )
         {
             Contract.RequiresNotNull( cell, "start" );
 
-            if( cell.TagName == "TABLE" )
+            if ( cell.TagName == "TABLE" )
             {
                 return new HtmlTable( cell );
             }

@@ -186,7 +186,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             HtmlPath path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]/TR[6]/TD[1]" );
 
             var element = myDocument.GetElementByPath( path );
-            var table = HtmlTable.FindByCell( element );
+            var table = HtmlTable.FindByElement( element );
 
             Assert.IsNotNull( table );
         }
@@ -197,11 +197,11 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             HtmlPath path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]" );
 
             var element = myDocument.GetElementByPath( path );
-            var table = HtmlTable.FindByCell( element );
+            var table = HtmlTable.FindByElement( element );
 
             Assert.IsNotNull( table );
 
-            table = HtmlTable.FindByCell( element.Parent );
+            table = HtmlTable.FindByElement( element.Parent );
 
             Assert.IsNotNull( table );
             Assert.AreEqual( element.Parent, table.TableElement );
@@ -213,7 +213,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             HtmlPath path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]" );
 
             var element = myDocument.GetElementByPath( path );
-            var table = HtmlTable.FindByCell( element );
+            var table = HtmlTable.FindByElement( element );
 
             Assert.IsNull( table );
         }

@@ -63,7 +63,7 @@ namespace RaynMaker.Modules.Import.Design
 
             myElement = (HtmlElementAdapter)element;
 
-            Table = HtmlTable.FindByCell( myElement );
+            Table = HtmlTable.FindByElement( myElement );
 
             Contract.Requires( Table != null, "Couldnt find <table/> from given HtmlElement" );
 

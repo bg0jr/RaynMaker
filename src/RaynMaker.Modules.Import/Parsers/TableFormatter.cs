@@ -170,7 +170,7 @@ namespace RaynMaker.Modules.Import.Parsers
             Contract.RequiresNotNull( inputTable, "inputTable" );
 
             int rowToScan = descriptor.Column.HeaderSeriesPosition;
-            Contract.Requires( rowToScan < inputTable.Columns.Count, "ValuesLocator points outside table" );
+            Contract.Requires( rowToScan < inputTable.Rows.Count, "ValuesLocator points outside table" );
 
             var colIdx = descriptor.Column.FindIndex( inputTable.Rows[ rowToScan ].ItemArray.Select( item => item.ToString() ) );
             Contract.Invariant( colIdx != -1, "ValuesLocator condition failed: column not found" );
