@@ -8,7 +8,7 @@ namespace RaynMaker.Modules.Import.Documents
 
         IHtmlElement Parent { get; }
 
-        IEnumerable<IHtmlElement> Children { get; }
+        IReadOnlyList<IHtmlElement> Children { get; }
 
         string TagName { get; }
 

@@ -32,7 +32,7 @@ namespace RaynMaker.Modules.Import.Documents.AgilityPack
             get { return Element.ParentNode == null ? null : DocumentAdapter.Create( Element.ParentNode ); }
         }
 
-        public IEnumerable<IHtmlElement> Children
+        public IReadOnlyList<IHtmlElement> Children
         {
             get
             {

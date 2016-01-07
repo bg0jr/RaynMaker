@@ -137,7 +137,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             return r.GetChildAt( new[] { "TD", "TH" }, column );
         }
 
-        public IEnumerable<IHtmlElement> GetRow( int row )
+        public IReadOnlyList<IHtmlElement> GetRow( int row )
         {
             Contract.Requires( 0 <= row && row < Rows.Count, "Index out of range" );
 
@@ -147,7 +147,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         /// <summary>
         /// Gets the complete row of the given cell.
         /// </summary>
-        public IEnumerable<IHtmlElement> GetRow( IHtmlElement cell )
+        public IReadOnlyList<IHtmlElement> GetRow( IHtmlElement cell )
         {
             Contract.RequiresNotNull( cell, "cell" );
 
@@ -160,28 +160,29 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             return row.Children;
         }
 
+        public IReadOnlyList<IHtmlElement> GetColumn( int col )
+        {
+            return Rows
+                .Select( row => GetRow( row ).ElementAt( col ) )
+                .ToList();
+        }
+
         /// <summary>
         /// Gets the complete column of the given cell.
         /// <remarks>Attention: Handling "colspan" is not implemented.
         /// A TR without any TD is skipped.</remarks>
         /// </summary>
-        public IEnumerable<IHtmlElement> GetColumn( IHtmlElement cell )
+        public IReadOnlyList<IHtmlElement> GetColumn( IHtmlElement cell )
         {
             Contract.RequiresNotNull( cell, "cell" );
 
             // ignore tag - we could have TH and TD in the row
             int colIdx = cell.GetChildPos();
 
-            foreach( var row in Rows )
-            {
-                var e = row.GetChildAt( new[] { "TD", "TH" }, colIdx );
-                if( e == null )
-                {
-                    continue;
-                }
-
-                yield return e;
-            }
+            return Rows
+                .Select( row => row.GetChildAt( new[] { "TD", "TH" }, colIdx ) )
+                .Where( e => e != null )
+                .ToList();
         }
 
         /// <summary>

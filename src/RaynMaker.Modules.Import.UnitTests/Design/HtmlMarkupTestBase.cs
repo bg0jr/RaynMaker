@@ -1,12 +1,9 @@
-﻿using System;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Text;
+﻿using System.Drawing;
 using NUnit.Framework;
 using RaynMaker.Modules.Import.Design;
 using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Documents.WinForms;
+using RaynMaker.SDK.Html;
 
 namespace RaynMaker.Modules.Import.UnitTests.Design
 {
@@ -101,14 +98,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         protected void ShowMarkedDocument()
         {
             myBrowser.Document.Title = TestContext.CurrentContext.Test.Name;
-
-            var file = Path.GetTempFileName() + ".html";
-
-            File.WriteAllText( file, myBrowser.Document.Body.Parent.OuterHtml, Encoding.GetEncoding( myBrowser.Document.Encoding ) );
-
-            Process.Start( file ).WaitForExit();
-
-            File.Delete( file );
+            myBrowser.Document.OpenDocumentInExternalBrowser();
         }
     }
 }

@@ -31,7 +31,7 @@ namespace RaynMaker.Modules.Import.Documents.WinForms
             get { return Element.Parent == null ? null : DocumentAdapter.Create( Element.Parent ); }
         }
 
-        public IEnumerable<IHtmlElement> Children
+        public IReadOnlyList<IHtmlElement> Children
         {
             get
             {

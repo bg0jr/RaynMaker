@@ -71,6 +71,10 @@
       <Project>{4cd006fa-b1a2-4e57-a0f1-db32259ff70a}</Project>
       <Name>RaynMaker.Modules.Import</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RaynMaker.SDK\RaynMaker.SDK.csproj">
+      <Project>{b4f336a4-8cd2-49f7-8541-97aa31ea53d5}</Project>
+      <Name>RaynMaker.SDK</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestData\Html\ariva.fundamentals.DE0005190003.html">

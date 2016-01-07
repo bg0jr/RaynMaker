@@ -71,5 +71,11 @@
     <Node Id="d09cf686-91ac-49ac-9d9b-76ca99f82218">
       <Caption><![CDATA[DocumentBrowser: Disable caching for local files]]></Caption>
     </Node>
+    <Node Id="f915dae9-ecf3-454f-897f-8ed8c8efa639">
+      <Caption><![CDATA[PathCellFormatViewModel]]></Caption>
+    </Node>
+    <Node Id="a1360c55-fe48-45ba-aef9-f00cb17cdf64">
+      <Caption><![CDATA[Rename SafeBrowser]]></Caption>
+    </Node>
   </Node>
 </Tree>

@@ -102,6 +102,10 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             }
 
             var table = HtmlTable.FindByPath( ( IHtmlDocument )Document, HtmlPath.Parse( Path ) );
+            if( table == null )
+            {
+                return null;
+            }
 
             int rowToScan = Format.Column.HeaderSeriesPosition;
             if( 0 > rowToScan || rowToScan >= table.Rows.Count )
@@ -121,7 +125,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 return null;
             }
 
-            var rowIdx = Format.Row.FindIndex( table.Rows.Select( row => table.GetRow( row ).ElementAt( colToScan ).InnerText ) );
+            var rowIdx = Format.Row.FindIndex( table.GetColumn( colToScan ).Select( item => item.InnerText ) );
             if( rowIdx == -1 )
             {
                 return null;
