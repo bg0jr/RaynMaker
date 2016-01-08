@@ -10,15 +10,15 @@
       <Node Id="dde7ca1e-b949-4a82-899c-c92d052af02b">
         <Caption><![CDATA[ImportPreviewModel: ScrollIntoView does not work]]></Caption>
       </Node>
+      <Node Id="3c58aab1-1231-427a-8596-ebe90ed88894">
+        <Caption><![CDATA[Tests for ImportPreviewModel]]></Caption>
+      </Node>
       <Node Id="dd77d532-f77a-47a7-808f-4987d5e73503">
         <Caption><![CDATA[throw exception in data.binding.error 40?]]></Caption>
       </Node>
     </Node>
-    <Node Id="3c58aab1-1231-427a-8596-ebe90ed88894">
-      <Caption><![CDATA[Tests for ImportPreviewModel]]></Caption>
-    </Node>
     <Node Id="02bde578-e3ec-4872-8378-6b1411fdf1d3">
-      <Caption><![CDATA[1.9]]></Caption>
+      <Caption><![CDATA[1.8]]></Caption>
       <Node Id="a41d501c-68a9-430b-83a6-3047c5c8891c">
         <Caption><![CDATA[Reuse between pathcell and pathseries viewmodel]]></Caption>
       </Node>
@@ -90,7 +90,7 @@
       </Node>
     </Node>
     <Node Id="63da965d-c664-48a9-8250-578d54290207">
-      <Caption><![CDATA[1.10]]></Caption>
+      <Caption><![CDATA[1.9]]></Caption>
       <Node Id="b8907cdc-8dd8-4768-afed-7f7b77f096b6">
         <Caption><![CDATA[Help - finish dictionary]]></Caption>
         <Node Id="4066e64e-0a86-4311-ac39-faba69a5a147">
