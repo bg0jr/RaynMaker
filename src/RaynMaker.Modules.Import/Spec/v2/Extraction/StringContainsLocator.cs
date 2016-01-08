@@ -40,7 +40,7 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
 
         public int FindIndex( IEnumerable<string> list )
         {
-            return list.IndexOf( item => item.Contains( Pattern, StringComparison.OrdinalIgnoreCase ) );
+            return list.IndexOf( item => item != null && item.Contains( Pattern, StringComparison.OrdinalIgnoreCase ) );
         }
     }
 }

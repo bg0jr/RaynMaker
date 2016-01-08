@@ -39,7 +39,7 @@
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Selected path" VerticalAlignment="Center"/>
         <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"  Text="{Binding Path}" Margin="5,2,0,0"/>
         <TextBlock Grid.Row="1" Grid.Column="4" Text="=>" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,2,0,0"/>
-        <TextBox Grid.Row="1" Grid.Column="5" Text="{Binding Value}" Margin="5,2,0,0" Width="100"/>
+        <TextBox Grid.Row="1" Grid.Column="5" Text="{Binding Value, Mode=OneWay}" Margin="5,2,0,0" Width="100" IsReadOnly="True"/>
 
         <TextBlock Grid.Row="2" Grid.Column="1" Text="Position" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <TextBlock Grid.Row="2" Grid.Column="2" Text="Contains" VerticalAlignment="Center" HorizontalAlignment="Center"/>

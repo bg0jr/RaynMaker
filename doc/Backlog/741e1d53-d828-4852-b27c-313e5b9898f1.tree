@@ -28,9 +28,6 @@
       <Node Id="45e19c03-4d5c-4992-9267-f95fe657c170">
         <Caption><![CDATA[Add TimeLocator to PathCellDescriptor]]></Caption>
       </Node>
-      <Node Id="a1c2b17c-a4ef-404e-80b4-85bcc8e843e5">
-        <Caption><![CDATA[Auto "Path" correction]]></Caption>
-      </Node>
       <Node Id="148dd5af-55c0-4cad-8a5e-7cf8cc33c122">
         <Caption><![CDATA[Ensure in factory that we always get a copy ]]></Caption>
       </Node>

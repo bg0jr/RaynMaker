@@ -50,7 +50,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 
             Assert.That( counter.GetCount( () => locator.Pattern ), Is.EqualTo( 1 ) );
         }
-        
+
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
@@ -86,6 +86,20 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 
             var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( locator ) );
             Assert.That( ex.Message, Is.StringContaining( "Pattern field is required" ) );
+        }
+
+        /// <summary>
+        /// Just ignore null values but continue conting index.
+        /// THis can happen if in Html tables certain cells are not filled
+        /// </summary>
+        [Test]
+        public void FindIndex_ListContainsNull_DoesNotThrow()
+        {
+            var locator = new StringContainsLocator { HeaderSeriesPosition = 0, Pattern = "abc" };
+
+            var idx = locator.FindIndex( new[] { null, "x", "y", "abcdefg", null, "^7" } );
+
+            Assert.That( idx, Is.EqualTo( 3 ) );
         }
     }
 }
