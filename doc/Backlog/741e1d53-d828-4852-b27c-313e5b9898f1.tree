@@ -7,9 +7,6 @@
     </Node>
     <Node Id="b6cbd93c-bdbd-49b4-bbb8-33de0a595e04">
       <Caption><![CDATA[1.7 - Polish Import module]]></Caption>
-      <Node Id="816d8a09-f88c-460d-bb1f-0b6f4b203339">
-        <Caption><![CDATA[how get the fragments broken?]]></Caption>
-      </Node>
       <Node Id="dde7ca1e-b949-4a82-899c-c92d052af02b">
         <Caption><![CDATA[ImportPreviewModel: ScrollIntoView does not work]]></Caption>
       </Node>

@@ -60,11 +60,11 @@
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Document type" VerticalAlignment="Center"/>
             <ComboBox Grid.Row="0" Grid.Column="1" Margin="5,0,0,2" Width="150" 
                       ItemsSource="{Binding Source={StaticResource DocumentType}, Mode=OneTime}" 
-                      SelectedItem="{Binding SelectedDocumentType}"/>
+                      SelectedItem="{Binding DataSource.DocumentType}"/>
         </Grid>
         
         <ListBox Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" VerticalAlignment="Stretch" Margin="0,3,0,0"
-                 ItemsSource="{Binding Urls}" Height="125"
+                 ItemsSource="{Binding DataSource.Location.Fragments}" Height="125"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListBox.ItemTemplate>
                 <DataTemplate>

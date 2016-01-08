@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
 using Plainion.Collections;
-using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2;
 using RaynMaker.Modules.Import.Spec.v2.Locating;
 using RaynMaker.Modules.Import.Web.Model;
@@ -20,7 +15,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
     class NavigationViewModel : SpecDefinitionViewModelBase
     {
         private IDocumentBrowser myBrowser;
-        private DocumentType mySelectedDocumentType;
+        private DataSource myDataSource;
         private bool myIsCapturing;
 
         public NavigationViewModel( Session session )
@@ -33,31 +28,24 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
             EditCaptureRequest = new InteractionRequest<IConfirmation>();
 
-            Urls = new ObservableCollection<DocumentLocationFragment>();
-
-            WeakEventManager<INotifyCollectionChanged, NotifyCollectionChangedEventArgs>.AddHandler( Urls, "CollectionChanged", OnUrlChanged );
-
             AddressBar = new AddressBarViewModel();
 
             OnCurrentDataSourceChanged( null, null );
         }
 
+        public DataSource DataSource
+        {
+            get { return myDataSource; }
+            private set { SetProperty( ref myDataSource, value ); }
+        }
+
         private void OnCurrentDataSourceChanged( object sender, PropertyChangedEventArgs e )
         {
-            if( Session.CurrentSource != null )
-            {
-                // changing Urls property will automatically be reflected in mySelectedSite.Navigation.Uris.
-                // -> make a copy!
-                var modelUrls = Session.CurrentSource.Location.Fragments.ToList();
-                Urls.Clear();
-                Urls.AddRange( modelUrls );
+            DataSource = Session.CurrentSource;
 
-                SelectedDocumentType = Session.CurrentSource.DocumentType;
-            }
-            else
+            if ( DataSource != null && DataSource.Location == null )
             {
-                Urls.Clear();
-                SelectedDocumentType = DocumentType.None;
+                DataSource.Location = new DocumentLocator();
             }
         }
 
@@ -67,16 +55,16 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             set
             {
                 var oldBrowser = myBrowser;
-                if( SetProperty( ref myBrowser, value ) )
+                if ( SetProperty( ref myBrowser, value ) )
                 {
                     AddressBar.Browser = myBrowser;
 
-                    if( oldBrowser != null )
+                    if ( oldBrowser != null )
                     {
                         oldBrowser.Navigating -= OnBrowserNavigating;
                         oldBrowser.DocumentCompleted -= BrowserDocumentCompleted;
                     }
-                    if( myBrowser != null )
+                    if ( myBrowser != null )
                     {
                         myBrowser.Navigating += OnBrowserNavigating;
                         myBrowser.DocumentCompleted += BrowserDocumentCompleted;
@@ -87,9 +75,9 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         private void OnBrowserNavigating( Uri url )
         {
-            if( IsCapturing )
+            if ( IsCapturing )
             {
-                Urls.Add( new Request( url ) );
+                DataSource.Location.Fragments.Add( new Request( url ) );
             }
         }
 
@@ -97,35 +85,9 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         {
             AddressBar.Url = doc.Location.ToString();
 
-            if( IsCapturing )
+            if ( IsCapturing )
             {
-                Urls.Add( new Response( doc.Location ) );
-            }
-        }
-
-        public DocumentType SelectedDocumentType
-        {
-            get { return mySelectedDocumentType; }
-            set
-            {
-                if( SetProperty( ref mySelectedDocumentType, value ) )
-                {
-                    if( Session.CurrentSource != null )
-                    {
-                        Session.CurrentSource.DocumentType = mySelectedDocumentType;
-                    }
-                }
-            }
-        }
-
-        public ObservableCollection<DocumentLocationFragment> Urls { get; private set; }
-
-        private void OnUrlChanged( object sender, NotifyCollectionChangedEventArgs e )
-        {
-            if( Session.CurrentSource != null )
-            {
-                var old = Session.CurrentSource.Location;
-                Session.CurrentSource.Location = new DocumentLocator( old.Fragments.Concat( Urls ) );
+                DataSource.Location.Fragments.Add( new Response( doc.Location ) );
             }
         }
 
@@ -148,14 +110,14 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         {
             var notification = new Confirmation();
             notification.Title = "Edit capture";
-            notification.Content = Urls;
+            notification.Content = DataSource.Location.Fragments;
 
             EditCaptureRequest.Raise( notification, c =>
             {
-                if( c.Confirmed )
+                if ( c.Confirmed )
                 {
-                    Urls.Clear();
-                    Urls.AddRange( ( IEnumerable<DocumentLocationFragment> )c.Content );
+                    DataSource.Location.Fragments.Clear();
+                    DataSource.Location.Fragments.AddRange( (IEnumerable<DocumentLocationFragment>)c.Content );
                 }
             } );
         }
