@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="fc8daea3-122d-49b1-8173-27a2a527ba3a" Created="635878424371874401" LastModified="635878424732052857">
-  <Caption><![CDATA[PathSeriesFormatViewModel]]></Caption>
-  <Content><![CDATA[- implement ValidateTimeLocator. we could check whether row/columns exists
-  and/or whether we could parse it]]></Content>
+<Node Id="fc8daea3-122d-49b1-8173-27a2a527ba3a" Created="635878424371874401" LastModified="635878818637445150">
+  <Caption><![CDATA[implement PathSeriesFormatViewModel.ValidateTimeLocator]]></Caption>
+  <Content><![CDATA[- we could check whether row/columns exists and/or whether we could parse it]]></Content>
 </Node>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="47279eeb-e3d9-42be-955a-8e0aaac47e2b" Created="635875155824756271" LastModified="635875155939932859">
-  <Caption><![CDATA[Equals and GetHashcode for HtmlElementAdapter]]></Caption>
-  <Content><![CDATA[]]></Content>
+<Node Id="47279eeb-e3d9-42be-955a-8e0aaac47e2b" Created="635875155824756271" LastModified="635878817879541800">
+  <Caption><![CDATA[HtmlElementAdapter: Equals and GetHashcode for ]]></Caption>
+  <Content><![CDATA[we should ensure that different adapters wrapping same elemnt are equal]]></Content>
 </Node>

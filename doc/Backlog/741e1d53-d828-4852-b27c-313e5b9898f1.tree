@@ -7,38 +7,11 @@
     </Node>
     <Node Id="02bde578-e3ec-4872-8378-6b1411fdf1d3">
       <Caption><![CDATA[1.8]]></Caption>
+      <Node Id="dd77d532-f77a-47a7-808f-4987d5e73503">
+        <Caption><![CDATA[throw exception in data.binding.error 40?]]></Caption>
+      </Node>
       <Node Id="a41d501c-68a9-430b-83a6-3047c5c8891c">
         <Caption><![CDATA[Reuse between pathcell and pathseries viewmodel]]></Caption>
-      </Node>
-      <Node Id="2b28d15c-19f0-4905-8437-0b5e0509b55b">
-        <Caption><![CDATA[Documents]]></Caption>
-        <Node Id="47279eeb-e3d9-42be-955a-8e0aaac47e2b">
-          <Caption><![CDATA[Equals and GetHashcode for HtmlElementAdapter]]></Caption>
-        </Node>
-      </Node>
-      <Node Id="45e19c03-4d5c-4992-9267-f95fe657c170">
-        <Caption><![CDATA[Add TimeLocator to PathCellDescriptor]]></Caption>
-      </Node>
-      <Node Id="148dd5af-55c0-4cad-8a5e-7cf8cc33c122">
-        <Caption><![CDATA[Ensure in factory that we always get a copy ]]></Caption>
-      </Node>
-      <Node Id="ff78be26-41b3-44a1-b1cc-8acdbe915731">
-        <Caption><![CDATA[ValueFormat of AbstractSeriesFormat]]></Caption>
-      </Node>
-      <Node Id="b22d8eb0-173d-4af6-924a-480ea364c707">
-        <Caption><![CDATA[Think about a "TimeFormat"]]></Caption>
-      </Node>
-      <Node Id="211a7a10-87e8-4363-b9ce-6f9835655d50">
-        <Caption><![CDATA[Remove "format" name from everywhere]]></Caption>
-      </Node>
-      <Node Id="6c39ee0d-5992-4511-b61e-a4e7387f51fe">
-        <Caption><![CDATA[HtmlDocumentBasicReadingTests]]></Caption>
-      </Node>
-      <Node Id="abb9f7c2-8cac-4750-a6d5-c1ea36d41609">
-        <Caption><![CDATA[Add more verification in data collection]]></Caption>
-      </Node>
-      <Node Id="3494b210-9cef-4613-abf0-fb368c2075f8">
-        <Caption><![CDATA[SubmitFormular not implemented]]></Caption>
       </Node>
       <Node Id="2fa0c595-c62b-40a5-9076-33e615fcad82">
         <Caption><![CDATA[Parsers]]></Caption>
@@ -50,6 +23,9 @@
         </Node>
         <Node Id="1d0bde2c-9285-4444-ba92-23f2a207c791">
           <Caption><![CDATA[From ScenarioTests back to UnitTests?]]></Caption>
+          <Node Id="ff78be26-41b3-44a1-b1cc-8acdbe915731">
+            <Caption><![CDATA[ValueFormat of AbstractSeriesFormat]]></Caption>
+          </Node>
         </Node>
         <Node Id="9877182f-53d2-48f3-85d7-c4d7ede75014">
           <Caption><![CDATA[HtmlTable tests]]></Caption>
@@ -60,6 +36,27 @@
         <Node Id="19222cac-abfa-4266-bb46-66df07c1afce">
           <Caption><![CDATA[HtmlPath.PointsToTableCell ignores children of TD]]></Caption>
         </Node>
+        <Node Id="6c39ee0d-5992-4511-b61e-a4e7387f51fe">
+          <Caption><![CDATA[HtmlDocumentBasicReadingTests]]></Caption>
+        </Node>
+        <Node Id="f35f72aa-2155-40e3-aed7-2c8c0166690b">
+          <Caption><![CDATA[HtmlTable]]></Caption>
+        </Node>
+        <Node Id="211a7a10-87e8-4363-b9ce-6f9835655d50">
+          <Caption><![CDATA[Remove "format" name from everywhere]]></Caption>
+        </Node>
+      </Node>
+      <Node Id="47279eeb-e3d9-42be-955a-8e0aaac47e2b">
+        <Caption><![CDATA[HtmlElementAdapter: Equals and GetHashcode for ]]></Caption>
+      </Node>
+      <Node Id="d0da3880-c6d3-477b-bee2-8553b930be55">
+        <Caption><![CDATA[Rework WebSpy]]></Caption>
+      </Node>
+      <Node Id="45e19c03-4d5c-4992-9267-f95fe657c170">
+        <Caption><![CDATA[Add TimeLocator to PathCellDescriptor]]></Caption>
+      </Node>
+      <Node Id="abb9f7c2-8cac-4750-a6d5-c1ea36d41609">
+        <Caption><![CDATA[Add more verification in data collection]]></Caption>
       </Node>
       <Node Id="e4cba108-1415-42e0-ac8f-4e9d7596dfab">
         <Caption><![CDATA[Browser]]></Caption>
@@ -67,44 +64,11 @@
           <Caption><![CDATA[TryNavigateWithWildcards]]></Caption>
         </Node>
       </Node>
-      <Node Id="d0da3880-c6d3-477b-bee2-8553b930be55">
-        <Caption><![CDATA[Rework WebSpy]]></Caption>
-      </Node>
-      <Node Id="f35f72aa-2155-40e3-aed7-2c8c0166690b">
-        <Caption><![CDATA[HtmlTable]]></Caption>
-      </Node>
       <Node Id="fc8daea3-122d-49b1-8173-27a2a527ba3a">
-        <Caption><![CDATA[PathSeriesFormatViewModel]]></Caption>
+        <Caption><![CDATA[implement PathSeriesFormatViewModel.ValidateTimeLocator]]></Caption>
       </Node>
       <Node Id="ddfe7e72-cb6a-48c2-9e9e-a54f2ff0e296">
         <Caption><![CDATA[extra "PathSingleValueDescriptor" for Currency?]]></Caption>
-      </Node>
-      <Node Id="dd77d532-f77a-47a7-808f-4987d5e73503">
-        <Caption><![CDATA[throw exception in data.binding.error 40?]]></Caption>
-      </Node>
-    </Node>
-    <Node Id="63da965d-c664-48a9-8250-578d54290207">
-      <Caption><![CDATA[1.9]]></Caption>
-      <Node Id="b8907cdc-8dd8-4768-afed-7f7b77f096b6">
-        <Caption><![CDATA[Help - finish dictionary]]></Caption>
-        <Node Id="4066e64e-0a86-4311-ac39-faba69a5a147">
-          <Caption><![CDATA[migrate to PanDoc?]]></Caption>
-        </Node>
-      </Node>
-      <Node Id="b3281029-c701-44d4-89e8-b43624845610">
-        <Caption><![CDATA[Cancel & Undo of Entity changes]]></Caption>
-        <Node Id="99e855ae-fd76-496e-a4a7-e6b3041e1174">
-          <Caption><![CDATA[Currencies]]></Caption>
-        </Node>
-        <Node Id="dc5beb49-d860-4090-b255-75dd313c9102">
-          <Caption><![CDATA[FiguresContentPage]]></Caption>
-        </Node>
-      </Node>
-      <Node Id="b987b345-bd25-4d9d-aaed-80fe06141e16">
-        <Caption><![CDATA[Update currencies from Web]]></Caption>
-      </Node>
-      <Node Id="5751c90c-eac6-41da-844a-c8607af8a810">
-        <Caption><![CDATA[DB persistancy tests to ScenarioTests]]></Caption>
       </Node>
     </Node>
   </Node>
