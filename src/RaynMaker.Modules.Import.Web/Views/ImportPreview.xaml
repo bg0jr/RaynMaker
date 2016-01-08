@@ -14,7 +14,11 @@
         <ComboBox Grid.Row="0" ItemsSource="{Binding Sources}" Width="150" HorizontalAlignment="Left" SelectedItem="{Binding SelectedSource}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Name}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Vendor}"/>
+                        <TextBlock Text="-" Margin="5,0,5,0"/>
+                        <TextBlock Text="{Binding Name}"/>
+                    </StackPanel>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
             <ComboBox.Visibility>
