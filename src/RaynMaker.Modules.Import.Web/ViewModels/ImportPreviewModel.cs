@@ -181,9 +181,10 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
                     // Mark the part of the document described by the FigureDescriptor to have a preview
 
-                    // TODO: does not work!!
-                    var marker = MarkupFactory.Create( descriptor );
-                    marker.Mark( htmlDocument.GetElementByPath( HtmlPath.Parse( descriptor.Path ) ) );
+                    var cell = MarkupFactory.FindElementByDescriptor( htmlDocument, descriptor );
+
+                    var marker = MarkupFactory.CreateMarker( descriptor );
+                    marker.Mark( cell );
 
                     // already extract data here to check for format issues etc
 

@@ -92,69 +92,8 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         protected override void OnDocumentChanged()
         {
-            var cell = GetHtmlElementFromDescription();
+            var cell = MarkupFactory.FindElementByDescriptor( (IHtmlDocument)Document, Format );
             MarkupBehavior.PathToSelectedElement = cell != null ? cell.GetPath().ToString() : null;
-        }
-
-        private IHtmlElement GetHtmlElementFromDescription()
-        {
-            if ( string.IsNullOrEmpty( Path ) )
-            {
-                return null;
-            }
-
-            var table = HtmlTable.FindByPath( (IHtmlDocument)Document, HtmlPath.Parse( Path ) );
-            if ( table == null )
-            {
-                return null;
-            }
-
-            if ( Format.Orientation == SeriesOrientation.Column )
-            {
-                int rowToScan = Format.ValuesLocator.HeaderSeriesPosition;
-                if ( 0 > rowToScan || rowToScan >= table.Rows.Count )
-                {
-                    return null;
-                }
-
-                var colIdx = Format.ValuesLocator.FindIndex( table.GetRow( rowToScan ).Select( item => item.InnerText ) );
-                if ( colIdx == -1 )
-                {
-                    return null;
-                }
-
-                int rowIdx = 0;
-                if ( rowIdx == Format.ValuesLocator.HeaderSeriesPosition && rowIdx < table.Rows.Count )
-                {
-                    rowIdx++;
-                }
-
-                return table.GetCellAt( rowIdx, colIdx );
-            }
-            else if ( Format.Orientation == SeriesOrientation.Row )
-            {
-                var colToScan = Format.ValuesLocator.HeaderSeriesPosition;
-                if ( 0 > colToScan || colToScan >= table.GetRow( 0 ).Count() )
-                {
-                    return null;
-                }
-
-                var rowIdx = Format.ValuesLocator.FindIndex( table.GetColumn( colToScan ).Select( item => item.InnerText ) );
-                if ( rowIdx == -1 )
-                {
-                    return null;
-                }
-
-                int colIdx = 0;
-                if ( colIdx == Format.ValuesLocator.HeaderSeriesPosition && colIdx < table.GetRow( rowIdx ).Count )
-                {
-                    colIdx++;
-                }
-
-                return table.GetCellAt( rowIdx, colIdx );
-            }
-
-            throw new NotSupportedException( "Unknown orientation: " + Format.Orientation );
         }
 
         protected override void OnSelectionChanged()
@@ -303,7 +242,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 return;
             }
 
-            var cell = GetHtmlElementFromDescription();
+            var cell = MarkupFactory.FindElementByDescriptor( (IHtmlDocument)Document, Format );
             if ( cell == null )
             {
                 Value = null;
@@ -382,7 +321,17 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 {
                     Format.Excludes.Clear();
                     Format.Excludes.AddRange( GetIntArray( mySkipValues ) );
-                    MarkupBehavior.Marker.SkipRows = Format.Excludes.ToArray();
+
+                    if ( Format.Orientation == SeriesOrientation.Row )
+                    {
+                        MarkupBehavior.Marker.SkipColumns = Format.Excludes.ToArray();
+                        MarkupBehavior.Marker.SkipRows = null;
+                    }
+                    else if ( Format.Orientation == SeriesOrientation.Column )
+                    {
+                        MarkupBehavior.Marker.SkipColumns = null;
+                        MarkupBehavior.Marker.SkipRows = Format.Excludes.ToArray();
+                    }
                 }
             }
         }

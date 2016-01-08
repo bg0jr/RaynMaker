@@ -16,7 +16,7 @@
             <pn:PopupViewAction WindowWidth="700" WindowHeight="500" prism:RegionManager.RegionName="{x:Static l:RegionNames.EditCaptureView}"/>
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
-    <Grid MinHeight="150">
+    <Grid>
         <Grid.Visibility>
             <Binding Path="Session.CurrentSource">
                 <Binding.Converter>
@@ -64,7 +64,8 @@
         </Grid>
         
         <ListBox Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" VerticalAlignment="Stretch" Margin="0,3,0,0"
-                 ItemsSource="{Binding Urls}">
+                 ItemsSource="{Binding Urls}" Height="125"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

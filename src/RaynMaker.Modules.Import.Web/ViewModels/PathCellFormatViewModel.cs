@@ -94,48 +94,8 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         protected override void OnDocumentChanged()
         {
-            var cell = GetHtmlElementFromDescription();
+            var cell = MarkupFactory.FindElementByDescriptor( (IHtmlDocument)Document, Format );
             MarkupBehavior.PathToSelectedElement = cell != null ? cell.GetPath().ToString() : null;
-        }
-
-        private IHtmlElement GetHtmlElementFromDescription()
-        {
-            if( string.IsNullOrEmpty( Path ) )
-            {
-                return null;
-            }
-
-            var table = HtmlTable.FindByPath( ( IHtmlDocument )Document, HtmlPath.Parse( Path ) );
-            if( table == null )
-            {
-                return null;
-            }
-
-            int rowToScan = Format.Column.HeaderSeriesPosition;
-            if( 0 > rowToScan || rowToScan >= table.Rows.Count )
-            {
-                return null;
-            }
-
-            var colIdx = Format.Column.FindIndex( table.GetRow( rowToScan ).Select( item => item.InnerText ) );
-            if( colIdx == -1 )
-            {
-                return null;
-            }
-
-            var colToScan = Format.Row.HeaderSeriesPosition;
-            if( 0 > colToScan || colToScan >= table.GetRow( 0 ).Count() )
-            {
-                return null;
-            }
-
-            var rowIdx = Format.Row.FindIndex( table.GetColumn( colToScan ).Select( item => item.InnerText ) );
-            if( rowIdx == -1 )
-            {
-                return null;
-            }
-
-            return table.GetCellAt( rowIdx, colIdx );
         }
 
         protected override void OnSelectionChanged()
@@ -243,8 +203,8 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 return;
             }
 
-            var cell = GetHtmlElementFromDescription();
-            if( cell == null )
+            var cell = MarkupFactory.FindElementByDescriptor( (IHtmlDocument)Document, Format );
+            if ( cell == null )
             {
                 Value = null;
                 return;
