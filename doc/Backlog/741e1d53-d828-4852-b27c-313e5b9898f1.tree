@@ -5,12 +5,6 @@
     <Node Id="bde3373e-2bec-4a2b-835e-92935da36614">
       <Caption><![CDATA[HotFix]]></Caption>
     </Node>
-    <Node Id="b6cbd93c-bdbd-49b4-bbb8-33de0a595e04">
-      <Caption><![CDATA[1.7 - Polish Import module]]></Caption>
-      <Node Id="dd77d532-f77a-47a7-808f-4987d5e73503">
-        <Caption><![CDATA[throw exception in data.binding.error 40?]]></Caption>
-      </Node>
-    </Node>
     <Node Id="02bde578-e3ec-4872-8378-6b1411fdf1d3">
       <Caption><![CDATA[1.8]]></Caption>
       <Node Id="a41d501c-68a9-430b-83a6-3047c5c8891c">
@@ -84,6 +78,9 @@
       </Node>
       <Node Id="ddfe7e72-cb6a-48c2-9e9e-a54f2ff0e296">
         <Caption><![CDATA[extra "PathSingleValueDescriptor" for Currency?]]></Caption>
+      </Node>
+      <Node Id="dd77d532-f77a-47a7-808f-4987d5e73503">
+        <Caption><![CDATA[throw exception in data.binding.error 40?]]></Caption>
       </Node>
     </Node>
     <Node Id="63da965d-c664-48a9-8250-578d54290207">

@@ -106,6 +106,7 @@
     <Compile Include="InternalCompositionNames.cs" />
     <Compile Include="Services\AssetNavigationParameters.cs" />
     <Compile Include="Services\AssetNavigationService.cs" />
+    <Compile Include="Services\ThowDataBindingError40TraceListener.cs" />
     <Compile Include="Services\LoggingSink.cs" />
     <Compile Include="Services\Project.cs" />
     <Compile Include="Services\ProjectService.cs" />

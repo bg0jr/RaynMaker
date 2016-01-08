@@ -49,6 +49,9 @@ namespace RaynMaker.Analyzer
             LoggerFactory.Implementation = new LoggingSinkLoggerFactory();
             LoggerFactory.LogLevel = LogLevel.Info;
 
+            //Does not work with FiguresContentPage and Figures which do not have currency like "SharesOutstanding"
+            //ThowDataBindingError40TraceListener.Initialize();
+
             base.Run( runWithDefaultConfiguration );
 
             LoggerFactory.AddGuiAppender( Container.GetExportedValue<LoggingSink>() );
