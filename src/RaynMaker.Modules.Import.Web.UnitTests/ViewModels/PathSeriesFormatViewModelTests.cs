@@ -36,77 +36,73 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
 
             var viewModel = CreateViewModel( descriptor );
 
-            Assert.That( descriptor.Column, Is.InstanceOf<StringContainsLocator>() );
-            Assert.That( ( (StringContainsLocator)descriptor.Column ).HeaderSeriesPosition, Is.EqualTo( -1 ) );
-            Assert.That( ( (StringContainsLocator)descriptor.Column ).Pattern, Is.Null );
-            Assert.That( descriptor.Currency, Is.Null );
+            Assert.That( descriptor.ValuesLocator, Is.InstanceOf<StringContainsLocator>() );
+            Assert.That( ( (StringContainsLocator)descriptor.ValuesLocator ).HeaderSeriesPosition, Is.EqualTo( -1 ) );
+            Assert.That( ( (StringContainsLocator)descriptor.ValuesLocator ).Pattern, Is.Null );
+            Assert.That( descriptor.Orientation, Is.EqualTo( SeriesOrientation.Row ) );
             Assert.That( descriptor.Figure, Is.Null );
             Assert.That( descriptor.Path, Is.Null );
-            Assert.That( descriptor.Row, Is.InstanceOf<StringContainsLocator>() );
-            Assert.That( ( (StringContainsLocator)descriptor.Row ).HeaderSeriesPosition, Is.EqualTo( -1 ) );
-            Assert.That( ( (StringContainsLocator)descriptor.Row ).Pattern, Is.Null );
+            Assert.That( descriptor.TimesLocator, Is.InstanceOf<AbsolutePositionLocator>() );
+            Assert.That( ( (AbsolutePositionLocator)descriptor.TimesLocator ).HeaderSeriesPosition, Is.EqualTo( 0 ) );
+            Assert.That( ( (AbsolutePositionLocator)descriptor.TimesLocator ).SeriesPosition, Is.EqualTo( -1 ) );
             Assert.That( descriptor.ValueFormat.Type, Is.EqualTo( typeof( double ) ) );
+            Assert.That( descriptor.TimeFormat.Type, Is.EqualTo( typeof( int ) ) );
         }
 
         [Test]
         public void Ctor_ConfiguredDescriptor_DescriptorPropertiesDoNotGetOverwritten()
         {
             var descriptor = new PathSeriesDescriptor();
-            descriptor.Column = new StringContainsLocator { HeaderSeriesPosition = 7, Pattern = "column" };
-            descriptor.Currency = "EUR";
             descriptor.Figure = "Dividend";
             descriptor.Path = @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]";
-            descriptor.Row = new StringContainsLocator { HeaderSeriesPosition = 4, Pattern = "row" };
-            descriptor.ValueFormat = new ValueFormat( typeof( double ), "00.00" );
+            descriptor.Orientation = SeriesOrientation.Row;
+            descriptor.ValuesLocator = new StringContainsLocator { HeaderSeriesPosition = 7, Pattern = "Dividend in Mio" };
+            descriptor.ValueFormat = new FormatColumn( "values", typeof( double ), "00.00" );
+            descriptor.TimesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 0 };
+            descriptor.ValueFormat = new FormatColumn( "times", typeof( int ), "000" );
+            descriptor.Excludes.Add( 1 );
 
             var viewModel = CreateViewModel( descriptor );
 
-            Assert.That( ( (StringContainsLocator)descriptor.Column ).HeaderSeriesPosition, Is.EqualTo( 7 ) );
-            Assert.That( ( (StringContainsLocator)descriptor.Column ).Pattern, Is.EqualTo( "column" ) );
-            Assert.That( descriptor.Currency, Is.EqualTo( "EUR" ) );
             Assert.That( descriptor.Figure, Is.EqualTo( "Dividend" ) );
             Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" ) );
-            Assert.That( ( (StringContainsLocator)descriptor.Row ).HeaderSeriesPosition, Is.EqualTo( 4 ) );
-            Assert.That( ( (StringContainsLocator)descriptor.Row ).Pattern, Is.EqualTo( "row" ) );
+            Assert.That( descriptor.Orientation, Is.EqualTo( SeriesOrientation.Row ) );
+            Assert.That( ( (StringContainsLocator)descriptor.ValuesLocator ).HeaderSeriesPosition, Is.EqualTo( 7 ) );
+            Assert.That( ( (StringContainsLocator)descriptor.ValuesLocator ).Pattern, Is.EqualTo( "Dividend in Mio" ) );
             Assert.That( descriptor.ValueFormat.Type, Is.EqualTo( typeof( double ) ) );
             Assert.That( descriptor.ValueFormat.Format, Is.EqualTo( "00.00" ) );
+            Assert.That( ( (AbsolutePositionLocator)descriptor.TimesLocator ).HeaderSeriesPosition, Is.EqualTo( 0 ) );
+            Assert.That( ( (AbsolutePositionLocator)descriptor.TimesLocator ).SeriesPosition, Is.EqualTo( 0 ) );
+            Assert.That( descriptor.TimeFormat.Type, Is.EqualTo( typeof( int ) ) );
+            Assert.That( descriptor.TimeFormat.Format, Is.EqualTo( "000" ) );
+            Assert.That( descriptor.Excludes, Is.EquivalentTo( new[] { 1 } ) );
         }
 
         [Test]
         public void Ctor_ConfiguredDescriptor_ViewModelTakesOverValues()
         {
             var descriptor = new PathSeriesDescriptor();
-            descriptor.Column = new StringContainsLocator { HeaderSeriesPosition = 7, Pattern = "column" };
-            descriptor.Currency = "EUR";
             descriptor.Figure = "Dividend";
             descriptor.Path = @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]";
-            descriptor.Row = new StringContainsLocator { HeaderSeriesPosition = 4, Pattern = "row" };
-            descriptor.ValueFormat = new ValueFormat( typeof( double ), "00.00" );
+            descriptor.Orientation = SeriesOrientation.Row;
+            descriptor.ValuesLocator = new StringContainsLocator { HeaderSeriesPosition = 7, Pattern = "Dividend in Mio" };
+            descriptor.ValueFormat = new FormatColumn( "values", typeof( double ), "00.00" );
+            descriptor.TimesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 0 };
+            descriptor.ValueFormat = new FormatColumn( "times", typeof( int ), "000" );
+            descriptor.Excludes.Add( 1 );
 
             var viewModel = CreateViewModel( descriptor );
 
-            Assert.That( viewModel.ColumnPattern, Is.EqualTo( "column" ) );
-            Assert.That( viewModel.ColumnPosition, Is.EqualTo( 7 ) );
-            Assert.That( viewModel.IsColumnValid, Is.False );
-            Assert.That( viewModel.IsRowValid, Is.False );
-            Assert.That( viewModel.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" ) );
-            Assert.That( viewModel.RowPattern, Is.EqualTo( "row" ) );
-            Assert.That( viewModel.RowPosition, Is.EqualTo( 4 ) );
-            Assert.That( viewModel.SelectedCurrency.Symbol, Is.EqualTo( "EUR" ) );
             Assert.That( viewModel.SelectedDatum, Is.EqualTo( typeof( Dividend ) ) );
-            Assert.That( viewModel.Value, Is.Null.Or.Empty );
+            Assert.That( viewModel.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" ) );
+            Assert.That( viewModel.SelectedOrientation, Is.EqualTo( descriptor.Orientation ) );
+            Assert.That( viewModel.ValuesPattern, Is.EqualTo( "Dividend in Mio" ) );
+            Assert.That( viewModel.ValuesPosition, Is.EqualTo( 7 ) );
+            Assert.That( viewModel.IsValid, Is.False );
             Assert.That( viewModel.ValueFormat, Is.EqualTo( descriptor.ValueFormat ) );
-        }
-
-        [Test]
-        public void Ctor_WhenCalled_CurrenciesAreTakenFromLutServiceAndIncludesNull()
-        {
-            var descriptor = new PathSeriesDescriptor();
-
-            var viewModel = CreateViewModel( descriptor );
-
-            // "null" is included to allow the user to select "nothing"
-            Assert.That( viewModel.Currencies, Is.EquivalentTo( new Entities.Currency[] { null }.Concat( myLutService.Object.CurrenciesLut.Currencies ) ) );
+            Assert.That( viewModel.TimesPosition, Is.EqualTo( 0 ) );
+            Assert.That( viewModel.TimeFormat, Is.EqualTo( descriptor.TimeFormat ) );
+            Assert.That( viewModel.Value, Is.Null.Or.Empty );
         }
 
         [Test]
