@@ -31,11 +31,6 @@
     <DockPanel LastChildFill="True">
         <Grid DockPanel.Dock="Top" >
             <Menu>
-                <Menu.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <DockPanel HorizontalAlignment="Stretch"/>
-                    </ItemsPanelTemplate>
-                </Menu.ItemsPanel>
                 <MenuItem Header="_File">
                     <MenuItem Header="_New" Command="{Binding ProjectLifecycleViewModel.NewAsyncCommand}" />
                     <MenuItem Header="_Open" Command="{Binding ProjectLifecycleViewModel.OpenAsyncCommand}" InputGestureText="Ctrl+O"/>

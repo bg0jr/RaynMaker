@@ -124,6 +124,7 @@
     <Compile Include="Views\DataSourceDefinitionView.xaml.cs">
       <DependentUpon>DataSourceDefinitionView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DocumentLocationFragmentTypeToStringConverter.cs" />
     <Compile Include="Views\EditCaptureView.xaml.cs">
       <DependentUpon>EditCaptureView.xaml</DependentUpon>
     </Compile>

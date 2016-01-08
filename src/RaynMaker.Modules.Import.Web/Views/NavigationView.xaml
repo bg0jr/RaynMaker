@@ -68,7 +68,10 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding UrlType}" FontWeight="SemiBold"/>
+                        <StackPanel.Resources>
+                            <v:DocumentLocationFragmentTypeToStringConverter x:Key="DocumentLocationFragmentTypeToStringConverter"/>
+                        </StackPanel.Resources>
+                        <TextBlock Text="{Binding .,Converter={StaticResource DocumentLocationFragmentTypeToStringConverter}}" FontWeight="SemiBold"/>
                         <TextBlock Text="{Binding UrlString}" Margin="5,0,0,0"/>
                     </StackPanel>
                 </DataTemplate>

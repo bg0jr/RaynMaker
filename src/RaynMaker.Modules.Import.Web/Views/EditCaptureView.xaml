@@ -46,7 +46,10 @@
                     <GridViewColumn x:Name="Col1">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding UrlType}" FontWeight="SemiBold"/>
+                                <DataTemplate.Resources>
+                                    <v:DocumentLocationFragmentTypeToStringConverter x:Key="DocumentLocationFragmentTypeToStringConverter"/>
+                                </DataTemplate.Resources>
+                                <TextBlock Text="{Binding .,Converter={StaticResource DocumentLocationFragmentTypeToStringConverter}}" FontWeight="SemiBold"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
