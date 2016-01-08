@@ -36,7 +36,7 @@ namespace RaynMaker.Modules.Analysis.UnitTests.Engine
         [Test]
         public void Evaluate_TextWithProviders_ReturnsTextWithProviderValue()
         {
-            Assert.That( myEvaluator.Evaluate( "Value: ${STR} ${One}" ), Is.EqualTo( "Value: Hello 1,00" ) );
+            Assert.That( myEvaluator.Evaluate( "Value: ${STR} ${One}" ), Is.EqualTo( "Value: Hello 1.00" ) );
         }
 
         [Test]
