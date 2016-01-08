@@ -84,7 +84,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
                 Assert.That( dividend.Source, Is.StringContaining( "ariva" ).IgnoreCase.And.StringContaining( "fundamentals" ).IgnoreCase );
                 Assert.That( dividend.Timestamp.Date, Is.EqualTo( DateTime.Today ) );
 
-                // will not be set by converter in order to keep dependencies to Entities small
+                // Descriptor does not provide static currency
                 Assert.That( dividend.Currency, Is.Null );
             }
 
@@ -100,7 +100,6 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             Assert.That( series[ 4 ].Value, Is.EqualTo( 424000000d ) );
             Assert.That( series[ 5 ].Period, Is.EqualTo( new YearPeriod( 2006 ) ) );
             Assert.That( series[ 5 ].Value, Is.EqualTo( 458000000d ) );
-
         }
 
         [Test]

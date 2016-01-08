@@ -15,7 +15,7 @@ namespace RaynMaker.Modules.Import.Converters
             Contract.RequiresNotNull( descriptor, "descriptor" );
             Contract.RequiresNotNull( entityType, "entityType" );
             Contract.RequiresNotNullNotEmpty( source, "source" );
-            Contract.RequiresNotNullNotEmpty( currencies, "currencies" );
+            Contract.RequiresNotNull( currencies, "currencies" );
 
             Descriptor = descriptor;
             EntityType = entityType;

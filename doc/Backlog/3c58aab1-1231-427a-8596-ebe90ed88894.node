@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="3c58aab1-1231-427a-8596-ebe90ed88894" Created="635877528795478431" LastModified="635878572020703456">
-  <Caption><![CDATA[Tests for ImportPreviewModel]]></Caption>
-  <Content><![CDATA[- have one scenario test 
-- disable "withpreview" (webdataprovider can use code directly now)]]></Content>
-</Node>

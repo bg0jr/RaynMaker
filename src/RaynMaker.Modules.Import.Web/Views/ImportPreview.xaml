@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:importdesign="clr-namespace:RaynMaker.Modules.Import.Design;assembly=RaynMaker.Modules.Import"
         xmlns:pn="http://github.com/ronin4net/plainion"
-        Title="Preview" Height="300" Width="1000" ResizeMode="CanResize">
+        Title="Preview" Height="350" Width="1000" ResizeMode="CanResize">
     <Grid Margin="3">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

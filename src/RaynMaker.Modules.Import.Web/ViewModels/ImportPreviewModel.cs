@@ -12,6 +12,7 @@ using RaynMaker.Entities;
 using RaynMaker.Infrastructure.Services;
 using RaynMaker.Modules.Import.Design;
 using RaynMaker.Modules.Import.Documents;
+using RaynMaker.Modules.Import.Documents.WinForms;
 using RaynMaker.Modules.Import.Parsers.Html;
 using RaynMaker.Modules.Import.Spec.v2;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
@@ -181,7 +182,8 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
                     // Mark the part of the document described by the FigureDescriptor to have a preview
 
-                    var cell = MarkupFactory.FindElementByDescriptor( htmlDocument, descriptor );
+                    var cell = (HtmlElementAdapter)MarkupFactory.FindElementByDescriptor( htmlDocument, descriptor );
+                    cell.Element.ScrollIntoView( false );
 
                     var marker = MarkupFactory.CreateMarker( descriptor );
                     marker.Mark( cell );

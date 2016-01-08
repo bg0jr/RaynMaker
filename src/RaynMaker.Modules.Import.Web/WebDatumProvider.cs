@@ -24,8 +24,8 @@ namespace RaynMaker.Modules.Import.Web
         {
             public string Isin;
             public Currency Currency;
-
         }
+
         [ImportingConstructor]
         public WebDatumProvider( StorageService storageService, ILutService lutService )
         {

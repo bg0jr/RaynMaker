@@ -131,8 +131,8 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
             viewModel.Document = doc;
 
-            doc.Document.Title = TestContext.CurrentContext.Test.Name;
-            doc.Document.OpenDocumentInExternalBrowser();
+            //doc.Document.Title = TestContext.CurrentContext.Test.Name;
+            //doc.Document.OpenDocumentInExternalBrowser();
 
             Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]" ) );
             Assert.That( ( (StringContainsLocator)descriptor.ValuesLocator ).HeaderSeriesPosition, Is.EqualTo( 0 ) );

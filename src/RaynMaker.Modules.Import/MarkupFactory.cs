@@ -96,7 +96,7 @@ namespace RaynMaker.Modules.Import
                 }
             }
             {
-                var pathCellDescriptor = descriptor as PathSeriesDescriptor;
+                var pathCellDescriptor = descriptor as PathCellDescriptor;
                 if ( pathCellDescriptor != null )
                 {
                     return TryFindElementByDescriptor( document, pathCellDescriptor );

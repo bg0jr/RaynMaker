@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="DefiningFigureDescriptors.cs" />
     <Compile Include="LoadingDataSourcesScenarios.cs" />
+    <Compile Include="ImportFromWebScenarios.cs" />
     <Compile Include="SubmittingFormScenarios.cs" />
     <Compile Include="ReadingFromHtmlDocumentScenarios.cs" />
     <Compile Include="NavigatingHtmlDocumentScenarios.cs" />
@@ -105,6 +106,9 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <Content Include="TestData\Csv\Prices.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\DataSources\ImportFromWebScenarios\DataSources.xdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="TestData\DataSources\Version2.xdb" />
