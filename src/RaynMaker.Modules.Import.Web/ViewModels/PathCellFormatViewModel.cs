@@ -40,6 +40,11 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
             Value = "";
 
+            // initialize with invalid values first so that marker gets updated when we set 
+            // some valid data from descriptor below
+            myColumnPosition= -1;
+            myRowPosition = -1;
+
             SelectedDatum = Datums.FirstOrDefault( d => d.Name == Format.Figure );
             Path = Format.Path;
 

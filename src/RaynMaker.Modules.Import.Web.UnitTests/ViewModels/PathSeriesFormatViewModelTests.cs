@@ -87,7 +87,7 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
             descriptor.Orientation = SeriesOrientation.Row;
             descriptor.ValuesLocator = new StringContainsLocator { HeaderSeriesPosition = 7, Pattern = "Dividend in Mio" };
             descriptor.ValueFormat = new FormatColumn( "values", typeof( double ), "00.00" );
-            descriptor.TimesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 0 };
+            descriptor.TimesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 3 };
             descriptor.TimeFormat = new FormatColumn( "times", typeof( int ), "000" );
             descriptor.Excludes.Add( 1 );
 
@@ -100,9 +100,45 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
             Assert.That( viewModel.ValuesPosition, Is.EqualTo( 7 ) );
             Assert.That( viewModel.IsValid, Is.False );
             Assert.That( viewModel.ValueFormat, Is.EqualTo( descriptor.ValueFormat ) );
-            Assert.That( viewModel.TimesPosition, Is.EqualTo( 0 ) );
+            Assert.That( viewModel.TimesPosition, Is.EqualTo( 3 ) );
             Assert.That( viewModel.TimeFormat, Is.EqualTo( descriptor.TimeFormat ) );
             Assert.That( viewModel.Value, Is.Null.Or.Empty );
+        }
+
+        /// <summary>
+        /// Ensure that ValuesPosition is -1 in the very beginning so that even if descriptor sets later to 0
+        /// this is detected as change which is notified and which updates the marker.
+        /// </summary>
+        [Test]
+        public void Ctor_DescriptorsValuesPositionIsNull_MarkerGotUpdated()
+        {
+            var descriptor = new PathSeriesDescriptor();
+            descriptor.Figure = "Dividend";
+            descriptor.Orientation = SeriesOrientation.Row;
+            descriptor.ValuesLocator = new StringContainsLocator { HeaderSeriesPosition = 0, Pattern = "column" };
+
+            var viewModel = CreateViewModel( descriptor );
+
+            Assert.That( viewModel.ValuesPosition, Is.EqualTo( 0 ) );
+            Assert.That( myMarkupBehavior.Object.Marker.RowHeaderColumn, Is.EqualTo( 0 ) );
+        }
+
+        /// <summary>
+        /// Ensure that RowPosition is -1 in the very beginning so that even if descriptor sets later to 0
+        /// this is detected as change which is notified and which updates the marker.
+        /// </summary>
+        [Test]
+        public void Ctor_DescriptorsRowPositionIsNull_MarkerGotUpdated()
+        {
+            var descriptor = new PathSeriesDescriptor();
+            descriptor.Figure = "Dividend";
+            descriptor.Orientation = SeriesOrientation.Row;
+            descriptor.TimesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 0 };
+
+            var viewModel = CreateViewModel( descriptor );
+
+            Assert.That( viewModel.TimesPosition, Is.EqualTo( 0 ) );
+            Assert.That( myMarkupBehavior.Object.Marker.ColumnHeaderRow, Is.EqualTo( 0 ) );
         }
 
         [Test]

@@ -34,13 +34,13 @@ namespace RaynMaker.Modules.Import.Documents
             }
         }
 
-        public Uri Navigate( DocumentLocator navigation, ILocatorMacroResolver macroResolver )
+        public Uri Navigate( DocumentLocator locator, ILocatorMacroResolver macroResolver )
         {
-            var uri = myCache.TryGet( navigation );
+            var uri = myCache.TryGet( locator );
             if( uri == null )
             {
-                uri = myNavigator.Navigate( navigation, macroResolver );
-                uri = myCache.Add( navigation, uri );
+                uri = myNavigator.Navigate( locator, macroResolver );
+                uri = myCache.Add( locator, uri );
             }
 
             return uri;

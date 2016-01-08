@@ -9,6 +9,6 @@ namespace RaynMaker.Modules.Import
     {
         event Action<Uri> Navigating;
 
-        Uri Navigate( DocumentLocator navigation, ILocatorMacroResolver macroResolver );
+        Uri Navigate( DocumentLocator locator, ILocatorMacroResolver macroResolver );
     }
 }

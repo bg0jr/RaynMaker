@@ -66,6 +66,11 @@ namespace RaynMaker.Modules.Import.Documents
         /// </summary>
         internal Uri Add( DocumentLocator key, Uri document )
         {
+            if ( document.ToString() == "about:blank" )
+            {
+                return document;
+            }
+
             var entry = CreateCacheEntry( key, document );
 
             ShrinkCacheIfRequired( entry );
