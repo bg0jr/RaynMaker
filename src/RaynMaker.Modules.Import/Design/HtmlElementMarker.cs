@@ -27,7 +27,7 @@ namespace RaynMaker.Modules.Import.Design
 
         public void Mark( IHtmlElement element )
         {
-            Contract.RequiresNotNull( element != null, "element" );
+            Contract.RequiresNotNull( element, "element" );
 
             if( Element != null )
             {

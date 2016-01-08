@@ -264,6 +264,8 @@ namespace RaynMaker.Modules.Import.Design
 
             var header = myCellMarker.Elements
                   .Select( e => Table.GetCellAt( myColumnHeaderRow, Table.GetColumnIndex( e ) ) )
+                  // GetCellAt() may return null in case the given coordinates are wrong
+                  .Where( e => e != null )
                   .Distinct();
 
             foreach ( var e in header )

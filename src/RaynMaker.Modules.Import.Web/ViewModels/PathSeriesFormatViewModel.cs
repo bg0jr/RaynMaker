@@ -47,9 +47,9 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 descriptor.TimeFormat = new FormatColumn( "year", typeof( int ) );
             }
-            ValueFormat = descriptor.TimeFormat;
+            TimeFormat = descriptor.TimeFormat;
 
-            IsValid = true;
+            IsValid = false;
             if ( descriptor.ValuesLocator != null )
             {
                 ValuesPattern = ( (StringContainsLocator)Format.ValuesLocator ).Pattern;
@@ -191,7 +191,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             }
 
             ValuesPattern = ( Format.Orientation == SeriesOrientation.Row
-                ? table.GetCellAt( table.GetColumnIndex( selectedElement ), ValuesPosition )
+                ? table.GetCellAt( table.GetRowIndex( selectedElement ), ValuesPosition )
                 : table.GetCellAt( ValuesPosition, table.GetColumnIndex( selectedElement ) ) )
                 .InnerText.Trim();
         }
@@ -201,22 +201,19 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             get { return myPath; }
             set
             {
-                if ( SetProperty( ref myPath, value ) )
+                // Path must point to table NOT to cell in table
+                var path = value == null ? null : HtmlPath.Parse( value ).GetPathToTable();
+
+                // in case we do not point to table we set the original path
+                if ( SetProperty( ref myPath, path != null ? path.ToString() : value ) )
                 {
-                    // Path must point to table NOT to cell in table
-                    var path = value == null ? null : HtmlPath.Parse( value ).GetPathToTable();
+                    Format.Path = myPath;
 
-                    // in case we do not point to table we set the original path
-                    if ( SetProperty( ref myPath, path != null ? path.ToString() : value ) )
+                    // only overwrite if it was not set yet. Once the user has clicked we want
+                    // to keep the user selection and NOT apply the reduced path (which is not supported by HtmlTableMarker)
+                    if ( string.IsNullOrEmpty( MarkupBehavior.PathToSelectedElement ) )
                     {
-                        Format.Path = myPath;
-
-                        // only overwrite if it was not set yet. Once the user has clicked we want
-                        // to keep the user selection and NOT apply the reduced path (which is not supported by HtmlTableMarker)
-                        if ( string.IsNullOrEmpty( MarkupBehavior.PathToSelectedElement ) )
-                        {
-                            MarkupBehavior.PathToSelectedElement = myPath;
-                        }
+                        MarkupBehavior.PathToSelectedElement = myPath;
                     }
                 }
             }
@@ -233,18 +230,20 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             get { return mySelectedDimension; }
             set
             {
-                if ( SetProperty( ref mySelectedDimension, value ) )
+                SetProperty( ref mySelectedDimension, value );
+
+                // as there is no "None" anylonger we update the expansion all the time
+                // so that during initialization the correct values are given to the Marker
+
+                if ( SelectedOrientation == SeriesOrientation.Row )
                 {
-                    if ( SelectedOrientation == SeriesOrientation.Row )
-                    {
-                        MarkupBehavior.Marker.ExpandColumn = false;
-                        MarkupBehavior.Marker.ExpandRow = true;
-                    }
-                    else if ( SelectedOrientation == SeriesOrientation.Column )
-                    {
-                        MarkupBehavior.Marker.ExpandColumn = true;
-                        MarkupBehavior.Marker.ExpandRow = false;
-                    }
+                    MarkupBehavior.Marker.ExpandColumn = false;
+                    MarkupBehavior.Marker.ExpandRow = true;
+                }
+                else if ( SelectedOrientation == SeriesOrientation.Column )
+                {
+                    MarkupBehavior.Marker.ExpandColumn = true;
+                    MarkupBehavior.Marker.ExpandRow = false;
                 }
             }
         }
@@ -385,11 +384,6 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         private int[] GetIntArray( string value )
         {
-            if ( string.IsNullOrWhiteSpace( value ) )
-            {
-                return null;
-            }
-
             try
             {
                 return value.Split( ',' )
@@ -402,7 +396,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 //errorProvider1.SetError( config, "Must be: <number> [, <number> ]*" );
             }
 
-            return null;
+            return new int[] { };
         }
 
         public FormatColumn TimeFormat { get; private set; }

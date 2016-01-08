@@ -59,7 +59,7 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
             descriptor.ValuesLocator = new StringContainsLocator { HeaderSeriesPosition = 7, Pattern = "Dividend in Mio" };
             descriptor.ValueFormat = new FormatColumn( "values", typeof( double ), "00.00" );
             descriptor.TimesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 0 };
-            descriptor.ValueFormat = new FormatColumn( "times", typeof( int ), "000" );
+            descriptor.TimeFormat = new FormatColumn( "times", typeof( int ), "000" );
             descriptor.Excludes.Add( 1 );
 
             var viewModel = CreateViewModel( descriptor );
@@ -88,7 +88,7 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
             descriptor.ValuesLocator = new StringContainsLocator { HeaderSeriesPosition = 7, Pattern = "Dividend in Mio" };
             descriptor.ValueFormat = new FormatColumn( "values", typeof( double ), "00.00" );
             descriptor.TimesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 0 };
-            descriptor.ValueFormat = new FormatColumn( "times", typeof( int ), "000" );
+            descriptor.TimeFormat = new FormatColumn( "times", typeof( int ), "000" );
             descriptor.Excludes.Add( 1 );
 
             var viewModel = CreateViewModel( descriptor );

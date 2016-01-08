@@ -70,8 +70,8 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
             viewModel.Document = doc;
 
-            doc.Document.Title = TestContext.CurrentContext.Test.Name;
-            doc.Document.OpenDocumentInExternalBrowser();
+            //doc.Document.Title = TestContext.CurrentContext.Test.Name;
+            //doc.Document.OpenDocumentInExternalBrowser();
 
             Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" ) );
             Assert.That( ( (StringContainsLocator)descriptor.Column ).HeaderSeriesPosition, Is.EqualTo( 0 ) );
@@ -92,6 +92,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         {
             var descriptor = new PathSeriesDescriptor();
             descriptor.Figure = "Dividend";
+            descriptor.Orientation = SeriesOrientation.Row;
 
             var doc = (HtmlDocumentAdapter)LoadDocument<IHtmlDocument>( "Html", "ariva.fundamentals.DE0005190003.html" );
 
@@ -101,17 +102,21 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             HtmlMarkupAutomationProvider.SimulateClickOn( doc.Document, "rym_Dividend" );
 
             Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]" ) );
-            Assert.That( viewModel.Value, Is.EqualTo( "392,0" ) );
+            // we cannot calculate the exact clicked position form descriptor (anyway does not matter for series).
+            // -> we just select the first value which is not header
+            Assert.That( viewModel.Value, Is.EqualTo( "350,0" ) );
             Assert.That( ( (StringContainsLocator)descriptor.ValuesLocator ).HeaderSeriesPosition, Is.EqualTo( 0 ) );
-            Assert.That( ( (StringContainsLocator)descriptor.ValuesLocator ).Pattern, Is.EqualTo( "Dividendenausschüttung" ) );
+            Assert.That( ( (StringContainsLocator)descriptor.ValuesLocator ).Pattern, Is.EqualTo( "Dividendenausschüttung in Mio." ) );
             Assert.That( ( (AbsolutePositionLocator)descriptor.TimesLocator ).HeaderSeriesPosition, Is.EqualTo( 0 ) );
-            Assert.That( ( (AbsolutePositionLocator)descriptor.TimesLocator ).SeriesPosition, Is.EqualTo( 1) );
+            Assert.That( ( (AbsolutePositionLocator)descriptor.TimesLocator ).SeriesPosition, Is.EqualTo( 0 ) );
 
             viewModel.ValueFormat.Type = typeof( double );
             viewModel.ValueFormat.Format = "00,0";
             viewModel.ValueFormat.InMillions = true;
 
-            Assert.That( viewModel.Value, Is.EqualTo( ( 392000000d ).ToString() ) );
+            viewModel.TimesPosition = 1;
+            
+            Assert.That( viewModel.Value, Is.EqualTo( ( 350000000d ).ToString() ) );
 
             var selectedCell = doc.GetElementById( "rym_Dividend" );
 
@@ -131,13 +136,13 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
             Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]" ) );
             Assert.That( ( (StringContainsLocator)descriptor.ValuesLocator ).HeaderSeriesPosition, Is.EqualTo( 0 ) );
-            Assert.That( ( (StringContainsLocator)descriptor.ValuesLocator ).Pattern, Is.EqualTo( "Dividendenausschüttung" ) );
+            Assert.That( ( (StringContainsLocator)descriptor.ValuesLocator ).Pattern, Is.EqualTo( "Dividendenausschüttung in Mio." ) );
             Assert.That( ( (AbsolutePositionLocator)descriptor.TimesLocator ).HeaderSeriesPosition, Is.EqualTo( 0 ) );
             Assert.That( ( (AbsolutePositionLocator)descriptor.TimesLocator ).SeriesPosition, Is.EqualTo( 1 ) );
 
-            Assert.That( descriptor.ValueFormat.InMillions, Is.True);
+            Assert.That( descriptor.ValueFormat.InMillions, Is.True );
 
-            Assert.That( viewModel.Value, Is.EqualTo( ( 392000000d ).ToString() ) );
+            Assert.That( viewModel.Value, Is.EqualTo( ( 350000000d ).ToString() ) );
 
             Assert.That( HtmlMarkupAutomationProvider.IsMarked( selectedCell ), Is.True );
         }

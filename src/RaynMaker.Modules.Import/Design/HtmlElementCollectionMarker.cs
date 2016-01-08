@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Plainion;
 using RaynMaker.Modules.Import.Documents;
 
 namespace RaynMaker.Modules.Import.Design
@@ -26,6 +27,8 @@ namespace RaynMaker.Modules.Import.Design
 
         public void Mark( IHtmlElement element )
         {
+            Contract.RequiresNotNull( element, "element" );
+
             if( myMarkers.Any( m => m.Element == element ) )
             {
                 return;
@@ -39,6 +42,8 @@ namespace RaynMaker.Modules.Import.Design
 
         public void Unmark( IHtmlElement element )
         {
+            Contract.RequiresNotNull( element, "element" );
+
             var marker = myMarkers.FirstOrDefault( m => m.Element == element );
             if( marker == null )
             {
