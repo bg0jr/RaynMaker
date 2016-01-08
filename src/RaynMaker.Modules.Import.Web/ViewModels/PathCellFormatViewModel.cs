@@ -93,7 +93,6 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             MarkupBehavior.PathToSelectedElement = cell != null ? cell.GetPath().ToString() : null;
         }
 
-        // TODO: how can we make that code shareable throught "design" or "parsers"
         private IHtmlElement GetHtmlElementFromDescription()
         {
             if( string.IsNullOrEmpty( Path ) )

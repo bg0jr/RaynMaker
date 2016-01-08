@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ViewModels\PathSeriesFormatViewModelTests.cs" />
     <Compile Include="ViewModels\PathCellFormatViewModelTests.cs" />
     <Compile Include="ViewModels\StockMacroResolverTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

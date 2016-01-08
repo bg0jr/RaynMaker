@@ -12,6 +12,9 @@
         <Node Id="11e80f8f-dc31-44a2-9c9c-c790ede307bd">
           <Caption><![CDATA[Tests for PathSeriesFormatViewModel]]></Caption>
         </Node>
+        <Node Id="a41d501c-68a9-430b-83a6-3047c5c8891c">
+          <Caption><![CDATA[Reuse between pathcell and pathseries viewmodel]]></Caption>
+        </Node>
         <Node Id="42fa04af-abc8-4ad2-912f-e1a6c4336079">
           <Caption><![CDATA[Tests for DataFormatsViewModel]]></Caption>
         </Node>
@@ -87,6 +90,12 @@
       </Node>
       <Node Id="d0da3880-c6d3-477b-bee2-8553b930be55">
         <Caption><![CDATA[Rework WebSpy]]></Caption>
+      </Node>
+      <Node Id="f35f72aa-2155-40e3-aed7-2c8c0166690b">
+        <Caption><![CDATA[HtmlTable]]></Caption>
+      </Node>
+      <Node Id="fc8daea3-122d-49b1-8173-27a2a527ba3a">
+        <Caption><![CDATA[PathSeriesFormatViewModel]]></Caption>
       </Node>
     </Node>
     <Node Id="63da965d-c664-48a9-8250-578d54290207">

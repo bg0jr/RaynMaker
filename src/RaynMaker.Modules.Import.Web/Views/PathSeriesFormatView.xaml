@@ -27,7 +27,7 @@
         </Grid.RowDefinitions>
 
         <Grid.Resources>
-            <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type spec:SeriesOrientation}" x:Key="CellDimensions">
+            <ObjectDataProvider MethodName="GetValues" ObjectType="{x:Type spec:SeriesOrientation}" x:Key="SeriesOrientations">
                 <ObjectDataProvider.MethodParameters>
                     <x:Type TypeName="spec:SeriesOrientation" />
                 </ObjectDataProvider.MethodParameters>
@@ -51,11 +51,17 @@
 
         <TextBlock Grid.Row="2" Grid.Column="0" Text="Dimension" VerticalAlignment="Center"/>
         <ComboBox Grid.Row="2" Grid.Column="1" Margin="5,2,0,0"
-                                      ItemsSource="{Binding Source={StaticResource CellDimensions}, Mode=OneTime}" 
-                                      SelectedItem="{Binding SelectedDimension}"/>
+                  ItemsSource="{Binding Source={StaticResource SeriesOrientations}, Mode=OneTime}" 
+                   SelectedItem="{Binding SelectedOrientation}"/>
 
-        <TextBlock Grid.Row="2" Grid.Column="2" Text="Series name contains" VerticalAlignment="Center" Margin="5,0,0,0"/>
-        <TextBox Grid.Row="2" Grid.Column="3" Margin="5,2,0,0" Text="{Binding SeriesName, UpdateSourceTrigger=PropertyChanged}">
+        <TextBlock Grid.Row="2" Grid.Column="2" Text="Skip values" VerticalAlignment="Center" Margin="5,0,0,0"/>
+        <TextBox Grid.Row="2" Grid.Column="3" Width="100" HorizontalAlignment="Left" Margin="5,2,0,0" Text="{Binding SkipValues, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Values position" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="5,2,0,0" Text="{Binding ValuesPosition, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="2" Text="Values pattern" VerticalAlignment="Center" Margin="5,0,0,0"/>
+        <TextBox Grid.Row="3" Grid.Column="3" Margin="5,2,0,0" Text="{Binding ValuesPattern, UpdateSourceTrigger=PropertyChanged}">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Background" Value="White"/>
@@ -71,19 +77,13 @@
             </TextBox.Style>
         </TextBox>
 
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="Row header column" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="3" Grid.Column="1" Margin="5,2,0,0" Text="{Binding RowHeaderColumn, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Value format" VerticalAlignment="Center"/>
+        <v:ValueFormatView Grid.Row="4" Grid.Column="1"  Grid.ColumnSpan="6" Margin="5,2,0,0" DataContext="{Binding ValueFormat}"/>
+        
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="Times position" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="5" Grid.Column="1" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding TimesPosition, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <TextBlock Grid.Row="3" Grid.Column="2" Text="Skip values" VerticalAlignment="Center" Margin="5,0,0,0"/>
-        <TextBox Grid.Row="3" Grid.Column="3" Width="50" HorizontalAlignment="Left" Margin="5,2,0,0" Text="{Binding SkipValues, UpdateSourceTrigger=PropertyChanged}"/>
-
-        <TextBlock Grid.Row="4" Grid.Column="0" Text="Column header row" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Margin="5,2,0,0" VerticalAlignment="Center" Text="{Binding ColumnHeaderRow, UpdateSourceTrigger=PropertyChanged}"/>
-
-        <TextBlock Grid.Row="5" Grid.Column="0" Text="Time format" VerticalAlignment="Center"/>
-        <v:ValueFormatView Grid.Row="5" Grid.Column="1"  Grid.ColumnSpan="6" Margin="5,2,0,0" DataContext="{Binding TimeFormat}"/>
-
-        <TextBlock Grid.Row="6" Grid.Column="0" Text="Value format" VerticalAlignment="Center"/>
-        <v:ValueFormatView Grid.Row="6" Grid.Column="1"  Grid.ColumnSpan="6" Margin="5,2,0,0" DataContext="{Binding ValueFormat}"/>
+        <TextBlock Grid.Row="6" Grid.Column="0" Text="Time format" VerticalAlignment="Center"/>
+        <v:ValueFormatView Grid.Row="6" Grid.Column="1"  Grid.ColumnSpan="6" Margin="5,2,0,0" DataContext="{Binding TimeFormat}"/>
     </Grid>
 </UserControl>
