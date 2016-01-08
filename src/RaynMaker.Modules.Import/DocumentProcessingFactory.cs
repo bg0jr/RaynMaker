@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Plainion;
 using RaynMaker.Entities;
@@ -52,7 +53,7 @@ namespace RaynMaker.Modules.Import
             throw new NotSupportedException( "Unable to find parser for document type: " + document.GetType() );
         }
 
-        public static IDataTableToEntityConverter CreateConverter( IFigureDescriptor descriptor, DataSource dataSource )
+        public static IDataTableToEntityConverter CreateConverter( IFigureDescriptor descriptor, DataSource dataSource, IEnumerable<Currency> currencies )
         {
             Contract.RequiresNotNull( descriptor, "descriptor" );
 
@@ -62,8 +63,8 @@ namespace RaynMaker.Modules.Import
 
             var source = dataSource.Vendor + "|" + dataSource.Name;
 
-            if( descriptor is SeriesDescriptorBase ) return new DataTableToSeriesConverter( descriptor as SeriesDescriptorBase, entityType, source );
-            if( descriptor is SingleValueDescriptorBase ) return new DataTableToSingleValueConverter( descriptor as SingleValueDescriptorBase, entityType, source );
+            if ( descriptor is SeriesDescriptorBase ) return new DataTableToSeriesConverter( descriptor as SeriesDescriptorBase, entityType, source, currencies );
+            if ( descriptor is SingleValueDescriptorBase ) return new DataTableToSingleValueConverter( descriptor as SingleValueDescriptorBase, entityType, source, currencies );
             //if( descriptor is TableDescriptorBase ) return new DataTableToTableConverter( descriptor as TableDescriptorBase, entityType, source );
 
             throw new NotSupportedException( "Unknown descriptor type: " + descriptor.GetType().Name );

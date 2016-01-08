@@ -82,34 +82,34 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         // only take over new datums and values for datums which have no value yet
         internal void PublishData()
         {
-            foreach( var datum in myData )
+            foreach ( var datum in myData )
             {
-                if( datum.Period.CompareTo( From ) == -1 || datum.Period.CompareTo( To ) == 1 )
+                if ( datum.Period.CompareTo( From ) == -1 || datum.Period.CompareTo( To ) == 1 )
                 {
                     continue;
                 }
 
                 var currencyDatum = datum as ICurrencyDatum;
-                if( Currency != null && currencyDatum != null )
+                if ( Currency != null && currencyDatum != null )
                 {
-                    ( ( AbstractCurrencyDatum )currencyDatum ).Currency = Currency;
+                    ( (AbstractCurrencyDatum)currencyDatum ).Currency = Currency;
                 }
 
                 var existingDatum = Series.SingleOrDefault( d => d.Period.Equals( datum.Period ) );
-                if( existingDatum == null )
+                if ( existingDatum == null )
                 {
                     Series.Add( datum );
                     continue;
                 }
 
-                if( !existingDatum.Value.HasValue || OverwriteExistingValues )
+                if ( !existingDatum.Value.HasValue || OverwriteExistingValues )
                 {
-                    ( ( AbstractDatum )existingDatum ).Value = datum.Value;
-                    ( ( AbstractDatum )existingDatum ).Source = datum.Source;
+                    ( (AbstractDatum)existingDatum ).Value = datum.Value;
+                    ( (AbstractDatum)existingDatum ).Source = datum.Source;
 
-                    if( currencyDatum != null )
+                    if ( currencyDatum != null )
                     {
-                        ( ( AbstractCurrencyDatum )existingDatum ).Currency = currencyDatum.Currency;
+                        ( (AbstractCurrencyDatum)existingDatum ).Currency = currencyDatum.Currency;
                     }
                 }
             }
@@ -135,7 +135,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 myDocumentBrowser = DocumentProcessingFactory.CreateBrowser( value );
 
-                if( SelectedSource != null )
+                if ( SelectedSource != null )
                 {
                     // we already got a call to fetch the data - just te browser was missing
                     // -> we have a browser now - lets fetch the data
@@ -151,7 +151,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             get { return mySelectedSource; }
             set
             {
-                if( SetProperty( ref mySelectedSource, value ) )
+                if ( SetProperty( ref mySelectedSource, value ) )
                 {
                     TryFetch();
                 }
@@ -160,7 +160,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         private void TryFetch()
         {
-            if( myDocumentBrowser == null )
+            if ( myDocumentBrowser == null )
             {
                 return;
             }
@@ -171,13 +171,13 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 .Cast<IPathDescriptor>()
                 .Where( f => f.Figure == myDatumType.Name );
 
-            foreach( var descriptor in descriptors )
+            foreach ( var descriptor in descriptors )
             {
                 try
                 {
                     myDocumentBrowser.Navigate( DocumentType.Html, mySelectedSource.Location, new StockMacroResolver( Stock ) );
 
-                    var htmlDocument = ( IHtmlDocument )myDocumentBrowser.Document;
+                    var htmlDocument = (IHtmlDocument)myDocumentBrowser.Document;
 
                     // Mark the part of the document described by the FigureDescriptor to have a preview
 
@@ -190,7 +190,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                     var parser = DocumentProcessingFactory.CreateParser( htmlDocument, descriptor );
                     var table = parser.ExtractTable();
 
-                    var converter = DocumentProcessingFactory.CreateConverter( descriptor, mySelectedSource );
+                    var converter = DocumentProcessingFactory.CreateConverter( descriptor, mySelectedSource, CurrenciesLut.Currencies );
                     var series = converter.Convert( table, Stock );
                     myData.AddRange( series );
 
@@ -198,7 +198,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                     // -> skip alternative formats
                     break;
                 }
-                catch( Exception ex )
+                catch ( Exception ex )
                 {
                     ex.Data[ "Figure" ] = myDatumType.Name;
                     ex.Data[ "DataSource.Vendor" ] = mySelectedSource.Vendor;

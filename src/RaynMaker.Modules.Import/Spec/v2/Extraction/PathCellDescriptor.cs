@@ -8,7 +8,7 @@ namespace RaynMaker.Modules.Import.Spec.v2.Extraction
     /// Describes a figure within one cell of a table.
     /// </summary>
     [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec/v2", Name = "PathCellDescriptor" )]
-    public class PathCellDescriptor : SingleValueDescriptorBase, IPathDescriptor
+    public class PathCellDescriptor : SingleValueDescriptorBase, IPathDescriptor, ICurrencyDescriptor
     {
         private string myPath;
         private ISeriesLocator myColumn;

@@ -81,7 +81,6 @@ namespace RaynMaker.Modules.Import.Web
             }
             else
             {
-                var preview = new ImportPreview( previewViewModel );
                 previewViewModel.Browser = new SafeWebBrowser();
                 previewViewModel.Fetch( request.DatumType );
                 previewViewModel.PublishData();

@@ -23,23 +23,24 @@ namespace RaynMaker.Modules.Import.Web.Services
         public IEnumerable<DataSource> Load()
         {
             var file = Path.Combine( myProjectHost.Project.StorageRoot, "DataSources.xdb" );
-            if( File.Exists( file ) )
+            if ( !File.Exists( file ) )
             {
-                using( var stream = new FileStream( file, FileMode.Open, FileAccess.Read ) )
-                {
-                    var serializer = new ImportSpecSerializer();
-                    var sheet = serializer.ReadCompatible( stream );
-
-                    if( sheet.WasMigratedToNewerVersion )
-                    {
-                        Store( sheet.GetSources<DataSource>() );
-                    }
-
-                    return sheet.GetSources<DataSource>();
-                }
+                return Enumerable.Empty<DataSource>();
             }
 
-            return Enumerable.Empty<DataSource>();
+            DataSourcesSheet sheet;
+            using ( var stream = new FileStream( file, FileMode.Open, FileAccess.Read ) )
+            {
+                var serializer = new ImportSpecSerializer();
+                sheet = serializer.ReadCompatible( stream );
+            }
+
+            if ( sheet.WasMigratedToNewerVersion )
+            {
+                Store( sheet.GetSources<DataSource>() );
+            }
+
+            return sheet.GetSources<DataSource>();
         }
 
         public void Store( IEnumerable<DataSource> sources )
@@ -48,7 +49,7 @@ namespace RaynMaker.Modules.Import.Web.Services
             sheet.SetSources( sources );
 
             var file = Path.Combine( myProjectHost.Project.StorageRoot, "DataSources.xdb" );
-            using( var stream = new FileStream( file, FileMode.Create, FileAccess.Write ) )
+            using ( var stream = new FileStream( file, FileMode.Create, FileAccess.Write ) )
             {
                 var serializer = new ImportSpecSerializer();
                 serializer.Write( stream, sheet );

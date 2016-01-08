@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="a41d501c-68a9-430b-83a6-3047c5c8891c" Created="635878409900940339" LastModified="635878410035086052">
+<Node Id="a41d501c-68a9-430b-83a6-3047c5c8891c" Created="635878409900940339" LastModified="635878477131601246">
   <Caption><![CDATA[Reuse between pathcell and pathseries viewmodel]]></Caption>
-  <Content><![CDATA[]]></Content>
+  <Content><![CDATA[quite some logics in the viewmodels
+- how can we share?]]></Content>
 </Node>

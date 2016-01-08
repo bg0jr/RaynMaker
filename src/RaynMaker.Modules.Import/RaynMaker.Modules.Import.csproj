@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\AbstractDataTableToEntityConverter.cs" />
     <Compile Include="Converters\DataTableToSeriesConverter.cs" />
     <Compile Include="Converters\DataTableToSingleValueConverter.cs" />
     <Compile Include="Design\HtmlElementCollectionMarker.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Spec\v2\DataSource.cs" />
     <Compile Include="Spec\v2\DocumentTypeNotNoneAttribute.cs" />
     <Compile Include="Spec\v2\Extraction\CsvDescriptor.cs" />
+    <Compile Include="Spec\v2\Extraction\ICurrencyDescriptor.cs" />
     <Compile Include="Spec\v2\Extraction\IPathDescriptor.cs" />
     <Compile Include="Spec\v2\Extraction\PathCellDescriptor.cs" />
     <Compile Include="Spec\v1\AbsolutePositionLocator.cs" />

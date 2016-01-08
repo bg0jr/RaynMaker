@@ -9,15 +9,6 @@
       <Caption><![CDATA[1.7 - Polish Import module]]></Caption>
       <Node Id="3d95bd5e-1cd7-4e94-b339-0abf5ead4323">
         <Caption><![CDATA[Merge back to MAIN - pre-conds]]></Caption>
-        <Node Id="11e80f8f-dc31-44a2-9c9c-c790ede307bd">
-          <Caption><![CDATA[Tests for PathSeriesFormatViewModel]]></Caption>
-        </Node>
-        <Node Id="a41d501c-68a9-430b-83a6-3047c5c8891c">
-          <Caption><![CDATA[Reuse between pathcell and pathseries viewmodel]]></Caption>
-        </Node>
-        <Node Id="42fa04af-abc8-4ad2-912f-e1a6c4336079">
-          <Caption><![CDATA[Tests for DataFormatsViewModel]]></Caption>
-        </Node>
         <Node Id="3c58aab1-1231-427a-8596-ebe90ed88894">
           <Caption><![CDATA[Tests for ImportPreviewModel]]></Caption>
         </Node>
@@ -25,14 +16,14 @@
     </Node>
     <Node Id="02bde578-e3ec-4872-8378-6b1411fdf1d3">
       <Caption><![CDATA[1.9]]></Caption>
+      <Node Id="a41d501c-68a9-430b-83a6-3047c5c8891c">
+        <Caption><![CDATA[Reuse between pathcell and pathseries viewmodel]]></Caption>
+      </Node>
       <Node Id="2b28d15c-19f0-4905-8437-0b5e0509b55b">
         <Caption><![CDATA[Documents]]></Caption>
         <Node Id="47279eeb-e3d9-42be-955a-8e0aaac47e2b">
           <Caption><![CDATA[Equals and GetHashcode for HtmlElementAdapter]]></Caption>
         </Node>
-      </Node>
-      <Node Id="93bc7b72-793a-43da-8b25-bd0018ae7325">
-        <Caption><![CDATA[DataTableToEntityConverters - currency]]></Caption>
       </Node>
       <Node Id="45e19c03-4d5c-4992-9267-f95fe657c170">
         <Caption><![CDATA[Add TimeLocator to PathCellDescriptor]]></Caption>

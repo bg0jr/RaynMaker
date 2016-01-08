@@ -74,10 +74,10 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             stock.Company = new Company { Name = "Volkswagen" };
             stock.Company.Stocks.Add( stock );
 
-            var converter = DocumentProcessingFactory.CreateConverter( descriptor, dataSource );
+            var converter = DocumentProcessingFactory.CreateConverter( descriptor, dataSource, Enumerable.Empty<Currency>() );
             var series = converter.Convert( table, stock ).Cast<Dividend>().ToList();
 
-            foreach( var dividend in series )
+            foreach ( var dividend in series )
             {
                 Assert.That( dividend.Company.Stocks.First().Isin, Is.EqualTo( "DE0007664039" ) );
                 Assert.That( dividend.Period, Is.InstanceOf<YearPeriod>() );
@@ -130,19 +130,17 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
             Assert.That( value, Is.EqualTo( 134.356d ) );
 
-            var converter = DocumentProcessingFactory.CreateConverter( descriptor, dataSource );
+            var converter = DocumentProcessingFactory.CreateConverter( descriptor, dataSource, new[] { new Currency { Symbol = "EUR" } } );
             var series = converter.Convert( table, new Stock { Isin = "DE0007664039" } );
 
-            var price = ( Price )series.Single();
+            var price = (Price)series.Single();
 
             Assert.That( price.Stock.Isin, Is.EqualTo( "DE0007664039" ) );
-            Assert.That( ( ( DayPeriod )price.Period ).Day.Date, Is.EqualTo( DateTime.Today ) );
+            Assert.That( ( (DayPeriod)price.Period ).Day.Date, Is.EqualTo( DateTime.Today ) );
             Assert.That( price.Source, Is.StringContaining( "ariva" ).IgnoreCase.And.StringContaining( "price" ).IgnoreCase );
             Assert.That( price.Timestamp.Date, Is.EqualTo( DateTime.Today ) );
             Assert.That( price.Value, Is.EqualTo( 134.356d ) );
-
-            // will not be set by converter in order to keep dependencies to Entities small
-            Assert.That( price.Currency, Is.Null );
+            Assert.That( price.Currency.Symbol, Is.EqualTo( "EUR" ) );
         }
 
         [Test]
