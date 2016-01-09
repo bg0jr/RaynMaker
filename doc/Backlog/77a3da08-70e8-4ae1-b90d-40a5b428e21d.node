@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="77a3da08-70e8-4ae1-b90d-40a5b428e21d" Created="635777255147934304" LastModified="635870580548834106">
-  <Caption><![CDATA[TryNavigateWithWildcards]]></Caption>
-  <Content><![CDATA[does not support Navigating event currently]]></Content>
+<Node Id="77a3da08-70e8-4ae1-b90d-40a5b428e21d" Created="635777255147934304" LastModified="635879208480643667">
+  <Caption><![CDATA[Browser.TryNavigateWithWildcards does not support navigating event]]></Caption>
+  <Content><![CDATA[]]></Content>
 </Node>

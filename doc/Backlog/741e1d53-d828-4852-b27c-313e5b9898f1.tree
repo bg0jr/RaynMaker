@@ -13,6 +13,12 @@
       <Node Id="a41d501c-68a9-430b-83a6-3047c5c8891c">
         <Caption><![CDATA[Reuse between pathcell and pathseries viewmodel]]></Caption>
       </Node>
+      <Node Id="211a7a10-87e8-4363-b9ce-6f9835655d50">
+        <Caption><![CDATA[Find and replace old "Format" by "Descriptor"]]></Caption>
+      </Node>
+      <Node Id="a9c1388f-86de-49c4-a30e-8db8160da803">
+        <Caption><![CDATA[Find and replace old "Datum" with "Figure"]]></Caption>
+      </Node>
       <Node Id="2fa0c595-c62b-40a5-9076-33e615fcad82">
         <Caption><![CDATA[Parsers]]></Caption>
         <Node Id="3e6b44b5-fea4-4a55-9901-2cc90851ee8d">
@@ -23,9 +29,6 @@
         </Node>
         <Node Id="1d0bde2c-9285-4444-ba92-23f2a207c791">
           <Caption><![CDATA[From ScenarioTests back to UnitTests?]]></Caption>
-          <Node Id="ff78be26-41b3-44a1-b1cc-8acdbe915731">
-            <Caption><![CDATA[ValueFormat of AbstractSeriesFormat]]></Caption>
-          </Node>
         </Node>
         <Node Id="9877182f-53d2-48f3-85d7-c4d7ede75014">
           <Caption><![CDATA[HtmlTable tests]]></Caption>
@@ -42,12 +45,12 @@
         <Node Id="f35f72aa-2155-40e3-aed7-2c8c0166690b">
           <Caption><![CDATA[HtmlTable]]></Caption>
         </Node>
-        <Node Id="211a7a10-87e8-4363-b9ce-6f9835655d50">
-          <Caption><![CDATA[Remove "format" name from everywhere]]></Caption>
-        </Node>
       </Node>
       <Node Id="47279eeb-e3d9-42be-955a-8e0aaac47e2b">
         <Caption><![CDATA[HtmlElementAdapter: Equals and GetHashcode for ]]></Caption>
+      </Node>
+      <Node Id="ff78be26-41b3-44a1-b1cc-8acdbe915731">
+        <Caption><![CDATA[ValueFormat of AbstractSeriesFormat]]></Caption>
       </Node>
       <Node Id="d0da3880-c6d3-477b-bee2-8553b930be55">
         <Caption><![CDATA[Rework WebSpy]]></Caption>
@@ -58,11 +61,8 @@
       <Node Id="abb9f7c2-8cac-4750-a6d5-c1ea36d41609">
         <Caption><![CDATA[Add more verification in data collection]]></Caption>
       </Node>
-      <Node Id="e4cba108-1415-42e0-ac8f-4e9d7596dfab">
-        <Caption><![CDATA[Browser]]></Caption>
-        <Node Id="77a3da08-70e8-4ae1-b90d-40a5b428e21d">
-          <Caption><![CDATA[TryNavigateWithWildcards]]></Caption>
-        </Node>
+      <Node Id="77a3da08-70e8-4ae1-b90d-40a5b428e21d">
+        <Caption><![CDATA[Browser.TryNavigateWithWildcards does not support navigating event]]></Caption>
       </Node>
       <Node Id="fc8daea3-122d-49b1-8173-27a2a527ba3a">
         <Caption><![CDATA[implement PathSeriesFormatViewModel.ValidateTimeLocator]]></Caption>

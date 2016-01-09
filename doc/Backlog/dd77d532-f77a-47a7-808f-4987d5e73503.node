@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="dd77d532-f77a-47a7-808f-4987d5e73503" Created="635878502899950191" LastModified="635878609383174873">
+<Node Id="dd77d532-f77a-47a7-808f-4987d5e73503" Created="635878502899950191" LastModified="635879209188884176">
   <Caption><![CDATA[throw exception in data.binding.error 40?]]></Caption>
-  <Content><![CDATA[]]></Content>
+  <Content><![CDATA[Therefore we just need to solve the issue in FiguresContentPage with Currency and Datums which dont have currency]]></Content>
 </Node>
