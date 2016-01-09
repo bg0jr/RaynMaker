@@ -9,7 +9,7 @@ using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Modules.Import.Web.ViewModels
 {
-    class PathSeriesFormatViewModel : FormatViewModelBase<PathSeriesDescriptor, HtmlTableMarker>
+    class PathSeriesDescriptorViewModel : FigureDescriptorViewModelBase<PathSeriesDescriptor, HtmlTableMarker>
     {
         private string myPath;
         private string myValue;
@@ -20,7 +20,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         private int myTimesPosition;
         private string mySkipValues;
 
-        public PathSeriesFormatViewModel( PathSeriesDescriptor descriptor )
+        public PathSeriesDescriptorViewModel( PathSeriesDescriptor descriptor )
             : this( descriptor, new HtmlMarkupBehavior<HtmlTableMarker>( new HtmlTableMarker() ) )
         {
         }
@@ -28,7 +28,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         /// <summary>
         /// UT only!
         /// </summary>
-        internal PathSeriesFormatViewModel( PathSeriesDescriptor descriptor, IHtmlMarkupBehavior<HtmlTableMarker> markupBehavior )
+        internal PathSeriesDescriptorViewModel( PathSeriesDescriptor descriptor, IHtmlMarkupBehavior<HtmlTableMarker> markupBehavior )
             : base( descriptor, markupBehavior )
         {
             Value = "";
@@ -57,8 +57,8 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             IsValid = false;
             if ( descriptor.ValuesLocator != null )
             {
-                ValuesPattern = ( (StringContainsLocator)Format.ValuesLocator ).Pattern;
-                ValuesPosition = Format.ValuesLocator.HeaderSeriesPosition;
+                ValuesPattern = ( (StringContainsLocator)Descriptor.ValuesLocator ).Pattern;
+                ValuesPosition = Descriptor.ValuesLocator.HeaderSeriesPosition;
             }
             else
             {
@@ -69,15 +69,15 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
             if ( descriptor.TimesLocator != null )
             {
-                TimesPosition = ( (AbsolutePositionLocator)Format.TimesLocator ).SeriesPosition;
+                TimesPosition = ( (AbsolutePositionLocator)Descriptor.TimesLocator ).SeriesPosition;
             }
             else
             {
-                Format.TimesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0 };
+                Descriptor.TimesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0 };
                 TimesPosition = -1;
             }
 
-            SelectedOrientation = Format.Orientation;
+            SelectedOrientation = Descriptor.Orientation;
 
             SkipValues = string.Join( ",", descriptor.Excludes );
 
@@ -92,7 +92,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         protected override void OnDocumentChanged()
         {
-            var cell = MarkupFactory.FindElementByDescriptor( (IHtmlDocument)Document, Format );
+            var cell = MarkupFactory.FindElementByDescriptor( (IHtmlDocument)Document, Descriptor );
             MarkupBehavior.PathToSelectedElement = cell != null ? cell.GetPath().ToString() : null;
         }
 
@@ -134,7 +134,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 TimesPosition = 0;
             }
 
-            ValuesPattern = ( Format.Orientation == SeriesOrientation.Row
+            ValuesPattern = ( Descriptor.Orientation == SeriesOrientation.Row
                 ? table.GetCellAt( table.GetRowIndex( selectedElement ), ValuesPosition )
                 : table.GetCellAt( ValuesPosition, table.GetColumnIndex( selectedElement ) ) )
                 .InnerText.Trim();
@@ -151,7 +151,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 // in case we do not point to table we set the original path
                 if ( SetProperty( ref myPath, path != null ? path.ToString() : value ) )
                 {
-                    Format.Path = myPath;
+                    Descriptor.Path = myPath;
 
                     // only overwrite if it was not set yet. Once the user has clicked we want
                     // to keep the user selection and NOT apply the reduced path (which is not supported by HtmlTableMarker)
@@ -199,14 +199,14 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 if ( SetProperty( ref myValuesPosition, value ) )
                 {
-                    ( (StringContainsLocator)Format.ValuesLocator ).HeaderSeriesPosition = myValuesPosition;
+                    ( (StringContainsLocator)Descriptor.ValuesLocator ).HeaderSeriesPosition = myValuesPosition;
                     ValidateValuesLocator();
 
-                    if ( Format.Orientation == SeriesOrientation.Column )
+                    if ( Descriptor.Orientation == SeriesOrientation.Column )
                     {
                         MarkupBehavior.Marker.ColumnHeaderRow = myValuesPosition;
                     }
-                    else if ( Format.Orientation == SeriesOrientation.Row )
+                    else if ( Descriptor.Orientation == SeriesOrientation.Row )
                     {
                         MarkupBehavior.Marker.RowHeaderColumn = myValuesPosition;
                     }
@@ -220,14 +220,14 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
             if ( table != null && ValuesPattern != null )
             {
-                if ( Format.Orientation == SeriesOrientation.Column )
+                if ( Descriptor.Orientation == SeriesOrientation.Column )
                 {
-                    var header = table.GetCellAt( Format.ValuesLocator.HeaderSeriesPosition, table.GetRowIndex( MarkupBehavior.SelectedElement ) ).InnerText;
+                    var header = table.GetCellAt( Descriptor.ValuesLocator.HeaderSeriesPosition, table.GetRowIndex( MarkupBehavior.SelectedElement ) ).InnerText;
                     IsValid = header.Contains( ValuesPattern, StringComparison.OrdinalIgnoreCase );
                 }
-                else if ( Format.Orientation == SeriesOrientation.Row )
+                else if ( Descriptor.Orientation == SeriesOrientation.Row )
                 {
-                    var header = table.GetCellAt( table.GetRowIndex( MarkupBehavior.SelectedElement ), Format.ValuesLocator.HeaderSeriesPosition ).InnerText;
+                    var header = table.GetCellAt( table.GetRowIndex( MarkupBehavior.SelectedElement ), Descriptor.ValuesLocator.HeaderSeriesPosition ).InnerText;
                     IsValid = header.Contains( ValuesPattern, StringComparison.OrdinalIgnoreCase );
                 }
 
@@ -237,26 +237,26 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         private void TryUpdateValue()
         {
-            if ( !IsValid || string.IsNullOrEmpty( Format.Path ) )
+            if ( !IsValid || string.IsNullOrEmpty( Descriptor.Path ) )
             {
                 return;
             }
 
-            var cell = MarkupFactory.FindElementByDescriptor( (IHtmlDocument)Document, Format );
+            var cell = MarkupFactory.FindElementByDescriptor( (IHtmlDocument)Document, Descriptor );
             if ( cell == null )
             {
                 Value = null;
                 return;
             }
 
-            if ( Format.ValueFormat == null )
+            if ( Descriptor.ValueFormat == null )
             {
                 Value = cell.InnerText;
                 return;
             }
 
             object value;
-            if ( Format.ValueFormat.TryConvert( cell.InnerText, out value ) )
+            if ( Descriptor.ValueFormat.TryConvert( cell.InnerText, out value ) )
             {
                 Value = value.ToString();
             }
@@ -273,7 +273,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 if ( SetProperty( ref myValuesPattern, value ) )
                 {
-                    ( (StringContainsLocator)Format.ValuesLocator ).Pattern = myValuesPattern;
+                    ( (StringContainsLocator)Descriptor.ValuesLocator ).Pattern = myValuesPattern;
                     ValidateValuesLocator();
                 }
             }
@@ -292,14 +292,14 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 if ( SetProperty( ref myTimesPosition, value ) )
                 {
-                    ( (AbsolutePositionLocator)Format.TimesLocator ).SeriesPosition = myTimesPosition;
+                    ( (AbsolutePositionLocator)Descriptor.TimesLocator ).SeriesPosition = myTimesPosition;
                     ValidateTimesLocator();
 
-                    if ( Format.Orientation == SeriesOrientation.Column )
+                    if ( Descriptor.Orientation == SeriesOrientation.Column )
                     {
                         MarkupBehavior.Marker.RowHeaderColumn = myTimesPosition;
                     }
-                    else if ( Format.Orientation == SeriesOrientation.Row )
+                    else if ( Descriptor.Orientation == SeriesOrientation.Row )
                     {
                         MarkupBehavior.Marker.ColumnHeaderRow = myTimesPosition;
                     }
@@ -319,18 +319,18 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 if ( SetProperty( ref mySkipValues, value ) )
                 {
-                    Format.Excludes.Clear();
-                    Format.Excludes.AddRange( GetIntArray( mySkipValues ) );
+                    Descriptor.Excludes.Clear();
+                    Descriptor.Excludes.AddRange( GetIntArray( mySkipValues ) );
 
-                    if ( Format.Orientation == SeriesOrientation.Row )
+                    if ( Descriptor.Orientation == SeriesOrientation.Row )
                     {
-                        MarkupBehavior.Marker.SkipColumns = Format.Excludes.ToArray();
+                        MarkupBehavior.Marker.SkipColumns = Descriptor.Excludes.ToArray();
                         MarkupBehavior.Marker.SkipRows = null;
                     }
-                    else if ( Format.Orientation == SeriesOrientation.Column )
+                    else if ( Descriptor.Orientation == SeriesOrientation.Column )
                     {
                         MarkupBehavior.Marker.SkipColumns = null;
-                        MarkupBehavior.Marker.SkipRows = Format.Excludes.ToArray();
+                        MarkupBehavior.Marker.SkipRows = Descriptor.Excludes.ToArray();
                     }
                 }
             }

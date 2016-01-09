@@ -2,9 +2,9 @@
 
 namespace RaynMaker.Modules.Import.Web.Views
 {
-    public partial class DataFormatsView : UserControl
+    public partial class DocumentLocationView : UserControl
     {
-        public DataFormatsView()
+        public DocumentLocationView()
         {
             InitializeComponent();
         }

@@ -24,9 +24,9 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
             myMarkupBehavior = new Mock<IHtmlMarkupBehavior<HtmlTableMarker>> { DefaultValue = DefaultValue.Mock };
         }
 
-        private PathSeriesFormatViewModel CreateViewModel( PathSeriesDescriptor descriptor )
+        private PathSeriesDescriptorViewModel CreateViewModel( PathSeriesDescriptor descriptor )
         {
-            return new PathSeriesFormatViewModel( descriptor, myMarkupBehavior.Object );
+            return new PathSeriesDescriptorViewModel( descriptor, myMarkupBehavior.Object );
         }
 
         [Test]

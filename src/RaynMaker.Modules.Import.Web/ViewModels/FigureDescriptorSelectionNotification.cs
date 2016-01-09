@@ -5,13 +5,13 @@ using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Modules.Import.Web.ViewModels
 {
-    class FormatSelectionNotification : Confirmation
+    class FigureDescriptorSelectionNotification : Confirmation
     {
-        public FormatSelectionNotification()
+        public FigureDescriptorSelectionNotification()
         {
-            FormatType = typeof( PathSeriesDescriptor );
+            DescriptorType = typeof( PathSeriesDescriptor );
         }
 
-        public Type FormatType { get; set; }
+        public Type DescriptorType { get; set; }
     }
 }

@@ -7,9 +7,6 @@
     </Node>
     <Node Id="02bde578-e3ec-4872-8378-6b1411fdf1d3">
       <Caption><![CDATA[1.8]]></Caption>
-      <Node Id="211a7a10-87e8-4363-b9ce-6f9835655d50">
-        <Caption><![CDATA[Find and replace old "Format" by "Descriptor"]]></Caption>
-      </Node>
       <Node Id="a9c1388f-86de-49c4-a30e-8db8160da803">
         <Caption><![CDATA[Find and replace old "Datum" with "Figure"]]></Caption>
       </Node>

@@ -10,24 +10,24 @@ using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Modules.Import.Web.ViewModels
 {
-    class FormatViewModelBase<TFigureDescriptor, TMarker> : BindableBase, IDescriptorViewModel
+    class FigureDescriptorViewModelBase<TFigureDescriptor, TMarker> : BindableBase, IDescriptorViewModel
         where TFigureDescriptor : IFigureDescriptor
         where TMarker : IHtmlMarker
     {
         private IDocument myDocument;
         private Type mySelectedDatum;
 
-        protected FormatViewModelBase( TFigureDescriptor descriptor, TMarker marker )
+        protected FigureDescriptorViewModelBase( TFigureDescriptor descriptor, TMarker marker )
             : this( descriptor, new HtmlMarkupBehavior<TMarker>( marker ) )
         {
         }
 
-        protected FormatViewModelBase( TFigureDescriptor descriptor, IHtmlMarkupBehavior<TMarker> markupBehavior )
+        protected FigureDescriptorViewModelBase( TFigureDescriptor descriptor, IHtmlMarkupBehavior<TMarker> markupBehavior )
         {
             Contract.RequiresNotNull( descriptor, "descriptor" );
             Contract.RequiresNotNull( markupBehavior, "markupBehavior" );
 
-            Format = descriptor;
+            Descriptor = descriptor;
 
             Datums = Dynamics.AllDatums
                 .OrderBy( d => d.Name )
@@ -37,9 +37,9 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             MarkupBehavior.SelectionChanged += OnSelectionChanged;
         }
 
-        public TFigureDescriptor Format { get; private set; }
+        public TFigureDescriptor Descriptor { get; private set; }
 
-        IFigureDescriptor IDescriptorViewModel.Format { get { return this.Format; } }
+        IFigureDescriptor IDescriptorViewModel.Descriptor { get { return this.Descriptor; } }
 
         public IEnumerable<Type> Datums { get; private set; }
 
@@ -50,7 +50,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 if( SetProperty( ref mySelectedDatum, value ) )
                 {
-                    Format.Figure = mySelectedDatum.Name;
+                    Descriptor.Figure = mySelectedDatum.Name;
                 }
             }
         }

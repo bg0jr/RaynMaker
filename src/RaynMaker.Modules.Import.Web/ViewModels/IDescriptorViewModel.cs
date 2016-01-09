@@ -4,7 +4,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 {
     interface IDescriptorViewModel
     {
-        IFigureDescriptor Format { get; }
+        IFigureDescriptor Descriptor { get; }
 
         IDocument Document { set; }
 

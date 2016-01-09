@@ -12,7 +12,7 @@ namespace RaynMaker.Modules.Import.Web.Model
     class Session : BindableBase
     {
         private DataSource myCurrentSource;
-        private IFigureDescriptor myCurrentFormat;
+        private IFigureDescriptor myCurrentFigureDescriptor;
 
         public Session()
         {
@@ -30,21 +30,21 @@ namespace RaynMaker.Modules.Import.Web.Model
                 {
                     if( myCurrentSource != null )
                     {
-                        CurrentFormat = myCurrentSource.Figures.FirstOrDefault();
+                        CurrentFigureDescriptor = myCurrentSource.Figures.FirstOrDefault();
                     }
                 }
             }
         }
 
-        public IFigureDescriptor CurrentFormat
+        public IFigureDescriptor CurrentFigureDescriptor
         {
-            get { return myCurrentFormat; }
-            set { SetProperty( ref myCurrentFormat, value ); }
+            get { return myCurrentFigureDescriptor; }
+            set { SetProperty( ref myCurrentFigureDescriptor, value ); }
         }
 
         public void Reset()
         {
-            CurrentFormat = null;
+            CurrentFigureDescriptor = null;
             CurrentSource = null;
 
             Sources.Clear();

@@ -2,9 +2,9 @@
 
 namespace RaynMaker.Modules.Import.Web.Views
 {
-    public partial class PathCellFormatView : UserControl
+    public partial class DataSourceFiguresView : UserControl
     {
-        public PathCellFormatView()
+        public DataSourceFiguresView()
         {
             InitializeComponent();
         }

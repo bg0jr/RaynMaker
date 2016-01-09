@@ -23,10 +23,10 @@
                         <l:DataSourceDefinitionView DataContext="{Binding SourceDefinition}"/>
                     </GroupBox>
                     <GroupBox Header="Navigation" Margin="0,0,0,5">
-                        <l:NavigationView DataContext="{Binding Navigation}"/>
+                        <l:DocumentLocationView DataContext="{Binding DatumLocation}"/>
                     </GroupBox>
                     <GroupBox Header="Data description" Margin="0,0,0,5">
-                        <l:DataFormatsView DataContext="{Binding Formats}"/>
+                        <l:DataSourceFiguresView DataContext="{Binding Figures}"/>
                     </GroupBox>
                     <GroupBox Header="Validate &amp; Complete" Margin="0,0,0,5">
                         <l:CompletionView DataContext="{Binding Completion}"/>

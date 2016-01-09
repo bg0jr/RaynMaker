@@ -2,9 +2,9 @@
 
 namespace RaynMaker.Modules.Import.Web.Views
 {
-    public partial class NavigationView : UserControl
+    public partial class PathSeriesDescriptorView : UserControl
     {
-        public NavigationView()
+        public PathSeriesDescriptorView()
         {
             InitializeComponent();
         }

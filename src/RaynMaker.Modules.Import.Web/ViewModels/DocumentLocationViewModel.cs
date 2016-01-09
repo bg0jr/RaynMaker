@@ -12,13 +12,13 @@ using RaynMaker.Modules.Import.Web.Model;
 
 namespace RaynMaker.Modules.Import.Web.ViewModels
 {
-    class NavigationViewModel : SpecDefinitionViewModelBase
+    class DocumentLocationViewModel : SpecDefinitionViewModelBase
     {
         private IDocumentBrowser myBrowser;
         private DataSource myDataSource;
         private bool myIsCapturing;
 
-        public NavigationViewModel( Session session )
+        public DocumentLocationViewModel( Session session )
             : base( session )
         {
             PropertyChangedEventManager.AddHandler( Session, OnCurrentDataSourceChanged, PropertySupport.ExtractPropertyName( () => Session.CurrentSource ) );

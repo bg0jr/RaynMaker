@@ -35,7 +35,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
             var doc = (HtmlDocumentAdapter)LoadDocument<IHtmlDocument>( "Html", "ariva.prices.DE0007664039.html" );
 
-            var viewModel = new PathCellFormatViewModel( myLutService.Object, descriptor );
+            var viewModel = new PathCellDescriptorViewModel( myLutService.Object, descriptor );
             viewModel.Document = doc;
 
             HtmlMarkupAutomationProvider.SimulateClickOn( doc.Document, "rym_FrakfurtPrice" );
@@ -96,7 +96,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
             var doc = (HtmlDocumentAdapter)LoadDocument<IHtmlDocument>( "Html", "ariva.fundamentals.DE0005190003.html" );
 
-            var viewModel = new PathSeriesFormatViewModel( descriptor );
+            var viewModel = new PathSeriesDescriptorViewModel( descriptor );
             viewModel.Document = doc;
 
             HtmlMarkupAutomationProvider.SimulateClickOn( doc.Document, "rym_Dividend" );

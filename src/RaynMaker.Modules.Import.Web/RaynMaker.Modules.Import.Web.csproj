@@ -98,17 +98,17 @@
     <Compile Include="Services\StorageService.cs" />
     <Compile Include="ViewModels\AddressBarViewModel.cs" />
     <Compile Include="ViewModels\CompletionViewModel.cs" />
-    <Compile Include="ViewModels\DataFormatsViewModel.cs" />
+    <Compile Include="ViewModels\DataSourceFiguresViewModel.cs" />
     <Compile Include="ViewModels\DataSourceDefinitionViewModel.cs" />
     <Compile Include="ViewModels\EditCaptureViewModel.cs" />
-    <Compile Include="ViewModels\FormatSelectionNotification.cs" />
-    <Compile Include="ViewModels\FormatViewModelBase.cs" />
-    <Compile Include="ViewModels\FormatViewModelFactory.cs" />
+    <Compile Include="ViewModels\FigureDescriptorSelectionNotification.cs" />
+    <Compile Include="ViewModels\FigureDescriptorViewModelBase.cs" />
+    <Compile Include="ViewModels\FigureDescriptorViewModelFactory.cs" />
     <Compile Include="ViewModels\IDescriptorViewModel.cs" />
     <Compile Include="ViewModels\ImportPreviewModel.cs" />
-    <Compile Include="ViewModels\NavigationViewModel.cs" />
-    <Compile Include="ViewModels\PathCellFormatViewModel.cs" />
-    <Compile Include="ViewModels\PathSeriesFormatViewModel.cs" />
+    <Compile Include="ViewModels\DocumentLocationViewModel.cs" />
+    <Compile Include="ViewModels\PathCellDescriptorViewModel.cs" />
+    <Compile Include="ViewModels\PathSeriesDescriptorViewModel.cs" />
     <Compile Include="ViewModels\SpecDefinitionViewModelBase.cs" />
     <Compile Include="ViewModels\StockMacroResolver.cs" />
     <Compile Include="ViewModels\WebSpyViewModel.cs" />
@@ -118,8 +118,8 @@
     <Compile Include="Views\CompletionView.xaml.cs">
       <DependentUpon>CompletionView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DataFormatsView.xaml.cs">
-      <DependentUpon>DataFormatsView.xaml</DependentUpon>
+    <Compile Include="Views\DataSourceFiguresView.xaml.cs">
+      <DependentUpon>DataSourceFiguresView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DataSourceDefinitionView.xaml.cs">
       <DependentUpon>DataSourceDefinitionView.xaml</DependentUpon>
@@ -140,15 +140,15 @@
     <Compile Include="Views\ImportPreview.xaml.cs">
       <DependentUpon>ImportPreview.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NavigationView.xaml.cs">
-      <DependentUpon>NavigationView.xaml</DependentUpon>
+    <Compile Include="Views\DocumentLocationView.xaml.cs">
+      <DependentUpon>DocumentLocationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OffsetConverter.cs" />
-    <Compile Include="Views\PathCellFormatView.xaml.cs">
-      <DependentUpon>PathCellFormatView.xaml</DependentUpon>
+    <Compile Include="Views\PathCellDescriptorView.xaml.cs">
+      <DependentUpon>PathCellDescriptorView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PathSeriesFormatView.xaml.cs">
-      <DependentUpon>PathSeriesFormatView.xaml</DependentUpon>
+    <Compile Include="Views\PathSeriesDescriptorView.xaml.cs">
+      <DependentUpon>PathSeriesDescriptorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RadioButtonCheckedConverter.cs" />
     <Compile Include="Views\StringRegexConverter.cs" />
@@ -171,7 +171,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DataFormatsView.xaml">
+    <Page Include="Views\DataSourceFiguresView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -191,15 +191,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\NavigationView.xaml">
+    <Page Include="Views\DocumentLocationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\PathCellFormatView.xaml">
+    <Page Include="Views\PathCellDescriptorView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\PathSeriesFormatView.xaml">
+    <Page Include="Views\PathSeriesDescriptorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
