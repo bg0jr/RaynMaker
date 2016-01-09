@@ -41,8 +41,6 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         IFigureDescriptor IDescriptorViewModel.Format { get { return this.Format; } }
 
-        // TODO: we do not support add, remove and edit of datums as they are currently fixed by entities model.
-        // TODO: "Standing" datums also exists
         public IEnumerable<Type> Datums { get; private set; }
 
         public Type SelectedDatum

@@ -102,7 +102,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         {
             Path = MarkupBehavior.PathToSelectedElement;
 
-            TryAutoDetectCellFromSelection( MarkupBehavior.SelectedElement );
+            TryAutoDetectDescriptorFromSelection( MarkupBehavior.SelectedElement );
 
             ValidateRow();
             ValidateColumn();
@@ -111,7 +111,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         /// <summary>
         /// Path should come from user click which directly points to the wanted cell.
         /// </summary>
-        private void TryAutoDetectCellFromSelection( IHtmlElement selectedElement )
+        private void TryAutoDetectDescriptorFromSelection( IHtmlElement selectedElement )
         {
             if( !selectedElement.GetPath().PointsToTableCell )
             {

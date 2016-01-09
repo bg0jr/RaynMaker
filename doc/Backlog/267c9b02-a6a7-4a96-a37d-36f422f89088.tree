@@ -110,5 +110,8 @@
     <Node Id="3494b210-9cef-4613-abf0-fb368c2075f8">
       <Caption><![CDATA[SubmitFormular not implemented]]></Caption>
     </Node>
+    <Node Id="a41d501c-68a9-430b-83a6-3047c5c8891c">
+      <Caption><![CDATA[Reuse between pathcell and pathseries viewmodel]]></Caption>
+    </Node>
   </Node>
 </Tree>
