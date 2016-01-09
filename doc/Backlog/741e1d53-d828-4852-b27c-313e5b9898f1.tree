@@ -7,9 +7,6 @@
     </Node>
     <Node Id="02bde578-e3ec-4872-8378-6b1411fdf1d3">
       <Caption><![CDATA[1.8]]></Caption>
-      <Node Id="dd77d532-f77a-47a7-808f-4987d5e73503">
-        <Caption><![CDATA[throw exception in data.binding.error 40?]]></Caption>
-      </Node>
       <Node Id="211a7a10-87e8-4363-b9ce-6f9835655d50">
         <Caption><![CDATA[Find and replace old "Format" by "Descriptor"]]></Caption>
       </Node>
