@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="45e6786b-ae09-42f7-8c0f-875a92e85559" Created="635880528156196246" LastModified="635880528363748118">
+  <Caption><![CDATA[CompositeMacroResolver tests]]></Caption>
+  <Content><![CDATA[- unknown macros collected correctly]]></Content>
+</Node>

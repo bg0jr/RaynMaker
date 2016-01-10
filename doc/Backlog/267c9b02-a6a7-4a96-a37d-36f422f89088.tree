@@ -65,9 +65,6 @@
     <Node Id="a492627a-bc92-4c5f-9318-9d38e2974e8a">
       <Caption><![CDATA[Paging]]></Caption>
     </Node>
-    <Node Id="40417803-1a6e-4cff-9348-0576e8edecb2">
-      <Caption><![CDATA[Tests for navigator]]></Caption>
-    </Node>
     <Node Id="d09cf686-91ac-49ac-9d9b-76ca99f82218">
       <Caption><![CDATA[DocumentBrowser: Disable caching for local files]]></Caption>
     </Node>
@@ -106,6 +103,15 @@
     </Node>
     <Node Id="ff78be26-41b3-44a1-b1cc-8acdbe915731">
       <Caption><![CDATA[ValueFormat of AbstractSeriesFormat]]></Caption>
+    </Node>
+    <Node Id="40417803-1a6e-4cff-9348-0576e8edecb2">
+      <Caption><![CDATA[Tests for navigator]]></Caption>
+    </Node>
+    <Node Id="b095f747-815e-4869-9aaa-e0131929161f">
+      <Caption><![CDATA[AbstractMacroResolver tests]]></Caption>
+    </Node>
+    <Node Id="45e6786b-ae09-42f7-8c0f-875a92e85559">
+      <Caption><![CDATA[CompositeMacroResolver tests]]></Caption>
     </Node>
   </Node>
 </Tree>

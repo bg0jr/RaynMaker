@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="40417803-1a6e-4cff-9348-0576e8edecb2" Created="635880439880297154" LastModified="635880440128551353">
+<Node Id="40417803-1a6e-4cff-9348-0576e8edecb2" Created="635880439880297154" LastModified="635880528146035665">
   <Caption><![CDATA[Tests for navigator]]></Caption>
-  <Content><![CDATA[]]></Content>
+  <Content><![CDATA[throw if macro not resolved]]></Content>
 </Node>
