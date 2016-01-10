@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="283e59e2-714e-4426-9708-a4c35a5c0859" Created="635880037615312953" LastModified="635880037874087755">
+  <Caption><![CDATA[System.Runtime.Caching]]></Caption>
+  <Content><![CDATA[can we use it for Import.Documents caching impl?]]></Content>
+</Node>
