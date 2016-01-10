@@ -59,7 +59,9 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         public ICollection<IDatum> Series { get; set; }
 
         public bool ThrowOnError { get; set; }
-        
+
+        public Func<ILocatorMacroResolver, ILocatorMacroResolver> CustomResolverCreator { get; set; }
+
         public Action FinishAction { get; set; }
 
         public ICommand OkCommand { get; private set; }
@@ -85,34 +87,34 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         // only take over new datums and values for datums which have no value yet
         internal void PublishData()
         {
-            foreach ( var datum in myData )
+            foreach( var datum in myData )
             {
-                if ( datum.Period.CompareTo( From ) == -1 || datum.Period.CompareTo( To ) == 1 )
+                if( datum.Period.CompareTo( From ) == -1 || datum.Period.CompareTo( To ) == 1 )
                 {
                     continue;
                 }
 
                 var currencyDatum = datum as ICurrencyDatum;
-                if ( Currency != null && currencyDatum != null )
+                if( Currency != null && currencyDatum != null )
                 {
-                    ( (AbstractCurrencyDatum)currencyDatum ).Currency = Currency;
+                    ( ( AbstractCurrencyDatum )currencyDatum ).Currency = Currency;
                 }
 
                 var existingDatum = Series.SingleOrDefault( d => d.Period.Equals( datum.Period ) );
-                if ( existingDatum == null )
+                if( existingDatum == null )
                 {
                     Series.Add( datum );
                     continue;
                 }
 
-                if ( !existingDatum.Value.HasValue || OverwriteExistingValues )
+                if( !existingDatum.Value.HasValue || OverwriteExistingValues )
                 {
-                    ( (AbstractDatum)existingDatum ).Value = datum.Value;
-                    ( (AbstractDatum)existingDatum ).Source = datum.Source;
+                    ( ( AbstractDatum )existingDatum ).Value = datum.Value;
+                    ( ( AbstractDatum )existingDatum ).Source = datum.Source;
 
-                    if ( currencyDatum != null )
+                    if( currencyDatum != null )
                     {
-                        ( (AbstractCurrencyDatum)existingDatum ).Currency = currencyDatum.Currency;
+                        ( ( AbstractCurrencyDatum )existingDatum ).Currency = currencyDatum.Currency;
                     }
                 }
             }
@@ -138,7 +140,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 myDocumentBrowser = DocumentProcessingFactory.CreateBrowser( value );
 
-                if ( SelectedSource != null )
+                if( SelectedSource != null )
                 {
                     // we already got a call to fetch the data - just te browser was missing
                     // -> we have a browser now - lets fetch the data
@@ -154,7 +156,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             get { return mySelectedSource; }
             set
             {
-                if ( SetProperty( ref mySelectedSource, value ) )
+                if( SetProperty( ref mySelectedSource, value ) )
                 {
                     TryFetch();
                 }
@@ -163,7 +165,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         private void TryFetch()
         {
-            if ( myDocumentBrowser == null )
+            if( myDocumentBrowser == null )
             {
                 return;
             }
@@ -174,11 +176,16 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 .Cast<IPathDescriptor>()
                 .Where( f => f.Figure == myDatumType.Name );
 
-            foreach ( var descriptor in descriptors )
+            foreach( var descriptor in descriptors )
             {
                 try
                 {
-                    myDocumentBrowser.Navigate( DocumentType.Html, mySelectedSource.Location, new StockMacroResolver( Stock ) );
+                    ILocatorMacroResolver resolver = new StockMacroResolver( Stock );
+                    if( CustomResolverCreator != null )
+                    {
+                        resolver = CustomResolverCreator( resolver );
+                    }
+                    myDocumentBrowser.Navigate( DocumentType.Html, mySelectedSource.Location, resolver );
 
                     var htmlDocument = ( IHtmlDocument )myDocumentBrowser.Document;
 

@@ -14,6 +14,7 @@ using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
+using RaynMaker.Modules.Import.Spec.v2.Locating;
 using RaynMaker.Modules.Import.Web;
 using RaynMaker.Modules.Import.Web.Services;
 
@@ -45,6 +46,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             stock.Company.Stocks.Add( stock );
 
             var dataProvider = new WebDatumProvider( new StorageService( myProjectHost.Object ), myLutService.Object );
+            dataProvider.CustomResolverCreator = r => new CompositeMacroResolver( new MacroResolver( TestDataRoot ), r );
 
             var request = new DataProviderRequest( stock, typeof( Dividend ), new YearPeriod( 2001 ), new YearPeriod( 2004 ) )
             {
@@ -84,6 +86,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             stock.Company.Stocks.Add( stock );
 
             var dataProvider = new WebDatumProvider( new StorageService( myProjectHost.Object ), myLutService.Object );
+            dataProvider.CustomResolverCreator = r => new CompositeMacroResolver( new MacroResolver( TestDataRoot ), r );
 
             var request = new DataProviderRequest( stock, typeof( Price ), new DayPeriod( DateTime.MinValue ), new DayPeriod( DateTime.MaxValue ) )
             {
@@ -104,6 +107,26 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             Assert.That( price.Timestamp.Date, Is.EqualTo( DateTime.Today ) );
             Assert.That( price.Value, Is.EqualTo( 134.356d ) );
             Assert.That( price.Currency.Symbol, Is.EqualTo( "EUR" ) );
+        }
+
+        private class MacroResolver : AbstractMacroResolver
+        {
+            private string myTestDataRoot;
+
+            public MacroResolver( string testDataRoot )
+            {
+                myTestDataRoot = testDataRoot;
+            }
+
+            protected override string GetMacroValue( string macroId )
+            {
+                if( macroId.Equals( "testdataroot", StringComparison.OrdinalIgnoreCase ) )
+                {
+                    return new Uri( myTestDataRoot ).ToString();
+                }
+
+                return null;
+            }
         }
     }
 }

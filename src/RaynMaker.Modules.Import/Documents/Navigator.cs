@@ -16,59 +16,7 @@ namespace RaynMaker.Modules.Import.Documents
             Contract.RequiresNotNull( locator, "locator" );
             Contract.RequiresNotNull( macroResolver, "macroResolver" );
 
-            var uri = TryNavigateWithWildcards( locator );
-            if( uri != null )
-            {
-                return uri;
-            }
-
             return NavigateToFinalSite( locator.Fragments, macroResolver );
-        }
-
-        private Uri TryNavigateWithWildcards( DocumentLocator navi )
-        {
-            if( navi.Fragments.Count != 1 )
-            {
-                // we can only handle single urls
-                return null;
-            }
-
-            var url = navi.Fragments[ 0 ];
-            Uri uri = new Uri( url.UrlString );
-            if( !uri.IsFile && !uri.IsUnc )
-            {
-                // we cannot handle e.g. http now
-                return null;
-            }
-
-            // currently we only handle "/xyz/*/file.txt"
-            int pos = url.UrlString.IndexOf( "/*/" );
-            if( pos <= 0 )
-            {
-                // no pattern found
-                return null;
-            }
-
-            string root = url.UrlString.Substring( 0, pos );
-            string file = url.UrlString.Substring( pos + 3 );
-            string[] dirs = Directory.GetDirectories( root, "*" );
-
-            // now try everything with "or" 
-            // first path which returns s.th. wins
-            foreach( string dir in dirs )
-            {
-                string tmpUri = Path.Combine( dir, file );
-                if( !File.Exists( tmpUri ) )
-                {
-                    continue;
-                }
-
-                return new Uri( tmpUri );
-            }
-
-            // so in this case we got a pattern navigation url but we were not able
-            // to navigate to that url --> throw an exception
-            throw new Exception( "Failed to navigate to the document" );
         }
 
         /// <summary>
@@ -93,6 +41,9 @@ namespace RaynMaker.Modules.Import.Documents
             foreach( var origFragment in fragments )
             {
                 var fragment = macroResolver.Resolve( origFragment );
+
+                Contract.Requires( !macroResolver.UnresolvedMacros.Any(), 
+                    "Failed to resolve macros: {0}", string.Join( ",", macroResolver.UnresolvedMacros ) );
 
                 if( fragment is Request )
                 {

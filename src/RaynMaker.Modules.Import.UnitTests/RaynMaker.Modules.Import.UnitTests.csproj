@@ -38,6 +38,7 @@
     <Compile Include="Design\HtmlElementCollectionMarkerTests.cs" />
     <Compile Include="Design\HtmlElementMarkerTests.cs" />
     <Compile Include="Documents\PatternMatchingTests.cs" />
+    <Compile Include="Documents\AbstractMacroResolverTests.cs" />
     <Compile Include="FigureDescriptorFactoryTests.cs" />
     <Compile Include="Parsers\Html\HtmlPathTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

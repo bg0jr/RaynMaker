@@ -5,6 +5,7 @@ using System.Linq;
 using RaynMaker.Entities;
 using RaynMaker.Infrastructure.Services;
 using RaynMaker.Modules.Import.Design;
+using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Web.Services;
 using RaynMaker.Modules.Import.Web.ViewModels;
 using RaynMaker.Modules.Import.Web.Views;
@@ -40,6 +41,10 @@ namespace RaynMaker.Modules.Import.Web
                 .Any( source => source.Figures.Any( f => f.Figure == datum.Name ) );
         }
 
+        // TODO: actually we would like to have this in the request but this does not work because of 
+        // dependencies from Infrastructure to import module
+        public Func<ILocatorMacroResolver, ILocatorMacroResolver> CustomResolverCreator { get; set; }
+        
         public void Fetch( DataProviderRequest request, ICollection<IDatum> resultContainer )
         {
             var previewViewModel = new ImportPreviewModel( myStorageService, myLutService.CurrenciesLut )
@@ -48,7 +53,8 @@ namespace RaynMaker.Modules.Import.Web
                 From = request.From,
                 To = request.To,
                 Series = resultContainer,
-                ThrowOnError = request.ThrowOnError
+                ThrowOnError = request.ThrowOnError,
+                CustomResolverCreator = CustomResolverCreator
             };
 
             if( request.WithPreview )

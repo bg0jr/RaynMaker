@@ -38,7 +38,7 @@
       <a:Location>
         <a:Fragments>
           <a:DocumentLocationFragment i:type="a:Request">
-            <a:Url>file:///H:/RaynMaker/bin/Debug/TestData/Html/ariva.fundamentals.${isin}.html</a:Url>
+            <a:Url>${TestDataRoot}/Html/ariva.fundamentals.${isin}.html</a:Url>
           </a:DocumentLocationFragment>
         </a:Fragments>
       </a:Location>
@@ -73,7 +73,7 @@
       <a:Location>
         <a:Fragments>
           <a:DocumentLocationFragment i:type="a:Request">
-            <a:Url>file:///H:/RaynMaker/bin/Debug/TestData/Html/ariva.prices.${isin}.html</a:Url>
+            <a:Url>${TestDataRoot}/Html/ariva.prices.${isin}.html</a:Url>
           </a:DocumentLocationFragment>
         </a:Fragments>
       </a:Location>

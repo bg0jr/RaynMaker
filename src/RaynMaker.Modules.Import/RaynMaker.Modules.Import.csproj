@@ -55,6 +55,8 @@
     <Compile Include="Design\IHtmlMarker.cs" />
     <Compile Include="Design\IHtmlMarkupBehavior.cs" />
     <Compile Include="DocumentBrowserExtensions.cs" />
+    <Compile Include="Documents\AbstractMacroResolver.cs" />
+    <Compile Include="Documents\CompositeMacroResolver.cs" />
     <Compile Include="Documents\ICache.cs" />
     <Compile Include="Documents\ILocatorMacroResolver.cs" />
     <Compile Include="Documents\NullLocatorMacroResolver.cs" />
