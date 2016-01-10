@@ -56,9 +56,6 @@
     <Node Id="8b0794ea-a994-4cbc-85a2-d42ff0d87919">
       <Caption><![CDATA[Add LUTs]]></Caption>
     </Node>
-    <Node Id="fc0ac8c3-8c48-40a6-886c-e8805243d1bf">
-      <Caption><![CDATA[Attachments]]></Caption>
-    </Node>
     <Node Id="1ca576e5-a2e7-4dea-9ec9-ae378f7cc8ac">
       <Caption><![CDATA[Reload ViewModel on Reopen]]></Caption>
     </Node>
@@ -77,30 +74,6 @@
     <Node Id="a1360c55-fe48-45ba-aef9-f00cb17cdf64">
       <Caption><![CDATA[Rename SafeBrowser]]></Caption>
     </Node>
-    <Node Id="63da965d-c664-48a9-8250-578d54290207">
-      <Caption><![CDATA[1.9]]></Caption>
-      <Node Id="b8907cdc-8dd8-4768-afed-7f7b77f096b6">
-        <Caption><![CDATA[Help - finish dictionary]]></Caption>
-        <Node Id="4066e64e-0a86-4311-ac39-faba69a5a147">
-          <Caption><![CDATA[migrate to PanDoc?]]></Caption>
-        </Node>
-      </Node>
-      <Node Id="b3281029-c701-44d4-89e8-b43624845610">
-        <Caption><![CDATA[Cancel & Undo of Entity changes]]></Caption>
-        <Node Id="99e855ae-fd76-496e-a4a7-e6b3041e1174">
-          <Caption><![CDATA[Currencies]]></Caption>
-        </Node>
-        <Node Id="dc5beb49-d860-4090-b255-75dd313c9102">
-          <Caption><![CDATA[FiguresContentPage]]></Caption>
-        </Node>
-      </Node>
-      <Node Id="b987b345-bd25-4d9d-aaed-80fe06141e16">
-        <Caption><![CDATA[Update currencies from Web]]></Caption>
-      </Node>
-      <Node Id="5751c90c-eac6-41da-844a-c8607af8a810">
-        <Caption><![CDATA[DB persistancy tests to ScenarioTests]]></Caption>
-      </Node>
-    </Node>
     <Node Id="b22d8eb0-173d-4af6-924a-480ea364c707">
       <Caption><![CDATA[Think about a "TimeFormat"]]></Caption>
     </Node>
@@ -115,6 +88,21 @@
     </Node>
     <Node Id="283e59e2-714e-4426-9708-a4c35a5c0859">
       <Caption><![CDATA[System.Runtime.Caching]]></Caption>
+    </Node>
+    <Node Id="ddfe7e72-cb6a-48c2-9e9e-a54f2ff0e296">
+      <Caption><![CDATA[extra "PathSingleValueDescriptor" for Currency?]]></Caption>
+    </Node>
+    <Node Id="fc8daea3-122d-49b1-8173-27a2a527ba3a">
+      <Caption><![CDATA[implement PathSeriesFormatViewModel.ValidateTimeLocator]]></Caption>
+    </Node>
+    <Node Id="77a3da08-70e8-4ae1-b90d-40a5b428e21d">
+      <Caption><![CDATA[Browser.TryNavigateWithWildcards does not support navigating event]]></Caption>
+    </Node>
+    <Node Id="45e19c03-4d5c-4992-9267-f95fe657c170">
+      <Caption><![CDATA[Add TimeLocator to PathCellDescriptor]]></Caption>
+    </Node>
+    <Node Id="ff78be26-41b3-44a1-b1cc-8acdbe915731">
+      <Caption><![CDATA[ValueFormat of AbstractSeriesFormat]]></Caption>
     </Node>
   </Node>
 </Tree>

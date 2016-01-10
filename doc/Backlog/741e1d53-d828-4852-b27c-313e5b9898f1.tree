@@ -37,29 +37,59 @@
           <Caption><![CDATA[HtmlTable]]></Caption>
         </Node>
       </Node>
-      <Node Id="47279eeb-e3d9-42be-955a-8e0aaac47e2b">
-        <Caption><![CDATA[HtmlElementAdapter: Equals and GetHashcode for ]]></Caption>
-      </Node>
-      <Node Id="ff78be26-41b3-44a1-b1cc-8acdbe915731">
-        <Caption><![CDATA[ValueFormat of AbstractSeriesFormat]]></Caption>
-      </Node>
       <Node Id="d0da3880-c6d3-477b-bee2-8553b930be55">
         <Caption><![CDATA[Rework WebSpy]]></Caption>
-      </Node>
-      <Node Id="45e19c03-4d5c-4992-9267-f95fe657c170">
-        <Caption><![CDATA[Add TimeLocator to PathCellDescriptor]]></Caption>
       </Node>
       <Node Id="abb9f7c2-8cac-4750-a6d5-c1ea36d41609">
         <Caption><![CDATA[Add more verification in data collection]]></Caption>
       </Node>
-      <Node Id="77a3da08-70e8-4ae1-b90d-40a5b428e21d">
-        <Caption><![CDATA[Browser.TryNavigateWithWildcards does not support navigating event]]></Caption>
+    </Node>
+    <Node Id="4d8de17c-33e9-4f67-8e4a-e1bd0e9b4e48">
+      <Caption><![CDATA[1.9 - KB in RaynMaker]]></Caption>
+      <Node Id="d31a50ff-11f3-47aa-a458-dd53de390865">
+        <Caption><![CDATA[Multi-page notes for Notes tool]]></Caption>
+        <Node Id="eacc0ae9-18b5-4ecd-b681-eedf2da96eb9">
+          <Caption><![CDATA[simple list based navigation]]></Caption>
+        </Node>
+        <Node Id="2da3166a-8a88-4a88-8ff0-f2813872aa0e">
+          <Caption><![CDATA[search in all documents]]></Caption>
+        </Node>
+        <Node Id="b9c3bc38-71b5-435e-811c-c4d849a923d3">
+          <Caption><![CDATA[wiki like linking of pages]]></Caption>
+        </Node>
       </Node>
-      <Node Id="fc8daea3-122d-49b1-8173-27a2a527ba3a">
-        <Caption><![CDATA[implement PathSeriesFormatViewModel.ValidateTimeLocator]]></Caption>
+      <Node Id="fc0ac8c3-8c48-40a6-886c-e8805243d1bf">
+        <Caption><![CDATA[Attachments]]></Caption>
+        <Node Id="ac8f674c-5ca8-4375-a29a-a8d6a1accfe4">
+          <Caption><![CDATA[for stocks]]></Caption>
+        </Node>
+        <Node Id="7263c692-f4ce-4a13-bbce-e9776bf6686d">
+          <Caption><![CDATA[linked to KB]]></Caption>
+        </Node>
       </Node>
-      <Node Id="ddfe7e72-cb6a-48c2-9e9e-a54f2ff0e296">
-        <Caption><![CDATA[extra "PathSingleValueDescriptor" for Currency?]]></Caption>
+    </Node>
+    <Node Id="75a085e8-c155-4c3b-9d1c-47d48ce8ab05">
+      <Caption><![CDATA[vNext]]></Caption>
+      <Node Id="b3281029-c701-44d4-89e8-b43624845610">
+        <Caption><![CDATA[Cancel & Undo of Entity changes]]></Caption>
+        <Node Id="99e855ae-fd76-496e-a4a7-e6b3041e1174">
+          <Caption><![CDATA[Currencies]]></Caption>
+        </Node>
+        <Node Id="dc5beb49-d860-4090-b255-75dd313c9102">
+          <Caption><![CDATA[FiguresContentPage]]></Caption>
+        </Node>
+      </Node>
+      <Node Id="b987b345-bd25-4d9d-aaed-80fe06141e16">
+        <Caption><![CDATA[Update currencies from Web]]></Caption>
+      </Node>
+      <Node Id="b8907cdc-8dd8-4768-afed-7f7b77f096b6">
+        <Caption><![CDATA[Help - finish dictionary]]></Caption>
+        <Node Id="4066e64e-0a86-4311-ac39-faba69a5a147">
+          <Caption><![CDATA[migrate to PanDoc?]]></Caption>
+        </Node>
+      </Node>
+      <Node Id="47279eeb-e3d9-42be-955a-8e0aaac47e2b">
+        <Caption><![CDATA[HtmlElementAdapter: Equals and GetHashcode for ]]></Caption>
       </Node>
     </Node>
   </Node>

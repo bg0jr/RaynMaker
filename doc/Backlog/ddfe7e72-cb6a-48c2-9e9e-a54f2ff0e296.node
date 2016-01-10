@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="ddfe7e72-cb6a-48c2-9e9e-a54f2ff0e296" Created="635878575288714339" LastModified="635878575843824779">
+<Node Id="ddfe7e72-cb6a-48c2-9e9e-a54f2ff0e296" Created="635878575288714339" LastModified="635880340060203170" Origin="02bde578-e3ec-4872-8378-6b1411fdf1d3">
   <Caption><![CDATA[extra "PathSingleValueDescriptor" for Currency?]]></Caption>
   <Content><![CDATA[PathSeriesDescriptor could then use it to identify the currency.]]></Content>
 </Node>

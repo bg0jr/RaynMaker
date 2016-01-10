@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="d31a50ff-11f3-47aa-a458-dd53de390865" Created="635880340733301669" LastModified="635880341511996207">
+  <Caption><![CDATA[Multi-page notes for Notes tool]]></Caption>
+  <Content><![CDATA[- for the general notes we need to support multple pages
+- with list of all pages
+- with search 
+]]></Content>
+</Node>
