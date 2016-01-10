@@ -48,7 +48,8 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
             var request = new DataProviderRequest( stock, typeof( Dividend ), new YearPeriod( 2001 ), new YearPeriod( 2004 ) )
             {
-                WithPreview = false
+                WithPreview = false,
+                ThrowOnError = true
             };
 
             var series = new List<IDatum>();
@@ -56,7 +57,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
             Assert.That( series.Count, Is.EqualTo( 4 ) );
 
-            foreach ( var dividend in series.Cast<Dividend>() )
+            foreach( var dividend in series.Cast<Dividend>() )
             {
                 Assert.That( dividend.Company.Stocks.First().Isin, Is.EqualTo( "DE0005190003" ) );
                 Assert.That( dividend.Period, Is.InstanceOf<YearPeriod>() );
@@ -86,7 +87,8 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
             var request = new DataProviderRequest( stock, typeof( Price ), new DayPeriod( DateTime.MinValue ), new DayPeriod( DateTime.MaxValue ) )
             {
-                WithPreview = false
+                WithPreview = false,
+                ThrowOnError = true
             };
 
             var series = new List<IDatum>();
@@ -94,10 +96,10 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
             Assert.That( series.Count, Is.EqualTo( 1 ) );
 
-            var price = (Price)series.Single();
+            var price = ( Price )series.Single();
 
             Assert.That( price.Stock.Isin, Is.EqualTo( "DE0007664039" ) );
-            Assert.That( ( (DayPeriod)price.Period ).Day.Date, Is.EqualTo( DateTime.Today ) );
+            Assert.That( ( ( DayPeriod )price.Period ).Day.Date, Is.EqualTo( DateTime.Today ) );
             Assert.That( price.Source, Is.StringContaining( "ariva" ).IgnoreCase.And.StringContaining( "price" ).IgnoreCase );
             Assert.That( price.Timestamp.Date, Is.EqualTo( DateTime.Today ) );
             Assert.That( price.Value, Is.EqualTo( 134.356d ) );

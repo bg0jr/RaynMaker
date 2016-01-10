@@ -47,7 +47,8 @@ namespace RaynMaker.Modules.Import.Web
                 Stock = request.Stock,
                 From = request.From,
                 To = request.To,
-                Series = resultContainer
+                Series = resultContainer,
+                ThrowOnError = request.ThrowOnError
             };
 
             if( request.WithPreview )

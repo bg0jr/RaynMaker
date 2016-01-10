@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using RaynMaker.Modules.Import.Documents;
-using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Modules.Import.Parsers.Text

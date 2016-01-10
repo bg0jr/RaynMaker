@@ -106,7 +106,7 @@ namespace RaynMaker.Modules.Import.Parsers
                 int valuesColToScan = descriptor.ValuesLocator.HeaderSeriesPosition;
                 Contract.Requires( valuesColToScan < rawTable.Columns.Count, "ValuesLocator points outside table" );
 
-                var valuesRowIdx = descriptor.ValuesLocator.FindIndex( rawTable.Rows.ToSet().Select( row => row[ valuesColToScan ].ToString() ) );
+                var valuesRowIdx = descriptor.ValuesLocator.FindIndex( rawTable.Rows.Cast<DataRow>().Select( row => row[ valuesColToScan ].ToString() ) );
                 Contract.Invariant( valuesRowIdx != -1, "ValuesLocator condition failed: column not found" );
 
                 var timesRowIdx = -1;
@@ -115,7 +115,7 @@ namespace RaynMaker.Modules.Import.Parsers
                     var timesColToScan = descriptor.TimesLocator.HeaderSeriesPosition;
                     Contract.Requires( timesColToScan < rawTable.Columns.Count, "TimesLocator points outside table" );
 
-                    timesRowIdx = descriptor.TimesLocator.FindIndex( rawTable.Rows.ToSet().Select( row => row[ timesColToScan ].ToString() ) );
+                    timesRowIdx = descriptor.TimesLocator.FindIndex( rawTable.Rows.Cast<DataRow>().Select( row => row[ timesColToScan ].ToString() ) );
                     Contract.Invariant( timesRowIdx != -1, "TimesLocator condition failed: column not found" );
                 }
 
@@ -163,7 +163,7 @@ namespace RaynMaker.Modules.Import.Parsers
 
             return result;
         }
-
+        
         internal static object GetValue( PathCellDescriptor descriptor, DataTable inputTable )
         {
             Contract.RequiresNotNull( descriptor, "descriptor" );
@@ -178,7 +178,7 @@ namespace RaynMaker.Modules.Import.Parsers
             var colToScan = descriptor.Row.HeaderSeriesPosition;
             Contract.Requires( 0 <= colToScan && colToScan < inputTable.Columns.Count, "TimesLocator points outside table" );
 
-            var rowIdx = descriptor.Row.FindIndex( inputTable.Rows.ToSet().Select( row => row[ colToScan ].ToString() ) );
+            var rowIdx = descriptor.Row.FindIndex( inputTable.Rows.Cast<DataRow>().Select( row => row[ colToScan ].ToString() ) );
             Contract.Invariant( colIdx != -1, "TimesLocator condition failed: column not found" );
 
             var value = inputTable.Rows[ rowIdx ][ colIdx ];

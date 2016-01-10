@@ -58,6 +58,8 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         public ICollection<IDatum> Series { get; set; }
 
+        public bool ThrowOnError { get; set; }
+        
         public Action FinishAction { get; set; }
 
         public ICommand OkCommand { get; private set; }
@@ -178,11 +180,11 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 {
                     myDocumentBrowser.Navigate( DocumentType.Html, mySelectedSource.Location, new StockMacroResolver( Stock ) );
 
-                    var htmlDocument = (IHtmlDocument)myDocumentBrowser.Document;
+                    var htmlDocument = ( IHtmlDocument )myDocumentBrowser.Document;
 
                     // Mark the part of the document described by the FigureDescriptor to have a preview
 
-                    var cell = (HtmlElementAdapter)MarkupFactory.FindElementByDescriptor( htmlDocument, descriptor );
+                    var cell = ( HtmlElementAdapter )MarkupFactory.FindElementByDescriptor( htmlDocument, descriptor );
                     cell.Element.ScrollIntoView( false );
 
                     var marker = MarkupFactory.CreateMarker( descriptor );
@@ -201,7 +203,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                     // -> skip alternative formats
                     break;
                 }
-                catch ( Exception ex )
+                catch( Exception ex )
                 {
                     ex.Data[ "Figure" ] = myDatumType.Name;
                     ex.Data[ "DataSource.Vendor" ] = mySelectedSource.Vendor;
@@ -209,7 +211,14 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                     ex.Data[ "Location" ] = mySelectedSource.Location.ToString();
                     ex.Data[ "FigureDescriptor" ] = descriptor.GetType().FullName;
 
-                    myLogger.Error( ex, "Failed to fetch '{0}' from site {1}", myDatumType.Name, mySelectedSource.Name );
+                    if( ThrowOnError )
+                    {
+                        throw new Exception( "Failed to extract data from datasource", ex );
+                    }
+                    else
+                    {
+                        myLogger.Error( ex, "Failed to fetch '{0}' from site {1}", myDatumType.Name, mySelectedSource.Name );
+                    }
                 }
             }
         }

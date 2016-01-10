@@ -108,8 +108,6 @@
     <Compile Include="Parsers\Html\HtmlParser.cs" />
     <Compile Include="Parsers\Text\TextParser.cs" />
     <Compile Include="Spec\v2\Extraction\SeriesOrientation.cs" />
-    <Compile Include="Parsers\DataRowExtensions.cs" />
-    <Compile Include="Parsers\DataTableExtensions.cs" />
     <Compile Include="Parsers\Html\FallibleActionResult.cs" />
     <Compile Include="Parsers\Text\CsvReader.cs" />
     <Compile Include="Documents\CacheSettings.cs" />

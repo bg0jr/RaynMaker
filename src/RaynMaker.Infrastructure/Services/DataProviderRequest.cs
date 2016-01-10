@@ -29,6 +29,8 @@ namespace RaynMaker.Infrastructure.Services
 
         public bool WithPreview { get; set; }
 
+        public bool ThrowOnError { get; set; }
+        
         public static DataProviderRequest Create( Stock stock, Type datumType, int fromYear, int toYear )
         {
             return new DataProviderRequest( stock, datumType, new YearPeriod( fromYear ), new YearPeriod( toYear ) );
