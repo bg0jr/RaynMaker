@@ -22,7 +22,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         [Test]
         public void CreateSubmitUrl_FilledFormular()
         {
-            var form = HtmlForm.FindByName( myDocument, "histcsv" );
+            var form = HtmlForm.GetByName( myDocument, "histcsv" );
 
             var formular = new Formular( "histcsv",
                 Tuple.Create( "boerse_id", "1" ),
@@ -38,7 +38,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         [Test]
         public void GetFormByName()
         {
-            var form = HtmlForm.FindByName( myDocument, "histcsv" );
+            var form = HtmlForm.GetByName( myDocument, "histcsv" );
 
             Assert.That( form, Is.Not.Null );
             Assert.That( form.Name, Is.EqualTo( "histcsv" ).IgnoreCase );

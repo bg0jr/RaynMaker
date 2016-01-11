@@ -65,7 +65,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         {
             var parameters = new Dictionary<string, string>();
 
-            var inputElements = FormElement.GetInnerElements()
+            var inputElements = GetInnerElements( FormElement )
                 .Where( child => child.TagName.Equals( "input", StringComparison.OrdinalIgnoreCase ) )
                 .Where( child => child.GetAttribute( "type" ) != "submit" );
             foreach( var input in inputElements )
@@ -85,12 +85,28 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             return urlPairs;
         }
 
-        public static HtmlForm FindByName( IHtmlDocument document, string formName )
+        /// <summary>
+        /// Recursively returns all inner elements
+        /// </summary>
+        private  static IEnumerable<IHtmlElement> GetInnerElements(  IHtmlElement element )
         {
-            return new HtmlForm( FindByName( document.Body, formName ) );
+            var children = new List<IHtmlElement>();
+
+            foreach( var child in element.Children )
+            {
+                children.Add( child );
+                children.AddRange( GetInnerElements( child ) );
+            }
+
+            return children;
+        }
+        
+        public static HtmlForm GetByName( IHtmlDocument document, string formName )
+        {
+            return new HtmlForm( GetByName( document.Body, formName ) );
         }
 
-        private static IHtmlElement FindByName( IHtmlElement element, string formName )
+        private static IHtmlElement GetByName( IHtmlElement element, string formName )
         {
             foreach( var child in element.Children )
             {
@@ -101,7 +117,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
                 }
                 else
                 {
-                    var form = FindByName( child, formName );
+                    var form = GetByName( child, formName );
                     if( form != null )
                     {
                         return form;

@@ -113,7 +113,7 @@ namespace RaynMaker.Modules.Import
                 return null;
             }
 
-            var table = HtmlTable.FindByPath( document, HtmlPath.Parse( descriptor.Path ) );
+            var table = HtmlTable.GetByPath( document, HtmlPath.Parse( descriptor.Path ) );
             if ( table == null )
             {
                 return null;
@@ -174,7 +174,7 @@ namespace RaynMaker.Modules.Import
                 return null;
             }
 
-            var table = HtmlTable.FindByPath( document, HtmlPath.Parse( descriptor.Path ) );
+            var table = HtmlTable.GetByPath( document, HtmlPath.Parse( descriptor.Path ) );
             if ( table == null )
             {
                 return null;

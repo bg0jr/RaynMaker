@@ -65,9 +65,32 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             {
                 return -1;
             }
-            return td.GetChildPos();
+            return GetChildPos( td );
         }
 
+        private int GetChildPos(  IHtmlElement element )
+        {
+            Contract.RequiresNotNull( element, "element" );
+
+            if( element.Parent == null )
+            {
+                // assume its valid HTML with <html/> as root element
+                return 0;
+            }
+
+            int childPos = 0;
+            foreach( var child in element.Parent.Children )
+            {
+                if( child == element )
+                {
+                    return childPos;
+                }
+                childPos++;
+            }
+
+            return -1;
+        }
+        
         /// <summary>
         /// Returns the TD element embedding the given element.
         /// If the given element itself is a TD, this one is returned.
@@ -82,11 +105,48 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             }
             else
             {
-                var parent = element.FindParent( e => e.TagName == "TD" || e.TagName == "TH", e => IsTableOrTBody( e ) );
+                var parent = GetParent(element, e => e.TagName == "TD" || e.TagName == "TH", e => IsTableOrTBody( e ) );
                 return ( parent == null ? null : parent );
             }
         }
 
+        /// <summary>
+        /// Searches for the parent of the given elment for which <c>cond</c> 
+        /// gets <c>true</c>.
+        /// </summary>
+        /// <returns>the parent found if any, null otherwise</returns>
+        private static IHtmlElement GetParent(  IHtmlElement start, Predicate<IHtmlElement> cond )
+        {
+            return GetParent( start, cond, p => false );
+        }
+
+        /// <summary>
+        /// Searches for the parent of the given elment for which <c>cond</c> 
+        /// gets <c>true</c>.
+        /// Stops the search and returns null if <c>abortIf</c> gets true before
+        /// <c>cond</c> gets true.
+        /// The given element must not fullfil the abort condition.
+        /// </summary>
+        /// <returns>the parent found if any, null otherwise</returns>
+        private static IHtmlElement GetParent(  IHtmlElement start, Predicate<IHtmlElement> cond, Predicate<IHtmlElement> abortIf )
+        {
+            Contract.RequiresNotNull( start, "start" );
+            Contract.Requires( !abortIf( start ), "start must not be already the target" );
+
+            var parent = start.Parent;
+            while( parent != null && !abortIf( parent ) )
+            {
+                if( cond( parent ) )
+                {
+                    return parent;
+                }
+
+                parent = parent.Parent;
+            }
+
+            return null;
+        }
+        
         /// <summary>
         /// Returns the row index of the given HtmlElement or of its
         /// surrounding TR element.
@@ -117,7 +177,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             }
             else
             {
-                var parent = element.FindParent( e => e.TagName == "TR", e => IsTableOrTBody( e ) );
+                var parent = GetParent( element, e => e.TagName == "TR", e => IsTableOrTBody( e ) );
                 return ( parent == null ? null : parent );
             }
         }
@@ -134,9 +194,37 @@ namespace RaynMaker.Modules.Import.Parsers.Html
                 return null;
             }
 
-            return r.GetChildAt( new[] { "TD", "TH" }, column );
+            return GetChildAt(r, new[] { "TD", "TH" }, column );
         }
 
+        /// <summary>
+        /// Returns the pos'th child with the given tagName.
+        /// </summary>
+        private static IHtmlElement GetChildAt(  IHtmlElement parent, string[] tagNames, int pos )
+        {
+            Contract.RequiresNotNull( parent, "parent" );
+            Contract.RequiresNotNullNotEmpty( tagNames, "tagNames" );
+
+            int childPos = 0;
+            foreach( var child in parent.Children )
+            {
+                if( tagNames.Any( t => child.TagName.Equals( t, StringComparison.OrdinalIgnoreCase ) ) )
+                {
+                    if( childPos == pos )
+                    {
+                        return child;
+                    }
+                    childPos++;
+                }
+            }
+
+            return null;
+
+            // TODO: this could happen if the site has been changed and the 
+            // path is no longer valid
+            //throw new ArgumentException( "Could not find child for path: " + tagName + "[" + pos + "]" );
+        }
+        
         public IReadOnlyList<IHtmlElement> GetRow( int row )
         {
             Contract.Requires( 0 <= row && row < Rows.Count, "Index out of range" );
@@ -177,10 +265,10 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             Contract.RequiresNotNull( cell, "cell" );
 
             // ignore tag - we could have TH and TD in the row
-            int colIdx = cell.GetChildPos();
+            int colIdx = GetChildPos( cell );
 
             return Rows
-                .Select( row => row.GetChildAt( new[] { "TD", "TH" }, colIdx ) )
+                .Select( row => GetChildAt(row, new[] { "TD", "TH" }, colIdx ) )
                 .Where( e => e != null )
                 .ToList();
         }
@@ -190,7 +278,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         /// If the path is pointing into a table, the embedding table is returned.
         /// If the path is not pointing to a table element null is returned.
         /// </summary>
-        public static HtmlTable FindByPath( IHtmlDocument doc, HtmlPath path )
+        public static HtmlTable GetByPath( IHtmlDocument doc, HtmlPath path )
         {
             var start = doc.GetElementByPath( path );
             if( start == null )
@@ -198,14 +286,14 @@ namespace RaynMaker.Modules.Import.Parsers.Html
                 return null;
             }
 
-            return FindByElement( start );
+            return GetByElement( start );
         }
 
         /// <summary>
         /// Searches for the table which embedds the given element.
         /// If the given HtmlElement is a TABLE element, this one is returned.
         /// </summary>
-        public static HtmlTable FindByElement( IHtmlElement cell )
+        public static HtmlTable GetByElement( IHtmlElement cell )
         {
             Contract.RequiresNotNull( cell, "start" );
 
@@ -214,7 +302,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
                 return new HtmlTable( cell );
             }
 
-            var table = cell.FindParent( p => p.TagName == "TABLE" );
+            var table = GetParent(cell, p => p.TagName == "TABLE" );
 
             return ( table == null ? null : new HtmlTable( table ) );
         }

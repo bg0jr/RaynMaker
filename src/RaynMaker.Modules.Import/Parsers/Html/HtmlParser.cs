@@ -4,8 +4,6 @@ using System.Data;
 using System.Globalization;
 using Plainion;
 using RaynMaker.Modules.Import.Documents;
-using RaynMaker.Modules.Import.Parsers.Html;
-using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Modules.Import.Parsers.Html
@@ -96,7 +94,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
                 throw new InvalidExpressionException( "Path neither points to table nor to cell" );
             }
 
-            var htmlTable = HtmlTable.FindByPath( doc, path );
+            var htmlTable = HtmlTable.GetByPath( doc, path );
             if( htmlTable == null )
             {
                 return FallibleActionResult<DataTable>.CreateFailureResult( "Could not get table by path" );

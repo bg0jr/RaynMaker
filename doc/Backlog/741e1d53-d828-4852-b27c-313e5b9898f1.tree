@@ -7,9 +7,6 @@
     </Node>
     <Node Id="02bde578-e3ec-4872-8378-6b1411fdf1d3">
       <Caption><![CDATA[1.8]]></Caption>
-      <Node Id="a9c1388f-86de-49c4-a30e-8db8160da803">
-        <Caption><![CDATA[Find and replace old "Datum" with "Figure"]]></Caption>
-      </Node>
       <Node Id="2fa0c595-c62b-40a5-9076-33e615fcad82">
         <Caption><![CDATA[Parsers]]></Caption>
         <Node Id="3e6b44b5-fea4-4a55-9901-2cc90851ee8d">
@@ -36,6 +33,9 @@
         <Node Id="f35f72aa-2155-40e3-aed7-2c8c0166690b">
           <Caption><![CDATA[HtmlTable]]></Caption>
         </Node>
+      </Node>
+      <Node Id="a9c1388f-86de-49c4-a30e-8db8160da803">
+        <Caption><![CDATA[Find and replace old "Datum" with "Figure"]]></Caption>
       </Node>
       <Node Id="d0da3880-c6d3-477b-bee2-8553b930be55">
         <Caption><![CDATA[Rework WebSpy]]></Caption>

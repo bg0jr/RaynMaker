@@ -40,6 +40,11 @@
     <Compile Include="Documents\PatternMatchingTests.cs" />
     <Compile Include="Documents\AbstractMacroResolverTests.cs" />
     <Compile Include="FigureDescriptorFactoryTests.cs" />
+    <Compile Include="Parsers\Html\HtmlElementExtensionsTests.cs" />
+    <Compile Include="Parsers\Html\HtmlTableTests.cs" />
+    <Compile Include="Parsers\Html\HtmlPathElementTests.cs" />
+    <Compile Include="Parsers\Html\HtmlFormTests.cs" />
+    <Compile Include="Parsers\Html\HtmlDocumentExtensionsTests.cs" />
     <Compile Include="Parsers\Html\HtmlPathTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Documents\ProxyPoolTest.cs" />
