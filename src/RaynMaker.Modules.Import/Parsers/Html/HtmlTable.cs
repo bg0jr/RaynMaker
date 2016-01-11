@@ -68,7 +68,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             return GetChildPos( td );
         }
 
-        private int GetChildPos(  IHtmlElement element )
+        private int GetChildPos( IHtmlElement element )
         {
             Contract.RequiresNotNull( element, "element" );
 
@@ -90,7 +90,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
 
             return -1;
         }
-        
+
         /// <summary>
         /// Returns the TD element embedding the given element.
         /// If the given element itself is a TD, this one is returned.
@@ -105,7 +105,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             }
             else
             {
-                var parent = GetParent(element, e => e.TagName == "TD" || e.TagName == "TH", e => IsTableOrTBody( e ) );
+                var parent = GetParent( element, e => e.TagName == "TD" || e.TagName == "TH", e => IsTableOrTBody( e ) );
                 return ( parent == null ? null : parent );
             }
         }
@@ -115,7 +115,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         /// gets <c>true</c>.
         /// </summary>
         /// <returns>the parent found if any, null otherwise</returns>
-        private static IHtmlElement GetParent(  IHtmlElement start, Predicate<IHtmlElement> cond )
+        private static IHtmlElement GetParent( IHtmlElement start, Predicate<IHtmlElement> cond )
         {
             return GetParent( start, cond, p => false );
         }
@@ -128,7 +128,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         /// The given element must not fullfil the abort condition.
         /// </summary>
         /// <returns>the parent found if any, null otherwise</returns>
-        private static IHtmlElement GetParent(  IHtmlElement start, Predicate<IHtmlElement> cond, Predicate<IHtmlElement> abortIf )
+        private static IHtmlElement GetParent( IHtmlElement start, Predicate<IHtmlElement> cond, Predicate<IHtmlElement> abortIf )
         {
             Contract.RequiresNotNull( start, "start" );
             Contract.Requires( !abortIf( start ), "start must not be already the target" );
@@ -146,7 +146,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
 
             return null;
         }
-        
+
         /// <summary>
         /// Returns the row index of the given HtmlElement or of its
         /// surrounding TR element.
@@ -194,13 +194,13 @@ namespace RaynMaker.Modules.Import.Parsers.Html
                 return null;
             }
 
-            return GetChildAt(r, new[] { "TD", "TH" }, column );
+            return GetChildAt( r, new[] { "TD", "TH" }, column );
         }
 
         /// <summary>
         /// Returns the pos'th child with the given tagName.
         /// </summary>
-        private static IHtmlElement GetChildAt(  IHtmlElement parent, string[] tagNames, int pos )
+        private static IHtmlElement GetChildAt( IHtmlElement parent, string[] tagNames, int pos )
         {
             Contract.RequiresNotNull( parent, "parent" );
             Contract.RequiresNotNullNotEmpty( tagNames, "tagNames" );
@@ -224,7 +224,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             // path is no longer valid
             //throw new ArgumentException( "Could not find child for path: " + tagName + "[" + pos + "]" );
         }
-        
+
         public IReadOnlyList<IHtmlElement> GetRow( int row )
         {
             Contract.Requires( 0 <= row && row < Rows.Count, "Index out of range" );
@@ -268,7 +268,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             int colIdx = GetChildPos( cell );
 
             return Rows
-                .Select( row => GetChildAt(row, new[] { "TD", "TH" }, colIdx ) )
+                .Select( row => GetChildAt( row, new[] { "TD", "TH" }, colIdx ) )
                 .Where( e => e != null )
                 .ToList();
         }
@@ -302,7 +302,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
                 return new HtmlTable( cell );
             }
 
-            var table = GetParent(cell, p => p.TagName == "TABLE" );
+            var table = GetParent( cell, p => p.TagName == "TABLE" );
 
             return ( table == null ? null : new HtmlTable( table ) );
         }
@@ -310,6 +310,11 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         public static bool IsTableOrTBody( IHtmlElement element )
         {
             return element.TagName.Equals( "TABLE", StringComparison.OrdinalIgnoreCase ) || element.TagName.Equals( "TBODY", StringComparison.OrdinalIgnoreCase );
+        }
+
+        internal bool IsCell( IHtmlElement td )
+        {
+            return td.TagName == "TD" || td.TagName == "TH";
         }
     }
 }

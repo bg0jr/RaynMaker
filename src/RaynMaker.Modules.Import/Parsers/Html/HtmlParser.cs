@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
+using System.Linq;
 using Plainion;
 using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
@@ -24,37 +24,22 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             var pathSeriesDescriptor = myDescriptor as PathSeriesDescriptor;
             if( pathSeriesDescriptor != null )
             {
-                var result = ExtractTable( myDocument, HtmlPath.Parse( pathSeriesDescriptor.Path ) );
-                if( !result.Success )
-                {
-                    throw new Exception( "Failed to extract table from document: " + result.FailureReason );
-                }
-
-                return TableFormatter.ToFormattedTable( pathSeriesDescriptor, result.Value );
+                var table = ExtractTable( myDocument, HtmlPath.Parse( pathSeriesDescriptor.Path ) );
+                return TableFormatter.ToFormattedTable( pathSeriesDescriptor, table );
             }
 
             var pathTableDescriptor = myDescriptor as PathTableDescriptor;
             if( pathTableDescriptor != null )
             {
-                var result = ExtractTable( myDocument, HtmlPath.Parse( pathTableDescriptor.Path ) );
-                if( !result.Success )
-                {
-                    throw new Exception( "Failed to extract table from document: " + result.FailureReason );
-                }
-
-                return TableFormatter.ToFormattedTable( pathTableDescriptor, result.Value );
+                var table = ExtractTable( myDocument, HtmlPath.Parse( pathTableDescriptor.Path ) );
+                return TableFormatter.ToFormattedTable( pathTableDescriptor, table );
             }
 
             var pathCellDescriptor = myDescriptor as PathCellDescriptor;
             if( pathCellDescriptor != null )
             {
-                var result = ExtractTable( myDocument, HtmlPath.Parse( pathCellDescriptor.Path ) );
-                if( !result.Success )
-                {
-                    throw new Exception( "Failed to extract table from document: " + result.FailureReason );
-                }
-
-                var value = TableFormatter.GetValue( pathCellDescriptor, result.Value );
+                var table = ExtractTable( myDocument, HtmlPath.Parse( pathCellDescriptor.Path ) );
+                var value = TableFormatter.GetValue( pathCellDescriptor, table );
 
                 // XXX: this is really ugly - i have to create a table just to satisfy the interface :(
                 return CreateTableForScalar( pathCellDescriptor.ValueFormat.Type, value );
@@ -84,7 +69,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         /// html columns
         /// </remarks>
         /// </summary>
-        private FallibleActionResult<DataTable> ExtractTable( IHtmlDocument doc, HtmlPath path )
+        private DataTable ExtractTable( IHtmlDocument doc, HtmlPath path )
         {
             Contract.RequiresNotNull( doc, "doc" );
             Contract.RequiresNotNull( path, "path" );
@@ -97,49 +82,42 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             var htmlTable = HtmlTable.GetByPath( doc, path );
             if( htmlTable == null )
             {
-                return FallibleActionResult<DataTable>.CreateFailureResult( "Could not get table by path" );
+                throw new Exception( "Could not get table by path" );
             }
 
-            DataTable table = new DataTable();
+            var table = new DataTable();
             // TODO: should we get the culture from the HTML page somehow?
             table.Locale = CultureInfo.InvariantCulture;
 
             foreach( var tr in htmlTable.Rows )
             {
-                var htmlRow = new List<IHtmlElement>();
-                foreach( var td in tr.Children )
+                var rowData = tr.Children
+                    .Where( td => htmlTable.IsCell( td ) )
+                    .Select( td => td.InnerText )
+                    .ToList();
+
+                if( rowData.Count > table.Columns.Count )
                 {
-                    if( td.TagName == "TD" || td.TagName == "TH" )
-                    {
-                        htmlRow.Add( td );
-                    }
+                    ( rowData.Count - table.Columns.Count ).Times( x => table.Columns.Add( string.Empty, typeof( object ) ) );
                 }
 
-                // add columns if necessary
-                if( htmlRow.Count > table.Columns.Count )
-                {
-                    ( htmlRow.Count - table.Columns.Count ).Times( x => table.Columns.Add( string.Empty, typeof( object ) ) );
-                }
-
-                // add new row to table
-                DataRow row = table.NewRow();
+                var row = table.NewRow();
                 table.Rows.Add( row );
                 table.AcceptChanges();
 
-                // add data
-                for( int i = 0; i < htmlRow.Count; ++i )
+                for( int i = 0; i < rowData.Count; ++i )
                 {
-                    row[ i ] = htmlRow[ i ].InnerText;
+                    row[ i ] = rowData[ i ];
                 }
             }
 
             if( table.Rows.Count == 0 )
             {
                 table.Dispose();
-                return FallibleActionResult<DataTable>.CreateFailureResult( "Table was empty" );
+                throw new Exception( "Table was empty" );
             }
 
-            return FallibleActionResult<DataTable>.CreateSuccessResult( table );
+            return table;
         }
 
         private DataTable CreateTableForScalar( Type dataType, object value )
