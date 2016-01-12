@@ -7,114 +7,67 @@ namespace RaynMaker.Modules.Import.UnitTests.Html
     public class HtmlPathTests
     {
         [Test]
-        public void SimpleElement()
+        public void PointsToTable_NoElements_ReturnsFalse()
         {
-            HtmlPathElement e = new HtmlPathElement( "Tr", 3 );
+            var path = new HtmlPath();
 
-            Assert.AreEqual( "TR", e.TagName );
-            Assert.AreEqual( 3, e.Position );
-            Assert.IsFalse( e.IsTableOrTBody );
-            Assert.AreEqual( "TR[3]", e.ToString() );
+            Assert.That( path.PointsToTable, Is.False );
         }
 
         [Test]
-        public void ElementParse()
+        public void PointsToTableCell_NoElements_ReturnsFalse()
         {
-            HtmlPathElement e = HtmlPathElement.Parse( "table[2]" );
+            var path = new HtmlPath();
 
-            Assert.AreEqual( "TABLE", e.TagName );
-            Assert.AreEqual( 2, e.Position );
-            Assert.IsTrue( e.IsTableOrTBody );
+            Assert.That( path.PointsToTableCell, Is.False );
         }
 
         [Test]
-        public void TableElement()
+        public void GetPathToTable_PathToTDWithTBody_ReturnsPathToTBodyElement()
         {
-            HtmlPathElement e = new HtmlPathElement( "Table", 3 );
+            var path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]/TR[6]/TD[1]" );
 
-            Assert.IsTrue( e.IsTableOrTBody );
+            var pathToTable = path.GetPathToTable();
 
-            e = new HtmlPathElement( "Tbody", 3 );
-
-            Assert.IsTrue( e.IsTableOrTBody );
+            Assert.That( pathToTable.ToString(), Is.EqualTo( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]" ) );
         }
 
         [Test]
-        public void PathElementWithWrongInput()
+        public void GetPathToTable_PathToTDWithoutTBody_ReturnsPathToTableElement()
         {
-            try
-            {
-                HtmlPathElement e = new HtmlPathElement( null, 0 );
-                Assert.Fail( "It should not possible to create a HtmlPathElement with empty TagName" );
-            }
-            catch { }
+            var path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TR[6]/TD[1]" );
 
-            try
-            {
-                HtmlPathElement e = new HtmlPathElement( "  ", 0 );
-                Assert.Fail( "It should not possible to create a HtmlPathElement with empty TagName" );
-            }
-            catch { }
+            var pathToTable = path.GetPathToTable();
 
-            try
-            {
-                HtmlPathElement e = new HtmlPathElement( "TR", -1 );
-                Assert.Fail( "It should not possible to create a HtmlPathElement with negative position" );
-            }
-            catch { }
+            Assert.That( pathToTable.ToString(), Is.EqualTo( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]" ) );
         }
 
         [Test]
-        public void SimplePath()
+        public void GetPathToTable_PathToTBody_ReturnsPathToTBodyElement()
         {
-            HtmlPath p = new HtmlPath();
-            p.Elements.Add( new HtmlPathElement( "body", 0 ) );
-            p.Elements.Add( new HtmlPathElement( "h3", 0 ) );
+            var path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]" );
 
-            Assert.AreEqual( 2, p.Elements.Count );
-            Assert.IsFalse( p.PointsToTableCell );
-            Assert.IsFalse( p.PointsToTable );
-            Assert.AreEqual( "H3", p.Last.TagName );
-            Assert.AreEqual( "/BODY[0]/H3[0]", p.ToString() );
+            var pathToTable = path.GetPathToTable();
+
+            Assert.That( pathToTable.ToString(), Is.EqualTo( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]" ) );
         }
 
         [Test]
-        public void TableCellPath()
+        public void GetPathToTable_PathToTable_ReturnsPathToTableElement()
         {
-            HtmlPath p = new HtmlPath();
-            p.Elements.Add( new HtmlPathElement( "table", 0 ) );
-            p.Elements.Add( new HtmlPathElement( "tr", 2 ) );
-            p.Elements.Add( new HtmlPathElement( "td", 4 ) );
+            var path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]" );
 
-            Assert.AreEqual( 3, p.Elements.Count );
-            Assert.IsTrue( p.PointsToTableCell );
-            Assert.IsFalse( p.PointsToTable );
-            Assert.AreEqual( "TD", p.Last.TagName );
-            Assert.AreEqual( "/TABLE[0]/TR[2]/TD[4]", p.ToString() );
+            var pathToTable = path.GetPathToTable();
+
+            Assert.That( pathToTable.ToString(), Is.EqualTo( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]" ) );
         }
 
         [Test]
-        public void TablePath()
+        public void Parse_RootOnly_ElementsAreEmpty()
         {
-            HtmlPath p = new HtmlPath();
-            p.Elements.Add( new HtmlPathElement( "table", 1 ) );
+            var path = HtmlPath.Parse( "/" );
 
-            Assert.AreEqual( 1, p.Elements.Count );
-            Assert.IsFalse( p.PointsToTableCell );
-            Assert.IsTrue( p.PointsToTable );
-            Assert.AreEqual( "TABLE", p.Last.TagName );
-            Assert.AreEqual( "/TABLE[1]", p.ToString() );
-        }
-
-        [Test]
-        public void PathParse()
-        {
-            HtmlPath p = HtmlPath.Parse( "/TABLE[0]/TR[2]/TD[4]" );
-
-            Assert.AreEqual( 3, p.Elements.Count );
-            Assert.IsTrue( p.PointsToTableCell );
-            Assert.IsFalse( p.PointsToTable );
-            Assert.AreEqual( "TD", p.Last.TagName );
+            Assert.That( path.Elements, Is.Empty );
         }
     }
 }

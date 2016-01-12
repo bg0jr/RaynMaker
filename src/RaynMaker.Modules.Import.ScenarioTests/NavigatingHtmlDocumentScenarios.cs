@@ -22,7 +22,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         [Test]
         public void Table_Create()
         {
-            HtmlPath path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]/TR[6]/TD[1]" );
+            var path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]/TR[6]/TD[1]" );
 
             var table = HtmlTable.GetByPath( myDocument, path );
 

@@ -13,9 +13,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
     {
         private static readonly char[] OccuranceSeparator = { '[', ']' };
 
-        /// <summary>
-        /// Creates a new element.
-        /// </summary>
+        /// <summary(>
         /// <param name="tagName">Name of the HTML tag</param>
         /// <param name="pos">position of the HTML element in the list of its parents children with the same tag name</param>
         public HtmlPathElement( string tagName, int pos )
@@ -29,9 +27,6 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             Position = pos;
         }
 
-        /// <summary>
-        /// HTML tag name.
-        /// </summary>
         public string TagName { get; private set; }
 
         /// <summary>
@@ -49,6 +44,11 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         public bool IsTableOrTBody
         {
             get { return TagName == "TBODY" || TagName == "TABLE"; }
+        }
+
+        public bool IsTableCell
+        {
+            get { return TagName == "TD" || TagName == "TH"; }
         }
 
         /// <summary>
@@ -99,5 +99,4 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             return element;
         }
     }
-
 }
