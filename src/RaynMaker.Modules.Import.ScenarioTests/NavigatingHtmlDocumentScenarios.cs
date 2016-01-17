@@ -1,9 +1,7 @@
 ﻿using System.Linq;
 using NUnit.Framework;
 using RaynMaker.Modules.Import.Documents;
-using RaynMaker.Modules.Import.Parsers;
 using RaynMaker.Modules.Import.Parsers.Html;
-using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
 namespace RaynMaker.Modules.Import.ScenarioTests
 {
@@ -82,51 +80,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         }
 
         [Test]
-        public void GetRoot()
-        {
-            HtmlPath path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]/TR[6]/TD[1]" );
-
-            var e = myDocument.GetElementByPath( path );
-
-            Assert.AreEqual( "TD", e.TagName );
-            Assert.AreEqual( "HTML", e.GetRoot().TagName );
-        }
-
-        [Test]
-        public void GetPath()
-        {
-            HtmlPath path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]/TR[6]/TD[1]" );
-
-            var e = myDocument.GetElementByPath( path );
-
-            Assert.AreEqual( path.ToString(), e.GetPath().ToString() );
-        }
-
-        [Test]
-        public void First()
-        {
-            HtmlPath path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]" );
-
-            var element = myDocument.GetElementByPath( path );
-            var body = element.Children.FirstOrDefault( e => e.TagName == "TBODY" );
-
-            Assert.AreEqual( "TBODY", body.TagName );
-        }
-
-        [Test]
-        public void FirstComplex()
-        {
-            HtmlPath path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]/TR[6]" );
-
-            var element = myDocument.GetElementByPath( path );
-            var first = element.Children.FirstOrDefault( e => e.TagName == "TD" && e.InnerText == "3,00" );
-
-            Assert.AreEqual( "TD", first.TagName );
-            Assert.AreEqual( "3,00", first.InnerText );
-        }
-
-        [Test]
-        public void FindByCell()
+        public void Table_FindByCell()
         {
             HtmlPath path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]/TR[6]/TD[1]" );
 
@@ -137,7 +91,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         }
 
         [Test]
-        public void FindEmbeddingTableSelfEmbedded()
+        public void Table_FindEmbeddingTableSelfEmbedded()
         {
             HtmlPath path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]" );
 
@@ -153,7 +107,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         }
 
         [Test]
-        public void FindEmbeddingTableNoTable()
+        public void Table_FindEmbeddingTableNoTable()
         {
             HtmlPath path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]" );
 
@@ -164,7 +118,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         }
 
         [Test]
-        public void IsTableOrTBody()
+        public void Table_IsTableOrTBody()
         {
             HtmlPath path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]" );
             var element = myDocument.GetElementByPath( path );
@@ -180,29 +134,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         }
 
         [Test]
-        public void GetElementByPath()
-        {
-            HtmlPath path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]/TR[6]/TD[1]" );
-
-            var e = myDocument.GetElementByPath( path );
-
-            Assert.AreEqual( "TD", e.TagName );
-            Assert.AreEqual( "TR", e.Parent.TagName );
-        }
-
-
-        [Test]
-        public void GetElementByPath_SimplePath()
-        {
-            HtmlPath path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[0]/DIV[1]" );
-
-            var e = myDocument.GetElementByPath( path );
-
-            Assert.AreEqual( "Willkommen, Gast!", e.InnerText );
-        }
-
-        [Test]
-        public void GetTableByPath()
+        public void Table_GetTableByPath()
         {
             HtmlPath path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]/TR[6]/TD[1]" );
 

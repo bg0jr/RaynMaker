@@ -32,5 +32,13 @@ namespace RaynMaker.Modules.Import.Documents.AgilityPack
             }
             return new HtmlDocumentAdapter( url, doc );
         }
+
+        public static IHtmlDocument LoadHtml( string html )
+        {
+            var doc = new HtmlDocument();
+            doc.LoadHtml( html );
+
+            return new HtmlDocumentAdapter( new Uri( "about:blank" ), doc );
+        }
     }
 }

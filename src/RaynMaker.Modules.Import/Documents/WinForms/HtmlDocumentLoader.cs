@@ -5,7 +5,6 @@ using RaynMaker.Modules.Import.Design;
 
 namespace RaynMaker.Modules.Import.Documents.WinForms
 {
-    // TODO: at the moment we dont do any cleanup!
     class HtmlDocumentLoader : IDocumentLoader, IDisposable
     {
         private SafeWebBrowser myBrowser;

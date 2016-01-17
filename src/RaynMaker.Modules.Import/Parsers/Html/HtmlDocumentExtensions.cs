@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using Plainion;
 using RaynMaker.Modules.Import.Documents;
 
@@ -18,45 +17,27 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             Contract.RequiresNotNull( doc, "doc" );
             Contract.RequiresNotNull( path, "path" );
 
-            var root = doc.Body.GetRoot();
-            if( root == null )
-            {
-                return null;
-            }
+            var current = doc.Body.GetRoot();
 
             foreach( var element in path.Elements )
             {
-                root = GetChildAt(root, element.TagName, element.Position );
+                current = GetNthChildWithTag( current, element.TagName, element.Position );
 
-                if( root == null )
+                if( current == null )
                 {
                     return null;
                 }
             }
 
-            return root;
+            return current;
         }
 
-        /// <summary>
-        /// Returns the pos'th child with the given tagName.
-        /// </summary>
-        private static IHtmlElement GetChildAt( IHtmlElement parent, string tagName, int pos )
+        private static IHtmlElement GetNthChildWithTag( IHtmlElement parent, string tagName, int pos )
         {
-            return GetChildAt( parent, new[] { tagName }, pos );
-        }
-
-        /// <summary>
-        /// Returns the pos'th child with the given tagName.
-        /// </summary>
-        private static IHtmlElement GetChildAt( IHtmlElement parent, string[] tagNames, int pos )
-        {
-            Contract.RequiresNotNull( parent, "parent" );
-            Contract.RequiresNotNullNotEmpty( tagNames, "tagNames" );
-
             int childPos = 0;
             foreach( var child in parent.Children )
             {
-                if( tagNames.Any( t => child.TagName.Equals( t, StringComparison.OrdinalIgnoreCase ) ) )
+                if( child.TagName.Equals( tagName, StringComparison.OrdinalIgnoreCase ) )
                 {
                     if( childPos == pos )
                     {
@@ -67,10 +48,6 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             }
 
             return null;
-
-            // TODO: this could happen if the site has been changed and the 
-            // path is no longer valid
-            //throw new ArgumentException( "Could not find child for path: " + tagName + "[" + pos + "]" );
         }
     }
 }

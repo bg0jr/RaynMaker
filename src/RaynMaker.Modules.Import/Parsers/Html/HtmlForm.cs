@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Plainion;
 using RaynMaker.Modules.Import.Documents;
-using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2.Locating;
 
 namespace RaynMaker.Modules.Import.Parsers.Html
@@ -12,14 +12,8 @@ namespace RaynMaker.Modules.Import.Parsers.Html
     {
         public HtmlForm( IHtmlElement element )
         {
-            if( element == null )
-            {
-                throw new ArgumentNullException( "element" );
-            }
-            if( !element.TagName.Equals( "form", StringComparison.OrdinalIgnoreCase ) )
-            {
-                throw new ArgumentException( "Element is not a html form element" );
-            }
+            Contract.RequiresNotNull( element, "element" );
+            Contract.Requires( element.TagName.Equals( "form", StringComparison.OrdinalIgnoreCase ), "Element is not a html form element" );
 
             FormElement = element;
         }
@@ -28,10 +22,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
 
         public string Name
         {
-            get
-            {
-                return FormElement.GetAttribute( "name" );
-            }
+            get { return FormElement.GetAttribute( "name" ); }
         }
 
         public Uri CreateSubmitUrl( Formular formular )
@@ -88,7 +79,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         /// <summary>
         /// Recursively returns all inner elements
         /// </summary>
-        private  static IEnumerable<IHtmlElement> GetInnerElements(  IHtmlElement element )
+        private static IEnumerable<IHtmlElement> GetInnerElements( IHtmlElement element )
         {
             var children = new List<IHtmlElement>();
 
@@ -100,7 +91,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
 
             return children;
         }
-        
+
         public static HtmlForm GetByName( IHtmlDocument document, string formName )
         {
             return new HtmlForm( GetByName( document.Body, formName ) );

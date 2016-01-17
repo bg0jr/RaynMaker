@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Plainion;
 using RaynMaker.Modules.Import.Documents;
 
@@ -31,20 +30,22 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         {
             Contract.RequiresNotNull( element, "element" );
 
-            HtmlPath path = new HtmlPath();
+            var fragments = new List<HtmlPathElement>();
 
             var cur = element;
             while( cur.Parent != null )
             {
-                path.Elements.Insert( 0, new HtmlPathElement( cur.TagName, cur.GetChildOfTagPos() ) );
+                fragments.Add( new HtmlPathElement( cur.TagName, GetIndexOfChildWithinChildrenOfSameTag( cur ) ) );
 
                 cur = cur.Parent;
             }
 
-            return path;
+            fragments.Reverse();
+
+            return new HtmlPath( fragments );
         }
 
-        private static int GetChildOfTagPos( this IHtmlElement element )
+        private static int GetIndexOfChildWithinChildrenOfSameTag( IHtmlElement element )
         {
             if( element.Parent == null )
             {
@@ -65,8 +66,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
                 }
             }
 
-            //throw new ArgumentException( "Could not find child pos for child: " + e.TagName );
-            return -1;
+            throw new ArgumentException( "Could not find child pos for child: " + e.TagName );
         }
     }
 }

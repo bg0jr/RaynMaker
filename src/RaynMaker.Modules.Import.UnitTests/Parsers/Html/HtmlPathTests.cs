@@ -69,5 +69,16 @@ namespace RaynMaker.Modules.Import.UnitTests.Html
 
             Assert.That( path.Elements, Is.Empty );
         }
+
+        /// <summary>
+        /// As there is always only one singe HTML element (the root) we can omit it.
+        /// </summary>
+        [Test]
+        public void Parse_FirstElementIsHtmlTag_ElementsArEmpty()
+        {
+            var path = HtmlPath.Parse( "/html[0]" );
+
+            Assert.That( path.Elements, Is.Empty );
+        }
     }
 }
