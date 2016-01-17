@@ -66,7 +66,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
                 }
             }
 
-            throw new ArgumentException( "Could not find child pos for child: " + e.TagName );
+            throw new ArgumentException( "Could not find child pos for child: " + element.TagName );
         }
     }
 }

@@ -9,29 +9,17 @@
       <Caption><![CDATA[1.8]]></Caption>
       <Node Id="2fa0c595-c62b-40a5-9076-33e615fcad82">
         <Caption><![CDATA[Parsers]]></Caption>
-        <Node Id="3e6b44b5-fea4-4a55-9901-2cc90851ee8d">
-          <Caption><![CDATA[Cleanup Html parsing]]></Caption>
+        <Node Id="19222cac-abfa-4266-bb46-66df07c1afce">
+          <Caption><![CDATA[HtmlPath.PointsToTableCell ignores children of TD]]></Caption>
         </Node>
-        <Node Id="b0b783b8-f54a-446f-9a1f-d5a3375ae21a">
-          <Caption><![CDATA[Improve tests for Html parsing]]></Caption>
-        </Node>
-        <Node Id="1d0bde2c-9285-4444-ba92-23f2a207c791">
-          <Caption><![CDATA[From ScenarioTests back to UnitTests?]]></Caption>
+        <Node Id="f35f72aa-2155-40e3-aed7-2c8c0166690b">
+          <Caption><![CDATA[HtmlTable]]></Caption>
         </Node>
         <Node Id="9877182f-53d2-48f3-85d7-c4d7ede75014">
           <Caption><![CDATA[HtmlTable tests]]></Caption>
         </Node>
-        <Node Id="1ffd727b-1688-4da0-9abb-87de110267c7">
-          <Caption><![CDATA[Cleanup test and fix HtmlElementExtensions]]></Caption>
-        </Node>
-        <Node Id="19222cac-abfa-4266-bb46-66df07c1afce">
-          <Caption><![CDATA[HtmlPath.PointsToTableCell ignores children of TD]]></Caption>
-        </Node>
-        <Node Id="6c39ee0d-5992-4511-b61e-a4e7387f51fe">
-          <Caption><![CDATA[HtmlDocumentBasicReadingTests]]></Caption>
-        </Node>
-        <Node Id="f35f72aa-2155-40e3-aed7-2c8c0166690b">
-          <Caption><![CDATA[HtmlTable]]></Caption>
+        <Node Id="faf2b5e4-92af-41ac-b569-f36c0d74fea9">
+          <Caption><![CDATA[NavigatingHtmlDocumentScenarios to HtmlTable UT]]></Caption>
         </Node>
       </Node>
       <Node Id="a9c1388f-86de-49c4-a30e-8db8160da803">

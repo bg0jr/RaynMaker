@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using Plainion;
 using Plainion.Collections;
 using RaynMaker.Modules.Import.Documents;
@@ -15,7 +14,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         public HtmlTable( IHtmlElement tableElement )
         {
             Contract.RequiresNotNull( tableElement, "tableElement" );
-            Contract.Requires( tableElement.TagName.Equals( "TABLE", StringComparison.OrdinalIgnoreCase ), "root must be TABLE element" );
+            Contract.Requires( tableElement.TagName.Equals( "TABLE", StringComparison.OrdinalIgnoreCase ), "not a html table element" );
 
             TableElement = tableElement;
 
@@ -53,7 +52,6 @@ namespace RaynMaker.Modules.Import.Parsers.Html
                 }
             }
         }
-
 
         /// <summary>
         /// Returns the column index of the given HtmlElement or of its surrounding TD element.

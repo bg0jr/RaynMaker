@@ -94,7 +94,13 @@ namespace RaynMaker.Modules.Import.Parsers.Html
 
         public static HtmlForm GetByName( IHtmlDocument document, string formName )
         {
-            return new HtmlForm( GetByName( document.Body, formName ) );
+            var formElement = GetByName( document.Body, formName );
+            if( formElement == null )
+            {
+                return null;
+            }
+
+            return new HtmlForm( formElement );
         }
 
         private static IHtmlElement GetByName( IHtmlElement element, string formName )

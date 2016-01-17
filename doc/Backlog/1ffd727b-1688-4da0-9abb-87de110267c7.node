@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="1ffd727b-1688-4da0-9abb-87de110267c7" Created="635876563311476926" LastModified="635876563477036395">
-  <Caption><![CDATA[Cleanup test and fix HtmlElementExtensions]]></Caption>
-  <Content><![CDATA[- esp the code GetChildPos seems to be strange]]></Content>
-</Node>
