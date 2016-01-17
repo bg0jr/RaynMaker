@@ -113,5 +113,8 @@
     <Node Id="45e6786b-ae09-42f7-8c0f-875a92e85559">
       <Caption><![CDATA[CompositeMacroResolver tests]]></Caption>
     </Node>
+    <Node Id="19222cac-abfa-4266-bb46-66df07c1afce">
+      <Caption><![CDATA[HtmlPath.PointsToTableCell ignores children of TD]]></Caption>
+    </Node>
   </Node>
 </Tree>

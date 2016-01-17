@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="19222cac-abfa-4266-bb46-66df07c1afce" Created="635877726860285893" LastModified="635877727369087153">
+<Node Id="19222cac-abfa-4266-bb46-66df07c1afce" Created="635877726860285893" LastModified="635886392752743410" Origin="2fa0c595-c62b-40a5-9076-33e615fcad82">
   <Caption><![CDATA[HtmlPath.PointsToTableCell ignores children of TD]]></Caption>
   <Content><![CDATA[it just checks whether last element is TD but what if path
-points to inner span or paragraph?]]></Content>
+points to inner span or paragraph?
+
+could be dangerous to just search upwards until TD is found - what if we are 
+nested inside some outer tables?
+
+what is then actually the users intention?]]></Content>
 </Node>

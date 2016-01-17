@@ -9,17 +9,14 @@
       <Caption><![CDATA[1.8]]></Caption>
       <Node Id="2fa0c595-c62b-40a5-9076-33e615fcad82">
         <Caption><![CDATA[Parsers]]></Caption>
-        <Node Id="19222cac-abfa-4266-bb46-66df07c1afce">
-          <Caption><![CDATA[HtmlPath.PointsToTableCell ignores children of TD]]></Caption>
-        </Node>
         <Node Id="f35f72aa-2155-40e3-aed7-2c8c0166690b">
           <Caption><![CDATA[HtmlTable]]></Caption>
         </Node>
         <Node Id="9877182f-53d2-48f3-85d7-c4d7ede75014">
           <Caption><![CDATA[HtmlTable tests]]></Caption>
-        </Node>
-        <Node Id="faf2b5e4-92af-41ac-b569-f36c0d74fea9">
-          <Caption><![CDATA[NavigatingHtmlDocumentScenarios to HtmlTable UT]]></Caption>
+          <Node Id="faf2b5e4-92af-41ac-b569-f36c0d74fea9">
+            <Caption><![CDATA[NavigatingHtmlDocumentScenarios to HtmlTable UT]]></Caption>
+          </Node>
         </Node>
       </Node>
       <Node Id="a9c1388f-86de-49c4-a30e-8db8160da803">
