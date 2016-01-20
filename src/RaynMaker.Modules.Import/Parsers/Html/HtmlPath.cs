@@ -36,7 +36,7 @@ namespace RaynMaker.Modules.Import.Parsers.Html
 
         public bool PointsToTable
         {
-            get { return Elements.Count > 0 && Elements[ Elements.Count - 1 ].IsTableOrTBody; }
+            get { return Elements.Count > 0 && Elements[ Elements.Count - 1 ].IsTable; }
         }
 
         public bool PointsToTableCell

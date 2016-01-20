@@ -29,19 +29,27 @@ namespace RaynMaker.Modules.Import.UnitTests.Html
         }
 
         [Test]
-        public void IsTableOrTBody_ForTable_ReturnsTrue()
+        public void IsTable_ForTable_ReturnsTrue()
         {
             var e = new HtmlPathElement( "Table", 3 );
 
-            Assert.That( e.IsTableOrTBody, Is.True );
+            Assert.That( e.IsTable, Is.True );
         }
 
         [Test]
-        public void IsTableOrTBody_ForTBody_ReturnsTrue()
+        public void IsTable_ForTBody_ReturnsFalse()
         {
             var e = new HtmlPathElement( "tbody", 3 );
 
-            Assert.That( e.IsTableOrTBody, Is.True );
+            Assert.That( e.IsTable, Is.False );
+        }
+
+        [Test]
+        public void IsTable_ForTHead_ReturnsFalse()
+        {
+            var e = new HtmlPathElement( "thead", 3 );
+
+            Assert.That( e.IsTable, Is.False );
         }
 
         [Test]
@@ -49,7 +57,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Html
         {
             var e = new HtmlPathElement( "TR", 3 );
 
-            Assert.That( e.IsTableOrTBody, Is.False );
+            Assert.That( e.IsTable, Is.False );
         }
 
         [Test]

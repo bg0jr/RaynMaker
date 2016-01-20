@@ -39,11 +39,11 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         public int Position { get; private set; }
 
         /// <summary>
-        /// Indicates whether the element is a table/table body.
+        /// Indicates whether the element is a table
         /// </summary>
-        public bool IsTableOrTBody
+        public bool IsTable
         {
-            get { return TagName == "TBODY" || TagName == "TABLE"; }
+            get { return TagName == "TABLE"; }
         }
 
         public bool IsTableCell
