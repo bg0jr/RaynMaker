@@ -9,6 +9,12 @@
       <Caption><![CDATA[1.8]]></Caption>
       <Node Id="d0da3880-c6d3-477b-bee2-8553b930be55">
         <Caption><![CDATA[Rework WebSpy]]></Caption>
+        <Node Id="104af81d-f783-4139-9cb2-2bf36974dfcd">
+          <Caption><![CDATA[toolbar to add sources and figures]]></Caption>
+        </Node>
+        <Node Id="87aeaf44-dcbf-474a-b44e-bc53ebccaaf2">
+          <Caption><![CDATA[show on the right what is selected on the left]]></Caption>
+        </Node>
       </Node>
       <Node Id="abb9f7c2-8cac-4750-a6d5-c1ea36d41609">
         <Caption><![CDATA[Add more verification in data collection]]></Caption>
