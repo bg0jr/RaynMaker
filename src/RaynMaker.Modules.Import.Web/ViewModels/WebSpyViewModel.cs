@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows.Input;
@@ -29,21 +30,22 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
             mySession = new Session();
 
+            DataSourcesTree = new DataSourcesTreeViewModel( mySession );
+
             SourceDefinition = new DataSourceDefinitionViewModel( mySession );
             DocumentLocation = new DocumentLocationViewModel( mySession );
             Figures = new DataSourceFiguresViewModel( mySession, lutService );
             Completion = new CompletionViewModel( mySession, myProjectHost, myStorageService );
-
             ResetCommand = new DelegateCommand( OnReset );
             SaveCommand = new DelegateCommand( OnSave );
-            
+
             myProjectHost.Changed += OnProjectChanged;
             OnProjectChanged();
         }
 
         private void OnProjectChanged()
         {
-            if( myProjectHost.Project == null )
+            if ( myProjectHost.Project == null )
             {
                 return;
             }
@@ -84,6 +86,8 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         //    base.OnHandleDestroyed( e );
         //}
 
+        public DataSourcesTreeViewModel DataSourcesTree { get; private set; }
+
         public DataSourceDefinitionViewModel SourceDefinition { get; private set; }
 
         public DocumentLocationViewModel DocumentLocation { get; private set; }
@@ -91,14 +95,14 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         public DataSourceFiguresViewModel Figures { get; private set; }
 
         public CompletionViewModel Completion { get; private set; }
-      
+
         public ICommand ResetCommand { get; private set; }
 
         private void OnReset()
         {
             mySession.Reset();
 
-            foreach( var source in myStorageService.Load() )
+            foreach ( var source in myStorageService.Load() )
             {
                 mySession.Sources.Add( source );
             }

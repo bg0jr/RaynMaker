@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Specialized;
+using System.ComponentModel.DataAnnotations;
 using NUnit.Framework;
 using Plainion.Validation;
 using RaynMaker.Modules.Import.Spec.v2;
@@ -134,7 +135,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec
         public void Figures_Add_ChangeIsNotified()
         {
             var dataSource = new DataSource();
-            var counter = new CollectionChangedCounter( dataSource.Figures );
+            var counter = new CollectionChangedCounter( (INotifyCollectionChanged)dataSource.Figures );
 
             dataSource.Figures.Add( new CsvDescriptor() );
 
@@ -177,7 +178,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec
 
             var clone = FigureDescriptorFactory.Clone( dataSource );
 
-            var counter = new CollectionChangedCounter( clone.Figures );
+            var counter = new CollectionChangedCounter( (INotifyCollectionChanged)clone.Figures );
 
             clone.Figures.Add( new CsvDescriptor { Figure = "dummy.series" } );
 

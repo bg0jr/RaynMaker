@@ -10,42 +10,58 @@
              xmlns:importdesign="clr-namespace:RaynMaker.Modules.Import.Design;assembly=RaynMaker.Modules.Import"
              mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="700">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="5"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <ScrollViewer Grid.Row="0" Margin="3" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
-            <ItemsControl>
-                <ItemsControl.Items>
-                    <GroupBox Header="Source" Margin="0,0,0,5">
-                        <l:DataSourceDefinitionView DataContext="{Binding SourceDefinition}"/>
-                    </GroupBox>
-                    <GroupBox Header="Navigation" Margin="0,0,0,5">
-                        <l:DocumentLocationView DataContext="{Binding DocumentLocation}"/>
-                    </GroupBox>
-                    <GroupBox Header="Data description" Margin="0,0,0,5">
-                        <l:DataSourceFiguresView DataContext="{Binding Figures}"/>
-                    </GroupBox>
-                    <GroupBox Header="Validate &amp; Complete" Margin="0,0,0,5">
-                        <l:CompletionView DataContext="{Binding Completion}"/>
-                    </GroupBox>
-                    
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Content="Reset" Command="{Binding ResetCommand}" Margin="0,3,0,3" />
-                        <Button Grid.Row="1" Grid.Column="2" Content="Save" Command="{Binding SaveCommand}" Margin="5,3,3,3" />
-                    </StackPanel>
-                </ItemsControl.Items>
-            </ItemsControl>
-        </ScrollViewer>
+        <l:DataSourcesTreeView Grid.Row="0" Grid.Column="0" DataContext="{Binding DataSourcesTree}"/>
 
-        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Silver"/>
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Silver"/>
+        
+        <Grid Grid.Row="0" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <Grid Grid.Row="2" Margin="3">
-            <WindowsFormsHost HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,2,0,2">
-                <importdesign:SafeWebBrowser x:Name="myBrowser"/>
-            </WindowsFormsHost>
+            <ScrollViewer Grid.Row="0" Margin="3" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+                <ItemsControl>
+                    <ItemsControl.Items>
+                        <GroupBox Header="Source" Margin="0,0,0,5">
+                            <l:DataSourceDefinitionView DataContext="{Binding SourceDefinition}"/>
+                        </GroupBox>
+                        <GroupBox Header="Navigation" Margin="0,0,0,5">
+                            <l:DocumentLocationView DataContext="{Binding DocumentLocation}"/>
+                        </GroupBox>
+                        <GroupBox Header="Data description" Margin="0,0,0,5">
+                            <l:DataSourceFiguresView DataContext="{Binding Figures}"/>
+                        </GroupBox>
+                        <GroupBox Header="Validate &amp; Complete" Margin="0,0,0,5">
+                            <l:CompletionView DataContext="{Binding Completion}"/>
+                        </GroupBox>
+                    </ItemsControl.Items>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Silver"/>
+
+            <Grid Grid.Row="2" Margin="3">
+                <WindowsFormsHost HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,2,0,2">
+                    <importdesign:SafeWebBrowser x:Name="myBrowser"/>
+                </WindowsFormsHost>
+            </Grid>
         </Grid>
+    
+        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Reset" Command="{Binding ResetCommand}" Margin="0,3,0,3" />
+            <Button Grid.Row="1" Grid.Column="2" Content="Save" Command="{Binding SaveCommand}" Margin="5,3,3,3" />
+        </StackPanel>
     </Grid>
 </UserControl>

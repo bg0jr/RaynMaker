@@ -16,9 +16,9 @@ namespace RaynMaker.SDK
             Observe( observableSource );
         }
 
-        private void Observe(INotifyCollectionChanged source)
+        private void Observe( INotifyCollectionChanged source )
         {
-            WeakEventManager<INotifyCollectionChanged, NotifyCollectionChangedEventArgs>.AddHandler( source, "CollectionChanged", OnCollectionChanged );
+            CollectionChangedEventManager.AddHandler( source, OnCollectionChanged );
         }
 
         public CollectionChangedCounter( INotifyCollectionChanged source )

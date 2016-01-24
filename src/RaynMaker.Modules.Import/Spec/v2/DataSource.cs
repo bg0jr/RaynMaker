@@ -67,13 +67,6 @@ namespace RaynMaker.Modules.Import.Spec.v2
 
         [Required, ValidateObject]
         [DataMember]
-        public IList<IFigureDescriptor> Figures { get; private set; }
-
-        [OnDeserialized]
-        private void OnDeserialized( StreamingContext context )
-        {
-            // make writeable again
-            Figures = new ObservableCollection<IFigureDescriptor>( Figures );
-        }
+        public ObservableCollection<IFigureDescriptor> Figures { get; private set; }
     }
 }

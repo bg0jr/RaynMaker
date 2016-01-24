@@ -208,7 +208,7 @@ namespace RaynMaker.Data.ViewModels
             request.WithPreview = true;
 
             var series = new ObservableCollection<IFigure>();
-            WeakEventManager<ObservableCollection<IFigure>, NotifyCollectionChangedEventArgs>.AddHandler( series, "CollectionChanged", OnSeriesChanged );
+            CollectionChangedEventManager.AddHandler( series, OnSeriesChanged );
 
             // fetch some more data because of weekends and public holidays
             // we will then take last one
