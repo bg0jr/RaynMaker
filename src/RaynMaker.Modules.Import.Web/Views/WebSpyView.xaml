@@ -23,7 +23,7 @@
                         <l:DataSourceDefinitionView DataContext="{Binding SourceDefinition}"/>
                     </GroupBox>
                     <GroupBox Header="Navigation" Margin="0,0,0,5">
-                        <l:DocumentLocationView DataContext="{Binding DatumLocation}"/>
+                        <l:DocumentLocationView DataContext="{Binding DocumentLocation}"/>
                     </GroupBox>
                     <GroupBox Header="Data description" Margin="0,0,0,5">
                         <l:DataSourceFiguresView DataContext="{Binding Figures}"/>

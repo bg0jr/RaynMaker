@@ -7,12 +7,12 @@ namespace RaynMaker.Modules.Analysis.Engine
 {
     class MissingDataForPeriod : IFigureProviderFailure
     {
-        public MissingDataForPeriod( string datum, object defaultValue, IPeriod period, params IPeriod[] periods )
+        public MissingDataForPeriod( string figure, object defaultValue, IPeriod period, params IPeriod[] periods )
         {
-            Contract.RequiresNotNullNotEmpty( datum, "datum" );
+            Contract.RequiresNotNullNotEmpty( figure, "figure" );
             Contract.RequiresNotNull( period, "period" );
 
-            Datum = datum;
+            Figure = figure;
             DefaultValue = defaultValue;
 
             var allPeriods = periods.ToList();
@@ -21,7 +21,7 @@ namespace RaynMaker.Modules.Analysis.Engine
             Period = allPeriods;
         }
 
-        public string Datum { get; private set; }
+        public string Figure { get; private set; }
 
         public object DefaultValue { get; private set; }
 
@@ -29,7 +29,7 @@ namespace RaynMaker.Modules.Analysis.Engine
 
         public override string ToString()
         {
-            return string.Format( "No data found for '{0}' in periods: {1}", Datum, string.Join( ",", Period ) );
+            return string.Format( "No data found for '{0}' in periods: {1}", Figure, string.Join( ",", Period ) );
         }
     }
 }

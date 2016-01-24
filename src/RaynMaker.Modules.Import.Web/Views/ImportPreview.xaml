@@ -33,7 +33,7 @@
                 </Binding>
             </ComboBox.Visibility>
         </ComboBox>
-        <TextBlock Grid.Row="0" Text="No DatumLocator found for this datum" Foreground="Red">
+        <TextBlock Grid.Row="0" Text="No DataSource found for this figure" Foreground="Red">
             <TextBlock.Visibility>
                 <Binding Path="Sources">
                     <Binding.Converter>

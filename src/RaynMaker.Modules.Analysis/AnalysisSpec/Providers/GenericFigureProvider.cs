@@ -5,21 +5,21 @@ using RaynMaker.Entities;
 
 namespace RaynMaker.Modules.Analysis.AnalysisSpec.Providers
 {
-    public class GenericDatumProvider : IFigureProvider
+    public class GenericFigureProvider : IFigureProvider
     {
-        private Type myDatumType;
+        private Type myFigureType;
 
-        public GenericDatumProvider( Type datumType )
+        public GenericFigureProvider( Type figureType )
         {
-            myDatumType = datumType;
+            myFigureType = figureType;
         }
 
-        public string Name { get { return myDatumType.Name; } }
+        public string Name { get { return myFigureType.Name; } }
 
         public object ProvideValue( IFigureProviderContext context )
         {
             var series = context.Data.OfType<IFigureSeries>()
-                .Where( s => s.FigureType == myDatumType )
+                .Where( s => s.FigureType == myFigureType )
                 .SingleOrDefault();
 
             if( series == null )

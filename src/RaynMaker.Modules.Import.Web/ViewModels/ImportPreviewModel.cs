@@ -27,7 +27,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         private StorageService myStorageService;
         private IDocumentBrowser myDocumentBrowser = null;
         private DataSource mySelectedSource;
-        private Type myDatumType;
+        private Type myFigureType;
         private List<IFigure> myData;
         private bool myOverwriteExistingValues;
         private Currency myCurrency;
@@ -84,37 +84,37 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             FinishAction();
         }
 
-        // only take over new datums and values for datums which have no value yet
+        // only take over new figures and values for figures which have no value yet
         internal void PublishData()
         {
-            foreach( var datum in myData )
+            foreach( var figure in myData )
             {
-                if( datum.Period.CompareTo( From ) == -1 || datum.Period.CompareTo( To ) == 1 )
+                if( figure.Period.CompareTo( From ) == -1 || figure.Period.CompareTo( To ) == 1 )
                 {
                     continue;
                 }
 
-                var currencyDatum = datum as ICurrencyFigure;
-                if( Currency != null && currencyDatum != null )
+                var currencyFigure = figure as ICurrencyFigure;
+                if( Currency != null && currencyFigure != null )
                 {
-                    ( ( AbstractCurrencyFigure )currencyDatum ).Currency = Currency;
+                    ( ( AbstractCurrencyFigure )currencyFigure ).Currency = Currency;
                 }
 
-                var existingDatum = Series.SingleOrDefault( d => d.Period.Equals( datum.Period ) );
-                if( existingDatum == null )
+                var existingFigure = Series.SingleOrDefault( d => d.Period.Equals( figure.Period ) );
+                if( existingFigure == null )
                 {
-                    Series.Add( datum );
+                    Series.Add( figure );
                     continue;
                 }
 
-                if( !existingDatum.Value.HasValue || OverwriteExistingValues )
+                if( !existingFigure.Value.HasValue || OverwriteExistingValues )
                 {
-                    ( ( AbstractFigure )existingDatum ).Value = datum.Value;
-                    ( ( AbstractFigure )existingDatum ).Source = datum.Source;
+                    ( ( AbstractFigure )existingFigure ).Value = figure.Value;
+                    ( ( AbstractFigure )existingFigure ).Source = figure.Source;
 
-                    if( currencyDatum != null )
+                    if( currencyFigure != null )
                     {
-                        ( ( AbstractCurrencyFigure )existingDatum ).Currency = currencyDatum.Currency;
+                        ( ( AbstractCurrencyFigure )existingFigure ).Currency = currencyFigure.Currency;
                     }
                 }
             }
@@ -174,7 +174,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
             var descriptors = mySelectedSource.Figures
                 .Cast<IPathDescriptor>()
-                .Where( f => f.Figure == myDatumType.Name );
+                .Where( f => f.Figure == myFigureType.Name );
 
             foreach( var descriptor in descriptors )
             {
@@ -212,7 +212,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 }
                 catch( Exception ex )
                 {
-                    ex.Data[ "Figure" ] = myDatumType.Name;
+                    ex.Data[ "Figure" ] = myFigureType.Name;
                     ex.Data[ "DataSource.Vendor" ] = mySelectedSource.Vendor;
                     ex.Data[ "DataSource.Name" ] = mySelectedSource.Name;
                     ex.Data[ "Location" ] = mySelectedSource.Location.ToString();
@@ -224,18 +224,18 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                     }
                     else
                     {
-                        myLogger.Error( ex, "Failed to fetch '{0}' from site {1}", myDatumType.Name, mySelectedSource.Name );
+                        myLogger.Error( ex, "Failed to fetch '{0}' from site {1}", myFigureType.Name, mySelectedSource.Name );
                     }
                 }
             }
         }
 
-        public void Fetch( Type datum )
+        public void Fetch( Type figure )
         {
-            myDatumType = datum;
+            myFigureType = figure;
 
             var sources = myStorageService.Load()
-                .Where( source => source.Figures.Any( f => f.Figure == myDatumType.Name ) );
+                .Where( source => source.Figures.Any( f => f.Figure == myFigureType.Name ) );
 
             Sources.AddRange( sources.OrderBy( s => s.Quality ) );
             SelectedSource = Sources.FirstOrDefault();

@@ -8,7 +8,7 @@ using RaynMaker.Entities.Figures;
 namespace RaynMaker.Modules.Analysis.AnalysisSpec.Providers
 {
     /// <summary>
-    /// Returns a ratio of a given datum to the current price
+    /// Returns a ratio of a given figure to the current price
     /// </summary>
     public class GenericPriceRatioProvider : AbstractProvider
     {

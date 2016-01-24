@@ -30,7 +30,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             mySession = new Session();
 
             SourceDefinition = new DataSourceDefinitionViewModel( mySession );
-            DatumLocation = new DocumentLocationViewModel( mySession );
+            DocumentLocation = new DocumentLocationViewModel( mySession );
             Figures = new DataSourceFiguresViewModel( mySession, lutService );
             Completion = new CompletionViewModel( mySession, myProjectHost, myStorageService );
 
@@ -63,7 +63,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
                 // TODO: how to disable images in browser
 
-                DatumLocation.Browser = myDocumentBrowser;
+                DocumentLocation.Browser = myDocumentBrowser;
                 Figures.Browser = myDocumentBrowser;
                 Completion.Browser = myDocumentBrowser;
 
@@ -86,7 +86,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         public DataSourceDefinitionViewModel SourceDefinition { get; private set; }
 
-        public DocumentLocationViewModel DatumLocation { get; private set; }
+        public DocumentLocationViewModel DocumentLocation { get; private set; }
 
         public DataSourceFiguresViewModel Figures { get; private set; }
 

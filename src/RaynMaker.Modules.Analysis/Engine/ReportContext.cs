@@ -24,12 +24,12 @@ namespace RaynMaker.Modules.Analysis.Engine
             Document = document;
 
             var data = new List<IFigureSeries>();
-            foreach( var datumType in Dynamics.AllFigures )
+            foreach( var figureType in Dynamics.AllFigures )
             {
                 // EnableCurrencyCheck has to be true - otherwise we will not have series.Currency property set
                 // except for Price - there we might have different currencies in one collection and currently we anyway
                 // just need one price
-                data.Add( Dynamics.GetSeries( stock, datumType, datumType != typeof( Price ) ) );
+                data.Add( Dynamics.GetSeries( stock, figureType, figureType != typeof( Price ) ) );
             }
             Data = data;
 
@@ -37,9 +37,9 @@ namespace RaynMaker.Modules.Analysis.Engine
 
             myProviders.Add( new CurrentPrice() );
 
-            foreach( var datumType in Dynamics.AllFigures.Where( t => t != typeof( Price ) ) )
+            foreach( var figureType in Dynamics.AllFigures.Where( t => t != typeof( Price ) ) )
             {
-                myProviders.Add( new GenericDatumProvider( datumType ) );
+                myProviders.Add( new GenericFigureProvider( figureType ) );
             }
 
             myProviders.Add( new GenericJoinProvider( ProviderNames.Eps, typeof( NetIncome ).Name, typeof( SharesOutstanding ).Name,
@@ -153,7 +153,7 @@ namespace RaynMaker.Modules.Analysis.Engine
                 return;
             }
 
-            Document.Headline( "Datum provider failures" );
+            Document.Headline( "Figure provider failures" );
             foreach( var failure in myProviderFailures )
             {
                 Document.Paragraph( failure.ToString() );

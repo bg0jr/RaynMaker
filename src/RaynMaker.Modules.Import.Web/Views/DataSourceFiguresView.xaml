@@ -48,7 +48,7 @@
             <ComboBox ItemsSource="{Binding Descriptors}" SelectedIndex="{Binding SelectedDescriptorIndex}" Width="150" >
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding SelectedDatum.Name}"/>
+                        <TextBlock Text="{Binding SelectedFigure.Name}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>

@@ -23,20 +23,20 @@ namespace RaynMaker.Data.Views
 
                 myInMillions = value;
 
-                foreach( var datum in DatumSeries )
+                foreach( var figure in Series )
                 {
-                    ( ( EntityBase )datum ).RaisePropertyChanged( () => datum.Value );
+                    ( ( EntityBase )figure ).RaisePropertyChanged( () => figure.Value );
                 }
             }
         }
 
-        public static readonly DependencyProperty DatumSeriesProperty = DependencyProperty.Register( "DatumSeries",
+        public static readonly DependencyProperty SeriesProperty = DependencyProperty.Register( "Series",
             typeof( IFigureSeries ), typeof( InMillionsConverter ), new PropertyMetadata( null ) );
 
-        public IFigureSeries DatumSeries
+        public IFigureSeries Series
         {
-            get { return ( IFigureSeries )GetValue( DatumSeriesProperty ); }
-            set { SetValue( DatumSeriesProperty, value ); }
+            get { return ( IFigureSeries )GetValue( SeriesProperty ); }
+            set { SetValue( SeriesProperty, value ); }
         }
 
         public object Convert( object value, Type targetType, object parameter, CultureInfo culture )

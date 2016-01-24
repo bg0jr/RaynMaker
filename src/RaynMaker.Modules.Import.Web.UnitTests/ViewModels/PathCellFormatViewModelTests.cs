@@ -99,7 +99,7 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
             Assert.That( viewModel.RowPattern, Is.EqualTo( "row" ) );
             Assert.That( viewModel.RowPosition, Is.EqualTo( 4 ) );
             Assert.That( viewModel.SelectedCurrency.Symbol, Is.EqualTo( "EUR" ) );
-            Assert.That( viewModel.SelectedDatum, Is.EqualTo( typeof( Dividend ) ) );
+            Assert.That( viewModel.SelectedFigure, Is.EqualTo( typeof( Dividend ) ) );
             Assert.That( viewModel.Value, Is.Null.Or.Empty );
             Assert.That( viewModel.ValueFormat, Is.EqualTo( descriptor.ValueFormat ) );
         }
@@ -156,7 +156,7 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
 
             var viewModel = CreateViewModel( descriptor );
 
-            Assert.That( viewModel.Datums, Is.EquivalentTo( Dynamics.AllFigures ) );
+            Assert.That( viewModel.Figures, Is.EquivalentTo( Dynamics.AllFigures ) );
         }
 
         [Test]

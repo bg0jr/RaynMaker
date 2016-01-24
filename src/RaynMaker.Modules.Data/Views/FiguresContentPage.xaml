@@ -61,7 +61,7 @@
             <ItemsControl ItemsSource="{Binding DataSeries}" Grid.Row="1">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <GroupBox Header="{Binding DatumType.Name}">
+                        <GroupBox Header="{Binding FigureType.Name}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -70,7 +70,7 @@
                                 </Grid.RowDefinitions>
 
                                 <Grid.Resources>
-                                    <v:InMillionsConverter x:Key="InMillionsConverter" DatumSeries="{Binding}"/>
+                                    <v:InMillionsConverter x:Key="InMillionsConverter" Series="{Binding}"/>
                                 </Grid.Resources>
 
                                 <CheckBox Grid.Row="0" IsChecked="{Binding InMillions, Source={StaticResource InMillionsConverter}}" 

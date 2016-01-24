@@ -45,7 +45,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             myColumnPosition= -1;
             myRowPosition = -1;
 
-            SelectedDatum = Datums.FirstOrDefault( d => d.Name == Descriptor.Figure );
+            SelectedFigure = Figures.FirstOrDefault( d => d.Name == Descriptor.Figure );
             Path = Descriptor.Path;
 
             if( Descriptor.ValueFormat == null )

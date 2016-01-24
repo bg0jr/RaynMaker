@@ -10,12 +10,12 @@ namespace RaynMaker.Entities.UnitTests
     {
         static object[] AllFigures = Dynamics.AllFigures.ToArray();
 
-        [Test, TestCaseSource( "AllDatums" )]
-        public void GetRelationship_ForDatum_NotNull( Type datumType )
+        [Test, TestCaseSource( "AllFigures" )]
+        public void GetRelationship_ForFigure_NotNull( Type figureType )
         {
             var stock = new Stock { Company = new Company() };
 
-            var refs = Dynamics.GetRelationship( stock, datumType );
+            var refs = Dynamics.GetRelationship( stock, figureType );
 
             Assert.That( refs, Is.Not.Null );
         }

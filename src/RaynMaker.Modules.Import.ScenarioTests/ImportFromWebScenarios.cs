@@ -45,7 +45,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             stock.Company = new Company { Name = "BMW" };
             stock.Company.Stocks.Add( stock );
 
-            var dataProvider = new WebDatumProvider( new StorageService( myProjectHost.Object ), myLutService.Object );
+            var dataProvider = new WebFigureProvider( new StorageService( myProjectHost.Object ), myLutService.Object );
             dataProvider.CustomResolverCreator = r => new CompositeMacroResolver( new MacroResolver( TestDataRoot ), r );
 
             var request = new DataProviderRequest( stock, typeof( Dividend ), new YearPeriod( 2001 ), new YearPeriod( 2004 ) )
@@ -85,7 +85,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             stock.Company = new Company { Name = "Volkswagen" };
             stock.Company.Stocks.Add( stock );
 
-            var dataProvider = new WebDatumProvider( new StorageService( myProjectHost.Object ), myLutService.Object );
+            var dataProvider = new WebFigureProvider( new StorageService( myProjectHost.Object ), myLutService.Object );
             dataProvider.CustomResolverCreator = r => new CompositeMacroResolver( new MacroResolver( TestDataRoot ), r );
 
             var request = new DataProviderRequest( stock, typeof( Price ), new DayPeriod( DateTime.MinValue ), new DayPeriod( DateTime.MaxValue ) )

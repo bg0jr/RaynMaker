@@ -6,7 +6,7 @@ namespace RaynMaker.Infrastructure.Services
 {
     public interface IDataProvider
     {
-        bool CanFetch( Type datum );
+        bool CanFetch( Type figureType );
 
         /// <summary>
         /// From and To dates are included in the result series

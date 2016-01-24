@@ -18,10 +18,10 @@ namespace RaynMaker.Modules.Analysis.AnalysisSpec
                 Value = series.Average( d => d.Value )
             };
 
-            var currencyDatums = series.OfType<ICurrencyFigure>();
-            if( currencyDatums.Any() )
+            var currencyFigures = series.OfType<ICurrencyFigure>();
+            if( currencyFigures.Any() )
             {
-                result.Currency = currencyDatums.First().Currency;
+                result.Currency = currencyFigures.First().Currency;
             }
 
             result.Inputs.AddRange( series );

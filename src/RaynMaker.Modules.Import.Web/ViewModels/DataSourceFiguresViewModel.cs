@@ -182,7 +182,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
             var descriptor = FigureDescriptorFactory.Clone( Descriptors[ SelectedDescriptorIndex ].Descriptor );
 
-            // reset the Datum to enforce user interaction after clone (Datum is mandatory) 
+            // reset the Figure to enforce user interaction after clone (Figure is mandatory) 
             descriptor.Figure = null;
 
             Session.CurrentSource.Figures.Add( descriptor );

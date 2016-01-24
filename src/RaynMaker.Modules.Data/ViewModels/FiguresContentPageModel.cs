@@ -21,7 +21,7 @@ namespace RaynMaker.Data.ViewModels
     class FiguresContentPageModel : BindableBase, IContentPage
     {
         private IProjectHost myProjectHost;
-        private List<IFigureSeries> myDatums;
+        private List<IFigureSeries> myFigures;
         private Stock myStock;
 
         [ImportingConstructor]
@@ -51,10 +51,10 @@ namespace RaynMaker.Data.ViewModels
         {
             Stock = stock;
 
-            myDatums = new List<IFigureSeries>();
-            foreach( var datumType in Dynamics.AllFigures.Where( t => t != typeof( Price ) ) )
+            myFigures = new List<IFigureSeries>();
+            foreach( var figureType in Dynamics.AllFigures.Where( t => t != typeof( Price ) ) )
             {
-                myDatums.Add( Dynamics.GetSeries( stock, datumType, false ) );
+                myFigures.Add( Dynamics.GetSeries( stock, figureType, false ) );
             }
 
             // we might have prices of different currencies - do only add latest
@@ -68,23 +68,23 @@ namespace RaynMaker.Data.ViewModels
                     series.Add( currentPrice );
                 }
 
-                myDatums.Add( series );
+                myFigures.Add( series );
             }
 
             // data sanity - TODO: later move to creation of new DataSheet
             {
-                var series = ( FigureSeries )myDatums.SeriesOf( typeof( Price ) );
+                var series = ( FigureSeries )myFigures.SeriesOf( typeof( Price ) );
                 if( series.Current<Price>() == null )
                 {
                     series.Add( new Price() );
                 }
             }
 
-            // defaultCurrency could be taken from any datum but Price
+            // defaultCurrency could be taken from any figure but Price
             Currency defaultCurrency = null;
             foreach( var type in Dynamics.AllFigures.Where( t => t != typeof( Price ) ) )
             {
-                var series = ( FigureSeries )myDatums.SeriesOf( type );
+                var series = ( FigureSeries )myFigures.SeriesOf( type );
 
                 // TODO: today we only support yearly values here
                 var currentYear = DateTime.Now.Year;
@@ -102,9 +102,9 @@ namespace RaynMaker.Data.ViewModels
                 {
                     if( !existingYears.Contains( i ) )
                     {
-                        var datum = Dynamics.CreateFigure( Stock, type, new YearPeriod( i ),
+                        var figure = Dynamics.CreateFigure( Stock, type, new YearPeriod( i ),
                             series.Currency != null ? series.Currency : defaultCurrency );
-                        series.Add( datum );
+                        series.Add( figure );
                     }
                 }
             }
@@ -120,15 +120,15 @@ namespace RaynMaker.Data.ViewModels
             var ctx = myProjectHost.Project.GetAssetsContext();
 
             // validate currency consistancy
-            foreach( FigureSeries series in myDatums.ToList() )
+            foreach( FigureSeries series in myFigures.ToList() )
             {
                 // we need to remove those items which have no value because those might 
                 // have "wrong" default currency
-                foreach( var datum in series.OfType<AbstractFigure>().Where( d => !d.Value.HasValue ).ToList() )
+                foreach( var figure in series.OfType<AbstractFigure>().Where( d => !d.Value.HasValue ).ToList() )
                 {
-                    series.Remove( datum );
+                    series.Remove( figure );
 
-                    if( datum.Id != 0 )
+                    if( figure.Id != 0 )
                     {
                         // TODO: remove from stock/company relationship to remove it finally from DB
                         //Dynamics.Remove(
@@ -141,15 +141,15 @@ namespace RaynMaker.Data.ViewModels
                 series.VerifyCurrencyConsistency();
             }
 
-            foreach( FigureSeries series in myDatums.ToList() )
+            foreach( FigureSeries series in myFigures.ToList() )
             {
-                var datums = ( IList )Dynamics.GetRelationship( Stock, series.FigureType );
+                var figures = ( IList )Dynamics.GetRelationship( Stock, series.FigureType );
 
-                foreach( AbstractFigure datum in series )
+                foreach( AbstractFigure figure in series )
                 {
-                    if( datum.Id == 0 && datum.Value.HasValue )
+                    if( figure.Id == 0 && figure.Value.HasValue )
                     {
-                        datums.Add( datum );
+                        figures.Add( figure );
                     }
                 }
             }
@@ -163,14 +163,14 @@ namespace RaynMaker.Data.ViewModels
 
         public Price Price
         {
-            get { return myDatums == null ? null : myDatums.SeriesOf( typeof( Price ) ).Current<Price>(); }
+            get { return myFigures == null ? null : myFigures.SeriesOf( typeof( Price ) ).Current<Price>(); }
         }
 
         public IEnumerable<IFigureSeries> DataSeries
         {
             get
             {
-                return myDatums == null ? null : myDatums
+                return myFigures == null ? null : myFigures
                     .Where( s => s.FigureType != typeof( Price ) )
                     .OrderBy( s => s.FigureType.Name );
             }

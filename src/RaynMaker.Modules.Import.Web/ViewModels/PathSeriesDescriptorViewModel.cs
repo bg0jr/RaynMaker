@@ -38,7 +38,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             myValuesPosition = -1;
             myTimesPosition = -1;
 
-            SelectedDatum = Datums.FirstOrDefault( d => d.Name == descriptor.Figure );
+            SelectedFigure = Figures.FirstOrDefault( d => d.Name == descriptor.Figure );
             Path = descriptor.Path;
 
             if ( descriptor.ValueFormat == null )

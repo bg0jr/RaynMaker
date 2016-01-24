@@ -15,7 +15,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         where TMarker : IHtmlMarker
     {
         private IDocument myDocument;
-        private Type mySelectedDatum;
+        private Type mySelectedFigure;
 
         protected FigureDescriptorViewModelBase( TFigureDescriptor descriptor, TMarker marker )
             : this( descriptor, new HtmlMarkupBehavior<TMarker>( marker ) )
@@ -29,7 +29,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
             Descriptor = descriptor;
 
-            Datums = Dynamics.AllFigures
+            Figures = Dynamics.AllFigures
                 .OrderBy( d => d.Name )
                 .ToList();
 
@@ -41,16 +41,16 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         IFigureDescriptor IDescriptorViewModel.Descriptor { get { return this.Descriptor; } }
 
-        public IEnumerable<Type> Datums { get; private set; }
+        public IEnumerable<Type> Figures { get; private set; }
 
-        public Type SelectedDatum
+        public Type SelectedFigure
         {
-            get { return mySelectedDatum; }
+            get { return mySelectedFigure; }
             set
             {
-                if( SetProperty( ref mySelectedDatum, value ) )
+                if( SetProperty( ref mySelectedFigure, value ) )
                 {
-                    Descriptor.Figure = mySelectedDatum.Name;
+                    Descriptor.Figure = mySelectedFigure.Name;
                 }
             }
         }

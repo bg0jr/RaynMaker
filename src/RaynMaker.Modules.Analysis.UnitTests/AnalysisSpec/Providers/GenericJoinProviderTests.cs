@@ -51,7 +51,7 @@ namespace RaynMaker.Modules.Analysis.UnitTests.AnalysisSpec.Providers
             var result = myProvider.ProvideValue( myContext.Object );
 
             Assert.That( result, Is.InstanceOf<MissingData>() );
-            Assert.That( ( ( MissingData )result ).Datum, Is.EqualTo( LhsSeriesName ) );
+            Assert.That( ( ( MissingData )result ).Figure, Is.EqualTo( LhsSeriesName ) );
         }
 
         [Test]
@@ -63,7 +63,7 @@ namespace RaynMaker.Modules.Analysis.UnitTests.AnalysisSpec.Providers
             var result = myProvider.ProvideValue( myContext.Object );
 
             Assert.That( result, Is.InstanceOf<MissingData>() );
-            Assert.That( ( ( MissingData )result ).Datum, Is.EqualTo( RhsSeriesName ) );
+            Assert.That( ( ( MissingData )result ).Figure, Is.EqualTo( RhsSeriesName ) );
         }
 
         [Test]

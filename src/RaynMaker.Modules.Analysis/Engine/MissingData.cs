@@ -4,21 +4,21 @@ namespace RaynMaker.Modules.Analysis.Engine
 {
     class MissingData : IFigureProviderFailure
     {
-        public MissingData( string datum, object defaultValue )
+        public MissingData( string figure, object defaultValue )
         {
-            Contract.RequiresNotNullNotEmpty( datum, "datum" );
+            Contract.RequiresNotNullNotEmpty( figure, "figure" );
 
-            Datum = datum;
+            Figure = figure;
             DefaultValue = defaultValue;
         }
 
-        public string Datum { get; private set; }
+        public string Figure { get; private set; }
 
         public object DefaultValue { get; private set; }
 
         public override string ToString()
         {
-            return string.Format( "No data found for '{0}'", Datum );
+            return string.Format( "No data found for '{0}'", Figure );
         }
     }
 }

@@ -135,7 +135,7 @@
     <Compile Include="ViewModels\AnalysisTemplateMenuItemModel.cs" />
     <Compile Include="AnalysisModule.cs" />
     <Compile Include="AnalysisSpec\InMioExtension.cs" />
-    <Compile Include="AnalysisSpec\Providers\GenericDatumProvider.cs" />
+    <Compile Include="AnalysisSpec\Providers\GenericFigureProvider.cs" />
     <Compile Include="AnalysisSpec\Providers\CurrentPrice.cs" />
     <Compile Include="Engine\ExpressionEvaluator.cs" />
     <Compile Include="AnalysisSpec\Functions.cs" />

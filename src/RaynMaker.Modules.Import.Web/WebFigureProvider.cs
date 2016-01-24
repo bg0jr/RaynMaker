@@ -13,7 +13,7 @@ using RaynMaker.Modules.Import.Web.Views;
 namespace RaynMaker.Modules.Import.Web
 {
     [Export( typeof( IDataProvider ) )]
-    class WebDatumProvider : IDataProvider
+    class WebFigureProvider : IDataProvider
     {
         private StorageService myStorageService;
         private ILutService myLutService;
@@ -28,7 +28,7 @@ namespace RaynMaker.Modules.Import.Web
         }
 
         [ImportingConstructor]
-        public WebDatumProvider( StorageService storageService, ILutService lutService )
+        public WebFigureProvider( StorageService storageService, ILutService lutService )
         {
             myStorageService = storageService;
             myLutService = lutService;
@@ -80,7 +80,7 @@ namespace RaynMaker.Modules.Import.Web
                 };
                 preview.DataContext = previewViewModel;
 
-                previewViewModel.Fetch( request.DatumType );
+                previewViewModel.Fetch( request.FigureType );
 
                 preview.Top = 0;
                 preview.Left = 0;
@@ -89,7 +89,7 @@ namespace RaynMaker.Modules.Import.Web
             else
             {
                 previewViewModel.Browser = new SafeWebBrowser();
-                previewViewModel.Fetch( request.DatumType );
+                previewViewModel.Fetch( request.FigureType );
                 previewViewModel.PublishData();
             }
         }

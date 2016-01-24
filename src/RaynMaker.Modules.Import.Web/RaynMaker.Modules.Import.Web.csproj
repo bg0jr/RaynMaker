@@ -159,7 +159,7 @@
     <Compile Include="Views\WebSpyView.xaml.cs">
       <DependentUpon>WebSpyView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WebDatumProvider.cs" />
+    <Compile Include="WebFigureProvider.cs" />
     <Compile Include="WebServiceCurrencyTransalationRateProvider.cs" />
   </ItemGroup>
   <ItemGroup>

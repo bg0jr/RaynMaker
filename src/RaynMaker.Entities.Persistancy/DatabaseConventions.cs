@@ -5,10 +5,10 @@ namespace RaynMaker.Entities.Persistancy
 {
     class DatabaseConventions
     {
-        public static string GetTableName( Type datumType )
+        public static string GetTableName( Type figureType )
         {
             var service = new EnglishPluralizationService();
-            return service.Pluralize( datumType.Name );
+            return service.Pluralize( figureType.Name );
         }
     }
 }

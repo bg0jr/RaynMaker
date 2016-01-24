@@ -94,7 +94,7 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
 
             var viewModel = CreateViewModel( descriptor );
 
-            Assert.That( viewModel.SelectedDatum, Is.EqualTo( typeof( Dividend ) ) );
+            Assert.That( viewModel.SelectedFigure, Is.EqualTo( typeof( Dividend ) ) );
             Assert.That( viewModel.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]" ) );
             Assert.That( viewModel.SelectedOrientation, Is.EqualTo( descriptor.Orientation ) );
             Assert.That( viewModel.ValuesPattern, Is.EqualTo( "Dividend in Mio" ) );
@@ -149,7 +149,7 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
 
             var viewModel = CreateViewModel( descriptor );
 
-            Assert.That( viewModel.Datums, Is.EquivalentTo( Dynamics.AllFigures ) );
+            Assert.That( viewModel.Figures, Is.EquivalentTo( Dynamics.AllFigures ) );
         }
 
         [Test]
