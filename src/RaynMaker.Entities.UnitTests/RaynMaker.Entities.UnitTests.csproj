@@ -37,11 +37,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompanyTests.cs" />
-    <Compile Include="DatumSeriesTests.cs" />
+    <Compile Include="FigureSeriesTests.cs" />
     <Compile Include="DynamicsTests.cs" />
-    <Compile Include="Fakes\DatumFactory.cs" />
-    <Compile Include="Fakes\FakeCurrencyDatum.cs" />
-    <Compile Include="Fakes\FakeDatum.cs" />
+    <Compile Include="Fakes\FigureFactory.cs" />
+    <Compile Include="Fakes\FakeCurrencyFigure.cs" />
+    <Compile Include="Fakes\FakeFigure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StockTests.cs" />
   </ItemGroup>
