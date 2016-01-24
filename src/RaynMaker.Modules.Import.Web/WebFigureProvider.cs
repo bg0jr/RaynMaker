@@ -35,10 +35,10 @@ namespace RaynMaker.Modules.Import.Web
             myCurrencyCache = new CurrencyCache();
         }
 
-        public bool CanFetch( Type datum )
+        public bool CanFetch( Type figure )
         {
             return myStorageService.Load()
-                .Any( source => source.Figures.Any( f => f.Figure == datum.Name ) );
+                .Any( source => source.Figures.Any( f => f.Figure == figure.Name ) );
         }
 
         // TODO: actually we would like to have this in the request but this does not work because of 

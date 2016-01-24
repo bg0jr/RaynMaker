@@ -10,7 +10,7 @@ namespace RaynMaker.Entities.ScenarioTests
     [TestFixture]
     class CascadingDeleteTests : DatabaseTestsBase
     {
-        static object[] AllDatums = Dynamics.AllFigures.ToArray();
+        static object[] AllFigures = Dynamics.AllFigures.ToArray();
 
         private Currency myCurrency;
 
@@ -52,14 +52,14 @@ namespace RaynMaker.Entities.ScenarioTests
             DeleteAndVerify( company, "'References'", "Company_Id", c => c.Id );
         }
 
-        [Test, TestCaseSource( "AllDatums" )]
-        public void DeleteCompany_WithDatum_DeleteCascades( Type datumType )
+        [Test, TestCaseSource( "AllFigures" )]
+        public void DeleteCompany_WithFigure_DeleteCascades( Type figureType )
         {
             var company = CreateFakeCompanyWithStock();
 
-            AddFakeDatum( company.Stocks.Single(), datumType, myCurrency );
+            AddFakeFigure( company.Stocks.Single(), figureType, myCurrency );
 
-            var tableName = DatabaseConventions.GetTableName( datumType );
+            var tableName = DatabaseConventions.GetTableName( figureType );
 
             string ownerIdColumn;
             Func<Company, long> GetId;
@@ -127,14 +127,14 @@ namespace RaynMaker.Entities.ScenarioTests
             }
         }
 
-        private void AddFakeDatum( Stock stock, Type datumType, Currency currency )
+        private void AddFakeFigure( Stock stock, Type figureType, Currency currency )
         {
-            var datum = Dynamics.CreateFigure( stock, datumType, new DayPeriod( DateTime.UtcNow ), currency );
+            var figure = Dynamics.CreateFigure( stock, figureType, new DayPeriod( DateTime.UtcNow ), currency );
 
-            var requiredProperties = datumType.GetProperties()
-                // will be set by EF when saving datum
+            var requiredProperties = figureType.GetProperties()
+                // will be set by EF when saving figure
                 .Where( p => p.Name != "Id" )
-                // set by "CreateDatum" already
+                // set by "CreateFigure" already
                 .Where( p => p.Name != "Period" && p.Name != "RawPeriod" && p.Name != "Currency" && p.Name != "Company" && p.Name != "Stock" )
                 // updated automatically
                 .Where( p => p.Name != "Timestamp" )
@@ -144,11 +144,11 @@ namespace RaynMaker.Entities.ScenarioTests
             {
                 if( prop.PropertyType == typeof( double ) || prop.PropertyType == typeof( double? ) )
                 {
-                    prop.SetValue( datum, 42d );
+                    prop.SetValue( figure, 42d );
                 }
                 else if( prop.PropertyType == typeof( string ) )
                 {
-                    prop.SetValue( datum, "dummy" );
+                    prop.SetValue( figure, "dummy" );
                 }
                 else
                 {
@@ -157,8 +157,8 @@ namespace RaynMaker.Entities.ScenarioTests
             }
 
             // add to relationship
-            var datums = ( IList )Dynamics.GetRelationship( stock, datumType );
-            datums.Add( datum );
+            var figures = ( IList )Dynamics.GetRelationship( stock, figureType );
+            figures.Add( figure );
         }
     }
 }

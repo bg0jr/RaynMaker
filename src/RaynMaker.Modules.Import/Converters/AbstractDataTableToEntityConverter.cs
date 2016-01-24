@@ -37,12 +37,12 @@ namespace RaynMaker.Modules.Import.Converters
         {
             var currency = GetCurrency();
 
-            var datum = Dynamics.CreateFigure( stock, EntityType, period, currency );
+            var figure = Dynamics.CreateFigure( stock, EntityType, period, currency );
 
-            datum.Source = Source;
-            datum.Value = (double)value;
+            figure.Source = Source;
+            figure.Value = (double)value;
 
-            return datum;
+            return figure;
         }
 
         private Currency GetCurrency()
