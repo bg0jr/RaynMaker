@@ -53,36 +53,111 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         }
 
         /// <summary>
-        /// Returns the column index of the given HtmlElement or of its surrounding TD element.
+        /// Get the content of the row at the specified index.
         /// </summary>
-        public int GetColumnIndex( IHtmlElement e )
+        public IReadOnlyList<IHtmlElement> GetRow( int index )
+        {
+            Contract.Requires( 0 <= index && index < Rows.Count, "Index out of range" );
+
+            return Rows[ index ].Children;
+        }
+
+        /// <summary>
+        /// Geth the content of the row of the given cell.
+        /// </summary>
+        public IReadOnlyList<IHtmlElement> GetRow( IHtmlElement cell )
+        {
+            Contract.RequiresNotNull( cell, "cell" );
+
+            var row = GetEmbeddingTR( cell );
+
+            Contract.Requires( row != null, "Element does not point to cell inside table row" );
+
+            return row.Children;
+        }
+
+        /// <summary>
+        /// Returns the row index of the given HtmlElement.
+        /// </summary> 
+        public int RowIndexOf( IHtmlElement e )
+        {
+            var tr = GetEmbeddingTR( e );
+            if( tr == null )
+            {
+                return -1;
+            }
+
+            return Rows.IndexOf( tr );
+        }
+
+        private IHtmlElement GetEmbeddingTR( IHtmlElement element )
+        {
+            Contract.RequiresNotNull( element, "e" );
+
+            if( element.TagName.Equals( "TR", StringComparison.OrdinalIgnoreCase ) )
+            {
+                return element;
+            }
+            else
+            {
+                var parent = GetParent( element, e => e.TagName.Equals( "TR", StringComparison.OrdinalIgnoreCase ), e => IsTableOrTBody( e ) );
+                return ( parent == null ? null : parent );
+            }
+        }
+
+        private static bool IsTableOrTBody( IHtmlElement element )
+        {
+            return element.TagName.Equals( "TABLE", StringComparison.OrdinalIgnoreCase ) || element.TagName.Equals( "TBODY", StringComparison.OrdinalIgnoreCase );
+        }
+        
+        public IReadOnlyList<IHtmlElement> GetColumn( int index )
+        {
+            return Rows
+                .Select( row => GetChildAt( row, new[] { "TD", "TH" }, index ) )
+                .ToList();
+        }
+
+        /// <summary>
+        /// Gets the complete column of the given cell.
+        /// </summary>
+        public IReadOnlyList<IHtmlElement> GetColumn( IHtmlElement cell )
+        {
+            Contract.RequiresNotNull( cell, "cell" );
+
+            int index = ColumnIndexOf( cell );
+
+            return GetColumn( index );
+        }
+
+        /// <summary>
+        /// Returns the column index of the given HtmlElement.
+        /// </summary>
+        public int ColumnIndexOf( IHtmlElement e )
         {
             var td = GetEmbeddingTD( e );
             if( td == null )
             {
                 return -1;
             }
-            return GetChildPos( td );
-        }
 
-        private int GetChildPos( IHtmlElement element )
-        {
-            Contract.RequiresNotNull( element, "element" );
+            Contract.Invariant( td.Parent != null, "Parent must not be null" );
 
-            if( element.Parent == null )
+            int childPos = -1;
+
+            foreach( var child in td.Parent.Children )
             {
-                // assume its valid HTML with <html/> as root element
-                return 0;
-            }
+                // only count cells (e.g. ignore #text nodes which could be newlines)
+                if( !( child.TagName.Equals( "TD", StringComparison.OrdinalIgnoreCase ) || child.TagName.Equals( "TH", StringComparison.OrdinalIgnoreCase ) ) )
+                {
+                    continue;
+                }
 
-            int childPos = 0;
-            foreach( var child in element.Parent.Children )
-            {
-                if( child == element )
+                childPos++;
+
+                if( child == td )
                 {
                     return childPos;
                 }
-                childPos++;
             }
 
             return -1;
@@ -92,13 +167,14 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         {
             Contract.RequiresNotNull( element, "e" );
 
-            if( element.TagName == "TD" || element.TagName == "TH" )
+            if( element.TagName.Equals( "TD", StringComparison.OrdinalIgnoreCase ) || element.TagName.Equals( "TH", StringComparison.OrdinalIgnoreCase ) )
             {
                 return element;
             }
             else
             {
-                var parent = GetParent( element, e => e.TagName == "TD" || e.TagName == "TH", e => IsTableOrTBody( e ) );
+                var parent = GetParent( element, e => e.TagName.Equals( "TD", StringComparison.OrdinalIgnoreCase ) || e.TagName.Equals( "TH",
+                    StringComparison.OrdinalIgnoreCase ), e => IsTableOrTBody( e ) );
                 return ( parent == null ? null : parent );
             }
         }
@@ -128,41 +204,10 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         }
 
         /// <summary>
-        /// Returns the row index of the given HtmlElement or of its
-        /// surrounding TR element.
-        /// <seealso cref="GetEmbeddingTR"/>
-        /// </summary> 
-        public int GetRowIndex( IHtmlElement e )
-        {
-            var tr = GetEmbeddingTR( e );
-            if( tr == null )
-            {
-                return -1;
-            }
-
-            return Rows.IndexOf( tr );
-        }
-
-        private IHtmlElement GetEmbeddingTR( IHtmlElement element )
-        {
-            Contract.RequiresNotNull( element, "e" );
-
-            if( element.TagName == "TR" )
-            {
-                return element;
-            }
-            else
-            {
-                var parent = GetParent( element, e => e.TagName == "TR", e => IsTableOrTBody( e ) );
-                return ( parent == null ? null : parent );
-            }
-        }
-
-        /// <summary>
         /// Returns the TD element at the specified position.
         /// </summary>
         /// <returns>the TD element found, null otherwise</returns>
-        public IHtmlElement GetCellAt( int row, int column )
+        public IHtmlElement GetCell( int row, int column )
         {
             var r = Rows.ElementAt( row );
             if( r == null )
@@ -192,58 +237,6 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             }
 
             return null;
-
-            // TODO: this could happen if the site has been changed and the 
-            // path is no longer valid
-            //throw new ArgumentException( "Could not find child for path: " + tagName + "[" + pos + "]" );
-        }
-
-        public IReadOnlyList<IHtmlElement> GetRow( int row )
-        {
-            Contract.Requires( 0 <= row && row < Rows.Count, "Index out of range" );
-
-            return Rows[ row ].Children;
-        }
-
-        /// <summary>
-        /// Gets the complete row of the given cell.
-        /// </summary>
-        public IReadOnlyList<IHtmlElement> GetRow( IHtmlElement cell )
-        {
-            Contract.RequiresNotNull( cell, "cell" );
-
-            var row = GetEmbeddingTR( cell );
-            if( row == null )
-            {
-                throw new ArgumentException( "Element does not point to cell inside table row" );
-            }
-
-            return row.Children;
-        }
-
-        public IReadOnlyList<IHtmlElement> GetColumn( int col )
-        {
-            return Rows
-                .Select( row => GetRow( row ).ElementAt( col ) )
-                .ToList();
-        }
-
-        /// <summary>
-        /// Gets the complete column of the given cell.
-        /// <remarks>Attention: Handling "colspan" is not implemented.
-        /// A TR without any TD is skipped.</remarks>
-        /// </summary>
-        public IReadOnlyList<IHtmlElement> GetColumn( IHtmlElement cell )
-        {
-            Contract.RequiresNotNull( cell, "cell" );
-
-            // ignore tag - we could have TH and TD in the row
-            int colIdx = GetChildPos( cell );
-
-            return Rows
-                .Select( row => GetChildAt( row, new[] { "TD", "TH" }, colIdx ) )
-                .Where( e => e != null )
-                .ToList();
         }
 
         /// <summary>
@@ -266,28 +259,26 @@ namespace RaynMaker.Modules.Import.Parsers.Html
         /// Searches for the table which embedds the given element.
         /// If the given HtmlElement is a TABLE element, this one is returned.
         /// </summary>
-        public static HtmlTable GetByElement( IHtmlElement cell )
+        public static HtmlTable GetByElement( IHtmlElement element )
         {
-            Contract.RequiresNotNull( cell, "start" );
+            Contract.RequiresNotNull( element, "element" );
 
-            if( cell.TagName == "TABLE" )
+            if( element.TagName.Equals( "TABLE", StringComparison.OrdinalIgnoreCase ) )
             {
-                return new HtmlTable( cell );
+                return new HtmlTable( element );
             }
 
-            var table = GetParent( cell, p => p.TagName == "TABLE" );
+            var table = GetParent( element, p => p.TagName.Equals( "TABLE", StringComparison.OrdinalIgnoreCase ) );
 
             return ( table == null ? null : new HtmlTable( table ) );
         }
 
-        private static bool IsTableOrTBody( IHtmlElement element )
+        /// <summary>
+        /// Returns true if given is either TD or TH, false otherwise.
+        /// </summary>
+        public bool IsCell( IHtmlElement element )
         {
-            return element.TagName.Equals( "TABLE", StringComparison.OrdinalIgnoreCase ) || element.TagName.Equals( "TBODY", StringComparison.OrdinalIgnoreCase );
-        }
-
-        internal bool IsCell( IHtmlElement td )
-        {
-            return td.TagName == "TD" || td.TagName == "TH";
+            return element.TagName.Equals( "TD", StringComparison.OrdinalIgnoreCase ) || element.TagName.Equals( "TH", StringComparison.OrdinalIgnoreCase );
         }
     }
 }

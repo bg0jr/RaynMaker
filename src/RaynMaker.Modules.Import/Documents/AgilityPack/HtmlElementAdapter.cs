@@ -42,6 +42,11 @@ namespace RaynMaker.Modules.Import.Documents.AgilityPack
             }
         }
 
+        public string Id
+        {
+            get { return Element.Id; }
+        }
+
         public string TagName
         {
             get { return Element.Name; }

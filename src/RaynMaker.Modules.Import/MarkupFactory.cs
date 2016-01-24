@@ -139,7 +139,7 @@ namespace RaynMaker.Modules.Import
                     rowIdx++;
                 }
 
-                return table.GetCellAt( rowIdx, colIdx );
+                return table.GetCell( rowIdx, colIdx );
             }
             else if ( descriptor.Orientation == SeriesOrientation.Row )
             {
@@ -161,7 +161,7 @@ namespace RaynMaker.Modules.Import
                     colIdx++;
                 }
 
-                return table.GetCellAt( rowIdx, colIdx );
+                return table.GetCell( rowIdx, colIdx );
             }
 
             throw new NotSupportedException( "Unknown orientation: " + descriptor.Orientation );
@@ -204,7 +204,7 @@ namespace RaynMaker.Modules.Import
                 return null;
             }
 
-            return table.GetCellAt( rowIdx, colIdx );
+            return table.GetCell( rowIdx, colIdx );
         }
     }
 }

@@ -206,10 +206,10 @@ namespace RaynMaker.Modules.Import.Design
 
         private void DoSkipRows()
         {
-            int column = Table.GetColumnIndex( myElement );
+            int column = Table.ColumnIndexOf( myElement );
             if( column != -1 )
             {
-                SkipElements( mySkipRows, row => Table.GetCellAt( row, column ) );
+                SkipElements( mySkipRows, row => Table.GetCell( row, column ) );
             }
         }
 
@@ -229,10 +229,10 @@ namespace RaynMaker.Modules.Import.Design
 
         private void DoSkipColumns()
         {
-            int row = Table.GetRowIndex( myElement );
+            int row = Table.RowIndexOf( myElement );
             if( row != -1 )
             {
-                SkipElements( mySkipColumns, col => Table.GetCellAt( row, col ) );
+                SkipElements( mySkipColumns, col => Table.GetCell( row, col ) );
             }
         }
 
@@ -245,7 +245,7 @@ namespace RaynMaker.Modules.Import.Design
             }
 
             var header = myCellMarker.Elements
-                  .Select( e => Table.GetCellAt( Table.GetRowIndex( e ), myRowHeaderColumn ) )
+                  .Select( e => Table.GetCell( Table.RowIndexOf( e ), myRowHeaderColumn ) )
                   .Distinct();
 
             foreach( var e in header )
@@ -263,7 +263,7 @@ namespace RaynMaker.Modules.Import.Design
             }
 
             var header = myCellMarker.Elements
-                  .Select( e => Table.GetCellAt( myColumnHeaderRow, Table.GetColumnIndex( e ) ) )
+                  .Select( e => Table.GetCell( myColumnHeaderRow, Table.ColumnIndexOf( e ) ) )
                 // GetCellAt() may return null in case the given coordinates are wrong
                   .Where( e => e != null )
                   .Distinct();

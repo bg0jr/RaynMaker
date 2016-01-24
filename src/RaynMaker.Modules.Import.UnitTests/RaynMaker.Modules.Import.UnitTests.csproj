@@ -46,6 +46,9 @@
     <Compile Include="FigureDescriptorFactoryTests.cs" />
     <Compile Include="Parsers\Html\HtmlElementExtensionsTests.cs" />
     <Compile Include="Parsers\Html\HtmlTableTests.cs" />
+    <Compile Include="Parsers\Html\HtmlTableTests_WithTBody.cs" />
+    <Compile Include="Parsers\Html\HtmlTableTests_WithoutTBody.cs" />
+    <Compile Include="Parsers\Html\HtmlTableTestsBase.cs" />
     <Compile Include="Parsers\Html\HtmlPathElementTests.cs" />
     <Compile Include="Parsers\Html\HtmlFormTests.cs" />
     <Compile Include="Parsers\Html\HtmlDocumentExtensionsTests.cs" />

@@ -42,6 +42,11 @@ namespace RaynMaker.Modules.Import.Documents.WinForms
             }
         }
 
+        public string Id
+        {
+            get { return Element.Id; }
+        }
+
         public string TagName
         {
             get { return Element.TagName; }

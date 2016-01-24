@@ -135,8 +135,8 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             }
 
             ValuesPattern = ( Descriptor.Orientation == SeriesOrientation.Row
-                ? table.GetCellAt( table.GetRowIndex( selectedElement ), ValuesPosition )
-                : table.GetCellAt( ValuesPosition, table.GetColumnIndex( selectedElement ) ) )
+                ? table.GetCell( table.RowIndexOf( selectedElement ), ValuesPosition )
+                : table.GetCell( ValuesPosition, table.ColumnIndexOf( selectedElement ) ) )
                 .InnerText.Trim();
         }
 
@@ -222,12 +222,12 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 if ( Descriptor.Orientation == SeriesOrientation.Column )
                 {
-                    var header = table.GetCellAt( Descriptor.ValuesLocator.HeaderSeriesPosition, table.GetRowIndex( MarkupBehavior.SelectedElement ) ).InnerText;
+                    var header = table.GetCell( Descriptor.ValuesLocator.HeaderSeriesPosition, table.RowIndexOf( MarkupBehavior.SelectedElement ) ).InnerText;
                     IsValid = header.Contains( ValuesPattern, StringComparison.OrdinalIgnoreCase );
                 }
                 else if ( Descriptor.Orientation == SeriesOrientation.Row )
                 {
-                    var header = table.GetCellAt( table.GetRowIndex( MarkupBehavior.SelectedElement ), Descriptor.ValuesLocator.HeaderSeriesPosition ).InnerText;
+                    var header = table.GetCell( table.RowIndexOf( MarkupBehavior.SelectedElement ), Descriptor.ValuesLocator.HeaderSeriesPosition ).InnerText;
                     IsValid = header.Contains( ValuesPattern, StringComparison.OrdinalIgnoreCase );
                 }
 

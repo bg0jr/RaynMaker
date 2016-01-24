@@ -7,26 +7,14 @@
     </Node>
     <Node Id="02bde578-e3ec-4872-8378-6b1411fdf1d3">
       <Caption><![CDATA[1.8]]></Caption>
-      <Node Id="2fa0c595-c62b-40a5-9076-33e615fcad82">
-        <Caption><![CDATA[Parsers]]></Caption>
-        <Node Id="f35f72aa-2155-40e3-aed7-2c8c0166690b">
-          <Caption><![CDATA[HtmlTable]]></Caption>
-        </Node>
-        <Node Id="9877182f-53d2-48f3-85d7-c4d7ede75014">
-          <Caption><![CDATA[HtmlTable tests]]></Caption>
-          <Node Id="faf2b5e4-92af-41ac-b569-f36c0d74fea9">
-            <Caption><![CDATA[NavigatingHtmlDocumentScenarios to HtmlTable UT]]></Caption>
-          </Node>
-        </Node>
-      </Node>
-      <Node Id="a9c1388f-86de-49c4-a30e-8db8160da803">
-        <Caption><![CDATA[Find and replace old "Datum" with "Figure"]]></Caption>
-      </Node>
       <Node Id="d0da3880-c6d3-477b-bee2-8553b930be55">
         <Caption><![CDATA[Rework WebSpy]]></Caption>
       </Node>
       <Node Id="abb9f7c2-8cac-4750-a6d5-c1ea36d41609">
         <Caption><![CDATA[Add more verification in data collection]]></Caption>
+      </Node>
+      <Node Id="a9c1388f-86de-49c4-a30e-8db8160da803">
+        <Caption><![CDATA[Find and replace old "Datum" with "Figure"]]></Caption>
       </Node>
     </Node>
     <Node Id="4d8de17c-33e9-4f67-8e4a-e1bd0e9b4e48">

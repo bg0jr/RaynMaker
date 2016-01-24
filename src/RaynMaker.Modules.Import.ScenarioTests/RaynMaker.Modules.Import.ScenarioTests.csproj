@@ -50,7 +50,6 @@
     <Compile Include="ImportFromWebScenarios.cs" />
     <Compile Include="SubmittingFormScenarios.cs" />
     <Compile Include="ReadingFromHtmlDocumentScenarios.cs" />
-    <Compile Include="NavigatingHtmlDocumentScenarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadingFromCsvDocumentScenarios.cs" />
     <Compile Include="TestBase.cs" />

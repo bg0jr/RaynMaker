@@ -10,6 +10,8 @@ namespace RaynMaker.Modules.Import.Documents
 
         IReadOnlyList<IHtmlElement> Children { get; }
 
+        string Id { get; }
+
         string TagName { get; }
 
         string GetAttribute( string attr );

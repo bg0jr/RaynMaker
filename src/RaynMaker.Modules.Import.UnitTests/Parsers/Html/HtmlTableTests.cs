@@ -6,7 +6,7 @@ using RaynMaker.Modules.Import.Parsers.Html;
 namespace RaynMaker.Modules.Import.UnitTests.Html
 {
     [TestFixture]
-    public class HtmlTableTests
+    class HtmlTableTests
     {
         [Test]
         public void Ctor_NotATableElement_Throws()
@@ -17,7 +17,5 @@ namespace RaynMaker.Modules.Import.UnitTests.Html
             var ex = Assert.Throws<ArgumentException>( () => new HtmlTable( element ) );
             Assert.That( ex.Message, Is.StringContaining( "not a html table element" ) );
         }
-
-
     }
 }

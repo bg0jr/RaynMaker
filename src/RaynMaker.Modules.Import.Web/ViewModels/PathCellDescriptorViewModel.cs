@@ -136,8 +136,8 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 RowPosition = 0;
             }
 
-            ColumnPattern = table.GetCellAt( ColumnPosition, table.GetColumnIndex( selectedElement ) ).InnerText.Trim();
-            RowPattern = table.GetCellAt( table.GetRowIndex( selectedElement ), RowPosition ).InnerText.Trim();
+            ColumnPattern = table.GetCell( ColumnPosition, table.ColumnIndexOf( selectedElement ) ).InnerText.Trim();
+            RowPattern = table.GetCell( table.RowIndexOf( selectedElement ), RowPosition ).InnerText.Trim();
         }
 
         public string Path
@@ -189,7 +189,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
             if( table != null && RowPattern != null )
             {
-                var rowHeader = table.GetCellAt( table.GetRowIndex( MarkupBehavior.SelectedElement ), Descriptor.Row.HeaderSeriesPosition ).InnerText;
+                var rowHeader = table.GetCell( table.RowIndexOf( MarkupBehavior.SelectedElement ), Descriptor.Row.HeaderSeriesPosition ).InnerText;
                 IsRowValid = rowHeader.Contains( RowPattern, StringComparison.OrdinalIgnoreCase );
 
                 TryUpdateValue();
@@ -266,7 +266,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
             if( table != null && ColumnPattern != null )
             {
-                var colHeader = table.GetCellAt( Descriptor.Column.HeaderSeriesPosition, table.GetColumnIndex( MarkupBehavior.SelectedElement ) ).InnerText;
+                var colHeader = table.GetCell( Descriptor.Column.HeaderSeriesPosition, table.ColumnIndexOf( MarkupBehavior.SelectedElement ) ).InnerText;
                 IsColumnValid = colHeader.Contains( ColumnPattern, StringComparison.OrdinalIgnoreCase );
 
                 TryUpdateValue();

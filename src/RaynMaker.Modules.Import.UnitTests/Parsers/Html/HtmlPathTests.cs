@@ -4,7 +4,7 @@ using RaynMaker.Modules.Import.Parsers.Html;
 namespace RaynMaker.Modules.Import.UnitTests.Html
 {
     [TestFixture]
-    public class HtmlPathTests
+    class HtmlPathTests
     {
         [Test]
         public void PointsToTable_NoElements_ReturnsFalse()
