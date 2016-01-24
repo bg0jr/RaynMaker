@@ -40,7 +40,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
             HtmlMarkupAutomationProvider.SimulateClickOn( doc.Document, "rym_FrakfurtPrice" );
 
-            Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" ) );
+            Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]" ) );
             Assert.That( viewModel.Value, Is.EqualTo( "134,356\t€" ) );
             Assert.That( ( (StringContainsLocator)descriptor.Column ).HeaderSeriesPosition, Is.EqualTo( 0 ) );
             Assert.That( ( (StringContainsLocator)descriptor.Column ).Pattern, Is.EqualTo( "Letzter" ) );
@@ -73,7 +73,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             //doc.Document.Title = TestContext.CurrentContext.Test.Name;
             //doc.Document.OpenDocumentInExternalBrowser();
 
-            Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" ) );
+            Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]" ) );
             Assert.That( ( (StringContainsLocator)descriptor.Column ).HeaderSeriesPosition, Is.EqualTo( 0 ) );
             Assert.That( ( (StringContainsLocator)descriptor.Column ).Pattern, Is.EqualTo( "Letzter" ) );
             Assert.That( ( (StringContainsLocator)descriptor.Row ).HeaderSeriesPosition, Is.EqualTo( 0 ) );
@@ -101,7 +101,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
             HtmlMarkupAutomationProvider.SimulateClickOn( doc.Document, "rym_Dividend" );
 
-            Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]" ) );
+            Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]" ) );
             // we cannot calculate the exact clicked position form descriptor (anyway does not matter for series).
             // -> we just select the first value which is not header
             Assert.That( viewModel.Value, Is.EqualTo( "350,0" ) );
@@ -134,7 +134,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             //doc.Document.Title = TestContext.CurrentContext.Test.Name;
             //doc.Document.OpenDocumentInExternalBrowser();
 
-            Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]" ) );
+            Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]" ) );
             Assert.That( ( (StringContainsLocator)descriptor.ValuesLocator ).HeaderSeriesPosition, Is.EqualTo( 0 ) );
             Assert.That( ( (StringContainsLocator)descriptor.ValuesLocator ).Pattern, Is.EqualTo( "Dividendenausschüttung in Mio." ) );
             Assert.That( ( (AbsolutePositionLocator)descriptor.TimesLocator ).HeaderSeriesPosition, Is.EqualTo( 0 ) );

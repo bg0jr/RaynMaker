@@ -2,6 +2,8 @@
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using RaynMaker.Modules.Import.Documents;
+using RaynMaker.Modules.Import.Documents.AgilityPack;
 
 namespace RaynMaker.SDK.Html
 {
@@ -22,5 +24,10 @@ namespace RaynMaker.SDK.Html
 
             File.Delete( file );
         }
-    }
+
+        public static IHtmlDocument LoadHtml( string html )
+        {
+            return HtmlDocumentLoader.LoadHtml( html );
+        }
+ }
 }

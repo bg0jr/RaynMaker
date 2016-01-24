@@ -49,7 +49,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Html
 
             var pathToTable = path.GetPathToTable();
 
-            Assert.That( pathToTable.ToString(), Is.EqualTo( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]" ) );
+            Assert.That( pathToTable.ToString(), Is.EqualTo( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]" ) );
         }
 
         [Test]

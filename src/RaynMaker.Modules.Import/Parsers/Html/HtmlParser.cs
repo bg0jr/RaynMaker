@@ -74,11 +74,6 @@ namespace RaynMaker.Modules.Import.Parsers.Html
             Contract.RequiresNotNull( doc, "doc" );
             Contract.RequiresNotNull( path, "path" );
 
-            if( !path.PointsToTable && !path.PointsToTableCell )
-            {
-                throw new InvalidExpressionException( "Path neither points to table nor to cell" );
-            }
-
             var htmlTable = HtmlTable.GetByPath( doc, path );
             if( htmlTable == null )
             {

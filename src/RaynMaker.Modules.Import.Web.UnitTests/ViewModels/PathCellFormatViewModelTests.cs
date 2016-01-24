@@ -10,6 +10,7 @@ using RaynMaker.Modules.Import.Design;
 using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 using RaynMaker.Modules.Import.Web.ViewModels;
+using RaynMaker.SDK.Html;
 
 namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
 {
@@ -42,14 +43,14 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
             var viewModel = CreateViewModel( descriptor );
 
             Assert.That( descriptor.Column, Is.InstanceOf<StringContainsLocator>() );
-            Assert.That( ( (StringContainsLocator)descriptor.Column ).HeaderSeriesPosition, Is.EqualTo( -1 ) );
-            Assert.That( ( (StringContainsLocator)descriptor.Column ).Pattern, Is.Null );
+            Assert.That( ( ( StringContainsLocator )descriptor.Column ).HeaderSeriesPosition, Is.EqualTo( -1 ) );
+            Assert.That( ( ( StringContainsLocator )descriptor.Column ).Pattern, Is.Null );
             Assert.That( descriptor.Currency, Is.Null );
             Assert.That( descriptor.Figure, Is.Null );
             Assert.That( descriptor.Path, Is.Null );
             Assert.That( descriptor.Row, Is.InstanceOf<StringContainsLocator>() );
-            Assert.That( ( (StringContainsLocator)descriptor.Row ).HeaderSeriesPosition, Is.EqualTo( -1 ) );
-            Assert.That( ( (StringContainsLocator)descriptor.Row ).Pattern, Is.Null );
+            Assert.That( ( ( StringContainsLocator )descriptor.Row ).HeaderSeriesPosition, Is.EqualTo( -1 ) );
+            Assert.That( ( ( StringContainsLocator )descriptor.Row ).Pattern, Is.Null );
             Assert.That( descriptor.ValueFormat.Type, Is.EqualTo( typeof( double ) ) );
         }
 
@@ -66,13 +67,13 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
 
             var viewModel = CreateViewModel( descriptor );
 
-            Assert.That( ( (StringContainsLocator)descriptor.Column ).HeaderSeriesPosition, Is.EqualTo( 7 ) );
-            Assert.That( ( (StringContainsLocator)descriptor.Column ).Pattern, Is.EqualTo( "column" ) );
+            Assert.That( ( ( StringContainsLocator )descriptor.Column ).HeaderSeriesPosition, Is.EqualTo( 7 ) );
+            Assert.That( ( ( StringContainsLocator )descriptor.Column ).Pattern, Is.EqualTo( "column" ) );
             Assert.That( descriptor.Currency, Is.EqualTo( "EUR" ) );
             Assert.That( descriptor.Figure, Is.EqualTo( "Dividend" ) );
-            Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" ) );
-            Assert.That( ( (StringContainsLocator)descriptor.Row ).HeaderSeriesPosition, Is.EqualTo( 4 ) );
-            Assert.That( ( (StringContainsLocator)descriptor.Row ).Pattern, Is.EqualTo( "row" ) );
+            Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]" ) );
+            Assert.That( ( ( StringContainsLocator )descriptor.Row ).HeaderSeriesPosition, Is.EqualTo( 4 ) );
+            Assert.That( ( ( StringContainsLocator )descriptor.Row ).Pattern, Is.EqualTo( "row" ) );
             Assert.That( descriptor.ValueFormat.Type, Is.EqualTo( typeof( double ) ) );
             Assert.That( descriptor.ValueFormat.Format, Is.EqualTo( "00.00" ) );
         }
@@ -94,7 +95,7 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
             Assert.That( viewModel.ColumnPosition, Is.EqualTo( 7 ) );
             Assert.That( viewModel.IsColumnValid, Is.False );
             Assert.That( viewModel.IsRowValid, Is.False );
-            Assert.That( viewModel.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" ) );
+            Assert.That( viewModel.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]" ) );
             Assert.That( viewModel.RowPattern, Is.EqualTo( "row" ) );
             Assert.That( viewModel.RowPosition, Is.EqualTo( 4 ) );
             Assert.That( viewModel.SelectedCurrency.Symbol, Is.EqualTo( "EUR" ) );
@@ -166,12 +167,12 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
 
             viewModel.Path = @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]/TR[1]/TD[1]";
 
-            Assert.That( viewModel.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" ) );
-            Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" ) );
+            Assert.That( viewModel.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]" ) );
+            Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]" ) );
         }
 
         [Test]
-        public void Path_WhenCalled_PassedToDescriptor( [Values( null, @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" )]string path )
+        public void Path_WhenCalled_PassedToDescriptor( [Values( null, @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]" )]string path )
         {
             var descriptor = new PathCellDescriptor();
             var viewModel = CreateViewModel( descriptor );
@@ -192,7 +193,7 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
 
             viewModel.Path = @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]/TR[1]/TD[1]";
 
-            myMarkupBehavior.VerifySet( x => x.PathToSelectedElement = @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" );
+            myMarkupBehavior.VerifySet( x => x.PathToSelectedElement = @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]" );
         }
 
         [Test]
@@ -220,7 +221,7 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
             var viewModel = CreateViewModel( descriptor );
             viewModel.Path = "/BODY[0]";
 
-            viewModel.Document = new Mock<IHtmlDocument>().Object;
+            viewModel.Document = HtmlDocumentExtensions.LoadHtml( "<html><body/></html>" );
 
             myMarkupBehavior.VerifySet( x => x.PathToSelectedElement = viewModel.Path );
         }

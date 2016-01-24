@@ -20,6 +20,18 @@ namespace RaynMaker.Modules.Import.UnitTests.Html
         }
 
         [Test]
+        public void GetElementByPath_PathPointsToBody_BodyReturned()
+        {
+            var doc = HtmlDocumentLoader.LoadHtml( "<html><body></body></html>" );
+
+            var path = HtmlPath.Parse( "/body[0]" );
+
+            var element = doc.GetElementByPath( path );
+
+            Assert.That( element, Is.EqualTo( doc.Body ) );
+        }
+
+        [Test]
         public void GetElementByPath_SimplePath_ElementFound()
         {
             var doc = HtmlDocumentLoader.LoadHtml( "<html><body><div id='xx'/></body></html>" );

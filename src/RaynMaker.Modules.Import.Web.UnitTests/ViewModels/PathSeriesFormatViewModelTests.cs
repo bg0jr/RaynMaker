@@ -10,6 +10,7 @@ using RaynMaker.Modules.Import.Design;
 using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 using RaynMaker.Modules.Import.Web.ViewModels;
+using RaynMaker.SDK.Html;
 
 namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
 {
@@ -65,7 +66,7 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
             var viewModel = CreateViewModel( descriptor );
 
             Assert.That( descriptor.Figure, Is.EqualTo( "Dividend" ) );
-            Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" ) );
+            Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]" ) );
             Assert.That( descriptor.Orientation, Is.EqualTo( SeriesOrientation.Row ) );
             Assert.That( ( (StringContainsLocator)descriptor.ValuesLocator ).HeaderSeriesPosition, Is.EqualTo( 7 ) );
             Assert.That( ( (StringContainsLocator)descriptor.ValuesLocator ).Pattern, Is.EqualTo( "Dividend in Mio" ) );
@@ -94,7 +95,7 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
             var viewModel = CreateViewModel( descriptor );
 
             Assert.That( viewModel.SelectedDatum, Is.EqualTo( typeof( Dividend ) ) );
-            Assert.That( viewModel.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" ) );
+            Assert.That( viewModel.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]" ) );
             Assert.That( viewModel.SelectedOrientation, Is.EqualTo( descriptor.Orientation ) );
             Assert.That( viewModel.ValuesPattern, Is.EqualTo( "Dividend in Mio" ) );
             Assert.That( viewModel.ValuesPosition, Is.EqualTo( 7 ) );
@@ -159,12 +160,12 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
 
             viewModel.Path = @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]/TR[1]/TD[1]";
 
-            Assert.That( viewModel.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" ) );
-            Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" ) );
+            Assert.That( viewModel.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]" ) );
+            Assert.That( descriptor.Path, Is.EqualTo( @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]" ) );
         }
 
         [Test]
-        public void Path_WhenCalled_PassedToDescriptor( [Values( null, @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" )]string path )
+        public void Path_WhenCalled_PassedToDescriptor( [Values( null, @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]" )]string path )
         {
             var descriptor = new PathSeriesDescriptor();
             var viewModel = CreateViewModel( descriptor );
@@ -185,7 +186,7 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
 
             viewModel.Path = @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]/TR[1]/TD[1]";
 
-            myMarkupBehavior.VerifySet( x => x.PathToSelectedElement = @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]/TBODY[0]" );
+            myMarkupBehavior.VerifySet( x => x.PathToSelectedElement = @"/BODY[0]/DIV[0]/DIV[1]/DIV[6]/DIV[1]/DIV[0]/DIV[0]/TABLE[0]" );
         }
 
         [Test]
@@ -213,7 +214,7 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
             var viewModel = CreateViewModel( descriptor );
             viewModel.Path = "/BODY[0]";
 
-            viewModel.Document = new Mock<IHtmlDocument>().Object;
+            viewModel.Document = HtmlDocumentExtensions.LoadHtml( "<html><body/></html>" );
 
             myMarkupBehavior.VerifySet( x => x.PathToSelectedElement = viewModel.Path );
         }
