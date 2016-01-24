@@ -6,7 +6,7 @@ using NUnit.Framework;
 using RaynMaker.Modules.Analysis.AnalysisSpec.Providers;
 using RaynMaker.Modules.Analysis.Engine;
 using RaynMaker.Entities;
-using RaynMaker.Entities.Datums;
+using RaynMaker.Entities.Figures;
 using RaynMaker.Entities.UnitTests.Fakes;
 
 namespace RaynMaker.Modules.Analysis.UnitTests.AnalysisSpec.Providers
@@ -22,7 +22,7 @@ namespace RaynMaker.Modules.Analysis.UnitTests.AnalysisSpec.Providers
         private Mock<IFigureProviderContext> myContext;
         private GenericPriceRatioProvider myProvider;
         private Price myCurrentPrice;
-        private IDatumSeries myRhsSeries;
+        private IFigureSeries myRhsSeries;
 
         [SetUp]
         public void SetUp()
@@ -31,10 +31,10 @@ namespace RaynMaker.Modules.Analysis.UnitTests.AnalysisSpec.Providers
             myContext.Setup( x => x.Stock ).Returns( () => new Stock() );
             myContext.Setup( x => x.Data ).Returns( () =>
             {
-                var data = new List<IDatumSeries>();
+                var data = new List<IFigureSeries>();
                 if( myCurrentPrice != null )
                 {
-                    data.Add( new DatumSeries( typeof( Price ), myCurrentPrice ) );
+                    data.Add( new FigureSeries( typeof( Price ), myCurrentPrice ) );
                 }
                 return data;
             } );
@@ -56,7 +56,7 @@ namespace RaynMaker.Modules.Analysis.UnitTests.AnalysisSpec.Providers
         public void ProvideValue_PriceMissing_ReturnsMissingData()
         {
             myCurrentPrice = null;
-            myRhsSeries = new DatumSeries( typeof( FakeDatum ), DatumFactory.New( 2015, 1 ) );
+            myRhsSeries = new FigureSeries( typeof( FakeFigure ), FigureFactory.New( 2015, 1 ) );
 
             var result = myProvider.ProvideValue( myContext.Object );
 
@@ -67,8 +67,8 @@ namespace RaynMaker.Modules.Analysis.UnitTests.AnalysisSpec.Providers
         [Test]
         public void ProvideValue_RhsSeriesEmpty_ReturnsMissingData()
         {
-            myCurrentPrice = DatumFactory.NewPrice( "2015-01-01", 17.21, Euro );
-            myRhsSeries = DatumSeries.Empty;
+            myCurrentPrice = FigureFactory.NewPrice( "2015-01-01", 17.21, Euro );
+            myRhsSeries = FigureSeries.Empty;
 
             var result = myProvider.ProvideValue( myContext.Object );
 
@@ -79,8 +79,8 @@ namespace RaynMaker.Modules.Analysis.UnitTests.AnalysisSpec.Providers
         [Test]
         public void ProvideValue_PriceWithoutCurrency_Throws()
         {
-            myCurrentPrice = DatumFactory.NewPrice( "2015-01-01", 17.21, null );
-            myRhsSeries = new DatumSeries( typeof( FakeDatum ), DatumFactory.New( 2015, 1 ) );
+            myCurrentPrice = FigureFactory.NewPrice( "2015-01-01", 17.21, null );
+            myRhsSeries = new FigureSeries( typeof( FakeFigure ), FigureFactory.New( 2015, 1 ) );
 
             var ex = Assert.Throws<ArgumentException>( () => myProvider.ProvideValue( myContext.Object ) );
             Assert.That( ex.Message, Is.StringContaining( "Currency missing" ) );
@@ -89,8 +89,8 @@ namespace RaynMaker.Modules.Analysis.UnitTests.AnalysisSpec.Providers
         [Test]
         public void ProvideValue_RhsHasNoDataForPeriod_MissingDataForPeriodReturned()
         {
-            myCurrentPrice = DatumFactory.NewPrice( "2015-01-01", 17.21, Euro );
-            myRhsSeries = new DatumSeries( typeof( FakeCurrencyDatum ), DatumFactory.New( 2001, 1, Euro ) );
+            myCurrentPrice = FigureFactory.NewPrice( "2015-01-01", 17.21, Euro );
+            myRhsSeries = new FigureSeries( typeof( FakeCurrencyFigure ), FigureFactory.New( 2001, 1, Euro ) );
 
             var result = myProvider.ProvideValue( myContext.Object );
 
@@ -101,10 +101,10 @@ namespace RaynMaker.Modules.Analysis.UnitTests.AnalysisSpec.Providers
         [Test]
         public void ProvideValue_WithValidInputData_RatioReturned()
         {
-            myCurrentPrice = DatumFactory.NewPrice( "2015-01-01", 17.21, Euro );
-            myRhsSeries = new DatumSeries( typeof( FakeCurrencyDatum ), DatumFactory.New( 2015, 23, Euro ), DatumFactory.New( 2014, 37, Euro ) );
+            myCurrentPrice = FigureFactory.NewPrice( "2015-01-01", 17.21, Euro );
+            myRhsSeries = new FigureSeries( typeof( FakeCurrencyFigure ), FigureFactory.New( 2015, 23, Euro ), FigureFactory.New( 2014, 37, Euro ) );
 
-            var result = ( ICurrencyDatum )myProvider.ProvideValue( myContext.Object );
+            var result = ( ICurrencyFigure )myProvider.ProvideValue( myContext.Object );
 
             Assert.That( result.Period, Is.EqualTo( myCurrentPrice.Period ) );
             Assert.That( result.Value, Is.EqualTo( 17.21 + 23 ) );
@@ -114,10 +114,10 @@ namespace RaynMaker.Modules.Analysis.UnitTests.AnalysisSpec.Providers
         [Test]
         public void ProvideValue_WhenCalled_InputsReferenced()
         {
-            myCurrentPrice = DatumFactory.NewPrice( "2015-01-01", 17.21, Euro );
-            myRhsSeries = new DatumSeries( typeof( FakeCurrencyDatum ), DatumFactory.New( 2015, 23, Euro ), DatumFactory.New( 2014, 37, Euro ) );
+            myCurrentPrice = FigureFactory.NewPrice( "2015-01-01", 17.21, Euro );
+            myRhsSeries = new FigureSeries( typeof( FakeCurrencyFigure ), FigureFactory.New( 2015, 23, Euro ), FigureFactory.New( 2014, 37, Euro ) );
 
-            var result = ( DerivedDatum )myProvider.ProvideValue( myContext.Object );
+            var result = ( DerivedFigure )myProvider.ProvideValue( myContext.Object );
 
             Assert.That( result.Inputs, Is.EquivalentTo( new[] { myCurrentPrice, myRhsSeries.ElementAt( 1 ) } ) );
         }
@@ -125,12 +125,12 @@ namespace RaynMaker.Modules.Analysis.UnitTests.AnalysisSpec.Providers
         [Test]
         public void ProvideValue_InconsistentCurrencies_PriceCurrencyTranslated()
         {
-            myCurrentPrice = DatumFactory.NewPrice( "2015-01-01", 17.21, Euro );
-            myRhsSeries = new DatumSeries( typeof( FakeCurrencyDatum ), DatumFactory.New( 2015, 23, Dollar ), DatumFactory.New( 2014, 37, Dollar ) );
+            myCurrentPrice = FigureFactory.NewPrice( "2015-01-01", 17.21, Euro );
+            myRhsSeries = new FigureSeries( typeof( FakeCurrencyFigure ), FigureFactory.New( 2015, 23, Dollar ), FigureFactory.New( 2014, 37, Dollar ) );
             myContext.Setup( x => x.TranslateCurrency( It.IsAny<double>(), It.IsAny<Currency>(), It.IsAny<Currency>() ) )
                 .Returns<double, Currency, Currency>( ( value, source, target ) => value * 2 );
 
-            var result = ( DerivedDatum )myProvider.ProvideValue( myContext.Object );
+            var result = ( DerivedFigure )myProvider.ProvideValue( myContext.Object );
 
             Assert.That( result.Currency, Is.EqualTo( myRhsSeries.Currency ) );
             Assert.That( result.Value, Is.EqualTo( 17.21 * 2 + 23 ) );
@@ -142,10 +142,10 @@ namespace RaynMaker.Modules.Analysis.UnitTests.AnalysisSpec.Providers
         [Test]
         public void ProvideValue_SeriesWithoutCurrency_CurrencyOfPriceTaken()
         {
-            myCurrentPrice = DatumFactory.NewPrice( "2015-01-01", 17.21, Euro );
-            myRhsSeries = new DatumSeries( typeof( FakeDatum ), DatumFactory.New( 2015, 23 ), DatumFactory.New( 2014, 37 ) );
+            myCurrentPrice = FigureFactory.NewPrice( "2015-01-01", 17.21, Euro );
+            myRhsSeries = new FigureSeries( typeof( FakeFigure ), FigureFactory.New( 2015, 23 ), FigureFactory.New( 2014, 37 ) );
 
-            var result = ( DerivedDatum )myProvider.ProvideValue( myContext.Object );
+            var result = ( DerivedFigure )myProvider.ProvideValue( myContext.Object );
 
             Assert.That( result.Currency, Is.EqualTo( myCurrentPrice.Currency ) );
             Assert.That( result.Value, Is.EqualTo( 17.21 + 23 ) );

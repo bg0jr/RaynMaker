@@ -32,7 +32,7 @@ namespace RaynMaker.Modules.Analysis.UnitTests.Engine.Fakes
             return value.Substring( 0, ( int )length );
         }
 
-        public static int Count( IEnumerable<IDatum> values )
+        public static int Count( IEnumerable<IFigure> values )
         {
             return values.Count();
         }

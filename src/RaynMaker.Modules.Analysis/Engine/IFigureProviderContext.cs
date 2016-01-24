@@ -7,9 +7,9 @@ namespace RaynMaker.Modules.Analysis.Engine
     {
         Stock Stock { get; }
 
-        IEnumerable<IDatumSeries> Data { get; }
+        IEnumerable<IFigureSeries> Data { get; }
 
-        IDatumSeries GetSeries( string name );
+        IFigureSeries GetSeries( string name );
 
         double TranslateCurrency( double value, Currency source, Currency target );
   }

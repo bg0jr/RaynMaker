@@ -32,7 +32,7 @@ namespace RaynMaker.Modules.Analysis.AnalysisSpec
 
         public void Report( ReportContext context )
         {
-            var value = ( IDatum )context.ProvideValue( Value );
+            var value = ( IFigure )context.ProvideValue( Value );
 
             if( value == null )
             {
@@ -58,9 +58,9 @@ namespace RaynMaker.Modules.Analysis.AnalysisSpec
             context.Document.Blocks.Add( paragraph );
         }
 
-        private void ExecuteRule( ReportContext context, IDatum value )
+        private void ExecuteRule( ReportContext context, IFigure value )
         {
-            var valueCurrency = value is ICurrencyDatum ? ( ( ICurrencyDatum )value ).Currency : null;
+            var valueCurrency = value is ICurrencyFigure ? ( ( ICurrencyFigure )value ).Currency : null;
             var threshold = Currency != null ? context.TranslateCurrency( Threshold, Currency, valueCurrency ) : Threshold;
 
             bool success = Operator.Compare( value.Value.Value, threshold );

@@ -54,7 +54,7 @@ namespace RaynMaker.Data.ViewModels
             myDatums = new List<IFigureSeries>();
             foreach( var datumType in Dynamics.AllFigures.Where( t => t != typeof( Price ) ) )
             {
-                myDatums.Add( Dynamics.GetSeries( stock, datumType, false ) );
+                myDatums.Add( Dynamics.GetDatumSeries( stock, datumType, false ) );
             }
 
             // we might have prices of different currencies - do only add latest
@@ -102,7 +102,7 @@ namespace RaynMaker.Data.ViewModels
                 {
                     if( !existingYears.Contains( i ) )
                     {
-                        var datum = Dynamics.CreateFigure( Stock, type, new YearPeriod( i ),
+                        var datum = Dynamics.CreateDatum( Stock, type, new YearPeriod( i ),
                             series.Currency != null ? series.Currency : defaultCurrency );
                         series.Add( datum );
                     }
@@ -143,7 +143,7 @@ namespace RaynMaker.Data.ViewModels
 
             foreach( FigureSeries series in myDatums.ToList() )
             {
-                var datums = ( IList )Dynamics.GetRelationship( Stock, series.FigureType );
+                var datums = ( IList )Dynamics.GetRelationship( Stock, series.DatumType );
 
                 foreach( AbstractFigure datum in series )
                 {
@@ -171,8 +171,8 @@ namespace RaynMaker.Data.ViewModels
             get
             {
                 return myDatums == null ? null : myDatums
-                    .Where( s => s.FigureType != typeof( Price ) )
-                    .OrderBy( s => s.FigureType.Name );
+                    .Where( s => s.DatumType != typeof( Price ) )
+                    .OrderBy( s => s.DatumType.Name );
             }
         }
 
@@ -187,7 +187,7 @@ namespace RaynMaker.Data.ViewModels
         {
             var currentYear = DateTime.Now.Year;
 
-            var request = DataProviderRequest.Create( Stock, series.FigureType, currentYear - 10, currentYear );
+            var request = DataProviderRequest.Create( Stock, series.DatumType, currentYear - 10, currentYear );
             request.WithPreview = true;
 
             DataProvider.Fetch( request, series );

@@ -5,9 +5,9 @@ using RaynMaker.Entities;
 
 namespace RaynMaker.Entities
 {
-    public static class DatumSeriesExtensions
+    public static class FigureSeriesExtensions
     {
-        public static IDatum Current( this IDatumSeries self )
+        public static IFigure Current( this IFigureSeries self )
         {
             if( self == null )
             {
@@ -19,15 +19,15 @@ namespace RaynMaker.Entities
                 .FirstOrDefault();
         }
 
-        public static TDatumType Current<TDatumType>( this IDatumSeries self )
+        public static TFigureType Current<TFigureType>( this IFigureSeries self )
         {
-            return ( TDatumType )self.Current();
+            return ( TFigureType )self.Current();
         }
 
-        public static IDatumSeries SeriesOf( this IEnumerable<IDatumSeries> self, Type datumType )
+        public static IFigureSeries SeriesOf( this IEnumerable<IFigureSeries> self, Type figureType )
         {
-            return self.OfType<IDatumSeries>()
-                .Where( s => s.DatumType == datumType )
+            return self.OfType<IFigureSeries>()
+                .Where( s => s.FigureType == figureType )
                 .SingleOrDefault();
         }
     }

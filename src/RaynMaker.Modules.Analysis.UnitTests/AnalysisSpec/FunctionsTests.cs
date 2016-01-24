@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using RaynMaker.Modules.Analysis.AnalysisSpec;
 using RaynMaker.Entities;
-using RaynMaker.Entities.Datums;
+using RaynMaker.Entities.Figures;
 using RaynMaker.Entities.UnitTests.Fakes;
 
 namespace RaynMaker.Modules.Analysis.UnitTests.AnalysisSpec
@@ -14,7 +14,7 @@ namespace RaynMaker.Modules.Analysis.UnitTests.AnalysisSpec
         public void LastN_WithZero_ReturnsEmptyCollection()
         {
             var series = new[] { 1, 2, 3, 4, 5 }
-                .Select( v => new FakeDatum { Value = v } );
+                .Select( v => new FakeFigure { Value = v } );
 
             var result = Functions.LastN( series, 0 );
 
@@ -25,7 +25,7 @@ namespace RaynMaker.Modules.Analysis.UnitTests.AnalysisSpec
         public void LastN_WithOne_ReturnsCollectionWithLastItem()
         {
             var series = new[] { 1, 2, 3, 4, 5 }
-                .Select( v => new FakeDatum { Value = v } )
+                .Select( v => new FakeFigure { Value = v } )
                 .ToList();
 
             var result = Functions.LastN( series, 1 );
@@ -39,7 +39,7 @@ namespace RaynMaker.Modules.Analysis.UnitTests.AnalysisSpec
         public void LastN_WithThree_ReturnsCollectionWithLastThreeItems()
         {
             var series = new[] { 1, 2, 3, 4, 5 }
-                .Select( v => new FakeDatum { Value = v } )
+                .Select( v => new FakeFigure { Value = v } )
                 .ToList();
 
             var result = Functions.LastN( series, 3 );
@@ -53,7 +53,7 @@ namespace RaynMaker.Modules.Analysis.UnitTests.AnalysisSpec
         public void Average_WhenCalled_ReturnsAverage()
         {
             var series = new[] { 1d, 2d, 3d, 4d, 5d }
-                .Select( v => new DerivedDatum { Value = v } )
+                .Select( v => new DerivedFigure { Value = v } )
                 .ToList();
 
             var result = Functions.Average( series );
@@ -76,7 +76,7 @@ namespace RaynMaker.Modules.Analysis.UnitTests.AnalysisSpec
 
             var result = Functions.Average( series );
 
-            Assert.That( ( ( ICurrencyDatum )result ).Currency, Is.EqualTo( currency ) );
+            Assert.That( ( ( ICurrencyFigure )result ).Currency, Is.EqualTo( currency ) );
         }
     }
 }

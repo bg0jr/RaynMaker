@@ -9,45 +9,45 @@ using Plainion.Validation;
 
 namespace RaynMaker.Entities
 {
-    public class DatumSeries : IDatumSeries, ICollection<IDatum>
+    public class FigureSeries : IFigureSeries, ICollection<IFigure>
     {
         private bool myCurrencyIsFrozen;
-        private IComparer<IDatum> myComparer;
+        private IComparer<IFigure> myComparer;
 
         [Required, ValidateObject]
-        private List<IDatum> myValues;
+        private List<IFigure> myValues;
 
-        public static IDatumSeries Empty = new DatumSeries();
+        public static IFigureSeries Empty = new FigureSeries();
 
-        private DatumSeries()
+        private FigureSeries()
         {
             Name = "Empty";
-            myValues = new List<IDatum>();
+            myValues = new List<IFigure>();
         }
 
-        private DatumSeries( Type datumType, string name )
+        private FigureSeries( Type figureType, string name )
         {
-            Contract.RequiresNotNull( datumType, "datumType" );
+            Contract.RequiresNotNull( figureType, "figureType" );
 
-            DatumType = datumType;
+            FigureType = figureType;
             Name = name;
 
-            myValues = new List<IDatum>();
+            myValues = new List<IFigure>();
             EnableCurrencyCheck = true;
         }
 
-        public DatumSeries( Type datumType )
-            : this( datumType, "CollectionOf" + datumType.Name )
+        public FigureSeries( Type figureType )
+            : this( figureType, "CollectionOf" + figureType.Name )
         {
         }
 
-        public DatumSeries( Type datumType, params IDatum[] items )
-            : this( datumType, ( IEnumerable<IDatum> )items )
+        public FigureSeries( Type figureType, params IFigure[] items )
+            : this( figureType, ( IEnumerable<IFigure> )items )
         {
         }
 
-        public DatumSeries( Type datumType, IEnumerable<IDatum> items )
-            : this( datumType )
+        public FigureSeries( Type figureType, IEnumerable<IFigure> items )
+            : this( figureType )
         {
             Contract.RequiresNotNull( items, "items" );
 
@@ -57,7 +57,7 @@ namespace RaynMaker.Entities
             }
         }
 
-        public Type DatumType { get; private set; }
+        public Type FigureType { get; private set; }
 
         public string Name { get; private set; }
 
@@ -68,49 +68,49 @@ namespace RaynMaker.Entities
         /// </summary>
         public bool EnableCurrencyCheck { get; set; }
 
-        public void Add( IDatum datum )
+        public void Add( IFigure figure )
         {
-            Contract.Invariant( datum != null, "Empty series must not be modified" );
+            Contract.Invariant( figure != null, "Empty series must not be modified" );
 
-            Contract.RequiresNotNull( datum, "datum" );
-            Contract.Requires( datum.GetType() == DatumType, "[{0}] DatumType mismatch: expected={1}, actual={2}", Name, DatumType, datum.GetType() );
+            Contract.RequiresNotNull( figure, "figure" );
+            Contract.Requires( figure.GetType() == FigureType, "[{0}] FigureType mismatch: expected={1}, actual={2}", Name, FigureType, figure.GetType() );
 
-            CheckCurrency( datum );
+            CheckCurrency( figure );
 
             if( myComparer == null )
             {
-                myComparer = new DatumByPeriodComparer();
+                myComparer = new FigureByPeriodComparer();
             }
 
-            var index = myValues.BinarySearch( datum, myComparer );
+            var index = myValues.BinarySearch( figure, myComparer );
             if( index < 0 ) index = ~index;
-            myValues.Insert( index, datum );
+            myValues.Insert( index, figure );
         }
 
-        private void CheckCurrency( IDatum datum )
+        private void CheckCurrency( IFigure figure )
         {
             if( !EnableCurrencyCheck )
             {
                 return;
             }
 
-            var currencyDatum = datum as ICurrencyDatum;
+            var currencyFigure = figure as ICurrencyFigure;
 
             if( !myCurrencyIsFrozen )
             {
-                if( currencyDatum != null )
+                if( currencyFigure != null )
                 {
-                    Currency = currencyDatum.Currency;
+                    Currency = currencyFigure.Currency;
                 }
 
                 myCurrencyIsFrozen = true;
             }
 
-            if( currencyDatum != null )
+            if( currencyFigure != null )
             {
-                // we cannot enforce collection currency != null because of DerivedDatum
-                Contract.Requires( Currency == currencyDatum.Currency,
-                    "[{0}] Currency inconsistencies found: expected={1}, actual={2}", Name, Currency, currencyDatum.Currency );
+                // we cannot enforce collection currency != null because of DerivedFigure
+                Contract.Requires( Currency == currencyFigure.Currency,
+                    "[{0}] Currency inconsistencies found: expected={1}, actual={2}", Name, Currency, currencyFigure.Currency );
             }
             else
             {
@@ -118,11 +118,11 @@ namespace RaynMaker.Entities
             }
         }
 
-        public bool Remove( IDatum datum )
+        public bool Remove( IFigure figure )
         {
-            Contract.RequiresNotNull( datum, "datum" );
+            Contract.RequiresNotNull( figure, "figure" );
 
-            return myValues.Remove( datum );
+            return myValues.Remove( figure );
         }
 
         public int Count
@@ -130,7 +130,7 @@ namespace RaynMaker.Entities
             get { return myValues.Count; }
         }
 
-        public IEnumerator<IDatum> GetEnumerator()
+        public IEnumerator<IFigure> GetEnumerator()
         {
             return myValues.GetEnumerator();
         }
@@ -145,12 +145,12 @@ namespace RaynMaker.Entities
             myValues.Clear();
         }
 
-        public bool Contains( IDatum item )
+        public bool Contains( IFigure item )
         {
             return myValues.Contains( item );
         }
 
-        public void CopyTo( IDatum[] array, int arrayIndex )
+        public void CopyTo( IFigure[] array, int arrayIndex )
         {
             myValues.CopyTo( array, arrayIndex );
         }
@@ -172,15 +172,15 @@ namespace RaynMaker.Entities
                 Name, string.Join( ",", currencies ) );
         }
 
-        private string GetCurrency( IDatum datum )
+        private string GetCurrency( IFigure figure )
         {
-            var currencyDatum = datum as ICurrencyDatum;
-            if( currencyDatum == null || currencyDatum.Currency == null )
+            var currencyFigure = figure as ICurrencyFigure;
+            if( currencyFigure == null || currencyFigure.Currency == null )
             {
                 return "None";
             }
 
-            return currencyDatum.Currency.Name;
+            return currencyFigure.Currency.Name;
         }
     }
 }

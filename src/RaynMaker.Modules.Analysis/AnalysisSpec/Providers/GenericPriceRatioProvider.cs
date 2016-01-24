@@ -3,7 +3,7 @@ using System.Linq;
 using Plainion;
 using RaynMaker.Modules.Analysis.Engine;
 using RaynMaker.Entities;
-using RaynMaker.Entities.Datums;
+using RaynMaker.Entities.Figures;
 
 namespace RaynMaker.Modules.Analysis.AnalysisSpec.Providers
 {
@@ -59,7 +59,7 @@ namespace RaynMaker.Modules.Analysis.AnalysisSpec.Providers
                 }
             }
 
-            var result = new DerivedDatum
+            var result = new DerivedFigure
             {
                 Period = price.Period,
                 Value = myRatioCalculationOperator( priceValue, value.Value.Value )

@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using Moq;
 using NUnit.Framework;
 using RaynMaker.Entities;
-using RaynMaker.Entities.Datums;
+using RaynMaker.Entities.Figures;
 using RaynMaker.Infrastructure;
 using RaynMaker.Infrastructure.Services;
 using RaynMaker.Modules.Import.Documents;
@@ -54,7 +54,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
                 ThrowOnError = true
             };
 
-            var series = new List<IDatum>();
+            var series = new List<IFigure>();
             dataProvider.Fetch( request, series );
 
             Assert.That( series.Count, Is.EqualTo( 4 ) );
@@ -94,7 +94,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
                 ThrowOnError = true
             };
 
-            var series = new List<IDatum>();
+            var series = new List<IFigure>();
             dataProvider.Fetch( request, series );
 
             Assert.That( series.Count, Is.EqualTo( 1 ) );

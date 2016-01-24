@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using Plainion.Validation;
-using RaynMaker.Entities.Datums;
+using RaynMaker.Entities.Figures;
 
 namespace RaynMaker.Entities
 {

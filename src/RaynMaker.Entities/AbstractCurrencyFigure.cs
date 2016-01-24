@@ -2,7 +2,7 @@
 
 namespace RaynMaker.Entities
 {
-    public abstract class AbstractCurrencyDatum : AbstractDatum, ICurrencyDatum
+    public abstract class AbstractCurrencyFigure : AbstractFigure, ICurrencyFigure
     {
         private Currency myCurrency;
 

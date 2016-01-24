@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RaynMaker.Entities
 {
-    public abstract class AbstractDatum : EntityTimestampBase, IDatum
+    public abstract class AbstractFigure : EntityTimestampBase, IFigure
     {
         private double? myValue;
         private string mySource;

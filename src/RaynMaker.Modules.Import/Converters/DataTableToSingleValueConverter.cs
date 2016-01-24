@@ -15,14 +15,14 @@ namespace RaynMaker.Modules.Import.Converters
         {
         }
 
-        public override IEnumerable<IDatum> Convert( DataTable table, Stock stock )
+        public override IEnumerable<IFigure> Convert( DataTable table, Stock stock )
         {
             Contract.Requires( !( table.Rows.Count > 1 ), "Cannot convert table with more than one row" );
             Contract.Requires( table.Columns.Count == 1, "Can only convert table with exactly one column" );
 
             if ( table.Rows.Count == 0 )
             {
-                return Enumerable.Empty<IDatum>();
+                return Enumerable.Empty<IFigure>();
             }
 
             // TODO: is this a proper default?

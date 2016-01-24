@@ -13,9 +13,9 @@ namespace RaynMaker.Modules.Import.Converters
         {
         }
 
-        public override IEnumerable<IDatum> Convert( DataTable table, Stock stock )
+        public override IEnumerable<IFigure> Convert( DataTable table, Stock stock )
         {
-            var series = new List<IDatum>();
+            var series = new List<IFigure>();
 
             foreach( DataRow row in table.Rows )
             {

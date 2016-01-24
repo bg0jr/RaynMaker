@@ -6,19 +6,19 @@ namespace RaynMaker.Modules.Analysis.AnalysisSpec
 {
     class Functions
     {
-        public static IDatum Average( IEnumerable<IDatum> series )
+        public static IFigure Average( IEnumerable<IFigure> series )
         {
             if( !series.Any() )
             {
                 return null;
             }
 
-            var result = new DerivedDatum()
+            var result = new DerivedFigure()
             {
                 Value = series.Average( d => d.Value )
             };
 
-            var currencyDatums = series.OfType<ICurrencyDatum>();
+            var currencyDatums = series.OfType<ICurrencyFigure>();
             if( currencyDatums.Any() )
             {
                 result.Currency = currencyDatums.First().Currency;
@@ -32,7 +32,7 @@ namespace RaynMaker.Modules.Analysis.AnalysisSpec
         /// <summary>
         /// Returns growth rate in percentage.
         /// </summary>
-        public static IDatum Growth( IEnumerable<IDatum> series )
+        public static IFigure Growth( IEnumerable<IFigure> series )
         {
             if( !series.Any() )
             {
@@ -49,7 +49,7 @@ namespace RaynMaker.Modules.Analysis.AnalysisSpec
                 rates.Add( Growth( sortedSeries[ i - 1 ].Value.Value, sortedSeries[ i ].Value.Value ) );
             }
 
-            var result = new DerivedDatum()
+            var result = new DerivedFigure()
             {
                 Value = rates.Average()
             };
@@ -64,7 +64,7 @@ namespace RaynMaker.Modules.Analysis.AnalysisSpec
             return ( newValue - oldValue ) / oldValue * 100;
         }
 
-        public static IEnumerable<IDatum> LastN( IEnumerable<IDatum> series, int count )
+        public static IEnumerable<IFigure> LastN( IEnumerable<IFigure> series, int count )
         {
             if( series.Count() < count )
             {
@@ -76,7 +76,7 @@ namespace RaynMaker.Modules.Analysis.AnalysisSpec
                 .Skip( series.Count() - count );
         }
 
-        public static IDatum Last( IEnumerable<IDatum> series )
+        public static IFigure Last( IEnumerable<IFigure> series )
         {
             return series
                 .OrderBy( v => v.Period )

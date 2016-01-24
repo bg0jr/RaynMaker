@@ -31,11 +31,11 @@ namespace RaynMaker.Data.Views
         }
 
         public static readonly DependencyProperty DatumSeriesProperty = DependencyProperty.Register( "DatumSeries",
-            typeof( IDatumSeries ), typeof( InMillionsConverter ), new PropertyMetadata( null ) );
+            typeof( IFigureSeries ), typeof( InMillionsConverter ), new PropertyMetadata( null ) );
 
-        public IDatumSeries DatumSeries
+        public IFigureSeries DatumSeries
         {
-            get { return ( IDatumSeries )GetValue( DatumSeriesProperty ); }
+            get { return ( IFigureSeries )GetValue( DatumSeriesProperty ); }
             set { SetValue( DatumSeriesProperty, value ); }
         }
 

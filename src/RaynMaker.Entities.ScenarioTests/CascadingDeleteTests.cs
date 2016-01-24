@@ -10,7 +10,7 @@ namespace RaynMaker.Entities.ScenarioTests
     [TestFixture]
     class CascadingDeleteTests : DatabaseTestsBase
     {
-        static object[] AllDatums = Dynamics.AllDatums.ToArray();
+        static object[] AllDatums = Dynamics.AllFigures.ToArray();
 
         private Currency myCurrency;
 
@@ -129,7 +129,7 @@ namespace RaynMaker.Entities.ScenarioTests
 
         private void AddFakeDatum( Stock stock, Type datumType, Currency currency )
         {
-            var datum = Dynamics.CreateDatum( stock, datumType, new DayPeriod( DateTime.UtcNow ), currency );
+            var datum = Dynamics.CreateFigure( stock, datumType, new DayPeriod( DateTime.UtcNow ), currency );
 
             var requiredProperties = datumType.GetProperties()
                 // will be set by EF when saving datum

@@ -29,7 +29,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
             Descriptor = descriptor;
 
-            Datums = Dynamics.AllDatums
+            Datums = Dynamics.AllFigures
                 .OrderBy( d => d.Name )
                 .ToList();
 

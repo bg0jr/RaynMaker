@@ -2,9 +2,9 @@
 
 namespace RaynMaker.Entities
 {
-    public class DatumByPeriodComparer : IComparer<IDatum>
+    public class FigureByPeriodComparer : IComparer<IFigure>
     {
-        public int Compare( IDatum x, IDatum y )
+        public int Compare( IFigure x, IFigure y )
         {
             return x.Period.CompareTo( y.Period );
         }

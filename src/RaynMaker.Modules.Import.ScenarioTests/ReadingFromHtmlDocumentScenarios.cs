@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
 using RaynMaker.Entities;
-using RaynMaker.Entities.Datums;
+using RaynMaker.Entities.Figures;
 using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Spec.v2;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;

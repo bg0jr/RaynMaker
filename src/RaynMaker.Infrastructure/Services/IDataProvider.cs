@@ -11,6 +11,6 @@ namespace RaynMaker.Infrastructure.Services
         /// <summary>
         /// From and To dates are included in the result series
         /// </summary>
-        void Fetch( DataProviderRequest request, ICollection<IDatum> resultContainer );
+        void Fetch( DataProviderRequest request, ICollection<IFigure> resultContainer );
     }
 }

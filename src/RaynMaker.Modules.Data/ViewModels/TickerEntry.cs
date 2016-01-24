@@ -2,7 +2,7 @@
 using System.Linq;
 using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Entities;
-using RaynMaker.Entities.Datums;
+using RaynMaker.Entities.Figures;
 
 namespace RaynMaker.Data.ViewModels
 {

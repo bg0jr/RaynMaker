@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
-using RaynMaker.Entities.Datums;
+using RaynMaker.Entities.Figures;
 
 namespace RaynMaker.Entities.UnitTests
 {
     [TestFixture]
     class DynamicsTests
     {
-        static object[] AllDatums = Dynamics.AllDatums.ToArray();
+        static object[] AllFigures = Dynamics.AllFigures.ToArray();
 
         [Test, TestCaseSource( "AllDatums" )]
         public void GetRelationship_ForDatum_NotNull( Type datumType )

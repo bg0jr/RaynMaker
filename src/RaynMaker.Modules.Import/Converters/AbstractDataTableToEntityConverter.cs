@@ -31,13 +31,13 @@ namespace RaynMaker.Modules.Import.Converters
 
         protected IEnumerable<Currency> Currencies { get; private set; }
 
-        public abstract IEnumerable<IDatum> Convert( DataTable table, Stock stock );
+        public abstract IEnumerable<IFigure> Convert( DataTable table, Stock stock );
 
-        protected IDatum CreateEntity( Stock stock, IPeriod period, object value )
+        protected IFigure CreateEntity( Stock stock, IPeriod period, object value )
         {
             var currency = GetCurrency();
 
-            var datum = Dynamics.CreateDatum( stock, EntityType, period, currency );
+            var datum = Dynamics.CreateFigure( stock, EntityType, period, currency );
 
             datum.Source = Source;
             datum.Value = (double)value;

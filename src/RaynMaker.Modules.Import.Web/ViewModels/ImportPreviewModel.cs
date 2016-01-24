@@ -28,7 +28,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         private IDocumentBrowser myDocumentBrowser = null;
         private DataSource mySelectedSource;
         private Type myDatumType;
-        private List<IDatum> myData;
+        private List<IFigure> myData;
         private bool myOverwriteExistingValues;
         private Currency myCurrency;
 
@@ -45,7 +45,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             ApplyCommand = new DelegateCommand( OnApply );
 
             Sources = new ObservableCollection<DataSource>();
-            myData = new List<IDatum>();
+            myData = new List<IFigure>();
         }
 
         public ICurrenciesLut CurrenciesLut { get; private set; }
@@ -56,7 +56,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         public IPeriod To { get; set; }
 
-        public ICollection<IDatum> Series { get; set; }
+        public ICollection<IFigure> Series { get; set; }
 
         public bool ThrowOnError { get; set; }
 
@@ -94,10 +94,10 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                     continue;
                 }
 
-                var currencyDatum = datum as ICurrencyDatum;
+                var currencyDatum = datum as ICurrencyFigure;
                 if( Currency != null && currencyDatum != null )
                 {
-                    ( ( AbstractCurrencyDatum )currencyDatum ).Currency = Currency;
+                    ( ( AbstractCurrencyFigure )currencyDatum ).Currency = Currency;
                 }
 
                 var existingDatum = Series.SingleOrDefault( d => d.Period.Equals( datum.Period ) );
@@ -109,12 +109,12 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
                 if( !existingDatum.Value.HasValue || OverwriteExistingValues )
                 {
-                    ( ( AbstractDatum )existingDatum ).Value = datum.Value;
-                    ( ( AbstractDatum )existingDatum ).Source = datum.Source;
+                    ( ( AbstractFigure )existingDatum ).Value = datum.Value;
+                    ( ( AbstractFigure )existingDatum ).Source = datum.Source;
 
                     if( currencyDatum != null )
                     {
-                        ( ( AbstractCurrencyDatum )existingDatum ).Currency = currencyDatum.Currency;
+                        ( ( AbstractCurrencyFigure )existingDatum ).Currency = currencyDatum.Currency;
                     }
                 }
             }

@@ -18,13 +18,13 @@ namespace RaynMaker.Modules.Analysis.AnalysisSpec.Providers
 
         public object ProvideValue( IFigureProviderContext context )
         {
-            var series = context.Data.OfType<IDatumSeries>()
-                .Where( s => s.DatumType == myDatumType )
+            var series = context.Data.OfType<IFigureSeries>()
+                .Where( s => s.FigureType == myDatumType )
                 .SingleOrDefault();
 
             if( series == null )
             {
-                return new MissingData( Name, DatumSeries.Empty );
+                return new MissingData( Name, FigureSeries.Empty );
             }
 
             return series;

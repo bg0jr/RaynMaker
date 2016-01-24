@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
-using RaynMaker.Entities.Datums;
+using RaynMaker.Entities.Figures;
 
 namespace RaynMaker.Entities
 {

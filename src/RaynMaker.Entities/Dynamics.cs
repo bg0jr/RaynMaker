@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure.Pluralization;
 using Plainion;
-using RaynMaker.Entities.Datums;
+using RaynMaker.Entities.Figures;
 
 namespace RaynMaker.Entities
 {
     public class Dynamics
     {
-        public static readonly IEnumerable<Type> AllDatums = new Type[] { 
+        public static readonly IEnumerable<Type> AllFigures = new Type[] { 
             typeof( SharesOutstanding ), 
             typeof( NetIncome ),                
             typeof( Equity ),
@@ -22,37 +22,37 @@ namespace RaynMaker.Entities
             typeof( Price )
             };
 
-        public static IList<T> GetRelationship<T>( Stock stock ) where T : IDatum
+        public static IList<T> GetRelationship<T>( Stock stock ) where T : IFigure
         {
             return ( IList<T> )GetRelationship( stock, typeof( T ) );
         }
 
-        public static IEnumerable<IDatum> GetRelationship( Stock stock, Type datumType )
+        public static IEnumerable<IFigure> GetRelationship( Stock stock, Type figureType )
         {
             var service = new EnglishPluralizationService();
-            var collectionName = service.Pluralize( datumType.Name );
+            var collectionName = service.Pluralize( figureType.Name );
 
             var property = typeof( Company ).GetProperty( collectionName );
             if( property != null )
             {
-                return ( IEnumerable<IDatum> )property.GetValue( stock.Company );
+                return ( IEnumerable<IFigure> )property.GetValue( stock.Company );
             }
 
             property = typeof( Stock ).GetProperty( collectionName );
             if( property != null )
             {
-                return ( IEnumerable<IDatum> )property.GetValue( stock );
+                return ( IEnumerable<IFigure> )property.GetValue( stock );
             }
 
             throw new ArgumentException( string.Format( "No relationship (navigation property) found with name {0} on Company or Stock", collectionName ) );
         }
 
-        public static IDatumSeries GetDatumSeries( Stock stock, Type datumType, bool enableCurrencyCheck )
+        public static IFigureSeries GetSeries( Stock stock, Type figureType, bool enableCurrencyCheck )
         {
-            var series= new DatumSeries( datumType );
+            var series= new FigureSeries( figureType );
             series.EnableCurrencyCheck = enableCurrencyCheck;
 
-            foreach( var item in GetRelationship( stock, datumType ) )
+            foreach( var item in GetRelationship( stock, figureType ) )
             {
                 series.Add(item);
             }
@@ -60,32 +60,32 @@ namespace RaynMaker.Entities
             return series;
         }
 
-        public static AbstractDatum CreateDatum( Stock stock, Type datumType, IPeriod period, Currency currency )
+        public static AbstractFigure CreateFigure( Stock stock, Type figureType, IPeriod period, Currency currency )
         {
-            var datum = ( AbstractDatum )Activator.CreateInstance( datumType );
-            datum.Period = period;
+            var figure = ( AbstractFigure )Activator.CreateInstance( figureType );
+            figure.Period = period;
 
-            var currencyDatum = datum as AbstractCurrencyDatum;
-            if( currencyDatum != null )
+            var currencyFigure = figure as AbstractCurrencyFigure;
+            if( currencyFigure != null )
             {
-                currencyDatum.Currency = currency;
+                currencyFigure.Currency = currency;
             }
 
-            var foreignKey = datumType.GetProperty( "Stock" );
+            var foreignKey = figureType.GetProperty( "Stock" );
             if( foreignKey != null )
             {
-                foreignKey.SetValue( datum, stock );
+                foreignKey.SetValue( figure, stock );
             }
             else
             {
-                foreignKey = datumType.GetProperty( "Company" );
+                foreignKey = figureType.GetProperty( "Company" );
 
                 Contract.Invariant( foreignKey != null, "ForeignKey detection failed" );
 
-                foreignKey.SetValue( datum, stock.Company );
+                foreignKey.SetValue( figure, stock.Company );
             }
 
-            return datum;
+            return figure;
         }
     }
 }

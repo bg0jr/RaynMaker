@@ -1,6 +1,6 @@
 ﻿using RaynMaker.Modules.Analysis.Engine;
 using RaynMaker.Entities;
-using RaynMaker.Entities.Datums;
+using RaynMaker.Entities.Figures;
 
 namespace RaynMaker.Modules.Analysis.AnalysisSpec.Providers
 {

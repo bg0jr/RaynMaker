@@ -10,7 +10,7 @@ using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Data.Services;
 using RaynMaker.Entities;
-using RaynMaker.Entities.Datums;
+using RaynMaker.Entities.Figures;
 using RaynMaker.Infrastructure;
 using RaynMaker.Infrastructure.Services;
 
@@ -96,7 +96,7 @@ namespace RaynMaker.Data.ViewModels
                 var request = DataProviderRequest.Create( entry.Stock, typeof( Price ), today.Subtract( TimeSpan.FromDays( 7 ) ), today.AddDays( 1 ) );
                 request.WithPreview = false;
 
-                var series = new List<IDatum>();
+                var series = new List<IFigure>();
 
                 // fetch some more data because of weekends and public holidays
                 // we will then take last one

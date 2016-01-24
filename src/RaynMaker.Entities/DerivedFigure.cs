@@ -4,12 +4,12 @@ using RaynMaker.Entities;
 
 namespace RaynMaker.Entities
 {
-    public class DerivedDatum : IDatum, ICurrencyDatum
+    public class DerivedFigure : IFigure, ICurrencyFigure
     {
-        public DerivedDatum()
+        public DerivedFigure()
         {
             Timestamp = DateTime.Now;
-            Inputs = new List<IDatum>();
+            Inputs = new List<IFigure>();
         }
 
         public DateTime Timestamp { get; private set; }
@@ -20,7 +20,7 @@ namespace RaynMaker.Entities
 
         public string Source { get { return "Calculated"; } }
 
-        public List<IDatum> Inputs { get; private set; }
+        public List<IFigure> Inputs { get; private set; }
 
         public IPeriod Period { get; set; }
     }

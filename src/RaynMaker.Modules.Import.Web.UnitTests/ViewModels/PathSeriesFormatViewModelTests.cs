@@ -4,7 +4,7 @@ using System.Linq;
 using Moq;
 using NUnit.Framework;
 using RaynMaker.Entities;
-using RaynMaker.Entities.Datums;
+using RaynMaker.Entities.Figures;
 using RaynMaker.Infrastructure.Services;
 using RaynMaker.Modules.Import.Design;
 using RaynMaker.Modules.Import.Documents;
@@ -149,7 +149,7 @@ namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
 
             var viewModel = CreateViewModel( descriptor );
 
-            Assert.That( viewModel.Datums, Is.EquivalentTo( Dynamics.AllDatums ) );
+            Assert.That( viewModel.Datums, Is.EquivalentTo( Dynamics.AllFigures ) );
         }
 
         [Test]

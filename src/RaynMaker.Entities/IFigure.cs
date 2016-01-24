@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RaynMaker.Entities
 {
-    public interface IDatum
+    public interface IFigure
     {
         /// <summary>
         /// Last time value was adapted.
@@ -18,7 +18,7 @@ namespace RaynMaker.Entities
         string Source { get; }
 
         /// <summary>
-        /// The time period this datum applies to.
+        /// The time period this figure applies to.
         /// <seealso cref="YearPeriod"/>
         /// <seealso cref="DayPeriod"/>
         /// </summary>

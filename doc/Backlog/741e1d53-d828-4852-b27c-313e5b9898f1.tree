@@ -7,14 +7,14 @@
     </Node>
     <Node Id="02bde578-e3ec-4872-8378-6b1411fdf1d3">
       <Caption><![CDATA[1.8]]></Caption>
+      <Node Id="a9c1388f-86de-49c4-a30e-8db8160da803">
+        <Caption><![CDATA[Find and replace old "Datum" with "Figure"]]></Caption>
+      </Node>
       <Node Id="d0da3880-c6d3-477b-bee2-8553b930be55">
         <Caption><![CDATA[Rework WebSpy]]></Caption>
       </Node>
       <Node Id="abb9f7c2-8cac-4750-a6d5-c1ea36d41609">
         <Caption><![CDATA[Add more verification in data collection]]></Caption>
-      </Node>
-      <Node Id="a9c1388f-86de-49c4-a30e-8db8160da803">
-        <Caption><![CDATA[Find and replace old "Datum" with "Figure"]]></Caption>
       </Node>
     </Node>
     <Node Id="4d8de17c-33e9-4f67-8e4a-e1bd0e9b4e48">

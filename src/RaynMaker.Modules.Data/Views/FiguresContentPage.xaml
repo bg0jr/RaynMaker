@@ -80,7 +80,7 @@
                                     <ItemsControl.Resources>
                                         <v:CurrencyVisibilityConverter x:Key="CurrencyVisibilityConverter"/>
 
-                                        <DataTemplate DataType="{x:Type l:AbstractCurrencyDatum}">
+                                        <DataTemplate DataType="{x:Type l:AbstractCurrencyFigure}">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto"/>
@@ -111,7 +111,7 @@
                                                 <TextBox Grid.Column="6" Text="{Binding Source}" Margin="5,0,0,2" />
                                             </Grid>
                                         </DataTemplate>
-                                        <DataTemplate DataType="{x:Type l:AbstractDatum}">
+                                        <DataTemplate DataType="{x:Type l:AbstractFigure}">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto"/>

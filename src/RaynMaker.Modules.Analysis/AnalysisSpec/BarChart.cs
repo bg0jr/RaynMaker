@@ -21,7 +21,7 @@ namespace RaynMaker.Modules.Analysis.AnalysisSpec
 
         public void Report( ReportContext context )
         {
-            var series = ( IDatumSeries )context.ProvideValue( Source ) ?? DatumSeries.Empty;
+            var series = ( IFigureSeries )context.ProvideValue( Source ) ?? FigureSeries.Empty;
             var caption = Caption ?? series.Name;
 
             if( InMillions )

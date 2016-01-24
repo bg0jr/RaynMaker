@@ -6,6 +6,6 @@ namespace RaynMaker.Modules.Import
 {
     public interface IDataTableToEntityConverter
     {
-        IEnumerable<IDatum> Convert( DataTable table, Stock stock );
+        IEnumerable<IFigure> Convert( DataTable table, Stock stock );
     }
 }

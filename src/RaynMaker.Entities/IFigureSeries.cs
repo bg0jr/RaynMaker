@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace RaynMaker.Entities
 {
-    public interface IDatumSeries : IReadOnlyCollection<IDatum>
+    public interface IFigureSeries : IReadOnlyCollection<IFigure>
     {
         string Name { get; }
 
-        Type DatumType { get; }
+        Type FigureType { get; }
 
         Currency Currency { get; }
     }

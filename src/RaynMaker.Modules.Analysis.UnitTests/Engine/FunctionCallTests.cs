@@ -88,9 +88,9 @@ namespace RaynMaker.Modules.Analysis.UnitTests.Engine
         {
             var function = new FunctionCall( typeof( FakeFunctions ).GetMethod( "Count" ) );
 
-            function.AddArgument( DatumSeries.Empty );
+            function.AddArgument( FigureSeries.Empty );
 
-            Assert.That( function.Arguments.Last(), Is.InstanceOf<DatumSeries>() );
+            Assert.That( function.Arguments.Last(), Is.InstanceOf<FigureSeries>() );
         }
 
         [Test]

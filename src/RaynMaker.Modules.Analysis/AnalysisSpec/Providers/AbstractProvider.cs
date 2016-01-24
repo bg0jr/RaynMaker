@@ -25,7 +25,7 @@ namespace RaynMaker.Modules.Analysis.AnalysisSpec.Providers
 
         public abstract object ProvideValue( IFigureProviderContext context );
 
-        protected void EnsureCurrencyConsistancy( IDatumSeries lhs, IDatumSeries rhs )
+        protected void EnsureCurrencyConsistancy( IFigureSeries lhs, IFigureSeries rhs )
         {
             Contract.Requires( lhs.Currency == null || rhs.Currency == null || lhs.Currency == rhs.Currency,
                 "Currency inconsistencies detected: {0}.Currency={1} vs {2}.Currency={3}",

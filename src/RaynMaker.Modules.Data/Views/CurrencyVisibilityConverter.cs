@@ -10,7 +10,7 @@ namespace RaynMaker.Data.Views
     {
         public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
         {
-            if( value is ICurrencyDatum )
+            if( value is ICurrencyFigure )
             {
                 return Visibility.Visible;
             }

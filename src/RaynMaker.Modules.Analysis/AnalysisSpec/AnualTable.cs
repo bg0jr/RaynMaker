@@ -55,7 +55,7 @@ namespace RaynMaker.Modules.Analysis.AnalysisSpec
             {
                 row = new TableRow();
 
-                var series = ( IDatumSeries )context.ProvideValue( dataRow.Value ) ?? DatumSeries.Empty;
+                var series = ( IFigureSeries )context.ProvideValue( dataRow.Value ) ?? FigureSeries.Empty;
 
                 var cell = row.Cell( GetHeader( dataRow, series ) );
                 cell.TextAlignment = TextAlignment.Left;
@@ -88,7 +88,7 @@ namespace RaynMaker.Modules.Analysis.AnalysisSpec
             context.Document.Blocks.Add( table );
         }
 
-        private static string GetHeader( Row dataRow, IDatumSeries series )
+        private static string GetHeader( Row dataRow, IFigureSeries series )
         {
             if( series.Any() )
             {

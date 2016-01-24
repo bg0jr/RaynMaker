@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RaynMaker.Entities.Datums
+namespace RaynMaker.Entities.Figures
 {
-    public class InterestExpense : AbstractCurrencyDatum
+    public class EBIT : AbstractCurrencyFigure
     {
         [Required]
         public Company Company { get; set; }

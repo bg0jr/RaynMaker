@@ -14,14 +14,14 @@ namespace RaynMaker.Modules.Analysis.UnitTests.Engine.Fakes
         
         public Stock Stock { get; private set; }
 
-        public IEnumerable<IDatumSeries> Data
+        public IEnumerable<IFigureSeries> Data
         {
-            get { return Enumerable.Empty<IDatumSeries>(); }
+            get { return Enumerable.Empty<IFigureSeries>(); }
         }
 
-        public IDatumSeries GetSeries( string name )
+        public IFigureSeries GetSeries( string name )
         {
-            return DatumSeries.Empty;
+            return FigureSeries.Empty;
         }
 
         public double TranslateCurrency( double value, Currency source, Currency target )

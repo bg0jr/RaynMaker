@@ -57,7 +57,7 @@ namespace RaynMaker.Modules.Import
         {
             Contract.RequiresNotNull( descriptor, "descriptor" );
 
-            var entityType = Dynamics.AllDatums.SingleOrDefault( f => f.Name == descriptor.Figure );
+            var entityType = Dynamics.AllFigures.SingleOrDefault( f => f.Name == descriptor.Figure );
 
             Contract.Requires( entityType != null, "No entity of type {0} found", descriptor.Figure );
 

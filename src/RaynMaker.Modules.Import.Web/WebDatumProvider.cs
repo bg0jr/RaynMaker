@@ -45,7 +45,7 @@ namespace RaynMaker.Modules.Import.Web
         // dependencies from Infrastructure to import module
         public Func<ILocatorMacroResolver, ILocatorMacroResolver> CustomResolverCreator { get; set; }
         
-        public void Fetch( DataProviderRequest request, ICollection<IDatum> resultContainer )
+        public void Fetch( DataProviderRequest request, ICollection<IFigure> resultContainer )
         {
             var previewViewModel = new ImportPreviewModel( myStorageService, myLutService.CurrenciesLut )
             {

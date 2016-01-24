@@ -32,18 +32,18 @@ namespace RaynMaker.Modules.Analysis.AnalysisSpec.Providers
             var allLhs = context.GetSeries( myLhsSeriesName );
             if( !allLhs.Any() )
             {
-                return new MissingData( myLhsSeriesName, DatumSeries.Empty );
+                return new MissingData( myLhsSeriesName, FigureSeries.Empty );
             }
 
             var allRhs = context.GetSeries( myRhsSeriesName );
             if( !allRhs.Any() )
             {
-                return new MissingData( myRhsSeriesName, DatumSeries.Empty );
+                return new MissingData( myRhsSeriesName, FigureSeries.Empty );
             }
 
             EnsureCurrencyConsistancy( allLhs, allRhs );
 
-            var resultSeries = new DatumSeries( typeof( DerivedDatum ) );
+            var resultSeries = new FigureSeries( typeof( DerivedFigure ) );
 
             foreach( var lhs in allLhs )
             {
@@ -54,7 +54,7 @@ namespace RaynMaker.Modules.Analysis.AnalysisSpec.Providers
                     continue;
                 }
 
-                var result = new DerivedDatum
+                var result = new DerivedFigure
                 {
                     Value = myJoinOperator( lhs.Value.Value, rhs.Value.Value ),
                     Period = lhs.Period
