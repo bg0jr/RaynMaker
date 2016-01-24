@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:l="clr-namespace:RaynMaker.Modules.Import.Web.Views"
+             xmlns:vm="clr-namespace:RaynMaker.Modules.Import.Web.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
@@ -15,19 +15,31 @@
                 </Style>
             </TreeView.ItemContainerStyle>
             <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding Figures}">
-                    <TextBlock>
-                        <TextBlock.Text>
-                            <MultiBinding StringFormat="{}{0} - {1}">
-                                <Binding Path="Model.Vendor"/>
-                                <Binding Path="Model.Name"/>
-                            </MultiBinding>
-                        </TextBlock.Text>
-                    </TextBlock>
-
+                <HierarchicalDataTemplate ItemsSource="{Binding Figures}" DataType="{x:Type vm:DataSourceViewModel}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} - {1}">
+                                    <Binding Path="Model.Vendor"/>
+                                    <Binding Path="Model.Name"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <Button Command="{Binding RemoveCommand}" CommandParameter="{Binding}" 
+                                        HorizontalAlignment="Right" Margin="10,0,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                            <Image Source="/RaynMaker.Infrastructure;Component/Resources/Remove.png" Width="17" Height="17"/>
+                        </Button>
+                    </StackPanel>
+                    
                     <HierarchicalDataTemplate.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Model.Figure}" />
+                        <DataTemplate DataType="{x:Type vm:FigureViewModel}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Model.Figure}" VerticalAlignment="Center"/>
+                                <Button Command="{Binding RemoveCommand}" CommandParameter="{Binding}" 
+                                        HorizontalAlignment="Right" Margin="10,0,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                    <Image Source="/RaynMaker.Infrastructure;Component/Resources/Remove.png" Width="17" Height="17"/>
+                                </Button>
+                            </StackPanel>
                         </DataTemplate>
                     </HierarchicalDataTemplate.ItemTemplate>
                 </HierarchicalDataTemplate>

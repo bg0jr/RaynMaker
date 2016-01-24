@@ -20,7 +20,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <l:DataSourcesTreeView Grid.Row="0" Grid.Column="0" DataContext="{Binding DataSourcesTree}"/>
+        <l:DataSourcesTreeView Grid.Row="0" Grid.Column="0" DataContext="{Binding DataSourcesTree}" Margin="3"/>
 
         <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Silver"/>
         

@@ -101,10 +101,12 @@
     <Compile Include="ViewModels\DataSourceFiguresViewModel.cs" />
     <Compile Include="ViewModels\DataSourceDefinitionViewModel.cs" />
     <Compile Include="ViewModels\DataSourcesTreeViewModel.cs" />
+    <Compile Include="ViewModels\DataSourceViewModel.cs" />
     <Compile Include="ViewModels\EditCaptureViewModel.cs" />
     <Compile Include="ViewModels\FigureDescriptorSelectionNotification.cs" />
     <Compile Include="ViewModels\FigureDescriptorViewModelBase.cs" />
     <Compile Include="ViewModels\FigureDescriptorViewModelFactory.cs" />
+    <Compile Include="ViewModels\FigureViewModel.cs" />
     <Compile Include="ViewModels\IDescriptorViewModel.cs" />
     <Compile Include="ViewModels\ImportPreviewModel.cs" />
     <Compile Include="ViewModels\DocumentLocationViewModel.cs" />
