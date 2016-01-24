@@ -38,8 +38,6 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
             Assert.AreEqual( 1, table.GetColumnIndex( e ) );
             Assert.AreEqual( 6, table.GetRowIndex( e ) );
-            Assert.AreEqual( e, table.GetEmbeddingTD( e ) );
-            Assert.AreEqual( e.Parent, table.GetEmbeddingTR( e ) );
         }
 
         [Test]
@@ -115,22 +113,6 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             var table = HtmlTable.GetByElement( element );
 
             Assert.IsNull( table );
-        }
-
-        [Test]
-        public void Table_IsTableOrTBody()
-        {
-            HtmlPath path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]" );
-            var element = myDocument.GetElementByPath( path );
-            Assert.IsTrue( HtmlTable.IsTableOrTBody( element ) );
-
-            path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]" );
-            element = myDocument.GetElementByPath( path );
-            Assert.IsTrue( HtmlTable.IsTableOrTBody( element ) );
-
-            path = HtmlPath.Parse( "/BODY[0]/DIV[5]/DIV[0]/DIV[1]/TABLE[7]/TBODY[0]/TR[6]/TD[1]" );
-            element = myDocument.GetElementByPath( path );
-            Assert.IsFalse( HtmlTable.IsTableOrTBody( element ) );
         }
 
         [Test]
