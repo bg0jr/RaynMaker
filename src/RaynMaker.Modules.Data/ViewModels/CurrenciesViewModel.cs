@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows.Input;
@@ -45,7 +46,14 @@ namespace RaynMaker.Data.ViewModels
                 return;
             }
 
+            CollectionChangedEventManager.AddHandler( myLutService.CurrenciesLut.Currencies, OnCurrenciesChanged );
+
             OnPropertyChanged( PropertySupport.ExtractPropertyName( () => CurrenciesLut ) );
+            OnPropertyChanged( PropertySupport.ExtractPropertyName( () => Currencies ) );
+        }
+
+        private void OnCurrenciesChanged( object sender, NotifyCollectionChangedEventArgs e )
+        {
             OnPropertyChanged( PropertySupport.ExtractPropertyName( () => Currencies ) );
         }
 

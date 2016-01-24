@@ -13,7 +13,7 @@
           IsEnabled="{Binding IsEnabled}">
     <i:Interaction.Triggers>
         <prism:InteractionRequestTrigger SourceObject="{Binding InvokeRequest, Mode=OneWay}">
-            <pn:PopupViewAction WindowWidth="750" WindowHeight="600" prism:RegionManager.RegionName="{x:Static l:RegionNames.CurrenciesView}"/>
+            <pn:PopupViewAction WindowWidth="800" WindowHeight="600" prism:RegionManager.RegionName="{x:Static l:RegionNames.CurrenciesView}"/>
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
 </MenuItem>

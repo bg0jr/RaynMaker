@@ -100,7 +100,6 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="IProject.cs" />
     <Compile Include="IProjectHost.cs" />
-    <Compile Include="Mvvm\CollectionChangedEventManager.cs" />
     <Compile Include="Mvvm\IValidationAware.cs" />
     <Compile Include="Mvvm\AttributesBasedValidatableBindableBase.cs" />
     <Compile Include="Mvvm\ToolMenuItemModelBase.cs" />
