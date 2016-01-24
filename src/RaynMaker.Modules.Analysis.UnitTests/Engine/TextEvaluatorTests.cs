@@ -34,6 +34,7 @@ namespace RaynMaker.Modules.Analysis.UnitTests.Engine
         }
 
         [Test]
+        [SetCulture( "en-US" )]
         public void Evaluate_TextWithProviders_ReturnsTextWithProviderValue()
         {
             Assert.That( myEvaluator.Evaluate( "Value: ${STR} ${One}" ), Is.EqualTo( "Value: Hello 1.00" ) );

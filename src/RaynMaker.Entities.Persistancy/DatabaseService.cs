@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
@@ -64,6 +65,8 @@ namespace RaynMaker.Entities.Persistancy
         public void Shutdown()
         {
             SQLiteConnection.Shutdown( directories: false, noThrow: false );
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         public IAssetsContext CreateAssetsContext()
