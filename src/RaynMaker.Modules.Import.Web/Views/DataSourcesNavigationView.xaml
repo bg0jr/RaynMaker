@@ -25,10 +25,16 @@
                     <TextBlock Text="Remove DataSource" FontSize="9" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"/>
                 </StackPanel>
             </Button>
-            <Button Command="{Binding AddFigureCommand}" Margin="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="55" VerticalAlignment="Top">
+            <Button Command="{Binding AddFigureCommand}" Margin="5,0,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="55" >
                 <StackPanel Orientation="Vertical">
                     <Image Source="/RaynMaker.Infrastructure;Component/Resources/Add.png" Width="17" Height="17"/>
                     <TextBlock Text="Add    Figure" FontSize="9" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Button>
+            <Button Command="{Binding CopyFigureCommand}" Margin="5,0,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="55">
+                <StackPanel Orientation="Vertical">
+                    <Image Source="/RaynMaker.Infrastructure;Component/Resources/Copy.png" Width="17" Height="17"/>
+                    <TextBlock Text="Copy   Figure" FontSize="9" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"/>
                 </StackPanel>
             </Button>
             <Button Command="{Binding RemoveFigureCommand}" Margin="5,0,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="55">

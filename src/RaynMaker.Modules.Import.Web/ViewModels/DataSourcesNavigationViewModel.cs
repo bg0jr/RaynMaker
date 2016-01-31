@@ -27,6 +27,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             AddDataSourceCommand = new DelegateCommand( OnAddDataSource );
             RemoveDataSourceCommand = new DelegateCommand( OnRemoveDataSource, CanRemoveDataSource );
             AddFigureCommand = new DelegateCommand( OnAddFigure, CanAddFigure );
+            CopyFigureCommand = new DelegateCommand( OnCopyFigure, CanCopyFigure );
             RemoveFigureCommand = new DelegateCommand( OnRemoveFigure, CanRemoveFigure );
 
             //PropertyChangedEventManager.AddHandler( Session, OnSessionChanged, "" );
@@ -102,6 +103,17 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             return SelectedItem != null;
         }
 
+        public DelegateCommand CopyFigureCommand { get; private set; }
+
+        private void OnCopyFigure()
+        {
+        }
+
+        private bool CanCopyFigure()
+        {
+            return SelectedItem is FigureViewModel;
+        }
+
         public DelegateCommand RemoveFigureCommand { get; private set; }
 
         private void OnRemoveFigure()
@@ -126,6 +138,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
                     RemoveDataSourceCommand.RaiseCanExecuteChanged();
                     AddFigureCommand.RaiseCanExecuteChanged();
+                    CopyFigureCommand.RaiseCanExecuteChanged();
                     RemoveFigureCommand.RaiseCanExecuteChanged();
                 }
             }

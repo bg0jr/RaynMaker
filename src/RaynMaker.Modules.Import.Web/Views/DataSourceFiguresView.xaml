@@ -29,17 +29,6 @@
     </UserControl.Resources>
 
     <DockPanel LastChildFill="True" x:Name="myRoot">
-        <DockPanel.Visibility>
-            <Binding Path="Session.CurrentSource">
-                <Binding.Converter>
-                    <pn:ConverterChain>
-                        <pn:IsEmptyConverter/>
-                        <pn:NotConverter/>
-                        <pn:BoolToVisibilityConverter/>
-                    </pn:ConverterChain>
-                </Binding.Converter>
-            </Binding>
-        </DockPanel.Visibility>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <StackPanel.Resources>
                 <l:OffsetConverter x:Key="Plus1" Offset="1"/>
