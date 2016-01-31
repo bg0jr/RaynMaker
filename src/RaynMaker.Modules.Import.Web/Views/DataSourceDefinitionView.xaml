@@ -5,85 +5,28 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:pn="http://github.com/ronin4net/plainion"
              mc:Ignorable="d" d:DesignWidth="400">
-    <Grid>
+    <Grid DataContext="{Binding Session.CurrentSource}" Margin="0,5,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Vendor" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Margin="5,0,0,2" Text="{Binding Vendor}"/>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Data sources" VerticalAlignment="Center"/>
-            <ComboBox Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" Width="250" ItemsSource="{Binding Session.Sources}" 
-                      SelectedItem="{Binding Session.CurrentSource}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock>
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}{0} - {1}">
-                                    <Binding Path="Vendor" Mode="OneWay"/>
-                                    <Binding Path="Name" Mode="OneWay"/>
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-            <Button Grid.Row="0" Grid.Column="2" Margin="5,0,0,0" Command="{Binding AddCommand}" 
-                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
-                <Image Source="/RaynMaker.Infrastructure;Component/Resources/Add.png" Width="17" Height="17"/>
-            </Button>
-            <Button Grid.Row="0" Grid.Column="3" Margin="5,0,0,0" Command="{Binding RemoveCommand}" 
-                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" HorizontalAlignment="Left">
-                <Image Source="/RaynMaker.Infrastructure;Component/Resources/Remove.png" Width="17" Height="17"/>
-            </Button>
-        </Grid>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Name" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="5,0,0,2" Text="{Binding Name}"/>
 
-        <Grid Grid.Row="1" DataContext="{Binding Session.CurrentSource}" Margin="0,5,0,0">
-            <Grid.Visibility>
-                <Binding Path=".">
-                    <Binding.Converter>
-                        <pn:ConverterChain>
-                            <pn:IsEmptyConverter/>
-                            <pn:NotConverter/>
-                            <pn:BoolToVisibilityConverter/>
-                        </pn:ConverterChain>
-                    </Binding.Converter>
-                </Binding>
-            </Grid.Visibility>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="150"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Vendor" VerticalAlignment="Center"/>
-            <TextBox Grid.Row="0" Grid.Column="1" Margin="5,0,0,2" Text="{Binding Vendor}"/>
-
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="Name" VerticalAlignment="Center"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Margin="5,0,0,2" Text="{Binding Name}"/>
-
-            <TextBlock Grid.Row="2" Grid.Column="0" Text="Quality" VerticalAlignment="Top"/>
-            <TextBox Grid.Row="2" Grid.Column="1" Margin="5,0,0,2" Text="{Binding Quality}" VerticalAlignment="Top"/>
-            <TextBlock Grid.Row="2" Grid.Column="2" Margin="5,2,0,0"
-                       Text="Quality defines the preference of the DataSource when fetching data" 
-                       VerticalAlignment="Stretch" TextWrapping="Wrap"/>
-        </Grid>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Quality" VerticalAlignment="Top"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="5,0,0,2" Text="{Binding Quality}" VerticalAlignment="Top"/>
+        <TextBlock Grid.Row="2" Grid.Column="2" Margin="5,2,0,0"
+                   Text="Quality defines the preference of the DataSource when fetching data" 
+                   VerticalAlignment="Stretch" TextWrapping="Wrap"/>
     </Grid>
 </UserControl>

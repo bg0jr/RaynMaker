@@ -13,16 +13,28 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Button Command="{Binding AddCommand}" Margin="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="85">
+            <Button Command="{Binding AddDataSourceCommand}" Margin="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="55">
                 <StackPanel Orientation="Vertical">
                     <Image Source="/RaynMaker.Infrastructure;Component/Resources/Add.png" Width="17" Height="17"/>
-                    <TextBlock Text="{Binding AddCaption}" FontSize="9" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Add DataSource" FontSize="9" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"/>
                 </StackPanel>
             </Button>
-            <Button Command="{Binding RemoveCommand}" Margin="5,0,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="85">
+            <Button Command="{Binding RemoveDataSourceCommand}" Margin="5,0,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="55">
                 <StackPanel Orientation="Vertical">
                     <Image Source="/RaynMaker.Infrastructure;Component/Resources/Remove.png" Width="17" Height="17"/>
-                    <TextBlock Text="{Binding RemoveCaption}" FontSize="9" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Remove DataSource" FontSize="9" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Button>
+            <Button Command="{Binding AddFigureCommand}" Margin="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="55" VerticalAlignment="Top">
+                <StackPanel Orientation="Vertical">
+                    <Image Source="/RaynMaker.Infrastructure;Component/Resources/Add.png" Width="17" Height="17"/>
+                    <TextBlock Text="Add    Figure" FontSize="9" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Button>
+            <Button Command="{Binding RemoveFigureCommand}" Margin="5,0,0,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="55">
+                <StackPanel Orientation="Vertical">
+                    <Image Source="/RaynMaker.Infrastructure;Component/Resources/Remove.png" Width="17" Height="17"/>
+                    <TextBlock Text="Remove Figure" FontSize="9" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap"/>
                 </StackPanel>
             </Button>
         </StackPanel>

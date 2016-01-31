@@ -3,10 +3,13 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
+using Plainion.Windows;
 using RaynMaker.Modules.Import.Spec.v2;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
+using RaynMaker.Modules.Import.Spec.v2.Locating;
 using RaynMaker.Modules.Import.Web.Model;
 
 namespace RaynMaker.Modules.Import.Web.ViewModels
@@ -14,17 +17,18 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
     class DataSourcesTreeViewModel : SpecDefinitionViewModelBase
     {
         private IEnumerable<DataSourceViewModel> mySources;
-        private string myAddCaption;
-        private string myRemoveCaption;
         private object mySelectedItem;
 
         public DataSourcesTreeViewModel( Session session )
             : base( session )
         {
-            AddCommand = new DelegateCommand( OnAdd );
-            RemoveCommand = new DelegateCommand( OnRemove, CanRemove );
+            AddDataSourceCommand = new DelegateCommand( OnAddDataSource );
+            RemoveDataSourceCommand = new DelegateCommand( OnRemoveDataSource, CanRemoveDataSource );
+            AddFigureCommand = new DelegateCommand( OnAddFigure, CanAddFigure );
+            RemoveFigureCommand = new DelegateCommand( OnRemoveFigure, CanRemoveFigure );
 
-            UpdateButtonText();
+            PropertyBinding.Bind( () => Session.CurrentSource, () => SelectedItem, BindingMode.OneWay );
+            PropertyBinding.Bind( () => Session.CurrentFigureDescriptor, () => SelectedItem, BindingMode.OneWay );
 
             CollectionChangedEventManager.AddHandler( Session.Sources, OnSourcesChanged );
             OnSourcesChanged( null, null );
@@ -43,33 +47,52 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             private set { SetProperty( ref mySources, value ); }
         }
 
-        public ICommand AddCommand { get; private set; }
+        public ICommand AddDataSourceCommand { get; private set; }
 
-        private void OnAdd()
+        private void OnAddDataSource()
         {
+            var source = new DataSource();
+            source.Location = new DocumentLocator();
+
+            Session.Sources.Add( source );
+
+            Session.CurrentSource = source;
         }
 
-        public DelegateCommand RemoveCommand { get; private set; }
+        public DelegateCommand RemoveDataSourceCommand { get; private set; }
 
-        private void OnRemove()
+        private void OnRemoveDataSource()
         {
+            var source = ( ( DataSourceViewModel )SelectedItem ).Model;
+            Session.Sources.Remove( source );
+            Session.CurrentSource = Session.Sources.FirstOrDefault();
         }
 
-        private bool CanRemove()
+        private bool CanRemoveDataSource()
         {
             return SelectedItem != null;
         }
 
-        public string AddCaption
+        public DelegateCommand AddFigureCommand { get; private set; }
+
+        private void OnAddFigure()
         {
-            get { return myAddCaption; }
-            set { SetProperty( ref myAddCaption, value ); }
         }
 
-        public string RemoveCaption
+        private bool CanAddFigure()
         {
-            get { return myRemoveCaption; }
-            set { SetProperty( ref myRemoveCaption, value ); }
+            return SelectedItem != null;
+        }
+
+        public DelegateCommand RemoveFigureCommand { get; private set; }
+
+        private void OnRemoveFigure()
+        {
+        }
+
+        private bool CanRemoveFigure()
+        {
+            return SelectedItem is FigureViewModel;
         }
 
         public object SelectedItem
@@ -79,17 +102,21 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 if( SetProperty( ref mySelectedItem, value ) )
                 {
-                    UpdateButtonText();
+                    if( SelectedItem is DataSourceViewModel )
+                    {
+                        Session.CurrentSource = ( ( DataSourceViewModel )SelectedItem ).Model;
+                    }
 
-                    RemoveCommand.RaiseCanExecuteChanged();
+                    if( SelectedItem is FigureViewModel )
+                    {
+                        Session.CurrentFigureDescriptor = ( ( FigureViewModel )SelectedItem ).Model;
+                    }
+
+                    RemoveDataSourceCommand.RaiseCanExecuteChanged();
+                    AddFigureCommand.RaiseCanExecuteChanged();
+                    RemoveFigureCommand.RaiseCanExecuteChanged();
                 }
             }
-        }
-
-        private void UpdateButtonText()
-        {
-            AddCaption = "Add " + ( mySelectedItem == null || mySelectedItem is DataSourceViewModel ? "DataSource" : "Figure" );
-            RemoveCaption = "Remove " + ( mySelectedItem == null || mySelectedItem is DataSourceViewModel ? "DataSource" : "Figure" );
         }
     }
 }
