@@ -100,7 +100,7 @@
     <Compile Include="ViewModels\CompletionViewModel.cs" />
     <Compile Include="ViewModels\DataSourceFiguresViewModel.cs" />
     <Compile Include="ViewModels\DataSourceDefinitionViewModel.cs" />
-    <Compile Include="ViewModels\DataSourcesTreeViewModel.cs" />
+    <Compile Include="ViewModels\DataSourcesNavigationViewModel.cs" />
     <Compile Include="ViewModels\DataSourceViewModel.cs" />
     <Compile Include="ViewModels\EditCaptureViewModel.cs" />
     <Compile Include="ViewModels\FigureDescriptorSelectionNotification.cs" />
@@ -127,8 +127,8 @@
     <Compile Include="Views\DataSourceDefinitionView.xaml.cs">
       <DependentUpon>DataSourceDefinitionView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DataSourcesTreeView.xaml.cs">
-      <DependentUpon>DataSourcesTreeView.xaml</DependentUpon>
+    <Compile Include="Views\DataSourcesNavigationView.xaml.cs">
+      <DependentUpon>DataSourcesNavigationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DocumentLocationFragmentTypeToStringConverter.cs" />
     <Compile Include="Views\EditCaptureView.xaml.cs">
@@ -185,7 +185,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\DataSourcesTreeView.xaml">
+    <Page Include="Views\DataSourcesNavigationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

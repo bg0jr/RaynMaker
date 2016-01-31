@@ -30,7 +30,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
             mySession = new Session();
 
-            DataSourcesTree = new DataSourcesTreeViewModel( mySession );
+            DataSourcesNavigation = new DataSourcesNavigationViewModel( mySession );
 
             SourceDefinition = new DataSourceDefinitionViewModel( mySession );
             DocumentLocation = new DocumentLocationViewModel( mySession );
@@ -86,7 +86,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         //    base.OnHandleDestroyed( e );
         //}
 
-        public DataSourcesTreeViewModel DataSourcesTree { get; private set; }
+        public DataSourcesNavigationViewModel DataSourcesNavigation { get; private set; }
 
         public DataSourceDefinitionViewModel SourceDefinition { get; private set; }
 

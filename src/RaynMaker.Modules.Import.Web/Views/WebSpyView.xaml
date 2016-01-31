@@ -6,7 +6,8 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:prism="http://www.codeplex.com/prism"
              xmlns:pn="http://github.com/ronin4net/plainion"
-             xmlns:l="clr-namespace:RaynMaker.Modules.Import.Web.Views"
+             xmlns:v="clr-namespace:RaynMaker.Modules.Import.Web.Views"
+             xmlns:vm="clr-namespace:RaynMaker.Modules.Import.Web.ViewModels"
              xmlns:importdesign="clr-namespace:RaynMaker.Modules.Import.Design;assembly=RaynMaker.Modules.Import"
              mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="700">
     <Grid>
@@ -20,7 +21,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <l:DataSourcesTreeView Grid.Row="0" Grid.Column="0" DataContext="{Binding DataSourcesTree}" Margin="3"/>
+        <v:DataSourcesNavigationView Grid.Row="0" Grid.Column="0" DataContext="{Binding DataSourcesNavigation}" Margin="3"/>
 
         <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Silver"/>
         
@@ -32,22 +33,35 @@
             </Grid.RowDefinitions>
 
             <ScrollViewer Grid.Row="0" Margin="3" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
-                <ItemsControl>
-                    <ItemsControl.Items>
-                        <GroupBox Header="Source" Margin="0,0,0,5">
-                            <l:DataSourceDefinitionView DataContext="{Binding SourceDefinition}"/>
-                        </GroupBox>
-                        <GroupBox Header="Navigation" Margin="0,0,0,5">
-                            <l:DocumentLocationView DataContext="{Binding DocumentLocation}"/>
-                        </GroupBox>
-                        <GroupBox Header="Data description" Margin="0,0,0,5">
-                            <l:DataSourceFiguresView DataContext="{Binding Figures}"/>
-                        </GroupBox>
-                        <GroupBox Header="Validate &amp; Complete" Margin="0,0,0,5">
-                            <l:CompletionView DataContext="{Binding Completion}"/>
-                        </GroupBox>
-                    </ItemsControl.Items>
-                </ItemsControl>
+                <ScrollViewer.Resources>
+                    <pn:BindingProxy x:Key="RootDataContext" Data="{Binding}"/>
+                    
+                    <DataTemplate DataType="{x:Type vm:DataSourceViewModel}">
+                        <ItemsControl>
+                            <ItemsControl.Items>
+                                <GroupBox Header="Source" Margin="0,0,0,5">
+                                    <v:DataSourceDefinitionView DataContext="{Binding Data.SourceDefinition, Source={StaticResource RootDataContext}}"/>
+                                </GroupBox>
+                                <GroupBox Header="Navigation" Margin="0,0,0,5">
+                                    <v:DocumentLocationView DataContext="{Binding Data.DocumentLocation, Source={StaticResource RootDataContext}}"/>
+                                </GroupBox>
+                            </ItemsControl.Items>
+                        </ItemsControl>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type vm:FigureViewModel}">
+                        <ItemsControl>
+                            <ItemsControl.Items>
+                                <GroupBox Header="Data description" Margin="0,0,0,5">
+                                    <v:DataSourceFiguresView DataContext="{Binding Data.Figures, Source={StaticResource RootDataContext}}"/>
+                                </GroupBox>
+                                <GroupBox Header="Validate &amp; Complete" Margin="0,0,0,5">
+                                    <v:CompletionView DataContext="{Binding Data.Completion, Source={StaticResource RootDataContext}}"/>
+                                </GroupBox>
+                            </ItemsControl.Items>
+                        </ItemsControl>
+                    </DataTemplate>
+                </ScrollViewer.Resources>
+                <ContentControl Content="{Binding DataSourcesNavigation.SelectedItem}"/>
             </ScrollViewer>
 
             <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Silver"/>

@@ -47,7 +47,5 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 }
             }
         }
-
-        public ICommand RemoveCommand { get; private set; }
     }
 }

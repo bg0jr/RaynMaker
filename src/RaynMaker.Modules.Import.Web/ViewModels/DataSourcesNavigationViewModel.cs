@@ -16,12 +16,12 @@ using RaynMaker.Modules.Import.Web.Model;
 
 namespace RaynMaker.Modules.Import.Web.ViewModels
 {
-    class DataSourcesTreeViewModel : SpecDefinitionViewModelBase
+    class DataSourcesNavigationViewModel : SpecDefinitionViewModelBase
     {
         private IEnumerable<DataSourceViewModel> mySources;
         private object mySelectedItem;
 
-        public DataSourcesTreeViewModel( Session session )
+        public DataSourcesNavigationViewModel( Session session )
             : base( session )
         {
             AddDataSourceCommand = new DelegateCommand( OnAddDataSource );
