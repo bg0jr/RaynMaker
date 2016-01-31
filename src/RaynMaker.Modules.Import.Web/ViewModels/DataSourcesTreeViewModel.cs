@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.Mvvm;
 using Plainion.Windows;
 using RaynMaker.Modules.Import.Spec.v2;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
@@ -27,11 +29,24 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             AddFigureCommand = new DelegateCommand( OnAddFigure, CanAddFigure );
             RemoveFigureCommand = new DelegateCommand( OnRemoveFigure, CanRemoveFigure );
 
-            PropertyBinding.Bind( () => Session.CurrentSource, () => SelectedItem, BindingMode.OneWay );
-            PropertyBinding.Bind( () => Session.CurrentFigureDescriptor, () => SelectedItem, BindingMode.OneWay );
+            PropertyChangedEventManager.AddHandler( Session, OnSessionChanged, "" );
 
             CollectionChangedEventManager.AddHandler( Session.Sources, OnSourcesChanged );
             OnSourcesChanged( null, null );
+        }
+
+        private void OnSessionChanged( object sender, PropertyChangedEventArgs e )
+        {
+            if( e.PropertyName == PropertySupport.ExtractPropertyName( () => Session.CurrentFigureDescriptor ) )
+            {
+                SelectedItem = Sources
+                    .SelectMany( s => s.Figures )
+                    .Single( vm => vm.Model == Session.CurrentFigureDescriptor );
+            }
+            else if( e.PropertyName == PropertySupport.ExtractPropertyName( () => Session.CurrentSource ) )
+            {
+                SelectedItem = Sources.Single( vm => vm.Model == Session.CurrentSource );
+            }
         }
 
         private void OnSourcesChanged( object sender, NotifyCollectionChangedEventArgs e )
@@ -104,12 +119,16 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 {
                     if( SelectedItem is DataSourceViewModel )
                     {
-                        Session.CurrentSource = ( ( DataSourceViewModel )SelectedItem ).Model;
+                        var item = ( ( DataSourceViewModel )SelectedItem );
+                        Session.CurrentSource = item.Model;
+                        item.IsSelected = true;
                     }
 
                     if( SelectedItem is FigureViewModel )
                     {
-                        Session.CurrentFigureDescriptor = ( ( FigureViewModel )SelectedItem ).Model;
+                        var item = ( ( FigureViewModel )SelectedItem );
+                        Session.CurrentFigureDescriptor = item.Model;
+                        item.IsSelected = true;
                     }
 
                     RemoveDataSourceCommand.RaiseCanExecuteChanged();
