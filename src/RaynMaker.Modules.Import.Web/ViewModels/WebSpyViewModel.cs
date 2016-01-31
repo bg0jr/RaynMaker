@@ -35,7 +35,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             SourceDefinition = new DataSourceDefinitionViewModel( mySession );
             DocumentLocation = new DocumentLocationViewModel( mySession );
             Figures = new DataSourceFiguresViewModel( mySession, lutService );
-            Completion = new CompletionViewModel( mySession, myProjectHost, myStorageService );
+            Validation = new ValidationViewModel( mySession, myProjectHost, myStorageService );
             ResetCommand = new DelegateCommand( OnReset );
             SaveCommand = new DelegateCommand( OnSave );
 
@@ -67,7 +67,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
                 DocumentLocation.Browser = myDocumentBrowser;
                 Figures.Browser = myDocumentBrowser;
-                Completion.Browser = myDocumentBrowser;
+                Validation.Browser = myDocumentBrowser;
 
                 myDocumentBrowser.Navigate( DocumentType.Html, new Uri( "about:blank" ) );
             }
@@ -94,7 +94,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         public DataSourceFiguresViewModel Figures { get; private set; }
 
-        public CompletionViewModel Completion { get; private set; }
+        public ValidationViewModel Validation { get; private set; }
 
         public ICommand ResetCommand { get; private set; }
 

@@ -19,13 +19,14 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <v:DataSourcesNavigationView Grid.Row="0" Grid.Column="0" DataContext="{Binding DataSourcesNavigation}" Margin="3"/>
 
-        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Silver"/>
-        
-        <Grid Grid.Row="0" Grid.Column="2">
+        <GridSplitter Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Silver"/>
+
+        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="5"/>
@@ -35,7 +36,7 @@
             <ScrollViewer Grid.Row="0" Margin="3" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
                 <ScrollViewer.Resources>
                     <pn:BindingProxy x:Key="RootDataContext" Data="{Binding}"/>
-                    
+
                     <DataTemplate DataType="{x:Type vm:DataSourceViewModel}">
                         <ItemsControl>
                             <ItemsControl.Items>
@@ -49,16 +50,7 @@
                         </ItemsControl>
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type vm:FigureViewModel}">
-                        <ItemsControl>
-                            <ItemsControl.Items>
-                                <GroupBox Header="Data description" Margin="0,0,0,5">
-                                    <v:DataSourceFiguresView DataContext="{Binding Data.Figures, Source={StaticResource RootDataContext}}"/>
-                                </GroupBox>
-                                <GroupBox Header="Validate &amp; Complete" Margin="0,0,0,5">
-                                    <v:CompletionView DataContext="{Binding Data.Completion, Source={StaticResource RootDataContext}}"/>
-                                </GroupBox>
-                            </ItemsControl.Items>
-                        </ItemsControl>
+                        <v:DataSourceFiguresView DataContext="{Binding Data.Figures, Source={StaticResource RootDataContext}}"/>
                     </DataTemplate>
                 </ScrollViewer.Resources>
                 <ContentControl Content="{Binding DataSourcesNavigation.SelectedItem}"/>
@@ -72,8 +64,10 @@
                 </WindowsFormsHost>
             </Grid>
         </Grid>
-    
-        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
+
+        <v:ValidationView Grid.Row="1" DataContext="{Binding Validation}"/>
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Reset" Command="{Binding ResetCommand}" Margin="0,3,0,3" />
             <Button Grid.Row="1" Grid.Column="2" Content="Save" Command="{Binding SaveCommand}" Margin="5,3,3,3" />
         </StackPanel>

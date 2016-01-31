@@ -97,7 +97,7 @@
     </Compile>
     <Compile Include="Services\StorageService.cs" />
     <Compile Include="ViewModels\AddressBarViewModel.cs" />
-    <Compile Include="ViewModels\CompletionViewModel.cs" />
+    <Compile Include="ViewModels\ValidationViewModel.cs" />
     <Compile Include="ViewModels\DataSourceFiguresViewModel.cs" />
     <Compile Include="ViewModels\DataSourceDefinitionViewModel.cs" />
     <Compile Include="ViewModels\DataSourcesNavigationViewModel.cs" />
@@ -118,8 +118,8 @@
     <Compile Include="Views\AddressBarView.xaml.cs">
       <DependentUpon>AddressBarView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CompletionView.xaml.cs">
-      <DependentUpon>CompletionView.xaml</DependentUpon>
+    <Compile Include="Views\ValidationView.xaml.cs">
+      <DependentUpon>ValidationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DataSourceFiguresView.xaml.cs">
       <DependentUpon>DataSourceFiguresView.xaml</DependentUpon>
@@ -173,7 +173,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CompletionView.xaml">
+    <Page Include="Views\ValidationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

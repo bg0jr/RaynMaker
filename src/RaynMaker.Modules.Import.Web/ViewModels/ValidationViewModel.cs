@@ -11,13 +11,13 @@ using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Modules.Import.Web.ViewModels
 {
-    class CompletionViewModel : SpecDefinitionViewModelBase
+    class ValidationViewModel : SpecDefinitionViewModelBase
     {
         private IProjectHost myProjectHost;
         private StorageService myStorageService;
         private Stock mySelectedStock;
 
-        public CompletionViewModel( Session session, IProjectHost projectHost, StorageService storageService )
+        public ValidationViewModel( Session session, IProjectHost projectHost, StorageService storageService )
             : base( session )
         {
             myProjectHost = projectHost;

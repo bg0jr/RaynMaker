@@ -2,9 +2,9 @@
 
 namespace RaynMaker.Modules.Import.Web.Views
 {
-    public partial class CompletionView : UserControl
+    public partial class ValidationView : UserControl
     {
-        public CompletionView()
+        public ValidationView()
         {
             InitializeComponent();
         }
