@@ -39,7 +39,20 @@ namespace RaynMaker.Modules.Import.Web.Model
         public IFigureDescriptor CurrentFigureDescriptor
         {
             get { return myCurrentFigureDescriptor; }
-            set { SetProperty( ref myCurrentFigureDescriptor, value ); }
+            set
+            {
+                if( myCurrentFigureDescriptor != value )
+                {
+                    if( value != null )
+                    {
+                        // adjust related source. Do it before actually changing the figure so that listeners to the change notifications 
+                        // get updates of "parent" before getting updates of "child" (see DataSourcesNavigation)
+                        CurrentSource = Sources.Single( s => s.Figures.Any( f => f == value ) );
+                    }
+                }
+
+                SetProperty( ref myCurrentFigureDescriptor, value );
+            }
         }
 
         public void Reset()

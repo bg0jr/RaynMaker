@@ -23,14 +23,14 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             get { return myIsSelected; }
             set
             {
-                if ( SetProperty( ref myIsSelected, value ) )
+                if( SetProperty( ref myIsSelected, value ) )
                 {
-                    Session.CurrentSource = myParent.Model;
-                    Session.CurrentFigureDescriptor = Model;
+                    if( myIsSelected )
+                    {
+                        Session.CurrentFigureDescriptor = Model;
+                    }
                 }
             }
         }
-
-        public ICommand RemoveCommand { get; private set; }
     }
 }

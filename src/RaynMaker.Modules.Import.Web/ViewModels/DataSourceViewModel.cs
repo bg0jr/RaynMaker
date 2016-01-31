@@ -41,9 +41,12 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             get { return myIsSelected; }
             set
             {
-                if ( SetProperty( ref myIsSelected, value ) )
+                if( SetProperty( ref myIsSelected, value ) )
                 {
-                    Session.CurrentSource = Model;
+                    if( myIsSelected )
+                    {
+                        Session.CurrentSource = Model;
+                    }
                 }
             }
         }

@@ -29,25 +29,28 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             AddFigureCommand = new DelegateCommand( OnAddFigure, CanAddFigure );
             RemoveFigureCommand = new DelegateCommand( OnRemoveFigure, CanRemoveFigure );
 
-            PropertyChangedEventManager.AddHandler( Session, OnSessionChanged, "" );
+            //PropertyChangedEventManager.AddHandler( Session, OnSessionChanged, "" );
 
             CollectionChangedEventManager.AddHandler( Session.Sources, OnSourcesChanged );
             OnSourcesChanged( null, null );
         }
 
-        private void OnSessionChanged( object sender, PropertyChangedEventArgs e )
-        {
-            if( e.PropertyName == PropertySupport.ExtractPropertyName( () => Session.CurrentFigureDescriptor ) )
-            {
-                SelectedItem = Sources
-                    .SelectMany( s => s.Figures )
-                    .Single( vm => vm.Model == Session.CurrentFigureDescriptor );
-            }
-            else if( e.PropertyName == PropertySupport.ExtractPropertyName( () => Session.CurrentSource ) )
-            {
-                SelectedItem = Sources.Single( vm => vm.Model == Session.CurrentSource );
-            }
-        }
+        // TODO: this code breakes user selection
+        //private void OnSessionChanged( object sender, PropertyChangedEventArgs e )
+        //{
+        //    if( e.PropertyName == PropertySupport.ExtractPropertyName( () => Session.CurrentFigureDescriptor ) )
+        //    {
+        //        var selectedVM = Sources
+        //            .SelectMany( s => s.Figures )
+        //            .Single( vm => vm.Model == Session.CurrentFigureDescriptor );
+        //        selectedVM.IsSelected = true;
+        //    }
+        //    else if( e.PropertyName == PropertySupport.ExtractPropertyName( () => Session.CurrentSource ) )
+        //    {
+        //        var selectedVM = Sources.Single( vm => vm.Model == Session.CurrentSource );
+        //        selectedVM.IsSelected = true;
+        //    }
+        //}
 
         private void OnSourcesChanged( object sender, NotifyCollectionChangedEventArgs e )
         {
@@ -117,19 +120,9 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             {
                 if( SetProperty( ref mySelectedItem, value ) )
                 {
-                    if( SelectedItem is DataSourceViewModel )
-                    {
-                        var item = ( ( DataSourceViewModel )SelectedItem );
-                        Session.CurrentSource = item.Model;
-                        item.IsSelected = true;
-                    }
-
-                    if( SelectedItem is FigureViewModel )
-                    {
-                        var item = ( ( FigureViewModel )SelectedItem );
-                        Session.CurrentFigureDescriptor = item.Model;
-                        item.IsSelected = true;
-                    }
+                    // do NOT update the Model or the TreeViewItem ViewModels.
+                    // both get updated automatically through IsSelected binding.
+                    // -> use as "listener" only
 
                     RemoveDataSourceCommand.RaiseCanExecuteChanged();
                     AddFigureCommand.RaiseCanExecuteChanged();
