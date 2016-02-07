@@ -26,5 +26,6 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
         <Button Content="Validate" Command="{Binding ValidateCommand}" Margin="5,3,0,0"/>
+        <Button Content="Validate All" Command="{Binding ValidateAllCommand}" Margin="5,3,0,0"/>
     </WrapPanel>
 </UserControl>

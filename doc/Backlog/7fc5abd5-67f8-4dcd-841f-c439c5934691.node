@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Node Id="7fc5abd5-67f8-4dcd-841f-c439c5934691" Created="635898501446573558" LastModified="635898501737294065">
-  <Caption><![CDATA["Validate All"]]></Caption>
-  <Content><![CDATA[with "green", "red" in the navigation
-(separate protocol window would also be ok)]]></Content>
-</Node>

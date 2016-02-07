@@ -7,12 +7,6 @@
     </Node>
     <Node Id="02bde578-e3ec-4872-8378-6b1411fdf1d3">
       <Caption><![CDATA[1.8]]></Caption>
-      <Node Id="d0da3880-c6d3-477b-bee2-8553b930be55">
-        <Caption><![CDATA[Rework WebSpy]]></Caption>
-        <Node Id="7fc5abd5-67f8-4dcd-841f-c439c5934691">
-          <Caption><![CDATA["Validate All"]]></Caption>
-        </Node>
-      </Node>
       <Node Id="abb9f7c2-8cac-4750-a6d5-c1ea36d41609">
         <Caption><![CDATA[Add more verification in data collection]]></Caption>
       </Node>
