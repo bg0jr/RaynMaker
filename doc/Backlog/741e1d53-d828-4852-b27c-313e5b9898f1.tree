@@ -5,12 +5,6 @@
     <Node Id="bde3373e-2bec-4a2b-835e-92935da36614">
       <Caption><![CDATA[HotFix]]></Caption>
     </Node>
-    <Node Id="02bde578-e3ec-4872-8378-6b1411fdf1d3">
-      <Caption><![CDATA[1.8]]></Caption>
-      <Node Id="9956ad5a-ed6e-4800-ad4d-c8659e7efee3">
-        <Caption><![CDATA[Add first scenariotest for webspy]]></Caption>
-      </Node>
-    </Node>
     <Node Id="4d8de17c-33e9-4f67-8e4a-e1bd0e9b4e48">
       <Caption><![CDATA[1.9 - KB in RaynMaker]]></Caption>
       <Node Id="d31a50ff-11f3-47aa-a458-dd53de390865">
