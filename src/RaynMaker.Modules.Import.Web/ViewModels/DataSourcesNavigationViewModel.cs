@@ -7,6 +7,7 @@ using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Modules.Import.Spec.v2;
+using RaynMaker.Modules.Import.Spec.v2.Extraction;
 using RaynMaker.Modules.Import.Spec.v2.Locating;
 using RaynMaker.Modules.Import.Web.Model;
 
@@ -193,10 +194,32 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             }
         }
 
-        public void FailedToNavigateTo( DataSource dataSource,string error )
+        public void FailedToLocateDocument( DataSource dataSource, string error )
         {
-            var vm = Sources.Single( s => s.Model== dataSource );
-            vm.Error = error;
+            var vm = Sources.Single( s => s.Model == dataSource );
+            vm.ValidationResult = error;
+        }
+
+        public void NavigationSucceeded( DataSource dataSource )
+        {
+            var vm = Sources.Single( s => s.Model == dataSource );
+            vm.ValidationResult = DataSourceViewModel.ValidationSucceeded;
+        }
+
+        public void FailedToParseDocument( IFigureDescriptor figureDescriptor, string error )
+        {
+            var vm = Sources
+                .SelectMany( s => s.Figures )
+                .Single( f => f.Model == figureDescriptor );
+            vm.ValidationResult = error;
+        }
+
+        public void ParsingSucceeded( IFigureDescriptor figureDescriptor )
+        {
+            var vm = Sources
+                .SelectMany( s => s.Figures )
+                .Single( f => f.Model == figureDescriptor );
+            vm.ValidationResult = DataSourceViewModel.ValidationSucceeded;
         }
     }
 }

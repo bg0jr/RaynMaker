@@ -87,6 +87,28 @@
         </StackPanel>
 
         <TreeView Name="myTree" Grid.Row="1" ItemsSource="{Binding Sources}" SelectedItemChanged="TreeView_SelectedItemChanged">
+            <TreeView.Resources>
+                <DataTemplate x:Key="ValidationFailed">
+                    <TextBlock Text="!" ToolTip="{Binding}" FontWeight="Bold" Foreground="Red" FontSize="18" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                </DataTemplate>
+
+                <DataTemplate x:Key="ValidationSucceeded">
+                    <TextBlock Text="ok" ToolTip="Succeeded" FontWeight="Bold" Foreground="Green" FontSize="13" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                </DataTemplate>
+
+                <Style x:Key="ValidationIndicatorStyle" TargetType="{x:Type ContentControl}">
+                    <Setter Property="ContentTemplate" Value="{StaticResource ValidationFailed}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ValidationResult}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ValidationResult}" Value="{x:Static vm:DataSourceViewModel.ValidationSucceeded}">
+                            <Setter Property="ContentTemplate" Value="{StaticResource ValidationSucceeded}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TreeView.Resources>
+
             <TreeView.ItemContainerStyle>
                 <Style TargetType="{x:Type TreeViewItem}">
                     <Setter Property="IsExpanded" Value="True" />
@@ -96,17 +118,7 @@
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Figures}" DataType="{x:Type vm:DataSourceViewModel}">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="!" ToolTip="{Binding Error}" FontWeight="Bold" Foreground="Red" FontSize="18" VerticalAlignment="Center" Width="10">
-                            <TextBlock.Style>
-                                <Style TargetType="{x:Type TextBlock}">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Error}" Value="{x:Null}">
-                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
+                        <ContentControl Content="{Binding ValidationResult}" Style="{StaticResource ValidationIndicatorStyle}"/>
                         <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}{0} - {1}">
@@ -119,7 +131,10 @@
 
                     <HierarchicalDataTemplate.ItemTemplate>
                         <DataTemplate DataType="{x:Type vm:FigureViewModel}">
-                            <TextBlock Text="{Binding Model.Figure}" VerticalAlignment="Center"/>
+                            <StackPanel Orientation="Horizontal">
+                                <ContentControl Content="{Binding ValidationResult}" Style="{StaticResource ValidationIndicatorStyle}"/>
+                                <TextBlock Text="{Binding Model.Figure}" VerticalAlignment="Center"/>
+                            </StackPanel>
                         </DataTemplate>
                     </HierarchicalDataTemplate.ItemTemplate>
                 </HierarchicalDataTemplate>

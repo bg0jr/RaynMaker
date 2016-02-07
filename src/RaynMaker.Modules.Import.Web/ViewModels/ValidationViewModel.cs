@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 using Microsoft.Practices.Prism.Commands;
 using Plainion.Collections;
 using RaynMaker.Entities;
@@ -75,15 +76,56 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             try
             {
                 Browser.Navigate( DocumentType.Html, Session.CurrentSource.Location, new StockMacroResolver( SelectedStock ) );
+
+                myValidationReport.NavigationSucceeded( Session.CurrentSource );
             }
             catch( Exception ex )
             {
-                // TODO: fetch Exception.Data
-                myValidationReport.FailedToNavigateTo( Session.CurrentSource, ex.Message );
+                var sb = new StringBuilder();
+                sb.AppendLine( ex.Message );
+                
+                foreach(var key in ex.Data.Keys )
+                {
+                    sb.AppendFormat( "{0}: {1}", key, ex.Data[ key ] );
+                    sb.AppendLine();
+                }
+
+                myValidationReport.FailedToLocateDocument( Session.CurrentSource, sb.ToString() );
+
+                return;
             }
 
             // The new document is automatically given to the selected FigureDescriptor ViewModel.
             // The MarkupBehavior gets automatically applied
+
+            var parser = DocumentProcessingFactory.CreateParser( Browser.Document, Session.CurrentFigureDescriptor );
+
+            try
+            {
+                var table = parser.ExtractTable();
+
+                if( table.Rows.Count == 0 )
+                {
+                    myValidationReport.FailedToParseDocument( Session.CurrentFigureDescriptor, "Unknown reason" );
+                }
+                else
+                {
+                    myValidationReport.ParsingSucceeded( Session.CurrentFigureDescriptor );
+                }
+            }
+            catch( Exception ex )
+            {
+                var sb = new StringBuilder();
+                sb.AppendLine( ex.Message );
+
+                foreach( var key in ex.Data.Keys )
+                {
+                    sb.AppendFormat( "{0}: {1}", key, ex.Data[ key ] );
+                    sb.AppendLine();
+                }
+
+                myValidationReport.FailedToParseDocument( Session.CurrentFigureDescriptor, sb.ToString() );
+            }
         }
     }
 }

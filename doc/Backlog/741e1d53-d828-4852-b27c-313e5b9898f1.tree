@@ -16,6 +16,9 @@
       <Node Id="abb9f7c2-8cac-4750-a6d5-c1ea36d41609">
         <Caption><![CDATA[Add more verification in data collection]]></Caption>
       </Node>
+      <Node Id="9956ad5a-ed6e-4800-ad4d-c8659e7efee3">
+        <Caption><![CDATA[Add first scenariotest for webspy]]></Caption>
+      </Node>
     </Node>
     <Node Id="4d8de17c-33e9-4f67-8e4a-e1bd0e9b4e48">
       <Caption><![CDATA[1.9 - KB in RaynMaker]]></Caption>

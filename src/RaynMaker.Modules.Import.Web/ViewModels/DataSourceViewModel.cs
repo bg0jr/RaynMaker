@@ -11,7 +11,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
     {
         private bool myIsSelected;
         private IEnumerable<FigureViewModel> myFigures;
-        private string myError;
+        private string myValidationResult;
 
         public DataSourceViewModel( Session session, DataSource model )
             : base( session )
@@ -52,10 +52,12 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             }
         }
 
-        public string Error
+        public static string ValidationSucceeded = "OK";
+
+        public string ValidationResult
         {
-            get { return myError; }
-            set { SetProperty( ref myError, value ); }
+            get { return myValidationResult; }
+            set { SetProperty( ref myValidationResult, value ); }
         }
     }
 }

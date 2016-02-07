@@ -97,7 +97,7 @@
     </Compile>
     <Compile Include="Services\StorageService.cs" />
     <Compile Include="ViewModels\AddressBarViewModel.cs" />
-    <Compile Include="ViewModels\INotifyValidationFailed.cs" />
+    <Compile Include="ViewModels\INotifyValidationResult.cs" />
     <Compile Include="ViewModels\ValidationViewModel.cs" />
     <Compile Include="ViewModels\DataSourceFiguresViewModel.cs" />
     <Compile Include="ViewModels\DataSourceDefinitionViewModel.cs" />
