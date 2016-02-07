@@ -21,7 +21,6 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         private IDocumentBrowser myDocumentBrowser = null;
         private IProjectHost myProjectHost;
         private StorageService myStorageService;
-        private Session mySession;
         private INotification myNotification;
 
         [ImportingConstructor]
@@ -30,14 +29,14 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             myProjectHost = projectHost;
             myStorageService = storageService;
 
-            mySession = new Session();
+            Session = new Session();
 
-            DataSourcesNavigation = new DataSourcesNavigationViewModel( mySession );
+            DataSourcesNavigation = new DataSourcesNavigationViewModel( Session );
 
-            SourceDefinition = new DataSourceDefinitionViewModel( mySession );
-            DocumentLocation = new DocumentLocationViewModel( mySession );
-            Figures = new DataSourceFiguresViewModel( mySession, lutService );
-            Validation = new ValidationViewModel( mySession, myProjectHost, myStorageService, DataSourcesNavigation );
+            SourceDefinition = new DataSourceDefinitionViewModel( Session );
+            DocumentLocation = new DocumentLocationViewModel( Session );
+            Figures = new DataSourceFiguresViewModel( Session, lutService );
+            Validation = new ValidationViewModel( Session, myProjectHost, myStorageService, DataSourcesNavigation );
             ResetCommand = new DelegateCommand( OnReset );
             SaveCommand = new DelegateCommand( OnSave );
 
@@ -54,6 +53,8 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
             OnReset();
         }
+
+        public Session Session {get;private set;}
 
         public SafeWebBrowser Browser
         {
@@ -102,21 +103,21 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         private void OnReset()
         {
-            mySession.Reset();
+            Session.Reset();
 
             foreach( var source in myStorageService.Load() )
             {
-                mySession.Sources.Add( source );
+                Session.Sources.Add( source );
             }
 
-            mySession.CurrentSource = mySession.Sources.FirstOrDefault();
+            Session.CurrentSource = Session.Sources.FirstOrDefault();
         }
 
         public ICommand SaveCommand { get; private set; }
 
         private void OnSave()
         {
-            myStorageService.Store( mySession.Sources );
+            myStorageService.Store( Session.Sources );
         }
 
         public Action FinishInteraction { get; set; }

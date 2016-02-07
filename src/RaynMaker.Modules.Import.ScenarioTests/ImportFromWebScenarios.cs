@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Moq;
 using NUnit.Framework;
 using RaynMaker.Entities;
@@ -11,10 +10,6 @@ using RaynMaker.Entities.Figures;
 using RaynMaker.Infrastructure;
 using RaynMaker.Infrastructure.Services;
 using RaynMaker.Modules.Import.Documents;
-using RaynMaker.Modules.Import.Spec;
-using RaynMaker.Modules.Import.Spec.v2;
-using RaynMaker.Modules.Import.Spec.v2.Extraction;
-using RaynMaker.Modules.Import.Spec.v2.Locating;
 using RaynMaker.Modules.Import.Web;
 using RaynMaker.Modules.Import.Web.Services;
 

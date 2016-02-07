@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Node Id="908d00f0-c8ae-4345-96ab-cedda91ea52d" Created="635904528281871656" LastModified="635904528614170663">
+  <Caption><![CDATA[Data Validation]]></Caption>
+  <Content><![CDATA[when importing data from somewhere (e.g.) how can we be sure
+that data is correctly parsed?
+
+plausibility checks?]]></Content>
+</Node>

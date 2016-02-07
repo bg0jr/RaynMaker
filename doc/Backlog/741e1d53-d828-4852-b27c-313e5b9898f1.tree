@@ -7,9 +7,6 @@
     </Node>
     <Node Id="02bde578-e3ec-4872-8378-6b1411fdf1d3">
       <Caption><![CDATA[1.8]]></Caption>
-      <Node Id="abb9f7c2-8cac-4750-a6d5-c1ea36d41609">
-        <Caption><![CDATA[Add more verification in data collection]]></Caption>
-      </Node>
       <Node Id="9956ad5a-ed6e-4800-ad4d-c8659e7efee3">
         <Caption><![CDATA[Add first scenariotest for webspy]]></Caption>
       </Node>
@@ -60,6 +57,9 @@
       </Node>
       <Node Id="47279eeb-e3d9-42be-955a-8e0aaac47e2b">
         <Caption><![CDATA[HtmlElementAdapter: Equals and GetHashcode for ]]></Caption>
+      </Node>
+      <Node Id="908d00f0-c8ae-4345-96ab-cedda91ea52d">
+        <Caption><![CDATA[Data Validation]]></Caption>
       </Node>
     </Node>
   </Node>
