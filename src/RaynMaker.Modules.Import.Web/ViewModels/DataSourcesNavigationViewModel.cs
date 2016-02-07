@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
+using Microsoft.Practices.Prism.ViewModel;
 using RaynMaker.Modules.Import.Spec.v2;
 using RaynMaker.Modules.Import.Spec.v2.Locating;
 using RaynMaker.Modules.Import.Web.Model;
@@ -26,28 +28,31 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
             DescriptorSelectionRequest = new InteractionRequest<FigureDescriptorSelectionNotification>();
 
-            //PropertyChangedEventManager.AddHandler( Session, OnSessionChanged, "" );
+            PropertyChangedEventManager.AddHandler( Session, OnSessionChanged, "" );
 
             CollectionChangedEventManager.AddHandler( Session.Sources, OnSourcesChanged );
             OnSourcesChanged( null, null );
         }
 
-        // TODO: this code breakes user selection
-        //private void OnSessionChanged( object sender, PropertyChangedEventArgs e )
-        //{
-        //    if( e.PropertyName == PropertySupport.ExtractPropertyName( () => Session.CurrentFigureDescriptor ) )
-        //    {
-        //        var selectedVM = Sources
-        //            .SelectMany( s => s.Figures )
-        //            .Single( vm => vm.Model == Session.CurrentFigureDescriptor );
-        //        selectedVM.IsSelected = true;
-        //    }
-        //    else if( e.PropertyName == PropertySupport.ExtractPropertyName( () => Session.CurrentSource ) )
-        //    {
-        //        var selectedVM = Sources.Single( vm => vm.Model == Session.CurrentSource );
-        //        selectedVM.IsSelected = true;
-        //    }
-        //}
+        private void OnSessionChanged( object sender, PropertyChangedEventArgs e )
+        {
+            if( e.PropertyName == PropertySupport.ExtractPropertyName( () => Session.CurrentFigureDescriptor ) )
+            {
+                var selectedVM = Sources
+                    .Select( s => { s.IsSelected = false; return s; } )
+                    .SelectMany( s => s.Figures )
+                    .Select( f => { f.IsSelected = false; return f; } )
+                    .Single( vm => vm.Model == Session.CurrentFigureDescriptor );
+                selectedVM.IsSelected = true;
+            }
+            else if( e.PropertyName == PropertySupport.ExtractPropertyName( () => Session.CurrentSource ) )
+            {
+                var selectedVM = Sources
+                    .Select( s => { s.IsSelected = false; return s; } )
+                    .Single( vm => vm.Model == Session.CurrentSource );
+                selectedVM.IsSelected = true;
+            }
+        }
 
         private void OnSourcesChanged( object sender, NotifyCollectionChangedEventArgs e )
         {
