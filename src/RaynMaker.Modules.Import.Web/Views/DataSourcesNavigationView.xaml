@@ -3,14 +3,55 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:v="clr-namespace:RaynMaker.Modules.Import.Web.Views"
              xmlns:vm="clr-namespace:RaynMaker.Modules.Import.Web.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:rym="https://github.com/bg0jr/RaynMaker"
+             xmlns:prism="http://www.codeplex.com/prism"
+             xmlns:spec="https://github.com/bg0jr/RaynMaker/Import/Spec"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/RaynMaker.Infrastructure;Component/Controls/DefaultOverlayView.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Name="myRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
+        <i:Interaction.Triggers>
+            <prism:InteractionRequestTrigger SourceObject="{Binding DescriptorSelectionRequest, Mode=OneWay}">
+                <rym:OverlayViewAction Container="{Binding ElementName=myRoot}" Style="{StaticResource DefaultOverlayView}">
+                    <rym:OverlayViewAction.ViewContent>
+                        <rym:DefaultConfirmationView>
+                            <rym:DefaultConfirmationView.ViewContent>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.Resources>
+                                        <v:RadioButtonCheckedConverter x:Key="RadioButtonCheckedConverter"/>
+                                    </Grid.Resources>
+
+                                    <RadioButton Grid.Row="0" Content="Html series"
+                                             IsChecked="{Binding DescriptorType, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter={x:Type spec:PathSeriesDescriptor}}"/>
+                                    <RadioButton Grid.Row="1" Content="Html table cell value"
+                                             IsChecked="{Binding DescriptorType, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter={x:Type spec:PathCellDescriptor}}"/>
+                                </Grid>
+                            </rym:DefaultConfirmationView.ViewContent>
+                        </rym:DefaultConfirmationView>
+                    </rym:OverlayViewAction.ViewContent>
+                </rym:OverlayViewAction>
+            </prism:InteractionRequestTrigger>
+        </i:Interaction.Triggers>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <Button Command="{Binding AddDataSourceCommand}" Margin="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="55">

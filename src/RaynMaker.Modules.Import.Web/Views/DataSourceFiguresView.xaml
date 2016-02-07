@@ -13,80 +13,16 @@
              mc:Ignorable="d" 
              d:DesignWidth="700">
     <UserControl.Resources>
-        <ResourceDictionary>
-            <DataTemplate DataType="{x:Type vm:PathSeriesDescriptorViewModel}">
-                <l:PathSeriesDescriptorView/>
-            </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:PathSeriesDescriptorViewModel}">
+            <l:PathSeriesDescriptorView/>
+        </DataTemplate>
 
-            <DataTemplate DataType="{x:Type vm:PathCellDescriptorViewModel}">
-                <l:PathCellDescriptorView/>
-            </DataTemplate>
-
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/RaynMaker.Infrastructure;Component/Controls/DefaultOverlayView.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <DataTemplate DataType="{x:Type vm:PathCellDescriptorViewModel}">
+            <l:PathCellDescriptorView/>
+        </DataTemplate>
     </UserControl.Resources>
 
-    <DockPanel LastChildFill="True" x:Name="myRoot">
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-            <StackPanel.Resources>
-                <l:OffsetConverter x:Key="Plus1" Offset="1"/>
-            </StackPanel.Resources>
-
-            <ComboBox ItemsSource="{Binding Descriptors}" SelectedIndex="{Binding SelectedDescriptorIndex}" Width="150" >
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding SelectedFigure.Name}"/>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-
-            <Button Command="{Binding AddCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="5,0,0,0">
-                <Image Source="/RaynMaker.Infrastructure;Component/Resources/Add.png" Width="17" Height="17"/>
-            </Button>
-            <Button Command="{Binding CopyCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="5,0,0,0">
-                <Image Source="/RaynMaker.Infrastructure;Component/Resources/Copy.png" Width="17" Height="17"/>
-            </Button>
-            <Button Command="{Binding RemoveCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Margin="5,0,0,0">
-                <Image Source="/RaynMaker.Infrastructure;Component/Resources/Remove.png" Width="17" Height="17"/>
-            </Button>
-        </StackPanel>
-
-        <TabControl ItemsSource="{Binding Descriptors}" SelectedIndex="{Binding SelectedDescriptorIndex}" MinHeight="160">
-            <TabControl.ItemContainerStyle>
-                <Style TargetType="{x:Type TabItem}">
-                    <Setter Property="Visibility" Value="Collapsed"/>
-                </Style>
-            </TabControl.ItemContainerStyle>
-        </TabControl>
-    </DockPanel>
-
-    <i:Interaction.Triggers>
-        <prism:InteractionRequestTrigger SourceObject="{Binding DescriptorSelectionRequest, Mode=OneWay}">
-            <rym:OverlayViewAction Container="{Binding ElementName=myRoot}" Style="{StaticResource DefaultOverlayView}">
-                <rym:OverlayViewAction.ViewContent>
-                    <rym:DefaultConfirmationView>
-                        <rym:DefaultConfirmationView.ViewContent>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-
-                                <Grid.Resources>
-                                    <l:RadioButtonCheckedConverter x:Key="RadioButtonCheckedConverter"/>
-                                </Grid.Resources>
-
-                                <RadioButton Grid.Row="0" Content="Html series"
-                                             IsChecked="{Binding DescriptorType, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter={x:Type spec:PathSeriesDescriptor}}"/>
-                                <RadioButton Grid.Row="1" Content="Html table cell value"
-                                             IsChecked="{Binding DescriptorType, Converter={StaticResource RadioButtonCheckedConverter}, ConverterParameter={x:Type spec:PathCellDescriptor}}"/>
-                            </Grid>
-                        </rym:DefaultConfirmationView.ViewContent>
-                    </rym:DefaultConfirmationView>
-                </rym:OverlayViewAction.ViewContent>
-            </rym:OverlayViewAction>
-        </prism:InteractionRequestTrigger>
-    </i:Interaction.Triggers>
+    <Grid>
+        <ContentControl Content="{Binding SelectedDescriptor}" MinHeight="160"/>
+    </Grid>
 </UserControl>

@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              x:Name="_this"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid MinWidth="300">
+             d:DesignHeight="300">
+    <Grid MinWidth="200">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />

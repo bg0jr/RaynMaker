@@ -1,16 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Linq;
-using System.Windows;
-using System.Windows.Data;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Mvvm;
-using Plainion.Windows;
+using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using RaynMaker.Modules.Import.Spec.v2;
-using RaynMaker.Modules.Import.Spec.v2.Extraction;
 using RaynMaker.Modules.Import.Spec.v2.Locating;
 using RaynMaker.Modules.Import.Web.Model;
 
@@ -29,6 +23,8 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             AddFigureCommand = new DelegateCommand( OnAddFigure, CanAddFigure );
             CopyFigureCommand = new DelegateCommand( OnCopyFigure, CanCopyFigure );
             RemoveFigureCommand = new DelegateCommand( OnRemoveFigure, CanRemoveFigure );
+
+            DescriptorSelectionRequest = new InteractionRequest<FigureDescriptorSelectionNotification>();
 
             //PropertyChangedEventManager.AddHandler( Session, OnSessionChanged, "" );
 
@@ -96,7 +92,25 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         private void OnAddFigure()
         {
+            var notification = new FigureDescriptorSelectionNotification();
+            notification.Title = "Figure descriptor selection";
+
+            DescriptorSelectionRequest.Raise( notification, n =>
+            {
+                if( n.Confirmed )
+                {
+                    var descriptor = FigureDescriptorFactory.Create( n.DescriptorType );
+
+                    // we can rely on the sessions current state as it is always in sync with the selection in the tree
+
+                    Session.CurrentSource.Figures.Add( descriptor );
+
+                    Session.CurrentFigureDescriptor = descriptor;
+                }
+            } );
         }
+
+        public InteractionRequest<FigureDescriptorSelectionNotification> DescriptorSelectionRequest { get; private set; }
 
         private bool CanAddFigure()
         {
@@ -107,6 +121,18 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         private void OnCopyFigure()
         {
+            if( SelectedItem == null )
+            {
+                return;
+            }
+
+            // we can rely on the sessions current state as it is always in sync with the selection in the tree
+
+            var descriptor = FigureDescriptorFactory.Clone( Session.CurrentFigureDescriptor );
+
+            Session.CurrentSource.Figures.Add( descriptor );
+
+            Session.CurrentFigureDescriptor = descriptor;
         }
 
         private bool CanCopyFigure()
@@ -118,6 +144,16 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         private void OnRemoveFigure()
         {
+            if( SelectedItem == null )
+            {
+                return;
+            }
+
+            // we can rely on the sessions current state as it is always in sync with the selection in the tree
+
+            Session.CurrentSource.Figures.Remove( Session.CurrentFigureDescriptor );
+
+            Session.CurrentFigureDescriptor = Session.CurrentSource.Figures.LastOrDefault();
         }
 
         private bool CanRemoveFigure()

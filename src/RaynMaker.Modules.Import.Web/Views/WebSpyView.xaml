@@ -50,7 +50,15 @@
                         </ItemsControl>
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type vm:FigureViewModel}">
-                        <v:DataSourceFiguresView DataContext="{Binding Data.Figures, Source={StaticResource RootDataContext}}"/>
+                        <!-- using DataSourceFiguresView without ContentControl does give us strange datacontext binding. when selecting
+                        a DataSource the DataContext here becomes FigureViewModel. no idea why :( -->
+                        <ContentControl Content="{Binding Data.Figures, Source={StaticResource RootDataContext}}">
+                            <ContentControl.ContentTemplate>
+                                <DataTemplate>
+                                    <v:DataSourceFiguresView/>
+                                </DataTemplate>
+                            </ContentControl.ContentTemplate>
+                        </ContentControl>
                     </DataTemplate>
                 </ScrollViewer.Resources>
                 <ContentControl Content="{Binding DataSourcesNavigation.SelectedItem}"/>
