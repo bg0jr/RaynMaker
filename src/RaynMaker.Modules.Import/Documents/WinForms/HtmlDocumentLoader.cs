@@ -26,17 +26,7 @@ namespace RaynMaker.Modules.Import.Documents.WinForms
 
         public IDocument Load( Uri uri )
         {
-            myBrowser.Navigate( uri );
-
-            while( !
-                ( myBrowser.ReadyState == WebBrowserReadyState.Complete ||
-                ( myBrowser.ReadyState == WebBrowserReadyState.Interactive && !myBrowser.IsBusy ) ) )
-            {
-                Thread.Sleep( 100 );
-                Application.DoEvents();
-            }
-
-            return new HtmlDocumentAdapter( myBrowser.Document );
+            return myBrowser.Load( uri );
         }
         
         public void Dispose()

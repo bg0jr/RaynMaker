@@ -7,7 +7,9 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
+using RaynMaker.Modules.Import.Documents.WinForms;
 
 namespace RaynMaker.Modules.Import.Design
 {
@@ -17,6 +19,21 @@ namespace RaynMaker.Modules.Import.Design
         private const int DISPID_AMBIENT_DLCONTROL = -5512;
         private int myDownloadControlFlags;
 
+        public IDocument Load( Uri uri )
+        {
+            Navigate( uri );
+
+            while( !
+                ( ReadyState == WebBrowserReadyState.Complete ||
+                ( ReadyState == WebBrowserReadyState.Interactive && !IsBusy ) ) )
+            {
+                Thread.Sleep( 100 );
+                Application.DoEvents();
+            }
+
+            return new HtmlDocumentAdapter( Document );
+        }
+        
         public void LoadHtml( string html )
         {
             Url = new Uri( "about:blank" );
