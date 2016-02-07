@@ -5,14 +5,14 @@ using System.Linq;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
-using Microsoft.Practices.Prism.ViewModel;
+using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Modules.Import.Spec.v2;
 using RaynMaker.Modules.Import.Spec.v2.Locating;
 using RaynMaker.Modules.Import.Web.Model;
 
 namespace RaynMaker.Modules.Import.Web.ViewModels
 {
-    class DataSourcesNavigationViewModel : SpecDefinitionViewModelBase
+    class DataSourcesNavigationViewModel : SpecDefinitionViewModelBase, INotifyValidationFailed
     {
         private IEnumerable<DataSourceViewModel> mySources;
         private object mySelectedItem;
@@ -191,6 +191,12 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                     RemoveFigureCommand.RaiseCanExecuteChanged();
                 }
             }
+        }
+
+        public void FailedToNavigateTo( DataSource dataSource,string error )
+        {
+            var vm = Sources.Single( s => s.Model== dataSource );
+            vm.Error = error;
         }
     }
 }

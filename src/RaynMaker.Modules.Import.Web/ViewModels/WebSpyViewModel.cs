@@ -37,7 +37,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
             SourceDefinition = new DataSourceDefinitionViewModel( mySession );
             DocumentLocation = new DocumentLocationViewModel( mySession );
             Figures = new DataSourceFiguresViewModel( mySession, lutService );
-            Validation = new ValidationViewModel( mySession, myProjectHost, myStorageService );
+            Validation = new ValidationViewModel( mySession, myProjectHost, myStorageService, DataSourcesNavigation );
             ResetCommand = new DelegateCommand( OnReset );
             SaveCommand = new DelegateCommand( OnSave );
 

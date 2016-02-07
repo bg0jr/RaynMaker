@@ -8,6 +8,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
     {
         private DataSourceViewModel myParent;
         private bool myIsSelected;
+        private string myError;
 
         public FigureViewModel( Session session, DataSourceViewModel parent, IFigureDescriptor model )
             : base( session )
@@ -31,6 +32,12 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                     }
                 }
             }
+        }
+
+        public string Error
+        {
+            get { return myError; }
+            set { SetProperty( ref myError, value ); }
         }
     }
 }

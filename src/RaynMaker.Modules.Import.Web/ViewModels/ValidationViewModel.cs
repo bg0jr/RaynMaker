@@ -1,13 +1,13 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Plainion.Collections;
 using RaynMaker.Entities;
+using RaynMaker.Infrastructure;
 using RaynMaker.Modules.Import.Spec.v2;
 using RaynMaker.Modules.Import.Web.Model;
 using RaynMaker.Modules.Import.Web.Services;
-using RaynMaker.Infrastructure;
 
 namespace RaynMaker.Modules.Import.Web.ViewModels
 {
@@ -16,13 +16,15 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         private IProjectHost myProjectHost;
         private StorageService myStorageService;
         private Stock mySelectedStock;
+        private INotifyValidationFailed myValidationReport;
 
-        public ValidationViewModel( Session session, IProjectHost projectHost, StorageService storageService )
+        public ValidationViewModel( Session session, IProjectHost projectHost, StorageService storageService, INotifyValidationFailed validationReport )
             : base( session )
         {
             myProjectHost = projectHost;
             myProjectHost.Changed += OnProjectChanged;
             myStorageService = storageService;
+            myValidationReport = validationReport;
 
             Stocks = new ObservableCollection<Stock>();
 
@@ -70,7 +72,15 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                 return;
             }
 
-            Browser.Navigate( DocumentType.Html, Session.CurrentSource.Location, new StockMacroResolver( SelectedStock ) );
+            try
+            {
+                Browser.Navigate( DocumentType.Html, Session.CurrentSource.Location, new StockMacroResolver( SelectedStock ) );
+            }
+            catch( Exception ex )
+            {
+                // TODO: fetch Exception.Data
+                myValidationReport.FailedToNavigateTo( Session.CurrentSource, ex.Message );
+            }
 
             // The new document is automatically given to the selected FigureDescriptor ViewModel.
             // The MarkupBehavior gets automatically applied

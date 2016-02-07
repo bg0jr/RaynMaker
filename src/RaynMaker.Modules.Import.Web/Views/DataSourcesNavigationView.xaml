@@ -95,14 +95,27 @@
             </TreeView.ItemContainerStyle>
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Figures}" DataType="{x:Type vm:DataSourceViewModel}">
-                    <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
-                        <TextBlock.Text>
-                            <MultiBinding StringFormat="{}{0} - {1}">
-                                <Binding Path="Model.Vendor"/>
-                                <Binding Path="Model.Name"/>
-                            </MultiBinding>
-                        </TextBlock.Text>
-                    </TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="!" ToolTip="{Binding Error}" FontWeight="Bold" Foreground="Red" FontSize="18" VerticalAlignment="Center" Width="10">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Error}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} - {1}">
+                                    <Binding Path="Model.Vendor"/>
+                                    <Binding Path="Model.Name"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </StackPanel>
 
                     <HierarchicalDataTemplate.ItemTemplate>
                         <DataTemplate DataType="{x:Type vm:FigureViewModel}">
