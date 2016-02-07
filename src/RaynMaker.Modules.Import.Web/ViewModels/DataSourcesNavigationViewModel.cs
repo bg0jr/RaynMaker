@@ -42,15 +42,23 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                     .Select( s => { s.IsSelected = false; return s; } )
                     .SelectMany( s => s.Figures )
                     .Select( f => { f.IsSelected = false; return f; } )
-                    .Single( vm => vm.Model == Session.CurrentFigureDescriptor );
-                selectedVM.IsSelected = true;
+                    .SingleOrDefault( vm => vm.Model == Session.CurrentFigureDescriptor );
+
+                if( selectedVM != null )
+                {
+                    selectedVM.IsSelected = true;
+                }
             }
             else if( e.PropertyName == PropertySupport.ExtractPropertyName( () => Session.CurrentSource ) )
             {
                 var selectedVM = Sources
                     .Select( s => { s.IsSelected = false; return s; } )
-                    .Single( vm => vm.Model == Session.CurrentSource );
-                selectedVM.IsSelected = true;
+                    .SingleOrDefault( vm => vm.Model == Session.CurrentSource );
+
+                if( selectedVM != null )
+                {
+                    selectedVM.IsSelected = true;
+                }
             }
         }
 

@@ -68,7 +68,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                         oldDescriptor.Document = null;
                     }
 
-                    if( mySelectedDescriptor == null )
+                    if( mySelectedDescriptor != null )
                     {
                         mySelectedDescriptor.Document = myDocument;
                     }

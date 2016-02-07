@@ -4,6 +4,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
 using RaynMaker.Infrastructure;
 using RaynMaker.Infrastructure.Services;
@@ -15,12 +16,13 @@ using RaynMaker.Modules.Import.Web.Services;
 namespace RaynMaker.Modules.Import.Web.ViewModels
 {
     [Export]
-    class WebSpyViewModel : BindableBase
+    class WebSpyViewModel : BindableBase, IInteractionRequestAware
     {
         private IDocumentBrowser myDocumentBrowser = null;
         private IProjectHost myProjectHost;
         private StorageService myStorageService;
         private Session mySession;
+        private INotification myNotification;
 
         [ImportingConstructor]
         public WebSpyViewModel( IProjectHost projectHost, StorageService storageService, ILutService lutService )
@@ -45,7 +47,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
 
         private void OnProjectChanged()
         {
-            if ( myProjectHost.Project == null )
+            if( myProjectHost.Project == null )
             {
                 return;
             }
@@ -102,7 +104,7 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         {
             mySession.Reset();
 
-            foreach ( var source in myStorageService.Load() )
+            foreach( var source in myStorageService.Load() )
             {
                 mySession.Sources.Add( source );
             }
@@ -115,6 +117,20 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
         private void OnSave()
         {
             myStorageService.Store( mySession.Sources );
+        }
+
+        public Action FinishInteraction { get; set; }
+
+        public INotification Notification
+        {
+            get { return myNotification; }
+            set
+            {
+                myNotification = value;
+                
+                // TODO: this is a workaround to get notified when the window is re-opened
+                OnProjectChanged();
+            }
         }
     }
 }

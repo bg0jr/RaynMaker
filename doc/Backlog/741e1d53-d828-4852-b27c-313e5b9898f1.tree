@@ -9,9 +9,6 @@
       <Caption><![CDATA[1.8]]></Caption>
       <Node Id="d0da3880-c6d3-477b-bee2-8553b930be55">
         <Caption><![CDATA[Rework WebSpy]]></Caption>
-        <Node Id="1626c76c-c3a3-497e-875e-f0e0aaaa6a31">
-          <Caption><![CDATA[add/remove/clone of figure]]></Caption>
-        </Node>
         <Node Id="7fc5abd5-67f8-4dcd-841f-c439c5934691">
           <Caption><![CDATA["Validate All"]]></Caption>
         </Node>
