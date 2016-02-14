@@ -168,6 +168,7 @@
     </Compile>
     <Compile Include="WebFigureProvider.cs" />
     <Compile Include="WebServiceCurrencyTransalationRateProvider.cs" />
+    <Compile Include="ECBCurrencyTransalationRateProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\AddressBarView.xaml">

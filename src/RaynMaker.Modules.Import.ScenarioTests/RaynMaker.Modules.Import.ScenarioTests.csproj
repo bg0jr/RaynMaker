@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CurrencyTranslationRateProviderScenarios.cs" />
     <Compile Include="DefiningFigureDescriptors.cs" />
     <Compile Include="LoadingDataSourcesScenarios.cs" />
     <Compile Include="ImportFromWebScenarios.cs" />
@@ -102,6 +103,9 @@
     </Content>
     <Content Include="TestData\Html\ariva.prices.US4581401001.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Xml\eurofxref-daily.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>

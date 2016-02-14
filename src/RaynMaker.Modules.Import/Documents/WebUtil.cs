@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Net;
-using System.Text;
 using Plainion;
 using Plainion.Logging;
 
@@ -30,7 +29,7 @@ namespace RaynMaker.Modules.Import.Documents
             }
         }
 
-        public static WebClient CreateWebClient()
+        internal static WebClient CreateWebClient()
         {
             var client = new WebClient();
             client.UseDefaultCredentials = true;

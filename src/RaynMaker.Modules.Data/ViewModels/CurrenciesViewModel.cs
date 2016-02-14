@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
 using Microsoft.Practices.Prism.Mvvm;
+using Plainion.Logging;
 using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
 using RaynMaker.Infrastructure.Services;
@@ -16,6 +17,8 @@ namespace RaynMaker.Data.ViewModels
     [Export]
     class CurrenciesViewModel : BindableBase, IInteractionRequestAware
     {
+        private static readonly ILogger myLogger = LoggerFactory.GetLogger( typeof( CurrenciesViewModel ) );
+
         private IProjectHost myProjectHost;
         private ILutService myLutService;
 
@@ -57,8 +60,8 @@ namespace RaynMaker.Data.ViewModels
             OnPropertyChanged( PropertySupport.ExtractPropertyName( () => Currencies ) );
         }
 
-        [Import( AllowDefault = true )]
-        public ICurrencyTranslationRateProvider TranslationRateProvider { get; set; }
+        [ImportMany]
+        public IEnumerable<Lazy<ICurrencyTranslationRateProvider>> TranslationRateProviders { get; set; }
 
         public ICurrenciesLut CurrenciesLut { get { return myLutService.CurrenciesLut; } }
 
@@ -133,7 +136,7 @@ namespace RaynMaker.Data.ViewModels
 
         private bool CanUpdateAll()
         {
-            return TranslationRateProvider != null;
+            return TranslationRateProviders != null;
         }
 
         private void OnUpdateAll()
@@ -142,7 +145,19 @@ namespace RaynMaker.Data.ViewModels
             {
                 foreach( var translation in currency.Translations )
                 {
-                    translation.Rate = TranslationRateProvider.GetRate( currency, translation.Target );
+                    foreach( var provider in TranslationRateProviders )
+                    {
+                        var rate = provider.Value.GetRate( currency, translation.Target );
+                        if( rate == -1 )
+                        {
+                            myLogger.Warning( "{0}: Failed to update currency translation rate from {1} to {2}", provider.GetType().Name, currency.Symbol, translation.Target.Symbol );
+                        }
+                        else
+                        {
+                            translation.Rate = rate;
+                            break;
+                        }
+                    }
                 }
             }
         }
