@@ -30,8 +30,9 @@ namespace RaynMaker.Data.ViewModels
             myProjectHost = projectHost;
             CurrenciesLut = lutService.CurrenciesLut;
 
-            ImportCommand = new DelegateCommand<FigureSeries>( OnImport, CanImport );
-            ImportPriceCommand = new DelegateCommand( OnImportPrice, CanImportPrice );
+            ImportAllCommand = new DelegateCommand( OnImportAll, () => DataProvider != null );
+            ImportCommand = new DelegateCommand<FigureSeries>( s => OnImport( s, true ), x => DataProvider != null );
+            ImportPriceCommand = new DelegateCommand( () => OnImportPrice( true ), () => DataProvider != null );
         }
 
         [Import( AllowDefault = true )]
@@ -176,36 +177,38 @@ namespace RaynMaker.Data.ViewModels
             }
         }
 
-        public DelegateCommand<FigureSeries> ImportCommand { get; private set; }
+        public DelegateCommand ImportAllCommand { get; private set; }
 
-        private bool CanImport( FigureSeries series )
+        private void OnImportAll()
         {
-            return DataProvider != null;
+            OnImportPrice( false );
+
+            foreach( FigureSeries series in DataSeries )
+            {
+                OnImport( series, false );
+            }
         }
 
-        private void OnImport( FigureSeries series )
+        public DelegateCommand<FigureSeries> ImportCommand { get; private set; }
+
+        private void OnImport( FigureSeries series, bool withPreview )
         {
             var currentYear = DateTime.Now.Year;
 
             var request = DataProviderRequest.Create( Stock, series.FigureType, currentYear - 10, currentYear );
-            request.WithPreview = true;
+            request.WithPreview = withPreview;
 
             DataProvider.Fetch( request, series );
         }
 
         public DelegateCommand ImportPriceCommand { get; private set; }
 
-        private bool CanImportPrice()
-        {
-            return DataProvider != null;
-        }
-
-        private void OnImportPrice()
+        private void OnImportPrice( bool withPreview )
         {
             var today = DateTime.Today;
 
             var request = DataProviderRequest.Create( Stock, typeof( Price ), today.Subtract( TimeSpan.FromDays( 7 ) ), today.AddDays( 1 ) );
-            request.WithPreview = true;
+            request.WithPreview = withPreview;
 
             var series = new ObservableCollection<IFigure>();
             CollectionChangedEventManager.AddHandler( series, OnSeriesChanged );

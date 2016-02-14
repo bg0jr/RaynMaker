@@ -192,7 +192,10 @@ namespace RaynMaker.Modules.Import.Web.ViewModels
                     // Mark the part of the document described by the FigureDescriptor to have a preview
 
                     var cell = ( HtmlElementAdapter )MarkupFactory.FindElementByDescriptor( htmlDocument, descriptor );
-                    cell.Element.ScrollIntoView( false );
+                    if( cell != null )
+                    {
+                        cell.Element.ScrollIntoView( false );
+                    }
 
                     var marker = MarkupFactory.CreateMarker( descriptor );
                     marker.Mark( cell );

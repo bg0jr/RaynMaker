@@ -84,11 +84,11 @@ namespace RaynMaker.Modules.Import.Parsers
                 DataRow dataRow2 = result.NewRow();
                 result.Rows.Add( dataRow2 );
 
-                dataRow2[ 0 ] = descriptor.ValueFormat.Convert( ( string )value );
+                dataRow2[ 0 ] = descriptor.ValueFormat.Convert( ( string )value ) ?? DBNull.Value;
 
                 if( time != null )
                 {
-                    dataRow2[ 1 ] = descriptor.TimeFormat.Convert( ( string )time );
+                    dataRow2[ 1 ] = descriptor.TimeFormat.Convert( ( string )time ) ?? DBNull.Value;
                 }
             };
 
@@ -163,7 +163,7 @@ namespace RaynMaker.Modules.Import.Parsers
 
             return result;
         }
-        
+
         internal static object GetValue( PathCellDescriptor descriptor, DataTable inputTable )
         {
             Contract.RequiresNotNull( descriptor, "descriptor" );

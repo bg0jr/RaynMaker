@@ -12,141 +12,152 @@
     <UserControl.Resources>
         <l:PeriodConverter x:Key="PeriodConverter"/>
     </UserControl.Resources>
-    <ScrollViewer>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <GroupBox Header="Price" Grid.Row="0">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0"> 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Column="0" Text="Day" VerticalAlignment="Center"/>
-                        <TextBox Grid.Column="1" Text="{Binding Price.Period, Converter={StaticResource PeriodConverter}}" Margin="5,0,0,2" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Import all" Command="{Binding ImportAllCommand}" Margin="0,0,0,5"/>
+        </StackPanel>
 
-                        <TextBlock Grid.Column="2" Text="Value" VerticalAlignment="Center" Margin="5,0,0,2"/>
-                        <TextBox Grid.Column="3" Text="{Binding Price.Value}" Margin="5,0,0,2" />
+        <ScrollViewer Grid.Row="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <GroupBox Header="Price" Grid.Row="0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <ComboBox Grid.Column="4" ItemsSource="{Binding DataContext.CurrenciesLut.Currencies, ElementName=_this}" Margin="5,0,0,2" SelectedItem="{Binding Price.Currency}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Symbol}"/>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
+                            <TextBlock Grid.Column="0" Text="Day" VerticalAlignment="Center"/>
+                            <TextBox Grid.Column="1" Text="{Binding Price.Period, Converter={StaticResource PeriodConverter}}" Margin="5,0,0,2" />
 
-                        <TextBlock Grid.Column="5" Text="Source" VerticalAlignment="Center" Margin="5,0,0,2"/>
-                        <TextBox Grid.Column="6" Text="{Binding Price.Source}" Margin="5,0,0,2" />
+                            <TextBlock Grid.Column="2" Text="Value" VerticalAlignment="Center" Margin="5,0,0,2"/>
+                            <TextBox Grid.Column="3" Text="{Binding Price.Value}" Margin="5,0,0,2" />
+
+                            <ComboBox Grid.Column="4" ItemsSource="{Binding DataContext.CurrenciesLut.Currencies, ElementName=_this}" Margin="5,0,0,2" SelectedItem="{Binding Price.Currency}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Symbol}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+
+                            <TextBlock Grid.Column="5" Text="Source" VerticalAlignment="Center" Margin="5,0,0,2"/>
+                            <TextBox Grid.Column="6" Text="{Binding Price.Source}" Margin="5,0,0,2" />
+                        </Grid>
+
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Content="Import" Command="{Binding ImportPriceCommand}" Margin="0,3,0,0"/>
+                        </StackPanel>
                     </Grid>
-                    
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Content="Import" Command="{Binding ImportPriceCommand}" Margin="0,3,0,0"/>
-                    </StackPanel>
-                </Grid>
-            </GroupBox>
-            <ItemsControl ItemsSource="{Binding DataSeries}" Grid.Row="1">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <GroupBox Header="{Binding FigureType.Name}">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
+                </GroupBox>
+                <ItemsControl ItemsSource="{Binding DataSeries}" Grid.Row="1">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <GroupBox Header="{Binding FigureType.Name}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
 
-                                <Grid.Resources>
-                                    <v:InMillionsConverter x:Key="InMillionsConverter" Series="{Binding}"/>
-                                </Grid.Resources>
+                                    <Grid.Resources>
+                                        <v:InMillionsConverter x:Key="InMillionsConverter" Series="{Binding}"/>
+                                    </Grid.Resources>
 
-                                <CheckBox Grid.Row="0" IsChecked="{Binding InMillions, Source={StaticResource InMillionsConverter}}" 
+                                    <CheckBox Grid.Row="0" IsChecked="{Binding InMillions, Source={StaticResource InMillionsConverter}}" 
                                           Content="In Millions" Margin="0,2,0,2"/>
 
-                                <ItemsControl Grid.Row="1" ItemsSource="{Binding}">
-                                    <ItemsControl.Resources>
-                                        <v:CurrencyVisibilityConverter x:Key="CurrencyVisibilityConverter"/>
+                                    <ItemsControl Grid.Row="1" ItemsSource="{Binding}">
+                                        <ItemsControl.Resources>
+                                            <v:CurrencyVisibilityConverter x:Key="CurrencyVisibilityConverter"/>
 
-                                        <DataTemplate DataType="{x:Type l:AbstractCurrencyFigure}">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="100"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="100"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                </Grid.ColumnDefinitions>
+                                            <DataTemplate DataType="{x:Type l:AbstractCurrencyFigure}">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="100"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="100"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
 
-                                                <TextBlock Grid.Column="0" Text="Year" VerticalAlignment="Center"/>
-                                                <TextBox Grid.Column="1" Text="{Binding Period, Converter={StaticResource PeriodConverter}}" Margin="5,0,0,2" />
+                                                    <TextBlock Grid.Column="0" Text="Year" VerticalAlignment="Center"/>
+                                                    <TextBox Grid.Column="1" Text="{Binding Period, Converter={StaticResource PeriodConverter}}" Margin="5,0,0,2" />
 
-                                                <TextBlock Grid.Column="2" Text="Value" VerticalAlignment="Center" Margin="5,0,0,2"/>
-                                                <TextBox Grid.Column="3" Text="{Binding Value, Converter={StaticResource InMillionsConverter}}" Margin="5,0,0,2" />
+                                                    <TextBlock Grid.Column="2" Text="Value" VerticalAlignment="Center" Margin="5,0,0,2"/>
+                                                    <TextBox Grid.Column="3" Text="{Binding Value, Converter={StaticResource InMillionsConverter}}" Margin="5,0,0,2" />
 
-                                                <ComboBox Grid.Column="4" ItemsSource="{Binding DataContext.CurrenciesLut.Currencies, ElementName=_this}" Margin="5,0,0,2" Width="95"
+                                                    <ComboBox Grid.Column="4" ItemsSource="{Binding DataContext.CurrenciesLut.Currencies, ElementName=_this}" Margin="5,0,0,2" Width="95"
                                                           SelectedItem="{Binding Currency}" Visibility="{Binding .,Converter={StaticResource CurrencyVisibilityConverter}}">
-                                                    <ComboBox.ItemTemplate>
-                                                        <DataTemplate>
-                                                            <TextBlock Text="{Binding Symbol}"/>
-                                                        </DataTemplate>
-                                                    </ComboBox.ItemTemplate>
-                                                </ComboBox>
+                                                        <ComboBox.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock Text="{Binding Symbol}"/>
+                                                            </DataTemplate>
+                                                        </ComboBox.ItemTemplate>
+                                                    </ComboBox>
 
-                                                <TextBlock Grid.Column="5" Text="Source" VerticalAlignment="Center" Margin="5,0,0,2"/>
-                                                <TextBox Grid.Column="6" Text="{Binding Source}" Margin="5,0,0,2" />
-                                            </Grid>
-                                        </DataTemplate>
-                                        <DataTemplate DataType="{x:Type l:AbstractFigure}">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="100"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="100"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                </Grid.ColumnDefinitions>
+                                                    <TextBlock Grid.Column="5" Text="Source" VerticalAlignment="Center" Margin="5,0,0,2"/>
+                                                    <TextBox Grid.Column="6" Text="{Binding Source}" Margin="5,0,0,2" />
+                                                </Grid>
+                                            </DataTemplate>
+                                            <DataTemplate DataType="{x:Type l:AbstractFigure}">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="100"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="100"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
 
-                                                <TextBlock Grid.Column="0" Text="Year" VerticalAlignment="Center"/>
-                                                <TextBox Grid.Column="1" Text="{Binding Period, Converter={StaticResource PeriodConverter}}" Margin="5,0,0,2" />
+                                                    <TextBlock Grid.Column="0" Text="Year" VerticalAlignment="Center"/>
+                                                    <TextBox Grid.Column="1" Text="{Binding Period, Converter={StaticResource PeriodConverter}}" Margin="5,0,0,2" />
 
-                                                <TextBlock Grid.Column="2" Text="Value" VerticalAlignment="Center" Margin="5,0,0,2"/>
-                                                <TextBox Grid.Column="3" Text="{Binding Value, Converter={StaticResource InMillionsConverter}}" Margin="5,0,0,2" />
+                                                    <TextBlock Grid.Column="2" Text="Value" VerticalAlignment="Center" Margin="5,0,0,2"/>
+                                                    <TextBox Grid.Column="3" Text="{Binding Value, Converter={StaticResource InMillionsConverter}}" Margin="5,0,0,2" />
 
-                                                <Grid Grid.Column="4"/>
+                                                    <Grid Grid.Column="4"/>
 
-                                                <TextBlock Grid.Column="5" Text="Source" VerticalAlignment="Center" Margin="5,0,0,2"/>
-                                                <TextBox Grid.Column="6" Text="{Binding Source}" Margin="5,0,0,2" />
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ItemsControl.Resources>
-                                </ItemsControl>
+                                                    <TextBlock Grid.Column="5" Text="Source" VerticalAlignment="Center" Margin="5,0,0,2"/>
+                                                    <TextBox Grid.Column="6" Text="{Binding Source}" Margin="5,0,0,2" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.Resources>
+                                    </ItemsControl>
 
-                                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Button Content="Import" Command="{Binding DataContext.ImportCommand, ElementName=_this}" 
+                                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Button Content="Import" Command="{Binding DataContext.ImportCommand, ElementName=_this}" 
                                             CommandParameter="{Binding}" Margin="0,3,0,0"/>
-                                </StackPanel>
-                            </Grid>
-                        </GroupBox>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </Grid>
-    </ScrollViewer>
+                                    </StackPanel>
+                                </Grid>
+                            </GroupBox>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
 </UserControl>
