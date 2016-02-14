@@ -104,6 +104,70 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             Assert.That( price.Currency.Symbol, Is.EqualTo( "EUR" ) );
         }
 
+        /// <summary>
+        /// This can be considered as the "ticker" scenario. 
+        /// Intention of the test: WebFigureProvider and other components are reused. State from one stock must not interfer value fetching for other stock.
+        /// (Defect: CachingNavigator did not consider stock as cache key but pattern of DocumentLocator only)
+        /// </summary>
+        [Test]
+        public void GetValueForSeveralStocksInARow()
+        {
+            var dataProvider = new WebFigureProvider( new StorageService( myProjectHost.Object ), myLutService.Object );
+            dataProvider.CustomResolverCreator = r => new CompositeMacroResolver( new MacroResolver( TestDataRoot ), r );
+
+            {
+                var volksWagen = new Stock { Isin = "DE0007664039" };
+                volksWagen.Company = new Company { Name = "Volkswagen" };
+                volksWagen.Company.Stocks.Add( volksWagen );
+
+                var request = new DataProviderRequest( volksWagen, typeof( Price ), new DayPeriod( DateTime.MinValue ), new DayPeriod( DateTime.MaxValue ) )
+                {
+                    WithPreview = false,
+                    ThrowOnError = true
+                };
+
+                var series = new List<IFigure>();
+                dataProvider.Fetch( request, series );
+
+                Assert.That( series.Count, Is.EqualTo( 1 ) );
+
+                var price = ( Price )series.Single();
+
+                Assert.That( price.Stock.Isin, Is.EqualTo( "DE0007664039" ) );
+                Assert.That( ( ( DayPeriod )price.Period ).Day.Date, Is.EqualTo( DateTime.Today ) );
+                Assert.That( price.Source, Is.StringContaining( "ariva" ).IgnoreCase.And.StringContaining( "price" ).IgnoreCase );
+                Assert.That( price.Timestamp.Date, Is.EqualTo( DateTime.Today ) );
+                Assert.That( price.Value, Is.EqualTo( 134.356d ) );
+                Assert.That( price.Currency.Symbol, Is.EqualTo( "EUR" ) );
+            }
+
+            {
+                var intel = new Stock { Isin = "US4581401001" };
+                intel.Company = new Company { Name = "Intel" };
+                intel.Company.Stocks.Add( intel );
+
+                var request = new DataProviderRequest( intel, typeof( Price ), new DayPeriod( DateTime.MinValue ), new DayPeriod( DateTime.MaxValue ) )
+                {
+                    WithPreview = false,
+                    ThrowOnError = true
+                };
+
+                var series = new List<IFigure>();
+                dataProvider.Fetch( request, series );
+
+                Assert.That( series.Count, Is.EqualTo( 1 ) );
+
+                var price = ( Price )series.Single();
+
+                Assert.That( price.Stock.Isin, Is.EqualTo( "US4581401001" ) );
+                Assert.That( ( ( DayPeriod )price.Period ).Day.Date, Is.EqualTo( DateTime.Today ) );
+                Assert.That( price.Source, Is.StringContaining( "ariva" ).IgnoreCase.And.StringContaining( "price" ).IgnoreCase );
+                Assert.That( price.Timestamp.Date, Is.EqualTo( DateTime.Today ) );
+                Assert.That( price.Value, Is.EqualTo( 25.11d ) );
+                Assert.That( price.Currency.Symbol, Is.EqualTo( "EUR" ) );
+            }
+        }
+
         private class MacroResolver : AbstractMacroResolver
         {
             private string myTestDataRoot;

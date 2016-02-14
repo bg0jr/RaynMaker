@@ -15,5 +15,11 @@ namespace RaynMaker.Modules.Import.Documents
         {
             get { return Enumerable.Empty<string>(); }
         }
+
+
+        public int CalculateLocationUID( DocumentLocator locator )
+        {
+            return 0;
+        }
     }
 }

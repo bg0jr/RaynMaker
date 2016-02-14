@@ -7,6 +7,8 @@ namespace RaynMaker.Modules.Import.Documents
     {
         IEnumerable<string> UnresolvedMacros { get; }
 
+        int CalculateLocationUID( DocumentLocator locator );
+
         DocumentLocationFragment Resolve( DocumentLocationFragment fragment );
     }
 }

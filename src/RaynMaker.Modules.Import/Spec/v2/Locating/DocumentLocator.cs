@@ -30,14 +30,6 @@ namespace RaynMaker.Modules.Import.Spec.v2.Locating
             Fragments = new ObservableCollection<DocumentLocationFragment>( fragments );
         }
 
-        public int GetFragmentsHashCode()
-        {
-            var fragmentStrings = Fragments.Select( fragment => fragment.UrlString );
-            var hashCodeString = string.Join( string.Empty, fragmentStrings );
-
-            return hashCodeString.GetHashCode();
-        }
-
         [DataMember]
         public IList<DocumentLocationFragment> Fragments { get; private set; }
 

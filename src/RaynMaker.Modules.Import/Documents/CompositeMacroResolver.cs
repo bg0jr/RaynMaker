@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using RaynMaker.Modules.Import.Spec.v2.Locating;
 
 namespace RaynMaker.Modules.Import.Documents
@@ -32,6 +33,18 @@ namespace RaynMaker.Modules.Import.Documents
             }
 
             return current;
+        }
+
+        public int CalculateLocationUID( DocumentLocator locator )
+        {
+            int hashCode = 0;
+            
+            foreach( var resolver in myResolvers )
+            {
+                hashCode = ( hashCode + resolver.CalculateLocationUID( locator ) ) * 251;
+            }
+
+            return hashCode;
         }
     }
 }

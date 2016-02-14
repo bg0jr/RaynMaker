@@ -78,5 +78,40 @@ namespace RaynMaker.Modules.Import.Documents
                 throw new NotSupportedException( "Unknown fragment type: " + type );
             }
         }
+
+        public int CalculateLocationUID( DocumentLocator locator )
+        {
+            int hashCode = 0;
+
+            foreach( var fragment in locator.Fragments )
+            {
+                hashCode = ( hashCode + CalculateLocationUID( fragment ) ) * 251;
+            }
+
+            return hashCode;
+        }
+
+        private int CalculateLocationUID( DocumentLocationFragment fragment )
+        {
+            var matches = myMacroPattern.Value.Matches( fragment.UrlString );
+            if( matches.Count == 0 )
+            {
+                // no macro found
+                return fragment.UrlString.GetHashCode();
+            }
+
+            var url = fragment.UrlString;
+            foreach( Match match in matches )
+            {
+                var macro = match.Value;
+                var value = GetMacroValue( macro.Substring( 2, macro.Length - 3 ) );
+
+                if( value != null )
+                {
+                    url = url.Replace( macro, value );
+                }
+            }
+            return url.GetHashCode();
+        }
     }
 }

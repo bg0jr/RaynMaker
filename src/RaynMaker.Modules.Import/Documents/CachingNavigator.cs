@@ -36,16 +36,21 @@ namespace RaynMaker.Modules.Import.Documents
 
         public Uri Navigate( DocumentLocator locator, ILocatorMacroResolver macroResolver )
         {
-            var uri = myCache.TryGet( locator );
+            // TODO: key for caching would need include the locator with patterns + kind of hashcode from resolver
+            // (e.g. including hash of all known macros)
+            
+            var key = macroResolver.CalculateLocationUID( locator );
+
+            var uri = myCache.TryGet( key );
             if( uri == null )
             {
                 uri = myNavigator.Navigate( locator, macroResolver );
-                uri = myCache.Add( locator, uri );
+                uri = myCache.Add( key, uri );
             }
 
             return uri;
         }
-
+        
         public event Action<Uri> Navigating;
 
         public void Clear()

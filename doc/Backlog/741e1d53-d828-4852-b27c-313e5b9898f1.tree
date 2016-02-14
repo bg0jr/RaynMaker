@@ -4,6 +4,9 @@
     <Caption><![CDATA[Planning]]></Caption>
     <Node Id="bde3373e-2bec-4a2b-835e-92935da36614">
       <Caption><![CDATA[HotFix]]></Caption>
+      <Node Id="82eb68f9-fa66-44c4-b94b-5782d910607c">
+        <Caption><![CDATA[Import all button]]></Caption>
+      </Node>
     </Node>
     <Node Id="4d8de17c-33e9-4f67-8e4a-e1bd0e9b4e48">
       <Caption><![CDATA[1.9 - KB in RaynMaker]]></Caption>

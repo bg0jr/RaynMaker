@@ -38,11 +38,9 @@ namespace RaynMaker.Modules.Import.Documents
 
         public CacheSettings Settings { get; private set; }
 
-        internal Uri TryGet( DocumentLocator key )
+        internal Uri TryGet( int key )
         {
-            var hashCode = key.GetFragmentsHashCode();
-
-            var entry = myIndex.TryGet( hashCode );
+            var entry = myIndex.TryGet( key );
             if( entry == null )
             {
                 return null;
@@ -51,7 +49,7 @@ namespace RaynMaker.Modules.Import.Documents
             if( entry.IsExpired )
             {
                 // found but live time of entry expired
-                myIndex.Remove( hashCode );
+                myIndex.Remove( key );
                 return null;
             }
 
@@ -64,7 +62,7 @@ namespace RaynMaker.Modules.Import.Documents
         /// <summary>
         /// Adds the document specified by the given URL and the given navigation as key to the cache
         /// </summary>
-        internal Uri Add( DocumentLocator key, Uri document )
+        internal Uri Add( int key, Uri document )
         {
             if ( document.ToString() == "about:blank" )
             {
@@ -82,21 +80,20 @@ namespace RaynMaker.Modules.Import.Documents
             return entry.Uri;
         }
 
-        private CacheEntryBase CreateCacheEntry( DocumentLocator key, Uri document )
+        private CacheEntryBase CreateCacheEntry( int key, Uri document )
         {
             var expirationTime = DateTime.Now.Add( Settings.MaxEntryLiveTime );
-            var hashCode = key.GetFragmentsHashCode();
 
             if( document.IsFile )
             {
-                return new CacheEntryBase( hashCode, expirationTime, document );
+                return new CacheEntryBase( key, expirationTime, document );
             }
             else
             {
-                var cacheFile = Path.Combine( myCacheFolder, hashCode + ".dat" );
+                var cacheFile = Path.Combine( myCacheFolder, key + ".dat" );
                 WebUtil.DownloadTo( document, cacheFile );
 
-                return new ValueCacheEntry( hashCode, expirationTime, new Uri( cacheFile ) );
+                return new ValueCacheEntry( key, expirationTime, new Uri( cacheFile ) );
             }
         }
 
