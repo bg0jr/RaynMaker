@@ -1,23 +1,38 @@
-﻿using System;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq.Expressions;
-using Microsoft.Practices.Prism.Mvvm;
+using System.Runtime.CompilerServices;
 
 namespace RaynMaker.Entities
 {
-    public abstract class EntityBase : BindableBase
+    public abstract class EntityBase
     {
         [Required]
         public long Id { get; set; }
-        
-        public void RaisePropertyChanged( string propertyName )
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
         {
-            OnPropertyChanged( propertyName );
+            if (object.Equals(storage, value))
+            {
+                return false;
+            }
+
+            storage = value;
+
+            OnPropertyChanged(propertyName);
+
+            return true;
         }
 
-        public void RaisePropertyChanged<T>( Expression<Func<T>> propertyExpression )
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            OnPropertyChanged( propertyExpression );
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void RaisePropertyChanged([CallerMemberName]string propertyName = null)
+        {
+            RaisePropertyChanged(propertyName);
         }
     }
 }

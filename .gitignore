@@ -16,3 +16,4 @@
 /TestResult.xml
 /TestResults/**
 RaynMaker.gc.*
+/packages/Castle.Core.*

@@ -27,7 +27,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 
             descriptor.Separator = ";";
 
-            Assert.That( counter.GetCount( () => descriptor.Separator ), Is.EqualTo( 1 ) );
+            Assert.That( counter.GetCount(nameof(descriptor.Separator) ), Is.EqualTo( 1 ) );
         }
 
         [Test]

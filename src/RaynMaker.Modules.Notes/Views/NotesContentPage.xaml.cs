@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.Composition;
 using System.Windows.Controls;
-using Microsoft.Practices.Prism.Regions;
+using Prism.Regions;
 using RaynMaker.Modules.Notes.ViewModels;
 
 namespace RaynMaker.Modules.Notes.Views

@@ -2,8 +2,8 @@
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Mvvm;
+using Prism.Commands;
+using Prism.Mvvm;
 using RaynMaker.Modules.Analysis.Engine;
 using RaynMaker.Modules.Analysis.Services;
 using RaynMaker.Entities;

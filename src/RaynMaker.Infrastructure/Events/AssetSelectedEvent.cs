@@ -1,4 +1,4 @@
-﻿using Microsoft.Practices.Prism.PubSubEvents;
+﻿using Prism.Events;
 using RaynMaker.Entities;
 
 namespace RaynMaker.Infrastructure.Events

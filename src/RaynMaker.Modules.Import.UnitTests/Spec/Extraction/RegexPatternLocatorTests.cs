@@ -17,18 +17,18 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 
             locator.HeaderSeriesPosition = 6;
 
-            Assert.That( locator.HeaderSeriesPosition, Is.EqualTo( 6 ) );
+            Assert.That(locator.HeaderSeriesPosition, Is.EqualTo(6));
         }
 
         [Test]
         public void HeaderSeriesPosition_Set_ChangeIsNotified()
         {
             var locator = new RegexPatternLocator();
-            var counter = new PropertyChangedCounter( locator );
+            var counter = new PropertyChangedCounter(locator);
 
             locator.HeaderSeriesPosition = 6;
 
-            Assert.That( counter.GetCount( () => locator.HeaderSeriesPosition ), Is.EqualTo( 1 ) );
+            Assert.That(counter.GetCount(nameof(locator.HeaderSeriesPosition)), Is.EqualTo(1));
         }
 
         [Test]
@@ -36,48 +36,48 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         {
             var locator = new RegexPatternLocator();
 
-            locator.Pattern = new Regex( "Current*" );
+            locator.Pattern = new Regex("Current*");
 
-            Assert.That( locator.Pattern.ToString(), Is.EqualTo( "Current*" ) );
+            Assert.That(locator.Pattern.ToString(), Is.EqualTo("Current*"));
         }
 
         [Test]
         public void Pattern_Set_ChangeIsNotified()
         {
             var locator = new RegexPatternLocator();
-            var counter = new PropertyChangedCounter( locator );
+            var counter = new PropertyChangedCounter(locator);
 
-            locator.Pattern = new Regex( "Current*" );
+            locator.Pattern = new Regex("Current*");
 
-            Assert.That( counter.GetCount( () => locator.Pattern ), Is.EqualTo( 1 ) );
+            Assert.That(counter.GetCount(nameof(locator.Pattern)), Is.EqualTo(1));
         }
 
         [Test]
         public void Clone_WhenCalled_AllMembersAreCloned()
         {
-            var locator = new RegexPatternLocator { HeaderSeriesPosition = 4, Pattern = new Regex( "^.*$" ) };
+            var locator = new RegexPatternLocator { HeaderSeriesPosition = 4, Pattern = new Regex("^.*$") };
 
-            var clone = FigureDescriptorFactory.Clone( locator );
+            var clone = FigureDescriptorFactory.Clone(locator);
 
-            Assert.That( clone.HeaderSeriesPosition, Is.EqualTo( 4 ) );
-            Assert.That( clone.Pattern.ToString(), Is.EqualTo( "^.*$" ) );
+            Assert.That(clone.HeaderSeriesPosition, Is.EqualTo(4));
+            Assert.That(clone.Pattern.ToString(), Is.EqualTo("^.*$"));
         }
 
         [Test]
         public void Validate_IsValid_DoesNotThrows()
         {
-            var locator = new RegexPatternLocator { HeaderSeriesPosition = 4, Pattern = new Regex( "^.*$" ) };
+            var locator = new RegexPatternLocator { HeaderSeriesPosition = 4, Pattern = new Regex("^.*$") };
 
-            RecursiveValidator.Validate( locator );
+            RecursiveValidator.Validate(locator);
         }
 
         [Test]
         public void Validate_HeaderSeriesPositionOutOfRange_Throws()
         {
-            var locator = new RegexPatternLocator { HeaderSeriesPosition = -1, Pattern = new Regex( "^.*$" ) };
+            var locator = new RegexPatternLocator { HeaderSeriesPosition = -1, Pattern = new Regex("^.*$") };
 
-            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( locator ) );
-            Assert.That( ex.Message, Is.StringContaining( "HeaderSeriesPosition must be between 0 and " + int.MaxValue ) );
+            var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(locator));
+            Assert.That(ex.Message, Is.StringContaining("HeaderSeriesPosition must be between 0 and " + int.MaxValue));
         }
 
         [Test]
@@ -85,8 +85,8 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         {
             var locator = new RegexPatternLocator { HeaderSeriesPosition = 0, Pattern = null };
 
-            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( locator ) );
-            Assert.That( ex.Message, Is.StringContaining( "Pattern field is required" ) );
+            var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(locator));
+            Assert.That(ex.Message, Is.StringContaining("Pattern field is required"));
         }
     }
 }

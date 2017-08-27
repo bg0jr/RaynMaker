@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.Composition;
 using System.Windows.Documents;
-using Microsoft.Practices.Prism.Mvvm;
+using Prism.Mvvm;
 using Plainion.Windows.Controls;
 using RaynMaker.Entities;
 using RaynMaker.Infrastructure;

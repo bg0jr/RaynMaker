@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
-using Microsoft.Practices.Prism.Commands;
+using Prism.Commands;
 using Plainion.Collections;
 using RaynMaker.Entities;
 using RaynMaker.Infrastructure;

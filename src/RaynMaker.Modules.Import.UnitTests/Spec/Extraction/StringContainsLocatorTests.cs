@@ -16,18 +16,18 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 
             locator.HeaderSeriesPosition = 6;
 
-            Assert.That( locator.HeaderSeriesPosition, Is.EqualTo( 6 ) );
+            Assert.That(locator.HeaderSeriesPosition, Is.EqualTo(6));
         }
 
         [Test]
         public void HeaderSeriesPosition_Set_ChangeIsNotified()
         {
             var locator = new StringContainsLocator();
-            var counter = new PropertyChangedCounter( locator );
+            var counter = new PropertyChangedCounter(locator);
 
             locator.HeaderSeriesPosition = 6;
 
-            Assert.That( counter.GetCount( () => locator.HeaderSeriesPosition ), Is.EqualTo( 1 ) );
+            Assert.That(counter.GetCount(nameof(locator.HeaderSeriesPosition)), Is.EqualTo(1));
         }
 
         [Test]
@@ -37,18 +37,18 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 
             locator.Pattern = "EPS";
 
-            Assert.That( locator.Pattern.ToString(), Is.EqualTo( "EPS" ) );
+            Assert.That(locator.Pattern.ToString(), Is.EqualTo("EPS"));
         }
 
         [Test]
         public void Pattern_Set_ChangeIsNotified()
         {
             var locator = new StringContainsLocator();
-            var counter = new PropertyChangedCounter( locator );
+            var counter = new PropertyChangedCounter(locator);
 
             locator.Pattern = "EPS";
 
-            Assert.That( counter.GetCount( () => locator.Pattern ), Is.EqualTo( 1 ) );
+            Assert.That(counter.GetCount(nameof(locator.Pattern)), Is.EqualTo(1));
         }
 
         [Test]
@@ -56,10 +56,10 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         {
             var locator = new StringContainsLocator { HeaderSeriesPosition = 4, Pattern = "Sales" };
 
-            var clone = FigureDescriptorFactory.Clone( locator );
+            var clone = FigureDescriptorFactory.Clone(locator);
 
-            Assert.That( clone.HeaderSeriesPosition, Is.EqualTo( 4 ) );
-            Assert.That( clone.Pattern, Is.EqualTo( "Sales" ) );
+            Assert.That(clone.HeaderSeriesPosition, Is.EqualTo(4));
+            Assert.That(clone.Pattern, Is.EqualTo("Sales"));
         }
 
         [Test]
@@ -67,7 +67,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         {
             var locator = new StringContainsLocator { HeaderSeriesPosition = 4, Pattern = "Sales" };
 
-            RecursiveValidator.Validate( locator );
+            RecursiveValidator.Validate(locator);
         }
 
         [Test]
@@ -75,8 +75,8 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         {
             var locator = new StringContainsLocator { HeaderSeriesPosition = -1, Pattern = "Sales" };
 
-            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( locator ) );
-            Assert.That( ex.Message, Is.StringContaining( "HeaderSeriesPosition must be between 0 and " + int.MaxValue ) );
+            var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(locator));
+            Assert.That(ex.Message, Is.StringContaining("HeaderSeriesPosition must be between 0 and " + int.MaxValue));
         }
 
         [Test]
@@ -84,8 +84,8 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         {
             var locator = new StringContainsLocator { HeaderSeriesPosition = 0, Pattern = null };
 
-            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( locator ) );
-            Assert.That( ex.Message, Is.StringContaining( "Pattern field is required" ) );
+            var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(locator));
+            Assert.That(ex.Message, Is.StringContaining("Pattern field is required"));
         }
 
         /// <summary>
@@ -97,9 +97,9 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         {
             var locator = new StringContainsLocator { HeaderSeriesPosition = 0, Pattern = "abc" };
 
-            var idx = locator.FindIndex( new[] { null, "x", "y", "abcdefg", null, "^7" } );
+            var idx = locator.FindIndex(new[] { null, "x", "y", "abcdefg", null, "^7" });
 
-            Assert.That( idx, Is.EqualTo( 3 ) );
+            Assert.That(idx, Is.EqualTo(3));
         }
     }
 }

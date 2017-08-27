@@ -11,7 +11,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
     [TestFixture]
     public class SeriesDescriptorBaseTests
     {
-        [DataContract( Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "DummyDescriptor" )]
+        [DataContract(Namespace = "https://github.com/bg0jr/RaynMaker/Import/Spec", Name = "DummyDescriptor")]
         private class DummyDescriptor : SeriesDescriptorBase
         {
             public DummyDescriptor()
@@ -26,18 +26,18 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 
             descriptor.Orientation = SeriesOrientation.Column;
 
-            Assert.That( descriptor.Orientation, Is.EqualTo( SeriesOrientation.Column ) );
+            Assert.That(descriptor.Orientation, Is.EqualTo(SeriesOrientation.Column));
         }
 
         [Test]
         public void Orientation_Set_ChangeIsNotified()
         {
             var descriptor = new DummyDescriptor();
-            var counter = new PropertyChangedCounter( descriptor );
+            var counter = new PropertyChangedCounter(descriptor);
 
             descriptor.Orientation = SeriesOrientation.Column;
 
-            Assert.That( counter.GetCount( () => descriptor.Orientation ), Is.EqualTo( 1 ) );
+            Assert.That(counter.GetCount(nameof(descriptor.Orientation)), Is.EqualTo(1));
         }
 
         [Test]
@@ -47,18 +47,18 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 
             descriptor.ValuesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 7, SeriesPosition = 4 };
 
-            Assert.That( descriptor.ValuesLocator.HeaderSeriesPosition, Is.EqualTo( 7 ) );
+            Assert.That(descriptor.ValuesLocator.HeaderSeriesPosition, Is.EqualTo(7));
         }
 
         [Test]
         public void ValuesLocator_Set_ChangeIsNotified()
         {
             var descriptor = new DummyDescriptor();
-            var counter = new PropertyChangedCounter( descriptor );
+            var counter = new PropertyChangedCounter(descriptor);
 
             descriptor.ValuesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 4 };
 
-            Assert.That( counter.GetCount( () => descriptor.ValuesLocator ), Is.EqualTo( 1 ) );
+            Assert.That(counter.GetCount(nameof(descriptor.ValuesLocator)), Is.EqualTo(1));
         }
 
         [Test]
@@ -66,20 +66,20 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         {
             var descriptor = new DummyDescriptor();
 
-            descriptor.ValueFormat = new FormatColumn( "c1", typeof( double ), "0.00" );
+            descriptor.ValueFormat = new FormatColumn("c1", typeof(double), "0.00");
 
-            Assert.That( descriptor.ValueFormat.Format, Is.EqualTo( "0.00" ) );
+            Assert.That(descriptor.ValueFormat.Format, Is.EqualTo("0.00"));
         }
 
         [Test]
         public void ValueFormat_Set_ChangeIsNotified()
         {
             var descriptor = new DummyDescriptor();
-            var counter = new PropertyChangedCounter( descriptor );
+            var counter = new PropertyChangedCounter(descriptor);
 
-            descriptor.ValueFormat = new FormatColumn( "c1", typeof( double ), "0.00" );
+            descriptor.ValueFormat = new FormatColumn("c1", typeof(double), "0.00");
 
-            Assert.That( counter.GetCount( () => descriptor.ValueFormat ), Is.EqualTo( 1 ) );
+            Assert.That(counter.GetCount(nameof(descriptor.ValueFormat)), Is.EqualTo(1));
         }
 
         [Test]
@@ -89,18 +89,18 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 
             descriptor.TimesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 7, SeriesPosition = 4 };
 
-            Assert.That( descriptor.TimesLocator.HeaderSeriesPosition, Is.EqualTo( 7 ) );
+            Assert.That(descriptor.TimesLocator.HeaderSeriesPosition, Is.EqualTo(7));
         }
 
         [Test]
         public void TimesLocator_Set_ChangeIsNotified()
         {
             var descriptor = new DummyDescriptor();
-            var counter = new PropertyChangedCounter( descriptor );
+            var counter = new PropertyChangedCounter(descriptor);
 
             descriptor.TimesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 4 };
 
-            Assert.That( counter.GetCount( () => descriptor.TimesLocator ), Is.EqualTo( 1 ) );
+            Assert.That(counter.GetCount(nameof(descriptor.TimesLocator)), Is.EqualTo(1));
         }
 
         [Test]
@@ -108,20 +108,20 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         {
             var descriptor = new DummyDescriptor();
 
-            descriptor.TimeFormat = new FormatColumn( "c1", typeof( double ), "0.00" );
+            descriptor.TimeFormat = new FormatColumn("c1", typeof(double), "0.00");
 
-            Assert.That( descriptor.TimeFormat.Format, Is.EqualTo( "0.00" ) );
+            Assert.That(descriptor.TimeFormat.Format, Is.EqualTo("0.00"));
         }
 
         [Test]
         public void TimeFormat_Set_ChangeIsNotified()
         {
             var descriptor = new DummyDescriptor();
-            var counter = new PropertyChangedCounter( descriptor );
+            var counter = new PropertyChangedCounter(descriptor);
 
-            descriptor.TimeFormat = new FormatColumn( "c1", typeof( double ), "0.00" );
+            descriptor.TimeFormat = new FormatColumn("c1", typeof(double), "0.00");
 
-            Assert.That( counter.GetCount( () => descriptor.TimeFormat ), Is.EqualTo( 1 ) );
+            Assert.That(counter.GetCount(nameof(descriptor.TimeFormat)), Is.EqualTo(1));
         }
 
         [Test]
@@ -129,20 +129,20 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         {
             var descriptor = new DummyDescriptor();
 
-            descriptor.Excludes.Add( 11 );
+            descriptor.Excludes.Add(11);
 
-            Assert.That( descriptor.Excludes, Contains.Item( 11 ) );
+            Assert.That(descriptor.Excludes, Contains.Item(11));
         }
 
         [Test]
         public void Excludes_Add_ChangeIsNotified()
         {
             var descriptor = new DummyDescriptor();
-            var counter = new CollectionChangedCounter( descriptor.Excludes );
+            var counter = new CollectionChangedCounter(descriptor.Excludes);
 
-            descriptor.Excludes.Add( 11 );
+            descriptor.Excludes.Add(11);
 
-            Assert.That( counter.Count, Is.EqualTo( 1 ) );
+            Assert.That(counter.Count, Is.EqualTo(1));
         }
 
         [Test]
@@ -153,28 +153,28 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             descriptor.Orientation = SeriesOrientation.Row;
 
             descriptor.ValuesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 4 };
-            descriptor.ValueFormat = new FormatColumn( "value", typeof( double ), "0.00" );
+            descriptor.ValueFormat = new FormatColumn("value", typeof(double), "0.00");
 
             descriptor.TimesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 23 };
-            descriptor.TimeFormat = new FormatColumn( "time", typeof( DateTime ), "G" );
+            descriptor.TimeFormat = new FormatColumn("time", typeof(DateTime), "G");
 
-            descriptor.Excludes.AddRange( 11, 88 );
+            descriptor.Excludes.AddRange(11, 88);
 
-            var clone = FigureDescriptorFactory.Clone( descriptor );
+            var clone = FigureDescriptorFactory.Clone(descriptor);
 
-            Assert.That( clone.Orientation, Is.EqualTo( descriptor.Orientation ) );
+            Assert.That(clone.Orientation, Is.EqualTo(descriptor.Orientation));
 
-            Assert.That( ( ( AbsolutePositionLocator )clone.ValuesLocator ).SeriesPosition, Is.EqualTo( 4 ) );
-            Assert.That( clone.ValueFormat.Name, Is.EqualTo( descriptor.ValueFormat.Name ) );
-            Assert.That( clone.ValueFormat.Type, Is.EqualTo( descriptor.ValueFormat.Type ) );
-            Assert.That( clone.ValueFormat.Format, Is.EqualTo( descriptor.ValueFormat.Format ) );
+            Assert.That(((AbsolutePositionLocator)clone.ValuesLocator).SeriesPosition, Is.EqualTo(4));
+            Assert.That(clone.ValueFormat.Name, Is.EqualTo(descriptor.ValueFormat.Name));
+            Assert.That(clone.ValueFormat.Type, Is.EqualTo(descriptor.ValueFormat.Type));
+            Assert.That(clone.ValueFormat.Format, Is.EqualTo(descriptor.ValueFormat.Format));
 
-            Assert.That( ( ( AbsolutePositionLocator )clone.TimesLocator ).SeriesPosition, Is.EqualTo( 23 ) );
-            Assert.That( clone.TimeFormat.Name, Is.EqualTo( descriptor.TimeFormat.Name ) );
-            Assert.That( clone.TimeFormat.Type, Is.EqualTo( descriptor.TimeFormat.Type ) );
-            Assert.That( clone.TimeFormat.Format, Is.EqualTo( descriptor.TimeFormat.Format ) );
+            Assert.That(((AbsolutePositionLocator)clone.TimesLocator).SeriesPosition, Is.EqualTo(23));
+            Assert.That(clone.TimeFormat.Name, Is.EqualTo(descriptor.TimeFormat.Name));
+            Assert.That(clone.TimeFormat.Type, Is.EqualTo(descriptor.TimeFormat.Type));
+            Assert.That(clone.TimeFormat.Format, Is.EqualTo(descriptor.TimeFormat.Format));
 
-            Assert.That( clone.Excludes, Is.EquivalentTo( descriptor.Excludes ) );
+            Assert.That(clone.Excludes, Is.EquivalentTo(descriptor.Excludes));
         }
 
         [Test]
@@ -182,12 +182,12 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         {
             var descriptor = new DummyDescriptor();
 
-            var clone = FigureDescriptorFactory.Clone( descriptor );
+            var clone = FigureDescriptorFactory.Clone(descriptor);
 
-            var counter = new CollectionChangedCounter( clone.Excludes );
-            clone.Excludes.Add( 1 );
+            var counter = new CollectionChangedCounter(clone.Excludes);
+            clone.Excludes.Add(1);
 
-            Assert.That( counter.Count, Is.EqualTo( 1 ) );
+            Assert.That(counter.Count, Is.EqualTo(1));
         }
 
         [Test]
@@ -196,9 +196,9 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             var descriptor = new DummyDescriptor();
             descriptor.Figure = "Equity";
             descriptor.ValuesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 4 };
-            descriptor.ValueFormat = new FormatColumn( "values", typeof( double ), "0.00" );
+            descriptor.ValueFormat = new FormatColumn("values", typeof(double), "0.00");
 
-            RecursiveValidator.Validate( descriptor );
+            RecursiveValidator.Validate(descriptor);
         }
 
         [Test]
@@ -206,10 +206,10 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
         {
             var descriptor = new SeparatorSeriesDescriptor();
             descriptor.ValuesLocator = null;
-            descriptor.ValueFormat = new FormatColumn( "values", typeof( double ), "0.00" );
+            descriptor.ValueFormat = new FormatColumn("values", typeof(double), "0.00");
 
-            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
-            Assert.That( ex.Message, Is.StringContaining( "The ValuesLocator field is required" ) );
+            var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(descriptor));
+            Assert.That(ex.Message, Is.StringContaining("The ValuesLocator field is required"));
         }
 
         [Test]
@@ -219,8 +219,8 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             descriptor.ValuesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 4 };
             descriptor.ValueFormat = null;
 
-            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
-            Assert.That( ex.Message, Is.StringContaining( "The ValueFormat field is required" ) );
+            var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(descriptor));
+            Assert.That(ex.Message, Is.StringContaining("The ValueFormat field is required"));
         }
 
         [Test]
@@ -229,10 +229,10 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             var descriptor = new DummyDescriptor();
             descriptor.Figure = "Equity";
             descriptor.ValuesLocator = new AbsolutePositionLocator();
-            descriptor.ValueFormat = new FormatColumn( "values", typeof( double ), "0.00" );
+            descriptor.ValueFormat = new FormatColumn("values", typeof(double), "0.00");
 
-            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
-            Assert.That( ex.Message, Is.StringContaining( "HeaderSeriesPosition must be between 0 and " + int.MaxValue ) );
+            var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(descriptor));
+            Assert.That(ex.Message, Is.StringContaining("HeaderSeriesPosition must be between 0 and " + int.MaxValue));
         }
 
         [Test]
@@ -243,8 +243,8 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             descriptor.ValuesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 23 };
             descriptor.ValueFormat = new FormatColumn();
 
-            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
-            Assert.That( ex.Message, Is.StringContaining( "Type field is required" ) );
+            var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(descriptor));
+            Assert.That(ex.Message, Is.StringContaining("Type field is required"));
         }
 
         [Test]
@@ -253,10 +253,10 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             var descriptor = new DummyDescriptor();
             descriptor.Figure = "Equity";
             descriptor.TimesLocator = new AbsolutePositionLocator();
-            descriptor.TimeFormat = new FormatColumn( "Times", typeof( double ), "0.00" );
+            descriptor.TimeFormat = new FormatColumn("Times", typeof(double), "0.00");
 
-            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
-            Assert.That( ex.Message, Is.StringContaining( "HeaderSeriesPosition must be between 0 and " + int.MaxValue ) );
+            var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(descriptor));
+            Assert.That(ex.Message, Is.StringContaining("HeaderSeriesPosition must be between 0 and " + int.MaxValue));
         }
 
         [Test]
@@ -267,8 +267,8 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             descriptor.TimesLocator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = 23 };
             descriptor.TimeFormat = new FormatColumn();
 
-            var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
-            Assert.That( ex.Message, Is.StringContaining( "Type field is required" ) );
+            var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(descriptor));
+            Assert.That(ex.Message, Is.StringContaining("Type field is required"));
         }
     }
 }

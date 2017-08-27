@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using Microsoft.Practices.Prism.Mvvm;
+using Prism.Mvvm;
 using RaynMaker.Infrastructure.Services;
 using RaynMaker.Modules.Import.Web.Model;
 

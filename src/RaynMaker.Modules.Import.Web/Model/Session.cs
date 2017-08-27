@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Microsoft.Practices.Prism.Mvvm;
+using Prism.Mvvm;
 using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;

@@ -2,9 +2,9 @@
 using System.ComponentModel.Composition;
 using System.Windows.Input;
 using ICSharpCode.AvalonEdit.Document;
-using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
-using Microsoft.Practices.Prism.Mvvm;
+using Prism.Commands;
+using Prism.Interactivity.InteractionRequest;
+using Prism.Mvvm;
 using RaynMaker.Modules.Analysis.Services;
 using RaynMaker.Infrastructure;
 

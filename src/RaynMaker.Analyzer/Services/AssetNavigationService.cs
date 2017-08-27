@@ -2,7 +2,7 @@
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows;
-using Microsoft.Practices.Prism.Regions;
+using Prism.Regions;
 using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
 using RaynMaker.Infrastructure.Services;

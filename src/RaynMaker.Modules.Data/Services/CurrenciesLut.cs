@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
-using Microsoft.Practices.Prism.Mvvm;
+using Prism.Mvvm;
 using Plainion;
 using RaynMaker.Entities;
 using RaynMaker.Infrastructure;

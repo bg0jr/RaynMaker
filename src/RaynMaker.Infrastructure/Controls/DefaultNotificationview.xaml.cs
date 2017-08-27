@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
+using Prism.Interactivity.InteractionRequest;
 using Plainion.Prism.Interactivity.InteractionRequest;
 
 namespace RaynMaker.Infrastructure.Controls

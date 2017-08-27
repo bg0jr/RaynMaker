@@ -24,7 +24,14 @@
     </Window.InputBindings>
     <i:Interaction.Triggers>
         <prism:InteractionRequestTrigger SourceObject="{Binding ShowLogRequest, Mode=OneWay}">
-            <pn:PopupViewAction WindowWidth="800" WindowHeight="600" prism:RegionManager.RegionName="Views.Log"/>
+            <pn:PopupViewAction prism:RegionManager.RegionName="Views.Log">
+                <pn:PopupViewAction.WindowStyle>
+                    <Style TargetType="{x:Type Window}">
+                        <Setter Property="Width" Value="800"/>
+                        <Setter Property="Height" Value="600"/>
+                    </Style>
+                </pn:PopupViewAction.WindowStyle>
+            </pn:PopupViewAction>
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
 

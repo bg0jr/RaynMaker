@@ -13,7 +13,14 @@
              d:DesignWidth="500">
     <i:Interaction.Triggers>
         <prism:InteractionRequestTrigger SourceObject="{Binding EditCaptureRequest, Mode=OneWay}">
-            <pn:PopupViewAction WindowWidth="700" WindowHeight="500" prism:RegionManager.RegionName="{x:Static l:RegionNames.EditCaptureView}"/>
+            <pn:PopupViewAction prism:RegionManager.RegionName="{x:Static l:RegionNames.EditCaptureView}">
+                <pn:PopupViewAction.WindowStyle>
+                    <Style TargetType="{x:Type Window}">
+                        <Setter Property="Width" Value="700"/>
+                        <Setter Property="Height" Value="500"/>
+                    </Style>
+                </pn:PopupViewAction.WindowStyle>
+            </pn:PopupViewAction>
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
     <Grid>

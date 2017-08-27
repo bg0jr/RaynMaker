@@ -1,7 +1,7 @@
 ﻿using System.Collections.Specialized;
 using System.ComponentModel.Composition;
 using System.Windows;
-using Microsoft.Practices.Prism.Regions;
+using Prism.Regions;
 
 namespace RaynMaker.Infrastructure.Controls
 {

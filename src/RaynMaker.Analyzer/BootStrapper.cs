@@ -2,8 +2,8 @@
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Windows;
-using Microsoft.Practices.Prism.Interactivity;
-using Microsoft.Practices.Prism.Regions;
+using Prism.Interactivity;
+using Prism.Regions;
 using Plainion.AppFw.Wpf;
 using Plainion.AppFw.Wpf.ViewModels;
 using Plainion.Logging;
@@ -36,7 +36,7 @@ namespace RaynMaker.Analyzer
             }
         }
 
-        protected override Microsoft.Practices.Prism.Regions.RegionAdapterMappings ConfigureRegionAdapterMappings()
+        protected override Prism.Regions.RegionAdapterMappings ConfigureRegionAdapterMappings()
         {
             var mappings = base.ConfigureRegionAdapterMappings();
             mappings.RegisterMapping( typeof( OverlayViewAction ), Container.GetExportedValue<OverlayViewActionRegionAdapter>() );
@@ -46,14 +46,14 @@ namespace RaynMaker.Analyzer
 
         public override void Run( bool runWithDefaultConfiguration )
         {
-            LoggerFactory.Implementation = new LoggingSinkLoggerFactory();
+            LoggerFactory.Implementation = new DefaultLoggerFactory();
             LoggerFactory.LogLevel = LogLevel.Info;
 
             ThowDataBindingError40TraceListener.Initialize();
 
             base.Run( runWithDefaultConfiguration );
 
-            LoggerFactory.AddGuiAppender( Container.GetExportedValue<LoggingSink>() );
+            LoggerFactory.AddSink(Container.GetExportedValue<LoggingSink>());
 
             // we have to call this here in order to support regions which are provided by modules
             RegionManager.UpdateRegions();

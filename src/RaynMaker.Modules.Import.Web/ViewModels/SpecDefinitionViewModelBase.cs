@@ -1,4 +1,4 @@
-﻿using Microsoft.Practices.Prism.Mvvm;
+﻿using Prism.Mvvm;
 using Plainion;
 using RaynMaker.Modules.Import.Web.Model;
 

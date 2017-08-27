@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Input;
-using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Mvvm;
+using Prism.Commands;
+using Prism.Mvvm;
 using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2;
 using RaynMaker.Modules.Import.Spec.v2.Locating;

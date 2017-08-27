@@ -1,4 +1,4 @@
-﻿using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
+﻿using Prism.Interactivity.InteractionRequest;
 using RaynMaker.Entities;
 
 namespace RaynMaker.Modules.Browser.ViewModels

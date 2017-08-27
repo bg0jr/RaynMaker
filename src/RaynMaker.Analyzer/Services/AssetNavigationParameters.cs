@@ -1,4 +1,4 @@
-﻿using Microsoft.Practices.Prism.Regions;
+﻿using Prism.Regions;
 using RaynMaker.Entities;
 
 namespace RaynMaker.Analyzer.Services

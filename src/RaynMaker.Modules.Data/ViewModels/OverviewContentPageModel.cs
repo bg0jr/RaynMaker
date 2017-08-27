@@ -2,8 +2,8 @@
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows.Input;
-using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Mvvm;
+using Prism.Commands;
+using Prism.Mvvm;
 using Plainion.Windows.Controls;
 using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
@@ -17,12 +17,12 @@ namespace RaynMaker.Data.ViewModels
         private Stock myStock;
 
         [ImportingConstructor]
-        public OverviewContentPageModel( IProjectHost projectHost )
+        public OverviewContentPageModel(IProjectHost projectHost)
         {
             myProjectHost = projectHost;
 
-            AddReferenceCommand = new DelegateCommand( OnAddReference );
-            RemoveReferenceCommand = new DelegateCommand<Reference>( OnRemoveReference );
+            AddReferenceCommand = new DelegateCommand(OnAddReference);
+            RemoveReferenceCommand = new DelegateCommand<Reference>(OnRemoveReference);
         }
 
         public string Header { get { return "Overview"; } }
@@ -32,14 +32,14 @@ namespace RaynMaker.Data.ViewModels
             get { return myStock; }
             set
             {
-                if( SetProperty( ref myStock, value ) )
+                if (SetProperty(ref myStock, value))
                 {
-                    OnPropertyChanged( () => Tags );
+                    RaisePropertyChanged(nameof(Tags));
                 }
             }
         }
 
-        public void Initialize( Stock stock )
+        public void Initialize(Stock stock)
         {
             Stock = stock;
         }
@@ -60,22 +60,22 @@ namespace RaynMaker.Data.ViewModels
 
         private void OnAddReference()
         {
-            Stock.Company.References.Add( new Reference() );
+            Stock.Company.References.Add(new Reference());
         }
 
         public ICommand RemoveReferenceCommand { get; private set; }
 
-        private void OnRemoveReference( Reference reference )
+        private void OnRemoveReference(Reference reference)
         {
-            Stock.Company.References.Remove( reference );
+            Stock.Company.References.Remove(reference);
         }
 
         public string Tags
         {
-            get { return Stock != null ? string.Join( ",", Stock.Company.Tags ) : null; }
+            get { return Stock != null ? string.Join(",", Stock.Company.Tags) : null; }
             set
             {
-                if( Stock == null || string.Join( ",", Stock.Company.Tags ) == value )
+                if (Stock == null || string.Join(",", Stock.Company.Tags) == value)
                 {
                     return;
                 }
@@ -84,16 +84,16 @@ namespace RaynMaker.Data.ViewModels
 
                 var ctx = myProjectHost.Project.GetAssetsContext();
 
-                foreach( var tagName in value.Split( ',' ).Where( x => !string.IsNullOrWhiteSpace( x ) ).Select( x => x.Trim() ) )
+                foreach (var tagName in value.Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => x.Trim()))
                 {
-                    var tag = ctx.Tags.FirstOrDefault( t => t.Name.Equals( tagName, StringComparison.OrdinalIgnoreCase ) );
-                    if( tag == null )
+                    var tag = ctx.Tags.FirstOrDefault(t => t.Name.Equals(tagName, StringComparison.OrdinalIgnoreCase));
+                    if (tag == null)
                     {
                         tag = new Tag { Name = tagName };
-                        ctx.Tags.Add( tag );
+                        ctx.Tags.Add(tag);
                     }
 
-                    Stock.Company.Tags.Add( tag );
+                    Stock.Company.Tags.Add(tag);
                 }
             }
         }

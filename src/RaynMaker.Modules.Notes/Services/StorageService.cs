@@ -2,7 +2,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Documents;
-using Microsoft.Practices.Prism.PubSubEvents;
+using Prism.Events;
 using RaynMaker.Entities;
 using RaynMaker.Infrastructure;
 using RaynMaker.Infrastructure.Events;

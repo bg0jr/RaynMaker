@@ -4,9 +4,9 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Interactivity;
 using System.Windows.Markup;
-using Microsoft.Practices.Prism.Interactivity.InteractionRequest;
+using Prism.Interactivity.InteractionRequest;
 using Plainion;
-using Plainion.Windows;
+using Plainion.Windows.Controls;
 
 namespace RaynMaker.Infrastructure.Controls
 {

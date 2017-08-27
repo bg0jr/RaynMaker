@@ -27,7 +27,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 
             locator.HeaderSeriesPosition = 6;
 
-            Assert.That( counter.GetCount( () => locator.HeaderSeriesPosition ), Is.EqualTo( 1 ) );
+            Assert.That( counter.GetCount(nameof(locator.HeaderSeriesPosition) ), Is.EqualTo( 1 ) );
         }
 
         [Test]
@@ -48,7 +48,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
 
             locator.SeriesPosition = 6;
 
-            Assert.That( counter.GetCount( () => locator.SeriesPosition ), Is.EqualTo( 1 ) );
+            Assert.That( counter.GetCount(nameof(locator.SeriesPosition )), Is.EqualTo( 1 ) );
         }
 
         [Test]

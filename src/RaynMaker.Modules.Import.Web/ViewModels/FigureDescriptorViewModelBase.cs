@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Practices.Prism.Mvvm;
+using Prism.Mvvm;
 using Plainion;
 using RaynMaker.Entities;
 using RaynMaker.Modules.Import.Design;
