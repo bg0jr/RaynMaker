@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Analyzer", "src\RaynMaker.Analyzer\RaynMaker.Analyzer.csproj", "{4164C457-C990-4D92-8175-C8BF4AD6A1DB}"
 EndProject
@@ -29,9 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Modules.Import", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2BB4938E-9210-49D7-A01E-BC25948455EF}"
 	ProjectSection(SolutionItems) = preProject
-		build\create-package.cmd = build\create-package.cmd
-		build\GlobalAssemblyInfo.cs = build\GlobalAssemblyInfo.cs
-		build\packager.msbuild = build\packager.msbuild
+		build\Targets.fsx = build\Targets.fsx
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaynMaker.Modules.Import.UnitTests", "src\RaynMaker.Modules.Import.UnitTests\RaynMaker.Modules.Import.UnitTests.csproj", "{60A81643-28BD-42C6-B1E9-51C77275A335}"
@@ -121,5 +119,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {94CD2EC4-7E4F-4579-8A11-F3338D7920B3}
 	EndGlobalSection
 EndGlobal

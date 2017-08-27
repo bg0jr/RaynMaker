@@ -65,6 +65,7 @@
     <Compile Include="DatabaseMigrations.cs" />
     <Compile Include="AssetsContext.cs" />
     <Compile Include="DatabaseService.cs" />
+    <Compile Include="Properties\AssemblyDefs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchemaInfo.cs" />
     <Compile Include="SQLiteConfiguration.cs" />

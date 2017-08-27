@@ -64,6 +64,7 @@
     <Compile Include="ImportSpecSerializer.cs" />
     <Compile Include="MarkupFactory.cs" />
     <Compile Include="Parsers\TableFormatter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Spec\SpecMigration.cs" />
     <Compile Include="Spec\DataSourcesSheet.cs" />
     <Compile Include="Spec\v2\DataSource.cs" />
@@ -139,7 +140,7 @@
     <Compile Include="IDocumentBrowser.cs" />
     <Compile Include="Documents\IDocumentLoader.cs" />
     <Compile Include="Documents\INavigator.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\AssemblyDefs.cs" />
     <Compile Include="Documents\ProxyPool.cs" />
     <Compile Include="Spec\v2\Extraction\AbsolutePositionLocator.cs" />
     <Compile Include="Spec\v2\Extraction\FigureDescriptorBase.cs" />

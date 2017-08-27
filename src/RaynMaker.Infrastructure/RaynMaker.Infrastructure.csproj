@@ -83,6 +83,7 @@
     <Compile Include="Mvvm\IValidationAware.cs" />
     <Compile Include="Mvvm\AttributesBasedValidatableBindableBase.cs" />
     <Compile Include="Mvvm\ToolMenuItemModelBase.cs" />
+    <Compile Include="Properties\AssemblyDefs.cs" />
     <Compile Include="Services\DataProviderRequest.cs" />
     <Compile Include="Services\IAssetNavigation.cs" />
     <Compile Include="IContentPage.cs" />

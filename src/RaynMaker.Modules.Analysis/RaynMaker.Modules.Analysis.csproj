@@ -105,6 +105,7 @@
     <Compile Include="AnalysisSpec\BarChart.cs" />
     <Compile Include="AnalysisSpec\Headline.cs" />
     <Compile Include="AnalysisSpec\TextBlock.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\AnalysisTemplateMenuItem.xaml.cs">
       <DependentUpon>AnalysisTemplateMenuItem.xaml</DependentUpon>
     </Compile>
@@ -126,7 +127,7 @@
     <Compile Include="Engine\IFigureProvider.cs" />
     <Compile Include="Engine\IReportElement.cs" />
     <Compile Include="Engine\TextEvaluator.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\AssemblyDefs.cs" />
     <Compile Include="AnalysisSpec\CurrencyConverter.cs" />
     <Compile Include="RegionNames.cs" />
     <Compile Include="Engine\FlowDocumentExtensions.cs" />
