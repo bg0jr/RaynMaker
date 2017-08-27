@@ -83,7 +83,7 @@ namespace RaynMaker.Modules.Analysis.UnitTests.AnalysisSpec.Providers
             myRhsSeries = new FigureSeries( typeof( FakeFigure ), FigureFactory.New( 2015, 1 ) );
 
             var ex = Assert.Throws<ArgumentException>( () => myProvider.ProvideValue( myContext.Object ) );
-            Assert.That( ex.Message, Is.StringContaining( "Currency missing" ) );
+            Assert.That( ex.Message, Does.Contain( "Currency missing" ) );
         }
 
         [Test]

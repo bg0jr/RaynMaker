@@ -38,7 +38,9 @@ namespace RaynMaker.Modules.Import.Parsers.Html
 
             // we have to use obsolete API here to force Uri class to NOT encode our string - it is already encoded.
             // if we let Uri class do the default for a strange reason the Url gets reencoded - sometimes.
+#pragma warning disable 618
             return new Uri( urlString, true );
+#pragma warning restore 618
         }
 
         //<form action="/quote/historic/historic.csv" method="get" name="histcsv" style="margin:0px"> 

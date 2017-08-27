@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using Moq;
 using NUnit.Framework;
 using RaynMaker.Entities;
@@ -16,7 +17,7 @@ using RaynMaker.Modules.Import.Web.Services;
 namespace RaynMaker.Modules.Import.ScenarioTests
 {
     [TestFixture]
-    [RequiresSTA]
+    [Apartment(ApartmentState.STA)]
     public class ImportFromWebScenarios : TestBase
     {
         private Mock<ILutService> myLutService;
@@ -58,7 +59,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             {
                 Assert.That( dividend.Company.Stocks.First().Isin, Is.EqualTo( "DE0005190003" ) );
                 Assert.That( dividend.Period, Is.InstanceOf<YearPeriod>() );
-                Assert.That( dividend.Source, Is.StringContaining( "ariva" ).IgnoreCase.And.StringContaining( "fundamentals" ).IgnoreCase );
+                Assert.That( dividend.Source, Does.Contain( "ariva" ).IgnoreCase.And.Contains( "fundamentals" ).IgnoreCase );
                 Assert.That( dividend.Timestamp.Date, Is.EqualTo( DateTime.Today ) );
                 Assert.That( dividend.Currency, Is.Null );
             }
@@ -98,7 +99,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
             Assert.That( price.Stock.Isin, Is.EqualTo( "DE0007664039" ) );
             Assert.That( ( ( DayPeriod )price.Period ).Day.Date, Is.EqualTo( DateTime.Today ) );
-            Assert.That( price.Source, Is.StringContaining( "ariva" ).IgnoreCase.And.StringContaining( "price" ).IgnoreCase );
+            Assert.That( price.Source, Does.Contain( "ariva" ).IgnoreCase.And.Contains( "price" ).IgnoreCase );
             Assert.That( price.Timestamp.Date, Is.EqualTo( DateTime.Today ) );
             Assert.That( price.Value, Is.EqualTo( 134.356d ) );
             Assert.That( price.Currency.Symbol, Is.EqualTo( "EUR" ) );
@@ -135,7 +136,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
                 Assert.That( price.Stock.Isin, Is.EqualTo( "DE0007664039" ) );
                 Assert.That( ( ( DayPeriod )price.Period ).Day.Date, Is.EqualTo( DateTime.Today ) );
-                Assert.That( price.Source, Is.StringContaining( "ariva" ).IgnoreCase.And.StringContaining( "price" ).IgnoreCase );
+                Assert.That( price.Source, Does.Contain( "ariva" ).IgnoreCase.And.Contains( "price" ).IgnoreCase );
                 Assert.That( price.Timestamp.Date, Is.EqualTo( DateTime.Today ) );
                 Assert.That( price.Value, Is.EqualTo( 134.356d ) );
                 Assert.That( price.Currency.Symbol, Is.EqualTo( "EUR" ) );
@@ -161,7 +162,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
                 Assert.That( price.Stock.Isin, Is.EqualTo( "US4581401001" ) );
                 Assert.That( ( ( DayPeriod )price.Period ).Day.Date, Is.EqualTo( DateTime.Today ) );
-                Assert.That( price.Source, Is.StringContaining( "ariva" ).IgnoreCase.And.StringContaining( "price" ).IgnoreCase );
+                Assert.That( price.Source, Does.Contain( "ariva" ).IgnoreCase.And.Contains( "price" ).IgnoreCase );
                 Assert.That( price.Timestamp.Date, Is.EqualTo( DateTime.Today ) );
                 Assert.That( price.Value, Is.EqualTo( 25.11d ) );
                 Assert.That( price.Currency.Symbol, Is.EqualTo( "EUR" ) );

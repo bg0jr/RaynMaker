@@ -63,7 +63,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             descriptor.Columns.Add(new FormatColumn("c1", typeof(double)));
 
             var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(descriptor));
-            Assert.That(ex.Message, Is.StringContaining("The Path field is required"));
+            Assert.That(ex.Message, Does.Contain("The Path field is required"));
         }
     }
 }

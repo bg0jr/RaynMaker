@@ -65,7 +65,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             descriptor.Columns.Add(new FormatColumn("c1", typeof(double), "0.00"));
 
             var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(descriptor));
-            Assert.That(ex.Message, Is.StringContaining("Separator field is required"));
+            Assert.That(ex.Message, Does.Contain("Separator field is required"));
         }
 
         [Test]
@@ -77,7 +77,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             descriptor.Columns.Clear();
 
             var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(descriptor));
-            Assert.That(ex.Message, Is.StringContaining("Columns must not be empty"));
+            Assert.That(ex.Message, Does.Contain("Columns must not be empty"));
         }
     }
 }

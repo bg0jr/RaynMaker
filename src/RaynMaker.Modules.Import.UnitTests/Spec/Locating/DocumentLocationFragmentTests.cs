@@ -30,14 +30,14 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Locating
         public void Ctor_UrlIsNull_Throws()
         {
             var ex = Assert.Throws<ArgumentNullException>( () => new Dummy( ( Uri )null ) );
-            Assert.That( ex.Message, Is.StringContaining( "Value cannot be null." + Environment.NewLine + "Parameter name: url" ) );
+            Assert.That( ex.Message, Does.Contain( "Value cannot be null." + Environment.NewLine + "Parameter name: url" ) );
         }
 
         [Test]
         public void Ctor_UrlStringIsNullOrEmpty_Throws( [Values( null, "" )] string url )
         {
             var ex = Assert.Throws<ArgumentNullException>( () => new Dummy( url ) );
-            Assert.That( ex.Message, Is.StringContaining( "string must not null or empty: url" ) );
+            Assert.That( ex.Message, Does.Contain( "string must not null or empty: url" ) );
         }
     }
 }

@@ -76,7 +76,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             var locator = new StringContainsLocator { HeaderSeriesPosition = -1, Pattern = "Sales" };
 
             var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(locator));
-            Assert.That(ex.Message, Is.StringContaining("HeaderSeriesPosition must be between 0 and " + int.MaxValue));
+            Assert.That(ex.Message, Does.Contain("HeaderSeriesPosition must be between 0 and " + int.MaxValue));
         }
 
         [Test]
@@ -85,7 +85,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             var locator = new StringContainsLocator { HeaderSeriesPosition = 0, Pattern = null };
 
             var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(locator));
-            Assert.That(ex.Message, Is.StringContaining("Pattern field is required"));
+            Assert.That(ex.Message, Does.Contain("Pattern field is required"));
         }
 
         /// <summary>

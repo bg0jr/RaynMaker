@@ -15,7 +15,7 @@ using RaynMaker.Modules.Import.Web.ViewModels;
 
 namespace RaynMaker.Modules.Import.ScenarioTests
 {
-    [RequiresSTA]
+    [Apartment(ApartmentState.STA)]
     [TestFixture]
     class WebSpyScenarios : TestBase
     {

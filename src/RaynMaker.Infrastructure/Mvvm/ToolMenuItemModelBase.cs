@@ -10,14 +10,14 @@ namespace RaynMaker.Infrastructure.Mvvm
         private IProjectHost myProjectHost;
         private string myPopupTitle;
 
-        protected ToolMenuItemModelBase( IProjectHost projectHost, string popupTitle )
+        protected ToolMenuItemModelBase(IProjectHost projectHost, string popupTitle)
         {
             myProjectHost = projectHost;
             myProjectHost.Changed += myProjectHost_Changed;
 
             myPopupTitle = popupTitle;
 
-            InvokeCommand = new DelegateCommand( OnInvoke );
+            InvokeCommand = new DelegateCommand(OnInvoke);
             InvokeRequest = new InteractionRequest<INotification>();
         }
 
@@ -25,7 +25,7 @@ namespace RaynMaker.Infrastructure.Mvvm
 
         private void myProjectHost_Changed()
         {
-            OnPropertyChanged( () => IsEnabled );
+            RaisePropertyChanged(nameof(IsEnabled));
         }
 
         private void OnInvoke()
@@ -33,7 +33,7 @@ namespace RaynMaker.Infrastructure.Mvvm
             var notification = new Notification();
             notification.Title = myPopupTitle;
 
-            InvokeRequest.Raise( notification, c => { } );
+            InvokeRequest.Raise(notification, c => { });
         }
 
         public ICommand InvokeCommand { get; private set; }

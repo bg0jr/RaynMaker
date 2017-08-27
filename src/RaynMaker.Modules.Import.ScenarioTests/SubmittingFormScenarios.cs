@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using NUnit.Framework;
 using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Parsers.Html;
@@ -8,12 +9,12 @@ using RaynMaker.Modules.Import.Spec.v2.Locating;
 namespace RaynMaker.Modules.Import.ScenarioTests
 {
     [TestFixture]
-    [RequiresSTA]
+    [Apartment(ApartmentState.STA)]
     public class SubmittingFormScenarios : TestBase
     {
         private IHtmlDocument myDocument = null;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void FixtureSetUp()
         {
             myDocument = LoadDocument<IHtmlDocument>( "Html", "ariva.historicalprices.DE0008404005.html" );

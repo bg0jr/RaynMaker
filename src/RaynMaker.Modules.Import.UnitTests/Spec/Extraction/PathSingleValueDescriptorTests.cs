@@ -86,7 +86,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             descriptor.ValueFormat = new FormatColumn("values", typeof(double), "0.00");
 
             var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(descriptor));
-            Assert.That(ex.Message, Is.StringContaining("The Path field is required"));
+            Assert.That(ex.Message, Does.Contain("The Path field is required"));
         }
 
         [Test]
@@ -98,7 +98,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             descriptor.ValueFormat = null;
 
             var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(descriptor));
-            Assert.That(ex.Message, Is.StringContaining("The ValueFormat field is required"));
+            Assert.That(ex.Message, Does.Contain("The ValueFormat field is required"));
         }
 
         [Test]
@@ -110,7 +110,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             descriptor.ValueFormat = new ValueFormat();
 
             var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(descriptor));
-            Assert.That(ex.Message, Is.StringContaining("Type field is required"));
+            Assert.That(ex.Message, Does.Contain("Type field is required"));
         }
     }
 }

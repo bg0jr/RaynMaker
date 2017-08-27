@@ -9,7 +9,6 @@
     <FileAlignment>512</FileAlignment>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <WarningsNotAsErrors>618</WarningsNotAsErrors>
     <NoWarn>1591</NoWarn>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>

@@ -63,7 +63,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             descriptor.ValueFormat = new FormatColumn( "values", typeof( double ), "0.00" );
 
             var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
-            Assert.That( ex.Message, Is.StringContaining( "The Separator field is required" ) );
+            Assert.That( ex.Message, Does.Contain( "The Separator field is required" ) );
         }
     }
 }

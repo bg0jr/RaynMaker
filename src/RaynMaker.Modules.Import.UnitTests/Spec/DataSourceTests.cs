@@ -215,7 +215,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec
             dataSource.Location = new DocumentLocator(new Request("http://test1.org"));
 
             var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(dataSource));
-            Assert.That(ex.Message, Is.StringContaining("The Vendor field is required"));
+            Assert.That(ex.Message, Does.Contain("The Vendor field is required"));
         }
 
         [Test]
@@ -228,7 +228,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec
             dataSource.Location = new DocumentLocator(new Request("http://test1.org"));
 
             var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(dataSource));
-            Assert.That(ex.Message, Is.StringContaining("The Name field is required"));
+            Assert.That(ex.Message, Does.Contain("The Name field is required"));
         }
 
         [Test]
@@ -241,7 +241,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec
             dataSource.Location = new DocumentLocator(new Request("http://test1.org"));
 
             var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(dataSource));
-            Assert.That(ex.Message, Is.StringContaining("DocumentType must not be DocumentType.None"));
+            Assert.That(ex.Message, Does.Contain("DocumentType must not be DocumentType.None"));
         }
 
         [Test]
@@ -254,7 +254,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec
             dataSource.Location = null;
 
             var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(dataSource));
-            Assert.That(ex.Message, Is.StringContaining("The Location field is required"));
+            Assert.That(ex.Message, Does.Contain("The Location field is required"));
         }
 
         [Test]
@@ -269,7 +269,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec
             dataSource.Figures.Add(new CsvDescriptor());
 
             var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(dataSource));
-            Assert.That(ex.Message, Is.StringContaining("The Figure field is required"));
+            Assert.That(ex.Message, Does.Contain("The Figure field is required"));
         }
     }
 }

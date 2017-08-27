@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using NUnit.Framework;
 using RaynMaker.Modules.Import.Design;
@@ -10,7 +11,7 @@ using RaynMaker.Modules.Import.Documents.WinForms;
 
 namespace RaynMaker.Modules.Import.UnitTests.Design
 {
-    [RequiresSTA]
+    [Apartment(ApartmentState.STA)]
     [TestFixture]
     class HtmlElementMarkerTests : HtmlMarkupTestBase
     {
@@ -160,21 +161,21 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
 
             var yellowMarker = new HtmlElementMarker( Color.Yellow );
             yellowMarker.Mark( element );
-            Assert.That( element.Style, Is.StringContaining( "background-color: yellow" ).IgnoreCase );
+            Assert.That( element.Style, Does.Contain( "background-color: yellow" ).IgnoreCase );
 
             var blueMarker = new HtmlElementMarker( Color.Blue );
             blueMarker.Mark( element );
-            Assert.That( element.Style, Is.StringContaining( "background-color: blue" ).IgnoreCase );
+            Assert.That( element.Style, Does.Contain( "background-color: blue" ).IgnoreCase );
 
             var greenMarker = new HtmlElementMarker( Color.Green );
             greenMarker.Mark( element );
-            Assert.That( element.Style, Is.StringContaining( "background-color: green" ).IgnoreCase );
+            Assert.That( element.Style, Does.Contain( "background-color: green" ).IgnoreCase );
 
             greenMarker.Unmark();
-            Assert.That( element.Style, Is.StringContaining( "background-color: blue" ).IgnoreCase );
+            Assert.That( element.Style, Does.Contain( "background-color: blue" ).IgnoreCase );
 
             blueMarker.Unmark();
-            Assert.That( element.Style, Is.StringContaining( "background-color: yellow" ).IgnoreCase );
+            Assert.That( element.Style, Does.Contain( "background-color: yellow" ).IgnoreCase );
 
             yellowMarker.Unmark();
             Assert.That( element.Style, Is.Null );
@@ -187,21 +188,21 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
 
             var yellowMarker = new HtmlElementMarker( Color.Yellow );
             yellowMarker.Mark( element );
-            Assert.That( element.Style, Is.StringContaining( "background-color: yellow" ).IgnoreCase );
+            Assert.That( element.Style, Does.Contain( "background-color: yellow" ).IgnoreCase );
 
             var blueMarker = new HtmlElementMarker( Color.Blue );
             blueMarker.Mark( element );
-            Assert.That( element.Style, Is.StringContaining( "background-color: blue" ).IgnoreCase );
+            Assert.That( element.Style, Does.Contain( "background-color: blue" ).IgnoreCase );
 
             var greenMarker = new HtmlElementMarker( Color.Green );
             greenMarker.Mark( element );
-            Assert.That( element.Style, Is.StringContaining( "background-color: green" ).IgnoreCase );
+            Assert.That( element.Style, Does.Contain( "background-color: green" ).IgnoreCase );
 
             yellowMarker.Unmark();
-            Assert.That( element.Style, Is.StringContaining( "background-color: green" ).IgnoreCase );
+            Assert.That( element.Style, Does.Contain( "background-color: green" ).IgnoreCase );
 
             blueMarker.Unmark();
-            Assert.That( element.Style, Is.StringContaining( "background-color: green" ).IgnoreCase );
+            Assert.That( element.Style, Does.Contain( "background-color: green" ).IgnoreCase );
 
             greenMarker.Unmark();
             Assert.That( element.Style, Is.Null );

@@ -166,7 +166,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             var format = new ValueFormat();
 
             var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(format));
-            Assert.That(ex.Message, Is.StringContaining("Type field is required"));
+            Assert.That(ex.Message, Does.Contain("Type field is required"));
         }
 
         [Test]

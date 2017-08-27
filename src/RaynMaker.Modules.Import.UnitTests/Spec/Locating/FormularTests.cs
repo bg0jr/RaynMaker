@@ -33,7 +33,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Locating
         public void Ctor_UrlStringIsNullOrEmpty_Throws( [Values( null, "" )] string name )
         {
             var ex = Assert.Throws<ArgumentNullException>( () => new Formular( name ) );
-            Assert.That( ex.Message, Is.StringContaining( "string must not null or empty: name" ) );
+            Assert.That( ex.Message, Does.Contain( "string must not null or empty: name" ) );
         }
     }
 }

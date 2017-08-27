@@ -25,7 +25,7 @@ namespace RaynMaker.Entities.UnitTests.Entities
         {
             var series = new FigureSeries( typeof( Equity ) );
 
-            Assert.That( series.Name, Is.StringContaining( "Equity" ) );
+            Assert.That( series.Name, Does.Contain( "Equity" ) );
         }
 
         [Test]
@@ -75,7 +75,7 @@ namespace RaynMaker.Entities.UnitTests.Entities
 
             series.Add( FigureFactory.New( 2015, 5, Euro ) );
             var ex = Assert.Throws<ArgumentException>( () => series.Add( FigureFactory.New( 2014, 7, Dollar ) ) );
-            Assert.That( ex.Message, Is.StringContaining( "Currency inconsistencies" ) );
+            Assert.That( ex.Message, Does.Contain( "Currency inconsistencies" ) );
         }
 
         [Test]
@@ -85,7 +85,7 @@ namespace RaynMaker.Entities.UnitTests.Entities
 
             series.Add( FigureFactory.New( 2015, 5, Euro ) );
             var ex = Assert.Throws<ArgumentException>( () => series.Add( FigureFactory.New( 2014, 7, null ) ) );
-            Assert.That( ex.Message, Is.StringContaining( "Currency inconsistencies" ) );
+            Assert.That( ex.Message, Does.Contain( "Currency inconsistencies" ) );
         }
 
         [Test]
@@ -95,7 +95,7 @@ namespace RaynMaker.Entities.UnitTests.Entities
 
             series.Add( FigureFactory.New( 2015, 5, null ) );
             var ex = Assert.Throws<ArgumentException>( () => series.Add( FigureFactory.New( 2014, 7, Dollar ) ) );
-            Assert.That( ex.Message, Is.StringContaining( "Currency inconsistencies" ) );
+            Assert.That( ex.Message, Does.Contain( "Currency inconsistencies" ) );
         }
 
         [Test]
@@ -105,7 +105,7 @@ namespace RaynMaker.Entities.UnitTests.Entities
 
             series.Add( FigureFactory.New( 2015, 5 ) );
             var ex = Assert.Throws<ArgumentException>( () => series.Add( FigureFactory.NewPrice( "2013-11-11", 7, Dollar ) ) );
-            Assert.That( ex.Message, Is.StringContaining( "FigureType mismatch" ) );
+            Assert.That( ex.Message, Does.Contain( "FigureType mismatch" ) );
         }
 
     }

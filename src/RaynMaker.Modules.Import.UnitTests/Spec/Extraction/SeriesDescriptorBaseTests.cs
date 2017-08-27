@@ -209,7 +209,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             descriptor.ValueFormat = new FormatColumn("values", typeof(double), "0.00");
 
             var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(descriptor));
-            Assert.That(ex.Message, Is.StringContaining("The ValuesLocator field is required"));
+            Assert.That(ex.Message, Does.Contain("The ValuesLocator field is required"));
         }
 
         [Test]
@@ -220,7 +220,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             descriptor.ValueFormat = null;
 
             var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(descriptor));
-            Assert.That(ex.Message, Is.StringContaining("The ValueFormat field is required"));
+            Assert.That(ex.Message, Does.Contain("The ValueFormat field is required"));
         }
 
         [Test]
@@ -232,7 +232,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             descriptor.ValueFormat = new FormatColumn("values", typeof(double), "0.00");
 
             var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(descriptor));
-            Assert.That(ex.Message, Is.StringContaining("HeaderSeriesPosition must be between 0 and " + int.MaxValue));
+            Assert.That(ex.Message, Does.Contain("HeaderSeriesPosition must be between 0 and " + int.MaxValue));
         }
 
         [Test]
@@ -244,7 +244,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             descriptor.ValueFormat = new FormatColumn();
 
             var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(descriptor));
-            Assert.That(ex.Message, Is.StringContaining("Type field is required"));
+            Assert.That(ex.Message, Does.Contain("Type field is required"));
         }
 
         [Test]
@@ -256,7 +256,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             descriptor.TimeFormat = new FormatColumn("Times", typeof(double), "0.00");
 
             var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(descriptor));
-            Assert.That(ex.Message, Is.StringContaining("HeaderSeriesPosition must be between 0 and " + int.MaxValue));
+            Assert.That(ex.Message, Does.Contain("HeaderSeriesPosition must be between 0 and " + int.MaxValue));
         }
 
         [Test]
@@ -268,7 +268,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             descriptor.TimeFormat = new FormatColumn();
 
             var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(descriptor));
-            Assert.That(ex.Message, Is.StringContaining("Type field is required"));
+            Assert.That(ex.Message, Does.Contain("Type field is required"));
         }
     }
 }

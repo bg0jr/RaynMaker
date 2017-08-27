@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 using Moq;
 using NUnit.Framework;
 using RaynMaker.Infrastructure.Services;
@@ -14,7 +15,7 @@ using RaynMaker.SDK.Html;
 namespace RaynMaker.Modules.Import.ScenarioTests
 {
     [TestFixture]
-    [RequiresSTA]
+    [Apartment(ApartmentState.STA)]
     class DefiningFigureDescriptors : TestBase
     {
         private Mock<ILutService> myLutService;

@@ -31,14 +31,14 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Locating
         public void Ctor_UrlStringValidFormularIsNull_Throws()
         {
             var ex = Assert.Throws<ArgumentNullException>( () => new SubmitFormular( "http://test1.org", null ) );
-            Assert.That( ex.Message, Is.StringContaining( "Value cannot be null." + Environment.NewLine + "Parameter name: form" ) );
+            Assert.That( ex.Message, Does.Contain( "Value cannot be null." + Environment.NewLine + "Parameter name: form" ) );
         }
 
         [Test]
         public void Ctor_UrlValidFormularIsNull_Throws()
         {
             var ex = Assert.Throws<ArgumentNullException>( () => new SubmitFormular( new Uri( "http://test1.org" ), null ) );
-            Assert.That( ex.Message, Is.StringContaining( "Value cannot be null." + Environment.NewLine + "Parameter name: form" ) );
+            Assert.That( ex.Message, Does.Contain( "Value cannot be null." + Environment.NewLine + "Parameter name: form" ) );
         }
     }
 }

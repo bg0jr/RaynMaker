@@ -122,7 +122,7 @@ namespace RaynMaker.Modules.Analysis.UnitTests.AnalysisSpec.Providers
             myRhsSeries = new FigureSeries( typeof( FakeCurrencyFigure ), FigureFactory.New( 2015, 23, Dollar ), FigureFactory.New( 2014, 37, Dollar ) );
 
             var ex = Assert.Throws<ArgumentException>( () => myProvider.ProvideValue( myContext.Object ) );
-            Assert.That( ex.Message, Is.StringContaining( "Currency inconsistencies" ) );
+            Assert.That( ex.Message, Does.Contain( "Currency inconsistencies" ) );
         }
     }
 }

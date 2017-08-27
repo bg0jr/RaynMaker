@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 using NUnit.Framework;
 using RaynMaker.Entities;
 using RaynMaker.Entities.Figures;
@@ -11,7 +12,7 @@ using RaynMaker.Modules.Import.Spec.v2.Extraction;
 namespace RaynMaker.Modules.Import.ScenarioTests
 {
     [TestFixture]
-    [RequiresSTA]
+    [Apartment(ApartmentState.STA)]
     public class ReadingFromHtmlDocumentScenarios : TestBase
     {
         [Test]
@@ -81,7 +82,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
             {
                 Assert.That( dividend.Company.Stocks.First().Isin, Is.EqualTo( "DE0007664039" ) );
                 Assert.That( dividend.Period, Is.InstanceOf<YearPeriod>() );
-                Assert.That( dividend.Source, Is.StringContaining( "ariva" ).IgnoreCase.And.StringContaining( "fundamentals" ).IgnoreCase );
+                Assert.That( dividend.Source, Does.Contain( "ariva" ).IgnoreCase.And.Contains( "fundamentals" ).IgnoreCase );
                 Assert.That( dividend.Timestamp.Date, Is.EqualTo( DateTime.Today ) );
 
                 // Descriptor does not provide static currency
@@ -136,7 +137,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
 
             Assert.That( price.Stock.Isin, Is.EqualTo( "DE0007664039" ) );
             Assert.That( ( (DayPeriod)price.Period ).Day.Date, Is.EqualTo( DateTime.Today ) );
-            Assert.That( price.Source, Is.StringContaining( "ariva" ).IgnoreCase.And.StringContaining( "price" ).IgnoreCase );
+            Assert.That( price.Source, Does.Contain( "ariva" ).IgnoreCase.And.Contains( "price" ).IgnoreCase );
             Assert.That( price.Timestamp.Date, Is.EqualTo( DateTime.Today ) );
             Assert.That( price.Value, Is.EqualTo( 134.356d ) );
             Assert.That( price.Currency.Symbol, Is.EqualTo( "EUR" ) );

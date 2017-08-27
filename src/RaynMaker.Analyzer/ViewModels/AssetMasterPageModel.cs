@@ -26,22 +26,22 @@ namespace RaynMaker.Analyzer.ViewModels
         private IRegionManager myRegionManager;
 
         [ImportingConstructor]
-        public AssetMasterPageModel( IAssetNavigation navigation, IRegionManager regionManager, IEventAggregator eventAggregator )
+        public AssetMasterPageModel(IAssetNavigation navigation, IRegionManager regionManager, IEventAggregator eventAggregator)
         {
             myNavigation = navigation;
             myRegionManager = regionManager;
 
-            OkCommand = new DelegateCommand( OnOk );
-            CancelCommand = new DelegateCommand( OnCancel );
+            OkCommand = new DelegateCommand(OnOk);
+            CancelCommand = new DelegateCommand(OnCancel);
 
-            eventAggregator.GetEvent<AssetDeletedEvent>().Subscribe( OnStockDeleted );
+            eventAggregator.GetEvent<AssetDeletedEvent>().Subscribe(OnStockDeleted);
         }
 
-        private void OnStockDeleted( string guid )
+        private void OnStockDeleted(string guid)
         {
-            if( myStock.Guid == guid )
+            if (myStock.Guid == guid)
             {
-                myNavigation.ClosePage( this );
+                myNavigation.ClosePage(this);
             }
         }
 
@@ -50,27 +50,27 @@ namespace RaynMaker.Analyzer.ViewModels
             get { return myStock == null ? null : myStock.Company.Name; }
         }
 
-        public bool IsNavigationTarget( NavigationContext navigationContext )
+        public bool IsNavigationTarget(NavigationContext navigationContext)
         {
             //var args = new AssetNavigationParameters( navigationContext.Parameters );
             //return myStock == args.Stock;
             return true;
         }
 
-        public void OnNavigatedFrom( NavigationContext navigationContext )
+        public void OnNavigatedFrom(NavigationContext navigationContext)
         {
         }
 
-        public void OnNavigatedTo( NavigationContext navigationContext )
+        public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            var args = new AssetNavigationParameters( navigationContext.Parameters );
+            var args = new AssetNavigationParameters(navigationContext.Parameters);
 
             myStock = args.Stock;
-            OnPropertyChanged( () => Header );
+            RaisePropertyChanged(nameof(Header));
 
-            foreach( var contentPage in GetContentPages() )
+            foreach (var contentPage in GetContentPages())
             {
-                contentPage.Initialize( args.Stock );
+                contentPage.Initialize(args.Stock);
             }
         }
 
@@ -80,39 +80,39 @@ namespace RaynMaker.Analyzer.ViewModels
         {
             try
             {
-                foreach( var contentPage in GetContentPages() )
+                foreach (var contentPage in GetContentPages())
                 {
                     contentPage.Complete();
                 }
             }
-            catch( DbEntityValidationException ex )
+            catch (DbEntityValidationException ex)
             {
-                var newEx = new InvalidOperationException( "Entity validation failed", ex );
-                foreach( var result in ex.EntityValidationErrors )
+                var newEx = new InvalidOperationException("Entity validation failed", ex);
+                foreach (var result in ex.EntityValidationErrors)
                 {
-                    foreach( var error in result.ValidationErrors )
+                    foreach (var error in result.ValidationErrors)
                     {
-                        newEx.AddContext( result.Entry.Entity.GetType().Name + "." + error.PropertyName, error.ErrorMessage );
+                        newEx.AddContext(result.Entry.Entity.GetType().Name + "." + error.PropertyName, error.ErrorMessage);
                     }
                 }
                 throw newEx;
             }
 
-            myNavigation.ClosePage( this );
+            myNavigation.ClosePage(this);
         }
 
         private IEnumerable<IContentPage> GetContentPages()
         {
-            if( !myRegionManager.Regions.ContainsRegionWithName( RegionNames.AssetContentPages ) )
+            if (!myRegionManager.Regions.ContainsRegionWithName(RegionNames.AssetContentPages))
             {
                 return Enumerable.Empty<IContentPage>();
             }
 
-            var region = myRegionManager.Regions[ RegionNames.AssetContentPages ];
+            var region = myRegionManager.Regions[RegionNames.AssetContentPages];
 
             return region.Views
                 .OfType<FrameworkElement>()
-                .Select( view => view.DataContext )
+                .Select(view => view.DataContext)
                 .OfType<IContentPage>();
         }
 
@@ -120,12 +120,12 @@ namespace RaynMaker.Analyzer.ViewModels
 
         private void OnCancel()
         {
-            foreach( var contentPage in GetContentPages() )
+            foreach (var contentPage in GetContentPages())
             {
                 contentPage.Cancel();
             }
 
-            myNavigation.ClosePage( this );
+            myNavigation.ClosePage(this);
         }
     }
 }

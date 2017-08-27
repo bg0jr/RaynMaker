@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading;
 using NUnit.Framework;
 using RaynMaker.Modules.Import.Design;
 using RaynMaker.Modules.Import.Documents;
@@ -8,7 +9,7 @@ using RaynMaker.Modules.Import.Parsers.Html;
 
 namespace RaynMaker.Modules.Import.UnitTests.Design
 {
-    [RequiresSTA]
+    [Apartment(ApartmentState.STA)]
     class HtmlMarkupBehaviorTests
     {
         private SafeWebBrowser myBrowser;
@@ -38,15 +39,15 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
 </html>
 ";
 
-        [TestFixtureSetUp]
-        public void TestFixtureSetUp()
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
         {
             myBrowser = new SafeWebBrowser();
             myBrowser.DownloadControlFlags = DocumentLoaderFactory.DownloadControlFlags;
         }
 
-        [TestFixtureTearDown]
-        public void TestFixtureTearDown()
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
         {
             myBrowser.Dispose();
         }
@@ -70,7 +71,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
 
             var behavior2 = new HtmlMarkupBehavior<HtmlElementMarker>( new HtmlElementMarker( Color.Red ) );
             var ex = Assert.Throws<InvalidOperationException>( () => behavior2.AttachTo( document ) );
-            Assert.That( ex.Message, Is.StringContaining( "Only one attached HtmlMarkupBehavior per HtmlDocument supported" ) );
+            Assert.That( ex.Message, Does.Contain( "Only one attached HtmlMarkupBehavior per HtmlDocument supported" ) );
         }
 
         [Test]
@@ -139,7 +140,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
             myBrowser.LoadHtml( HtmlDocument1 );
             var document = new HtmlDocumentAdapter( myBrowser.Document );
             var ex = Assert.Throws<InvalidOperationException>( () => behavior.SelectedElement = ( HtmlElementAdapter )document.GetElementById( "x11" ) );
-            Assert.That( ex.Message, Is.StringContaining( "Document not attached" ) );
+            Assert.That( ex.Message, Does.Contain( "Document not attached" ) );
         }
 
         [Test]

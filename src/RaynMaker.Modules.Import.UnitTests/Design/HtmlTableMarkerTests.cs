@@ -1,10 +1,11 @@
 ﻿using System.Drawing;
+using System.Threading;
 using NUnit.Framework;
 using RaynMaker.Modules.Import.Design;
 
 namespace RaynMaker.Modules.Import.UnitTests.Design
 {
-    [RequiresSTA]
+    [Apartment(ApartmentState.STA)]
     [TestFixture]
     class HtmlTableMarkerTests : HtmlMarkupTestBase
     {

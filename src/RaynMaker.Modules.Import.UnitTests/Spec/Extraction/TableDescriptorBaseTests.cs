@@ -149,7 +149,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             descriptor.Figure = "Test";
 
             var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
-            Assert.That( ex.Message, Is.StringContaining( "Columns must not be empty" ) );
+            Assert.That( ex.Message, Does.Contain( "Columns must not be empty" ) );
         }
 
         [Test]
@@ -160,7 +160,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             descriptor.Columns.Add( new FormatColumn() );
 
             var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( descriptor ) );
-            Assert.That( ex.Message, Is.StringContaining( "Type field is required" ) );
+            Assert.That( ex.Message, Does.Contain( "Type field is required" ) );
         }
     }
 }

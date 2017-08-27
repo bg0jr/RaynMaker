@@ -15,7 +15,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Html
             var element = doc.GetElementById( "xx" );
 
             var ex = Assert.Throws<ArgumentException>( () => new HtmlTable( element ) );
-            Assert.That( ex.Message, Is.StringContaining( "not a html table element" ) );
+            Assert.That( ex.Message, Does.Contain( "not a html table element" ) );
         }
     }
 }

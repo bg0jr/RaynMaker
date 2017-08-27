@@ -22,7 +22,7 @@ namespace RaynMaker.Modules.Analysis.UnitTests.Engine
             var function = new FunctionCall( typeof( FakeFunctions ).GetMethod( "Double" ) );
 
             var ex = Assert.Throws<InvalidOperationException>( () => function.Invoke() );
-            Assert.That( ex.Message, Is.StringContaining( "parameter count mismatch" ) );
+            Assert.That( ex.Message, Does.Contain( "parameter count mismatch" ) );
         }
 
 
@@ -59,7 +59,7 @@ namespace RaynMaker.Modules.Analysis.UnitTests.Engine
             function.AddArgument( 1 );
 
             var ex = Assert.Throws<InvalidOperationException>( () => function.AddArgument( 2 ) );
-            Assert.That( ex.Message, Is.StringContaining( "parameter count mismatch" ) );
+            Assert.That( ex.Message, Does.Contain( "parameter count mismatch" ) );
         }
 
         [Test]

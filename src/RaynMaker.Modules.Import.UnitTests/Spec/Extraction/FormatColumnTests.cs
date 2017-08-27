@@ -64,7 +64,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             var col = new FormatColumn(columnName, typeof(string));
 
             var ex = Assert.Throws<ValidationException>(() => RecursiveValidator.Validate(col));
-            Assert.That(ex.Message, Is.StringContaining("Name field is required"));
+            Assert.That(ex.Message, Does.Contain("Name field is required"));
         }
     }
 }

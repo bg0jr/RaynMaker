@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Threading;
 using NUnit.Framework;
 using RaynMaker.Modules.Import.Design;
 using RaynMaker.Modules.Import.Documents;
@@ -7,7 +8,7 @@ using RaynMaker.SDK.Html;
 
 namespace RaynMaker.Modules.Import.UnitTests.Design
 {
-    [RequiresSTA]
+    [Apartment(ApartmentState.STA)]
     abstract class HtmlMarkupTestBase
     {
         protected bool ShowMarkupResultInBrowser = false;
@@ -15,8 +16,8 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
         private SafeWebBrowser myBrowser;
         protected IHtmlDocument Document { get; private set; }
 
-        [TestFixtureSetUp]
-        public void TestFixtureSetUp()
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
         {
             myBrowser = new SafeWebBrowser();
             myBrowser.DownloadControlFlags = DocumentLoaderFactory.DownloadControlFlags;
@@ -28,8 +29,8 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
 
         protected abstract string GetHtml();
 
-        [TestFixtureTearDown]
-        public void TestFixtureTearDown()
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
         {
             myBrowser.Dispose();
         }
@@ -41,7 +42,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
                 ShowMarkedDocument();
             }
 
-            Assert.That( element.Style, Is.StringContaining( "background-color: yellow" ).IgnoreCase );
+            Assert.That( element.Style, Does.Contain( "background-color: yellow" ).IgnoreCase );
         }
 
         protected void Assert_IsMarked( params string[] elementIds )
@@ -59,7 +60,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
             foreach( var id in elementIds )
             {
                 var element = Document.GetElementById( id );
-                Assert.That( element.Style, Is.StringContaining( "background-color: " + ColorTranslator.ToHtml( color ) ).IgnoreCase, "Element with Id='{0}' is not marked", id );
+                Assert.That( element.Style, Does.Contain( "background-color: " + ColorTranslator.ToHtml( color ) ).IgnoreCase, "Element with Id='{0}' is not marked", id );
             }
         }
 
@@ -77,7 +78,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Design
             else
             {
                 // we cannot check for exact match of original style because the different parameters get reordered
-                Assert.That( element.Style, Is.StringContaining( originalStyle ).IgnoreCase );
+                Assert.That( element.Style, Does.Contain( originalStyle ).IgnoreCase );
             }
         }
 

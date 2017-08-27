@@ -76,7 +76,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             var locator = new AbsolutePositionLocator { HeaderSeriesPosition = -1, SeriesPosition = 17 };
 
             var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( locator ) );
-            Assert.That( ex.Message, Is.StringContaining( "HeaderSeriesPosition must be between 0 and " + int.MaxValue ) );
+            Assert.That( ex.Message, Does.Contain( "HeaderSeriesPosition must be between 0 and " + int.MaxValue ) );
         }
 
         [Test]
@@ -85,7 +85,7 @@ namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
             var locator = new AbsolutePositionLocator { HeaderSeriesPosition = 0, SeriesPosition = -1 };
 
             var ex = Assert.Throws<ValidationException>( () => RecursiveValidator.Validate( locator ) );
-            Assert.That( ex.Message, Is.StringContaining( "SeriesPosition must be between 0 and " + int.MaxValue ) );
+            Assert.That( ex.Message, Does.Contain( "SeriesPosition must be between 0 and " + int.MaxValue ) );
         }
     }
 }
