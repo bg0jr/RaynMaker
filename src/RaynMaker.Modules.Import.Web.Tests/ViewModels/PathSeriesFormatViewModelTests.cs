@@ -12,7 +12,7 @@ using RaynMaker.Modules.Import.Spec.v2.Extraction;
 using RaynMaker.Modules.Import.Web.ViewModels;
 using RaynMaker.SDK.Html;
 
-namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
+namespace RaynMaker.Modules.Import.Web.Tests.ViewModels
 {
     [TestFixture]
     class PathSeriesFormatViewModelTests

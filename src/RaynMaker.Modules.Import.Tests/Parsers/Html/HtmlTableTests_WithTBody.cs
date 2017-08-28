@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace RaynMaker.Modules.Import.UnitTests.Html
+namespace RaynMaker.Modules.Import.Tests.Html
 {
     [TestFixture]
     class HtmlTableTests_WithTBody : HtmlTableTestsBase

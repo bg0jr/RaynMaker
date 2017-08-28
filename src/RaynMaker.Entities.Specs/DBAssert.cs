@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using NUnit.Framework;
 
-namespace RaynMaker.Entities.ScenarioTests
+namespace RaynMaker.Entities.Specs
 {
     class DBAssert
     {

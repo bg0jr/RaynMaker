@@ -6,7 +6,7 @@ using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2.Locating;
 using RaynMaker.SDK;
 
-namespace RaynMaker.Modules.Import.UnitTests.Spec.Locating
+namespace RaynMaker.Modules.Import.Tests.Spec.Locating
 {
     [TestFixture]
     public class DocumentLocatorTests

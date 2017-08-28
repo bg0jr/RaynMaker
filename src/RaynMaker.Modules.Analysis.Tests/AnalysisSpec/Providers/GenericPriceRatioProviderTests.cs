@@ -7,9 +7,9 @@ using RaynMaker.Modules.Analysis.AnalysisSpec.Providers;
 using RaynMaker.Modules.Analysis.Engine;
 using RaynMaker.Entities;
 using RaynMaker.Entities.Figures;
-using RaynMaker.Entities.UnitTests.Fakes;
+using RaynMaker.Entities.Tests.Fakes;
 
-namespace RaynMaker.Modules.Analysis.UnitTests.AnalysisSpec.Providers
+namespace RaynMaker.Modules.Analysis.Tests.AnalysisSpec.Providers
 {
     [TestFixture]
     public class GenericPriceRatioProviderTests

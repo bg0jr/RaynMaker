@@ -2,9 +2,9 @@
 using System.Linq;
 using NUnit.Framework;
 using RaynMaker.Entities.Figures;
-using RaynMaker.Entities.UnitTests.Fakes;
+using RaynMaker.Entities.Tests.Fakes;
 
-namespace RaynMaker.Entities.UnitTests.Entities
+namespace RaynMaker.Entities.Tests.Entities
 {
     [TestFixture]
     public class FigureSeriesTests

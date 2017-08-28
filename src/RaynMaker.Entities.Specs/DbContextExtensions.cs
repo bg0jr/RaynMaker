@@ -3,7 +3,7 @@ using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Text;
 
-namespace RaynMaker.Entities.ScenarioTests
+namespace RaynMaker.Entities.Specs
 {
     static class DbContextExtensions
     {

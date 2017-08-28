@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using RaynMaker.Modules.Analysis.Engine;
-using RaynMaker.Modules.Analysis.UnitTests.Engine.Fakes;
+using RaynMaker.Modules.Analysis.Tests.Engine.Fakes;
 
-namespace RaynMaker.Modules.Analysis.UnitTests.Engine
+namespace RaynMaker.Modules.Analysis.Tests.Engine
 {
     [TestFixture]
     public class ExpressionEvaluatorTests

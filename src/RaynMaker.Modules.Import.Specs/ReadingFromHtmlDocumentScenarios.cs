@@ -9,7 +9,7 @@ using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Spec.v2;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 
-namespace RaynMaker.Modules.Import.ScenarioTests
+namespace RaynMaker.Modules.Import.Specs
 {
     [TestFixture]
     [Apartment(ApartmentState.STA)]

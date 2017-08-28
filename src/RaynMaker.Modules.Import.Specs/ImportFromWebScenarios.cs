@@ -14,7 +14,7 @@ using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Web;
 using RaynMaker.Modules.Import.Web.Services;
 
-namespace RaynMaker.Modules.Import.ScenarioTests
+namespace RaynMaker.Modules.Import.Specs
 {
     [TestFixture]
     [Apartment(ApartmentState.STA)]

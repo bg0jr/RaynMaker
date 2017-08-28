@@ -3,7 +3,7 @@ using RaynMaker.Entities;
 using RaynMaker.Modules.Import.Spec.v2.Locating;
 using RaynMaker.Modules.Import.Web.ViewModels;
 
-namespace RaynMaker.Modules.Import.Web.UnitTests.ViewModels
+namespace RaynMaker.Modules.Import.Web.Tests.ViewModels
 {
     [TestFixture]
     class StockMacroResolverTests

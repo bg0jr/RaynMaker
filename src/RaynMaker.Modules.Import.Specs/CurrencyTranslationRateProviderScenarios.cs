@@ -3,7 +3,7 @@ using NUnit.Framework;
 using RaynMaker.Entities;
 using RaynMaker.Modules.Import.Web;
 
-namespace RaynMaker.Modules.Import.ScenarioTests
+namespace RaynMaker.Modules.Import.Specs
 {
     [TestFixture]
     class CurrencyTranslationRateProviderScenarios : TestBase

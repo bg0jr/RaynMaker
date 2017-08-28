@@ -3,7 +3,7 @@ using System.Linq;
 using NUnit.Framework;
 using RaynMaker.Entities.Persistancy;
 
-namespace RaynMaker.Entities.ScenarioTests
+namespace RaynMaker.Entities.Specs
 {
     [TestFixture]
     class CompanyTagsTests : DatabaseTestsBase

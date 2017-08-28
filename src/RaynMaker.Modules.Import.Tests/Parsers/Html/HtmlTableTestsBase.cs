@@ -4,7 +4,7 @@ using NUnit.Framework;
 using RaynMaker.Modules.Import.Documents.AgilityPack;
 using RaynMaker.Modules.Import.Parsers.Html;
 
-namespace RaynMaker.Modules.Import.UnitTests.Html
+namespace RaynMaker.Modules.Import.Tests.Html
 {
     abstract class HtmlTableTestsBase
     {

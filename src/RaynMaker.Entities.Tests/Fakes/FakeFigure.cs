@@ -1,6 +1,6 @@
 ﻿using RaynMaker.Entities;
 
-namespace RaynMaker.Entities.UnitTests.Fakes
+namespace RaynMaker.Entities.Tests.Fakes
 {
     public class FakeFigure : AbstractFigure
     {

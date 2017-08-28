@@ -3,7 +3,7 @@ using System.Threading;
 using NUnit.Framework;
 using RaynMaker.Modules.Import.Design;
 
-namespace RaynMaker.Modules.Import.UnitTests.Design
+namespace RaynMaker.Modules.Import.Tests.Design
 {
     [Apartment(ApartmentState.STA)]
     [TestFixture]

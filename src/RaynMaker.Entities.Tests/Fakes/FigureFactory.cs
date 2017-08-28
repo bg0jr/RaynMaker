@@ -3,7 +3,7 @@ using System.ComponentModel;
 using RaynMaker.Entities;
 using RaynMaker.Entities.Figures;
 
-namespace RaynMaker.Entities.UnitTests.Fakes
+namespace RaynMaker.Entities.Tests.Fakes
 {
     public class FigureFactory
     {

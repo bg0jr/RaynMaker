@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 
-namespace RaynMaker.Modules.Import.ScenarioTests
+namespace RaynMaker.Modules.Import.Specs
 {
     public class TestBase
     {

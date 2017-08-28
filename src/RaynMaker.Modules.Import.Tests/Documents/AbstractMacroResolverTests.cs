@@ -3,7 +3,7 @@ using NUnit.Framework;
 using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Spec.v2.Locating;
 
-namespace RaynMaker.Modules.Import.UnitTests.Documents
+namespace RaynMaker.Modules.Import.Tests.Documents
 {
     [TestFixture]
     class AbstractMacroResolverTests

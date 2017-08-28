@@ -6,7 +6,7 @@ using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 using RaynMaker.SDK;
 
-namespace RaynMaker.Modules.Import.UnitTests.Spec.Extraction
+namespace RaynMaker.Modules.Import.Tests.Spec.Extraction
 {
     [TestFixture]
     public class PathCellDescriptorTests

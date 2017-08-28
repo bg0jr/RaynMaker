@@ -4,7 +4,7 @@ using Plainion.Validation;
 using RaynMaker.Modules.Import.Spec;
 using RaynMaker.Modules.Import.Spec.v2.Locating;
 
-namespace RaynMaker.Modules.Import.UnitTests.Spec.Locating
+namespace RaynMaker.Modules.Import.Tests.Spec.Locating
 {
     [TestFixture]
     public class FormularTests 

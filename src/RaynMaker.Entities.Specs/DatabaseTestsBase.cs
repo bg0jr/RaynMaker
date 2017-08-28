@@ -4,7 +4,7 @@ using NUnit.Framework;
 using Plainion;
 using RaynMaker.Entities.Persistancy;
 
-namespace RaynMaker.Entities.ScenarioTests
+namespace RaynMaker.Entities.Specs
 {
     [TestFixture]
     class DatabaseTestsBase

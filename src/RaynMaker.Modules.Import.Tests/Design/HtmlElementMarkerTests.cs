@@ -9,7 +9,7 @@ using RaynMaker.Modules.Import.Design;
 using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Documents.WinForms;
 
-namespace RaynMaker.Modules.Import.UnitTests.Design
+namespace RaynMaker.Modules.Import.Tests.Design
 {
     [Apartment(ApartmentState.STA)]
     [TestFixture]

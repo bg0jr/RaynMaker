@@ -13,7 +13,7 @@ using RaynMaker.Modules.Import.Spec.v2.Extraction;
 using RaynMaker.Modules.Import.Web.Services;
 using RaynMaker.Modules.Import.Web.ViewModels;
 
-namespace RaynMaker.Modules.Import.ScenarioTests
+namespace RaynMaker.Modules.Import.Specs
 {
     [Apartment(ApartmentState.STA)]
     [TestFixture]

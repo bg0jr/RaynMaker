@@ -6,7 +6,7 @@ using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Documents.WinForms;
 using RaynMaker.SDK.Html;
 
-namespace RaynMaker.Modules.Import.UnitTests.Design
+namespace RaynMaker.Modules.Import.Tests.Design
 {
     [Apartment(ApartmentState.STA)]
     abstract class HtmlMarkupTestBase

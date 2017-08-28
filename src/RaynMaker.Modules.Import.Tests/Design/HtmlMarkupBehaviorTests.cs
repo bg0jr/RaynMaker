@@ -7,7 +7,7 @@ using RaynMaker.Modules.Import.Documents;
 using RaynMaker.Modules.Import.Documents.WinForms;
 using RaynMaker.Modules.Import.Parsers.Html;
 
-namespace RaynMaker.Modules.Import.UnitTests.Design
+namespace RaynMaker.Modules.Import.Tests.Design
 {
     [Apartment(ApartmentState.STA)]
     class HtmlMarkupBehaviorTests

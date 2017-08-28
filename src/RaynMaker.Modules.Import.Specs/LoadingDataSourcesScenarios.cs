@@ -6,7 +6,7 @@ using RaynMaker.Modules.Import.Spec.v2;
 using RaynMaker.Modules.Import.Spec.v2.Extraction;
 using RaynMaker.Modules.Import.Spec.v2.Locating;
 
-namespace RaynMaker.Modules.Import.ScenarioTests
+namespace RaynMaker.Modules.Import.Specs
 {
     [TestFixture]
     class LoadingDataSourcesScenarios : TestBase

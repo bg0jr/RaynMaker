@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace RaynMaker.Entities.UnitTests
+namespace RaynMaker.Entities.Tests
 {
     [TestFixture]
     class StockTests
