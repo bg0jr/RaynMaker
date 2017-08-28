@@ -16,10 +16,16 @@ namespace RaynMaker.Modules.Import.Documents
             get { return Enumerable.Empty<string>(); }
         }
 
-
-        public int CalculateLocationUID( DocumentLocator locator )
+        public int CalculateLocationUID(DocumentLocator locator)
         {
-            return 0;
+            int hashCode = 0;
+
+            foreach (var fragment in locator.Fragments)
+            {
+                hashCode = (hashCode + fragment.UrlString.GetHashCode()) * 251;
+            }
+
+            return hashCode;
         }
     }
 }
