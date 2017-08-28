@@ -7,8 +7,8 @@
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RaynMaker.Modules.Analysis.UnitTests</RootNamespace>
-    <AssemblyName>RaynMaker.Modules.Analysis.UnitTests</AssemblyName>
+    <RootNamespace>RaynMaker.Modules.Analysis.Tests</RootNamespace>
+    <AssemblyName>RaynMaker.Modules.Analysis.Tests</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
   </PropertyGroup>
@@ -69,9 +69,9 @@
       <Project>{87f14106-b2f8-4f90-9a14-18723ad25eef}</Project>
       <Name>RaynMaker.Modules.Analysis</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RaynMaker.Entities.UnitTests\RaynMaker.Entities.UnitTests.csproj">
+    <ProjectReference Include="..\RaynMaker.Entities.Tests\RaynMaker.Entities.Tests.csproj">
       <Project>{479cb8a7-9096-4a4c-b825-305e2dff0456}</Project>
-      <Name>RaynMaker.Entities.UnitTests</Name>
+      <Name>RaynMaker.Entities.Tests</Name>
     </ProjectReference>
     <ProjectReference Include="..\RaynMaker.Entities\RaynMaker.Entities.csproj">
       <Project>{0b9b8ac3-da99-4264-9d59-382adee06fd9}</Project>

@@ -1,3 +1,3 @@
 ﻿using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("RaynMaker.Entities.ScenarioTests")]
+[assembly: InternalsVisibleTo("RaynMaker.Entities.Specs")]

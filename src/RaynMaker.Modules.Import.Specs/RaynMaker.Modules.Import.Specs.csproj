@@ -5,8 +5,8 @@
   <PropertyGroup>
     <ProjectGuid>{5D702A14-EEB2-40B3-9CA7-27B9F2A70936}</ProjectGuid>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <RootNamespace>RaynMaker.Modules.Import.ScenarioTests</RootNamespace>
-    <AssemblyName>RaynMaker.Modules.Import.ScenarioTests</AssemblyName>
+    <RootNamespace>RaynMaker.Modules.Import.Specs</RootNamespace>
+    <AssemblyName>RaynMaker.Modules.Import.Specs</AssemblyName>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
   </PropertyGroup>

@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Windows.Markup;
 
-[assembly: InternalsVisibleTo("RaynMaker.Modules.Import.UnitTests")]
+[assembly: InternalsVisibleTo("RaynMaker.Modules.Import.Tests")]
 // SDK gives access to dedicated internal APIs for testing only!
 [assembly: InternalsVisibleTo("RaynMaker.SDK")]
 
