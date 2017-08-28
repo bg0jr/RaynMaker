@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.IO;
+using NUnit.Framework;
 using RaynMaker.Entities;
 using RaynMaker.Modules.Import.Web;
 
@@ -10,7 +11,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         [Test]
         public void EurToUsd_FromECB()
         {
-            var provider = new ECBCurrencyTransalationRateProvider();
+            var provider = new ECBCurrencyTransalationRateProvider(Path.Combine(TestDataRoot, "Xml", "eurofxref-daily.xml"));
 
             var rate = provider.GetRate( new Currency { Symbol = "EUR" }, new Currency { Symbol = "USD" } );
 
@@ -20,7 +21,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         [Test]
         public void UsdToEur_FromECB()
         {
-            var provider = new ECBCurrencyTransalationRateProvider();
+            var provider = new ECBCurrencyTransalationRateProvider(Path.Combine(TestDataRoot, "Xml", "eurofxref-daily.xml"));
 
             var rate = provider.GetRate( new Currency { Symbol = "USD" }, new Currency { Symbol = "EUR" } );
 
@@ -30,7 +31,7 @@ namespace RaynMaker.Modules.Import.ScenarioTests
         [Test]
         public void UsdToNok_FromECB()
         {
-            var provider = new ECBCurrencyTransalationRateProvider();
+            var provider = new ECBCurrencyTransalationRateProvider(Path.Combine(TestDataRoot, "Xml", "eurofxref-daily.xml"));
 
             var rate = provider.GetRate( new Currency { Symbol = "USD" }, new Currency { Symbol = "NOK" } );
 
