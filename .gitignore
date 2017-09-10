@@ -17,3 +17,6 @@
 /TestResults/**
 RaynMaker.gc.*
 /packages/Castle.Core.*
+/experiments/Portfolio/.vs/**
+/experiments/Portfolio/packages/FSharp.Core.*
+/experiments/Portfolio/packages/Suave.*
